@@ -12,6 +12,8 @@
  * line-height: lineheight(normal, 12); // unitless
  */
 
+@use "sass:math";
+
 $font-size-root: 16; // No units | Assume font size base of most browsers is 16px.
 
 // Remove units from a number.
@@ -19,7 +21,7 @@ $font-size-root: 16; // No units | Assume font size base of most browsers is 16p
 // @return {Number} - Unitless number REF:
 // https://css-tricks.com/snippets/sass/strip-unit-function/
 @function strip-unit($num) {
-  @return $num / ($num * 0 + 1);
+  @return math.div($num, $num * 0 + 1);
 }
 
 // Convert px to rem
@@ -28,7 +30,7 @@ $font-size-root: 16; // No units | Assume font size base of most browsers is 16p
 // @param {Number} $font-size-root - Base font size for most browsers in px
 // @return - value in `rem`s
 @function pxtorem($pxval, $base: $font-size-root) {
-  @return strip-unit($pxval) / $base * 1rem;
+  @return math.div(strip-unit($pxval), $base) * 1rem;
 }
 
 @function fontsize($pxval, $base: $font-size-root) {
@@ -41,7 +43,7 @@ $font-size-root: 16; // No units | Assume font size base of most browsers is 16p
 // @param {Number} $font-size-root - Base font size for most browsers in px
 // @return - value in `em`s
 @function pxtoem($pxval, $base: $font-size-root) {
-  @return strip-unit($pxval) / $base * 1em;
+  @return math.div(strip-unit($pxval), $base) * 1em;
 }
 
 @function letterspacing($pxval, $base: $font-size-root) {
@@ -60,7 +62,7 @@ $font-size-root: 16; // No units | Assume font size base of most browsers is 16p
     @return 1.2; // Standard "normal" line-height
   }
 
-  @return strip-unit($line-height-in-px) / strip-unit($font-size-in-px);
+  @return math.div(strip-unit($line-height-in-px), strip-unit($font-size-in-px));
 }
 
 h1 {

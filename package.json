@@ -12,11 +12,12 @@
     "@nacelle/react-hooks": "^6.1.0",
     "@nacelle/shopify-checkout": "^0.0.10",
     "@nacelle/storefront-sdk": "^1.0.3",
+    "@svgr/webpack": "^6.2.1",
     "next": "12.0.7",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "sass": "^1.51.0",
-    "@svgr/webpack": "^6.2.1"
+    "sass-migrator": "^1.5.4"
   },
   "devDependencies": {
     "eslint": "^8.4.1",

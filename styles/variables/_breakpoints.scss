@@ -1,0 +1,29 @@
+// ===========================================================================
+// *** Media query breakpoints
+// ===========================================================================
+// https://getbootstrap.com/docs/4.1/layout/overview/?
+// Currently a duplicate of BS4 package breakpoint variables.
+
+$breakpoints: (
+  ('xs', 576px),
+  ('sm', 768px),
+  ('md', 1070px),
+  ('lg', 1440px),
+  ('xl', 1920px),
+  ('xxl', 2000px)
+);
+
+$project-breakpoints: (
+  'screen-xxs-max': nth(nth($breakpoints, 1), 2) - 1,
+  'screen-xs-min': nth(nth($breakpoints, 1), 2),
+  'screen-xs-max': nth(nth($breakpoints, 2), 2) - 1,
+  'screen-sm-min': nth(nth($breakpoints, 2), 2),
+  'screen-sm-max': nth(nth($breakpoints, 3), 2) - 1,
+  'screen-md-min': nth(nth($breakpoints, 3), 2),
+  'screen-md-max': nth(nth($breakpoints, 4), 2) - 1,
+  'screen-lg-min': nth(nth($breakpoints, 4), 2),
+  'screen-lg-max': nth(nth($breakpoints, 5), 2) - 1,
+  'screen-xl-min': nth(nth($breakpoints, 5), 2),
+  'screen-xl-max': nth(nth($breakpoints, 6), 2) - 1,
+  'screen-xxl-min': nth(nth($breakpoints, 6), 2)
+);

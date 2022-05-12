@@ -1,0 +1,34 @@
+// ===========================================================================
+// *** Shared (Variables - Functions - Mixins)
+// ===========================================================================
+@import './shared.scss';
+
+// ===========================================================================
+// *** Fonts
+// ===========================================================================
+@import './fonts/_fonts.scss';
+
+// ===========================================================================
+// *** Utilities
+// ===========================================================================
+@import './utility/reset.scss';
+@import './utility/_breakpoints.scss';
+@import './utility/normalize.scss';
+@import './utility/_typography.scss';
+@import './utility/_ui-elements.scss';
+@import './utility/_utility.scss';
+
+* {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+body {
+  color: $sitkablue;
+  font-family: 'FrankRuhlRegular';
+}

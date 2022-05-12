@@ -1,4 +1,4 @@
-# Sitka x Nacelle Next Starter
+# Sitka Salmon Shares x Nacelle Next Starter
 
 This is a [Next.js](https://nextjs.org/) Starter project enhanced with [`@nacelle/storefront-sdk`](https://www.npmjs.com/package/@nacelle/storefront-sdk) and [`@nacelle/react-hooks`](https://github.com/getnacelle/nacelle-react/tree/main/packages/react-hooks).
 

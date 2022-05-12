@@ -1,5 +1,13 @@
 {
   "compilerOptions": {
-    "baseUrl": "."
+    "baseUrl": "./",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/lib/*": ["lib/*"],
+      "@/styles/*": ["styles/*"],
+      "@/context/*": ["context/*"],
+      "@/utils/*": ["utils/*"],
+      "@/svgs/*": ["svgs/*"]
+    }
   }
 }

@@ -1,0 +1,68 @@
+.btn {
+  color: $alabaster;
+  background-color: $black;
+  border: none;
+  padding: 13px 0;
+  border-radius: 48px;
+  min-width: 250px;
+  text-decoration: none;
+  width: 100%;
+  display: block;
+
+  &:disabled {
+    background: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.6),
+        rgba(255, 255, 255, 0.6)
+      ),
+      $black;
+  }
+
+  &.salmon {
+    background-color: $salmon;
+
+    &:hover {
+      background-color: $copper;
+    }
+
+    &:disabled {
+      background: linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.6),
+          rgba(255, 255, 255, 0.6)
+        ),
+        $copper;
+    }
+  }
+
+  &.sitkablue {
+    background-color: $sitkablue;
+
+    &:hover {
+      background: $sitkabluelight;
+    }
+
+    &:disabled {
+      background: linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.6),
+          rgba(255, 255, 255, 0.6)
+        ),
+        $sitkabluelight;
+    }
+  }
+
+  &.alabaster {
+    background-color: $alabaster;
+    color: $sitkablue;
+
+    &:disabled {
+      background: linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.6),
+          rgba(255, 255, 255, 0.6)
+        ),
+        $alabaster;
+    }
+  }
+}

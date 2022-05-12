@@ -1,0 +1,17 @@
+// ===========================================================================
+// *** Shared
+// ===========================================================================
+// You should add here just styles that doesn't generate css until used
+// because this file is included automatically in each of the components, so
+// it's included multiple times.
+
+// ===========================================================================
+// *** Variables
+// ===========================================================================
+@import './variables/_breakpoints.scss';
+@import './variables/_colors.scss';
+
+// ===========================================================================
+// *** Mixins
+// ===========================================================================
+@import './mixins/_breakpoints.scss';

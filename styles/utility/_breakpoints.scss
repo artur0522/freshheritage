@@ -1,0 +1,11 @@
+// Generate all css variables for breakpoints `var(--breakpoint-name)` so we can use this variables in JS
+@mixin create-css-variables-for-breakpoints($project-breakpoints) {
+    :root {
+      @each $breakpoint-name, $breakpoint-value in $project-breakpoints {
+        --#{$breakpoint-name}: #{$breakpoint-value};
+      }
+    }
+  }
+  
+  @include create-css-variables-for-breakpoints($project-breakpoints);
+  

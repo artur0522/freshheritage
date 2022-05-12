@@ -1,0 +1,44 @@
+// ===========================================================================
+// *** Custom breakpoint mixins | JCU
+// ===========================================================================
+
+// Create breakpoint shortcuts, similar to BS4 utilities, but rebuilt without
+// SCSS maps to allow for older CSS implementation. Adds ability to generate
+// custom breakpoints.
+
+@mixin breakpoint-up($breakpoint-name) {
+    $breakpoint-min-width: 0;
+  
+    @if type-of($breakpoint-name) == "number" {
+      $breakpoint-min-width: $breakpoint-name; // Can pass custom breakpoints (e.g.`560px`)
+    } @else {
+      @for $index from 1 through length($breakpoints)-1 {
+        @if nth(nth($breakpoints, $index), 1) == $breakpoint-name {
+          $breakpoint-min-width: nth(nth($breakpoints, $index), 2);
+        }
+      }
+    }
+  
+    @media screen and (min-width: $breakpoint-min-width) {
+      @content;
+    }
+  }
+  
+  @mixin breakpoint-down($breakpoint-name) {
+    $breakpoint-max-width: nth(nth($breakpoints, 1), 2) - 1;
+  
+    @if type-of($breakpoint-name) == "number" {
+      $breakpoint-max-width: $breakpoint-name; // Can pass custom breakpoints (e.g.`560px`)
+    } @else {
+      @for $index from 1 through length($breakpoints)-1 {
+        @if nth(nth($breakpoints, $index), 1) == $breakpoint-name {
+          $breakpoint-max-width: (nth(nth($breakpoints, $index + 1), 2) - 1);
+        }
+      }
+    }
+  
+    @media screen and (max-width: $breakpoint-max-width) {
+      @content;
+    }
+  }
+  

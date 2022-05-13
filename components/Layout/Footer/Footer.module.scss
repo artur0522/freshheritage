@@ -1,0 +1,54 @@
+@import '@/styles/_shared';
+
+.footer {
+  background-color: $sitkablue;
+  color: $alabaster2;
+}
+
+.footerSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  border-bottom: 2px solid rgba(255,253,252, 0.25);
+}
+
+.footerBlock {
+  width: 50%;
+}
+
+.footerEmailSignup {
+  padding: 60px 0;
+}
+
+.footerNavigation {
+  padding: 100px 0;
+}
+
+.footerBottom {
+  padding: 40px 0;
+}
+
+.footerNavigationList {
+  display: flex;
+  list-style: none;
+}
+
+.footerMenuItems {
+  list-style: none;
+}
+
+.termLinks {
+  display: flex;
+  list-style: none;
+  li {
+    border-right: 1px solid $alabaster2;
+    padding-right: 20px;
+    margin-right: 20px;
+    &:last-child {
+      padding-right: 0;
+      margin-right: 0;
+      border-right: none;
+    }
+  }
+}

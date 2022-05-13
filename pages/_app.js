@@ -1,6 +1,6 @@
 import { CartProvider, CheckoutProvider } from '@nacelle/react-hooks';
 import createShopifyCheckoutClient from '@nacelle/shopify-checkout';
-import Layout from 'components/Layout';
+import Layout from '@/components/Layout';
 import '../styles/global.scss';
 
 // The `AppContainer` overrides Next's default `App` component.

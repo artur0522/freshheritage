@@ -1,0 +1,92 @@
+@import '@/styles/_shared';
+
+.mainNavigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: $alabaster2;
+  height: 84px;
+  position: relative;
+  z-index: 1;
+}
+
+.mainNavContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navItems {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin: 0 -12px;
+  width: 40%;
+  &.navUtilities {
+    justify-content: flex-end;
+    .navItem {
+      margin: 0 15px;
+    }
+  }
+}
+
+.navLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+}
+
+.navItem {
+  margin: 0 12px;
+  a {
+    font-size: 18px;
+    line-height: 23px;
+    font-weight: 500;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .navButton {
+    font-size: 18px;
+    line-height: 22px;
+    min-width: 193px;
+    height: 48px;
+    margin-right: 35px;
+  }
+}
+
+
+.customerServiceInfo {
+  position: absolute;
+  top: 84px;
+  right: 60px;
+  max-width: 400px;
+  background-color: $alabaster2;
+  box-shadow: 1px 4px 4px rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  &.hide {
+    display: none;
+  }
+}
+
+.customerServiceInfoContent {
+  padding: 50px 35px;
+  h4 {
+    margin-bottom: 10px;
+  }
+  p {
+    margin-bottom: 50px;
+  }
+  ul {
+    list-style: none;
+  }
+  li {
+    margin: 0 0 24px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

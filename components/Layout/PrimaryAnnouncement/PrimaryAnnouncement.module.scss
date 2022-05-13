@@ -1,0 +1,27 @@
+@import '@/styles/_shared.scss';
+
+.primaryAnnouncement {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $sitkablue;
+  color: $alabaster2;
+  height: 36px;
+  width: 100%;
+  position: relative;
+  button {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 5px;
+    bottom: 0;
+    background-color: transparent;
+    border: none;
+    padding: 5px;
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}

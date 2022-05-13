@@ -6,11 +6,14 @@
 }
 
 .footerLogoAndSocials {
-  display: none;
-  width: 50%;
-  flex-basis: 50%;
+  width: 100%;
+  flex-basis: 100%;
+  order: 1;
   @include breakpoint-up('sm') {
     display: block;
+    width: 50%;
+    flex-basis: 50%;
+    order: 0;
   }
   @include breakpoint-up('md') {
     width: 40%;
@@ -23,7 +26,11 @@
 }
 
 .footerLogo {
+  display: none;
   margin-bottom: 25px;
+  @include breakpoint-up('sm') {
+    display: block;
+  }
   svg {
     width: 216px;
     @include breakpoint-up('md') {
@@ -42,13 +49,24 @@
   display: flex;
   list-style: none;
   margin: 0;
+  padding-top: 40px;
+  @include breakpoint-up('sm') {
+    padding-top: 0;
+  }
 }
 
 .socialLinkItem {
+  width: 20%;
+  text-align: center;
+  @include breakpoint-up('sm') {
+    width: auto;
+  }
   svg {
     width: 24px;
     height: 24px;
-    margin-right: 20px;
+    @include breakpoint-up('sm') {
+      margin-right: 20px;
+    }
     @include breakpoint-up('xl') {
       margin-right: 30px;
     }
@@ -169,7 +187,7 @@
 }
 
 .footerNavigation {
-  padding: 50px 0;
+  padding: 50px 0 40px;
   @include breakpoint-up('sm') {
     padding: 60px 0;
   }
@@ -185,7 +203,6 @@
   flex: 1;
   h2 {
     font-family: $bebas;
-    margin-bottom: 20px;
     letter-spacing: 0.02em;
   }
 }
@@ -193,7 +210,6 @@
 .footerNavigationListItem {
   width: 100%;
   border-bottom: 2px solid rgba(255,253,252, 0.25);
-  padding: 15px 0;
   @include breakpoint-up('lg') {
     width: 20%;
     padding: 0 20px 0 0;
@@ -201,16 +217,32 @@
   }
   &:last-child {
     padding-right: 0;
-    border: none;
-    @include breakpoint-up('sm') {
-      border-bottom: 2px solid rgba(255,253,252, 0.25);
-    }
     @include breakpoint-up('md') {
       border: none;
     }
   }
 }
 
+.footerNavigationListItemButton {
+  text-align: left;
+  padding: 15px 0;
+  width: 100%;
+  background: none;
+  border: none;
+  color: $alabaster2;
+  position: relative;
+  @include breakpoint-up('lg') {
+    cursor: auto;
+  }
+  &:focus {
+    outline: none;
+  }
+  svg {
+    position: absolute;
+    top: calc(50% - 9px);
+    right: 0;
+  }
+}
 
 .footerMenuItems {
   list-style: none;
@@ -218,6 +250,9 @@
     font-size: 14px;
     line-height: 20px;
     margin-bottom: 12px;
+    &:last-child {
+      margin-bottom: 30px;
+    }
   }
 }
 
@@ -235,23 +270,28 @@
 }
 
 .copyRight {
-  @include breakpoint-down('md') {
-    text-align: center;
-    font-size: 12px;
-    line-height: 140%;
-    margin-bottom: 15px;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 15px;
+  @include breakpoint-up('md') {
+    text-align: left;
+    width: auto;
+    flex: 1;
+    margin: 0;
   }
   @include breakpoint-down('md') {
-    text-align: left;
-    flex: 1;
-    padding-right: 65px;
-    margin-bottom: 0;
+    font-size: 12px;
+    line-height: 140%;
   }
 }
 
 .termsLinksContainer {
   display: flex;
   align-items: center;
+  width: 100%;
+  @include breakpoint-up('md') {
+    width: auto;
+  }
 }
 
 .termsLinks {

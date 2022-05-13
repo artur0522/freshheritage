@@ -5,14 +5,7 @@ import IconPinterest from '@/svgs/pinterest.svg'
 import IconTwitter from '@/svgs/twitter.svg'
 import IconVimeo from '@/svgs/vimeo.svg'
 import IconYoutube from '@/svgs/youtube.svg'
-
-const NavigationMenu = ({item, classes}) => {
-  return  <ul className={classes.footerMenuItems}>
-            {item.navigation.menuItems.map(item => {
-              return <li key={item._key}>{item.linkText}</li>
-            })}
-          </ul>
-}
+import FooterMenuItems from '../FooterMenuItems'
 
 const socialLinkItem = (item, classes) => {
   function getIcon(platform) {
@@ -59,10 +52,7 @@ const FooterNavigation = ({props, classes}) => {
       </div>
       <ul className={classes.footerNavigationList}>
         {footerNavigationList.map(item => {
-          return  <li className={classes.footerNavigationListItem} key={item._key}>
-                    <h2>{item.title}</h2>
-                    <NavigationMenu item={item} classes={classes} />
-                  </li>
+          return <FooterMenuItems item={item} classes={classes} key={item._key} />
         })}
       </ul>
     </div>

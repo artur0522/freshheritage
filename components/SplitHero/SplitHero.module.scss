@@ -1,0 +1,37 @@
+@import '../../styles/mixins/_breakpoints.scss';
+@import '../../styles/variables/_breakpoints.scss';
+@import '../../styles/variables/_colors.scss';
+@import '../../styles/utility/_ui-elements.scss';
+
+.hero {
+  // hero__row
+  &__row {
+      display: flex;
+      flex-direction: column;
+  }
+
+  // hero__wrap
+  &__wrap {
+    position: relative;
+
+    // hero__wrap--dsktp
+    &--dsktp {
+      display: none;
+      @include breakpoint-up('md') {
+        display: block;
+        height: 960px;
+      }
+    }
+
+    // hero__wrap--mbl
+    &--mbl {
+      @include breakpoint-up('md') {
+        display: none;
+      }
+    }
+
+    img {
+      object-fit: cover;
+    }
+  }
+}

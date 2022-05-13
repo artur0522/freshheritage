@@ -14,6 +14,7 @@
 @import './utility/reset.scss';
 @import './utility/_breakpoints.scss';
 @import './utility/_container.scss';
+@import './utility/_inputs.scss';
 @import './utility/normalize.scss';
 @import './utility/_typography.scss';
 @import './utility/_ui-elements.scss';
@@ -32,4 +33,5 @@
 body {
   color: $sitkablue;
   font-family: 'FrankRuhlRegular';
+  background-color: #eee;
 }

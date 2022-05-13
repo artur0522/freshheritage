@@ -35,6 +35,23 @@
   align-items: center;
   justify-content: center;
   width: 20%;
+  position: relative;
+  height: 84px;
+  svg {
+    width: 136px;
+    height: 84px;
+  }
+}
+
+.navLogoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $sitkablue;
+  width: 183px;
+  height: 108px;
+  position: absolute;
+  top: 0;
 }
 
 .navItem {

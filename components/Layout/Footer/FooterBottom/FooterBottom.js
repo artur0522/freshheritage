@@ -4,11 +4,13 @@ const FooterBottom = ({props, classes}) => {
       <div className={classes.copyRight}>
         {props.copyright}
       </div>
-      <ul className={classes.termLinks}>
-        {props.termsLinks.map(item => {
-          return <li key={item._key}>{item.linkText}</li>
-        })}
-      </ul>
+      <div className={classes.termsLinksContainer}>
+        <ul className={classes.termsLinks}>
+          {props.termsLinks.map(item => {
+            return <li key={item._key}>{item.linkText}</li>
+          })}
+        </ul>
+      </div>
     </div>
   );
 };

@@ -5,46 +5,269 @@
   color: $alabaster2;
 }
 
+.footerLogoAndSocials {
+  display: none;
+  width: 50%;
+  flex-basis: 50%;
+  @include breakpoint-up('sm') {
+    display: block;
+  }
+  @include breakpoint-up('md') {
+    width: 40%;
+    flex-basis: 40%;
+  }
+  @include breakpoint-up('lg') {
+    width: 25%;
+    flex-basis: 25%;
+  }
+}
+
+.footerLogo {
+  margin-bottom: 25px;
+  svg {
+    width: 216px;
+    @include breakpoint-up('md') {
+      width: 230px;
+    }
+    @include breakpoint-up('lg') {
+      width: 170px;
+    }
+    @include breakpoint-up('xl') {
+      width: 230px;
+    }
+  }
+}
+
+.footerSocials {
+  display: flex;
+  list-style: none;
+  margin: 0;
+}
+
+.socialLinkItem {
+  svg {
+    width: 24px;
+    height: 24px;
+    margin-right: 20px;
+    @include breakpoint-up('xl') {
+      margin-right: 30px;
+    }
+    * {
+      fill: $alabaster2;
+    }
+  }
+}
+
 .footerSection {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: space-between;
   padding: 20px 0;
   border-bottom: 2px solid rgba(255,253,252, 0.25);
+  &:last-child {
+    border: none;
+  }
 }
 
 .footerBlock {
-  width: 50%;
+  width: 100%;
+  @include breakpoint-up('md') {
+    width: 50%;
+  }
+  h2 {
+    margin-bottom: 25px;
+  }
+  &.footerEmailContent {
+    @include breakpoint-up('md') {
+      width: 60%;
+      padding-right: 25px;
+    }
+    @include breakpoint-up('lg') {
+      width: 50%;
+      padding: 0;
+    }
+  }
+  &.footerEmailFormContainer {
+    @include breakpoint-up('md') {
+      width: 40%;
+    }
+    @include breakpoint-up('lg') {
+      width: 50%;
+    }
+  }
+}
+
+.footerEmailFormContainer {
+  display: flex;
+  align-items: center;
 }
 
 .footerEmailSignup {
-  padding: 60px 0;
+  text-align: center;
+  padding: 35px 0;
+  @include breakpoint-up('sm') {
+    padding: 50px 0;
+  }
+  @include breakpoint-up('md') {
+    padding: 60px 0;
+    text-align: left;
+  }
+}
+
+.footerEmailForm {
+  width: 100%;
+  @include breakpoint-up('lg') {
+    padding-left: 20px;
+    max-width: 520px;
+    margin-left: auto;
+  }
+  input {
+    border: 1px solid $fawn50-2;
+    border-radius: 12px;
+    width: 100%;
+    height: 60px;
+    padding: 20px;
+    margin: 0;
+  }
+  svg {
+    position: absolute;
+    top: calc(50% - 14px);
+    right: 20px;
+  }
+  button {
+    height: 48px;
+    @include breakpoint-up('md') {
+      max-width: 220px;
+    }
+    @include breakpoint-up('lg') {
+      max-width: 291px;
+    }
+  }
+}
+
+.footerEmailHeading {
+  @include breakpoint-up('sm') {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  @include breakpoint-up('sm') {
+    max-width: none;
+  }
+}
+
+.footerEmailDescription {
+  font-size: 14px;
+  margin-bottom: 25px;
+  display: none;
+  @include breakpoint-up('sm') {
+    display: block;
+  }
+  @include breakpoint-up('md') {
+    font-size: 16px;
+    margin: 0;
+  }
 }
 
 .footerNavigation {
-  padding: 100px 0;
-}
-
-.footerBottom {
-  padding: 40px 0;
+  padding: 50px 0;
+  @include breakpoint-up('sm') {
+    padding: 60px 0;
+  }
+  @include breakpoint-up('lg') {
+    padding: 100px 0;
+  }
 }
 
 .footerNavigationList {
   display: flex;
+  flex-wrap: wrap;
   list-style: none;
+  flex: 1;
+  h2 {
+    font-family: $bebas;
+    margin-bottom: 20px;
+    letter-spacing: 0.02em;
+  }
 }
+
+.footerNavigationListItem {
+  width: 100%;
+  border-bottom: 2px solid rgba(255,253,252, 0.25);
+  padding: 15px 0;
+  @include breakpoint-up('lg') {
+    width: 20%;
+    padding: 0 20px 0 0;
+    border: none;
+  }
+  &:last-child {
+    padding-right: 0;
+    border: none;
+    @include breakpoint-up('sm') {
+      border-bottom: 2px solid rgba(255,253,252, 0.25);
+    }
+    @include breakpoint-up('md') {
+      border: none;
+    }
+  }
+}
+
 
 .footerMenuItems {
   list-style: none;
+  li {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 12px;
+  }
 }
 
-.termLinks {
+.footerBottom {
+  padding: 25px 0 35px;
+  @include breakpoint-up('sm') {
+    padding: 20px 0;
+  }
+  @include breakpoint-up('md') {
+    padding: 25px 0;
+  }
+  @include breakpoint-up('lg') {
+    padding: 40px 0;
+  }
+}
+
+.copyRight {
+  @include breakpoint-down('md') {
+    text-align: center;
+    font-size: 12px;
+    line-height: 140%;
+    margin-bottom: 15px;
+  }
+  @include breakpoint-down('md') {
+    text-align: left;
+    flex: 1;
+    padding-right: 65px;
+    margin-bottom: 0;
+  }
+}
+
+.termsLinksContainer {
   display: flex;
+  align-items: center;
+}
+
+.termsLinks {
+  display: flex;
+  justify-content: center;
+  width: 100%;
   list-style: none;
+
   li {
     border-right: 1px solid $alabaster2;
     padding-right: 20px;
     margin-right: 20px;
+    @include breakpoint-down('md') {
+      font-size: 12px;
+      line-height: 1;
+    }
     &:last-child {
       padding-right: 0;
       margin-right: 0;

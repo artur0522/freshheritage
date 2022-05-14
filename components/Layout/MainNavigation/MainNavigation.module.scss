@@ -26,6 +26,19 @@
     justify-content: flex-end;
     .navItem {
       margin: 0 15px;
+      cursor: pointer;
+      &:hover {
+        svg {
+          * {
+            fill: $salmon;
+          }
+        }
+      }
+    }
+  }
+  svg {
+    * {
+      transition: 0.2s ease-in-out fill, 0.2s ease-in-out stroke;
     }
   }
 }

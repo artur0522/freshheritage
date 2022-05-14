@@ -9,7 +9,7 @@ const PrimaryNavigation = ({props, classes}) => {
     {menuItems.map(item => {
       return (
         <li className={classes.navItem} key={item._key}>
-          <Link href={item.linkUrl ? item.linkUrl : ''}>
+          <Link href={item.linkUrl ? item.linkUrl : '/'}>
             <a>{item.linkText}</a>
           </Link>
         </li>

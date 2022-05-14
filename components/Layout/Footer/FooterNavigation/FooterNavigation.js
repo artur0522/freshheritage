@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import IconLogo from '@/svgs/logo.svg'
 import IconFacebook from '@/svgs/facebook.svg'
 import IconInstagram from '@/svgs/instagram.svg'
@@ -29,7 +30,9 @@ const socialLinkItem = (item, classes) => {
   return <li
             key={item._key}
             className={[classes.socialLinkItem, classes[item.platform]].join(' ')}>
-              {getIcon(item.platform)}
+              <Link href={item.socialLink ? item.socialLink : '/'}>
+                <a>{getIcon(item.platform)}</a>
+              </Link>
           </li>
 }
 
@@ -42,7 +45,11 @@ const FooterNavigation = ({props, classes}) => {
     <div className={[classes.footerSection, classes.footerNavigation].join(' ')}>
       <div className={classes.footerLogoAndSocials}>
         <div className={classes.footerLogo}>
-          <IconLogo />
+          <Link href="/">
+            <a>
+              <IconLogo />
+            </a>
+          </Link>
         </div>
         <ul className={classes.footerSocials}>
           {socialLinks.map(item => {

@@ -1,4 +1,5 @@
-import {useState} from 'react';
+import Link from 'next/link'
+import {useState} from 'react'
 import IconMinus from '@/svgs/minus.svg'
 import AnimateHeight from 'react-animate-height'
 import { useMediaQuery } from 'react-responsive'
@@ -35,7 +36,11 @@ const FooterMenuItems = ({item, classes}) => {
       <AnimateHeight height={height}>
         <ul className={classes.footerMenuItems} >
           {item.navigation.menuItems.map(item => {
-            return <li key={item._key}>{item.linkText}</li>
+            return <li key={item._key}>
+              <Link href={item.linkUrl ? item.linkUrl : '/'}>
+                <a>{item.linkText}</a>
+              </Link>
+            </li>
           })}
         </ul>
       </AnimateHeight>

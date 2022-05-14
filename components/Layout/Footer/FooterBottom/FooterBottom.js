@@ -1,3 +1,4 @@
+import Link from 'next/link'
 const FooterBottom = ({props, classes}) => {
   return (
     <div className={[classes.footerSection, classes.footerBottom].join(' ')}>
@@ -7,7 +8,13 @@ const FooterBottom = ({props, classes}) => {
       <div className={classes.termsLinksContainer}>
         <ul className={classes.termsLinks}>
           {props.termsLinks.map(item => {
-            return <li key={item._key}>{item.linkText}</li>
+            return <li key={item._key}>
+              <Link href={item.linkUrl ? item.linkUrl : ''}>
+                <a>
+                  {item.linkText}
+                </a>
+              </Link>
+            </li>
           })}
         </ul>
       </div>

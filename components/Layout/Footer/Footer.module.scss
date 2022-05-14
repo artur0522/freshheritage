@@ -42,6 +42,9 @@
     @include breakpoint-up('xl') {
       width: 230px;
     }
+    * {
+      fill: $alabaster2;
+    }
   }
 }
 
@@ -253,6 +256,18 @@
     &:last-child {
       margin-bottom: 30px;
     }
+    a {
+      font-size: 14px;
+      color: $alabaster2;
+      text-decoration: none;
+      @include breakpoint-up('lg') {
+        font-size: 16px;
+      }
+      &:hover {
+        color: $salmon;
+        text-decoration: underline;
+      }
+    }
   }
 }
 
@@ -299,7 +314,6 @@
   justify-content: center;
   width: 100%;
   list-style: none;
-
   li {
     border-right: 1px solid $alabaster2;
     padding-right: 20px;
@@ -312,6 +326,18 @@
       padding-right: 0;
       margin-right: 0;
       border-right: none;
+    }
+  }
+  a {
+    font-size: 12px;
+    color: $alabaster2;
+    text-decoration: none;
+    @include breakpoint-up('lg') {
+      font-size: 16px;
+    }
+    &:hover {
+      color: $salmon;
+      text-decoration: underline;
     }
   }
 }

@@ -1,7 +1,6 @@
 import classes from './MainNavigation.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
-import IconLogo from '@/svgs/logo.svg'
 import PrimaryNavigation from './PrimaryNavigation';
 import NavigationUtilities from './NavigationUtilities';
 
@@ -14,7 +13,7 @@ const MainNavigation = ({props}) => {
           <div className={classes.navLogoContainer}>
             <Link href="/">
               <a>
-                <IconLogo />
+                <Image src={props.logo.asset.url} width={136} height={84} />
               </a>
             </Link>
           </div>

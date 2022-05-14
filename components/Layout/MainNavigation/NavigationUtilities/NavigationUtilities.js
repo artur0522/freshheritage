@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useModalContext } from '@/context/ModalContext';
 import Link from 'next/link';
 import IconSearch from '@/svgs/search.svg'
 import IconQuestion from '@/svgs/question-circle.svg'
@@ -11,6 +12,14 @@ const NavigationUtilities = ({props, classes}) => {
   const navCTA = props.nonMemberCta;
   const customerService = props.customerService;
 
+  const modalContext = useModalContext()
+
+  const openAccountModal = (e) => {
+    e.preventDefault()
+    modalContext.setModalType('create_account')
+    modalContext.setIsOpen(true)
+  }
+
   return (
     <ul className={[classes.navItems, classes.navUtilities].join(' ')}>
       <li className={classes.navItem}>
@@ -19,7 +28,11 @@ const NavigationUtilities = ({props, classes}) => {
         </button>
       </li>
       <li className={classes.navItem}><IconSearch /></li>
-      <li className={classes.navItem}><IconUser /></li>
+      <li className={classes.navItem}>
+        <button className={classes.navIconButton} onClick={(e) => openAccountModal(e)}>
+          <IconUser />
+        </button>
+      </li>
       <li
         onMouseEnter={() => setShowCustomerServiceInfo(true)}
         onMouseLeave={() => setShowCustomerServiceInfo(false)}

@@ -1,3 +1,9 @@
+html {
+  &.disable-scroll {
+    overflow: hidden;
+  }
+}
+
 .position {
   &--absolute {
     position: absolute;

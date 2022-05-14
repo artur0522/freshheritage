@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -6,8 +7,13 @@ import classes from './FullBleedHero.module.scss';
 
 const FullBleedHero = ({ fields }) => {
   console.log('fields', fields);
+  
+  const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
+  const isDesktop = useMediaQuery(
+    {query: '(min-width: 768px)'}
+  )
   const { heroStyle } = fields;
-  console.log(heroStyle);
+
   let desktopImage = fields.desktopBackgroundImage;
   let mobileImage = fields.mobileBackgroundImage;
   let btnColor;
@@ -44,36 +50,34 @@ const FullBleedHero = ({ fields }) => {
   } else {
     btnColor = 'salmon';
   }
-
-  console.log(btnColor);
-
+  
   return (
     <div className={`${classes['hero']} ${classes[heroStyle]}`}>
-      <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']}`}>
-        {mobileImage}
-      </div>
-      <div
-        className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']}`}
-      >
-        {desktopImage}
-      </div>
-
-      <div className={classes.hero__text}>
+     
+      <div className={classes['hero__text']}>
         <div className={classes['hero__text--inner']}>
-          <h1>{fields.header}</h1>
-          <h2>{fields.subheader}</h2>
+          {fields.header && <h1>{fields.header}</h1>}
+          {fields.subheader && <h2>{fields.subheader}</h2>}
 
-          <Link href="{`${fields.primaryCtaUrl}`}">
-            <a className={`${classes['btn']} btn ${classes[btnColor]}`}>
-              {fields.primaryCtaText}
+          {fields.primaryCtaUrl && <Link href={`${fields.primaryCtaUrl}`}>
+            <a className={`${classes['btn']} btn salmon no-underline`}>
+            {fields.primaryCtaText}
             </a>
-          </Link>
+          </Link>}
 
-          <Link href="{`${fields.secondaryCtaUrl}`}">
-            <a>{fields.secondaryCtaText}</a>
-          </Link>
+          {fields.secondaryCtaUrl && <Link href={`${fields.secondaryCtaUrl}`}>
+            <a className={`${classes['btn']} btn alabaster ${classes['secondary-btn']}`}>{fields.secondaryCtaText}</a>
+          </Link>}
         </div>
       </div>
+
+      {isMobile && <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']} `}>
+            {mobileImage}
+        </div>}
+        
+        {isDesktop && <div className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']}`}>
+            {desktopImage}
+        </div>}
     </div>
   );
 };

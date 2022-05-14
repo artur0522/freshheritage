@@ -1,14 +1,23 @@
 import React from 'react';
+import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image';
 import Link from 'next/link';
 
 import classes from './SplitHero.module.scss';
+import IconBullet from '@/svgs/list-item.svg'
 
-const FullBleedHero = ({ fields }) => {
+const SplitHero = ({ fields }) => {
   console.log('fields', fields);
-  const { imageContainer, imageWidth } = fields;
+  const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
+  const isDesktop = useMediaQuery(
+    {query: '(min-width: 768px)'}
+  )
+  const { imageContainer, imageWidth, style, valueProps, disclaimer } = fields;
+
   let desktopImage = fields.desktopBackgroundImage;
   let mobileImage = fields.mobileBackgroundImage;
+  let mappedValueProps;
+  let disclaimerMessage = disclaimer[0].children[0].text;
 
   // Check if desktop image exists
   if (desktopImage) {
@@ -36,32 +45,54 @@ const FullBleedHero = ({ fields }) => {
     mobileImage = null;
   }
 
+  if(valueProps) {
+    mappedValueProps = <ul className={classes['value-props']}>{
+      valueProps.map((prop) => 
+        <li className="body" key={prop}><span><IconBullet /></span>{prop}</li>
+    )}
+    </ul>
+  } else {
+    mappedValueProps =  null;
+  }
+
   return (
-    <div className={classes.hero}>
-        <div className={`${classes['hero__row']} ${classes[imageContainer]}`}>
+    <div className={`${classes['hero']} ${classes[style]} ${classes[imageContainer]}`}>
+      <div className={`${classes['hero__row']}`}>
         <div className={classes.hero__text}>
-            <div className={classes['hero__text--inner']}>
-            <h1>{fields.header}</h1>
-            <h2>{fields.subheader}</h2>
+          <div className={classes['hero__text--inner']}>
+            {fields.header && <h1>{fields.header}</h1>}
+            {fields.subheader && <h2>{fields.subheader}</h2>}
 
-            <Link href="{`${fields.primaryCtaUrl}`}">
-                <a className={`${classes['btn']} btn salmon`}>
-                {fields.primaryCtaText}
-                </a>
-            </Link>
-
-            <Link href="{`${fields.secondaryCtaUrl}`}">
-                <a>{fields.secondaryCtaText}</a>
-            </Link>
+            {mappedValueProps && mappedValueProps}
+            
+            <div className={classes['btn-wrap']}>
+              {fields.primaryCtaUrl && <Link href={`${fields.primaryCtaUrl}`}>
+                  <a className={`${classes['btn']} btn salmon no-underline`}>
+                  {fields.primaryCtaText}
+                  </a>
+              </Link>}
+             
+              {fields.secondaryCtaUrl && <Link href={`${fields.secondaryCtaUrl}`}>
+                  <a className={`${classes['btn']} btn alabaster ${classes['secondary-btn']}`}>{fields.secondaryCtaText}</a>
+              </Link>}
             </div>
-      </div>
 
-        <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
+            {disclaimerMessage && <div className={`${classes['disclaimer']} body`}>
+              {disclaimerMessage}
+            </div>}
+          </div>
+        </div>
+
+        {isMobile && <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
             {mobileImage}
-        </div>
-        </div>
+        </div>}
+        
+        {isDesktop && <div className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
+            {desktopImage}
+        </div>}
+      </div>
     </div>
   );
 };
 
-export default FullBleedHero;
+export default SplitHero;

@@ -1,5 +1,6 @@
 @import '@/styles/_shared';
 
+
 .mainNavigation {
   display: flex;
   align-items: center;
@@ -50,6 +51,7 @@
   width: 20%;
   position: relative;
   height: 84px;
+  z-index: 1001;
   svg {
     width: 136px;
     height: 84px;
@@ -93,19 +95,46 @@
   }
 }
 
+.customerServiceInfoEnter {
+  opacity: 0;
+}
+.customerServiceInfoEnterActive {
+  opacity: 1;
+}
+.customerServiceInfoEnterDone {
+  opacity: 1;
+}
+.customerServiceInfoExit {
+  opacity: 0.5;
+}
+
+.customerServiceInfoModal {
+  transition: opacity 0.125s ease-in-out;
+}
 
 .customerServiceInfo {
   position: absolute;
-  top: 84px;
+  top: 66px;
   right: 60px;
   max-width: 400px;
   background-color: $alabaster2;
-  box-shadow: 1px 4px 4px rgba(0, 0, 0, 0.1);
+  // box-shadow: 1px 4px 4px rgba(0, 0, 0, 0.1);
   border-bottom-left-radius: 18px;
   border-bottom-right-radius: 18px;
-  &.hide {
-    display: none;
-  }
+  z-index: 1001;
+}
+
+.customerServiceInfoOverlay {
+  width: 100%;
+  height: calc(1000vh - 84px);
+  position: absolute;
+  top: 84px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(7px);
+  z-index: 1000;
 }
 
 .customerServiceInfoContent {

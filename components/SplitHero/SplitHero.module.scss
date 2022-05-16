@@ -181,7 +181,11 @@
         li {
           span {
             display: inline-block;
-            margin-right: 24.71px;
+            margin-right: 12.35px;
+
+            @include breakpoint-up('sm') {
+              margin-right: 24.71px;
+            }
           }
         }
 

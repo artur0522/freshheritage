@@ -1,0 +1,66 @@
+@import '../../styles/mixins/_breakpoints.scss';
+@import '../../styles/variables/_breakpoints.scss';
+@import '../../styles/variables/_colors.scss';
+@import '../../styles/utility/_ui-elements.scss';
+
+.fifty-fifty {
+    &__row  {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 60px 28px 0 28px; 
+
+        @include breakpoint-up('sm') {
+            padding: 7.5% 6.3% 0 6.3%;
+        }
+    }
+   
+    .image--left {
+        @include breakpoint-up('sm') {
+            flex-direction: row-reverse;
+        }
+    }
+
+    .image--right {
+        @include breakpoint-up('sm') {
+            flex-direction: row;
+        }
+    }
+
+    &__text {
+        @include breakpoint-up('sm') {
+            width: 40.42%;
+            max-width: 716px;
+        }
+
+        h2 {
+            margin-top: 12px;
+            margin-bottom: 24px;
+
+            @include breakpoint-up('sm') {
+                margin-bottom: 48px;
+            }
+        }
+        
+        .btn {
+            max-width: 243px;
+        }
+    }
+
+    &__image {
+        position: relative;
+        height: 252px;
+        width: 100%;
+        margin-bottom: 36px;
+
+        @include breakpoint-up('sm') {
+            width: 48.92%;
+            height: 660px;
+        }
+
+        img {
+            object-fit: cover;
+            border-radius: 12px;
+        }
+    }
+}

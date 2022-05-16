@@ -6,8 +6,6 @@ import Link from 'next/link';
 import classes from './FullBleedHero.module.scss';
 
 const FullBleedHero = ({ fields }) => {
-  console.log('fields', fields);
-  
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
   const isDesktop = useMediaQuery(
     {query: '(min-width: 768px)'}
@@ -66,7 +64,7 @@ const FullBleedHero = ({ fields }) => {
           </Link>}
 
           {fields.secondaryCtaUrl && <Link href={`${fields.secondaryCtaUrl}`}>
-            <a className={`${classes['btn']} btn alabaster ${classes['secondary-btn']}`}>{fields.secondaryCtaText}</a>
+            <a>{fields.secondaryCtaText}</a>
           </Link>}
         </div>
       </div>

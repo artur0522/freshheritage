@@ -1,0 +1,36 @@
+@import '../../styles/mixins/_breakpoints.scss';
+@import '../../styles/variables/_breakpoints.scss';
+@import '../../styles/variables/_colors.scss';
+@import '../../styles/utility/_ui-elements.scss';
+
+.logos {
+    &__row {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 84px 81px 60px 81px;
+        margin: auto;
+        max-width: 1240.44px;
+
+        @include breakpoint-up('sm') {
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+
+    &__img {
+        position: relative;
+        max-width: 212px;
+        width: 100%;
+
+        &:not(:first-child) {
+            margin-top: 36px;
+
+            @include breakpoint-up('sm') {
+                margin-top: 0;
+                margin-left: 13.3%;
+            }
+        }
+    }
+}

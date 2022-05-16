@@ -1,0 +1,27 @@
+.articles {
+    position: relative;
+    // padding: 60px 0 72px 28px;
+
+    &__image {
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        z-index: -1;
+        padding-top: 60px;
+
+        img {
+            object-fit: cover;
+        }
+    }
+
+    &__header {
+        text-align: center;
+        padding: 0 28px;
+
+        h2 {
+            margin-top: 12px;
+            margin-bottom: 32px;
+        }
+    }
+}

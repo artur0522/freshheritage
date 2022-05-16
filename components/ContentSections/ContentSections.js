@@ -3,6 +3,10 @@ import dynamic from 'next/dynamic';
 
 import FullBleedHero from '../FullBleedHero';
 import SplitHero from '../SplitHero';
+import FiftyFifty from '../FiftyFifty';
+import PressLogos from '../PressLogos';
+import ValueProps from '../ValueProps';
+import FeaturedBlogContent from '../FeaturedBlogContent';
 
 const ContentSections = ({ sections }) => {
   console.log('sections', sections);
@@ -20,6 +24,12 @@ const ContentSections = ({ sections }) => {
       case 'splitHero':
         return <SplitHero fields={section} key={section._key} />
       // ...add additional cases for whichever content types are needed
+      case 'halfContentBlock':
+        return <FiftyFifty fields={section} key={section._key} />
+      case 'pressLogos':
+        return <PressLogos fields={section} key={section._key} />
+      case 'valueProps':
+          return <ValueProps fields={section} key={section._key} />
       default:
         return null;
     }

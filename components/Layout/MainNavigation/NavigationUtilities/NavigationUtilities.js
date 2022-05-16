@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
-import { useModalContext } from '@/context/ModalContext';
-import { CSSTransition } from 'react-transition-group';
+import { useState, useEffect, useRef } from 'react'
+import { useModalContext } from '@/context/ModalContext'
+import { CSSTransition } from 'react-transition-group'
 import { useMediaQuery } from 'react-responsive'
-import Link from 'next/link';
+import Link from 'next/link'
 import IconSearch from '@/svgs/search.svg'
 import IconQuestion from '@/svgs/question-circle.svg'
 import IconUser from '@/svgs/user.svg'
@@ -14,12 +14,12 @@ const NavigationUtilities = ({props, classes}) => {
     { minWidth: 1074 }
   )
 
-  const [showCustomerServiceInfo, setShowCustomerServiceInfo] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const nodeRef = useRef(null);
+  const [showCustomerServiceInfo, setShowCustomerServiceInfo] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
+  const nodeRef = useRef(null)
 
-  const navCTA = props.nonMemberCta;
-  const customerService = props.customerService;
+  const navCTA = props.nonMemberCta
+  const customerService = props.customerService
 
   const modalContext = useModalContext()
 
@@ -31,7 +31,7 @@ const NavigationUtilities = ({props, classes}) => {
 
   useEffect(() => {
     isHovered ? setShowCustomerServiceInfo(true) : setShowCustomerServiceInfo(false)
-  }, [isHovered]);
+  }, [isHovered])
 
   return (
     <ul className={[classes.navItems, classes.navUtilities].join(' ')}>
@@ -88,7 +88,7 @@ const NavigationUtilities = ({props, classes}) => {
       }
       <li className={classes.navItem}><IconCart /></li>
     </ul>
-  );
-};
+  )
+}
 
-export default NavigationUtilities;
+export default NavigationUtilities

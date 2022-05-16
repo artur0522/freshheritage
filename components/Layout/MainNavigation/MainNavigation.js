@@ -1,8 +1,8 @@
-import classes from './MainNavigation.module.scss';
-import Link from 'next/link';
-import Image from 'next/image';
-import PrimaryNavigation from './PrimaryNavigation';
-import NavigationUtilities from './NavigationUtilities';
+import classes from './MainNavigation.module.scss'
+import Link from 'next/link'
+import Image from 'next/image'
+import PrimaryNavigation from './PrimaryNavigation'
+import NavigationUtilities from './NavigationUtilities'
 
 const MainNavigation = ({props}) => {
   return (
@@ -21,7 +21,7 @@ const MainNavigation = ({props}) => {
         <NavigationUtilities props={props} classes={classes} />
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default MainNavigation;
+export default MainNavigation

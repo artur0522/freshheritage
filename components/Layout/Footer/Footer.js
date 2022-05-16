@@ -1,13 +1,13 @@
-import classes from './Footer.module.scss';
+import classes from './Footer.module.scss'
 
-import FooterEmailSignup from './FooterEmailSignup';
-import FooterNavigation from './FooterNavigation';
-import FooterBottom from './FooterBottom';
+import FooterEmailSignup from './FooterEmailSignup'
+import FooterNavigation from './FooterNavigation'
+import FooterBottom from './FooterBottom'
 
 const Footer = ({ content }) => {
 
   if (!content) {
-    return '';
+    return ''
   }
 
   return (
@@ -18,7 +18,7 @@ const Footer = ({ content }) => {
         <FooterBottom props={content} classes={classes} />
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

@@ -1,3 +1,3 @@
-import PrimaryAnnouncement from './PrimaryAnnouncement';
+import PrimaryAnnouncement from './PrimaryAnnouncement'
 
-export default PrimaryAnnouncement;
+export default PrimaryAnnouncement

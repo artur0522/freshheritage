@@ -19,7 +19,7 @@ const FooterBottom = ({props, classes}) => {
         </ul>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FooterBottom;
+export default FooterBottom

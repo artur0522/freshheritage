@@ -1,7 +1,7 @@
 import PrimaryAnnouncement from '../PrimaryAnnouncement'
 import MainNavigation from '../MainNavigation'
 
-import classes from './Header.module.scss';
+import classes from './Header.module.scss'
 
 const Header = ({ content }) => {
 
@@ -16,7 +16,7 @@ const Header = ({ content }) => {
       }
       <MainNavigation props={content} />
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

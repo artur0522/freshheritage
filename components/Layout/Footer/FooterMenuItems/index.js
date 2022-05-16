@@ -1,3 +1,3 @@
-import FooterMenuItems from './FooterMenuItems';
+import FooterMenuItems from './FooterMenuItems'
 
-export default FooterMenuItems;
+export default FooterMenuItems

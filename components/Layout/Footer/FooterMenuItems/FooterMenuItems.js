@@ -13,12 +13,12 @@ const FooterMenuItems = ({item, classes}) => {
   const isDesktop = useMediaQuery(
     { minWidth: 1440 }, undefined, handleMediaQueryChange
   )
-  const [height, setHeight] = useState(isDesktop ? 'auto' : 0);
+  const [height, setHeight] = useState(isDesktop ? 'auto' : 0)
 
   const toggleExpand = (e) => {
     e.preventDefault()
     if (isDesktop) {
-      return false;
+      return false
     }
     height === 0 ? setHeight('auto') : setHeight(0)
   }
@@ -46,6 +46,6 @@ const FooterMenuItems = ({item, classes}) => {
       </AnimateHeight>
     </li>
   )
-};
+}
 
-export default FooterMenuItems;
+export default FooterMenuItems

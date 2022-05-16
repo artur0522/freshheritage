@@ -37,8 +37,8 @@ const socialLinkItem = (item, classes) => {
 }
 
 const FooterNavigation = ({props, classes}) => {
-  const { footerNavigationList } = props;
-  const { socialLinks } = props;
+  const { footerNavigationList } = props
+  const { socialLinks } = props
 
 
   return (
@@ -63,7 +63,7 @@ const FooterNavigation = ({props, classes}) => {
         })}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default FooterNavigation;
+export default FooterNavigation

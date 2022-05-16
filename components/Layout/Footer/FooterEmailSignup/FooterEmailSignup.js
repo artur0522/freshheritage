@@ -1,9 +1,9 @@
 import {useRef} from 'react'
-import IconEnvelope from '@/svgs/envelope.svg';
+import IconEnvelope from '@/svgs/envelope.svg'
 
 const FooterEmailSignup = ({props, classes}) => {
 
-  const emailRef = useRef();
+  const emailRef = useRef()
 
   const submitForm = (e) => {
     e.preventDefault()
@@ -26,7 +26,7 @@ const FooterEmailSignup = ({props, classes}) => {
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FooterEmailSignup;
+export default FooterEmailSignup

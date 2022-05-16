@@ -5,7 +5,7 @@ import { useMediaQuery } from 'react-responsive'
 
 const PrimaryNavigation = ({props, classes}) => {
 
-  const {menuItems} = props.nonMemberPrimaryNavigation;
+  const {menuItems} = props.nonMemberPrimaryNavigation
 
   const isDesktop = useMediaQuery(
     { minWidth: 1074 }
@@ -21,7 +21,7 @@ const PrimaryNavigation = ({props, classes}) => {
                 <a>{item.linkText}</a>
               </Link>
             </li>
-          );
+          )
         })
       ): (
         <>
@@ -32,7 +32,7 @@ const PrimaryNavigation = ({props, classes}) => {
       )}
 
   </ul>
-  );
-};
+  )
+}
 
-export default PrimaryNavigation;
+export default PrimaryNavigation

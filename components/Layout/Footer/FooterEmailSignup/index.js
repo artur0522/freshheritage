@@ -1,3 +1,3 @@
-import FooterEmailSignup from './FooterEmailSignup';
+import FooterEmailSignup from './FooterEmailSignup'
 
-export default FooterEmailSignup;
+export default FooterEmailSignup

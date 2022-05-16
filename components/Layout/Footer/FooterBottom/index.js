@@ -1,3 +1,3 @@
-import FooterBottom from './FooterBottom';
+import FooterBottom from './FooterBottom'
 
-export default FooterBottom;
+export default FooterBottom

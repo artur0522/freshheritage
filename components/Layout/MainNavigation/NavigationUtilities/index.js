@@ -1,3 +1,3 @@
-import NavigationUtilities from './NavigationUtilities';
+import NavigationUtilities from './NavigationUtilities'
 
-export default NavigationUtilities;
+export default NavigationUtilities

@@ -93,7 +93,7 @@ const Modal = ({props, children}) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal

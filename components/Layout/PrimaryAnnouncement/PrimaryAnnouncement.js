@@ -22,7 +22,7 @@ const PrimaryAnnouncement = ({props}) => {
   return (
     <div className={classes.primaryAnnouncement}>
       <button onClick={() => removeAnnoucemet()}><IconClose /></button>
-      <div>{ReactHtmlParser(props.announcementText)}</div>
+      <div className={classes.primaryAnnouncementCopy}>{ReactHtmlParser(props.announcementText)}</div>
     </div>
   );
 };

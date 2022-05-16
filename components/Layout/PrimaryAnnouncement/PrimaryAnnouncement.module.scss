@@ -1,14 +1,19 @@
 @import '@/styles/_shared.scss';
 
 .primaryAnnouncement {
+  text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: $sitkablue;
   color: $alabaster2;
-  height: 36px;
   width: 100%;
+  padding: 10px 40px;
   position: relative;
+  .primaryAnnouncementCopy {
+    max-width: 75%;
+    margin: 0 auto;
+  }
   button {
     display: flex;
     align-items: center;

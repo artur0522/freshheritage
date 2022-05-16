@@ -30,7 +30,7 @@
   bottom: 0;
   z-index: 1000;
   width: 90%;
-  @include breakpoint-up('md') {
+  @include breakpoint-up('sm') {
     max-width: 540px;
   }
 }
@@ -44,31 +44,31 @@
   overflow-y: auto;
   max-height: 90%;
   border-radius: 12px;
-  @include breakpoint-up('md') {
+  @include breakpoint-up('sm') {
     padding: 70px 60px;
   }
   h4 {
     margin-bottom: 10px;
-    @include breakpoint-up('md') {
+    @include breakpoint-up('sm') {
       margin-bottom: 30px;
     }
   }
   form {
     margin: 20px 0 30px;
-    @include breakpoint-up('md') {
+    @include breakpoint-up('sm') {
       margin: 50px 0;
       padding: 0 24px;
     }
     button {
       margin-top: 30px;
-      @include breakpoint-up('md') {
+      @include breakpoint-up('sm') {
         margin-top: 48px;
       }
     }
   }
   p {
     margin-bottom: 12px;
-    @include breakpoint-up('md') {
+    @include breakpoint-up('sm') {
       margin-bottom: 24px;
     }
     &:last-child {
@@ -85,14 +85,14 @@
   padding: 10px;
   border: none;
   background-color: transparent;
-  @include breakpoint-up('md') {
+  @include breakpoint-up('sm') {
     top: 15px;
     right: 15px;
   }
   svg {
     width: 15px;
     height: 15px;
-    @include breakpoint-up('md') {
+    @include breakpoint-up('sm') {
       width: 23px;
       height: 23px;
     }

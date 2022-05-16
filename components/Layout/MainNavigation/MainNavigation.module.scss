@@ -7,15 +7,27 @@
   justify-content: center;
   width: 100%;
   background-color: $alabaster2;
-  height: 84px;
+  height: 48px;
   position: relative;
   z-index: 1;
+  @include breakpoint-up('sm') {
+    height: 72px;
+  }
+  @include breakpoint-up('md') {
+    height: 84px;
+  }
+  .mainNavContainer {
+    display: flex;
+    justify-content: space-between;
+    @include breakpoint-down('lg') {
+      width: calc(100% - 72px);
+    }
+    @include breakpoint-down('sm') {
+      width: calc(100% - 64px);
+    }
+  }
 }
 
-.mainNavContainer {
-  display: flex;
-  justify-content: space-between;
-}
 
 .navItems {
   list-style: none;
@@ -23,21 +35,33 @@
   align-items: center;
   margin: 0 -12px;
   width: 40%;
+  @include breakpoint-up('sm') {
+    margin: 0 -15px;
+  }
   &.navUtilities {
     justify-content: flex-end;
-    .navItem {
+  }
+  .navItem {
+    margin: 0 12px;
+    @include breakpoint-up('sm') {
       margin: 0 15px;
-      cursor: pointer;
-      &:hover {
-        svg {
-          * {
-            fill: $salmon;
-          }
+    }
+    cursor: pointer;
+    &:hover {
+      svg {
+        * {
+          fill: $salmon;
         }
       }
     }
   }
   svg {
+    width: 17px;
+    height: 17px;
+    @include breakpoint-up('sm') {
+      width: 24px;
+      height: 24px;
+    }
     * {
       transition: 0.2s ease-in-out fill, 0.2s ease-in-out stroke;
     }
@@ -49,25 +73,47 @@
   align-items: center;
   justify-content: center;
   width: 20%;
-  position: relative;
-  height: 84px;
-  z-index: 1001;
-  svg {
-    width: 136px;
+  height: 48px;
+  @include breakpoint-up('md') {
+    height: 72px;
+  }
+  @include breakpoint-up('lg') {
     height: 84px;
+  }
+  .navLogoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $sitkablue;
+    width: 97px;
+    height: 60px;
+    position: absolute;
+    top: 0;
+    z-index: 1001;
+    @include breakpoint-up('sm') {
+      width: 140px;
+      height: 96px;
+    }
+    @include breakpoint-up('lg') {
+      width: 183px;
+      height: 108px;
+    }
+  }
+  a {
+    display: flex;
+    width: 65px;
+    height: 42px;
+    @include breakpoint-up('sm') {
+      width: 111px;
+      height: 72px;
+    }
+    @include breakpoint-up('lg') {
+      width: 130px;
+      height: 84px;
+    }
   }
 }
 
-.navLogoContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: $sitkablue;
-  width: 183px;
-  height: 108px;
-  position: absolute;
-  top: 0;
-}
 
 .navItem {
   margin: 0 12px;
@@ -118,7 +164,6 @@
   right: 60px;
   max-width: 400px;
   background-color: $alabaster2;
-  // box-shadow: 1px 4px 4px rgba(0, 0, 0, 0.1);
   border-bottom-left-radius: 18px;
   border-bottom-right-radius: 18px;
   z-index: 1001;

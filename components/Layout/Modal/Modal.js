@@ -4,61 +4,68 @@ import IconClose from '@/svgs/close.svg'
 
 
 const createAccountContent = (classes) => {
+  const modalContext = useModalContext()
   return (
     <>
       <h4>Create A Sitka Seafood Membership Account</h4>
       <h5>Track orders and manage your subscription in your account.</h5>
       <form>
         <div className="input-group">
-          <input className="input" />
+          <input className="input" placeholder="first name" />
         </div>
         <div className="input-group">
-          <input className="input" />
+          <input className="input" placeholder="last name" />
         </div>
         <div className="input-group">
-          <input className="input" />
+          <input className="input" placeholder="email" />
         </div>
         <div className="input-group">
-          <input className="input" />
+          <input className="input" placeholder="password" />
         </div>
         <button className="btn sitkablue">Create Account</button>
       </form>
-      <p>Already a member? <button>Log In</button></p>
+      <p>Already a member?&nbsp;
+        <button
+          onClick={() => modalContext.setModalType('login')}
+          className="btn-link-underline">Log In</button>
+      </p>
     </>
   )
 }
 
 const loginAccountContent = (classes) => {
+  const modalContext = useModalContext()
   return (
     <>
       <h4>Log in To Your Sitka Seafood Member Portal</h4>
       <h5>Track orders and manage your subscription in your account.</h5>
       <form>
       <div className="input-group">
-        <input className="input" />
+        <input className="input" placeholder="email address" />
         </div>
         <div className="input-group">
-          <input className="input" />
-        </div>
-        <div className="input-group">
-          <input className="input" />
-        </div>
-        <div className="input-group">
-          <input className="input" />
+          <input className="input" placeholder="password" />
         </div>
         <button className="btn sitkablue">Login</button>
       </form>
-      <p>Forgot Password?</p>
-      <p>Don't have an account? <button>Sign Up</button></p>
+      <p><button className="btn-link-underline">Forgot Password?</button></p>
+      <p>
+        Don't have an account?&nbsp;
+        <button
+          onClick={() => modalContext.setModalType('create')}
+          className="btn-link-underline">
+            Sign Up
+        </button>
+      </p>
     </>
   )
 }
 
 const getContent = (type, children) => {
   switch(type) {
-    case 'create_account':
+    case 'create':
       return createAccountContent()
-    case 'login_account':
+    case 'login':
       return loginAccountContent()
     default:
       return children

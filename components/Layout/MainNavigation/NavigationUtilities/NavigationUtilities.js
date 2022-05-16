@@ -16,7 +16,7 @@ const NavigationUtilities = ({props, classes}) => {
 
   const openAccountModal = (e) => {
     e.preventDefault()
-    modalContext.setModalType('create_account')
+    modalContext.setModalType('create')
     modalContext.setIsOpen(true)
   }
 

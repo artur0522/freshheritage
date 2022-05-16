@@ -25,42 +25,77 @@
   align-items: center;
   position: fixed;
   width: 100%;
-  max-width: 540px;
+  max-width: 320px;
   top: 0;
   bottom: 0;
   z-index: 1000;
   width: 90%;
+  @include breakpoint-up('md') {
+    max-width: 540px;
+  }
 }
 
 .modalContentContainer {
   text-align: center;
   background-color: $alabaster2;
   position: relative;
-  padding: 70px 50px;
+  padding: 36px 24px;
   box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   max-height: 90%;
   border-radius: 12px;
+  @include breakpoint-up('md') {
+    padding: 70px 60px;
+  }
   h4 {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    @include breakpoint-up('md') {
+      margin-bottom: 30px;
+    }
   }
   form {
-    margin: 50px 0;
+    margin: 20px 0 30px;
+    @include breakpoint-up('md') {
+      margin: 50px 0;
+      padding: 0 24px;
+    }
+    button {
+      margin-top: 30px;
+      @include breakpoint-up('md') {
+        margin-top: 48px;
+      }
+    }
   }
-
+  p {
+    margin-bottom: 12px;
+    @include breakpoint-up('md') {
+      margin-bottom: 24px;
+    }
+    &:last-child {
+      margin: 0;
+    }
+  }
 }
 
 .modalCloseBtn {
   display: flex;;
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 5px;
+  right: 5px;
   padding: 10px;
   border: none;
   background-color: transparent;
+  @include breakpoint-up('md') {
+    top: 15px;
+    right: 15px;
+  }
   svg {
-    width: 23px;
-    height: 23px;
+    width: 15px;
+    height: 15px;
+    @include breakpoint-up('md') {
+      width: 23px;
+      height: 23px;
+    }
     * {
       fill: $sitkablue;
     }

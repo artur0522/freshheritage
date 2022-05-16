@@ -75,3 +75,12 @@ a {
     text-decoration: underline;
   }
 }
+
+.btn-link-underline {
+  color: $sitkablue;
+  background-color: transparent;
+  text-decoration: underline;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+}

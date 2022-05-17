@@ -19,9 +19,9 @@ const ValueProps = ({ fields }) => {
                         {valueProp.propImage.asset.url && <div className={classes['props__col--img']}>
                             <Image
                                 src={valueProp.propImage.asset.url}
-                                layout="responsive"
-                                width={100}
-                                height={100}
+                                layout="fill"
+                                objectFit='contain'
+                                objectPosition={'center'}
                             />
                         </div>}
                         <div className={classes['props__col--text']}>

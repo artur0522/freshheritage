@@ -51,11 +51,13 @@
         }
 
         &--img {
-            max-width: 96px;
+            max-height: 96px;
+            aspect-ratio: 5/4;
             margin: auto;
+            position: relative;
 
             @include breakpoint-up('sm') { 
-                max-width: 196px;
+                max-height: 156px;
             }
         }
 

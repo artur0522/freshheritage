@@ -7,29 +7,38 @@
     &__row {
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
         padding: 84px 81px 60px 81px;
-        margin: auto;
-        max-width: 1240.44px;
+        // margin: auto;
+        // max-width: 1240px;
 
         @include breakpoint-up('sm') {
             flex-direction: row;
             align-items: center;
+            justify-content: space-between;
+        }
+
+        @include breakpoint-up('md') {
+            padding: 120px 17.7% 48px 17.7%;
         }
     }
 
     &__img {
         position: relative;
-        max-width: 212px;
+        aspect-ratio: 275/36;
         width: 100%;
+        max-width: 213px;
+
+        @include breakpoint-up('sm') {
+            max-width: none;
+            width: 22%;
+        }
 
         &:not(:first-child) {
             margin-top: 36px;
 
             @include breakpoint-up('sm') {
                 margin-top: 0;
-                margin-left: 13.3%;
             }
         }
     }

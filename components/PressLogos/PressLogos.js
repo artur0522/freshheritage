@@ -14,9 +14,9 @@ const PressLogos = ({ fields }) => {
                     <div className={classes['logos__img']} key={logo.key}>
                         <Image
                             src={logo.asset.url}
-                            layout="responsive"
-                            width={200}
-                            height={36}
+                            layout="fill"
+                            objectFit='contain'
+                            
                         />
                     </div>
                )

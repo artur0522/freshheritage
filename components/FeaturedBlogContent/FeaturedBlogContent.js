@@ -21,6 +21,8 @@ const FeaturedBlogContent = ({ fields }) => {
     })
     setSelectedSwiper(foundTab);
   }
+
+  console.log("selectedSwiper", selectedSwiper)
   
   return (
     <div className={`${classes['articles']}`}>
@@ -74,19 +76,21 @@ const FeaturedBlogContent = ({ fields }) => {
                 {selectedSwiper.tabList.map((article) => {
                     return (
                         <SwiperSlide>
-                            <div className={classes['article__card']}>
-                                {article.heroImage.asset.url && <div className={classes['article__card--img']}>
-                                    <Image
-                                        src={article.heroImage.asset.url}
-                                        layout="fill"
-                                        objectFit="cover"
-                                    />
-                                </div>}
-                                <div className={classes['article__card--content']}>
-                                    {article.heroSubheader && <span className="recipe--time">{article.heroSubheader}</span>}
-                                    {article.heroHeader && <h1 className='heading--article'>{article.heroHeader}</h1>}
+                            <Link href={`${article.handle.current}`}>
+                                <div className={classes['article__card']}>
+                                    {article.heroImage.asset.url && <div className={classes['article__card--img']}>
+                                        <Image
+                                            src={article.heroImage.asset.url}
+                                            layout="fill"
+                                            objectFit="cover"
+                                        />
+                                    </div>}
+                                    <div className={classes['article__card--content']}>
+                                        {article.heroSubheader && <span className="recipe--time">{article.heroSubheader}</span>}
+                                        {article.heroHeader && <h1 className='heading--article'>{article.heroHeader}</h1>}
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                         </SwiperSlide>
                     )
                 })}

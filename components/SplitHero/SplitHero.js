@@ -1,19 +1,20 @@
 import React from 'react';
-import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image';
 import Link from 'next/link';
+import {PortableText} from '@portabletext/react'
+import { useMediaQuery } from 'react-responsive'
 
 import classes from './SplitHero.module.scss';
 import IconBullet from '@/svgs/list-item.svg'
 
 const SplitHero = ({ fields }) => {
+  console.log(fields);
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
   const { imageContainer, imageWidth, style, valueProps, disclaimer } = fields;
 
   let desktopImage = fields.desktopBackgroundImage;
   let mobileImage = fields.mobileBackgroundImage;
   let mappedValueProps;
-  let disclaimerMessage = disclaimer[0].children[0].text;
 
   // Check if desktop image exists
   if (desktopImage) {
@@ -73,8 +74,10 @@ const SplitHero = ({ fields }) => {
               </Link>}
             </div>
 
-            {disclaimerMessage && <div className={`${classes['disclaimer']} body`}>
-              {disclaimerMessage}
+            {disclaimer && <div className={`${classes['disclaimer']} body`}>
+              <PortableText
+                value={disclaimer}
+              />
             </div>}
           </div>
         </div>

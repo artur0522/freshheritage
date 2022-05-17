@@ -83,6 +83,7 @@
         background-color: #fff;
         border-radius: 12px;
         padding: 12px;
+        cursor: pointer;
 
         @include breakpoint-up('sm') {
             padding: 24px;

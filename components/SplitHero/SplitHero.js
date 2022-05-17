@@ -8,9 +8,6 @@ import IconBullet from '@/svgs/list-item.svg'
 
 const SplitHero = ({ fields }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
-  const isDesktop = useMediaQuery(
-    {query: '(min-width: 768px)'}
-  )
   const { imageContainer, imageWidth, style, valueProps, disclaimer } = fields;
 
   let desktopImage = fields.desktopBackgroundImage;
@@ -82,13 +79,14 @@ const SplitHero = ({ fields }) => {
           </div>
         </div>
 
-        {isMobile && <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
+        {isMobile ? 
+        <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
             {mobileImage}
-        </div>}
-        
-        {isDesktop && <div className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
-            {desktopImage}
-        </div>}
+        </div> :
+        <div className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
+          {desktopImage}
+        </div>
+        }
       </div>
     </div>
   );

@@ -9,8 +9,6 @@
         flex-direction: column;
         align-items: center;
         padding: 84px 81px 60px 81px;
-        // margin: auto;
-        // max-width: 1240px;
 
         @include breakpoint-up('sm') {
             flex-direction: row;

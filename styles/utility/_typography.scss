@@ -312,6 +312,39 @@ button {
       font-size: fontsize(36px);
     }
   }
+
+  &--article {
+    font-size: fontsize(18px);
+    line-height: 120%;
+    letter-spacing: 0.02em;
+  
+    @include breakpoint-up('sm') {
+      font-size: fontsize(24px);
+    }
+  
+    @include breakpoint-up('md') {
+      font-size: fontsize(24px);
+    }
+  
+    @include breakpoint-up('lg') {
+      font-size: fontsize(24px);
+    }
+  
+    @include breakpoint-up('xl') {
+      font-size: fontsize(24px);
+    }
+  }
+}
+
+.recipe--time { 
+  font-size: fontsize(12px);
+  line-height: 120%;
+  font-weight: 500;
+  color: $salmon;
+
+  @include breakpoint-up('sm') {
+      font-size: fontsize(14px);
+  }
 }
 
 .capitalize {

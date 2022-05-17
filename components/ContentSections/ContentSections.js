@@ -30,6 +30,8 @@ const ContentSections = ({ sections }) => {
         return <PressLogos fields={section} key={section._key} />
       case 'valueProps':
           return <ValueProps fields={section} key={section._key} />
+      case 'featuredBlogContent':
+          return <FeaturedBlogContent fields={section} key={section._key} />
       default:
         return null;
     }

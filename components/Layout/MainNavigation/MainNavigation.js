@@ -4,11 +4,11 @@ import Image from 'next/image'
 import PrimaryNavigation from './PrimaryNavigation'
 import NavigationUtilities from './NavigationUtilities'
 
-const MainNavigation = ({props}) => {
+const MainNavigation = ({props, setMobileMenuIsOpen}) => {
   return (
     <nav className={classes.mainNavigation}>
       <div className={`${classes.mainNavContainer} container`}>
-        <PrimaryNavigation props={props} classes={classes} />
+        <PrimaryNavigation props={props} classes={classes} setMobileMenuIsOpen={setMobileMenuIsOpen} />
         <div className={classes.navLogo}>
           <div className={classes.navLogoContainer}>
             <Link href="/">

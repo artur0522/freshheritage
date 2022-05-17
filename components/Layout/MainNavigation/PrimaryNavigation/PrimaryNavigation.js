@@ -3,7 +3,7 @@ import IconMenu from '@/svgs/menu.svg'
 import IconSearch from '@/svgs/search.svg'
 import { useMediaQuery } from 'react-responsive'
 
-const PrimaryNavigation = ({props, classes}) => {
+const PrimaryNavigation = ({props, classes, setMobileMenuIsOpen}) => {
 
   const {menuItems} = props.nonMemberPrimaryNavigation
 
@@ -25,7 +25,13 @@ const PrimaryNavigation = ({props, classes}) => {
         })
       ): (
         <>
-          <li className={classes.navItem}><IconMenu /></li>
+          <li className={classes.navItem}>
+            <button
+              onClick={() => setMobileMenuIsOpen(true)}
+              className={classes.navIconButton}>
+              <IconMenu />
+            </button>
+          </li>
           <li className={classes.navItem}><IconSearch /></li>
         </>
 

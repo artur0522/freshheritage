@@ -11,8 +11,13 @@
   padding: 10px 40px;
   position: relative;
   .primaryAnnouncementCopy {
-    max-width: 75%;
+    font-size: 14px;
+    max-width: 65%;
     margin: 0 auto;
+    @include breakpoint-up('lg') {
+      font-size: 16px;
+      max-width: none;
+    }
   }
   button {
     display: flex;

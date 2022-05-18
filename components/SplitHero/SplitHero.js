@@ -1,8 +1,8 @@
 import React from 'react';
+import { PortableText } from '@portabletext/react';
+import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image';
 import Link from 'next/link';
-import {PortableText} from '@portabletext/react'
-import { useMediaQuery } from 'react-responsive'
 
 import classes from './SplitHero.module.scss';
 import IconBullet from '@/svgs/list-item.svg'
@@ -10,11 +10,15 @@ import IconBullet from '@/svgs/list-item.svg'
 const SplitHero = ({ fields }) => {
   console.log(fields);
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
-  const { imageContainer, imageWidth, style, valueProps, disclaimer } = fields;
+  const isDesktop = useMediaQuery(
+    {query: '(min-width: 768px)'}
+  )
+  const { imageContainer, imageWidth, style, textColor, valueProps, disclaimer } = fields;
 
   let desktopImage = fields.desktopBackgroundImage;
   let mobileImage = fields.mobileBackgroundImage;
   let mappedValueProps;
+  let disclaimerMessage = disclaimer[0].children[0].text;
 
   // Check if desktop image exists
   if (desktopImage) {
@@ -53,25 +57,27 @@ const SplitHero = ({ fields }) => {
   }
 
   return (
-    <div className={`${classes['hero']} ${classes[style]} ${classes[imageContainer]}`}>
+    <div className={`${classes['hero']} ${classes[style]} ${classes[imageContainer]} ${classes[textColor]}`}>
       <div className={`${classes['hero__row']}`}>
-        <div className={classes.hero__text}>
+      <div className={classes.hero__text}>
           <div className={classes['hero__text--inner']}>
             {fields.header && <h1>{fields.header}</h1>}
-            {fields.subheader && <h2>{fields.subheader}</h2>}
+            {fields.subheader && <h2 className={classes['subheader']}>{fields.subheader}</h2>}
 
             {mappedValueProps && mappedValueProps}
             
             <div className={classes['btn-wrap']}>
               {fields.primaryCtaUrl && <Link href={`${fields.primaryCtaUrl}`}>
-                  <a className={`${classes['btn']} btn salmon no-underline`}>
+                  <a className={`btn salmon no-underline text-align--center`}>
                   {fields.primaryCtaText}
                   </a>
               </Link>}
              
               {fields.secondaryCtaUrl && <Link href={`${fields.secondaryCtaUrl}`}>
-                  <a className={`${classes['btn']} btn alabaster ${classes['secondary-btn']}`}>{fields.secondaryCtaText}</a>
+                  <a className={`btn--only-mobile alabaster ${classes['secondary-btn']}`}>{fields.secondaryCtaText}</a>
               </Link>}
+
+              {!fields.secondaryCtaUrl && fields.secondaryCtaText && <h2 className={classes['secondary-text']}>{fields.secondaryCtaText}</h2>}
             </div>
 
             {disclaimer && <div className={`${classes['disclaimer']} body`}>
@@ -82,14 +88,13 @@ const SplitHero = ({ fields }) => {
           </div>
         </div>
 
-        {isMobile ? 
-        <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
+        {isMobile && <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
             {mobileImage}
-        </div> :
-        <div className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
-          {desktopImage}
-        </div>
-        }
+        </div>}
+        
+        {isDesktop && <div className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
+            {desktopImage}
+        </div>}
       </div>
     </div>
   );

@@ -7,9 +7,7 @@ import classes from './FullBleedHero.module.scss';
 
 const FullBleedHero = ({ fields }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
-  const isDesktop = useMediaQuery(
-    {query: '(min-width: 768px)'}
-  )
+  const isDesktop = useMediaQuery({ query: '(min-width: 768px)' });
   const { heroStyle } = fields;
 
   let desktopImage = fields.desktopBackgroundImage;
@@ -51,7 +49,6 @@ const FullBleedHero = ({ fields }) => {
   
   return (
     <div className={`${classes['hero']} ${classes[heroStyle]}`}>
-     
       <div className={classes['hero__text']}>
         <div className={classes['hero__text--inner']}>
           {fields.header && <h1>{fields.header}</h1>}
@@ -69,10 +66,11 @@ const FullBleedHero = ({ fields }) => {
         </div>
       </div>
 
-      {isMobile && <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']} `}>
+      {isMobile && 
+        <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']} `}>
             {mobileImage}
         </div>}
-        
+
         {isDesktop && <div className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']}`}>
             {desktopImage}
         </div>}

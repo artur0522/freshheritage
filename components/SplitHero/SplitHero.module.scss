@@ -9,7 +9,23 @@
   }
 
   &.bg--dark {
-    background-color: $fawn;
+    background-color: $sitkablue;
+  }
+
+  &.bg--green {
+    background-color: #B7CD96;
+  }
+
+  &.text--light {
+    color: $alabaster;
+  }
+
+  &.text--dark {
+    color: $sitkablue;
+  }
+
+  &.text--green {
+    color: #B7CD96;
   }
 
   .disclaimer {
@@ -32,21 +48,12 @@
           padding: 0 10.2% 0 0;
         }
 
-        .btn-wrap {
-          .btn {
-            max-width: 250px;
-            &:not(:first-child) {
-              display: none;
-              @include breakpoint-up('sm') {
-                display: block;
-                background-color: transparent;
-              }
-            }
-          }
-        }
+        .subheader {
+          margin-bottom: 18px;
 
-        .secondary-btn {
-          text-decoration: none;
+          @include breakpoint-up('sm') {
+            margin-bottom: 36px;
+          }
         }
       }
     }
@@ -81,6 +88,11 @@
         padding: 84px 4.27% 84px 6.30%;
       }
     }
+
+    .btn-wrap {
+      display: flex;
+      align-items: center;
+    }
   }
 
   // Cover Hero Option
@@ -102,13 +114,10 @@
           z-index: 1;
 
           @include breakpoint-up('sm') {
-            margin-top: 0;
             position: static;
             transform: initial;
-          }
-
-          .btn {
-            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
           }
         }
       }
@@ -151,7 +160,7 @@
     display: flex;
   }
 
-  // hero __text
+  // hero__text
   &__text {
     height: 100%;
     flex: 1;
@@ -171,7 +180,6 @@
 
       .value-props {
         list-style: none;
-        margin-top: 36px;
         margin-bottom: 76px;
 
         @include breakpoint-up('sm') {
@@ -195,28 +203,28 @@
       }
 
       .btn-wrap {
-        margin-top: 42px;
-  
         @include breakpoint-up('sm') {
           display: flex;
+          align-items: center;
         }
 
-        .btn {
-          text-align: center;
-          min-width: 320px;
-
-          &:not(:first-child) {
-            @include breakpoint-up('sm') {
-              text-align: left;
-              margin-left: 38px;
-            }
-          }
+        a:first-child {
+          max-width: 319px;
 
           @include breakpoint-up('sm') {
-            min-width: 0;
             max-width: 250px;
-            margin-bottom: 0;
           }
+        }
+
+        a:not(:first-child) {
+          @include breakpoint-up('sm') {
+            text-align: left;
+            margin-left: 36px;
+          }
+        }
+
+        h2 {
+          margin-left: 36px;
         }
       }
     }

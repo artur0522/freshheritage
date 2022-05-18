@@ -9,15 +9,13 @@ import ValueProps from '../ValueProps';
 import FeaturedBlogContent from '../FeaturedBlogContent';
 
 const ContentSections = ({ sections }) => {
-  console.log('sections', sections);
   if (!Array.isArray(sections)) {
     return null;
   }
 
   return sections.map((section) => {
     const type = section?._type;
-    console.log('type', type);
-
+    
     switch (type) {
       case 'hero':
         return <FullBleedHero fields={section} key={section._key} />;

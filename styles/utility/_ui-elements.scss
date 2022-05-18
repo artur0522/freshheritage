@@ -65,8 +65,6 @@
   }
 
   &--only-mobile {
-    color: $alabaster;
-    background-color: $black;
     border: none;
     padding: 13px 0;
     border-radius: 48px;
@@ -92,6 +90,10 @@
   
     &.salmon {
       background-color: $salmon;
+
+      @include breakpoint-up('sm') {
+        background-color: transparent;
+      }
   
       &:hover {
         background-color: $copper;
@@ -109,6 +111,10 @@
   
     &.sitkablue {
       background-color: $sitkablue;
+
+      @include breakpoint-up('sm') {
+        background-color: transparent;
+      }
   
       &:hover {
         background: $sitkabluelight;
@@ -127,6 +133,10 @@
     &.alabaster {
       background-color: $alabaster;
       color: $sitkablue;
+
+      @include breakpoint-up('sm') {
+        background-color: transparent;
+      }
   
       &:disabled {
         background: linear-gradient(

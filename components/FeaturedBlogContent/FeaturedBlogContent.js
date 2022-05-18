@@ -22,8 +22,6 @@ const FeaturedBlogContent = ({ fields }) => {
     setSelectedSwiper(foundTab);
   }
 
-  console.log("selectedSwiper", selectedSwiper)
-  
   return (
     <div className={`${classes['articles']}`}>
         <div className={`${classes['articles__content']} container`}>

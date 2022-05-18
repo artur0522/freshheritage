@@ -92,6 +92,11 @@
     .btn-wrap {
       display: flex;
       align-items: center;
+
+      .secondary-btn {
+        margin-left: 36px;
+        background: none;
+      }
     }
   }
 
@@ -118,6 +123,14 @@
             transform: initial;
             display: flex;
             align-items: center;
+          }
+        }
+
+        h2 {
+          margin-bottom: 18px;
+    
+          @include breakpoint-up('sm') {
+            margin-bottom: 36px;
           }
         }
       }
@@ -210,9 +223,11 @@
 
         a:first-child {
           max-width: 319px;
+          margin-bottom: 12px;
 
           @include breakpoint-up('sm') {
             max-width: 250px;
+            margin-bottom: 0;
           }
         }
 

@@ -8,7 +8,7 @@ import classes from './FullBleedHero.module.scss';
 const FullBleedHero = ({ fields }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
   const isDesktop = useMediaQuery({ query: '(min-width: 768px)' });
-  const { heroStyle } = fields;
+  const { heroStyle, textColor } = fields;
 
   let desktopImage = fields.desktopBackgroundImage;
   let mobileImage = fields.mobileBackgroundImage;
@@ -48,21 +48,23 @@ const FullBleedHero = ({ fields }) => {
   }
   
   return (
-    <div className={`${classes['hero']} ${classes[heroStyle]}`}>
+    <div className={`${classes['hero']} ${classes[heroStyle]} ${classes[textColor]}`}>
       <div className={classes['hero__text']}>
         <div className={classes['hero__text--inner']}>
           {fields.header && <h1>{fields.header}</h1>}
           {fields.subheader && <h2>{fields.subheader}</h2>}
 
-          {fields.primaryCtaUrl && <Link href={`${fields.primaryCtaUrl}`}>
-            <a className={`${classes['btn']} btn salmon no-underline`}>
-            {fields.primaryCtaText}
-            </a>
-          </Link>}
+          <div className={classes['btn-wrap']}>
+            {fields.primaryCtaUrl && <Link href={`${fields.primaryCtaUrl}`}>
+              <a className={`${classes['btn']} btn salmon no-underline`}>
+              {fields.primaryCtaText}
+              </a>
+            </Link>}
 
-          {fields.secondaryCtaUrl && <Link href={`${fields.secondaryCtaUrl}`}>
-            <a>{fields.secondaryCtaText}</a>
-          </Link>}
+            {fields.secondaryCtaUrl && <Link href={`${fields.secondaryCtaUrl}`}>
+              <a>{fields.secondaryCtaText}</a>
+            </Link>}
+          </div>
         </div>
       </div>
 

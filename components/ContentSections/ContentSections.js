@@ -1,12 +1,12 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 
+import FeaturedBlogContent from '../FeaturedBlogContent';
 import FullBleedHero from '../FullBleedHero';
 import SplitHero from '../SplitHero';
 import FiftyFifty from '../FiftyFifty';
 import PressLogos from '../PressLogos';
 import ValueProps from '../ValueProps';
-import FeaturedBlogContent from '../FeaturedBlogContent';
 
 const ContentSections = ({ sections }) => {
   if (!Array.isArray(sections)) {

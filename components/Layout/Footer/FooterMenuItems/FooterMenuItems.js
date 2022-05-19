@@ -33,16 +33,14 @@ const FooterMenuItems = ({item, classes}) => {
             <IconMinus />
           }
       </button>
-      <AnimateHeight height={height}>
-        <ul className={classes.footerMenuItems} >
-          {item.navigation.menuItems.map(item => {
-            return <li key={item._key}>
-              <Link href={item.linkUrl ? item.linkUrl : '/'}>
-                <a>{item.linkText}</a>
-              </Link>
-            </li>
-          })}
-        </ul>
+      <AnimateHeight height={height} className={classes.footerMenuItems}>
+        {item.navigation.menuItems.map(item => {
+          return <li key={item._key}>
+            <Link href={item.linkUrl ? item.linkUrl : '/'}>
+              <a>{item.linkText}</a>
+            </Link>
+          </li>
+        })}
       </AnimateHeight>
     </li>
   )

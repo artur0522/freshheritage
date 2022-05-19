@@ -10,7 +10,7 @@ const ValueProps = ({ fields }) => {
   if(valueProps.length > 4) {
       extraPropsClass = 'extra-props'
   } else {
-      extraPropsClass = null;
+      extraPropsClass = '';
   }
 
   return (
@@ -23,14 +23,18 @@ const ValueProps = ({ fields }) => {
            {valueProps.map((valueProp) => {
                return (
                     <div className={`${classes['props__col']} ${classes[extraPropsClass]}`} key={valueProp.key}>
-                        {valueProp.propImage.asset.url && <div className={classes['props__col-img']}>
-                            <Image
-                                src={valueProp.propImage.asset.url}
-                                layout="fill"
-                                objectFit='contain'
-                                objectPosition={'center'}
-                            />
-                        </div>}
+                        {valueProp.propImage.asset.url && 
+                        <div className={classes['props__col-wrap']}>
+                            <div className={classes['props__col-img']}>
+                                <Image
+                                    src={valueProp.propImage.asset.url}
+                                    layout="fill"
+                                    objectFit='contain'
+                                    objectPosition={'center'}
+                                />
+                            </div>
+                        </div>
+                        }
                         <div className={classes['props__col--text']}>
                             {valueProp.propHeader && <h1 className="heading--prop">{valueProp.propHeader}</h1>}
                             {valueProp.propSubheader && <p className="secondary--body">{valueProp.propSubheader}</p>}

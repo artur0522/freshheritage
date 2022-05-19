@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image';
 import Link from 'next/link';
-import RecipeArticleCard  from "../RecipeArticleCard/RecipeArticleCard";
-
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+import RecipeArticleCard  from "../RecipeArticleCard/RecipeArticleCard";
 
 import "swiper/css";
 import classes from './FeaturedBlogContent.module.scss';

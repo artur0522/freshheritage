@@ -8,6 +8,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     padding: 60px 27px 72px 27px;
+    overflow: hidden;
 
     @include breakpoint-up('sm') {
         background-image: url('./blog-content-bg.png');

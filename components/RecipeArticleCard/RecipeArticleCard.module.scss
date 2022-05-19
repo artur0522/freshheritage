@@ -20,6 +20,29 @@
         @include breakpoint-up('sm') {
             height: 384px;
         }
+
+        .bookmark {
+            position: absolute;
+            background-color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 100%;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            @include breakpoint-up('sm') {
+                width: 48px;
+                height: 48px;
+            }
+
+            svg {
+                width: 15.24px;
+                height: 23.14px;
+            }
+        }
     }
 
     // article__card-content

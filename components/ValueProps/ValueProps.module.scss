@@ -33,7 +33,6 @@
         }
 
         &.extra-props {
-            width: 80%;
             align-items: flex-start;
 
             @include breakpoint-up('sm') { 
@@ -45,8 +44,8 @@
     // props__col
     &__col {
         width: 100%;
-        max-width: 319px;
         margin: 24px auto 0 auto;
+        max-width: 319px;
 
         @include breakpoint-up('sm') { 
             max-width: none;
@@ -59,6 +58,7 @@
             display: flex;
             align-items: flex-start;
             margin: 24px 0 0 0;
+            max-width: none;
 
             @include breakpoint-up('sm') { 
                 flex-direction: column;
@@ -66,17 +66,30 @@
                 margin: 72px 0 0 0;
             }
 
+            .props__col-wrap {
+                min-width: 48px;
+                height: 48px;
+                background-color: #E3EBF4;
+                border-radius: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                @include breakpoint-up('sm') { 
+                    width: 108px;
+                    height: 108px;
+                }
+            }
+
             .props__col-img {
                 margin: 0;
                 position: relative;
-                width: 48px;
-                height: 48px;
+                width: 24px;
+                height: 24px;
 
                 @include breakpoint-up('sm') { 
-                    width: initial;
-                    height: initial;
-                    padding-top: 39%;
-                    max-height: 108px;
+                    width: 48px;
+                    height: 48px;
                 }
             }
 
@@ -128,7 +141,7 @@
     &__text {
         text-align: center;
         width: 80%;
-        margin: auto;
+        margin:  0 auto 24px auto;
 
         @include breakpoint-up('sm') { 
             max-width: 822px;

@@ -1,11 +1,11 @@
 @import '../../styles/mixins/_breakpoints.scss';
 @import '../../styles/variables/_breakpoints.scss';
 @import '../../styles/variables/_colors.scss';
-@import '../../styles/utility/_ui-elements.scss';
 
 .hero {
   position: relative;
 
+  // dynamic color modifiers
   &.text--light {
     color: $alabaster;
 
@@ -60,7 +60,7 @@
   &__text {
     z-index: 1;
 
-    &--inner {
+    &-inner {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -78,17 +78,20 @@
         margin-bottom: 30px;
       }
 
+      .btn {
+        width: 243px;
+        margin: 0 auto 24px auto;
+      }
 
       a {
-        max-width: 243px;
         text-align: center;
         margin-bottom: 12px;
       }
     }
   }
 
-  // HERO CENTER Styles
-  &.hero__center {
+  // HERO CENTER STYLES
+  &.hero--center {
     .hero__wrap--mbl {
       height: 806px;
     }
@@ -101,13 +104,14 @@
       width: 85.067%;
       max-width: 1108px;
 
-      // hero__text--inner
-      &--inner {
+      // hero__text-inner
+      &-inner {
         text-align: center;
 
         h1 {
           color: $alabaster;
           font-size: 4.5rem;
+          margin-bottom: 48px;
         }
 
         a {
@@ -119,8 +123,8 @@
     }
   }
 
-  // HERO TRANSPARENT BG Styles
-  &.hero__center--transparent {
+  // HERO TRANSPARENT BG STYLES
+  &.hero--center-transparent {
     .hero__wrap--mbl {
       height: 622px;
     }
@@ -140,8 +144,8 @@
         border-radius: 12px;
       }
 
-      // hero__text--inner
-      &--inner {
+      // hero__text-inner
+      &-inner {
         text-align: center;
 
         a {
@@ -151,15 +155,18 @@
         }
 
         .btn {
-          margin-bottom: 24px;
           min-width: 250px;
+
+          @include breakpoint-up('sm') {
+            width: 392px;
+          }
         }
       }
     }
   }
 
-  // HERO ALIGNED LEFT Styles
-  &.hero__left {
+  // HERO ALIGNED LEFT STYLES
+  &.hero--left {
     .hero__wrap--mbl {
       height: 672px;
     }
@@ -177,8 +184,8 @@
         max-width: 735px;
       }
 
-      // hero__text--inner
-      &--inner {
+      // hero__text-inner
+      &-inner {
         text-align: left;
         align-items: flex-start;
 
@@ -186,10 +193,6 @@
           @include breakpoint-up('sm') {
             max-width: 250px;
           }
-        }
-
-        .btn {
-          margin-bottom: 24px;
         }
       }
     }

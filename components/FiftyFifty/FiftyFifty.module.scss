@@ -1,20 +1,8 @@
 @import '../../styles/mixins/_breakpoints.scss';
 @import '../../styles/variables/_breakpoints.scss';
-@import '../../styles/variables/_colors.scss';
-@import '../../styles/utility/_ui-elements.scss';
 
 .fifty-fifty {
-    &__row  {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        padding: 60px 28px 0 28px; 
-
-        @include breakpoint-up('sm') {
-            padding: 7.5% 6.3% 0 6.3%;
-        }
-    }
-   
+    // modifiers
     .image--left {
         @include breakpoint-up('sm') {
             flex-direction: row-reverse;
@@ -27,6 +15,19 @@
         }
     }
 
+    // fifty-fifty__row
+    &__row  {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 60px 28px 0 28px; 
+
+        @include breakpoint-up('sm') {
+            padding: 7.5% 6.3% 0 6.3%;
+        }
+    }
+   
+    // fifty-fifty__text
     &__text {
         @include breakpoint-up('sm') {
             width: 40.42%;
@@ -47,6 +48,7 @@
         }
     }
 
+    // fifty-fifty__image
     &__image {
         position: relative;
         height: 252px;

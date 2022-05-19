@@ -1,9 +1,9 @@
 @import '../../styles/mixins/_breakpoints.scss';
 @import '../../styles/variables/_breakpoints.scss';
 @import '../../styles/variables/_colors.scss';
-@import '../../styles/utility/_ui-elements.scss';
 
 .hero {
+  // dynamic color modifiers
   &.bg--light {
     background-color: $alabaster;
   }
@@ -34,6 +34,115 @@
 
     @include breakpoint-up('sm') {
       display: block;
+    }
+  }
+
+   // hero__row
+   &__row {
+    display: flex;
+  }
+
+  // hero__text
+  &__text {
+    height: 100%;
+    flex: 1;
+   
+    // hero__text--inner
+    &--inner {
+      position: relative;
+
+      h1 {
+        margin-bottom: 12px;
+
+        @include breakpoint-up('sm') {
+          margin-bottom: 18px;
+        }
+      }
+
+      .value-props {
+        list-style: none;
+        margin-bottom: 76px;
+
+        @include breakpoint-up('sm') {
+          margin-bottom: 44px;
+        }
+
+        li {
+          span {
+            display: inline-block;
+            margin-right: 12.35px;
+
+            @include breakpoint-up('sm') {
+              margin-right: 24.71px;
+            }
+          }
+        }
+
+        & li:not(:first-child) {
+          margin-top: 28px;
+        }
+      }
+
+      .btn-wrap {
+        @include breakpoint-up('sm') {
+          display: flex;
+          align-items: center;
+        }
+
+        .primary-btn {
+          max-width: 319px;
+          margin-bottom: 12px;
+
+          @include breakpoint-up('sm') {
+            max-width: 250px;
+            margin-bottom: 0;
+          }
+        }
+
+        .secondary-btn {
+          @include breakpoint-up('sm') {
+            text-align: left;
+            margin-left: 36px;
+          }
+        }
+
+        h2 {
+          margin-left: 36px;
+        }
+      }
+    }
+  }
+
+  // hero__wrap
+  &__wrap {
+    position: relative;
+
+    &.image--half {
+      @include breakpoint-up('sm') {
+        width: 50%;
+      }
+    }
+
+    &.image--two-thirds {
+      @include breakpoint-up('sm') {
+        width: 58.8%;
+      }
+    }
+
+    // hero__wrap--dsktp
+    &--dsktp {
+      display: none;
+    }
+
+    // hero__wrap--mbl
+    &--mbl {
+      @include breakpoint-up('sm') {
+        display: none;
+      }
+    }
+
+    img {
+      object-fit: cover;
     }
   }
 
@@ -103,6 +212,7 @@
   // Cover Hero Option
   &.image--cover {
     .hero__text {
+      // hero__text--inner
       &--inner {
         padding: 54px 28px 111px 28px;
         text-align: center;
@@ -124,6 +234,10 @@
             display: flex;
             align-items: center;
           }
+
+          .primary-btn {
+            width: 319px;
+          }
         }
 
         h2 {
@@ -137,10 +251,12 @@
     }
 
     .hero__wrap {
+      // hero__wrap--mbl
       &--mbl {
         height: 300px;
       }
 
+      // hero__wrap--dsktp
       &--dsktp {
         @include breakpoint-up('sm') {
           display: block;
@@ -165,116 +281,6 @@
       @include breakpoint-up('sm') {
         display: block;
       }
-    }
-  }
-
-  // hero__row
-  &__row {
-    display: flex;
-  }
-
-  // hero__text
-  &__text {
-    height: 100%;
-    flex: 1;
-   
-
-    // hero__text--inner
-    &--inner {
-      position: relative;
-
-      h1 {
-        margin-bottom: 12px;
-
-        @include breakpoint-up('sm') {
-          margin-bottom: 18px;
-        }
-      }
-
-      .value-props {
-        list-style: none;
-        margin-bottom: 76px;
-
-        @include breakpoint-up('sm') {
-          margin-bottom: 44px;
-        }
-
-        li {
-          span {
-            display: inline-block;
-            margin-right: 12.35px;
-
-            @include breakpoint-up('sm') {
-              margin-right: 24.71px;
-            }
-          }
-        }
-
-        & li:not(:first-child) {
-          margin-top: 28px;
-        }
-      }
-
-      .btn-wrap {
-        @include breakpoint-up('sm') {
-          display: flex;
-          align-items: center;
-        }
-
-        a:first-child {
-          max-width: 319px;
-          margin-bottom: 12px;
-
-          @include breakpoint-up('sm') {
-            max-width: 250px;
-            margin-bottom: 0;
-          }
-        }
-
-        a:not(:first-child) {
-          @include breakpoint-up('sm') {
-            text-align: left;
-            margin-left: 36px;
-          }
-        }
-
-        h2 {
-          margin-left: 36px;
-        }
-      }
-    }
-  }
-
-  // hero__wrap
-  &__wrap {
-    position: relative;
-
-    &.image--half {
-      @include breakpoint-up('sm') {
-        width: 50%;
-      }
-    }
-
-    &.image--two-thirds {
-      @include breakpoint-up('sm') {
-        width: 58.8%;
-      }
-    }
-
-    // hero__wrap--dsktp
-    &--dsktp {
-      display: none;
-    }
-
-    // hero__wrap--mbl
-    &--mbl {
-      @include breakpoint-up('sm') {
-        display: none;
-      }
-    }
-
-    img {
-      object-fit: cover;
     }
   }
 }

@@ -1,7 +1,6 @@
 @import '../../styles/mixins/_breakpoints.scss';
 @import '../../styles/variables/_breakpoints.scss';
 @import '../../styles/variables/_colors.scss';
-@import '../../styles/utility/_ui-elements.scss';
 
 .articles {
     position: relative;
@@ -15,8 +14,8 @@
         padding: 144px 6.25%
     }
 
-    // articles__tab--swiper
-    &__tabs--swiper {
+    // articles__tab-swiper
+    &__tabs-swiper {
         @include breakpoint-up('sm') {
             text-align: center;
             max-width: 880px;
@@ -89,8 +88,8 @@
             padding: 24px;
         }
 
-        // article__card--img
-        &--img {
+        // article__card-img
+        &-img {
             position: relative;
             height: 288px;
 
@@ -99,8 +98,8 @@
             }
         }
 
-        // article__card--content
-        &--content {
+        // article__card-content
+        &-content {
             margin-top: 24px;
 
             .recipe--time {
@@ -120,6 +119,7 @@
         }
     }
 
+    // articles__image
     &__image {
         max-width: 532px;
         width: 100vw;
@@ -130,6 +130,7 @@
         }
     }
 
+    // articles__header
     &__header {
         text-align: center;
         padding: 0 28px;
@@ -147,6 +148,7 @@
         }
     }
 
+    // articles__btn
     &__btn {
         max-width: 243px;
         margin: 36px auto 0 auto;

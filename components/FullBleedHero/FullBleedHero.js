@@ -8,40 +8,11 @@ import classes from './FullBleedHero.module.scss';
 const FullBleedHero = ({ fields }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
   const isDesktop = useMediaQuery({ query: '(min-width: 768px)' });
-  const { heroStyle, textColor } = fields;
-
-  let desktopImage = fields.desktopBackgroundImage;
-  let mobileImage = fields.mobileBackgroundImage;
+  let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage } = fields;
   let btnColor;
 
-  // Check if desktop image exists
-  if (desktopImage) {
-    desktopImage = (
-      <Image
-        className={classes.mbl__img}
-        src={fields.desktopBackgroundImage.asset.url}
-        layout="fill"
-      />
-    );
-  } else {
-    desktopImage = null;
-  }
-
-  // Check if mobile image exists
-  if (mobileImage) {
-    mobileImage = (
-      <Image
-        className={classes.dsktp__img}
-        src={fields.mobileBackgroundImage.asset.url}
-        layout="fill"
-      />
-    );
-  } else {
-    mobileImage = null;
-  }
-
   // Conditionally change the color of the button
-  if (heroStyle === 'hero__center') {
+  if (textColor === 'text--light') {
     btnColor = 'alabaster';
   } else {
     btnColor = 'salmon';
@@ -50,13 +21,13 @@ const FullBleedHero = ({ fields }) => {
   return (
     <div className={`${classes['hero']} ${classes[heroStyle]} ${classes[textColor]}`}>
       <div className={classes['hero__text']}>
-        <div className={classes['hero__text--inner']}>
+        <div className={classes['hero__text-inner']}>
           {fields.header && <h1>{fields.header}</h1>}
           {fields.subheader && <h2>{fields.subheader}</h2>}
 
           <div className={classes['btn-wrap']}>
             {fields.primaryCtaUrl && <Link href={`${fields.primaryCtaUrl}`}>
-              <a className={`${classes['btn']} btn salmon no-underline`}>
+              <a className={`${classes['btn']} btn ${btnColor} no-underline`}>
               {fields.primaryCtaText}
               </a>
             </Link>}
@@ -69,12 +40,20 @@ const FullBleedHero = ({ fields }) => {
       </div>
 
       {isMobile && 
-        <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']} `}>
-            {mobileImage}
+        <div className={`${classes['hero__wrap']} ${classes['hero__wrap--mbl']}`}>
+          <Image
+            className={classes.dsktp__img}
+            src={mobileBackgroundImage.asset.url}
+            layout="fill"
+          />
         </div>}
 
-        {isDesktop && <div className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']}`}>
-            {desktopImage}
+        {isDesktop && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--dsktp']}`}>
+          <Image
+            className={classes.mbl__img}
+            src={desktopBackgroundImage.asset.url}
+            layout="fill"
+          />
         </div>}
     </div>
   );

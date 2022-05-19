@@ -10,13 +10,12 @@ import "swiper/css";
 import classes from './FeaturedBlogContent.module.scss';
 
 const FeaturedBlogContent = ({ fields }) => {
+  const { tabs, header, subheader, ctaUrl, ctaText } = fields;
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
-
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const [selectedSwiper, setSelectedSwiper] = useState(fields.tabs[0]);
+  const [selectedSwiper, setSelectedSwiper] = useState(tabs[0]);
 
   const filterArticles = (tabName) => {
-    const foundTab = fields.tabs.find((tab) => {
+    const foundTab = tabs.find((tab) => { 
         return tab.tabName === tabName
     })
     setSelectedSwiper(foundTab);
@@ -26,17 +25,17 @@ const FeaturedBlogContent = ({ fields }) => {
     <div className={`${classes['articles']}`}>
         <div className={`${classes['articles__content']} container`}>
             <div className={`${classes['articles__header']}`}>
-                {fields.header && <h1>{fields.header}</h1>}
-                {fields.subheader && <h2>{fields.subheader}</h2>}
+                {header && <h1>{header}</h1>}
+                {subheader && <h2>{subheader}</h2>}
             </div>
 
             {isMobile ? 
                 <Swiper
                     loop={true}
                     slidesPerView={'auto'}
-                    className={`${classes['articles__tabs--swiper']}`}
+                    className={`${classes['articles__tabs-swiper']}`}
                     >
-                    {fields.tabs.map((tab) => {
+                    {tabs.map((tab) => {
                         return (
                             <SwiperSlide className={classes['tab-slide']} key={tab.tabName}>
                                 <a className={`${tab.tabName ===  selectedSwiper.tabName ? classes['active'] : ""}`} onClick={() => filterArticles(tab.tabName)}>
@@ -46,8 +45,8 @@ const FeaturedBlogContent = ({ fields }) => {
                         )
                     })}
                 </Swiper> : 
-                <div className={`${classes['articles__tabs--swiper']}`}>
-                    {fields.tabs.map((tab) => {
+                <div className={`${classes['articles__tabs-swiper']}`}>
+                    {tabs.map((tab) => {
                         return (
                             <div className={classes['tab-slide']} key={tab.tabName}>
                                 <a className={`${tab.tabName ===  selectedSwiper.tabName ? classes['active'] : ""}`} onClick={() => filterArticles(tab.tabName)}>
@@ -76,14 +75,14 @@ const FeaturedBlogContent = ({ fields }) => {
                         <SwiperSlide>
                             <Link href={`${article.handle.current}`}>
                                 <div className={classes['article__card']}>
-                                    {article.heroImage.asset.url && <div className={classes['article__card--img']}>
+                                    {article.heroImage.asset.url && <div className={classes['article__card-img']}>
                                         <Image
                                             src={article.heroImage.asset.url}
                                             layout="fill"
                                             objectFit="cover"
                                         />
                                     </div>}
-                                    <div className={classes['article__card--content']}>
+                                    <div className={classes['article__card-content']}>
                                         {article.heroSubheader && <span className="recipe--time">{article.heroSubheader}</span>}
                                         {article.heroHeader && <h1 className='heading--article'>{article.heroHeader}</h1>}
                                     </div>
@@ -94,9 +93,9 @@ const FeaturedBlogContent = ({ fields }) => {
                 })}
             </Swiper>
 
-            {fields.ctaUrl && <Link href={`${fields.ctaUrl}`}>
+            {ctaUrl && <Link href={`${ctaUrl}`}>
                     <a className={`${classes['articles__btn']} btn text-align--center no-underline`}>
-                    {fields.ctaText}
+                        {ctaText}
                     </a>
             </Link>}
         </div>

@@ -1,7 +1,6 @@
 @import '../../styles/mixins/_breakpoints.scss';
 @import '../../styles/variables/_breakpoints.scss';
 @import '../../styles/variables/_colors.scss';
-@import '../../styles/utility/_ui-elements.scss';
 
 .props {
     padding: 60px 22px;
@@ -10,6 +9,7 @@
         padding: 180px 5%;
     }
 
+    // dynamic background modifiers
     &.bg--white {
         background-color: $alabaster;
     }
@@ -18,6 +18,7 @@
         background-color: #E3EBF4;
     }
 
+    // props__row
     &__row {
         display: flex;
         flex-direction: column;
@@ -41,6 +42,7 @@
         }
     }
 
+    // props__col
     &__col {
         width: 100%;
         max-width: 319px;
@@ -64,7 +66,7 @@
                 margin: 72px 0 0 0;
             }
 
-            .props__col--img {
+            .props__col-img {
                 margin: 0;
                 position: relative;
                 width: 48px;
@@ -91,7 +93,8 @@
             }
         }
 
-        &--img {
+        // props__col-img
+        &-img {
             max-height: 96px;
             aspect-ratio: 5/4;
             margin: auto;
@@ -102,6 +105,7 @@
             }
         }
 
+        // props__col--text
         &--text {
             text-align: center;
             margin-top: 24px;
@@ -120,6 +124,7 @@
         }
     }
 
+    // props__text
     &__text {
         text-align: center;
         width: 80%;
@@ -138,6 +143,7 @@
         }
     }
 
+    // props__btn
     &__btn {
         max-width: 243px;
         margin: 34px auto 0 auto;

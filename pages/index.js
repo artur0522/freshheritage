@@ -9,7 +9,7 @@ export default function Home({ pages }) {
   let foundDynamicHero;
   // Placeholder Customer Object
   const customer = {
-    tags:['premium seafood box no shellfish', 'salmon box', 'bi monthly seafood box', 'seafood box', 'non subscribers']
+    tags:['premium seafood box no shellfish', 'salmon box', 'bi monthly seafood box', 'seafood box', 'non subscribers', 'premium seafood box']
   }
 
   const foundTags = customer.tags.filter((tag) => {

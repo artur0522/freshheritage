@@ -10,16 +10,15 @@ const PressLogos = ({ fields }) => {
     <div className={classes['logos']}>
         <div className={`${classes['logos__row']}`}>
            {pressLogos.map(({logo}) => {
-               return (
-                    <div className={classes['logos__img']} key={logo.key}>
-                        <Image
-                            src={logo.asset.url}
-                            layout="fill"
-                            objectFit='contain'
-                            
-                        />
-                    </div>
-               )
+              return (
+                <div className={classes['logos__img']} key={logo.key}>
+                    <Image
+                        src={logo.asset.url}
+                        layout="fill"
+                        objectFit='contain'
+                    />
+                </div>
+              )
            })}
         </div>
     </div>

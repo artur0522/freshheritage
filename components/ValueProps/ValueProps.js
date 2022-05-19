@@ -13,7 +13,6 @@ const ValueProps = ({ fields }) => {
       extraPropsClass = null;
   }
 
-
   return (
     <div className={`${classes['props']} ${classes[fields.backgroundColor]}`}>
         <div className={classes['props__text']}>
@@ -24,7 +23,7 @@ const ValueProps = ({ fields }) => {
            {valueProps.map((valueProp) => {
                return (
                     <div className={`${classes['props__col']} ${classes[extraPropsClass]}`} key={valueProp.key}>
-                        {valueProp.propImage.asset.url && <div className={classes['props__col--img']}>
+                        {valueProp.propImage.asset.url && <div className={classes['props__col-img']}>
                             <Image
                                 src={valueProp.propImage.asset.url}
                                 layout="fill"
@@ -34,7 +33,7 @@ const ValueProps = ({ fields }) => {
                         </div>}
                         <div className={classes['props__col--text']}>
                             {valueProp.propHeader && <h1 className="heading--prop">{valueProp.propHeader}</h1>}
-                            {valueProp.propSubheader && <p className="secondary__body">{valueProp.propSubheader}</p>}
+                            {valueProp.propSubheader && <p className="secondary--body">{valueProp.propSubheader}</p>}
                         </div>
                     </div>
                )
@@ -42,9 +41,9 @@ const ValueProps = ({ fields }) => {
         </div>
 
         {fields.ctaUrl && <Link href={`${fields.ctaUrl}`}>
-                    <a className={`${classes['props__btn']} salmon btn text-align--center no-underline`}>
-                    {fields.ctaText}
-                    </a>
+            <a className={`${classes['props__btn']} salmon btn text-align--center no-underline`}>
+            {fields.ctaText}
+            </a>
         </Link>}
     </div>
   );

@@ -18,14 +18,16 @@ function Layout({ children }) {
   const [headerSettings, setHeaderSettings] = useState(null)
   const [footerSettings, setFooterSettings] = useState(null)
 
-  useEffect(async() => {
-    const contentEntry = await nacelleClient.content({
-      handles: ['header-settings', 'footer-settings']
-    })
-    console.log("contentEntry:", contentEntry)
-
-    setHeaderSettings(contentEntry[0].fields)
-    setFooterSettings(contentEntry[1].fields)
+  useEffect(() => {
+    async function getContent() {
+      const contentEntry = await nacelleClient.content({
+        handles: ['header-settings', 'footer-settings']
+      })
+      console.log("contentEntry:", contentEntry)
+      setHeaderSettings(contentEntry[0].fields)
+      setFooterSettings(contentEntry[1].fields)
+    }
+    getContent()
   }, [])
 
   useEffect(() => {

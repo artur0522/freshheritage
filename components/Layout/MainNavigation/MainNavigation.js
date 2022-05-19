@@ -13,7 +13,7 @@ const MainNavigation = ({props, setMobileMenuIsOpen}) => {
           <div className={classes.navLogoContainer}>
             <Link href="/">
               <a>
-                <Image src={props.logo.asset.url} width={136} height={84} />
+                <Image src={props.logo.asset.url} width={136} height={84} alt={props.logo.asset.alt || 'Logo'} />
               </a>
             </Link>
           </div>

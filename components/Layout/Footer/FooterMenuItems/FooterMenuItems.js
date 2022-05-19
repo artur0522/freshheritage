@@ -33,7 +33,7 @@ const FooterMenuItems = ({item, classes}) => {
             <IconMinus />
           }
       </button>
-      <AnimateHeight height={height} className={classes.footerMenuItems}>
+      <AnimateHeight height={height} duration={500} className={classes.footerMenuItems}>
         {item.navigation.menuItems.map(item => {
           return <li key={item._key}>
             <Link href={item.linkUrl ? item.linkUrl : '/'}>

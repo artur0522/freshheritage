@@ -1,7 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image';
 import Link from 'next/link';
+import RecipeArticleCard  from "../RecipeArticleCard/RecipeArticleCard";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -73,21 +74,7 @@ const FeaturedBlogContent = ({ fields }) => {
                 {selectedSwiper.tabList.map((article) => {
                     return (
                         <SwiperSlide>
-                            <Link href={`${article.handle.current}`}>
-                                <div className={classes['article__card']}>
-                                    {article.heroImage.asset.url && <div className={classes['article__card-img']}>
-                                        <Image
-                                            src={article.heroImage.asset.url}
-                                            layout="fill"
-                                            objectFit="cover"
-                                        />
-                                    </div>}
-                                    <div className={classes['article__card-content']}>
-                                        {article.heroSubheader && <span className="recipe--time">{article.heroSubheader}</span>}
-                                        {article.heroHeader && <h1 className='heading--article'>{article.heroHeader}</h1>}
-                                    </div>
-                                </div>
-                            </Link>
+                            <RecipeArticleCard article={article} />
                         </SwiperSlide>
                     )
                 })}

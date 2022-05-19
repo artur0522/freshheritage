@@ -1,0 +1,44 @@
+@import '../../styles/mixins/_breakpoints.scss';
+@import '../../styles/variables/_breakpoints.scss';
+@import '../../styles/variables/_colors.scss';
+
+.article__card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
+
+    @include breakpoint-up('sm') {
+        padding: 24px;
+    }
+
+    // article__card-img
+    &-img {
+        position: relative;
+        height: 288px;
+
+        @include breakpoint-up('sm') {
+            height: 384px;
+        }
+    }
+
+    // article__card-content
+    &-content {
+        margin-top: 24px;
+
+        .recipe--time {
+            font-size: fontsize(12px);
+            line-height: 120%;
+            font-weight: 500;
+            color: $salmon;
+        
+            @include breakpoint-up('sm') {
+                font-size: fontsize(14px);
+            }
+        }
+
+         h1 {
+             margin-top: 6px;
+         }
+    }
+}

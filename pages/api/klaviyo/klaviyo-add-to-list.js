@@ -17,6 +17,7 @@ export default async function handler(req, res) {
   fetch(`https://a.klaviyo.com/api/v2/list/${req.body.list_id}/members?api_key=${process.env.NEXT_KLAVIYO_API_KEY}`, options)
     .then(response => response.json())
     .then(response => {
+      console.log(response)
       if (response.hasOwnProperty('detail')) {
         res.status(400).json({ message: 'error', data: response });
       }

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import {useState} from 'react'
 import IconMinus from '@/svgs/minus.svg'
-import AnimateHeight from 'react-animate-height'
+import Expand from 'react-expand-animated';
 import { useMediaQuery } from 'react-responsive'
 
 const FooterMenuItems = ({item, classes}) => {
@@ -33,15 +33,17 @@ const FooterMenuItems = ({item, classes}) => {
             <IconMinus />
           }
       </button>
-      <AnimateHeight height={height} duration={500} className={classes.footerMenuItems}>
-        {item.navigation.menuItems.map(item => {
-          return <li key={item._key}>
-            <Link href={item.linkUrl ? item.linkUrl : '/'}>
-              <a>{item.linkText}</a>
-            </Link>
-          </li>
-        })}
-      </AnimateHeight>
+      <Expand open={height !== 0} duration={300}>
+        <ul className={classes.footerMenuItems}>
+          {item.navigation.menuItems.map(item => {
+            return <li key={item._key}>
+              <Link href={item.linkUrl ? item.linkUrl : '/'}>
+                <a>{item.linkText}</a>
+              </Link>
+            </li>
+          })}
+        </ul>
+      </Expand>
     </li>
   )
 }

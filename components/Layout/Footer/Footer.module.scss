@@ -189,6 +189,21 @@
   }
 }
 
+.footerEmailTextSuccess {
+  font-size: 16px;
+  line-height: 1.1;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.footerEmailTextError {
+  font-size: 16px;
+  line-height: 1.1;
+  margin: 10px 0 0;
+  color: $error;
+}
+
 .footerNavigation {
   padding: 50px 0 40px;
   @include breakpoint-up('sm') {

@@ -14,7 +14,7 @@ const ValueProps = ({ fields }) => {
   }
 
   return (
-    <div className={`${classes['props']} ${classes[fields.backgroundColor]}`}>
+    <div className={`${classes['props']} ${classes[fields.backgroundColor]} container`}>
         <div className={classes['props__text']}>
             {fields.header && <h1>{fields.header}</h1>}
             {fields.subheader && <h2>{fields.subheader}</h2>}

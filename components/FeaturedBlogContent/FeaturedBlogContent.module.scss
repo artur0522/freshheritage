@@ -7,12 +7,17 @@
     background-color: #B7CD96;
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 60px 27px 72px 27px;
+    padding: 60px 0 72px 0;
     overflow: hidden;
 
     @include breakpoint-up('sm') {
         background-image: url('./blog-content-bg.png');
-        padding: 144px 6.25%
+        padding: 144px 0;
+    }
+
+    &__content {
+        max-width: 1680px;
+        margin: auto;
     }
 
     // articles__tab-swiper

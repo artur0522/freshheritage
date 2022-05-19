@@ -20,10 +20,10 @@
         display: flex;
         align-items: center;
         flex-direction: column;
-        padding: 60px 28px 0 28px; 
+        padding-top: 60px; 
 
         @include breakpoint-up('sm') {
-            padding: 7.5% 6.3% 0 6.3%;
+            padding: 7.5% 0;
         }
     }
    

@@ -20,7 +20,7 @@ const FullBleedHero = ({ fields }) => {
   
   return (
     <div className={`${classes['hero']} ${classes[heroStyle]} ${classes[textColor]}`}>
-      <div className={classes['hero__text']}>
+      <div className={`${classes['hero__text']}`}>
         <div className={classes['hero__text-inner']}>
           {fields.header && <h1>{fields.header}</h1>}
           {fields.subheader && <h2>{fields.subheader}</h2>}

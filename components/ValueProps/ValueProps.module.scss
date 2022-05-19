@@ -3,10 +3,10 @@
 @import '../../styles/variables/_colors.scss';
 
 .props {
-    padding: 60px 22px;
+    padding: 60px 0;
 
     @include breakpoint-up('sm') { 
-        padding: 180px 5%;
+        padding: 180px 0;
     }
 
     // dynamic background modifiers

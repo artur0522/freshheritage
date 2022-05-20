@@ -23,24 +23,22 @@ const ValueProps = ({ fields }) => {
             <div className={`${classes['props__row']} ${classes[extraPropsClass]}`}>
             {valueProps.map((valueProp) => {
                 return (
-                        <div className={`${classes['props__col']} ${classes[extraPropsClass]}`} key={valueProp._key}>
-                            {valueProp.propImage.asset.url && 
-                            <div className={classes['props__col-wrap']}>
-                                <div className={classes['props__col-img']}>
-                                    <Image
-                                        src={valueProp.propImage.asset.url}
-                                        layout="fill"
-                                        objectFit='contain'
-                                        objectPosition={'center'}
-                                    />
-                                </div>
-                            </div>
-                            }
-                            <div className={classes['props__col--text']}>
-                                {valueProp.propHeader && <h1 className="heading--prop">{valueProp.propHeader}</h1>}
-                                {valueProp.propSubheader && <p className="secondary--body">{valueProp.propSubheader}</p>}
+                    <div className={`${classes['props__col']} ${classes[extraPropsClass]}`} key={valueProp._key}>
+                        {valueProp.propImage.asset.url && 
+                        <div className={classes['props__col-wrap']}>
+                            <div className={classes['props__col-img']}>
+                                <Image
+                                    src={valueProp.propImage.asset.url}
+                                    layout="fill"
+                                />
                             </div>
                         </div>
+                        }
+                        <div className={classes['props__col--text']}>
+                            {valueProp.propHeader && <h1 className="heading--prop">{valueProp.propHeader}</h1>}
+                            {valueProp.propSubheader && <p className="secondary--body">{valueProp.propSubheader}</p>}
+                        </div>
+                    </div>
                 )
             })}
             </div>

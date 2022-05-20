@@ -15,7 +15,6 @@ const PressLogos = ({ fields }) => {
                     <Image
                         src={logo.asset.url}
                         layout="fill"
-                        objectFit='contain'
                     />
                 </div>
               )

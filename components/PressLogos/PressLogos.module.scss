@@ -23,9 +23,10 @@
     // logos__img
     &__img {
         position: relative;
-        aspect-ratio: 275/36;
         width: 100%;
         max-width: 213px;
+        min-width: 212px;
+        min-height: 28px;
 
         @include breakpoint-up('sm') {
             max-width: none;

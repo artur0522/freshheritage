@@ -30,6 +30,8 @@ const ValueProps = ({ fields }) => {
                                 <Image
                                     src={valueProp.propImage.asset.url}
                                     layout="fill"
+                                    objectFit='contain'
+                                    objectPosition={'center'}
                                 />
                             </div>
                         </div>

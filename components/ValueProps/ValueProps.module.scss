@@ -84,12 +84,12 @@
             .props__col-img {
                 margin: 0;
                 position: relative;
-                width: 24px;
-                height: 24px;
+                min-width: 24px;
+                min-height: 24px;
 
                 @include breakpoint-up('sm') { 
-                    width: 48px;
-                    height: 48px;
+                    min-width: 48px;
+                    min-height: 48px;
                 }
             }
 
@@ -108,13 +108,14 @@
 
         // props__col-img
         &-img {
-            max-height: 96px;
-            aspect-ratio: 5/4;
+            min-height: 96px;
+            min-width: 96px;
             margin: auto;
             position: relative;
 
             @include breakpoint-up('sm') { 
-                max-height: 156px;
+                min-height: 156px;
+                min-width: 156px;
             }
         }
 

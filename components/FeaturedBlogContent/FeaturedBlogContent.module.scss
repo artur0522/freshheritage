@@ -18,6 +18,21 @@
     &__content {
         max-width: 1680px;
         margin: auto;
+        padding-left: 30px;
+        
+        @include breakpoint-up('sm') {
+          padding-left: 0;
+          width: calc(100% - 100px);
+        }
+        @include breakpoint-up('md') {
+            width: calc(100% - 120px);
+        }
+        @include breakpoint-up('lg') {
+            width: calc(100% - 170px);
+        }
+        @include breakpoint-up('xl') {
+             width: calc(100% - 240px);
+        }
     }
 
     // articles__tab-swiper
@@ -31,12 +46,28 @@
             justify-content: space-between;
         }
 
+        &.swiper-none {
+            display: none;
+
+            @include breakpoint-up('sm') {
+                display: flex;
+            }
+        }
+
+        &.has-swiper {
+            display: block;
+
+            @include breakpoint-up('sm') {
+                display: none;
+            }
+        }
+
         .tab-slide {
             min-height: 40px;
             min-width: 59px;
             display: flex;
             align-items: center; 
-            width: 70%;
+            width: 80%;
 
             @include breakpoint-up('sm') {
                 min-height: 61px;

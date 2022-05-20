@@ -102,12 +102,14 @@
         max-width: 822px;
         margin: auto;
 
+        h1 {
+            margin-bottom: 12px;
+        }
+
         h2 {
-            margin-top: 12px;
             margin-bottom: 36px;
 
             @include breakpoint-up('sm') {
-                margin-top: 12px;
                 margin-bottom: 60px;
             }
         }

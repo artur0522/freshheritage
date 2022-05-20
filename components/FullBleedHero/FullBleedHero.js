@@ -9,7 +9,7 @@ const FullBleedHero = ({ fields }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
   const isDesktop = useMediaQuery({ query: '(min-width: 768px)' });
   let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage } = fields;
-  let btnColor;
+  let btnColor; 
   // Conditionally change the color of the button
   if (textColor === 'text--light') {
     btnColor = 'alabaster';

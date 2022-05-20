@@ -18,14 +18,38 @@
 
   &.text--light {
     color: $alabaster;
+
+    .secondary-btn {
+      color: $alabaster;
+    }
+
+    .disclaimer a {
+      color: $alabaster;
+    }
   }
 
   &.text--dark {
     color: $sitkablue;
+
+    .secondary-btn {
+      color: $sitkablue;
+    }
+
+    .disclaimer a {
+      color: $sitkablue;
+    }
   }
 
   &.text--green {
     color: #B7CD96;
+
+    .secondary-btn {
+      color: #B7CD96;
+    }
+
+    .disclaimer a {
+      color: #B7CD96;
+    }
   }
 
   .disclaimer {

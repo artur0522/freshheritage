@@ -21,7 +21,6 @@ const ContentSections = ({ sections }) => {
         return <FullBleedHero fields={section} key={section._key} />;
       case 'splitHero':
         return <SplitHero fields={section} key={section._key} />
-      // ...add additional cases for whichever content types are needed
       case 'halfContentBlock':
         return <FiftyFifty fields={section} key={section._key} />
       case 'pressLogos':

@@ -22,7 +22,7 @@ const ValueProps = ({ fields }) => {
         <div className={`${classes['props__row']} ${classes[extraPropsClass]}`}>
            {valueProps.map((valueProp) => {
                return (
-                    <div className={`${classes['props__col']} ${classes[extraPropsClass]}`} key={valueProp.key}>
+                    <div className={`${classes['props__col']} ${classes[extraPropsClass]}`} key={valueProp._key}>
                         {valueProp.propImage.asset.url && 
                         <div className={classes['props__col-wrap']}>
                             <div className={classes['props__col-img']}>

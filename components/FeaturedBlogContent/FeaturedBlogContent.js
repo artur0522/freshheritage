@@ -48,7 +48,7 @@ const FeaturedBlogContent = ({ fields }) => {
                 <div className={`${classes['articles__tabs-swiper']}`}>
                     {tabs.map((tab) => {
                         return (
-                            <div className={classes['tab-slide']} key={tab.tabName}>
+                            <div className={classes['tab-slide']} key={tab._key}>
                                 <a className={`${tab.tabName ===  selectedSwiper.tabName ? classes['active'] : ""}`} onClick={() => filterArticles(tab.tabName)}>
                                     <span>{tab.tabName}</span>
                                 </a>
@@ -72,7 +72,7 @@ const FeaturedBlogContent = ({ fields }) => {
             >
                 {selectedSwiper.tabList.map((article) => {
                     return (
-                        <SwiperSlide>
+                        <SwiperSlide key={article._id}>
                             <RecipeArticleCard article={article} />
                         </SwiperSlide>
                     )

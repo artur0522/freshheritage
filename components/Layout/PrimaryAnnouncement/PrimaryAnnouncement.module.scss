@@ -1,0 +1,37 @@
+@import '@/styles/_shared.scss';
+
+.primaryAnnouncement {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $sitkablue;
+  color: $alabaster2;
+  width: 100%;
+  padding: 10px 40px;
+  position: relative;
+  .primaryAnnouncementCopy {
+    font-size: 14px;
+    max-width: 65%;
+    margin: 0 auto;
+    @include breakpoint-up('lg') {
+      font-size: 16px;
+      max-width: none;
+    }
+  }
+  button {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 5px;
+    bottom: 0;
+    background-color: transparent;
+    border: none;
+    padding: 5px;
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}

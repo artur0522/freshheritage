@@ -1,0 +1,201 @@
+@import '@/styles/_shared';
+
+
+.mainNavigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: $alabaster2;
+  height: 48px;
+  position: relative;
+  z-index: 1;
+  @include breakpoint-up('sm') {
+    height: 72px;
+  }
+  @include breakpoint-up('md') {
+    height: 84px;
+  }
+  .mainNavContainer {
+    display: flex;
+    justify-content: space-between;
+    @include breakpoint-down('lg') {
+      width: calc(100% - 72px);
+    }
+    @include breakpoint-down('sm') {
+      width: calc(100% - 64px);
+    }
+  }
+}
+
+
+.navItems {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin: 0 -12px;
+  width: 40%;
+  @include breakpoint-up('sm') {
+    margin: 0 -15px;
+  }
+  &.navUtilities {
+    justify-content: flex-end;
+  }
+  .navItem {
+    margin: 0 12px;
+    @include breakpoint-up('sm') {
+      margin: 0 15px;
+    }
+    cursor: pointer;
+    &:hover {
+      svg {
+        * {
+          fill: $salmon;
+        }
+      }
+    }
+  }
+  svg {
+    width: 17px;
+    height: 17px;
+    @include breakpoint-up('sm') {
+      width: 24px;
+      height: 24px;
+    }
+    * {
+      transition: 0.2s ease-in-out fill, 0.2s ease-in-out stroke;
+    }
+  }
+}
+
+.navLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  height: 48px;
+  @include breakpoint-up('md') {
+    height: 72px;
+  }
+  @include breakpoint-up('lg') {
+    height: 84px;
+  }
+  .navLogoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $sitkablue;
+    width: 97px;
+    height: 60px;
+    position: absolute;
+    top: 0;
+    z-index: 1001;
+    @include breakpoint-up('sm') {
+      width: 140px;
+      height: 96px;
+    }
+    @include breakpoint-up('lg') {
+      width: 183px;
+      height: 108px;
+    }
+  }
+  a {
+    display: flex;
+    width: 65px;
+    height: 42px;
+    @include breakpoint-up('sm') {
+      width: 111px;
+      height: 72px;
+    }
+    @include breakpoint-up('lg') {
+      width: 130px;
+      height: 84px;
+    }
+  }
+}
+
+.navItem {
+  margin: 0 12px;
+  a {
+    font-size: 18px;
+    line-height: 23px;
+    font-weight: 500;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .navButton {
+    font-size: 18px;
+    line-height: 22px;
+    min-width: 193px;
+    height: 48px;
+    margin-right: 35px;
+  }
+  .navIconButton {
+    display: flex;
+    background: transparent;
+    padding: 0;
+    border: none;
+  }
+}
+
+.customerServiceInfoEnter {
+  opacity: 0;
+}
+.customerServiceInfoEnterActive {
+  opacity: 1;
+}
+.customerServiceInfoEnterDone {
+  opacity: 1;
+}
+.customerServiceInfoExit {
+  opacity: 0;
+}
+
+.customerServiceInfoModal {
+  transition: opacity 0.125s ease-in-out;
+}
+
+.customerServiceInfo {
+  position: absolute;
+  top: 66px;
+  right: 60px;
+  max-width: 400px;
+  background-color: $alabaster2;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  z-index: 1001;
+}
+
+.customerServiceInfoOverlay {
+  width: 100%;
+  height: calc(1000vh - 84px);
+  position: absolute;
+  top: 84px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(7px);
+  z-index: 1000;
+}
+
+.customerServiceInfoContent {
+  padding: 50px 35px;
+  h4 {
+    margin-bottom: 10px;
+  }
+  p {
+    margin-bottom: 50px;
+  }
+  ul {
+    list-style: none;
+  }
+  li {
+    margin: 0 0 24px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

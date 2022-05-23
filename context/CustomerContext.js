@@ -52,8 +52,20 @@ export function CustomerProvider({ children }) {
     if (data?.customer && expiresAt) {
       Cookies.set('customerAccessToken', accessToken, { expires: new Date(expiresAt), path: '/' })
     }
-    setCustomer(data.customer)
-    console.log("data:", data)
+
+    const { customer } = data;
+
+    // TODO: might need to turn this into a useReducer instead of using useState above
+    if (data.customer.tags.length) {
+      if (data.customer.tags.some(tag => ['member monthly', 'member prepaid'].includes(tag))) {
+        customer.is_member = true
+      } else {
+        customer.is_member = false
+      }
+    }
+
+    setCustomer(customer)
+    console.log("customer:", customer)
     return { data }
   }
 

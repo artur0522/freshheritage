@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useModalContext } from '@/context/ModalContext'
+import { useCustomerContext } from '@/context/CustomerContext'
 import { CSSTransition } from 'react-transition-group'
 import { useMediaQuery } from 'react-responsive'
 import Link from 'next/link'
@@ -14,14 +15,15 @@ const NavigationUtilities = ({props, classes}) => {
     { minWidth: 1074 }
   )
 
+  const modalContext = useModalContext()
+  const customerContext = useCustomerContext()
+
   const [showCustomerServiceInfo, setShowCustomerServiceInfo] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const nodeRef = useRef(null)
 
-  const navCTA = props.nonMemberCta
+  const navCTA = (customerContext.customer?.is_member) ? props.memberCta : props.nonMemberCta
   const customerService = props.customerService
-
-  const modalContext = useModalContext()
 
   const openAccountModal = (e) => {
     e.preventDefault()
@@ -39,16 +41,24 @@ const NavigationUtilities = ({props, classes}) => {
         <>
           <li className={classes.navItem}>
             <button className={[classes.navButton, 'btn', 'salmon'].join(' ')}>
-              {navCTA.nonMemberCtaText}
+              {navCTA.ctaText}
             </button>
           </li>
           <li className={classes.navItem}><IconSearch /></li>
         </>
       }
       <li className={classes.navItem}>
-        <button className={classes.navIconButton} onClick={(e) => openAccountModal(e)}>
-          <IconUser />
-        </button>
+        {customerContext.customer ? (
+          <Link href="/account">
+            <a>
+              <IconUser />
+            </a>
+          </Link>
+        ): (
+          <button className={classes.navIconButton} onClick={(e) => openAccountModal(e)}>
+            <IconUser />
+          </button>
+        )}
       </li>
       {isDesktop &&
         <li

@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { accountClientPost } from '@/utils/account';
-import { CUSTOMER_ACCESS_TOKEN_CREATE, GET_CUSTOMER, CUSTOMER_CREATE } from '@/gql/index.js';
-import * as Cookies from 'es-cookie';
+import { accountClientPost } from '@/utils/account'
+import { CUSTOMER_ACCESS_TOKEN_CREATE, GET_CUSTOMER, CUSTOMER_CREATE } from '@/gql/index.js'
+import * as Cookies from 'es-cookie'
 
 const CustomerContext = createContext()
 
@@ -15,9 +15,9 @@ export function CustomerProvider({ children }) {
 
   useEffect(() => {
     const customerAccessToken = Cookies.get('customerAccessToken')
-    console.log("customerAccessToken:", customerAccessToken)
+    // console.log("customerAccessToken:", customerAccessToken)
     if (customerAccessToken) {
-      setCustomer(JSON.parse(customerAccessToken))
+      getCustomer({ accessToken: customerAccessToken })
     }
   }, [])
 
@@ -38,6 +38,25 @@ export function CustomerProvider({ children }) {
     return { customerAccessTokenCreate: data.customerAccessTokenCreate }
   }
 
+  async function getCustomer({accessToken, expiresAt}) {
+    const response = await accountClientPost({
+      query: GET_CUSTOMER,
+      variables: {
+        customerAccessToken: accessToken
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+    if (data?.customer && expiresAt) {
+      Cookies.set('customerAccessToken', accessToken, { expires: new Date(expiresAt), path: '/' })
+    }
+    setCustomer(data.customer)
+    console.log("data:", data)
+    return { data }
+  }
+
   async function login({ email, password }) {
     const { customerAccessTokenCreateErrors, customerAccessTokenCreate } = await createCustomerAccessToken({email, password})
     if (customerAccessTokenCreateErrors) {
@@ -47,22 +66,10 @@ export function CustomerProvider({ children }) {
       return { errors: customerAccessTokenCreate.userErrors }
     }
     const customerAccessToken = customerAccessTokenCreate.customerAccessToken
-    const response = await accountClientPost({
-      query: GET_CUSTOMER,
-      variables: {
-        customerAccessToken: customerAccessToken.accessToken
-      }
+    return getCustomer({
+      accessToken: customerAccessToken.accessToken,
+      expiresAt: customerAccessToken.expiresAt
     })
-    const { data, errors } = response
-    if (errors && errors.length) {
-      return { errors: errors }
-    }
-    if (data?.customer) {
-      // set cookie with expiration date
-      Cookies.set('customerAccessToken', JSON.stringify(data.customer), { expires: new Date(customerAccessToken.expiresAt), path: '/' })
-      setCustomer(data.customer)
-    }
-    return { data }
   }
 
   async function register({ firstName, lastName, email, password }) {

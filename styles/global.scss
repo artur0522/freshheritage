@@ -19,6 +19,7 @@
 @import './utility/_typography.scss';
 @import './utility/_ui-elements.scss';
 @import './utility/_utility.scss';
+@import './utility/_container.scss';
 
 * {
   -webkit-text-size-adjust: 100%;
@@ -33,5 +34,5 @@
 body {
   color: $sitkablue;
   font-family: 'FrankRuhlRegular';
-  background-color: #eee;
+  background-color: $alabaster;
 }

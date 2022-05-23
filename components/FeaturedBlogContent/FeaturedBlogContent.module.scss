@@ -1,0 +1,160 @@
+@import '../../styles/mixins/_breakpoints.scss';
+@import '../../styles/variables/_breakpoints.scss';
+@import '../../styles/variables/_colors.scss';
+
+.articles {
+    position: relative;
+    background-color: #B7CD96;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 60px 0 72px 0;
+    overflow: hidden;
+
+    @include breakpoint-up('sm') {
+        background-image: url('./blog-content-bg.png');
+        padding: 144px 0;
+    }
+
+    &__content {
+        max-width: 1680px;
+        margin: auto;
+        padding-left: 30px;
+        
+        @include breakpoint-up('sm') {
+          padding-left: 0;
+          width: calc(100% - 100px);
+        }
+        @include breakpoint-up('md') {
+            width: calc(100% - 120px);
+        }
+        @include breakpoint-up('lg') {
+            width: calc(100% - 170px);
+        }
+        @include breakpoint-up('xl') {
+             width: calc(100% - 240px);
+        }
+    }
+
+    // articles__tab-swiper
+    &__tabs-swiper {
+        @include breakpoint-up('sm') {
+            text-align: center;
+            max-width: 880px;
+            margin: auto;
+            min-height: 61px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &.swiper-none {
+            display: none;
+
+            @include breakpoint-up('sm') {
+                display: flex;
+            }
+        }
+
+        &.has-swiper {
+            display: block;
+
+            @include breakpoint-up('sm') {
+                display: none;
+            }
+        }
+
+        .tab-slide {
+            min-height: 40px;
+            min-width: 59px;
+            display: flex;
+            align-items: center; 
+            width: 80%;
+
+            @include breakpoint-up('sm') {
+                min-height: 61px;
+                width: initial;
+                justify-content: center;
+            }
+        }
+
+        a {
+            line-height: 140%;
+            font-family: 'FrankRuhlRegular';
+
+            &::after {
+                content: '';
+                position: absolute;
+                border-bottom: 3px solid transparent;
+                width: 100%;
+                left: 0;
+                bottom: -10px;
+
+                @include breakpoint-up('sm') {
+                    bottom: -20px;
+                }
+            }
+
+            &.active {
+                font-weight: 500;
+                font-family: 'FrankRuhlMedium';
+                position: relative;
+
+                &::after {
+                    border-bottom: 3px solid $sitkablue;
+                }
+            }
+        }
+    }
+
+    // articles__swiper
+    &__swiper {
+        padding-top: 30px;
+        border-top: 1px solid rgba(84,84,83, 0.25);
+
+        @include breakpoint-up('sm') {
+            padding-top: 47px;
+        }
+    }
+
+    // articles__image
+    &__image {
+        max-width: 532px;
+        width: 100vw;
+        z-index: -1;
+
+        img {
+            object-fit: cover;
+        }
+    }
+
+    // articles__header
+    &__header {
+        text-align: center;
+        padding: 0 28px;
+        max-width: 822px;
+        margin: auto;
+
+        h1 {
+            margin-bottom: 12px;
+        }
+
+        h2 {
+            margin-bottom: 36px;
+
+            @include breakpoint-up('sm') {
+                margin-bottom: 60px;
+            }
+        }
+    }
+
+    // articles__btn
+    &__btn {
+        max-width: 243px;
+        margin: 36px auto 0 auto;
+        background-color: $salmon;
+        color: $sitkablue;
+
+        @include breakpoint-up('sm') {
+            margin: 60px auto 0 auto;
+        }
+    }
+}

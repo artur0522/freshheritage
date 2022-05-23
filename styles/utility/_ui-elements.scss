@@ -66,6 +66,91 @@
         $alabaster;
     }
   }
+
+  &--only-mobile {
+    border: none;
+    padding: 13px 0;
+    border-radius: 48px;
+    min-width: 250px;
+    width: 100%;
+    display: block;
+
+    @include breakpoint-up('sm') {
+      padding: 0;
+      text-decoration: underline;
+      min-width: 0;
+      border-radius: 0;
+    }
+
+    &:disabled {
+      background: linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.6),
+          rgba(255, 255, 255, 0.6)
+        ),
+        $black;
+    }
+
+    &.salmon {
+      background-color: $salmon;
+
+      @include breakpoint-up('sm') {
+        background-color: transparent;
+      }
+
+      &:hover {
+        background-color: $copper;
+      }
+
+      &:disabled {
+        background: linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.6),
+            rgba(255, 255, 255, 0.6)
+          ),
+          $copper;
+      }
+    }
+
+    &.sitkablue {
+      background-color: $sitkablue;
+
+      @include breakpoint-up('sm') {
+        background-color: transparent;
+      }
+
+      &:hover {
+        background: $sitkabluelight;
+      }
+
+      &:disabled {
+        background: linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.6),
+            rgba(255, 255, 255, 0.6)
+          ),
+          $sitkabluelight;
+      }
+    }
+
+    &.alabaster {
+      background-color: $alabaster;
+      color: $sitkablue;
+
+      @include breakpoint-up('sm') {
+        background-color: transparent;
+      }
+
+      &:disabled {
+        background: linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.6),
+            rgba(255, 255, 255, 0.6)
+          ),
+          $alabaster;
+      }
+    }
+  }
 }
 
 a {

@@ -1,0 +1,170 @@
+@import '../../styles/mixins/_breakpoints.scss';
+@import '../../styles/variables/_breakpoints.scss';
+@import '../../styles/variables/_colors.scss';
+
+.props {
+    padding: 60px 0;
+
+    @include breakpoint-up('sm') { 
+        padding: 180px 0;
+    }
+
+    // dynamic background modifiers
+    &.bg--white {
+        background-color: $alabaster;
+    }
+
+    &.bg--blue {
+        background-color: #E3EBF4;
+    }
+
+    // props__row
+    &__row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto 0 auto;
+
+        @include breakpoint-up('sm') { 
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        &.extra-props {
+            align-items: flex-start;
+
+            @include breakpoint-up('sm') { 
+                width: initial;
+            }
+        }
+    }
+
+    // props__col
+    &__col {
+        width: 100%;
+        margin: 24px auto 0 auto;
+        max-width: 319px;
+
+        @include breakpoint-up('sm') { 
+            max-width: none;
+            width: 21.14%;
+            margin: 72px 0 0 0;
+            padding: 0 2.57%;
+        }
+
+        &.extra-props {
+            display: flex;
+            align-items: flex-start;
+            margin: 24px 0 0 0;
+            max-width: none;
+
+            @include breakpoint-up('sm') { 
+                flex-direction: column;
+                align-items: center;
+                margin: 72px 0 0 0;
+            }
+
+            .props__col-wrap {
+                min-width: 48px;
+                height: 48px;
+                background-color: #E3EBF4;
+                border-radius: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                @include breakpoint-up('sm') { 
+                    width: 108px;
+                    height: 108px;
+                }
+            }
+
+            .props__col-img {
+                margin: 0;
+                position: relative;
+                min-width: 24px;
+                min-height: 24px;
+
+                @include breakpoint-up('sm') { 
+                    min-width: 48px;
+                    min-height: 48px;
+                }
+            }
+
+            .props__col--text {
+                margin-top: 0;
+                margin-left: 20px;
+                text-align: left;
+
+                @include breakpoint-up('sm') { 
+                    margin-left: 0;
+                    text-align: center;
+                    margin-top: 24px;
+                }
+            }
+        }
+
+        // props__col-img
+        &-img {
+            min-height: 96px;
+            min-width: 96px;
+            margin: auto;
+            position: relative;
+
+            @include breakpoint-up('sm') { 
+                min-height: 156px;
+                min-width: 156px;
+            }
+        }
+
+        // props__col--text
+        &--text {
+            text-align: center;
+            margin-top: 24px;
+
+            @include breakpoint-up('sm') { 
+                margin-top: 36px;
+            }
+
+            p {
+                margin-top: 12px;
+            }
+        }
+
+        img {
+            object-fit: contain;
+        }
+    }
+
+    // props__text
+    &__text {
+        text-align: center;
+        width: 80%;
+        margin:  0 auto 24px auto;
+
+        @include breakpoint-up('sm') { 
+            max-width: 822px;
+        }
+
+        h2 {
+            margin-top: 12px;
+        }
+
+        p {
+            margin-top: 12px;
+        }
+    }
+
+    // props__btn
+    &__btn {
+        max-width: 243px;
+        margin: 34px auto 0 auto;
+
+        @include breakpoint-up('sm') { 
+            max-width: 389px;
+            margin: 72px auto 0 auto;
+        }
+    }
+}

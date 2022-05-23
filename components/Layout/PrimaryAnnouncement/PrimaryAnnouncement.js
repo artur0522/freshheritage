@@ -1,19 +1,18 @@
 import {useState} from 'react'
 import ReactHtmlParser from 'react-html-parser'
-import Cookies from 'universal-cookie'
+import * as Cookies from 'es-cookie';
 
 import classes from './PrimaryAnnouncement.module.scss'
 import IconClose from '@/svgs/close.svg'
 
 const PrimaryAnnouncement = ({props}) => {
 
-  const cookies = new Cookies()
-  const hidePrimaryAnnoucement = cookies.get('hidePrimaryAnnoucement')
+  const hidePrimaryAnnoucement = Cookies.get('hidePrimaryAnnoucement')
   const [show, setShow] = useState(hidePrimaryAnnoucement == 'true' ? false : true)
 
   const removeAnnoucemet = () => {
     setShow(!show)
-    cookies.set('hidePrimaryAnnoucement', 'true', { maxAge: 86400, path: '/' })
+    Cookies.set('hidePrimaryAnnoucement', 'true', { expires: 1, path: '/' })
   }
 
   if (!show) {

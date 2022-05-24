@@ -15,6 +15,7 @@ export function CustomerProvider({ children }) {
 
   useEffect(() => {
     const customerAccessToken = Cookies.get('customerAccessToken')
+    // console.log("customerAccessToken:", customerAccessToken)
     if (customerAccessToken) {
       getCustomer({ accessToken: customerAccessToken })
     }

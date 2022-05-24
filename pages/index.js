@@ -1,25 +1,21 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react'
 
-import { nacelleClient } from 'services';
-import ContentSections from '../components/ContentSections';
-import DynamicHero from "../components/DynamicHero";
+import { nacelleClient } from 'services'
+import ContentSections from '../components/ContentSections'
+import DynamicHero from "../components/DynamicHero"
 import { useCustomerContext } from '@/context/CustomerContext'
 
 export default function Home({ pages }) {
-  const homePage = pages.find((page) => page.handle === 'homepage');
-  const { customer } = useCustomerContext();
-  const [loadedCustomer, setLoadedCustomer] =  useState(null);
-  let foundDynamicHero;
-
-  useEffect(() => {
-    setLoadedCustomer(customer);
-  }, [customer])
+  const homePage = pages.find((page) => page.handle === 'homepage')
+  const context = useCustomerContext()
+  const  { customer } = context
+  let foundDynamicHero
 
   const dynamicHeroSections = homePage.fields.content.filter((section) => {
     return section._type === 'dynamicHero'
   })
 
-  const foundTags = loadedCustomer?.tags.filter((tag) => {
+  const foundTags = customer?.tags.filter((tag) => {
     return tag === 'seafood box' || tag === 'bi monthly seafood box'  || tag === 'premium seafood box'  || tag === 'premium seafood box no shellfish' || tag === 'salmon box' 
   })
 
@@ -51,21 +47,21 @@ export default function Home({ pages }) {
 
   return (
     <>
-      {loadedCustomer && <DynamicHero fields={foundDynamicHero} />}
+      {!context.customerLoading && <DynamicHero fields={foundDynamicHero} />}
       <ContentSections sections={homePage.fields.content} />
     </>
-  );
+  )
 }
 
 export async function getStaticProps({ previewData }) {
   try {
     const pages = await nacelleClient.content({
       handles: ['homepage']
-    });
+    })
 
     return {
       props: { pages }
-    };
+    }
   } catch {
     // fake hero image section until Sanity is hooked up
     const page = {
@@ -92,12 +88,12 @@ export async function getStaticProps({ previewData }) {
           }
         }
       ]
-    };
+    }
 
     return {
       props: {
         page
       }
-    };
+    }
   }
 }

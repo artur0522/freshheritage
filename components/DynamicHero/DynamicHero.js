@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react'
 
-import FullBleedHero from '../FullBleedHero';
-import SplitHero from '../SplitHero';
-import { useCustomerContext } from '@/context/CustomerContext'
+import FullBleedHero from '../FullBleedHero'
+import SplitHero from '../SplitHero'
 
 const DynamicHero = ({ fields }) => {
-  const { heroType, fullBleedHero, splitHero } = fields;
-  const { customer } = useCustomerContext();
+  const { heroType, fullBleedHero, splitHero } = fields
 
   if(heroType === 'hero--full') {
     return <FullBleedHero fields={fullBleedHero} />
-  } else {
+  } else  {
     return <SplitHero fields={splitHero} />
   }
-};
+}
 
-export default DynamicHero;
+export default DynamicHero

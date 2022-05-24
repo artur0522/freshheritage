@@ -12,6 +12,7 @@ export function useCustomerContext() {
 export function CustomerProvider({ children }) {
 
   const [customer, setCustomer] = useState(null)
+  const [customerLoading, setCustomerLoading] = useState(false);
 
   useEffect(() => {
     const customerAccessToken = Cookies.get('customerAccessToken')
@@ -39,6 +40,7 @@ export function CustomerProvider({ children }) {
   }
 
   async function getCustomer({accessToken, expiresAt}) {
+    setCustomerLoading(true);
     const response = await accountClientPost({
       query: GET_CUSTOMER,
       variables: {
@@ -46,6 +48,7 @@ export function CustomerProvider({ children }) {
       }
     })
     const { data, errors } = response
+    setCustomerLoading(false);
     if (errors && errors.length) {
       return { errors: errors }
     }
@@ -105,7 +108,7 @@ export function CustomerProvider({ children }) {
   }
 
   return (
-    <CustomerContext.Provider value={{customer, setCustomer, login, register}}>
+    <CustomerContext.Provider value={{customer, setCustomer, customerLoading, login, register}}>
       {children}
     </CustomerContext.Provider>
   )

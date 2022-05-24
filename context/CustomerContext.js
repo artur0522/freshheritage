@@ -12,7 +12,7 @@ export function useCustomerContext() {
 export function CustomerProvider({ children }) {
 
   const [customer, setCustomer] = useState(null)
-  const [customerLoading, setCustomerLoading] = useState(false);
+  const [customerLoading, setCustomerLoading] = useState(false)
 
   useEffect(() => {
     const customerAccessToken = Cookies.get('customerAccessToken')
@@ -40,7 +40,7 @@ export function CustomerProvider({ children }) {
   }
 
   async function getCustomer({accessToken, expiresAt}) {
-    setCustomerLoading(true);
+    setCustomerLoading(true)
     const response = await accountClientPost({
       query: GET_CUSTOMER,
       variables: {
@@ -48,7 +48,7 @@ export function CustomerProvider({ children }) {
       }
     })
     const { data, errors } = response
-    setCustomerLoading(false);
+    setCustomerLoading(false)
     if (errors && errors.length) {
       return { errors: errors }
     }
@@ -56,7 +56,7 @@ export function CustomerProvider({ children }) {
       Cookies.set('customerAccessToken', accessToken, { expires: new Date(expiresAt), path: '/' })
     }
 
-    const { customer } = data;
+    const { customer } = data
 
     // TODO: might need to turn this into a useReducer instead of using useState above
     if (data.customer.tags.length) {

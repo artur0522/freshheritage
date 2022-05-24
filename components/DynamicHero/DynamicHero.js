@@ -10,8 +10,7 @@ const DynamicHero = ({ fields }) => {
 
   if(heroType === 'hero--full') {
     return <FullBleedHero fields={fullBleedHero} />
-  } 
-  if(heroType === 'hero--split') {
+  } else {
     return <SplitHero fields={splitHero} />
   }
 };

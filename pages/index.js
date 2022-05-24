@@ -38,6 +38,10 @@ export default function Home({ pages }) {
     foundDynamicHero = dynamicHeroSections.find((section) => {
       return section.memberType === 'salmon box'
     })
+  } else if(!foundTags && customer ==  null) {
+    foundDynamicHero = dynamicHeroSections.find((section) => {
+      return section.memberType === 'non subscribers'
+    })
   } else {
     foundDynamicHero = dynamicHeroSections.find((section) => {
       return section.memberType === 'non subscribers'

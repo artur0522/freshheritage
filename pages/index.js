@@ -8,7 +8,6 @@ import { useCustomerContext } from '@/context/CustomerContext'
 export default function Home({ pages }) {
   const homePage = pages.find((page) => page.handle === 'homepage');
   const { customer } = useCustomerContext();
-  console.log('customer', customer);
   const [loadedCustomer, setLoadedCustomer] =  useState(null);
   let foundDynamicHero;
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 import { nacelleClient } from 'services';
 import ContentSections from '../components/ContentSections';
@@ -8,13 +8,19 @@ import { useCustomerContext } from '@/context/CustomerContext'
 export default function Home({ pages }) {
   const homePage = pages.find((page) => page.handle === 'homepage');
   const { customer } = useCustomerContext();
+  console.log('customer', customer);
+  const [loadedCustomer, setLoadedCustomer] =  useState(null);
   let foundDynamicHero;
-  
+
+  useEffect(() => {
+    setLoadedCustomer(customer);
+  }, [customer])
+
   const dynamicHeroSections = homePage.fields.content.filter((section) => {
     return section._type === 'dynamicHero'
   })
 
-  const foundTags = customer?.tags.filter((tag) => {
+  const foundTags = loadedCustomer?.tags.filter((tag) => {
     return tag === 'seafood box' || tag === 'bi monthly seafood box'  || tag === 'premium seafood box'  || tag === 'premium seafood box no shellfish' || tag === 'salmon box' 
   })
 
@@ -38,10 +44,6 @@ export default function Home({ pages }) {
     foundDynamicHero = dynamicHeroSections.find((section) => {
       return section.memberType === 'salmon box'
     })
-  } else if(!foundTags && customer ==  null) {
-    foundDynamicHero = dynamicHeroSections.find((section) => {
-      return section.memberType === 'non subscribers'
-    })
   } else {
     foundDynamicHero = dynamicHeroSections.find((section) => {
       return section.memberType === 'non subscribers'
@@ -50,7 +52,7 @@ export default function Home({ pages }) {
 
   return (
     <>
-      {customer !== null && <DynamicHero fields={foundDynamicHero} />}
+      {loadedCustomer && <DynamicHero fields={foundDynamicHero} />}
       <ContentSections sections={homePage.fields.content} />
     </>
   );

@@ -3,11 +3,13 @@ import Link from 'next/link'
 import IconClose from '@/svgs/close.svg'
 import classes from './MobileMenu.module.scss'
 import { CSSTransition } from 'react-transition-group'
+import { useCustomerContext } from '@/context/CustomerContext'
 
 const MobileMenu = ({props, mobileMenuIsOpen, setMobileMenuIsOpen}) => {
 
-  const {menuItems} = props.nonMemberPrimaryNavigation
-  const navCTA = props.nonMemberCta
+  const customerContext = useCustomerContext()
+  const {menuItems} = (customerContext.customer?.is_member) ? props.memberPrimaryNavigation : props.nonMemberPrimaryNavigation
+  const navCTA = (customerContext.customer?.is_member) ? props.memberCta : props.nonMemberCta
   const customerService = props.customerService
   const nodeRef = useRef(null)
 
@@ -27,7 +29,7 @@ const MobileMenu = ({props, mobileMenuIsOpen, setMobileMenuIsOpen}) => {
             <h1>Become A Sitka Seafood Member</h1>
             <p>Get premium, Wild-Caught Seafood From Alaska Fishermen To Your Doorstep.</p>
             <button className={[classes.mobileMainNavBtn, 'btn', 'salmon'].join(' ')}>
-              {navCTA.nonMemberCtaText}
+              {navCTA.ctaText}
             </button>
           </div>
           <div className={classes.mobileMenuSection}>

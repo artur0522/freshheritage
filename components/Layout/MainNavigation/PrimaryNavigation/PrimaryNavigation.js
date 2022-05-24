@@ -2,10 +2,12 @@ import Link from 'next/link'
 import IconMenu from '@/svgs/menu.svg'
 import IconSearch from '@/svgs/search.svg'
 import { useMediaQuery } from 'react-responsive'
+import { useCustomerContext } from '@/context/CustomerContext'
 
 const PrimaryNavigation = ({props, classes, setMobileMenuIsOpen}) => {
 
-  const {menuItems} = props.nonMemberPrimaryNavigation
+  const customerContext = useCustomerContext()
+  const {menuItems} = (customerContext.customer?.is_member) ? props.memberPrimaryNavigation : props.nonMemberPrimaryNavigation
 
   const isDesktop = useMediaQuery(
     { minWidth: 1074 }

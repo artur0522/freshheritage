@@ -55,6 +55,7 @@
   }
   form {
     margin: 20px 0 30px;
+    position: relative;
     @include breakpoint-up('sm') {
       margin: 50px 0;
       padding: 0 24px;
@@ -74,6 +75,15 @@
     &:last-child {
       margin: 0;
     }
+  }
+}
+
+.modalFormError {
+  font-size: 12px;
+  line-height: 1.1;
+  color: $error;
+  @include breakpoint-up('sm') {
+    font-size: 14px;
   }
 }
 

@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     })
   };
 
-  fetch(`https://a.klaviyo.com/api/v2/list/${req.body.list_id}/members?api_key=${process.env.NEXT_KLAVIYO_API_KEY}`, options)
+  fetch(`https://a.klaviyo.com/api/v2/list/${req.body.list_id}/members?api_key=${process.env.NEXT_PUBLIC_KLAVIYO_API_KEY}`, options)
     .then(response => response.json())
     .then(response => {
       console.log(response)

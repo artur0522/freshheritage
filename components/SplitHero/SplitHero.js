@@ -13,7 +13,7 @@ const SplitHero = ({ fields }) => {
     {query: '(min-width: 768px)'}
   )
   const { imageContainer, imageWidth, style, textColor, valueProps, disclaimer, desktopBackgroundImage, mobileBackgroundImage } = fields;
-
+    
   return (
     <div className={`${classes['hero']} ${classes[style]} ${classes[imageContainer]} ${classes[textColor]}`}>
       <div className={`${classes['hero__row']}`}>

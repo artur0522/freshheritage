@@ -65,7 +65,8 @@ $font-size-root: 16; // No units | Assume font size base of most browsers is 16p
   @return math.div(strip-unit($line-height-in-px), strip-unit($font-size-in-px));
 }
 
-h1 {
+h1,
+.h1 {
   font-family: 'BebasNeue';
   font-size: fontsize(36px);
   line-height: 100%;
@@ -89,8 +90,10 @@ h1 {
   }
 }
 
-h2 {
-  font-family: 'FrankRuhlMedium';
+h2,
+.h2 {
+  font-family: 'FrankRuhl';
+  font-weight: 500;
   font-size: fontsize(18px);
   line-height: 120%;
 
@@ -107,8 +110,10 @@ h2 {
   }
 }
 
-h3 {
-  font-family: 'FrankRuhlMedium';
+h3,
+.h3 {
+  font-family: 'FrankRuhl';
+  font-weight: 500;
   font-size: fontsize(16px);
   line-height: 120%;
 
@@ -125,9 +130,11 @@ h3 {
   }
 }
 
-h4 {
+h4,
+.h4 {
   font-family: 'BebasNeue';
   font-size: fontsize(24px);
+  font-weight: 500;
   line-height: 100%;
   letter-spacing: 0.02em;
 
@@ -148,8 +155,10 @@ h4 {
   }
 }
 
-h5 {
-  font-family: 'FrankRuhlMedium';
+h5,
+.h5 {
+  font-family: 'FrankRuhl';
+  font-weight: 500;
   font-size: fontsize(16px);
   line-height: 120%;
 
@@ -166,8 +175,10 @@ h5 {
   }
 }
 
-h6 {
-  font-family: 'FrankRuhlMedium';
+h6,
+.h6 {
+  font-family: 'FrankRuhl';
+  font-weight: 500;
   font-size: fontsize(14px);
   line-height: 120%;
 
@@ -186,7 +197,8 @@ h6 {
 
 p,
 .body {
-  font-family: 'FrankRuhlRegular';
+  font-family: 'FrankRuhl';
+  font-weight: 400;
   font-size: fontsize(16px);
   line-height: 150%;
 
@@ -200,7 +212,8 @@ p,
 }
 
 .secondary--body {
-  font-family: 'FrankRuhlRegular';
+  font-family: 'FrankRuhl';
+  font-weight: 400;
   font-size: fontsize(14px);
   line-height: 150%;
 
@@ -214,7 +227,8 @@ p,
 }
 
 a {
-  font-family: 'FrankRuhlMedium';
+  font-family: 'FrankRuhl';
+  font-weight: 400;
   font-size: fontsize(16px);
   line-height: 120%;
   cursor: pointer;
@@ -256,7 +270,8 @@ a {
 }
 
 button {
-  font-family: 'FrankRuhlMedium';
+  font-family: 'FrankRuhl';
+  font-weight: 400;
   font-size: fontsize(16px);
   line-height: 120%;
   cursor: pointer;
@@ -295,19 +310,19 @@ button {
     font-size: fontsize(21px);
     line-height: 100%;
     letter-spacing: 0.02em;
-  
+
     @include breakpoint-up('sm') {
       font-size: fontsize(21px);
     }
-  
+
     @include breakpoint-up('md') {
       font-size: fontsize(21px);
     }
-  
+
     @include breakpoint-up('lg') {
       font-size: fontsize(36px);
     }
-  
+
     @include breakpoint-up('xl') {
       font-size: fontsize(36px);
     }
@@ -317,26 +332,26 @@ button {
     font-size: fontsize(18px);
     line-height: 120%;
     letter-spacing: 0.02em;
-  
+
     @include breakpoint-up('sm') {
       font-size: fontsize(24px);
     }
-  
+
     @include breakpoint-up('md') {
       font-size: fontsize(24px);
     }
-  
+
     @include breakpoint-up('lg') {
       font-size: fontsize(24px);
     }
-  
+
     @include breakpoint-up('xl') {
       font-size: fontsize(24px);
     }
   }
 }
 
-.recipe--time { 
+.recipe--time {
   font-size: fontsize(12px);
   line-height: 120%;
   font-weight: 500;
@@ -365,4 +380,8 @@ button {
 
 .no-underline {
   text-decoration: none;
+}
+
+li {
+  font-weight: 500;
 }

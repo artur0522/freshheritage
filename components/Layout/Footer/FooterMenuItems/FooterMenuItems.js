@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import {useState} from 'react'
 import IconMinus from '@/svgs/minus.svg'
-import Expand from 'react-expand-animated';
+import Expand from 'react-expand-animated'
 import { useMediaQuery } from 'react-responsive'
 
 const FooterMenuItems = ({item, classes}) => {

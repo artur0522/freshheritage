@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
-import Link from 'next/link'
 import { PortableText } from '@portabletext/react'
 
 import classes from './HarvestCard.module.scss'
@@ -9,11 +7,9 @@ import classes from './HarvestCard.module.scss'
 const HarvestCard = ({ fish }) => {
   const [tabInfo, setTabInfo] = useState(fish['species'])
   let richContent
-  console.log('state', tabInfo)
 
   const findTabInfo = (category) => {
     setTabInfo(fish[category])
-    console.log("tabinfo", tabInfo)
   }
 
   if(tabInfo === fish.species) {
@@ -21,7 +17,6 @@ const HarvestCard = ({ fish }) => {
   } else {
     richContent = <PortableText value={tabInfo.content} />
   }
-  
 
   return (
     <div className={classes['harvest__card']}>

@@ -8,8 +8,8 @@ const PurchaseFlowNavigation = ({props}) => {
   return (
     <div className={classes['purchase-flow__navigation']}>
       <ul className={classes['purchase-flow__nav-list']}>
-        <li className={classes['is-active']}>1</li>
-        <li>2</li>
+        <li className={purchaseFlowContext.options.step === 1 ? classes['is-active'] : ''}>1</li>
+        <li className={purchaseFlowContext.options.step === 2 ? classes['is-active'] : ''}>2</li>
         <li>3</li>
       </ul>
     </div>

@@ -47,7 +47,7 @@ const NavigationUtilities = ({props, classes}) => {
           <li className={classes.navItem}><IconSearch /></li>
         </>
       }
-      <li className={classes.navItem}>
+      <li className={[classes.navItem, classes.navItemAccount].join(' ')}>
         {customerContext.customer ? (
           <Link href="/account">
             <a>

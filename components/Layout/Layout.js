@@ -25,7 +25,7 @@ function Layout({ children }) {
       const contentEntry = await nacelleClient.content({
         handles: ['header-settings', 'footer-settings']
       })
-      console.log("contentEntry:", contentEntry)
+      // console.log("contentEntry:", contentEntry)
       setHeaderSettings(contentEntry[0].fields)
       setFooterSettings(contentEntry[1].fields)
     }

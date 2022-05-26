@@ -24,6 +24,27 @@
     .navItems {
       width: 20%;
     }
+    .navItemAccount {
+      @include breakpoint-down('sm') {
+        display: none;
+      }
+    }
+    .navLogoContainer {
+      @include breakpoint-down('sm') {
+        position: absolute;
+        left: 0;
+      }
+      @include breakpoint-down('xs') {
+        width: 84px;
+        height: 60px;
+      }
+      a {
+        @include breakpoint-down('xs') {
+          width: 65px;
+          height: 42px;
+        }
+      }
+    }
   }
   .mainNavContainer {
     display: flex;

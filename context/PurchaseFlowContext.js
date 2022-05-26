@@ -9,8 +9,8 @@ export function usePurchaseFlowContext() {
 
 export function PurchaseFlowProvider({ children }) {
 
-  const [purchaseFlow, setPurchaseFlow] = useState({
-    step: 1,
+  const [options, setOptions] = useState({
+    step: 2,
     product: undefined,
     variantSelected: undefined,
     membership_type: undefined // could be monthly or prepaid
@@ -19,16 +19,16 @@ export function PurchaseFlowProvider({ children }) {
   useEffect(() => {
     const purchaseFlowData = Cookies.get('purchaseFlowData')
     if (purchaseFlowData) {
-      setPurchaseFlow(JSON.parse(purchaseFlowData))
+      setOptions(JSON.parse(purchaseFlowData))
     }
   }, [])
 
   useEffect(() => {
-    Cookies.set('purchaseFlowData', JSON.stringify(purchaseFlow), { expires: 1, path: '/' })
-  }, [purchaseFlow])
+    // Cookies.set('purchaseFlowData', JSON.stringify(options), { expires: 1, path: '/' })
+  }, [options])
 
   return (
-    <PurchaseFlowContext.Provider value={{purchaseFlow, setPurchaseFlow}}>
+    <PurchaseFlowContext.Provider value={{options, setOptions}}>
       {children}
     </PurchaseFlowContext.Provider>
   )

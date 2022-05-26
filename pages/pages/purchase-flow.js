@@ -1,16 +1,29 @@
 import React from 'react'
 import { nacelleClient } from 'services'
-import ChooseYourBox from '@/components/ChooseYourBox'
-import ContentSections from '@/components/ContentSections'
+import ChooseYourBox from '@/components/PurchaseFlow/ChooseYourBox'
+import CustomizeYourPlan from '@/components/PurchaseFlow/CustomizeYourPlan'
+import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 
 const PurchaseFlow = ({page}) => {
+
+  const purchaseFlowContext = usePurchaseFlowContext()
+
   const { fields } = page[0]
   const { step1 } = fields
+  const { step2 } = fields
   console.log(step1)
+  console.log(step2)
+
+  console.log("purchaseFlowContext:", purchaseFlowContext)
+
   return (
     <div>
-      <ChooseYourBox props={step1} />
-      <ContentSections sections={step1.content} />
+      {purchaseFlowContext.options.step === 1 &&
+        <ChooseYourBox props={step1} />
+      }
+      {purchaseFlowContext.options.step === 2 &&
+        <CustomizeYourPlan props={step2} />
+      }
     </div>
   )
 }

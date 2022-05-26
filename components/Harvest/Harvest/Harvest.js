@@ -5,13 +5,13 @@ import Link from 'next/link'
 
 import classes from './Harvest.module.scss'
 
-import HarvestCard from "../HarvestCard";
+import HarvestCard from "../HarvestCard"
 
 const Harvest = ({ fields }) => {
   console.log(fields)
-  const { title, description, months  } = fields.harvestList[0];
-  const { tabs } = months[0];
-  const [fishList, setFishList] = useState(tabs[0].fishArray);
+  const { title, description, months  } = fields.harvestList[0]
+  const { tabs } = months[0]
+  const [fishList, setFishList] = useState(tabs[0].fishArray)
 
   return (
     <div className={`${classes['harvest']}`}>
@@ -21,7 +21,7 @@ const Harvest = ({ fields }) => {
 
         {fishList && fishList.map((fish) => {
             return (
-               <HarvestCard fish={fish} />
+               <HarvestCard key={fish._key} fish={fish} />
             )
         })}
     </div>

@@ -6,6 +6,7 @@ import DynamicHero from "../components/DynamicHero";
 
 export default function Home({ pages }) {
   const homePage = pages.find((page) => page.handle === 'homepage');
+  console.log(homePage);
   let foundDynamicHero;
   // Placeholder Customer Object
   const customer = {

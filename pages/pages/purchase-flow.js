@@ -20,7 +20,10 @@ export async function getStaticProps() {
     type: 'purchaseFlow'
   })
   return {
-    props: { page },
+    props: {
+      page,
+      handle: 'purchase-flow'
+    }
   }
 }
 

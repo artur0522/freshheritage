@@ -16,6 +16,15 @@
   @include breakpoint-up('md') {
     height: 84px;
   }
+  &.purchase-flow {
+    background-color: $alabaster;
+    .navButton {
+      display: none;
+    }
+    .navItems {
+      width: 20%;
+    }
+  }
   .mainNavContainer {
     display: flex;
     justify-content: space-between;

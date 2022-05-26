@@ -1,0 +1,44 @@
+@import '@/styles/_shared.scss';
+
+
+.purchase-flow__navigation {
+  display: flex;
+  align-items: center;
+  width: 60%;
+  justify-content: center;
+}
+
+.purchase-flow__nav-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 100%;
+    background-color: $pureWhite;
+    position: relative;
+    margin: 0 72px;
+    &:before {
+      content: '';
+      height: 1px;
+      width: 96px;
+      background-color: $black20;
+      position: absolute;
+      left: calc(100% + 24px);
+    }
+    &:last-child {
+      &:before {
+        display: none;
+      }
+    }
+    &.is-active {
+      background-color: $salmon;
+      color: $pureWhite;
+    }
+  }
+}

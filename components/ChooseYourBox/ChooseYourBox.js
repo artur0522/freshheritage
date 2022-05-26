@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { nacelleClient } from 'services'
 import IconBullet from '@/svgs/list-item.svg'
 import { getSelectedVariant } from 'utils/getSelectedVariant';
+import { PortableText } from '@portabletext/react';
 import classes from './ChooseYourBox.module.scss'
 
 const ChooseYourBox = ({props}) => {
@@ -30,7 +31,7 @@ const ChooseYourBox = ({props}) => {
           <h2>{props.subheader}</h2>
           <ul className={classes['choose-your-box__value-props']}>
             {props.headerBullets.map((item, index) => {
-              return <li key={index}><IconBullet />{item}</li>
+              return <li className="secondary--body" key={index}><IconBullet />{item}</li>
             })}
           </ul>
         </div>
@@ -43,7 +44,7 @@ const ChooseYourBox = ({props}) => {
               return <li className={`${classes['choose-your-box__tier']}  ${isPopular ? classes['is-popular'] : ''} `} key={item._key}>
                         <div className={classes['choose-your-box__tier-container']}>
                           <div className={classes['choose-your-box__tier-image']}>
-                            <Image src={product.content.media[0].src} width={136} height={84} alt={product.content.media[0].alt || product.content.title} />
+                            <Image src={product.content.media[0].src} layout="fill" objectFit="cover" alt={product.content.media[0].alt || product.content.title} />
                           </div>
                           <div className={classes['choose-your-box__tier-details']}>
                             <h2 className={`${classes['choose_your-box__tier-title']} h1`}>{product.content.title.replace('Subscription', '')}</h2>
@@ -61,6 +62,11 @@ const ChooseYourBox = ({props}) => {
             })}
           </ul>
         </div>
+        {props.tierContent &&
+          <div className={`${classes['choose-your-box__tier-content']}`}>
+            <PortableText value={props.tierContent} />
+          </div>
+        }
       </div>
     </div>
   )

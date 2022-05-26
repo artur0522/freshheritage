@@ -109,6 +109,12 @@
               margin-right: 24.71px;
             }
           }
+          svg {
+            width: 17px;
+            @include breakpoint-up('sm') {
+              width: 27
+            }
+          }
         }
 
         & li:not(:first-child) {

@@ -1,8 +1,14 @@
 @import '@/styles/_shared.scss';
 
 .faq {
-  margin: 140px 0;
+  margin: 60px 0;
   position: relative;
+  @include breakpoint-up('md') {
+    margin: 100px 0;
+  }
+  @include breakpoint-up('lg') {
+    margin: 140px 0;
+  }
 }
 
 .faq__image {
@@ -15,6 +21,12 @@
 
 .faq__container {
   display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  @include breakpoint-up('lg') {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
 }
 
 .faq__header {
@@ -22,9 +34,11 @@
 }
 
 .faq__content {
-  max-width: 1100px;
   width: 100%;
-  padding-left: 40px;
+  @include breakpoint-up('lg') {
+    max-width: 1100px;
+    padding-left: 40px;
+  }
 }
 
 .faq__items {

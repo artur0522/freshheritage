@@ -5,7 +5,7 @@ import MobileMenu from '../MobileMenu'
 
 import classes from './Header.module.scss'
 
-const Header = ({ content }) => {
+const Header = ({ content, pageHandle }) => {
 
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false)
 
@@ -18,8 +18,10 @@ const Header = ({ content }) => {
       {content.primaryAnnouncement?.showAnnouncement &&
         <PrimaryAnnouncement props={content.primaryAnnouncement} />
       }
-      <MainNavigation props={content} setMobileMenuIsOpen={setMobileMenuIsOpen}  />
-      <MobileMenu props={content} mobileMenuIsOpen={mobileMenuIsOpen} setMobileMenuIsOpen={setMobileMenuIsOpen} />
+      <MainNavigation props={content} setMobileMenuIsOpen={setMobileMenuIsOpen} pageHandle={pageHandle}  />
+      {pageHandle !== 'purchaseFlow' &&
+        <MobileMenu props={content} mobileMenuIsOpen={mobileMenuIsOpen} setMobileMenuIsOpen={setMobileMenuIsOpen} />
+      }
     </header>
   )
 }

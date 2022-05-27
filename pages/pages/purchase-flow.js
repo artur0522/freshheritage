@@ -1,4 +1,3 @@
-import React from 'react'
 import { nacelleClient } from 'services'
 import ChooseYourBox from '@/components/PurchaseFlow/ChooseYourBox'
 import CustomizeYourPlan from '@/components/PurchaseFlow/CustomizeYourPlan'

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import Image from 'next/image'
 import { nacelleClient } from 'services'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
@@ -9,19 +9,19 @@ import PurchaseFlowHeader from '../PurchaseFlowHeader'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 
 const ChooseYourBox = ({props}) => {
-  // might want to store these options in context api
-  const [products, setProducts] = useState([])
+
   const purchaseFlowContext = usePurchaseFlowContext()
 
   useEffect(() => {
-    async function getProducts() {
+    async function getTierOptions() {
       const products = await nacelleClient.products({
         handles: props.tiers.map(tier => tier.product)
       })
-      // console.log("products:", products)
-      setProducts(products)
+      purchaseFlowContext.setTierOptions(products)
     }
-    getProducts()
+    if (!purchaseFlowContext.tierOptions.length) {
+      getTierOptions()
+    }
   }, [])
 
   const selectBox = (product) => {
@@ -40,9 +40,9 @@ const ChooseYourBox = ({props}) => {
           <PurchaseFlowHeader props={props} />
           <div className={classes['choose-your-box__tiers']}>
             <ul className={classes['choose-your-box__tier-list']}>
-              {!!products?.length && !!props.tiers?.length && props.tiers.map(item => {
+              {purchaseFlowContext.tierOptions.length && props.tiers?.length && props.tiers.map(item => {
                 const isPopular = item.markAsMostPopular
-                const product = products.find(product => product.content.handle === item.product)
+                const product = purchaseFlowContext.tierOptions.find(product => product.content.handle === item.product)
                 const variant = product.variants[0]
                 return <li className={`${classes['choose-your-box__tier']}  ${isPopular ? classes['is-popular'] : ''} `} key={item._key}>
                           <div className={classes['choose-your-box__tier-container']}>

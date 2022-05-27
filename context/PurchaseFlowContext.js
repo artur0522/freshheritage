@@ -10,6 +10,7 @@ export function usePurchaseFlowContext() {
 
 export function PurchaseFlowProvider({ children }) {
 
+  const [tierOptions, setTierOptions] = useState([])
   const [options, setOptions] = useState({
     step: 1,
     product: null,
@@ -44,7 +45,7 @@ export function PurchaseFlowProvider({ children }) {
   }, [options])
 
   return (
-    <PurchaseFlowContext.Provider value={{options, setOptions}}>
+    <PurchaseFlowContext.Provider value={{options, setOptions, tierOptions, setTierOptions}}>
       {children}
     </PurchaseFlowContext.Provider>
   )

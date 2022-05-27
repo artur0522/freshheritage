@@ -45,6 +45,9 @@
         left: calc(100% + 24px);
       }
     }
+    &:first-child:not(.is-active) {
+      cursor: pointer;
+    }
     &:last-child {
       &:before {
         display: none;

@@ -11,10 +11,10 @@ const PurchaseFlow = ({page}) => {
   const { fields } = page[0]
   const { step1 } = fields
   const { step2 } = fields
-  console.log(step1)
-  console.log(step2)
 
-  console.log("purchaseFlowContext:", purchaseFlowContext)
+  if (!purchaseFlowContext.options.is_loaded) {
+    return ''
+  }
 
   return (
     <div>

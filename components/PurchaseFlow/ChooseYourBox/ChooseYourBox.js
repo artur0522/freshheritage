@@ -6,9 +6,12 @@ import { PortableText } from '@portabletext/react'
 import classes from './ChooseYourBox.module.scss'
 import ContentSections from '@/components/ContentSections'
 import PurchaseFlowHeader from '../PurchaseFlowHeader'
+import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 
 const ChooseYourBox = ({props}) => {
+  // might want to store these options in context api
   const [products, setProducts] = useState([])
+  const purchaseFlowContext = usePurchaseFlowContext()
 
   useEffect(() => {
     async function getProducts() {
@@ -21,6 +24,15 @@ const ChooseYourBox = ({props}) => {
     getProducts()
   }, [])
 
+  const selectBox = (product) => {
+    purchaseFlowContext.setOptions({
+      ...purchaseFlowContext.options,
+      product,
+      productHandle: product.content.handle,
+      step: 2
+    })
+  }
+
   return (
     <>
       <div className={classes['choose-your-box']}>
@@ -28,7 +40,7 @@ const ChooseYourBox = ({props}) => {
           <PurchaseFlowHeader props={props} />
           <div className={classes['choose-your-box__tiers']}>
             <ul className={classes['choose-your-box__tier-list']}>
-              {products?.length && props.tiers?.length && props.tiers.map(item => {
+              {!!products?.length && !!props.tiers?.length && props.tiers.map(item => {
                 const isPopular = item.markAsMostPopular
                 const product = products.find(product => product.content.handle === item.product)
                 const variant = product.variants[0]
@@ -43,7 +55,7 @@ const ChooseYourBox = ({props}) => {
                                 <span>${variant.price} / box</span>
                                 <span>{variant.weight} lbs</span>
                               </div>
-                              <button className="btn salmon">{props.tierCtaText}</button>
+                              <button onClick={() => selectBox(product)} className="btn salmon">{props.tierCtaText}</button>
                             </div>
                             <div className={classes['choose-your-box__tier-details-footer']}>
                               <button className="btn-link-underline">{props.tierDetailsText}</button>

@@ -1,3 +1,76 @@
+@import '../../../styles/mixins/_breakpoints.scss';
+@import '../../../styles/variables/_breakpoints.scss';
+@import '../../../styles/variables/_colors.scss';
+
 .harvest {
+    // background-image: url('./lures.png');
+    // background-repeat: no-repeat;
+    // background-position: top right;
+    background-color: $fawn50-2;
+    padding: 72px 0;
+
+    // harvest--gutters
+    &--gutters {
+        padding: 0 28px;
+    }
+
+    // harvest__header
+    &__header {
+        h1 {
+            margin-bottom: 12px;
+        }
+
+        h3 {
+            margin-bottom: 24px;
+        }
+    }
+
+    // harvest__tabs-swiper
+    &__tabs-swiper {
+        margin-left: 28px;
+        margin-bottom: 25px;
+        border-bottom: 1px solid $black20;
+
+        .harvest__tab {
+            min-height: 37px;
+            display: flex;
+            align-items: center; 
+            color: $sitkablue;
+            width: auto;
+
+            @include breakpoint-up('sm') {
+                min-height: 61px;
+                width: initial;
+                justify-content: center;
+            }
+
+            button {
+                text-align: left;
+                border: none;
+                background: none;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    border-bottom: 3px solid transparent;
+                    width: 100%;
+                    left: 0;
+                    bottom: 0px;
     
+                    @include breakpoint-up('sm') {
+                        bottom: -20px;
+                    }
+                }
+
+                &.active {
+                    position: relative;
+                    color: $salmon;
+    
+                    &::after {
+                        border-bottom: 3px solid $salmon;
+                    }
+                }
+            }
+        }
+    }
 }

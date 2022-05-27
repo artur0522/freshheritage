@@ -6,16 +6,9 @@ import classes from './HarvestCard.module.scss'
 
 const HarvestCard = ({ fish }) => {
   const [tabInfo, setTabInfo] = useState(fish['species'])
-  let richContent
 
   const findTabInfo = (category) => {
     setTabInfo(fish[category])
-  }
-
-  if(tabInfo === fish.species) {
-    richContent = <PortableText value={tabInfo.species.content} />
-  } else {
-    richContent = <PortableText value={tabInfo.content} />
   }
 
   return (
@@ -35,7 +28,7 @@ const HarvestCard = ({ fish }) => {
             <button onClick={() => findTabInfo('culinary')}>Culinary</button>
         </div>
         <div className={classes['harvest__card-content']}>
-            {richContent && richContent}
+            {tabInfo.content && <PortableText value={tabInfo.content} />}
         </div>
     </div>
   )

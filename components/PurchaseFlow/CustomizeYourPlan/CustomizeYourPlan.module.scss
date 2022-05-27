@@ -1,87 +1,22 @@
 @import '@/styles/_shared.scss';
 
+.customize-your-plan {
+  margin: 45px 0 60px;
+}
+
 .customize-your-plan__options {
   display: flex;
   max-width: 1110px;
   margin: 0 auto 140px;
+  justify-content: center;
 }
 
 .customize-your-plan__option-list {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -18px;
+  margin: 0;
   list-style: none;
-}
-
-.customize-your-plan__option {
-  display: flex;
-  width: 50%;
-  padding: 0 18px;
-}
-
-.customize-your-plan__option-container {
-  padding: 40px 48px;
-  background-color: $pureWhite;
-  border: 2px solid $fawn50-2;
-  border-radius: 12px;
-  position: relative;
-}
-
-.customize-your-plan__option-promo-flag {
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 156px;
-  height: 25px;
-  position: absolute;
-  top: -12.5px;
-  left: calc(50% - 78px);
-  background-color: $fawn50-2;
-  color: $sitkablue;
-  border-radius: 48px;
-}
-
-.customize-your-plan__option-title {
-  font-size: 24px;
   @include breakpoint-up('sm') {
-    font-size: 36px;
-    margin-bottom: 15px;
+    margin: 0 -18px;
   }
-}
-
-.customize-your-plan__option-price-wrap {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 40px;
-  span {
-    font-size: 12px;
-  }
-  span:first-child {
-    font-size: 18px;
-    margin-right: 10px;
-  }
-}
-
-.customize-your-plan__value-props {
-  list-style: none;
-  margin-top: 24px;
-  li {
-    font-size: 18px;
-    line-height: 150%;
-    margin: 0;
-    padding: 18px 0;
-    border-bottom: 1px solid $fawn50-2;
-    &:first-child {
-      padding-top: 0;
-    }
-    &:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-  }
-}
-
-.customize-your-plan__option-savings-text {
-  color: $salmon;
 }

@@ -14,7 +14,8 @@ const HarvestCard = ({ fish }) => {
     setTabInfo(fish[category])
   }
 
-  console.log("tabInfo", tabInfo);
+  console.log("fish", fish)
+  console.log("tabInfo", tabInfo)
 
   return (
     <div className={classes['harvest__card']}>
@@ -28,23 +29,19 @@ const HarvestCard = ({ fish }) => {
         </div>
         <div className={classes['harvest__card-tabs']}>
           <Swiper
-                loop={true}
                 slidesPerView={"auto"}
-                spaceBetween={20}
+                spaceBetween={18}
                 className={classes['harvest__card-tabs']}
             >
-              <SwiperSlide className={classes['harvest__card-tab']}> 
-                <button className="heading--tab" onClick={() => findTabInfo('species')}>Species</button>
-              </SwiperSlide>
-              <SwiperSlide className={classes['harvest__card-tab']}>
-                <button className="heading--tab" onClick={() => findTabInfo('locations')}>Location</button>
-              </SwiperSlide>
-              <SwiperSlide className={classes['harvest__card-tab']}>
-                <button className="heading--tab" onClick={() => findTabInfo('fishermen')}>Caught By</button>
-              </SwiperSlide>
-              <SwiperSlide className={classes['harvest__card-tab']}>
-                <button className="heading--tab" onClick={() => findTabInfo('culinary')}>Culinary</button>
-              </SwiperSlide>
+              {Object.keys(fish).filter((key) => key === "species" || key === "locations" || key === "fishermen" || key === "culinary").map((fishCategory) => {
+                return (
+                  <SwiperSlide className={`${tabInfo._type ===  fishCategory ? classes['active'] : ""} ${classes['harvest__card-tab']}`}> 
+                    <button className="heading--tab" onClick={() => findTabInfo(fishCategory.toString())}>
+                      {fishCategory}
+                    </button>
+                  </SwiperSlide>
+                )
+              })}
             </Swiper>
         </div>
         <div className={classes['harvest__card-content']}>

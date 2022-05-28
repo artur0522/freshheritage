@@ -8,7 +8,7 @@ import HarvestCard from "../HarvestCard"
 
 
 const Harvest = ({ fields }) => {
-  const { header, description, harvestList } = fields
+  const { header, description, harvestList, illustration } = fields
   const [activeHarvestList, setActiveHarvestList] = useState(harvestList[0].months)
   const [activeTab, setActiveTab] = useState(harvestList[0])
 
@@ -19,14 +19,13 @@ const Harvest = ({ fields }) => {
   }
 
   return (
-    <div className={`${classes['harvest']}`}>
+    <div className={`${classes['harvest']}`} style={{backgroundImage: `url(${illustration.asset.url})`, backgroundRepeat: 'noRepeat'}}>
         <div className={`${classes['harvest__content']}`}>
             <div className={`${classes['harvest__header']} ${classes['harvest--gutters']}`}>
                 {header && <h1>{header}</h1>}
                 {description && <h3>{description}</h3>}
             </div>
             <Swiper
-                loop={true}
                 slidesPerView={"auto"}
                 spaceBetween={20}
                 className={classes['harvest__tabs-swiper']}

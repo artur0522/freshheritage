@@ -28,7 +28,7 @@
     }
 
     &-tab {
-        min-height: 37px;
+        min-height: 29px;
         display: flex;
         align-items: center; 
         color: $sitkablue;
@@ -40,41 +40,40 @@
             justify-content: center;
         }
 
+        &::after {
+            content: '';
+            position: absolute;
+            border-bottom: 3px solid transparent;
+            border-radius: 3px;
+            width: 100%;
+            left: 0;
+            bottom: 0px;
+
+            @include breakpoint-up('sm') {
+                bottom: -20px;
+            }
+        }
+
+        &.active {
+            position: relative;
+            color: $salmon;
+
+            &::after {
+                border-bottom: 3px solid $salmon;
+            }
+        }
+
         button {
             text-align: left;
             border: none;
             background: none;
             padding: 0;
             color: $sitkablue;
-
-            &::after {
-                content: '';
-                position: absolute;
-                border-bottom: 3px solid transparent;
-                border-radius: 3px;
-                width: 100%;
-                left: 0;
-                bottom: 0px;
-
-                @include breakpoint-up('sm') {
-                    bottom: -20px;
-                }
-            }
-
-            &.active {
-                position: relative;
-                color: $salmon;
-
-                &::after {
-                    border-bottom: 3px solid $salmon;
-                }
-            }
+            text-transform: capitalize;
         }
     }
 
     &-content {
-        padding: 0 12px;
-        
         h4 {
             margin-bottom: 12px;
         }

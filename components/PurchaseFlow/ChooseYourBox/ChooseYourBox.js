@@ -7,10 +7,12 @@ import classes from './ChooseYourBox.module.scss'
 import ContentSections from '@/components/ContentSections'
 import PurchaseFlowHeader from '../PurchaseFlowHeader'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
+import { usePDPDrawerContext } from '@/context/PDPDrawerContext'
 
 const ChooseYourBox = ({props}) => {
 
   const purchaseFlowContext = usePurchaseFlowContext()
+  const PDPDrawerContext = usePDPDrawerContext()
 
   useEffect(() => {
     async function getTierOptions() {
@@ -24,15 +26,6 @@ const ChooseYourBox = ({props}) => {
     }
   }, [])
 
-  const selectBox = (product) => {
-    purchaseFlowContext.setOptions({
-      ...purchaseFlowContext.options,
-      product,
-      productHandle: product.content.handle,
-      step: 2
-    })
-  }
-
   return (
     <>
       <div className={classes['choose-your-box']}>
@@ -40,10 +33,10 @@ const ChooseYourBox = ({props}) => {
           <PurchaseFlowHeader props={props} />
           <div className={classes['choose-your-box__tiers']}>
             <ul className={classes['choose-your-box__tier-list']}>
-              {purchaseFlowContext.tierOptions.length && props.tiers?.length && props.tiers.map(item => {
+              {!!purchaseFlowContext.tierOptions.length && !!props.tiers?.length && props.tiers.map(item => {
                 const isPopular = item.markAsMostPopular
                 const product = purchaseFlowContext.tierOptions.find(product => product.content.handle === item.product)
-                const variant = product.variants[0]
+                const firstVariant = product.variants[0]
                 return <li className={`${classes['choose-your-box__tier']}  ${isPopular ? classes['is-popular'] : ''} `} key={item._key}>
                           <div className={classes['choose-your-box__tier-container']}>
                             <div className={classes['choose-your-box__tier-image']}>
@@ -52,13 +45,21 @@ const ChooseYourBox = ({props}) => {
                             <div className={classes['choose-your-box__tier-details']}>
                               <h2 className={`${classes['choose_your-box__tier-title']} h1`}>{product.content.title.replace('Subscription', '')}</h2>
                               <div className={`${classes['choose-your-box__tier-price-pounds']} secondary--body`}>
-                                <span>${variant.price} / box</span>
-                                <span>{variant.weight} lbs</span>
+                                <span>${firstVariant.price} / box</span>
+                                <span>{firstVariant.weight} lbs</span>
                               </div>
-                              <button onClick={() => selectBox(product)} className="btn salmon">{props.tierCtaText}</button>
+                              <button
+                                onClick={() => purchaseFlowContext.selectBox(product)}
+                                className="btn salmon">
+                                  {props.tierCtaText}
+                              </button>
                             </div>
                             <div className={classes['choose-your-box__tier-details-footer']}>
-                              <button className="btn-link-underline">{props.tierDetailsText}</button>
+                              <button
+                                onClick={() => PDPDrawerContext.openDrawer(product)}
+                                className="btn-link-underline">
+                                  {props.tierDetailsText}
+                              </button>
                             </div>
                           </div>
                       </li>

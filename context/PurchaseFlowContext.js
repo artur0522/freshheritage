@@ -20,6 +20,15 @@ export function PurchaseFlowProvider({ children }) {
     is_loaded: false
   })
 
+  const selectBox = (product) => {
+    setOptions({
+      ...options,
+      product,
+      productHandle: product.content.handle,
+      step: 2
+    })
+  }
+
   useEffect(() => {
     async function updateOptions() {
       let purchaseFlowData = Cookies.get('purchaseFlowData')
@@ -45,7 +54,7 @@ export function PurchaseFlowProvider({ children }) {
   }, [options])
 
   return (
-    <PurchaseFlowContext.Provider value={{options, setOptions, tierOptions, setTierOptions}}>
+    <PurchaseFlowContext.Provider value={{options, setOptions, tierOptions, setTierOptions, selectBox}}>
       {children}
     </PurchaseFlowContext.Provider>
   )

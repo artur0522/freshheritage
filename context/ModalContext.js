@@ -16,7 +16,7 @@ export function ModalProvider({ children }) {
   useEffect(() => {
     if (isOpen) document.querySelector('html').classList.add('disable-scroll')
     if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
-  }, [isOpen]);
+  }, [isOpen])
 
   return (
     <ModalContext.Provider value={{isOpen, setIsOpen, content, setContent, modalType, setModalType}}>

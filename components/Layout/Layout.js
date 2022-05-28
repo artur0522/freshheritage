@@ -2,6 +2,7 @@ import { useCart, useCheckout } from '@nacelle/react-hooks'
 import { useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
 import { ModalProvider } from '@/context/ModalContext'
+import { PDPDrawerProvider } from '@/context/PDPDrawerContext'
 import { CustomerProvider } from '@/context/CustomerContext'
 import { PurchaseFlowProvider } from '@/context/PurchaseFlowContext'
 
@@ -42,11 +43,13 @@ function Layout({ children }) {
   return (
     <PurchaseFlowProvider>
       <CustomerProvider>
-        <ModalProvider>
-          <Header content={headerSettings} pageHandle={children.props.handle} />
-          <main>{children}</main>
-          <Footer content={footerSettings} />
-        </ModalProvider>
+        <PDPDrawerProvider>
+          <ModalProvider>
+            <Header content={headerSettings} pageHandle={children.props.handle} />
+            <main>{children}</main>
+            <Footer content={footerSettings} />
+          </ModalProvider>
+        </PDPDrawerProvider>
       </CustomerProvider>
     </PurchaseFlowProvider>
   )

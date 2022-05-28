@@ -1,50 +1,33 @@
 import {useEffect, useState, useRef} from 'react'
-import { nacelleClient } from 'services'
 import { CSSTransition } from 'react-transition-group'
 import classes from './PDPDrawer.module.scss'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import { usePDPDrawerContext } from '@/context/PDPDrawerContext'
 
-const PDPDrawer = ({product}) => {
-
+const PDPDrawer = ({box = undefined}) => {
   const purchaseFlowContext = usePurchaseFlowContext()
   const PDPDrawerContext = usePDPDrawerContext()
-  const { content } = product
-  const firstVariant = product.variants[0]
 
-  const [drawerContent, setDrawerContent] = useState(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const nodeRef = useRef(null)
-  const timeout = 250
+  const timeout = 200
+
+  const product = box ? box.product : {}
+  const boxDetails = box ? box.boxDetails : {}
+  const firstVariant = product?.variants ? product.variants[0] : {}
 
   const closeDrawer = () => {
     setDrawerOpen(false)
     setTimeout(() => {
-      PDPDrawerContext.setIsOpen(false)
-    }, timeout)
-  }
-
-  const openDrawer = (productData) => {
-    setDrawerContent(productData)
-    setTimeout(() => {
-      setDrawerOpen(true)
+      PDPDrawerContext.dispatch({ type: 'close_drawer' })
     }, timeout)
   }
 
   useEffect(() => {
-    async function getDrawerData() {
-      const type = product.content.handle === 'intro-box' ? 'introBoxDetailsDrawer' : 'subscriptionBoxDetailsDrawer'
-      const productData = await nacelleClient.content({
-        type: type
-      })
-      openDrawer(productData)
-    }
-    // only make api call if product data hasn't been requested and stored yet
-    if (PDPDrawerContext.productManager.hasOwnProperty(product.content.handle)) {
-      const productData = PDPDrawerContext.productManager[product.content.handle]
-      openDrawer(productData)
-    } else {
-      getDrawerData()
+    if (PDPDrawerContext.activeProductHandle) {
+      setTimeout(() => {
+        setDrawerOpen(true)
+      }, timeout)
     }
   }, [])
 
@@ -61,7 +44,7 @@ const PDPDrawer = ({product}) => {
             {/* add slider */}
             <div className={classes['product-details']}>
               <div className={classes['product-reviews']}></div>
-              <h1>{content.title}</h1>
+              <h1>{boxDetails.title}</h1>
               <div className={classes['product-price-pounds']}>
                 <span>${firstVariant.price} / box</span>
                 <span>{firstVariant.weight} lbs</span>

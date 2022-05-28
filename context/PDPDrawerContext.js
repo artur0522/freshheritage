@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState, useReducer, useEffect } from 'react'
+import { nacelleClient } from 'services'
 import PDPDrawer from '@/components/Layout/PDPDrawer'
 
 const PDPDrawerContext = createContext()
@@ -7,16 +8,62 @@ export function usePDPDrawerContext() {
   return useContext(PDPDrawerContext)
 }
 
+function boxReducer(state, action) {
+  switch (action.type) {
+    case 'open_drawer': {
+      return {
+        ...state,
+        isOpen: true,
+        activeProductHandle: action.payload
+      };
+    }
+    case 'close_drawer': {
+      return {
+        ...state,
+        isOpen: false,
+        activeProductHandle: null
+      };
+    }
+    case 'add_box_data': {
+      return {
+        ...state,
+        boxManager: action.payload
+      };
+    }
+    default:
+      return state;
+  }
+}
+
+const initialState = {
+  isOpen: false,
+  activeProductHandle: null,
+  boxManager: {}
+};
+
 export function PDPDrawerProvider({ children }) {
 
-  const [isOpen, setIsOpen] = useState(false)
-  const [product, setProduct] = useState(null)
-  const [productManager, setProductManager] = useState({})
+  const [state, dispatch] = useReducer(boxReducer, initialState)
+  const { isOpen, activeProductHandle, boxManager } = state
 
-  const openDrawer = (productData) => {
-    console.log("productData:", productData)
-    setProduct(productData)
-    setIsOpen(true)
+  const openDrawer = async (productData) => {
+    const productHandle = productData.content.handle
+    dispatch({ type: 'open_drawer', payload: productHandle})
+
+    if (!boxManager[productHandle]) {
+      const boxDetails = await nacelleClient.content({
+        handles: [productHandle],
+        type: 'boxDetails'
+      })
+      const updatedBoxManager = {
+        ...boxManager,
+        [productHandle]: {
+          product: productData,
+          boxDetails: boxDetails[0],
+        }
+      }
+      dispatch({ type: 'add_box_data', payload: updatedBoxManager })
+    }
   }
 
   useEffect(() => {
@@ -24,20 +71,10 @@ export function PDPDrawerProvider({ children }) {
     if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
   }, [isOpen])
 
-  useEffect(() => {
-    if (product && !productManager[product?.content?.handle]) {
-      setProductManager({
-        ...productManager,
-        [product.content.handle]: product
-      })
-    }
-  }, [product])
-
-
   return (
-    <PDPDrawerContext.Provider value={{setIsOpen, setProduct, openDrawer, productManager}}>
+    <PDPDrawerContext.Provider value={{isOpen, openDrawer, boxManager, activeProductHandle, dispatch}}>
       {isOpen &&
-        <PDPDrawer product={product} />
+        <PDPDrawer box={boxManager[activeProductHandle]} />
       }
       {children}
     </PDPDrawerContext.Provider>

@@ -1,0 +1,168 @@
+@import '../../../styles/mixins/_breakpoints.scss';
+@import '../../../styles/variables/_breakpoints.scss';
+@import '../../../styles/variables/_colors.scss';
+
+.harvest {
+    background-color: $alabaster2;
+    padding: 72px 0;
+    position: relative;
+    z-index: 1;
+
+    @include breakpoint-up('lg') {
+        padding: 192px 0 143px 0;
+    }
+
+    // harvest--gutters
+    &--gutters {
+        padding: 0 28px;
+    }
+
+    // harvest__illustration
+    &__illustration {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        &-img {
+            position: relative;
+            width: 207px;
+            height: 155px;
+            z-index: -1;
+
+            @include breakpoint-up('lg') {
+                width: 587px;
+                height: 384px;
+            }
+        }
+    }
+
+    // harvest__content
+    &__content {
+        .harvest__header {
+            h1 {
+                margin-bottom: 12px;
+
+                @include breakpoint-up('sm') {
+                    margin-bottom: 24px;
+                    max-width: 822px;
+                }
+            }
+    
+            h3 {
+                margin-bottom: 24px;
+
+                @include breakpoint-up('sm') {
+                    margin-bottom: 36px;
+                    max-width: 822px;
+                }
+            }
+        }
+    }
+
+    // harvest__tabs-swiper
+    &__tabs-swiper {
+        margin-left: 28px;
+        margin-bottom: 25px;
+        position: relative;
+
+        @include breakpoint-up('sm') {
+            margin-left: 50px;
+            margin-bottom: 59px;
+        }
+        @include breakpoint-up('md') {
+            margin-left: 60px;
+        }
+        @include breakpoint-up('lg') {
+            margin-left: 85px;
+        }
+        @include breakpoint-up('xl') {
+            width: calc(100% - 120px);
+            max-width: 1680px;
+            margin: 0 auto 25px auto;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            border-bottom: 1px solid $black20;
+            border-radius: 3px;
+            width: 100%;
+            left: 0;
+            bottom: 1px;
+        }
+
+        .harvest__tab {
+            min-height: 37px;
+            display: flex;
+            align-items: center; 
+            color: $sitkablue;
+            width: auto;
+
+            @include breakpoint-up('sm') {
+                min-height: 61px;
+                width: initial;
+                justify-content: center;
+            }
+
+            button {
+                text-align: left;
+                border: none;
+                background: none;
+                padding: 0;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    border-bottom: 3px solid transparent;
+                    border-radius: 3px;
+                    width: 100%;
+                    left: 0;
+                    bottom: 0px;
+                }
+
+                &.active {
+                    position: relative;
+                    color: $salmon;
+    
+                    &::after {
+                        border-bottom: 3px solid $salmon;
+                    }
+                }
+            }
+        }
+    }
+
+    .harvest__card:not(:first-child) {
+        margin-top: 24px;
+
+        @include breakpoint-up('sm') {
+            margin-top: 0;
+        }
+    }
+
+    // harvest__list
+    &__list {
+        margin-bottom: 25px;
+
+        h4 {
+            margin-bottom: 18px;
+        }
+    }
+
+    // harvest__fish-list
+    &__fish-list {
+        @include breakpoint-up('sm') {
+           display: flex;
+           justify-content: space-between;
+           flex-wrap: wrap;
+        }
+    }
+
+    // harvest__card
+    &__card {
+        width: 100%;
+        @include breakpoint-up('sm') {
+            width: 49%;
+        }
+    }
+}

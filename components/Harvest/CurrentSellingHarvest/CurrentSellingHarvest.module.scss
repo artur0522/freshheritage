@@ -5,20 +5,57 @@
 .harvest {
     background-color: $alabaster2;
     padding: 72px 0;
+    position: relative;
+    z-index: 1;
+
+    @include breakpoint-up('lg') {
+        padding: 192px 0 143px 0;
+    }
 
     // harvest--gutters
     &--gutters {
         padding: 0 28px;
     }
 
-    // harvest__header
-    &__header {
-        h1 {
-            margin-bottom: 12px;
-        }
+    // harvest__illustration
+    &__illustration {
+        position: absolute;
+        top: 0;
+        right: 0;
 
-        h3 {
-            margin-bottom: 24px;
+        &-img {
+            position: relative;
+            width: 207px;
+            height: 155px;
+            z-index: -1;
+
+            @include breakpoint-up('lg') {
+                width: 587px;
+                height: 384px;
+            }
+        }
+    }
+
+    // harvest__content
+    &__content {
+        .harvest__header {
+            h1 {
+                margin-bottom: 12px;
+
+                @include breakpoint-up('sm') {
+                    margin-bottom: 24px;
+                    max-width: 822px;
+                }
+            }
+    
+            h3 {
+                margin-bottom: 24px;
+
+                @include breakpoint-up('sm') {
+                    margin-bottom: 36px;
+                    max-width: 822px;
+                }
+            }
         }
     }
 
@@ -27,6 +64,22 @@
         margin-left: 28px;
         margin-bottom: 25px;
         position: relative;
+
+        @include breakpoint-up('sm') {
+            margin-left: 50px;
+            margin-bottom: 48px;
+        }
+        @include breakpoint-up('md') {
+            margin-left: 60px;
+        }
+        @include breakpoint-up('lg') {
+            margin-left: 85px;
+        }
+        @include breakpoint-up('xl') {
+            width: calc(100% - 120px);
+            max-width: 1680px;
+            margin: 0 auto 25px auto;
+        }
 
         &::after {
             content: '';
@@ -65,10 +118,6 @@
                     width: 100%;
                     left: 0;
                     bottom: 0px;
-    
-                    @include breakpoint-up('sm') {
-                        bottom: -20px;
-                    }
                 }
 
                 &.active {
@@ -85,5 +134,26 @@
 
     .harvest__card:not(:first-child) {
         margin-top: 24px;
+
+        @include breakpoint-up('sm') {
+            margin-top: 0;
+        }
+    }
+
+    // harvest__fish-list
+    &__fish-list {
+        @include breakpoint-up('sm') {
+           display: flex;
+           justify-content: space-between;
+           flex-wrap: wrap;
+        }
+    }
+
+    // harvest__card
+    &__card {
+        width: 100%;
+        @include breakpoint-up('sm') {
+            width: 49%;
+        }
     }
 }

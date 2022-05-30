@@ -3,10 +3,14 @@
 @import '../../../styles/variables/_colors.scss';
 
 .harvest__card {
-    padding: 11px 12px 45px 12px;
+    padding: 12px 45px;
     background-color: #fff;
     border: 1px solid $fawn50-2;
     border-radius: 12px;
+
+    @include breakpoint-up('sm') {
+        padding: 36px 36px 72px 36px;
+    }
     
     &-img {
         margin-bottom: 24px;
@@ -15,6 +19,10 @@
     &-tabs {
         position: relative;
         margin-bottom: 17px;
+
+        @include breakpoint-up('sm') {
+            margin-bottom: 42px;
+        }
 
         &::after {
             content: '';
@@ -48,10 +56,6 @@
             width: 100%;
             left: 0;
             bottom: 0px;
-
-            @include breakpoint-up('sm') {
-                bottom: -20px;
-            }
         }
 
         &.active {
@@ -76,13 +80,18 @@
     &-content {
         h4 {
             margin-bottom: 12px;
+
+            @include breakpoint-up('sm') {
+                margin-bottom: 24px;
+            }
         }
 
         li {
             font-weight: 400;
             font-size: fontsize(14px);
             line-height: 150%;
-            
+            margin-top: 12px;
+        
             @include breakpoint-up('lg') {
                 font-size: 16px;
             }

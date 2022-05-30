@@ -7,18 +7,15 @@ import "swiper/css"
 
 import classes from './HarvestCard.module.scss'
 
-const HarvestCard = ({ fish }) => {
+const HarvestCard = ({ fish, cardStyle }) => {
   const [tabInfo, setTabInfo] = useState(fish['species'])
 
   const findTabInfo = (category) => {
     setTabInfo(fish[category])
   }
 
-  console.log("fish", fish)
-  console.log("tabInfo", tabInfo)
-
   return (
-    <div className={classes['harvest__card']}>
+    <div className={`${cardStyle ===  'flex' ? 'flex' : ""} ${classes['harvest__card']}`}>
         <div className={classes['harvest__card-img']}>
             <Image
                 src={tabInfo.image.asset.url}
@@ -27,26 +24,33 @@ const HarvestCard = ({ fish }) => {
                 height={572}
             />
         </div>
-        <div className={classes['harvest__card-tabs']}>
-          <Swiper
-                slidesPerView={"auto"}
-                spaceBetween={18}
-                className={classes['harvest__card-tabs']}
-            >
-              {Object.keys(fish).filter((key) => key === "species" || key === "locations" || key === "fishermen" || key === "culinary").map((fishCategory) => {
-                return (
-                  <SwiperSlide className={`${tabInfo._type ===  fishCategory ? classes['active'] : ""} ${classes['harvest__card-tab']}`}> 
-                    <button className="heading--tab" onClick={() => findTabInfo(fishCategory.toString())}>
-                      {fishCategory}
-                    </button>
-                  </SwiperSlide>
-                )
-              })}
-            </Swiper>
-        </div>
-        <div className={classes['harvest__card-content']}>
-            {tabInfo.header && <h4>{tabInfo.header}</h4>}
-            {tabInfo.content && <PortableText value={tabInfo.content} />}
+        <div className={classes['harvest__card-inner']}>
+          <div className={classes['harvest__card-tabs']}>
+            <Swiper
+                  slidesPerView={"auto"}
+                  spaceBetween={18}
+                  breakpoints={{
+                    1024: {
+                      spaceBetween: 60
+                    }
+                }}
+                  className={classes['harvest__card-tabs']}
+              >
+                {Object.keys(fish).filter((key) => key === "species" || key === "locations" || key === "fishermen" || key === "culinary").map((fishCategory) => {
+                  return (
+                    <SwiperSlide className={`${tabInfo._type ===  fishCategory ? classes['active'] : ""} ${classes['harvest__card-tab']}`}> 
+                      <button className="heading--tab" onClick={() => findTabInfo(fishCategory.toString())}>
+                        {fishCategory}
+                      </button>
+                    </SwiperSlide>
+                  )
+                })}
+              </Swiper>
+          </div>
+          <div className={classes['harvest__card-content']}>
+              {tabInfo.header && <h4>{tabInfo.header}</h4>}
+              {tabInfo.content && <PortableText value={tabInfo.content} />}
+          </div>
         </div>
     </div>
   )

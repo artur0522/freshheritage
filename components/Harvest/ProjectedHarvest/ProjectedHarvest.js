@@ -10,6 +10,8 @@ import HarvestCard from "../HarvestCard"
 const ProjectedHarvest = ({ fields }) => {
   // SANITY FIELDS
   const { title, harvestList } = fields
+
+  // TABS BY MONTH
   const months = []
   harvestList.forEach((harvest) => {
     harvest.months.forEach((month) => {

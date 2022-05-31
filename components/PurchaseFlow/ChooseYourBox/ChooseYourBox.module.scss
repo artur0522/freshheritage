@@ -95,8 +95,6 @@
   }
   .choose-your-box__tier-image {
     display: none;
-    position: relative;
-    padding-bottom: 75%;
     @include breakpoint-up('sm') {
       display: block;
     }

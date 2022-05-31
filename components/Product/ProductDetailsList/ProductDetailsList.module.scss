@@ -1,6 +1,6 @@
 @import '@/styles/_shared.scss';
 
-.faq {
+.product-details {
   margin: 60px 0;
   position: relative;
   @include breakpoint-up('md') {
@@ -9,8 +9,10 @@
   @include breakpoint-up('lg') {
     margin: 140px 0;
   }
-  &.pdp-drawer__faq {
-    margin: 80px 0;
+  &.pdp-drawer__product-details {
+    @include breakpoint-up('md') {
+      margin: 60px 0;
+    }
     .faq__container {
       width: 100%;
       @include breakpoint-up('lg') {
@@ -32,37 +34,18 @@
   }
 }
 
-
-.faq__image {
-  position: absolute;
-  width: 570px;
-  padding-bottom: 50%;
-  top: 0;
-  left: 0;
-}
-
-.faq__container {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  @include breakpoint-up('lg') {
-    flex-direction: row;
-    flex-wrap: nowrap;
-  }
-}
-
-.faq__header {
-  flex: 1;
-}
-
-.faq__content {
-  width: 100%;
-  @include breakpoint-up('lg') {
-    max-width: 1100px;
-    padding-left: 40px;
-  }
-}
-
-.faq__items {
+.product-details__items {
   list-style: none;
+}
+
+.product-details__item {
+  border-bottom: 1px solid $black20;
+  padding: 20px 0;
+  @include breakpoint-up('md') {
+    padding: 25px 0;
+  }
+  &:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
 }

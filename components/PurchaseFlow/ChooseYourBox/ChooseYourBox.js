@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import Image from 'next/image'
+import ResponsiveImage from '@/components/ResponsiveImage'
 import { nacelleClient } from 'services'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
 import { PortableText } from '@portabletext/react'
@@ -8,6 +8,7 @@ import ContentSections from '@/components/ContentSections'
 import PurchaseFlowHeader from '../PurchaseFlowHeader'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import { usePDPDrawerContext } from '@/context/PDPDrawerContext'
+
 
 const ChooseYourBox = ({props}) => {
 
@@ -39,8 +40,8 @@ const ChooseYourBox = ({props}) => {
                 const firstVariant = product.variants[0]
                 return <li className={`${classes['choose-your-box__tier']}  ${isPopular ? classes['is-popular'] : ''} `} key={item._key}>
                           <div className={classes['choose-your-box__tier-container']}>
-                            <div className={classes['choose-your-box__tier-image']}>
-                              <Image src={product.content.media[0].src} layout="fill" objectFit="cover" alt={product.content.media[0].alt || product.content.title} />
+                            <div className={classes['choose-your-box__tier-image']} >
+                              <ResponsiveImage src={product.content.media[0].src}  alt={product.content.media[0].alt || product.content.title} />
                             </div>
                             <div className={classes['choose-your-box__tier-details']}>
                               <h2 className={`${classes['choose_your-box__tier-title']} h1`}>{product.content.title.replace('Subscription', '')}</h2>

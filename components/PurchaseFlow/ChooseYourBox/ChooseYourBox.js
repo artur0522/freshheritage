@@ -42,7 +42,10 @@ const ChooseYourBox = ({props}) => {
                 return <li className={`${classes['choose-your-box__tier']}  ${isPopular ? classes['is-popular'] : ''} `} key={item._key}>
                           <div className={classes['choose-your-box__tier-container']}>
                             <div className={classes['choose-your-box__tier-image']} >
-                              <ResponsiveImage src={product.content.media[0].src}  alt={product.content.media[0].alt || product.content.title} />
+                              <ResponsiveImage
+                                src={product.content.media[0].src}
+                                alt={product.content.media[0].alt || product.content.title}
+                                priority={true} />
                             </div>
                             <div className={classes['choose-your-box__tier-details']}>
                               <h2 className={`${classes['choose_your-box__tier-title']} h1`}>{product.content.title.replace('Subscription', '')}</h2>

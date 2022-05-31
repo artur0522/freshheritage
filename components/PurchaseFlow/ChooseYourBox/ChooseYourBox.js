@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { nacelleClient } from 'services'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
@@ -14,6 +14,7 @@ const ChooseYourBox = ({props}) => {
 
   const purchaseFlowContext = usePurchaseFlowContext()
   const PDPDrawerContext = usePDPDrawerContext()
+  const inputRef = useRef()
 
   useEffect(() => {
     async function getTierOptions() {
@@ -49,8 +50,14 @@ const ChooseYourBox = ({props}) => {
                                 <span>${firstVariant.price} / box</span>
                                 <span>{firstVariant.weight} lbs</span>
                               </div>
+                              {item.product === 'premium-seafood-subscription-box' &&
+                                <div className={classes['input-group']}>
+                                  <input id="shellfish_free" type="checkbox" ref={inputRef} />
+                                  <label htmlFor="shellfish_free">Shellfish Free</label>
+                                </div>
+                              }
                               <button
-                                onClick={() => purchaseFlowContext.selectBox(product)}
+                                onClick={() => purchaseFlowContext.selectBox(product, inputRef.current.checked)}
                                 className="btn salmon">
                                   {props.tierCtaText}
                               </button>

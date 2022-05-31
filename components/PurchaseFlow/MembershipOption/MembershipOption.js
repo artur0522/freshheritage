@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Expand from 'react-expand-animated'
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
@@ -37,16 +37,26 @@ const MembershipOption = ({option, membershipType}) => {
     height === 0 ? setHeight('auto') : setHeight(0)
   }
 
-  const onSelectVariant = ({value}) => {
-    console.log("value:", value)
-    // need hardcoded logic to find correct variant for premium seafood box if shellfish free is selected
-    const variant = variants.find(variant =>
-      variant.content.selectedOptions.some(option => option.value === value))
-
-    setSelectedVariant(variant)
-
-    console.log("variant:", variant)
+  const getVariant = (value) => {
+    return variants.find(variant => {
+      // hardcoded logic to find variant for premium seafood box if shellfish free is selected
+      if (purchaseFlowContext.options.productHandle === 'premium-seafood-subscription-box') {
+        const shellFishOptionValue = purchaseFlowContext.options.shellfish_free_selected ? 'shellfish' : 'no shellfish'
+        return variant.content.selectedOptions.filter(option => option.value === value || option.value === shellFishOptionValue).length >= 2
+      }
+      return variant.content.selectedOptions.some(option => option.value === value)
+    })
   }
+
+  const onSelectVariant = ({value}) => {
+    const variant = getVariant(value)
+    setSelectedVariant(variant)
+  }
+
+  useEffect(() => {
+    const variant = getVariant(frequencyOptions[0])
+    setSelectedVariant(variant)
+  }, [])
 
   return (
     <li className={classes['membership-option']}>

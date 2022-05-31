@@ -34,8 +34,6 @@ const PDPDrawer = ({box = undefined}) => {
     }
   }, [box])
 
-  console.log("drawerOpen:", drawerOpen)
-
   return (
     <div className={classes['pdp-flyout']}>
       <div onClick={() => closeDrawer()} className={classes['pdp-flyout__overlay']}></div>

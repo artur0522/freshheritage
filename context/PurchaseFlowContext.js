@@ -17,16 +17,20 @@ export function PurchaseFlowProvider({ children }) {
     productHandle: null,
     variantIdSelected: null,
     shellfish_free_selected: false, // only needed to select variant Id specifically for premium seafood subscription box (hardcoded logic)
-    membership_type: null, // could be regular or prepaid
+    membership_type: null, // values can either be regular or prepaid
     is_loaded: false
   })
 
-  const selectBox = (product) => {
+  const selectBox = (product, shellfish_free_selected = false) => {
+    if (product.content.handle !== 'premium-seafood-subscription-box') {
+      shellfish_free_selected = false
+    }
     setOptions({
       ...options,
       product,
       productHandle: product.content.handle,
-      step: 2
+      step: 2,
+      shellfish_free_selected
     })
   }
 

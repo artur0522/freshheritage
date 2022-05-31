@@ -9,9 +9,16 @@ import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import IconMinus from '@/svgs/minus.svg'
 import IconPlus from '@/svgs/plus.svg'
 
-const MembershipOption = ({option, selectedVariant, setSelectedVariant}) => {
-
+const MembershipOption = ({option, membershipType}) => {
   const purchaseFlowContext = usePurchaseFlowContext()
+
+  const [selectedVariant, setSelectedVariant] = useState(purchaseFlowContext.options.product.variants[0])
+
+  const { product } = purchaseFlowContext.options
+  const { variants } = product;
+  const membershipText = selectedVariant.metafields.find(metafield => metafield.key === `${membershipType}_membership_text`)
+  const frequencyOptions = product.content.options.find(option => option.name === 'frequency').values
+  const variantPrice = membershipType === 'prepaid' ? (selectedVariant.price * .97).toFixed(2) : selectedVariant.price
 
   const handleMediaQueryChange = (matches) => {
     if (matches) setHeight('auto')
@@ -30,6 +37,17 @@ const MembershipOption = ({option, selectedVariant, setSelectedVariant}) => {
     height === 0 ? setHeight('auto') : setHeight(0)
   }
 
+  const onSelectVariant = ({value}) => {
+    console.log("value:", value)
+    // need hardcoded logic to find correct variant for premium seafood box if shellfish free is selected
+    const variant = variants.find(variant =>
+      variant.content.selectedOptions.some(option => option.value === value))
+
+    setSelectedVariant(variant)
+
+    console.log("variant:", variant)
+  }
+
   return (
     <li className={classes['membership-option']}>
       <div className={classes['membership-option__container']}>
@@ -41,26 +59,29 @@ const MembershipOption = ({option, selectedVariant, setSelectedVariant}) => {
           {selectedVariant &&
             <div className={classes['membership-option__price-wrap']}>
               <div className={classes['membership-option__price']}>
-                <span>${selectedVariant.price}</span>
-                <span>Per Month / Billed Monthly</span>
-                {/* above needs to be pulled by variant metafield */}
+                <span>${variantPrice}</span>
+                <span>{membershipText.value}</span>
               </div>
               {option.savingsText &&
                 <div className={classes['membership-option__savings-text']}>{option.savingsText}</div>
               }
             </div>
           }
-          {purchaseFlowContext.options.product &&
+          {product &&
             <Dropdown
-              className="dropdown-selector"
-              options={purchaseFlowContext.options.product.variants.map(variant => variant.content.title)}
-              // onChange={this._onSelect}
-              value={purchaseFlowContext.options.product.variants[0].content.title}
+              className={`dropdown-selector`}
+              options={frequencyOptions.map(option => option)}
+              onChange={(e) => onSelectVariant(e)}
+              value={frequencyOptions[0]}
               arrowClosed={<IconSelectArrow className="dropdown-selector__arrow-closed" />}
               arrowOpen={<IconSelectArrow className="dropdown-selector__arrow-open" />}
             />
           }
-          <button className="btn salmon">{option.ctaText}</button>
+          <button
+            onClick={() => purchaseFlowContext.selectMembershipPlan(selectedVariant, membershipType)}
+            className="btn salmon">
+              {option.ctaText}
+          </button>
           {!isDesktop &&
             <button onClick={() => toggleExpand()} className={`${classes['membership-option__toggle-btn']} btn-link-underline`}>
               <span>{option.toggleValuePropsCtaText}</span>

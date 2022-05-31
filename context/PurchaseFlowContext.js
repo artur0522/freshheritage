@@ -16,7 +16,8 @@ export function PurchaseFlowProvider({ children }) {
     product: null,
     productHandle: null,
     variantIdSelected: null,
-    membership_type: null, // could be monthly or prepaid
+    shellfish_free_selected: false, // only needed to select variant Id specifically for premium seafood subscription box (hardcoded logic)
+    membership_type: null, // could be regular or prepaid
     is_loaded: false
   })
 
@@ -27,6 +28,16 @@ export function PurchaseFlowProvider({ children }) {
       productHandle: product.content.handle,
       step: 2
     })
+  }
+
+  const selectMembershipPlan = (variantSelected, membershipType) => {
+    // select membership plan based on options
+    setOptions({
+      ...options,
+      membership_type: membershipType,
+      variantIdSelected: variantSelected.sourceEntryId
+    })
+      // redirect to checkout - add in useeffect
   }
 
   useEffect(() => {
@@ -48,13 +59,14 @@ export function PurchaseFlowProvider({ children }) {
   }, [])
 
   useEffect(() => {
+    console.log("options useEffect:", options)
     const cookieReadyOptions = {...options}
     delete cookieReadyOptions.product
     Cookies.set('purchaseFlowData', JSON.stringify(cookieReadyOptions), { expires: 1, path: '/' })
   }, [options])
 
   return (
-    <PurchaseFlowContext.Provider value={{options, setOptions, tierOptions, setTierOptions, selectBox}}>
+    <PurchaseFlowContext.Provider value={{options, setOptions, tierOptions, setTierOptions, selectBox, selectMembershipPlan}}>
       {children}
     </PurchaseFlowContext.Provider>
   )

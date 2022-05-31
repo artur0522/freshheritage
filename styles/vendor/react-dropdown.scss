@@ -38,6 +38,8 @@
     }
   }
   .Dropdown-menu {
+    display: flex;
+    flex-direction: column;
     top: 0;
     border-radius: 12px;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
@@ -64,6 +66,7 @@
     &.is-selected {
       background: $sitkablue;
       color: $alabaster2;
+      order: -1;
     }
     &:hover:not(.is-selected) {
       background-color: $alabaster;

@@ -28,6 +28,7 @@
     position: relative;
     margin: 0 26px;
     padding: 1px 0 0 1px;
+    transition: 0.2s ease-in-out color, 0.2s ease-in-out background-color;
     @include breakpoint-up('sm') {
       font-size: 16px;
       width: 36px;
@@ -49,6 +50,10 @@
     }
     &:first-child:not(.is-active) {
       cursor: pointer;
+      &:hover {
+        background-color: $salmon;
+        color: $pureWhite;
+      }
     }
     &:last-child {
       &:before {

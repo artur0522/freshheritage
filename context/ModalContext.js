@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import Modal from '@/components/Layout/Modal';
+import Modal from '@/components/Layout/Modal'
+import Router from 'next/router'
 
 const ModalContext = createContext()
 
@@ -11,12 +12,19 @@ export function ModalProvider({ children }) {
 
   const [isOpen, setIsOpen] = useState(false)
   const [content, setContent] = useState('')
-  const [modalType, setModalType] = useState(null);
+  const [modalType, setModalType] = useState(null)
 
   useEffect(() => {
     if (isOpen) document.querySelector('html').classList.add('disable-scroll')
     if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
   }, [isOpen])
+
+  useEffect(() => {
+    const onRountChangeComplete = () => {
+      setIsOpen(false)
+    }
+    Router.events.on('routeChangeComplete', onRountChangeComplete)
+  }, [])
 
   return (
     <ModalContext.Provider value={{isOpen, setIsOpen, content, setContent, modalType, setModalType}}>

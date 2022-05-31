@@ -8,25 +8,33 @@ import classes from './ProjectedHarvest.module.scss'
 import HarvestCard from "../HarvestCard"
 
 const ProjectedHarvest = ({ fields }) => {
+  // SANITY FIELDS
   const { title, harvestList } = fields
   const months = []
   harvestList.forEach((harvest) => {
     harvest.months.forEach((month) => {
-        months.push(month.title)
+        months.push(month)
     })
   })
 
-  const [activeHarvestList, setActiveHarvestList] = useState(harvestList[0].months)
-  const [activeTab, setActiveTab] = useState(months[0])
+  const uniqueMonths = months.filter((value, index, self) =>
+    index === self.findIndex((t) => (
+        t.title === value.title && t.month === value.month
+    ))
+   )
 
-  console.log(fields)
+  // STATE
+  const [activeTab, setActiveTab] = useState(uniqueMonths[0])
   
-  const findFilteredFish = (harvestTitle) => {
-    const foundHarvest = harvestList.find((harvest) => harvest.title === harvestTitle)
-    setActiveHarvestList(foundHarvest.months)
-    setActiveTab(foundHarvest)
+  // METHODS
+  const findFilteredFish = (monthTitle) => {
+    let foundMonth = uniqueMonths.find((month) => {
+        return month.title === monthTitle
+    })
+    setActiveTab(foundMonth)
   }
 
+  // RENDER
   return (
     <div className={`${classes['harvest']}`}>
         <div className={classes['harvest__inner']}>
@@ -42,13 +50,13 @@ const ProjectedHarvest = ({ fields }) => {
                             spaceBetween: 60
                         }
                     }}
-                    className={classes['harvest__tabs-swiper']}
+                    className={`${classes['harvest__tabs-swiper']}`}
                 >
-                {months.map((month) => {
+                {uniqueMonths.map((month) => {
                     return (
-                        <SwiperSlide className={classes['harvest__tab']} key={month}>
-                            <button onClick={() => findFilteredFish(month)} className={`${classes['harvest__tab']} heading--tab ${activeTab.title ===  month ? classes['active'] : ""}`}>
-                                {month}
+                        <SwiperSlide className={classes['harvest__tab']} key={month._id}>
+                            <button onClick={() => findFilteredFish(month.title)} className={`${classes['harvest__tab']} heading--tab ${activeTab.title === month.title ? classes['active'] : ""}`}>
+                                {month.title}
                             </button>
                         </SwiperSlide>
                     )
@@ -59,12 +67,12 @@ const ProjectedHarvest = ({ fields }) => {
                     return (
                         <div className={`${classes['harvest__list']}`}>
                             <div className="container">
-                                <h4>{harvest.title}</h4>
+                                {harvest.title && <h4>{harvest.title}</h4>}
                                 <div className={`${classes['harvest__fish-list']}`}>
-                                    {harvest.months[0].fishArray.map((fish) => {
+                                    {harvest.months.filter(month => month.title === activeTab.title)[0]?.fishArray.map((fish) => {
                                         return(
-                                            <div className={classes['harvest__card']}>
-                                                <HarvestCard key={fish._key} fish={fish} cardStyle={'flex'} />
+                                            <div className={`${classes['harvest__card']} ${classes['projected-card']}`}>
+                                                <HarvestCard key={fish._key} fish={fish} cardStyle={'projected-card'} />
                                             </div>
                                         )
                                     })}

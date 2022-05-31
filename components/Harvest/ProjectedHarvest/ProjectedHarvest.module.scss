@@ -36,6 +36,10 @@
         }
     }
 
+    &__inner {
+        max-width: 894px;
+    }
+
     // harvest__content
     &__content {
         .harvest__header {
@@ -76,7 +80,7 @@
             margin-left: 85px;
         }
         @include breakpoint-up('xl') {
-            width: calc(100% - 120px);
+            width: calc(100% - 240px);
             max-width: 1680px;
             margin: 0 auto 25px auto;
         }
@@ -145,7 +149,8 @@
         margin-bottom: 25px;
 
         h4 {
-            margin-bottom: 18px;
+            margin: auto auto 18px auto;
+            max-width: 810px;
         }
     }
 
@@ -163,6 +168,12 @@
         width: 100%;
         @include breakpoint-up('sm') {
             width: 49%;
+        }
+
+        &.projected-card {
+            @include breakpoint-up('sm') {
+                width: 100%;
+            } 
         }
     }
 }

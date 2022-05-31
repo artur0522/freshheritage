@@ -15,20 +15,30 @@ const HarvestCard = ({ fish, cardStyle }) => {
   }
 
   return (
-    <div className={`${cardStyle ===  'flex' ? 'flex' : ""} ${classes['harvest__card']}`}>
-        <div className={classes['harvest__card-img']}>
-            <Image
-                src={tabInfo.image.asset.url}
-                alt={tabInfo.title}
-                width={858}
-                height={572}
-            />
-        </div>
+    <div className={`${classes['harvest__card']} ${cardStyle === 'projected-card' ? classes['projected-card'] : ""}`}>
+        {cardStyle === 'projected-card' ? 
+          <div className={classes['harvest__card-img']}>
+              <Image
+                  src={tabInfo.image.asset.url}
+                  alt={tabInfo.title}
+                  objectFit="cover"
+                  layout='fill'
+              />
+          </div> :
+          <div className={classes['harvest__card-img']}>
+              <Image
+                  src={tabInfo.image.asset.url}
+                  alt={tabInfo.title}
+                  width={858}
+                  height={572}
+              />
+          </div>
+        }   
         <div className={classes['harvest__card-inner']}>
           <div className={classes['harvest__card-tabs']}>
             <Swiper
                   slidesPerView={"auto"}
-                  spaceBetween={18}
+                  spaceBetween={36}
                   breakpoints={{
                     1024: {
                       spaceBetween: 60

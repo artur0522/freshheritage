@@ -21,7 +21,7 @@ const ProjectedHarvest = ({ fields }) => {
 
   const uniqueMonths = months.filter((value, index, self) =>
     index === self.findIndex((t) => (
-        t.title === value.title && t.month === value.month
+       t.month === value.month
     ))
    )
 
@@ -29,9 +29,9 @@ const ProjectedHarvest = ({ fields }) => {
   const [activeTab, setActiveTab] = useState(uniqueMonths[0])
   
   // METHODS
-  const findFilteredFish = (monthTitle) => {
+  const findFilteredFish = (harvestMonth) => {
     let foundMonth = uniqueMonths.find((month) => {
-        return month.title === monthTitle
+        return month.month === harvestMonth
     })
     setActiveTab(foundMonth)
   }
@@ -57,8 +57,8 @@ const ProjectedHarvest = ({ fields }) => {
                 {uniqueMonths.map((month) => {
                     return (
                         <SwiperSlide className={classes['harvest__tab']} key={month._id}>
-                            <button onClick={() => findFilteredFish(month.title)} className={`${classes['harvest__tab']} heading--tab ${activeTab.title === month.title ? classes['active'] : ""}`}>
-                                {month.title}
+                            <button onClick={() => findFilteredFish(month.month)} className={`${classes['harvest__tab']} heading--tab ${activeTab.month === month.month ? classes['active'] : ""}`}>
+                                {month.month} {month.year}
                             </button>
                         </SwiperSlide>
                     )
@@ -69,9 +69,9 @@ const ProjectedHarvest = ({ fields }) => {
                     return (
                         <div className={`${classes['harvest__list']}`}>
                             <div className="container">
-                                {harvest.title && <h4>{harvest.title}</h4>}
+                                {harvest.title && <h4 className={classes['harvest__list-title']}>{harvest.title}</h4>}
                                 <div className={`${classes['harvest__fish-list']}`}>
-                                    {harvest.months.filter(month => month.title === activeTab.title)[0]?.fishArray.map((fish) => {
+                                    {harvest.months.filter(month => month.month === activeTab.month)[0]?.fishArray.map((fish) => {
                                         return(
                                             <div className={`${classes['harvest__card']} ${classes['projected-card']}`}>
                                                 <HarvestCard key={fish._key} fish={fish} cardStyle={'projected-card'} />

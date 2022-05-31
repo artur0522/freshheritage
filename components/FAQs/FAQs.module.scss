@@ -35,13 +35,13 @@
 
 .faq__image {
   position: absolute;
-  top: -7.5%;
+  top: -40px;
   right: 0;
   bottom: 0;
   width: 154px;
   z-index: -1;
   @include breakpoint-up('lg') {
-    top: 15%;
+    top: 100px;
     right: auto;
     left: 0;
     width: 366px;

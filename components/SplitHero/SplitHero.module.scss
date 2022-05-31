@@ -112,7 +112,7 @@
           svg {
             width: 17px;
             @include breakpoint-up('sm') {
-              width: 27
+              width: 27px;
             }
           }
         }

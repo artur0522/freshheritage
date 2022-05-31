@@ -10,6 +10,7 @@
   text-decoration: none;
   width: 100%;
   display: block;
+  transition: 0.2s ease-in-out background;
 
   &:disabled {
     background: linear-gradient(
@@ -156,9 +157,13 @@
 
 a {
   transition: 0.2s ease-in-out color;
-  &:hover {
+  &:not(.btn):hover {
     color: $salmon;
     text-decoration: underline;
+  }
+  &.btn {
+    display: flex;
+    justify-content: center;
   }
 }
 
@@ -170,6 +175,10 @@ a {
   padding: 0;
   border: none;
   box-shadow: none;
+  transition: 0.2s ease-in-out color;
+  &:hover {
+    color: $salmon;
+  }
 }
 
 .u-error {

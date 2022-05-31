@@ -1,14 +1,30 @@
-import Image from 'next/image'
+
 import FAQItem from './FAQItem'
 import classes from './FAQs.module.scss'
+import ResponsiveImage from '../ResponsiveImage'
+import { useMediaQuery } from 'react-responsive'
 
 const FAQs = ({ fields, parentClasses }) => {
+
+  const isDesktop = useMediaQuery(
+    { minWidth: 1440 }
+  )
+
   return (
     <div className={`${classes['faq']} ${classes[parentClasses]} `}>
-      {!!fields.illustration &&
-        <div className={classes['faq__image']}>
-          <Image src={fields.illustration.asset.url} layout="fill" objectFit="contain" alt={fields.illustration.asset.alt || 'FAQ Image'} />
-        </div>
+      {!!fields.desktopIllustration && !!fields.mobileIllustration &&
+        <>
+         {isDesktop &&
+          <div className={classes['faq__image']}>
+            <ResponsiveImage src={fields.desktopIllustration.asset.url} alt={fields.desktopIllustration.asset.alt || 'FAQ Image'} />
+          </div>
+         }
+         {!isDesktop &&
+          <div className={classes['faq__image']}>
+            <ResponsiveImage src={fields.mobileIllustration.asset.url} alt={fields.mobileIllustration.asset.alt || 'FAQ Image'} />
+          </div>
+         }
+        </>
       }
       <div className={`${classes['faq__container']} container`}>
         <div className={classes['faq__header']}>

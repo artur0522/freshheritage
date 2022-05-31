@@ -35,10 +35,20 @@
 
 .faq__image {
   position: absolute;
-  width: 570px;
-  padding-bottom: 50%;
-  top: 0;
-  left: 0;
+  top: -7.5%;
+  right: 0;
+  bottom: 0;
+  width: 154px;
+  z-index: -1;
+  @include breakpoint-up('lg') {
+    top: 15%;
+    right: auto;
+    left: 0;
+    width: 366px;
+  }
+  @include breakpoint-up('xl') {
+    width: 570px;
+  }
 }
 
 .faq__container {

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { nacelleClient } from 'services'
-import ChooseYourBox from '@/components/PurchaseFlow/ChooseYourBox'
+import CustomizeYourPlan from '@/components/PurchaseFlow/CustomizeYourPlan'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import { useRouter } from 'next/router'
 
@@ -9,11 +9,11 @@ const PurchaseFlow = ({page}) => {
   const purchaseFlowContext = usePurchaseFlowContext()
 
   const { fields } = page[0]
-  const { step1 } = fields
+  const { step2 } = fields
 
   useEffect(() => {
-    if (purchaseFlowContext.options.step === 2) {
-      router.push('/pages/customize-your-plan')
+    if (purchaseFlowContext.options.step === 1) {
+      router.replace('/pages/choose-your-plan')
     }
   }, [purchaseFlowContext])
 
@@ -21,7 +21,7 @@ const PurchaseFlow = ({page}) => {
     return ''
   }
 
-  return <ChooseYourBox props={step1} />
+  return <CustomizeYourPlan props={step2} />
 }
 
 export async function getStaticProps() {

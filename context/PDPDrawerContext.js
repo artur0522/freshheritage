@@ -49,10 +49,12 @@ export function PDPDrawerProvider({ children }) {
   const { isOpen, activeProductHandle, boxManager } = state
 
   const updateParam = () => {
-    router.push({
-      pathname: '/pages/choose-your-plan',
-      query: (activeProductHandle ? { expand: activeProductHandle } : undefined)
-    }, undefined, { shallow: true })
+    if (router.pathname === '/pages/choose-your-plan' && router.isReady) {
+      router.replace({
+        pathname: '/pages/choose-your-plan',
+        query: (activeProductHandle ? { expand: activeProductHandle } : undefined)
+      }, undefined, { shallow: true })
+    }
   }
 
   const openDrawer = async (productData) => {
@@ -97,6 +99,17 @@ export function PDPDrawerProvider({ children }) {
       onLoad(router.query.expand)
     }
   }, [router.isReady])
+
+  useEffect(() => {
+    router.beforePopState(({ as }) => {
+      dispatch({ type: 'close_drawer' })
+      return true
+    });
+
+    return () => {
+      router.beforePopState(() => true);
+    };
+  }, [router])
 
   return (
     <PDPDrawerContext.Provider value={{isOpen, openDrawer, boxManager, activeProductHandle, dispatch}}>

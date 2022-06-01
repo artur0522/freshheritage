@@ -1,21 +1,15 @@
 import classes from './PurchaseFlowNavigation.module.scss';
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
+import { useRouter } from 'next/router'
 
-const PurchaseFlowNavigation = ({props}) => {
-
+const PurchaseFlowNavigation = () => {
+  const router = useRouter()
   const purchaseFlowContext = usePurchaseFlowContext()
-
-  const goBack = () => {
-    purchaseFlowContext.setOptions({
-      ...purchaseFlowContext.options,
-      step: 1
-    })
-  }
 
   return (
     <div className={classes['purchase-flow__navigation']}>
       <ul className={classes['purchase-flow__nav-list']}>
-        <li onClick={() => goBack()} className={purchaseFlowContext.options.step === 1 ? classes['is-active'] : ''}>1</li>
+        <li onClick={() => router.back()} className={purchaseFlowContext.options.step === 1 ? classes['is-active'] : ''}>1</li>
         <li className={purchaseFlowContext.options.step === 2 ? classes['is-active'] : ''}>2</li>
         <li>3</li>
       </ul>

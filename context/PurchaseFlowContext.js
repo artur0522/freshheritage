@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
 import * as Cookies from 'es-cookie'
+import { useRouter } from 'next/router'
 
 const PurchaseFlowContext = createContext()
 
@@ -10,17 +11,17 @@ export function usePurchaseFlowContext() {
 
 export function PurchaseFlowProvider({ children }) {
 
+  const router = useRouter()
   const [tierOptions, setTierOptions] = useState([])
   const [options, setOptions] = useState({
     step: 1,
     product: null,
     productHandle: null,
     variantIdSelected: null,
-    shellfish_free_selected: false, // only needed to select variant Id specifically for premium seafood subscription box (hardcoded logic)
+    shellfish_free_selected: false, // is required to select a variant id specifically for premium seafood subscription box (hardcoded logic)
     membership_type: null, // values can either be regular or prepaid
     is_loaded: false
   })
-
 
   // step 1 - selecting product
   const selectBox = (product, shellfish_free_selected = false) => {
@@ -44,6 +45,23 @@ export function PurchaseFlowProvider({ children }) {
       variantIdSelected: variantSelected.sourceEntryId
     })
   }
+
+  // on browser back button, reset step back to 1
+  useEffect(() => {
+    router.beforePopState(({ as }) => {
+      if (as === '/pages/choose-your-plan' && router.asPath === '/pages/customize-your-plan') {
+        setOptions({
+          ...options,
+          step: 1
+        })
+      }
+      return true
+    });
+
+    return () => {
+      router.beforePopState(() => true);
+    };
+  }, [router])
 
   // on page load, get saved data from cookie
   useEffect(() => {

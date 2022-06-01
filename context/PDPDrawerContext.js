@@ -1,12 +1,9 @@
-import { createContext, useContext, useState, useReducer, useEffect } from 'react'
+import { createContext, useContext, useReducer, useEffect } from 'react'
 import { nacelleClient } from 'services'
 import PDPDrawer from '@/components/Layout/PDPDrawer'
+import { useRouter } from 'next/router'
 
 const PDPDrawerContext = createContext()
-
-export function usePDPDrawerContext() {
-  return useContext(PDPDrawerContext)
-}
 
 function boxReducer(state, action) {
   switch (action.type) {
@@ -41,15 +38,26 @@ const initialState = {
   boxManager: {}
 };
 
+export function usePDPDrawerContext() {
+  return useContext(PDPDrawerContext)
+}
+
 export function PDPDrawerProvider({ children }) {
 
+  const router = useRouter()
   const [state, dispatch] = useReducer(boxReducer, initialState)
   const { isOpen, activeProductHandle, boxManager } = state
+
+  const updateParam = () => {
+    router.push({
+      pathname: '/pages/choose-your-plan',
+      query: (activeProductHandle ? { expand: activeProductHandle } : undefined)
+    }, undefined, { shallow: true })
+  }
 
   const openDrawer = async (productData) => {
     const productHandle = productData.content.handle
     dispatch({ type: 'open_drawer', payload: productHandle})
-
     if (!boxManager[productHandle]) {
       const boxDetails = await nacelleClient.content({
         handles: [productHandle],
@@ -69,7 +77,26 @@ export function PDPDrawerProvider({ children }) {
   useEffect(() => {
     if (isOpen) document.querySelector('html').classList.add('disable-scroll')
     if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
+    updateParam()
   }, [isOpen])
+
+  // triggers pdp flyout on page load if url has a param of expand
+  useEffect(() => {
+    async function getProductData(productHandle) {
+      return await nacelleClient.products({
+        handles: [productHandle]
+      })
+    }
+    async function onLoad(productHandle) {
+      const productData = await getProductData(productHandle)
+      if (productData.length) {
+        openDrawer(productData[0])
+      }
+    }
+    if (router.isReady && router.query?.expand) {
+      onLoad(router.query.expand)
+    }
+  }, [router.isReady])
 
   return (
     <PDPDrawerContext.Provider value={{isOpen, openDrawer, boxManager, activeProductHandle, dispatch}}>

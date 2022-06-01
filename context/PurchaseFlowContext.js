@@ -21,6 +21,8 @@ export function PurchaseFlowProvider({ children }) {
     is_loaded: false
   })
 
+
+  // step 1 - selecting product
   const selectBox = (product, shellfish_free_selected = false) => {
     if (product.content.handle !== 'premium-seafood-subscription-box') {
       shellfish_free_selected = false
@@ -34,16 +36,16 @@ export function PurchaseFlowProvider({ children }) {
     })
   }
 
+  // step 2 - selecting membership and frequency variant option
   const selectMembershipPlan = (variantSelected, membershipType) => {
-    // select membership plan based on options
     setOptions({
       ...options,
       membership_type: membershipType,
       variantIdSelected: variantSelected.sourceEntryId
     })
-      // redirect to checkout - add in useeffect
   }
 
+  // on page load, get saved data from cookie
   useEffect(() => {
     async function updateOptions() {
       let purchaseFlowData = Cookies.get('purchaseFlowData')

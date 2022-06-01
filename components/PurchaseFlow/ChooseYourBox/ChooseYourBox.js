@@ -1,14 +1,12 @@
 import { useEffect, useRef } from 'react'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { nacelleClient } from 'services'
-import { getSelectedVariant } from 'utils/getSelectedVariant'
 import { PortableText } from '@portabletext/react'
 import classes from './ChooseYourBox.module.scss'
 import ContentSections from '@/components/ContentSections'
 import PurchaseFlowHeader from '../PurchaseFlowHeader'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import { usePDPDrawerContext } from '@/context/PDPDrawerContext'
-
 
 const ChooseYourBox = ({props}) => {
 

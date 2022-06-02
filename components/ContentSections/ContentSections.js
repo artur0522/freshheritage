@@ -7,7 +7,7 @@ import SplitHero from '../SplitHero';
 import FiftyFifty from '../FiftyFifty';
 import PressLogos from '../PressLogos';
 import ValueProps from '../ValueProps';
-import CurrentSellingHarvest from '../Harvest/CurrentSellingHarvest';
+import CurrentHarvest from '../Harvest/CurrentHarvest';
 import ProjectedHarvest from '../Harvest/ProjectedHarvest';
 
 const ContentSections = ({ sections }) => {
@@ -32,7 +32,9 @@ const ContentSections = ({ sections }) => {
       case 'featuredBlogContent':
         return <FeaturedBlogContent fields={section} key={section._key} />
       case 'currentSellingHarvest':
-        return <CurrentSellingHarvest fields={section} key={section._key} />
+        return <CurrentHarvest fields={section} key={section._key} />
+      case 'currentMonthHarvest':
+        return <CurrentHarvest fields={section} key={section._key} />
       case 'projectedHarvest':
         return <ProjectedHarvest fields={section} key={section._key} />
       default:

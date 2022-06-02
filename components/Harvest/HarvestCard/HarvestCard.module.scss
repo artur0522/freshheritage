@@ -3,10 +3,11 @@
 @import '../../../styles/variables/_colors.scss';
 
 .harvest__card {
-    padding: 12px 45px;
+    padding: 11px 12px 45px 12px;
     background-color: #fff;
     border: 1px solid $fawn50-2;
     border-radius: 12px;
+    min-height: 319px;
 
     @include breakpoint-up('sm') {
         padding: 36px 36px 72px 36px;
@@ -14,7 +15,6 @@
 
     &.projected-card {
         padding: 11px 12px 24px 12px;
-        min-height: 319px;
         display: flex;
         align-items: flex-start;
         flex-direction: column;

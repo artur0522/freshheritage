@@ -10,11 +10,11 @@ import classes from './HarvestCard.module.scss'
 
 const HarvestCard = ({ fish, cardStyle }) => {
   const [tabInfo, setTabInfo] = useState(fish['species'])
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    setMounted(true)
+  }, [])
 
   const isMobile =  useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery({query: '(min-width: 768px)'})

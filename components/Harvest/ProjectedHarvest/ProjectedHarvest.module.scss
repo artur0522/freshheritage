@@ -17,6 +17,7 @@
         padding: 0 28px;
     }
 
+    // harvest__header
     &__header {
         h4 {
             vertical-align: middle;
@@ -37,6 +38,7 @@
         top: 0;
         right: 0;
 
+        // harvest__illustration-img
         &-img {
             position: relative;
             width: 207px;
@@ -50,6 +52,7 @@
         }
     }
 
+    // harvest__inner
     &__inner {
         max-width: 894px;
     }

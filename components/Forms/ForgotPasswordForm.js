@@ -40,7 +40,7 @@ const ForgotPasswordForm = () => {
           <p className={classes['account-form__error']}>{errorMessage}</p>
         }
         {showSuccessMessage &&
-          <p className={classes['account-form__error']}>Email sent! Please check your inbox.</p>
+          <p className={classes['account-form__success']}>Email sent! Please check your inbox.</p>
         }
         <div className="input-group">
           <input type="email" className="input" placeholder="email" ref={emailRef} />

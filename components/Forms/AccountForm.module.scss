@@ -45,11 +45,16 @@
   }
 }
 
-.account-form__error {
+.account-form__error,
+.account-form__success {
   font-size: 12px;
   line-height: 1.1;
   color: $error;
   @include breakpoint-up('sm') {
     font-size: 14px;
   }
+}
+
+.account-form__success {
+  color: $success;
 }

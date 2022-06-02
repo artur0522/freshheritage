@@ -36,8 +36,8 @@ const CurrentHarvest = ({ fields }) => {
   }
 
   const filteredHarvestListByCurrentMonth = activeHarvestList.filter(harvestList => currentMonth === harvestList.month)
-  const foundHarvestByDate = filteredHarvestListByCurrentMonth.find(harvest => currentDate >= harvest.sellStart && currentDate <= harvest.sellEnd)
-  
+  const foundHarvestsByDate = filteredHarvestListByCurrentMonth.filter(harvest => currentDate >= harvest.sellStart && currentDate <= harvest.sellEnd)
+
   return (
     <div className={`${classes['harvest']}`}>
         <div className={classes['harvest__inner']}>
@@ -55,6 +55,7 @@ const CurrentHarvest = ({ fields }) => {
                     {header ? <h1>{header}</h1> : <h1>{`${currentMonth} ${currentYear} Harvest`}</h1>}
                     {description && <h3>{description}</h3>}
                 </div>
+                
                 {harvestList.length >= 2 && <Swiper
                     slidesPerView={"auto"}
                     spaceBetween={36}
@@ -65,6 +66,7 @@ const CurrentHarvest = ({ fields }) => {
                     }}
                     className={classes['harvest__tabs-swiper']}
                 >
+
                 {harvestList.map((harvest) => {
                     return (
                         <SwiperSlide className={classes['harvest__tab']} key={harvest._id}>
@@ -75,26 +77,30 @@ const CurrentHarvest = ({ fields }) => {
                     )
                 })}
                 </Swiper>}
-                {_type === 'currentMonthHarvest' ? 
-                    <div className={`${classes['harvest__fish-list']} container`}>
-                        {activeHarvestList && activeHarvestList.filter((harvestList) => harvestList.month === currentMonth)[0]?.fishArray.map((fish) => {
-                            return (
-                                <div className={classes['harvest__card']}>
-                                    <HarvestCard key={fish._key} fish={fish} />
-                                </div>
-                            )
-                        })}
-                    </div> : 
-                    <div className={`${classes['harvest__fish-list']} container`}>
-                        {foundHarvestByDate && foundHarvestByDate.fishArray.map((fish) => {
-                            return (
-                                <div className={classes['harvest__card']}>
-                                    <HarvestCard key={fish._key} fish={fish} />
-                                </div>
-                            )
-                        })}
-                    </div>
-                }
+
+                {_type === 'currentSellingHarvest' && foundHarvestsByDate && <div className={`${classes['harvest__fish-list']} container`}>
+                    {foundHarvestsByDate && foundHarvestsByDate.map((harvest) => {
+                        return (
+                            harvest.fishArray.map((fish) => {
+                                return (
+                                    <div className={classes['harvest__card']}>
+                                        <HarvestCard key={fish._key} fish={fish} />
+                                    </div>
+                                )
+                            })
+                        )
+                    })}   
+                </div>}
+
+                {_type === 'currentMonthHarvest' && <div className={`${classes['harvest__fish-list']} container`}>
+                    {activeHarvestList && activeHarvestList.filter((harvestList) => harvestList.month === currentMonth)[0]?.fishArray.map((fish) => {
+                        return (
+                            <div className={classes['harvest__card']}>
+                                <HarvestCard key={fish._key} fish={fish} />
+                            </div>
+                        )
+                    })}
+                </div>}
             </div>
         </div>
     </div>

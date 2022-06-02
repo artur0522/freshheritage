@@ -35,8 +35,8 @@ const CurrentHarvest = ({ fields }) => {
     setActiveTab(foundHarvest)
   }
 
-  const filteredHarvestListByMonth = activeHarvestList.filter(harvestList => currentMonth === harvestList.month)
-  const foundHarvestByDate = filteredHarvestListByMonth.find(harvest => currentDate >= harvest.sellStart && currentDate <= harvest.sellEnd)
+  const filteredHarvestListByCurrentMonth = activeHarvestList.filter(harvestList => currentMonth === harvestList.month)
+  const foundHarvestByDate = filteredHarvestListByCurrentMonth.find(harvest => currentDate >= harvest.sellStart && currentDate <= harvest.sellEnd)
   
   return (
     <div className={`${classes['harvest']}`}>
@@ -78,7 +78,6 @@ const CurrentHarvest = ({ fields }) => {
                 {_type === 'currentMonthHarvest' ? 
                     <div className={`${classes['harvest__fish-list']} container`}>
                         {activeHarvestList && activeHarvestList.filter((harvestList) => harvestList.month === currentMonth)[0]?.fishArray.map((fish) => {
-                            console.log('first conditional')
                             return (
                                 <div className={classes['harvest__card']}>
                                     <HarvestCard key={fish._key} fish={fish} />
@@ -88,8 +87,6 @@ const CurrentHarvest = ({ fields }) => {
                     </div> : 
                     <div className={`${classes['harvest__fish-list']} container`}>
                         {foundHarvestByDate && foundHarvestByDate.fishArray.map((fish) => {
-                            console.log("harvestList", harvestList)
-                            console.log('second conditional')
                             return (
                                 <div className={classes['harvest__card']}>
                                     <HarvestCard key={fish._key} fish={fish} />

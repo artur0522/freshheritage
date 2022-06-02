@@ -34,7 +34,7 @@ const ForgotPasswordForm = () => {
   return (
     <div className={classes['account-form']}>
       <h4>Forgot Your<br />Password?</h4>
-      <h5>Enter the email address associated with your account and we'll email you a link to reset your password.</h5>
+      <h5>{`Enter the email address associated with your account and we'll email you a link to reset your password.`}</h5>
       <form onSubmit={(e) => onSubmit(e)}>
         {showErrorMessage &&
           <p className={classes['account-form__error']}>{errorMessage}</p>

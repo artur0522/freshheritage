@@ -47,7 +47,7 @@ const ResetPasswwordForm = ({ customerId, resetToken}) => {
           <p className={classes['account-form__error']}>{errorMessage}</p>
         }
         {showSuccessMessage &&
-          <p className={classes['account-form__error']}>You're all set! Please login to continue.</p>
+          <p className={classes['account-form__error']}>{`You're all set! Please login to continue`}</p>
         }
         <div className="input-group">
           <input type="password" className="input" placeholder="new password" ref={passwordRef} />

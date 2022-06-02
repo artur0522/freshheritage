@@ -3,6 +3,7 @@ import { useModalContext } from '@/context/ModalContext'
 import IconClose from '@/svgs/close.svg'
 import CreateAccountForm from '@/components/Forms/CreateAccountForm'
 import LoginAccountForm from '@/components/Forms/LoginAccountForm'
+import ForgotPasswordForm from '@/components/Forms/ForgotPasswordForm'
 
 const Modal = ({props, children}) => {
 
@@ -14,6 +15,8 @@ const Modal = ({props, children}) => {
         return <CreateAccountForm />
       case 'login':
         return <LoginAccountForm />
+      case 'forgot_password':
+        return <ForgotPasswordForm />
       default:
         return children
     }

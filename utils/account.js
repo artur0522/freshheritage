@@ -1,3 +1,44 @@
+
+export function accountFormReducer(state, action) {
+  switch (action.type) {
+    case 'loading': {
+      return {
+        ...state,
+        showSuccessMessage: false,
+        showErrorMessage: false,
+        isLoading: true,
+      }
+    }
+    case 'success': {
+      return {
+        ...state,
+        showSuccessMessage: true,
+        showErrorMessage: false,
+        errorMessage: '',
+        isLoading: false,
+      }
+    }
+    case 'error': {
+      return {
+        ...state,
+        showSuccessMessage: false,
+        showErrorMessage: true,
+        errorMessage: action.payload,
+        isLoading: false,
+      }
+    }
+    default:
+      return state
+  }
+}
+
+export const initialState = {
+  showSuccessMessage: false,
+  showErrorMessage: false,
+  errorMessage: '',
+  isLoading: false,
+}
+
 export async function accountClientPost({
   query,
   variables

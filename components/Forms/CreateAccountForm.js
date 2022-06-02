@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react'
+import { useRef, useReducer } from 'react'
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
+import { accountFormReducer, initialState } from '@/utils/account'
 import classes from '@/components/Layout/Modal/Modal.module.scss'
 
 const CreateAccountForm = () => {
@@ -11,13 +12,12 @@ const CreateAccountForm = () => {
   const lastNameRef = useRef()
   const emailRef = useRef()
   const passwordRef = useRef()
-  const [showErrorMessage, setShowErrorMessage] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const [state, dispatch] = useReducer(accountFormReducer, initialState)
+  const { showSuccessMessage, showErrorMessage, errorMessage, isLoading} = state
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    setIsLoading(true)
+    dispatch({ type: 'loading' })
     const response = await customerContext.register({
       firstName: firstNameRef.current.value,
       lastName: lastNameRef.current.value,
@@ -27,9 +27,7 @@ const CreateAccountForm = () => {
 
     if (response.errors?.length) {
       console.log(response)
-      setShowErrorMessage(true)
-      setErrorMessage(response.errors[0].message)
-      setIsLoading(true)
+      dispatch({ type: 'error', payload: response.errors[0].message })
     } else {
       const response = await customerContext.login({
         email: emailRef.current.value,
@@ -42,8 +40,7 @@ const CreateAccountForm = () => {
         emailRef.current.value = ''
         passwordRef.current.value = ''
         modalContext.setIsOpen(false)
-        setIsLoading(true)
-        setShowErrorMessage('')
+        dispatch({ type: 'success' })
         // TODO: redirect to account page
       }
     }

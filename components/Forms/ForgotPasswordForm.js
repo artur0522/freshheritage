@@ -4,55 +4,58 @@ import { useCustomerContext } from '@/context/CustomerContext'
 import { accountFormReducer, initialState } from '@/utils/account'
 import classes from '@/components/Layout/Modal/Modal.module.scss'
 
-const LoginAccountForm = () => {
+const ForgotPasswordForm = () => {
 
   const modalContext = useModalContext()
   const customerContext = useCustomerContext()
   const emailRef = useRef()
-  const passwordRef = useRef()
   const [state, dispatch] = useReducer(accountFormReducer, initialState)
   const { showSuccessMessage, showErrorMessage, errorMessage, isLoading} = state
 
   const onSubmit = async (e) => {
     e.preventDefault()
     dispatch({ type: 'loading' })
-    const response = await customerContext.login({
+    const response = await customerContext.recover({
       email: emailRef.current.value,
-      password: passwordRef.current.value,
     })
+
     if (response.errors?.length) {
       console.log(response)
       dispatch({ type: 'error', payload: response.errors[0].message })
     } else {
-      emailRef.current.value = ''
-      passwordRef.current.value = ''
-      dispatch({ type: 'success' })
-      modalContext.setIsOpen(false)
-      // TODO: redirect to account page
+      const response = await customerContext.login({
+        email: emailRef.current.value,
+        email: emailRef.current.value,
+      })
+
+      if (response) {
+        emailRef.current.value = ''
+        dispatch({ type: 'success' })
+      }
     }
   }
 
   return (
     <>
-      <h4>Log in To Your Sitka Seafood Member Portal</h4>
-      <h5>Track orders and manage your<br /> subscription in your account.</h5>
+      <h4>Forgot Your<br />Password?</h4>
+      <h5>Enter the email address associated with your account and we'll email you a link to reset your password.</h5>
       <form onSubmit={(e) => onSubmit(e)}>
         {showErrorMessage &&
           <p className={classes.modalFormError}>{errorMessage}</p>
         }
+        {showSuccessMessage &&
+          <p className={classes.modalFormError}>Email sent! Please check your inbox.</p>
+        }
         <div className="input-group">
-          <input type="email" className="input" placeholder="email address" ref={emailRef} />
+          <input type="email" className="input" placeholder="email" ref={emailRef} />
         </div>
-        <div className="input-group">
-          <input type="password" className="input" placeholder="password" ref={passwordRef} />
-        </div>
-        <button className="btn sitkablue" disabled={isLoading}>Login</button>
+        <button className="btn sitkablue" disabled={isLoading}>Submit</button>
       </form>
-      <p>
+      <p>{`Have an account? `}
         <button
-          onClick={() => modalContext.setModalType('forgot_password')}
+          onClick={() => modalContext.setModalType('login')}
           className="btn-link-underline">
-            Forgot Password?
+            Log In
         </button>
       </p>
       <p>{`Don't have an account? `}
@@ -66,4 +69,4 @@ const LoginAccountForm = () => {
   )
 }
 
-export default LoginAccountForm
+export default ForgotPasswordForm

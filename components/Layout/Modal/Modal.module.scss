@@ -4,6 +4,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: fixed;
+  z-index: 1001;
+  height: 100%;
+  width: 100%;
 }
 
 .modalOverlay {
@@ -17,7 +21,6 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(7px);
-  z-index: 1000;
 }
 
 .modalContent {
@@ -28,7 +31,6 @@
   max-width: 320px;
   top: 0;
   bottom: 0;
-  z-index: 1000;
   width: 90%;
   @include breakpoint-up('sm') {
     max-width: 540px;

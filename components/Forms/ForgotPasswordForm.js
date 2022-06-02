@@ -2,7 +2,7 @@ import { useRef, useReducer } from 'react'
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
 import { accountFormReducer, initialState } from '@/utils/account'
-import classes from '@/components/Layout/Modal/Modal.module.scss'
+import classes from './AccountForm.module.scss'
 
 const ForgotPasswordForm = () => {
 
@@ -23,12 +23,8 @@ const ForgotPasswordForm = () => {
       console.log(response)
       dispatch({ type: 'error', payload: response.errors[0].message })
     } else {
-      const response = await customerContext.login({
-        email: emailRef.current.value,
-        email: emailRef.current.value,
-      })
-
       if (response) {
+        console.log("response:", response)
         emailRef.current.value = ''
         dispatch({ type: 'success' })
       }
@@ -36,15 +32,15 @@ const ForgotPasswordForm = () => {
   }
 
   return (
-    <>
+    <div className={classes['account-form']}>
       <h4>Forgot Your<br />Password?</h4>
       <h5>Enter the email address associated with your account and we'll email you a link to reset your password.</h5>
       <form onSubmit={(e) => onSubmit(e)}>
         {showErrorMessage &&
-          <p className={classes.modalFormError}>{errorMessage}</p>
+          <p className={classes['account-form__error']}>{errorMessage}</p>
         }
         {showSuccessMessage &&
-          <p className={classes.modalFormError}>Email sent! Please check your inbox.</p>
+          <p className={classes['account-form__error']}>Email sent! Please check your inbox.</p>
         }
         <div className="input-group">
           <input type="email" className="input" placeholder="email" ref={emailRef} />
@@ -65,7 +61,7 @@ const ForgotPasswordForm = () => {
             Sign Up
         </button>
       </p>
-    </>
+    </div>
   )
 }
 

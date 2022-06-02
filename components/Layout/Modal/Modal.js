@@ -23,16 +23,16 @@ const Modal = ({props, children}) => {
   }
 
   return (
-    <div className={classes.modal}>
+    <div className={classes['modal']}>
       <div
         onClick={() => modalContext.setIsOpen(false)}
-        className={classes.modalOverlay}>
+        className={classes['modal__overlay']}>
       </div>
-      <div className={classes.modalContent}>
-        <div className={classes.modalContentContainer}>
+      <div className={classes['modal__content']}>
+        <div className={classes['modal__content-container']}>
           <button
             onClick={() => modalContext.setIsOpen(false)}
-            className={classes.modalCloseBtn}>
+            className={classes['modal__close-btn']}>
             <IconClose />
           </button>
           {getContent(modalContext.modalType, children)}

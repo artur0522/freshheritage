@@ -2,7 +2,7 @@ import { useRef, useReducer } from 'react'
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
 import { accountFormReducer, initialState } from '@/utils/account'
-import classes from '@/components/Layout/Modal/Modal.module.scss'
+import classes from './AccountForm.module.scss'
 
 const CreateAccountForm = () => {
 
@@ -48,12 +48,12 @@ const CreateAccountForm = () => {
 
 
   return (
-    <>
+    <div className={classes['account-form']}>
       <h4>Create A Sitka Seafood Membership Account</h4>
       <h5>Track orders and manage your<br/> subscription in your account.</h5>
       <form onSubmit={(e) => onSubmit(e)}>
         {showErrorMessage &&
-          <p className={classes.modalFormError}>{errorMessage}</p>
+          <p className={classes['account-form__error']}>{errorMessage}</p>
         }
         <div className="input-group">
           <input type="text" className="input" placeholder="first name" ref={firstNameRef} />
@@ -76,7 +76,7 @@ const CreateAccountForm = () => {
             Log In
         </button>
       </p>
-    </>
+    </div>
   )
 }
 

@@ -2,7 +2,7 @@ import { useRef, useReducer } from 'react'
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
 import { accountFormReducer, initialState } from '@/utils/account'
-import classes from '@/components/Layout/Modal/Modal.module.scss'
+import classes from './AccountForm.module.scss'
 
 const LoginAccountForm = () => {
 
@@ -33,12 +33,12 @@ const LoginAccountForm = () => {
   }
 
   return (
-    <>
+    <div className={classes['account-form']}>
       <h4>Log in To Your Sitka Seafood Member Portal</h4>
       <h5>Track orders and manage your<br /> subscription in your account.</h5>
       <form onSubmit={(e) => onSubmit(e)}>
         {showErrorMessage &&
-          <p className={classes.modalFormError}>{errorMessage}</p>
+          <p className={classes['account-form__error']}>{errorMessage}</p>
         }
         <div className="input-group">
           <input type="email" className="input" placeholder="email address" ref={emailRef} />
@@ -62,7 +62,7 @@ const LoginAccountForm = () => {
             Sign Up
         </button>
       </p>
-    </>
+    </div>
   )
 }
 

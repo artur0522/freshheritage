@@ -1,7 +1,10 @@
 @import '@/styles/_shared.scss';
 
 .product-slider {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
+  @include breakpoint-up('sm') {
+    margin-bottom: 30px;
+  }
 }
 
 .product-image {

@@ -1,6 +1,7 @@
 import classes from './ProductMain.module.scss'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import ProductSlider from '../ProductSlider'
+import ProductReviewStars from '../ProductReviewStars'
 
 const ProductMain = ({box}) => {
 
@@ -13,7 +14,7 @@ const ProductMain = ({box}) => {
   return (
     <div className={classes['product-main']}>
       <ProductSlider product={product} />
-      <div className={classes['product-reviews']}></div>
+      <ProductReviewStars />
       <h1 className={classes['product-title']}>{product.content?.title}</h1>
       <div className={classes['product-price-pounds']}>
         <span>${firstVariant.price} /box</span>

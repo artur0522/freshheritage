@@ -1,0 +1,30 @@
+@import '@/styles/_shared.scss';
+
+.product-review-stars {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+  @include breakpoint-up('sm') {
+    margin-bottom: 30px;
+  }
+}
+
+.review-star-full,
+.review-star-half,
+.review-star-empty {
+  width: 12px;
+  margin-right: 6px;
+  @include breakpoint-up('sm') {
+    width: 16px;
+  }
+}
+
+.review-count {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 12px;
+  @include breakpoint-up('sm') {
+    font-size: 12px;
+    line-height: 14px;
+  }
+}

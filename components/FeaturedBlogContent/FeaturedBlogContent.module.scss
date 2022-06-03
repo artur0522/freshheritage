@@ -19,7 +19,7 @@
         max-width: 1680px;
         margin: auto;
         padding-left: 30px;
-        
+
         @include breakpoint-up('sm') {
           padding-left: 0;
           width: calc(100% - 100px);
@@ -66,7 +66,7 @@
             min-height: 40px;
             min-width: 59px;
             display: flex;
-            align-items: center; 
+            align-items: center;
             width: 80%;
 
             @include breakpoint-up('sm') {
@@ -78,7 +78,8 @@
 
         a {
             line-height: 140%;
-            font-family: 'FrankRuhlRegular';
+            font-family: 'FrankRuhl';
+            font-weight: 500;
 
             &::after {
                 content: '';
@@ -95,7 +96,7 @@
 
             &.active {
                 font-weight: 500;
-                font-family: 'FrankRuhlMedium';
+                font-family: 'FrankRuhl';
                 position: relative;
 
                 &::after {

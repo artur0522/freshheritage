@@ -1,3 +1,3 @@
-import FiftyFifty from './FiftyFifty';
+import FiftyFifty from './FiftyFifty'
 
-export default FiftyFifty;
+export default FiftyFifty

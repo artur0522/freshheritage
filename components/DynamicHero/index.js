@@ -1,3 +1,3 @@
-import DynamicHero from './DynamicHero';
+import DynamicHero from './DynamicHero'
 
-export default DynamicHero;
+export default DynamicHero

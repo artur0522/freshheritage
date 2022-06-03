@@ -16,6 +16,39 @@
   @include breakpoint-up('md') {
     height: 84px;
   }
+  &.purchase-flow {
+    background-color: $alabaster;
+    .navButton {
+      display: none;
+    }
+    .navItems {
+      width: 20%;
+    }
+    .navItemAccount {
+      @include breakpoint-down('sm') {
+        display: none;
+      }
+    }
+    .navLogoContainer {
+      @include breakpoint-down('sm') {
+        position: absolute;
+        left: 0;
+      }
+      @include breakpoint-down('xs') {
+        width: 84px;
+        height: 60px;
+      }
+      a {
+        @include breakpoint-down('xs') {
+          width: 65px;
+          height: 42px;
+        }
+      }
+    }
+    .customerServiceInfo {
+      background-color: $alabaster;
+    }
+  }
   .mainNavContainer {
     display: flex;
     justify-content: space-between;
@@ -116,7 +149,7 @@
 
 .navItem {
   margin: 0 12px;
-  a {
+  a:not(.navButton) {
     font-size: 18px;
     line-height: 23px;
     font-weight: 500;

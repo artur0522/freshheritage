@@ -1,0 +1,40 @@
+@import '@/styles/_shared.scss';
+
+.purchase-flow__header {
+  text-align: center;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto 35px;
+  @include breakpoint-up('md') {
+    margin: 0 auto 60px;
+  }
+  h1 {
+    margin: 0 0 10px;
+  }
+  h2 {
+    margin: 0 0 30px;
+  }
+}
+
+.purchase-flow__value-props {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  justify-content: center;
+  li {
+    display: flex;
+    align-items: center;
+    margin: 0 10px 12px;
+    @include breakpoint-up('md') {
+      margin: 0 42px;
+    }
+    svg {
+      margin-right: 12px;
+      width: 17px;
+      @include breakpoint-up('sm') {
+        width: 27px;
+      }
+    }
+  }
+}

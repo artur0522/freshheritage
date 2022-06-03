@@ -16,6 +16,10 @@
     background-color: #B7CD96;
   }
 
+  &.bg--yellow {
+    background-color: $fawn50-2;
+  }
+
   &.text--light {
     color: $alabaster;
 
@@ -59,6 +63,10 @@
     @include breakpoint-up('sm') {
       display: block;
     }
+
+    p {
+      font-size: 14px;
+    }
   }
 
    // hero__row
@@ -70,7 +78,7 @@
   &__text {
     height: 100%;
     flex: 1;
-   
+
     // hero__text--inner
     &--inner {
       position: relative;
@@ -92,12 +100,19 @@
         }
 
         li {
+          font-weight: 500;
           span {
             display: inline-block;
             margin-right: 12.35px;
 
             @include breakpoint-up('sm') {
               margin-right: 24.71px;
+            }
+          }
+          svg {
+            width: 17px;
+            @include breakpoint-up('sm') {
+              width: 27px;
             }
           }
         }
@@ -173,7 +188,7 @@
   // Padded Hero Option
   &.image--padded {
     .hero__text {
-      &--inner { 
+      &--inner {
         padding: 24px 28px 60px 28px;
         text-align: left;
 
@@ -241,7 +256,7 @@
         padding: 54px 28px 111px 28px;
         text-align: center;
         @include breakpoint-up('sm') {
-          padding: 0 12.6% 0 16.77%; 
+          padding: 0 12.6% 0 16.77%;
           text-align: left;
         }
 
@@ -266,7 +281,7 @@
 
         h2 {
           margin-bottom: 18px;
-    
+
           @include breakpoint-up('sm') {
             margin-bottom: 36px;
           }

@@ -9,7 +9,11 @@ const PurchaseFlowNavigation = () => {
   return (
     <div className={classes['purchase-flow__navigation']}>
       <ul className={classes['purchase-flow__nav-list']}>
-        <li onClick={() => router.back()} className={purchaseFlowContext.options.step === 1 ? classes['is-active'] : ''}>1</li>
+        {purchaseFlowContext.options.step === 1 ?
+          <li className={classes['is-active']}>1</li>
+        :
+          <li onClick={() => router.back()}>1</li>
+        }
         <li className={purchaseFlowContext.options.step === 2 ? classes['is-active'] : ''}>2</li>
         <li>3</li>
       </ul>

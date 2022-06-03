@@ -17,6 +17,7 @@ const CurrentHarvest = ({ fields }) => {
   const [currentDate, setCurrentDate] = useState(null)
 
   useEffect(() => {
+    // move as a utility function
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     const date = new Date()
     const monthName = month[date.getMonth()]

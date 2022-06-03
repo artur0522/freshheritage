@@ -8,10 +8,11 @@ import HarvestCard from "../HarvestCard"
 
 const GlobalSampler = ({ fields }) => {
   const {header, description, harvestList, illustration, illustration_2 } = fields
-  const [activeHarvestList, setActiveHarvestList] = useState(harvestList[0].months)
   const [currentMonth, setCurrentMonth] = useState(null)
+  const harvestListMonths = harvestList[0].months
 
   useEffect(() => {
+    // move as a utility function
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     const date = new Date()
     const monthName = month[date.getMonth()]
@@ -49,7 +50,7 @@ const GlobalSampler = ({ fields }) => {
             </div>
 
             <div className={`${classes['harvest__fish-list']} container`}>
-                {activeHarvestList && activeHarvestList.filter((harvestList) => harvestList.month.trim().toLowerCase() === currentMonth)[0]?.fishArray.map((fish) => {
+                {harvestListMonths && harvestListMonths.filter((harvestList) => harvestList.month.trim().toLowerCase() === currentMonth)[0]?.fishArray.map((fish) => {
                     return (
                         <div className={classes['harvest__card']}>
                             <HarvestCard key={fish._key} fish={fish} />

@@ -9,40 +9,42 @@ import HarvestCard from "../HarvestCard"
 const ProjectedHarvest = ({ fields }) => {
     // SANITY FIELDS
     const { title, harvestList } = fields
-
+   
     // STATE
-    const [months, setMonths] = useState([])
+    const [harvestListMonths, setHarvestListMonths] = useState([])
     const [activeTab, setActiveTab] = useState({})
 
     useEffect(() => {
         // TABS BY MONTH
         const months = []
+        let refinedMonths
         harvestList.forEach((harvest) => {
             harvest.months.forEach((month) => {
                 months.push(month)
             })
         })
-        // REMOVE DUPLICATE MONTHS
-        const refinedMonths = months.filter((value, index, self) =>
+
+        refinedMonths = months.filter((value, index, self) =>
             index === self.findIndex((t) => (
                 t.month === value.month
             ))
         )
-
+       
         // move as a utility function
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
         const date = new Date()
         const monthName = monthNames[date.getMonth()]
         const currentMonthIndex = refinedMonths.findIndex(refinedMonth => refinedMonth.month === monthName)
         const splicedMonths = refinedMonths.splice(currentMonthIndex)
-
+        
         setActiveTab(splicedMonths[0])
-        setMonths(splicedMonths)
+        setHarvestListMonths(splicedMonths)
     }, [])
     
     // METHODS
     const findFilteredFish = (harvestMonth) => {
-        let foundMonth = months.find((month) => {
+        console.log(harvestMonth)
+        let foundMonth = harvestListMonths.find((month) => {
             return month.month.trim().toLowerCase() === harvestMonth
         })
         setActiveTab(foundMonth)
@@ -66,7 +68,7 @@ const ProjectedHarvest = ({ fields }) => {
                         }}
                         className={`${classes['harvest__tabs-swiper']}`}
                     >
-                    {months.map((month) => {
+                    {harvestListMonths.map((month) => {
                         return (
                             <SwiperSlide className={classes['harvest__tab']} key={month._id}>
                                 <button onClick={() => findFilteredFish(month.month.trim().toLowerCase())} className={`${classes['harvest__tab']} heading--tab ${activeTab.month.trim().toLowerCase() === month.month.trim().toLowerCase() ? classes['active'] : ""}`}>
@@ -76,12 +78,11 @@ const ProjectedHarvest = ({ fields }) => {
                         )
                     })}
                     </Swiper>
-
                     {harvestList && harvestList.map((harvest) => {
                         return (
                             <div className={`${classes['harvest__list']}`}>
                                 <div className="container">
-                                    {harvest.title && <h4 className={classes['harvest__list-title']}>{harvest.title}</h4>}
+                                    {harvest.header && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
                                     <div className={`${classes['harvest__fish-list']}`}>
                                         {harvest.months.filter(month => month.month.trim().toLowerCase() === activeTab.month?.trim().toLowerCase())[0]?.fishArray.map((fish) => {
                                             return(
@@ -90,7 +91,7 @@ const ProjectedHarvest = ({ fields }) => {
                                                 </div>
                                             )
                                         })}
-                                    </div>
+                                   </div>
                                 </div>
                             </div>
                         )

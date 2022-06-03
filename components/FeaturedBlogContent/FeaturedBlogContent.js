@@ -16,7 +16,7 @@ const FeaturedBlogContent = ({ fields }) => {
   const [selectedSwiper, setSelectedSwiper] = useState(tabs[0])
 
   const filterArticles = (tabName) => {
-    const foundTab = tabs.find((tab) => { 
+    const foundTab = tabs.find((tab) => {
         return tab.tabName === tabName
     })
     setSelectedSwiper(foundTab)
@@ -57,8 +57,8 @@ const FeaturedBlogContent = ({ fields }) => {
                         </SwiperSlide>
                     )
                 })}
-            </Swiper> 
-            
+            </Swiper>
+
             <Swiper
                 loop={true}
                 slidesPerView={1.5}

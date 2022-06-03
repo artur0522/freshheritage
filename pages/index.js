@@ -8,8 +8,14 @@ import { useCustomerContext } from '@/context/CustomerContext'
 export default function Home({ pages }) {
   const homePage = pages.find((page) => page.handle === 'homepage')
   const context = useCustomerContext()
-  const  { customer } = context
-  let foundDynamicHero
+  
+  let foundDynamicHero;
+  
+  const  { customer } = context;
+  // Placeholder Customer Object
+  /* const customer = {
+    tags:['premium seafood box no shellfish', 'salmon box', 'bi monthly seafood box', 'seafood box', 'non subscribers', 'premium seafood box']
+  } */
 
   const dynamicHeroSections = homePage.fields.content.filter((section) => {
     return section._type === 'dynamicHero'

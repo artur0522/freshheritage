@@ -3,12 +3,16 @@ import Link from 'next/link'
 import Image from 'next/image'
 import PrimaryNavigation from './PrimaryNavigation'
 import NavigationUtilities from './NavigationUtilities'
+import PurchaseFlowNavigation from './PurchaseFlowNavigation'
 
-const MainNavigation = ({props, setMobileMenuIsOpen}) => {
+const MainNavigation = ({props, setMobileMenuIsOpen, pageHandle}) => {
+
   return (
-    <nav className={classes.mainNavigation}>
+    <nav className={`${classes.mainNavigation} ${pageHandle === 'purchase-flow' ? classes['purchase-flow'] : '' }`}>
       <div className={`${classes.mainNavContainer} container`}>
-        <PrimaryNavigation props={props} classes={classes} setMobileMenuIsOpen={setMobileMenuIsOpen} />
+        {pageHandle !== 'purchase-flow' &&
+          <PrimaryNavigation props={props} classes={classes} setMobileMenuIsOpen={setMobileMenuIsOpen} />
+        }
         <div className={classes.navLogo}>
           <div className={classes.navLogoContainer}>
             <Link href="/">
@@ -18,6 +22,9 @@ const MainNavigation = ({props, setMobileMenuIsOpen}) => {
             </Link>
           </div>
         </div>
+        {pageHandle === 'purchase-flow' &&
+          <PurchaseFlowNavigation />
+        }
         <NavigationUtilities props={props} classes={classes} />
       </div>
     </nav>

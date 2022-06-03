@@ -1,0 +1,22 @@
+@import '@/styles/_shared.scss';
+
+.customize-your-plan {
+  margin: 45px 0 60px;
+}
+
+.customize-your-plan__options {
+  display: flex;
+  max-width: 1110px;
+  margin: 0 auto 140px;
+  justify-content: center;
+}
+
+.customize-your-plan__option-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  list-style: none;
+  @include breakpoint-up('sm') {
+    margin: 0 -18px;
+  }
+}

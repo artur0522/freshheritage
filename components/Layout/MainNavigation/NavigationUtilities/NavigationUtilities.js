@@ -40,14 +40,16 @@ const NavigationUtilities = ({props, classes}) => {
       {isDesktop &&
         <>
           <li className={classes.navItem}>
-            <button className={[classes.navButton, 'btn', 'salmon'].join(' ')}>
-              {navCTA.ctaText}
-            </button>
+            <Link href={navCTA.ctaUrl ? navCTA.ctaUrl : ''}>
+              <a className={[classes.navButton, 'btn', 'salmon'].join(' ')}>
+                {navCTA.ctaText}
+              </a>
+            </Link>
           </li>
           <li className={classes.navItem}><IconSearch /></li>
         </>
       }
-      <li className={classes.navItem}>
+      <li className={[classes.navItem, classes.navItemAccount].join(' ')}>
         {customerContext.customer ? (
           <Link href="/account">
             <a>

@@ -35,9 +35,9 @@ const CurrentHarvest = ({ fields }) => {
     setHarvestListMonths(foundHarvest.months)
     setActiveTab(foundHarvest)
   }
-
+ 
   const filteredHarvestListByCurrentMonth = harvestListMonths.filter(harvestList => currentMonth === harvestList.month.trim().toLowerCase())
-  const foundHarvestsByDate = filteredHarvestListByCurrentMonth.filter(harvest => currentDate >= harvest.sellStart && currentDate <= harvest.sellEnd)
+  const foundHarvestsByDate = filteredHarvestListByCurrentMonth.filter(harvest => currentDate == harvest.sellStart && currentDate <= harvest.sellEnd)
 
   return (
     <div className={`${classes['harvest']}`}>

@@ -9,6 +9,7 @@ import PressLogos from '../PressLogos';
 import ValueProps from '../ValueProps';
 import CurrentHarvest from '../Harvest/CurrentHarvest';
 import ProjectedHarvest from '../Harvest/ProjectedHarvest';
+import GlobalSampler from '../Harvest/GlobalSampler';
 
 const ContentSections = ({ sections }) => {
   if (!Array.isArray(sections)) {
@@ -37,6 +38,8 @@ const ContentSections = ({ sections }) => {
         return <CurrentHarvest fields={section} key={section._key} />
       case 'projectedHarvest':
         return <ProjectedHarvest fields={section} key={section._key} />
+      case 'globalSampler':
+        return <GlobalSampler fields={section} key={section._key} />
       default:
         return null;
     }

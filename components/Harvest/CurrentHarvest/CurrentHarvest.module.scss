@@ -7,6 +7,7 @@
     padding: 72px 0;
     position: relative;
     z-index: 1;
+    overflow: hidden;
 
     @include breakpoint-up('lg') {
         padding: 192px 0 143px 0;
@@ -20,8 +21,13 @@
     // harvest__illustration
     &__illustration {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: -38px;
+        right: -40px;
+
+        @include breakpoint-up('sm') {
+            right: 49px;
+            top: -75px;
+        }
 
         &-img {
             position: relative;
@@ -29,7 +35,7 @@
             height: 155px;
             z-index: -1;
 
-            @include breakpoint-up('lg') {
+            @include breakpoint-up('sm') {
                 width: 587px;
                 height: 384px;
             }

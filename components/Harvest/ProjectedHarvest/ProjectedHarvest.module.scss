@@ -45,7 +45,7 @@
             height: 155px;
             z-index: -1;
 
-            @include breakpoint-up('lg') {
+            @include breakpoint-up('md') {
                 width: 587px;
                 height: 384px;
             }

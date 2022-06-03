@@ -10,7 +10,7 @@ import HarvestCard from "../HarvestCard"
 // Used for both CURRENT SELLING HARVEST AND CURRENT MONTH HARVEST: _type inside of fields will dicate this
 const CurrentHarvest = ({ fields }) => {
   const { header, description, harvestList, illustration, _type } = fields
-  const [activeHarvestList, setActiveHarvestList] = useState(harvestList[0].months)
+  const [harvestListMonths, setHarvestListMonths] = useState(harvestList[0].months)
   const [activeTab, setActiveTab] = useState(harvestList[0])
   const [currentMonth, setCurrentMonth] = useState(null)
   const [currentYear, setCurrentYear] = useState(null)
@@ -24,18 +24,18 @@ const CurrentHarvest = ({ fields }) => {
 
     // set current date to the same format as shown in sanity
     setCurrentDate(date.toISOString().split('T')[0])
-    setCurrentMonth(monthName)
+    setCurrentMonth(monthName.toLowerCase())
     setCurrentYear(year)
   }, [])
 
   // Methods
   const findFilteredFish = (harvestTitle) => {
     const foundHarvest = harvestList.find((harvest) => harvest.title === harvestTitle)
-    setActiveHarvestList(foundHarvest.months)
+    setHarvestListMonths(foundHarvest.months)
     setActiveTab(foundHarvest)
   }
 
-  const filteredHarvestListByCurrentMonth = activeHarvestList.filter(harvestList => currentMonth === harvestList.month)
+  const filteredHarvestListByCurrentMonth = harvestListMonths.filter(harvestList => currentMonth === harvestList.month.trim().toLowerCase())
   const foundHarvestsByDate = filteredHarvestListByCurrentMonth.filter(harvest => currentDate >= harvest.sellStart && currentDate <= harvest.sellEnd)
 
   return (
@@ -50,6 +50,7 @@ const CurrentHarvest = ({ fields }) => {
                     />
                 </div>
             </div>}
+
             <div className={`${classes['harvest__content']}`}>
                 <div className={`${classes['harvest__header']} container`}>
                     {header ? <h1>{header}</h1> : <h1>{`${currentMonth} ${currentYear} Harvest`}</h1>}
@@ -93,7 +94,7 @@ const CurrentHarvest = ({ fields }) => {
                 </div>}
 
                 {_type === 'currentMonthHarvest' && <div className={`${classes['harvest__fish-list']} container`}>
-                    {activeHarvestList && activeHarvestList.filter((harvestList) => harvestList.month === currentMonth)[0]?.fishArray.map((fish) => {
+                    {harvestListMonths && harvestListMonths.filter((harvestList) => harvestList.month.trim().toLowerCase() === currentMonth)[0]?.fishArray.map((fish) => {
                         return (
                             <div className={classes['harvest__card']}>
                                 <HarvestCard key={fish._key} fish={fish} />

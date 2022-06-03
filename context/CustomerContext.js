@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { accountClientPost } from '@/utils/account'
-import { CUSTOMER_ACCESS_TOKEN_CREATE, GET_CUSTOMER, CUSTOMER_CREATE } from '@/gql/index.js'
+import { CUSTOMER_ACCESS_TOKEN_CREATE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_RECOVER, CUSTOMER_RESET } from '@/gql/index.js'
+import { encode } from 'js-base64'
 import * as Cookies from 'es-cookie'
 
 const CustomerContext = createContext()
@@ -107,8 +108,43 @@ export function CustomerProvider({ children }) {
     return { data, errors: customerUserErrors }
   }
 
+  async function recover({ email }) {
+    const response = await accountClientPost({
+      query: CUSTOMER_RECOVER,
+      variables: {
+        email
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+    const { customerUserErrors } = data.customerRecover
+    return { data, errors: customerUserErrors }
+  }
+
+  async function reset({ password, customerId, resetToken }) {
+    const id = encode(`gid://shopify/Customer/${customerId}`)
+    const response = await accountClientPost({
+      query: CUSTOMER_RESET,
+      variables: {
+        id,
+        input: {
+          password,
+          resetToken
+        }
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+    const { customerUserErrors } = data.customerReset
+    return { data, errors: customerUserErrors }
+  }
+
   return (
-    <CustomerContext.Provider value={{customer, setCustomer, customerLoading, login, register}}>
+    <CustomerContext.Provider value={{customer, setCustomer, customerLoading, login, register, recover, reset}}>
       {children}
     </CustomerContext.Provider>
   )

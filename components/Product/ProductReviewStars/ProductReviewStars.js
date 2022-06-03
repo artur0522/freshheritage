@@ -29,9 +29,9 @@ const ProductReviewStars = ({average = 4.5, reviewCount = 34}) => {
 
   return (
     <div className={classes['product-review-stars']}>
-      <div className={classes['review-stars__wrap']}>
-        {stars.map(star => star)}
-      </div>
+      <ul className={classes['review-stars__wrap']}>
+        {stars.map((star, index) => <li key={index}>{star}</li>)}
+      </ul>
       <span className={classes['review-count']}>
         {reviewCount} Review{reviewCount === 1 ? '' : 's'}
       </span>

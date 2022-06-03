@@ -9,6 +9,11 @@
   }
 }
 
+.review-stars__wrap {
+  display: flex;
+  list-style: none;
+}
+
 .review-star-full,
 .review-star-half,
 .review-star-empty {

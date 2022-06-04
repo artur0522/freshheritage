@@ -17,16 +17,16 @@ const ProjectedHarvest = ({ fields }) => {
     useEffect(() => {
         // TABS BY MONTH
         const months = []
-        let refinedMonths
         harvestList.forEach((harvest) => {
             harvest.months.forEach((month) => {
                 months.push(month)
             })
         })
 
-        refinedMonths = months.filter((value, index, self) =>
+        // REMOVE DUPLICATE MONTHS
+        const refinedMonths = months.filter((value, index, self) =>
             index === self.findIndex((t) => (
-                t.month === value.month
+            t.month === value.month
             ))
         )
        
@@ -41,9 +41,9 @@ const ProjectedHarvest = ({ fields }) => {
         setHarvestListMonths(splicedMonths)
     }, [])
     
+    
     // METHODS
     const findFilteredFish = (harvestMonth) => {
-        console.log(harvestMonth)
         let foundMonth = harvestListMonths.find((month) => {
             return month.month.trim().toLowerCase() === harvestMonth
         })

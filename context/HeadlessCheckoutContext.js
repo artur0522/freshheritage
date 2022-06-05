@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react'
-import CheckoutFlyout from '@/components/CheckoutFlyout'
+import CheckoutFlyout from '@/components/HeadlessCheckout/CheckoutFlyout'
 
 const HeadlessCheckoutContext = createContext()
 

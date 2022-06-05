@@ -1,0 +1,59 @@
+.stx-message {
+  position: relative;
+  padding: 1.25rem;
+  border-left: 5px solid;
+  margin-bottom: 1rem;
+  border-color: #6B6B6B;
+  background: #F8F8F8;
+}
+
+.stx-message .stx-message__dismiss-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  opacity: .5;
+  margin-left: 0;
+}
+
+.stx-message--with-info {
+  border-color: #0D5EFF;
+  background: #F2F6FF; 
+}
+
+.stx-message--with-alert {
+  border-color: #FF1A2D;
+  background: #FFF3F4;
+}
+
+.stx-message--with-warning {
+  border-color: #FAE719;
+  background: #FEFDF3;
+}
+
+.stx-message--with-success {
+  border-color: #69F224;
+  background: #F7FEF3;
+}
+
+.stx-message-icon__icon {
+    display: block;
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+    fill: currentColor;
+    opacity: 0.8;
+}
+
+.stx-message-icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    margin-top: -0.5em;
+    z-index: 1;
+    display: inline-block;
+    vertical-align: middle;
+    height: 1em;
+    width: 1em;
+    min-width: 1em;
+    min-height: 1em;
+}

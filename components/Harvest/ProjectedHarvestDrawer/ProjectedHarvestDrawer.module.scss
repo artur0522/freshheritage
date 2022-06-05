@@ -52,6 +52,11 @@
         }
     }
 
+    // harvest__inner
+    &__inner {
+        max-width: 894px;
+    }
+
     // harvest__content
     &__content {
         .harvest__header {
@@ -150,10 +155,6 @@
 
     .harvest__card:not(:first-child) {
         margin-top: 24px;
-
-        @include breakpoint-up('sm') {
-            margin-top: 0;
-        }
     }
 
     // harvest__list
@@ -170,6 +171,8 @@
             height: 48px;
             display: flex;
             align-items: center;
+            margin: auto auto 0 auto;
+            max-width: 810px;
 
             @include breakpoint-up('sm') {
                 height: initial;

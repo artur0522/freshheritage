@@ -17,7 +17,7 @@ const CurrentHarvest = ({ fields }) => {
   const [currentDate, setCurrentDate] = useState(null)
 
   useEffect(() => {
-    // move as a utility function
+    // make reusable
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     const date = new Date()
     const monthName = month[date.getMonth()]
@@ -30,6 +30,8 @@ const CurrentHarvest = ({ fields }) => {
   }, [])
 
   // Methods
+
+   // make reusable
   const findFilteredFish = (harvestTitle) => {
     const foundHarvest = harvestList.find((harvest) => harvest.title === harvestTitle)
     setHarvestListMonths(foundHarvest.months)
@@ -37,7 +39,7 @@ const CurrentHarvest = ({ fields }) => {
   }
  
   const filteredHarvestListByCurrentMonth = harvestListMonths.filter(harvestList => currentMonth === harvestList.month.trim().toLowerCase())
-  const foundHarvestsByDate = filteredHarvestListByCurrentMonth.filter(harvest => currentDate == harvest.sellStart && currentDate <= harvest.sellEnd)
+  const foundHarvestsByDate = filteredHarvestListByCurrentMonth.filter(harvest => currentDate >= harvest.sellStart && currentDate <= harvest.sellEnd)
 
   return (
     <div className={`${classes['harvest']}`}>

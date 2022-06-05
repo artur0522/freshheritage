@@ -1,3 +1,3 @@
-import ProjectedHarvest from './ProjectedHarvest';
+import ProjectedHarvest from './ProjectedHarvest'
 
-export default ProjectedHarvest;
+export default ProjectedHarvest

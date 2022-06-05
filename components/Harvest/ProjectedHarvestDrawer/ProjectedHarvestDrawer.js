@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import "swiper/css"
-import classes from './ProjectedHarvest.module.scss'
+import classes from './ProjectedHarvestDrawer.module.scss'
 
 import HarvestCard from "../HarvestCard"
 
-const ProjectedHarvest = ({ fields }) => {
+const ProjectedHarvestDrawer = ({ fields }) => {
     // SANITY FIELDS
     const { title, harvestList } = fields
    
@@ -27,7 +27,7 @@ const ProjectedHarvest = ({ fields }) => {
         // REMOVE DUPLICATE MONTHS
         const refinedMonths = months.filter((value, index, self) =>
             index === self.findIndex((t) => (
-                t.month === value.month
+            t.month === value.month
             ))
         )
        
@@ -43,9 +43,10 @@ const ProjectedHarvest = ({ fields }) => {
         setHarvestListMonths(splicedMonths)
     }, [])
     
+    
     // METHODS
-
-    // make reusable
+    
+     // make reusable
     const findFilteredFish = (harvestMonth) => {
         let foundMonth = harvestListMonths.find((month) => {
             return month.month.trim().toLowerCase() === harvestMonth
@@ -89,8 +90,8 @@ const ProjectedHarvest = ({ fields }) => {
                                     <div className={`${classes['harvest__fish-list']}`}>
                                         {harvest.months.filter(month => month.month.trim().toLowerCase() === activeTab.month?.trim().toLowerCase())[0]?.fishArray.map((fish) => {
                                             return(
-                                                <div className={`${classes['harvest__card']}`}>
-                                                    <HarvestCard key={fish._key} fish={fish} />
+                                                <div className={`${classes['harvest__card']} ${classes['projected-card']}`}>
+                                                    <HarvestCard key={fish._key} fish={fish} cardStyle={'projected-card'} />
                                                 </div>
                                             )
                                         })}
@@ -105,4 +106,4 @@ const ProjectedHarvest = ({ fields }) => {
     )
 }
 
-export default ProjectedHarvest
+export default ProjectedHarvestDrawer

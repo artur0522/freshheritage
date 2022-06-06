@@ -1,16 +1,15 @@
 import React from 'react'
-import dynamic from 'next/dynamic'
 
+import CurrentHarvest from '../Harvest/CurrentHarvest'
+import ProjectedHarvestDrawer from '../Harvest/ProjectedHarvestDrawer'
+import ProjectedHarvest from '../Harvest/ProjectedHarvest'
+import GlobalSampler from '../Harvest/GlobalSampler'
 import FeaturedBlogContent from '../FeaturedBlogContent'
 import FullBleedHero from '../FullBleedHero'
 import SplitHero from '../SplitHero'
 import FiftyFifty from '../FiftyFifty'
 import PressLogos from '../PressLogos'
 import ValueProps from '../ValueProps'
-import CurrentHarvest from '../Harvest/CurrentHarvest'
-import ProjectedHarvestDrawer from '../Harvest/ProjectedHarvestDrawer'
-import ProjectedHarvest from '../Harvest/ProjectedHarvest'
-import GlobalSampler from '../Harvest/GlobalSampler'
 
 const ContentSections = ({ sections }) => {
   if (!Array.isArray(sections)) {

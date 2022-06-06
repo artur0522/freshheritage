@@ -9,7 +9,6 @@ import HarvestCard from "../HarvestCard"
 const ProjectedHarvest = ({ fields }) => {
     // SANITY FIELDS
     const { title, harvestList } = fields
-   
     // STATE
     const [harvestListMonths, setHarvestListMonths] = useState([])
     const [activeTab, setActiveTab] = useState({})
@@ -20,7 +19,9 @@ const ProjectedHarvest = ({ fields }) => {
         const months = []
         harvestList.forEach((harvest) => {
             harvest.months.forEach((month) => {
-                months.push(month)
+                if(month.fishArray.length > 0) {
+                    months.push(month)
+                }
             })
         })
 
@@ -42,7 +43,7 @@ const ProjectedHarvest = ({ fields }) => {
         setActiveTab(splicedMonths[0])
         setHarvestListMonths(splicedMonths)
     }, [])
-    
+
     // METHODS
 
     // make reusable

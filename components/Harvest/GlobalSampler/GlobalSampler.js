@@ -20,8 +20,6 @@ const GlobalSampler = ({ fields }) => {
     setCurrentMonth(monthName.toLowerCase())
   }, [])
 
-  console.log(harvestListMonths)
-
   return (
     <div className={`${classes['harvest']}`}>
         <div className={`${classes['harvest__inner']}`}>

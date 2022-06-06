@@ -60,14 +60,14 @@ const SavedAddressList = ({
     <>
       {savedAddressList}
       <div className="RadioButton RadioButton__NewAddressContainer">
-        <RadioField
+        {/* <RadioField
           label={t('shipping.add_new_address')}
           name="shipping-address"
           checked={!selectedAddress}
           className="RadioField"
           onChange={handleNewAddressChange}
           disabled={disabled}
-        />
+        /> */}
       </div>
     </>
   );

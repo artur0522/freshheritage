@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { LineItemProduct } from "../LineItemProduct";
-import { ArrowRightIcon } from "../Icons";
+import { ArrowRightIcon, RemoveIcon } from "../Icons";
 // import './InventoryItem.css'
 
 const InventoryItem = ({

@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { accountClientPost } from '@/utils/account'
-import { CUSTOMER_ACCESS_TOKEN_CREATE, GET_CUSTOMER, CUSTOMER_CREATE } from '@/gql/index.js'
+import { CUSTOMER_ACCESS_TOKEN_CREATE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_RECOVER, CUSTOMER_RESET } from '@/gql/index.js'
+import { encode } from 'js-base64'
 import * as Cookies from 'es-cookie'
 
 const CustomerContext = createContext()
@@ -12,6 +13,7 @@ export function useCustomerContext() {
 export function CustomerProvider({ children }) {
 
   const [customer, setCustomer] = useState(null)
+  const [customerLoading, setCustomerLoading] = useState(false)
 
   useEffect(() => {
     const customerAccessToken = Cookies.get('customerAccessToken')
@@ -39,6 +41,7 @@ export function CustomerProvider({ children }) {
   }
 
   async function getCustomer({accessToken, expiresAt}) {
+    setCustomerLoading(true)
     const response = await accountClientPost({
       query: GET_CUSTOMER,
       variables: {
@@ -46,6 +49,7 @@ export function CustomerProvider({ children }) {
       }
     })
     const { data, errors } = response
+    setCustomerLoading(false)
     if (errors && errors.length) {
       return { errors: errors }
     }
@@ -53,7 +57,7 @@ export function CustomerProvider({ children }) {
       Cookies.set('customerAccessToken', accessToken, { expires: new Date(expiresAt), path: '/' })
     }
 
-    const { customer } = data;
+    const { customer } = data
 
     // TODO: might need to turn this into a useReducer instead of using useState above
     if (data.customer.tags.length) {
@@ -104,8 +108,43 @@ export function CustomerProvider({ children }) {
     return { data, errors: customerUserErrors }
   }
 
+  async function recover({ email }) {
+    const response = await accountClientPost({
+      query: CUSTOMER_RECOVER,
+      variables: {
+        email
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+    const { customerUserErrors } = data.customerRecover
+    return { data, errors: customerUserErrors }
+  }
+
+  async function reset({ password, customerId, resetToken }) {
+    const id = encode(`gid://shopify/Customer/${customerId}`)
+    const response = await accountClientPost({
+      query: CUSTOMER_RESET,
+      variables: {
+        id,
+        input: {
+          password,
+          resetToken
+        }
+      }
+    })
+    const { data, errors } = response
+    if (errors && errors.length) {
+      return { errors: errors }
+    }
+    const { customerUserErrors } = data.customerReset
+    return { data, errors: customerUserErrors }
+  }
+
   return (
-    <CustomerContext.Provider value={{customer, setCustomer, login, register}}>
+    <CustomerContext.Provider value={{customer, setCustomer, customerLoading, login, register, recover, reset}}>
       {children}
     </CustomerContext.Provider>
   )

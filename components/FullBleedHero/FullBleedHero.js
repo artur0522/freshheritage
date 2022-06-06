@@ -1,20 +1,20 @@
-import React from 'react';
-import { useMediaQuery } from 'react-responsive';
-import Image from 'next/image';
-import Link from 'next/link';
+import React from 'react'
+import { useMediaQuery } from 'react-responsive'
+import Image from 'next/image'
+import Link from 'next/link'
 
-import classes from './FullBleedHero.module.scss';
+import classes from './FullBleedHero.module.scss'
 
 const FullBleedHero = ({ fields }) => {
-  const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
-  const isDesktop = useMediaQuery({ query: '(min-width: 768px)' });
-  let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage } = fields;
-  let btnColor;
+  const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
+  const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
+  let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage } = fields
+  let btnColor
   // Conditionally change the color of the button
   if (textColor === 'text--light') {
-    btnColor = 'alabaster';
+    btnColor = 'alabaster'
   } else {
-    btnColor = 'salmon';
+    btnColor = 'salmon'
   }
   
   return (
@@ -55,7 +55,7 @@ const FullBleedHero = ({ fields }) => {
           />
         </div>}
     </div>
-  );
-};
+  )
+}
 
-export default FullBleedHero;
+export default FullBleedHero

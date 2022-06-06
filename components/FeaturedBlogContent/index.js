@@ -1,3 +1,3 @@
-import FeaturedBlogContent from './FeaturedBlogContent';
+import FeaturedBlogContent from './FeaturedBlogContent'
 
-export default FeaturedBlogContent;
+export default FeaturedBlogContent

@@ -1,4 +1,5 @@
 .btn {
+  font-weight: 500;
   color: $alabaster;
   background-color: $black;
   border: none;
@@ -9,6 +10,7 @@
   text-decoration: none;
   width: 100%;
   display: block;
+  transition: 0.2s ease-in-out background;
 
   &:disabled {
     background: linear-gradient(
@@ -155,19 +157,28 @@
 
 a {
   transition: 0.2s ease-in-out color;
-  &:hover {
+  &:not(.btn):hover {
     color: $salmon;
     text-decoration: underline;
+  }
+  &.btn {
+    display: flex;
+    justify-content: center;
   }
 }
 
 .btn-link-underline {
+  font-weight: 500;
   color: $sitkablue;
   background-color: transparent;
   text-decoration: underline;
   padding: 0;
   border: none;
   box-shadow: none;
+  transition: 0.2s ease-in-out color;
+  &:hover {
+    color: $salmon;
+  }
 }
 
 .u-error {

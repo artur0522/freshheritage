@@ -21,6 +21,11 @@
 @import './utility/_utility.scss';
 @import './utility/_container.scss';
 
+// ===========================================================================
+// *** Vendor
+// ===========================================================================
+@import './vendor/react-dropdown.scss';
+
 * {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -33,6 +38,6 @@
 
 body {
   color: $sitkablue;
-  font-family: 'FrankRuhlRegular';
+  font-family: 'FrankRuhl';
   background-color: $alabaster;
 }

@@ -1,0 +1,118 @@
+import { useState, useEffect } from 'react'
+import Expand from 'react-expand-animated'
+import Dropdown from 'react-dropdown'
+import 'react-dropdown/style.css'
+import IconSelectArrow from '@/svgs/select-arrow.svg'
+import classes from './MembershipOption.module.scss'
+import { useMediaQuery } from 'react-responsive'
+import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
+import IconMinus from '@/svgs/minus.svg'
+import IconPlus from '@/svgs/plus.svg'
+
+const MembershipOption = ({option, membershipType}) => {
+  const purchaseFlowContext = usePurchaseFlowContext()
+
+  const [selectedVariant, setSelectedVariant] = useState(purchaseFlowContext.options.product.variants[0])
+
+  const { product } = purchaseFlowContext.options
+  const { variants } = product;
+  const membershipText = selectedVariant.metafields.find(metafield => metafield.key === `${membershipType}_membership_text`)
+  const frequencyOptions = product.content.options.find(option => option.name === 'frequency').values
+  const variantPrice = membershipType === 'prepaid' ? (selectedVariant.price * .97).toFixed(2) : selectedVariant.price
+
+  const handleMediaQueryChange = (matches) => {
+    if (matches) setHeight('auto')
+    if (!matches) setHeight(0)
+  }
+
+  const isDesktop = useMediaQuery(
+    { minWidth: 768 }, undefined, handleMediaQueryChange
+  )
+  const [height, setHeight] = useState(isDesktop ? 'auto' : 0)
+
+  const toggleExpand = () => {
+    if (isDesktop) {
+      return false
+    }
+    height === 0 ? setHeight('auto') : setHeight(0)
+  }
+
+  const getVariant = (value) => {
+    return variants.find(variant => {
+      // hardcoded logic to find variant for premium seafood box if shellfish free is selected
+      if (purchaseFlowContext.options.productHandle === 'premium-seafood-subscription-box') {
+        const shellFishOptionValue = purchaseFlowContext.options.shellfish_free_selected ? 'shellfish' : 'no shellfish'
+        return variant.content.selectedOptions.filter(option => option.value === value || option.value === shellFishOptionValue).length >= 2
+      }
+      return variant.content.selectedOptions.some(option => option.value === value)
+    })
+  }
+
+  const onSelectVariant = ({value}) => {
+    const variant = getVariant(value)
+    setSelectedVariant(variant)
+  }
+
+  useEffect(() => {
+    const variant = getVariant(frequencyOptions[0])
+    setSelectedVariant(variant)
+  }, [])
+
+  return (
+    <li className={classes['membership-option']}>
+      <div className={classes['membership-option__container']}>
+        {option.promoFlag &&
+          <span className={classes['membership-option__promo-flag']}>{option.promoFlag}</span>
+        }
+        <div className={classes['membership-option__details']}>
+          <h2 className={`${classes['membership-option__title']} h1`}>{option.header}</h2>
+          {selectedVariant &&
+            <div className={classes['membership-option__price-wrap']}>
+              <div className={classes['membership-option__price']}>
+                <span>${variantPrice}</span>
+                <span>{membershipText.value}</span>
+              </div>
+              {option.savingsText &&
+                <div className={classes['membership-option__savings-text']}>{option.savingsText}</div>
+              }
+            </div>
+          }
+          {product &&
+            <Dropdown
+              className={`dropdown-selector`}
+              options={frequencyOptions.map(option => option)}
+              onChange={(e) => onSelectVariant(e)}
+              value={frequencyOptions[0]}
+              arrowClosed={<IconSelectArrow className="dropdown-selector__arrow-closed" />}
+              arrowOpen={<IconSelectArrow className="dropdown-selector__arrow-open" />}
+            />
+          }
+          <button
+            onClick={() => purchaseFlowContext.selectMembershipPlan(selectedVariant, membershipType)}
+            className="btn salmon">
+              {option.ctaText}
+          </button>
+          {!isDesktop &&
+            <button onClick={() => toggleExpand()} className={`${classes['membership-option__toggle-btn']} btn-link-underline`}>
+              <span>{option.toggleValuePropsCtaText}</span>
+              {height !== 0 && !isDesktop ? (
+                <IconMinus />
+              ) :(
+                <IconPlus />
+              )}
+            </button>
+          }
+          <Expand open={height !== 0} duration={300}>
+            <ul className={classes['membership-value__props']}>
+              {option.valueProps.map((item, index) => {
+                return <li key={index}>{item}</li>
+              })}
+            </ul>
+          </Expand>
+        </div>
+      </div>
+  </li>
+  )
+}
+
+export default MembershipOption

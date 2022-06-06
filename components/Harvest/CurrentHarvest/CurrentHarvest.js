@@ -29,8 +29,6 @@ const CurrentHarvest = ({ fields }) => {
     setCurrentYear(year)
   }, [])
 
-  console.log('fields', harvestList)
-
   // Methods
 
    // make reusable
@@ -90,7 +88,7 @@ const CurrentHarvest = ({ fields }) => {
                             harvest.fishArray.map((fish) => {
                                 return (
                                     <div className={classes['harvest__card']} key={fish._key}>
-                                        <HarvestCard fish={fish} />
+                                        <HarvestCard key={fish._key} fish={fish} />
                                     </div>
                                 )
                             })

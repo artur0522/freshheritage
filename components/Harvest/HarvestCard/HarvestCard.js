@@ -24,7 +24,7 @@ const HarvestCard = ({ fish, cardStyle }) => {
   }
 
   return (
-    <div className={`${classes['harvest__card']} ${cardStyle === 'projected-card' ? classes['projected-card'] : ""}`}>
+    <div key={fish._key} className={`${classes['harvest__card']} ${cardStyle === 'projected-card' ? classes['projected-card'] : ""}`}>
        {cardStyle === 'projected-card' && isMobile && mounted &&
           <div className={classes['harvest__card-img']}>
             <Image

@@ -1,0 +1,68 @@
+@import '@/styles/_shared.scss';
+
+
+.purchase-flow__navigation {
+  display: flex;
+  align-items: center;
+  width: 60%;
+  justify-content: center;
+}
+
+.purchase-flow__nav-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin-left: -24px;
+  @include breakpoint-up('sm') {
+    margin-left: -30px;
+  }
+  li {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: $pureWhite;
+    position: relative;
+    margin: 0 26px;
+    padding: 1px 0 0 1px;
+    transition: 0.2s ease-in-out color, 0.2s ease-in-out background-color;
+    @include breakpoint-up('sm') {
+      font-size: 16px;
+      width: 36px;
+      height: 36px;
+      margin: 0 72px;
+      padding: 0;
+    }
+    &:before {
+      content: '';
+      height: 1px;
+      width: 28px;
+      background-color: $black20;
+      position: absolute;
+      left: calc(100% + 7px);
+      @include breakpoint-up('sm') {
+        width: 96px;
+        left: calc(100% + 24px);
+      }
+    }
+    &:first-child:not(.is-active) {
+      cursor: pointer;
+      &:hover {
+        background-color: $salmon;
+        color: $pureWhite;
+      }
+    }
+    &:last-child {
+      &:before {
+        display: none;
+      }
+    }
+    &.is-active {
+      background-color: $salmon;
+      color: $pureWhite;
+    }
+  }
+}

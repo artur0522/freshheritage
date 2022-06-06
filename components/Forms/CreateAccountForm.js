@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react'
+import { useRef, useReducer } from 'react'
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
-import classes from '@/components/Layout/Modal/Modal.module.scss'
+import { accountFormReducer, initialState } from '@/utils/account'
+import classes from './AccountForm.module.scss'
 
 const CreateAccountForm = () => {
 
@@ -11,13 +12,12 @@ const CreateAccountForm = () => {
   const lastNameRef = useRef()
   const emailRef = useRef()
   const passwordRef = useRef()
-  const [showErrorMessage, setShowErrorMessage] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const [state, dispatch] = useReducer(accountFormReducer, initialState)
+  const { showSuccessMessage, showErrorMessage, errorMessage, isLoading} = state
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    setIsLoading(true)
+    dispatch({ type: 'loading' })
     const response = await customerContext.register({
       firstName: firstNameRef.current.value,
       lastName: lastNameRef.current.value,
@@ -27,9 +27,7 @@ const CreateAccountForm = () => {
 
     if (response.errors?.length) {
       console.log(response)
-      setShowErrorMessage(true)
-      setErrorMessage(response.errors[0].message)
-      setIsLoading(true)
+      dispatch({ type: 'error', payload: response.errors[0].message })
     } else {
       const response = await customerContext.login({
         email: emailRef.current.value,
@@ -42,8 +40,7 @@ const CreateAccountForm = () => {
         emailRef.current.value = ''
         passwordRef.current.value = ''
         modalContext.setIsOpen(false)
-        setIsLoading(true)
-        setShowErrorMessage('')
+        dispatch({ type: 'success' })
         // TODO: redirect to account page
       }
     }
@@ -51,12 +48,12 @@ const CreateAccountForm = () => {
 
 
   return (
-    <>
+    <div className={classes['account-form']}>
       <h4>Create A Sitka Seafood Membership Account</h4>
       <h5>Track orders and manage your<br/> subscription in your account.</h5>
       <form onSubmit={(e) => onSubmit(e)}>
         {showErrorMessage &&
-          <p className={classes.modalFormError}>{errorMessage}</p>
+          <p className={classes['account-form__error']}>{errorMessage}</p>
         }
         <div className="input-group">
           <input type="text" className="input" placeholder="first name" ref={firstNameRef} />
@@ -79,7 +76,7 @@ const CreateAccountForm = () => {
             Log In
         </button>
       </p>
-    </>
+    </div>
   )
 }
 

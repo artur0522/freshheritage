@@ -28,9 +28,11 @@ const MobileMenu = ({props, mobileMenuIsOpen, setMobileMenuIsOpen}) => {
           <div className={classes.mobileMenuSection}>
             <h1>Become A Sitka Seafood Member</h1>
             <p>Get premium, Wild-Caught Seafood From Alaska Fishermen To Your Doorstep.</p>
-            <button className={[classes.mobileMainNavBtn, 'btn', 'salmon'].join(' ')}>
-              {navCTA.ctaText}
-            </button>
+            <Link href={navCTA.ctaUrl ? navCTA.ctaUrl : ''}>
+              <a className={[classes.mobileMainNavBtn, 'btn', 'salmon'].join(' ')}>
+                {navCTA.ctaText}
+              </a>
+            </Link>
           </div>
           <div className={classes.mobileMenuSection}>
             <ul>

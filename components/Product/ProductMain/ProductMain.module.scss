@@ -1,0 +1,27 @@
+@import '@/styles/_shared.scss';
+
+.product-title {
+  margin-bottom: 20px;;
+}
+
+.product-price-pounds {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  @include breakpoint-up('md') {
+    margin-bottom: 45px;
+  }
+  span {
+    font-size: 16px;
+    font-weight: 500;
+    @include breakpoint-up('md') {
+      font-size: 28px;
+    }
+  }
+}
+
+.product-atc-btn {
+  @include breakpoint-up('md') {
+    height: 60px;
+  }
+}

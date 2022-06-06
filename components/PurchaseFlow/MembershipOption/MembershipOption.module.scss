@@ -1,0 +1,135 @@
+@import '@/styles/_shared.scss';
+
+.membership-option {
+  display: flex;
+  width: 100%;
+  padding: 0;
+  max-width: 400px;
+  margin: 0 auto 48px;
+  @include breakpoint-up('sm') {
+    max-width: 536px;
+  }
+  @include breakpoint-up('md') {
+    width: 50%;
+    padding: 0 18px;
+    margin-bottom: 0;
+    max-width: none;
+  }
+}
+
+.membership-option__container {
+  padding: 40px 12px 0;
+  background-color: $pureWhite;
+  border: 2px solid $fawn50-2;
+  border-radius: 12px;
+  position: relative;
+  @include breakpoint-up('sm') {
+    padding: 40px 48px;
+  }
+}
+
+.membership-option__promo-flag {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 156px;
+  height: 25px;
+  position: absolute;
+  top: -12.5px;
+  left: calc(50% - 78px);
+  background-color: $fawn50-2;
+  color: $sitkablue;
+  border-radius: 48px;
+  @include breakpoint-up('sm') {
+    font-size: 14px;
+  }
+}
+
+.membership-option__title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 10px;
+  @include breakpoint-up('sm') {
+    text-align: left;
+    font-size: 36px;
+    margin-bottom: 15px;
+  }
+}
+
+.membership-option__price-wrap {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 30px;
+  @include breakpoint-up('sm') {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    margin-bottom: 40px;
+  }
+  span {
+    font-size: 14px;
+    @include breakpoint-up('sm') {
+      font-size: 12px;
+    }
+  }
+  span:first-child {
+    font-size: 14px;
+    margin-right: 10px;
+    @include breakpoint-up('sm') {
+      font-size: 18px;
+    }
+  }
+}
+
+.membership-value__props {
+  list-style: none;
+  @include breakpoint-up('sm') {
+    margin-top: 24px;
+  }
+  li {
+    font-size: 14px;
+    line-height: 150%;
+    margin: 0;
+    padding: 18px 0;
+    border-bottom: 1px solid $fawn50-2;
+    @include breakpoint-up('sm') {
+      font-size: 18px;
+    }
+    &:first-child {
+      padding-top: 0;
+    }
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+}
+
+.membership-option__savings-text {
+  font-size: 14px;
+  color: $salmon;
+  margin-top: 20px;
+  @include breakpoint-up('sm') {
+    font-size: 18px;
+    margin-top: 0;
+  }
+}
+
+.membership-option__toggle-btn {
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-top: 1px solid $fawn50-2;
+  padding: 18px 0;
+  margin-top: 30px;
+  svg {
+    width: 15px;
+    * {
+      fill: $sitkablue;
+    }
+  }
+}

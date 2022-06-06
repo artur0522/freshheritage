@@ -38,3 +38,31 @@ export const CUSTOMER_CREATE = `mutation customerCreate($input: CustomerCreateIn
     }
   }
 }`
+
+export const CUSTOMER_RECOVER = `mutation customerRecover($email: String!) {
+  customerRecover(email: $email) {
+    customerUserErrors {
+      code
+      field
+      message
+    }
+  }
+}`
+
+export const CUSTOMER_RESET = `mutation customerReset($id: ID!, $input: CustomerResetInput!) {
+  customerReset(id: $id, input: $input) {
+    customer {
+      id
+      email
+    }
+    customerAccessToken {
+      accessToken
+      expiresAt
+    }
+    customerUserErrors {
+      code
+      field
+      message
+    }
+  }
+}`

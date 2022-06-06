@@ -1,3 +1,3 @@
-import ContentSections from './ContentSections';
+import ContentSections from './ContentSections'
 
-export default ContentSections;
+export default ContentSections

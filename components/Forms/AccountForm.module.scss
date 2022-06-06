@@ -1,0 +1,60 @@
+@import '@/styles/_shared.scss';
+
+.account-form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  top: 0;
+  bottom: 0;
+  @include breakpoint-up('sm') {
+    max-width: 540px;
+  }
+  h4 {
+    margin-bottom: 10px;
+    @include breakpoint-up('sm') {
+      margin-bottom: 30px;
+    }
+  }
+  form {
+    text-align: center;
+    margin: 20px 0 30px;
+    position: relative;
+    width: 100%;
+    @include breakpoint-up('sm') {
+      margin: 50px 0;
+      padding: 0 24px;
+    }
+    button {
+      margin-top: 30px;
+      @include breakpoint-up('sm') {
+        margin-top: 48px;
+      }
+    }
+  }
+  p {
+    margin-bottom: 12px;
+    @include breakpoint-up('sm') {
+      margin-bottom: 24px;
+    }
+    &:last-child {
+      margin: 0;
+    }
+  }
+}
+
+.account-form__error,
+.account-form__success {
+  font-size: 12px;
+  line-height: 1.1;
+  color: $error;
+  @include breakpoint-up('sm') {
+    font-size: 14px;
+  }
+}
+
+.account-form__success {
+  color: $success;
+}

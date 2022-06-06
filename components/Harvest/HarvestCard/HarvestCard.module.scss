@@ -8,9 +8,11 @@
     border: 1px solid $fawn50-2;
     border-radius: 12px;
     min-height: 319px;
+    margin-bottom: 12px;
 
     @include breakpoint-up('sm') {
         padding: 36px 36px 72px 36px;
+        margin-bottom: 24px;
     }
 
     &.projected-card {

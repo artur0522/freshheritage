@@ -38,7 +38,7 @@ const ContentSections = ({ sections }) => {
       case 'currentMonthHarvest':
         return <CurrentHarvest fields={section} key={section._key} />
       case 'projectedHarvest':
-        return <ProjectedHarvestDrawer fields={section} key={section._key} />
+        return <ProjectedHarvest fields={section} key={section._key} />
       case 'globalSampler':
         return <GlobalSampler fields={section} key={section._key} />
       default:

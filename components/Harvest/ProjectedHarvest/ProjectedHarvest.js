@@ -84,14 +84,14 @@ const ProjectedHarvest = ({ fields }) => {
                     </Swiper>
                     {harvestList && harvestList.map((harvest) => {
                         return (
-                            <div className={`${classes['harvest__list']}`}>
+                            <div className={`${classes['harvest__list']}`} key={harvest._id}>
                                 <div className="container">
                                     {harvest.header && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
                                     <div className={`${classes['harvest__fish-list']}`}>
                                         {harvest.months.filter(month => month.month.trim().toLowerCase() === activeTab.month?.trim().toLowerCase())[0]?.fishArray.map((fish) => {
                                             return(
-                                                <div className={`${classes['harvest__card']}`}>
-                                                    <HarvestCard key={fish._key} fish={fish} />
+                                                <div className={`${classes['harvest__card']}`} key={fish._key}>
+                                                    <HarvestCard fish={fish} />
                                                 </div>
                                             )
                                         })}

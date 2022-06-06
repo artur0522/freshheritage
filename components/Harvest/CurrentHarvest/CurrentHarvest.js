@@ -29,6 +29,8 @@ const CurrentHarvest = ({ fields }) => {
     setCurrentYear(year)
   }, [])
 
+  console.log('fields', harvestList)
+
   // Methods
 
    // make reusable
@@ -87,8 +89,8 @@ const CurrentHarvest = ({ fields }) => {
                         return (
                             harvest.fishArray.map((fish) => {
                                 return (
-                                    <div className={classes['harvest__card']}>
-                                        <HarvestCard key={fish._key} fish={fish} />
+                                    <div className={classes['harvest__card']} key={fish._key}>
+                                        <HarvestCard fish={fish} />
                                     </div>
                                 )
                             })
@@ -99,8 +101,8 @@ const CurrentHarvest = ({ fields }) => {
                 {_type === 'currentMonthHarvest' && <div className={`${classes['harvest__fish-list']} container`}>
                     {harvestListMonths && harvestListMonths.filter((harvestList) => harvestList.month.trim().toLowerCase() === currentMonth)[0]?.fishArray.map((fish) => {
                         return (
-                            <div className={classes['harvest__card']}>
-                                <HarvestCard key={fish._key} fish={fish} />
+                            <div className={classes['harvest__card']} key={fish._key}>
+                                <HarvestCard fish={fish} />
                             </div>
                         )
                     })}

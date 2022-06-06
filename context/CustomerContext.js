@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { accountClientPost } from '@/utils/account'
 import { CUSTOMER_ACCESS_TOKEN_CREATE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_RECOVER, CUSTOMER_RESET } from '@/gql/index.js'
-import { encode } from 'js-base64'
+
 import * as Cookies from 'es-cookie'
 
 const CustomerContext = createContext()

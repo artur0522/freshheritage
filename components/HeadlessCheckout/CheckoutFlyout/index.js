@@ -1,3 +1,3 @@
-import Checkout from './Checkout';
+import CheckoutFlyout from './CheckoutFlyout';
 
-export default Checkout;
+export default CheckoutFlyout;

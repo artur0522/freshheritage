@@ -1,11 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import Image from 'next/image';
-import { Button } from '@nacelle/react-components';
-import * as styles from './Checkout.styles';
+import classes from './CheckoutFlyout.module.scss';
 import { StateBasedCheckout } from '../Checkout/StateBasedCheckout';
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
+import IconClose from '@/svgs/close.svg'
 
-const Checkout = () => {
+const CheckoutFlyout = () => {
   const {
     data,
     initializeCheckout,
@@ -31,30 +30,23 @@ const Checkout = () => {
     }
   }, []);
 
-  const checkoutStateStyle = flyoutState ? styles.show : styles.hide;
+  const checkoutStateStyle = flyoutState ? classes['show'] : classes['hide'];
 
   return (
-    <div css={[styles.cart, checkoutStateStyle]}>
-      <header css={styles.cartHeader}>
-        <h3 css={styles.cartTitle}>Flyout Checkout</h3>
-        <Button
-          styles={styles.closeButton}
-          onClick={() => setFlyoutState(false)}
-        >
-          {/* <Image
-            alt="cross for closing the cart"
-            src="https://nacelle-assets.s3-us-west-2.amazonaws.com/default-close-icon.svg"
-            width="15"
-            height="25"
-            css={styles.closeIcon}
-          /> */}
-        </Button>
+    <div className={`${classes.cart} ${checkoutStateStyle}`}>
+      <header className={classes['cart-header']}>
+        <h3 className={classes['cart-title']}>Flyout Checkout</h3>
+        <button
+          className={classes['close-button']}
+          onClick={() => setFlyoutState(false)}>
+            <IconClose />
+        </button>
       </header>
-      <section css={styles.cartItems}>
+      <section className={classes['cart-items']}>
         {data && <StateBasedCheckout data={data} />}
       </section>
-      <footer css={styles.subTotalFooter}>
-        <h4 css={styles.subTotal}>
+      <footer className={classes['sub-total-footer']}>
+        <h4 className={classes['sub-total']}>
           <span>Total:</span>
         </h4>
       </footer>
@@ -62,4 +54,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default CheckoutFlyout;

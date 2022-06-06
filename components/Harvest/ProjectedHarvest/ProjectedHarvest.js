@@ -91,7 +91,7 @@ const ProjectedHarvest = ({ fields }) => {
                                         {harvest.months.filter(month => month.month.trim().toLowerCase() === activeTab.month?.trim().toLowerCase())[0]?.fishArray.map((fish) => {
                                             return(
                                                 <div className={`${classes['harvest__card']}`} key={fish._key}>
-                                                    <HarvestCard key={fish._key} fish={fish} />
+                                                    <HarvestCard fish={fish} />
                                                 </div>
                                             )
                                         })}

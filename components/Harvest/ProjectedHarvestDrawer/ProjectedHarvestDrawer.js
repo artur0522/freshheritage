@@ -14,7 +14,6 @@ const ProjectedHarvestDrawer = ({ fields }) => {
     const [activeTab, setActiveTab] = useState({})
     const [currentDate, setCurrentDate] = useState(null)
     const [currentMonth, setCurrentMonth] = useState(null)
-    const [mounted, setMounted] = useState(false)
 
     useEffect(() => {
         // TABS BY MONTH
@@ -45,7 +44,6 @@ const ProjectedHarvestDrawer = ({ fields }) => {
         setCurrentMonth(monthName)
         setActiveTab(splicedMonths[0])
         setHarvestListMonths(splicedMonths)
-        setMounted(true)
     }, [])
 
     // METHODS

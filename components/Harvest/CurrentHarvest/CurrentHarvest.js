@@ -18,14 +18,14 @@ const CurrentHarvest = ({ fields }) => {
 
   useEffect(() => {
     // make reusable
-    const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    const month = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
     const date = new Date()
     const monthName = month[date.getMonth()]
     const year = date.getFullYear()
 
     // set current date to the same format as shown in sanity
     setCurrentDate(date.toISOString().split('T')[0])
-    setCurrentMonth(monthName.toLowerCase())
+    setCurrentMonth(monthName)
     setCurrentYear(year)
   }, [])
 
@@ -74,7 +74,7 @@ const CurrentHarvest = ({ fields }) => {
                 {harvestList.map((harvest) => {
                     return (
                         <SwiperSlide className={classes['harvest__tab']} key={harvest._id}>
-                            <button onClick={() => findFilteredFish(harvest.title)} className={`${classes['harvest__tab']} heading--tab ${activeTab.title ===  harvest.title ? classes['active'] : ""}`}>
+                            <button onClick={() => findFilteredFish(harvest.title)} className={`${classes['harvest__tab']} heading--tab ${activeTab.title ===  harvest.title ? classes['active'] : ""} capitalize`}>
                                 {harvest.title}
                             </button>
                         </SwiperSlide>

@@ -38,7 +38,7 @@ const ProjectedHarvestDrawer = ({ fields }) => {
         const date = new Date()
         const monthName = monthNames[date.getMonth()]
         const currentMonthIndex = refinedMonths.findIndex(refinedMonth => refinedMonth.month === monthName)
-        const splicedMonths = refinedMonths.splice(currentMonthIndex)
+        const splicedMonths = refinedMonths.splice(currentMonthIndex, 4)
         
         setCurrentDate(date.toISOString().split('T')[0])
         setCurrentMonth(monthName)

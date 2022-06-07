@@ -1,17 +1,17 @@
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 
-import classes from './FiftyFifty.module.scss';
+import classes from './FiftyFifty.module.scss'
 
 const FiftyFifty = ({ fields }) => {
-  let sectionImage;
+  let sectionImage
 
   // Check if image exists
   if (fields.image) {
         sectionImage = <Image className={classes.mbl__img} src={fields.image.asset.url} layout="fill" />
   } else {
-    return null;
+    return null
   }
 
   return (
@@ -31,7 +31,7 @@ const FiftyFifty = ({ fields }) => {
             </div>
         </div>
     </div>
-  );
-};
+  )
+}
 
-export default FiftyFifty;
+export default FiftyFifty

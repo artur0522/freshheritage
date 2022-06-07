@@ -1,19 +1,19 @@
-import React from 'react';
-import { PortableText } from '@portabletext/react';
+import React from 'react'
+import { PortableText } from '@portabletext/react'
 import { useMediaQuery } from 'react-responsive'
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from 'next/image'
+import Link from 'next/link'
 
-import classes from './SplitHero.module.scss';
+import classes from './SplitHero.module.scss'
 import IconBullet from '@/svgs/list-item.svg'
 
 const SplitHero = ({ fields }) => {
-  const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery(
     {query: '(min-width: 768px)'}
   )
-  const { imageContainer, imageWidth, style, textColor, valueProps, disclaimer, desktopBackgroundImage, mobileBackgroundImage } = fields;
-
+  const { imageContainer, imageWidth, style, textColor, valueProps, disclaimer, desktopBackgroundImage, mobileBackgroundImage } = fields
+    
   return (
     <div className={`${classes['hero']} ${classes[style]} ${classes[imageContainer]} ${classes[textColor]}`}>
       <div className={`${classes['hero__row']}`}>
@@ -67,7 +67,7 @@ const SplitHero = ({ fields }) => {
         </div>}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SplitHero;
+export default SplitHero

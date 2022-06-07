@@ -1,25 +1,28 @@
-import React from 'react';
-import dynamic from 'next/dynamic';
+import React from 'react'
 
-import FeaturedBlogContent from '../FeaturedBlogContent';
-import FullBleedHero from '../FullBleedHero';
-import SplitHero from '../SplitHero';
-import FiftyFifty from '../FiftyFifty';
-import PressLogos from '../PressLogos';
-import ValueProps from '../ValueProps';
-import FAQs from '../FAQs';
+import CurrentHarvest from '../Harvest/CurrentHarvest'
+import ProjectedHarvestDrawer from '../Harvest/ProjectedHarvestDrawer'
+import ProjectedHarvest from '../Harvest/ProjectedHarvest'
+import GlobalSampler from '../Harvest/GlobalSampler'
+import FeaturedBlogContent from '../FeaturedBlogContent'
+import FullBleedHero from '../FullBleedHero'
+import SplitHero from '../SplitHero'
+import FiftyFifty from '../FiftyFifty'
+import PressLogos from '../PressLogos'
+import ValueProps from '../ValueProps'
+import FAQs from '../FAQs'
 
 const ContentSections = ({ sections }) => {
   if (!Array.isArray(sections)) {
-    return null;
+    return null
   }
 
   return sections.map((section) => {
-    const type = section?._type;
-
+    const type = section?._type
+    
     switch (type) {
       case 'hero':
-        return <FullBleedHero fields={section} key={section._key} />;
+        return <FullBleedHero fields={section} key={section._key} />
       case 'splitHero':
         return <SplitHero fields={section} key={section._key} />
       case 'halfContentBlock':
@@ -27,15 +30,23 @@ const ContentSections = ({ sections }) => {
       case 'pressLogos':
         return <PressLogos fields={section} key={section._key} />
       case 'valueProps':
-          return <ValueProps fields={section} key={section._key} />
+        return <ValueProps fields={section} key={section._key} />
       case 'featuredBlogContent':
-          return <FeaturedBlogContent fields={section} key={section._key} />
+        return <FeaturedBlogContent fields={section} key={section._key} />
+      case 'currentSellingHarvest':
+        return <CurrentHarvest fields={section} key={section._key} />
+      case 'currentMonthHarvest':
+        return <CurrentHarvest fields={section} key={section._key} />
+      case 'projectedHarvest':
+        return <ProjectedHarvest fields={section} key={section._key} />
+      case 'globalSampler':
+        return <GlobalSampler fields={section} key={section._key} />
       case 'faqs':
         return <FAQs fields={section} key={section._key} />
       default:
-        return null;
+        return null
     }
-  });
-};
+  })
+}
 
-export default ContentSections;
+export default ContentSections

@@ -1,25 +1,25 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 import { useMediaQuery } from 'react-responsive'
-import Image from 'next/image';
-import Link from 'next/link';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import Image from 'next/image'
+import Link from 'next/link'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
-import RecipeArticleCard  from "../RecipeArticleCard/RecipeArticleCard";
+import RecipeArticleCard  from "../RecipeArticleCard/RecipeArticleCard"
 
-import "swiper/css";
-import classes from './FeaturedBlogContent.module.scss';
+import "swiper/css"
+import classes from './FeaturedBlogContent.module.scss'
 
 const FeaturedBlogContent = ({ fields }) => {
-  const { tabs, header, subheader, ctaUrl, ctaText } = fields;
-  const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
-  const isDesktop = useMediaQuery({ query: '(min-width: 768px)' });
-  const [selectedSwiper, setSelectedSwiper] = useState(tabs[0]);
+  const { tabs, header, subheader, ctaUrl, ctaText } = fields
+  const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
+  const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
+  const [selectedSwiper, setSelectedSwiper] = useState(tabs[0])
 
   const filterArticles = (tabName) => {
     const foundTab = tabs.find((tab) => {
         return tab.tabName === tabName
     })
-    setSelectedSwiper(foundTab);
+    setSelectedSwiper(foundTab)
   }
 
   return (
@@ -87,7 +87,7 @@ const FeaturedBlogContent = ({ fields }) => {
             </Link>}
         </div>
     </div>
-  );
-};
+  )
+}
 
-export default FeaturedBlogContent;
+export default FeaturedBlogContent

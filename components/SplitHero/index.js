@@ -1,3 +1,3 @@
-import SplitHero from './SplitHero';
+import SplitHero from './SplitHero'
 
-export default SplitHero;
+export default SplitHero

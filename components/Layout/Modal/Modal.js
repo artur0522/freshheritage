@@ -3,6 +3,7 @@ import { useModalContext } from '@/context/ModalContext'
 import IconClose from '@/svgs/close.svg'
 import CreateAccountForm from '@/components/Forms/CreateAccountForm'
 import LoginAccountForm from '@/components/Forms/LoginAccountForm'
+import ForgotPasswordForm from '@/components/Forms/ForgotPasswordForm'
 
 const Modal = ({props, children}) => {
 
@@ -14,22 +15,24 @@ const Modal = ({props, children}) => {
         return <CreateAccountForm />
       case 'login':
         return <LoginAccountForm />
+      case 'forgot_password':
+        return <ForgotPasswordForm />
       default:
         return children
     }
   }
 
   return (
-    <div className={classes.modal}>
+    <div className={classes['modal']}>
       <div
         onClick={() => modalContext.setIsOpen(false)}
-        className={classes.modalOverlay}>
+        className={classes['modal__overlay']}>
       </div>
-      <div className={classes.modalContent}>
-        <div className={classes.modalContentContainer}>
+      <div className={classes['modal__content']}>
+        <div className={classes['modal__content-container']}>
           <button
             onClick={() => modalContext.setIsOpen(false)}
-            className={classes.modalCloseBtn}>
+            className={classes['modal__close-btn']}>
             <IconClose />
           </button>
           {getContent(modalContext.modalType, children)}

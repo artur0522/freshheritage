@@ -22,7 +22,7 @@ const ProjectedHarvest = ({ fields }) => {
         harvestList.forEach((harvest) => {
             harvest.months.forEach((month) => {
                 if(month.fishArray.length > 0) {
-                    months.push(month)
+                    months.push({...month, month: month.month.trim().toLowerCase()})
                 }
             })
         })
@@ -35,14 +35,14 @@ const ProjectedHarvest = ({ fields }) => {
         )
 
         // make reusable
-        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        const monthNames = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
         const date = new Date()
         const monthName = monthNames[date.getMonth()]
         const currentMonthIndex = refinedMonths.findIndex(refinedMonth => refinedMonth.month === monthName)
         const splicedMonths = refinedMonths.splice(currentMonthIndex)
         
         setCurrentDate(date.toISOString().split('T')[0])
-        setCurrentMonth(monthName.toLowerCase())
+        setCurrentMonth(monthName)
         setActiveTab(splicedMonths[0])
         setHarvestListMonths(splicedMonths)
         setMounted(true)
@@ -77,7 +77,7 @@ const ProjectedHarvest = ({ fields }) => {
                     {harvestListMonths.map((month) => {
                         return (
                             <SwiperSlide className={classes['harvest__tab']} key={month._id}>
-                                <button onClick={() => findFilteredFish(month.month.trim().toLowerCase())} className={`${classes['harvest__tab']} heading--tab ${activeTab.month.trim().toLowerCase() === month.month.trim().toLowerCase() ? classes['active'] : ""}`}>
+                                <button onClick={() => findFilteredFish(month.month.trim().toLowerCase())} className={`${classes['harvest__tab']} heading--tab ${activeTab.month === month.month.trim().toLowerCase() ? classes['active'] : ""} capitalize`}>
                                     {month.month} {month.year} {currentMonth === month.month.trim().toLowerCase()  ? '(Shipping Now!)' : ' '}
                                 </button>
                             </SwiperSlide>
@@ -85,13 +85,13 @@ const ProjectedHarvest = ({ fields }) => {
                     })}
                     </Swiper>
 
-                    {harvestList && !currentSelling && harvestList.map((harvest) => {
+                    {!currentSelling && harvestList && harvestList.map((harvest) => {
                         return (
                             <div className={`${classes['harvest__list']}`} key={harvest._id}>
                                 <div className="container">
-                                    {harvest.months.filter(month => activeTab.month === month.month)[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
+                                    {harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
                                     <div className={`${classes['harvest__fish-list']}`}>
-                                        {mounted && harvest.months.filter(month => activeTab.month === month.month)[0]?.fishArray.map((fish) => {
+                                        {harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.map((fish) => {
                                             return (
                                                 <div className={`${classes['harvest__card']}`} key={fish._key}>
                                                     <HarvestCard fish={fish} />
@@ -104,21 +104,21 @@ const ProjectedHarvest = ({ fields }) => {
                         )
                     })}
                 
-                    {harvestList && currentSelling && harvestList.map((harvest) => {
+                    {currentSelling && harvestList && harvestList.map((harvest) => {
                         return (
                             <div className={`${classes['harvest__list']}`} key={harvest._id}>
                                 <div className="container">
-                                    {activeTab.month?.trim().toLowerCase() === currentMonth && harvest.months.filter(month => currentDate >= month.sellStart && currentDate <= month.sellEnd)[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
-                                    {activeTab.month?.trim().toLowerCase() !== currentMonth && harvest.months.filter(month => activeTab.month === month.month)[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
+                                    {activeTab.month === currentMonth && harvest.months.filter(month => currentDate >= month.sellStart && currentDate <= month.sellEnd)[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
+                                    {activeTab.month !== currentMonth && harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
                                     <div className={`${classes['harvest__fish-list']}`}>
-                                        {mounted && activeTab.month.trim().toLowerCase() === currentMonth && harvest.months.filter(month => currentDate >= month.sellStart && currentDate <= month.sellEnd)[0]?.fishArray.map((fish) => {
+                                        {activeTab.month === currentMonth && harvest.months.filter(month => currentDate >= month.sellStart && currentDate <= month.sellEnd)[0]?.fishArray.map((fish) => {
                                             return (
                                                 <div className={`${classes['harvest__card']}`} key={fish._key}>
                                                     <HarvestCard fish={fish} />
                                                 </div>
                                             )
                                         })}
-                                        {mounted && activeTab.month.trim().toLowerCase() !== currentMonth && harvest.months.filter(month => activeTab.month === month.month)[0]?.fishArray.map((fish) => {
+                                        {activeTab.month !== currentMonth && harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.map((fish) => {
                                             return (
                                                 <div className={`${classes['harvest__card']}`} key={fish._key}>
                                                     <HarvestCard fish={fish} />

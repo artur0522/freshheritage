@@ -30,8 +30,7 @@ const CurrentHarvest = ({ fields }) => {
   }, [])
 
   // Methods
-
-   // make reusable
+  // make reusable
   const findFilteredFish = (harvestTitle) => {
     const foundHarvest = harvestList.find((harvest) => harvest.title === harvestTitle)
     setHarvestListMonths(foundHarvest.months)

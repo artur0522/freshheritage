@@ -6,6 +6,7 @@
     position: relative;
     overflow: hidden;
     background-color: #E3EBF4;
+    z-index: 1;
 
     // harvest__illustration
     &__illustration {
@@ -18,20 +19,11 @@
        
         &.illustration-1 {
             top: 230px;
-            left: -120px;
-
-            @include breakpoint-up('md') {
-                left: -350px;
-            }
+            left: 0;
 
             .harvest__illustration-img {
                 width: 424px;
                 height: 318px;
-    
-                @include breakpoint-up('md') {
-                  width: 1009.46px;
-                  height: 757.29px;
-                }
             }
         }
 

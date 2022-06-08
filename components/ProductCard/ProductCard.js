@@ -4,9 +4,10 @@ import Image from 'next/image';
 import { useCart } from '@nacelle/react-hooks';
 import { getSelectedVariant } from 'utils/getSelectedVariant';
 import { getCartVariant } from 'utils/getCartVariant';
-import styles from './ProductCard.module.css';
+import classes from './ProductCard.module.scss';
 
 function ProductCard({ product }) {
+  console.log("product", product)
   const [, { addToCart }] = useCart();
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
   const [selectedOptions, setSelectedOptions] = useState(
@@ -60,10 +61,10 @@ function ProductCard({ product }) {
 
   return (
     product && (
-      <div className={styles.card}>
+      <div className={classes['card']}>
         <Link
           href={`/products/${encodeURIComponent(product.content.handle)}`}
-          className={styles.media}
+          className={classes.media}
         >
           <a>
             {product.content.featuredMedia ? (
@@ -72,20 +73,20 @@ function ProductCard({ product }) {
                 alt={product.content.featuredMedia.altText}
                 width={530}
                 height={350}
-                className={styles.image}
+                className={classes.image}
               />
             ) : (
               <div>No Image</div>
             )}
           </a>
         </Link>
-        <div className={styles.main}>
+        <div className={classes.main}>
           {product.content.title && (
-            <h2 className={styles.title}>{product.content.title}</h2>
+            <h2 className={classes.title}>{product.content.title}</h2>
           )}
-          <div className={styles.prices}>
+          <div className={classes.prices}>
             {selectedVariant.compareAtPrice && (
-              <div className={styles.compare}>
+              <div className={classes.compare}>
                 ${selectedVariant.compareAtPrice}
               </div>
             )}
@@ -109,13 +110,9 @@ function ProductCard({ product }) {
                 </select>
               </div>
             ))}
-          <button
-            type="button"
-            disabled={!selectedVariant.availableForSale}
-            onClick={handleAddItem}
-          >
-            {buttonText}
-          </button>
+          <Link href={`products/${product.content?.handle}`}>
+            <a className="btn salmon">View Details</a>
+          </Link>
         </div>
       </div>
     )

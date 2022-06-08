@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { nacelleClient } from 'services';
-import ProductCard from 'components/ProductCard';
-import styles from 'styles/Collection.module.css';
+import ProductCard from '@/components/ProductCard/ProductCard';
+import classes from './Collection.module.scss';
 
 function Collection(props) {
   const router = useRouter();
@@ -10,6 +10,8 @@ function Collection(props) {
   const [products, setProducts] = useState(props.products);
   const [canFetch, setCanFetch] = useState(props.canFetch);
   const [isFetching, setIsFetching] = useState(false);
+
+  console.log('props', props)
 
   const activeProducts = canFetch
     ? products?.slice(0, products.length - 1)
@@ -35,18 +37,23 @@ function Collection(props) {
 
   return (
     collection && (
-      <div className={styles.collection}>
-        {collection.content?.title && <h1>{collection.content.title}</h1>}
-        <div className={styles.list}>
+      <div className={`${classes['collection']} container`}>
+        <div className={classes['collection__header']}>
+          {collection.content?.title && <h1>{collection.content.title}</h1>}
+          {collection.content?.description && <h3>{collection.content.description}</h3>}
+        </div>
+        <div className={classes['collection__list']}>
           {activeProducts.map((product, index) => (
-            <div className={styles.item} key={`${product.id}-${index}`}>
+            <div className={classes.item} key={`${product.id}-${index}`}>
               <ProductCard product={product} />
             </div>
           ))}
         </div>
+
+
         {canFetch && (
           <button
-            className={styles.action}
+            className={classes.action}
             disabled={isFetching}
             onClick={handleFetch}
           >
@@ -164,6 +171,7 @@ const PAGE_QUERY = `
       sourceEntryId
       content{
         title
+        description
       }
       products(first: 13){
         ${PRODUCT_FRAGMENT}

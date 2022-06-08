@@ -1,0 +1,159 @@
+@import '../../../styles/mixins/_breakpoints.scss';
+@import '../../../styles/variables/_breakpoints.scss';
+@import '../../../styles/variables/_colors.scss';
+
+.harvest__card {
+    padding: 11px 12px 45px 12px;
+    background-color: #fff;
+    border: 1px solid $fawn50-2;
+    border-radius: 12px;
+    min-height: 319px;
+    margin-bottom: 12px;
+
+    @include breakpoint-up('sm') {
+        padding: 36px 36px 72px 36px;
+        margin-bottom: 24px;
+    }
+
+    &.projected-card {
+        padding: 11px 12px 24px 12px;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        max-width: 810px;
+
+        @include breakpoint-up('sm') {
+            padding: 24px 37px 24px 24px;
+            margin: auto;
+            flex-direction: row;
+        }
+
+        .harvest__card-img {
+            position: relative;
+            width: 100%;
+
+            @include breakpoint-up('sm') {
+                min-height: 324px;
+                width: 38.89%;
+                margin-right: 36px;
+                max-width: 240px;
+            }
+        }
+
+        .harvest__card-inner {
+            width: 100%;
+
+            @include breakpoint-up('sm') {
+                width: 56.78%;
+            }
+        }
+
+        .harvest__card-content {
+            h4 {
+                margin-bottom: 12px;
+    
+                @include breakpoint-up('sm') {
+                    margin-bottom: 12px;
+                }
+            }
+        }
+        
+        .harvest__card-tabs {
+            margin-bottom: 23px;
+        }
+    }
+    
+    &-img {
+        margin-bottom: 24px;
+        position: relative;
+    }
+
+    &-tabs {
+        position: relative;
+        margin-bottom: 17px;
+
+        @include breakpoint-up('sm') {
+            margin-bottom: 42px;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            border-bottom: 1px solid $fawn50-2;
+            border-radius: 3px;
+            width: 100%;
+            left: 0;
+            bottom: 1px;
+        }
+    }
+
+    &-tab {
+        min-height: 37px;
+        display: flex;
+        align-items: center; 
+        color: $sitkablue;
+        width: auto;
+
+        @include breakpoint-up('sm') {
+            min-height: 61px;
+            width: initial;
+            justify-content: center;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            border-bottom: 3px solid transparent;
+            border-radius: 3px;
+            width: 100%;
+            left: 0;
+            bottom: 0px;
+        }
+
+        &.active {
+            position: relative;
+
+            button {
+                color: $salmon;
+            }
+
+            &::after {
+                border-bottom: 3px solid $salmon;
+            }
+        }
+
+        button {
+            text-align: left;
+            border: none;
+            background: none;
+            padding: 0;
+            color: $sitkablue;
+            text-transform: capitalize;
+        }
+    }
+
+    &-content {
+        h4 {
+            margin-bottom: 12px;
+
+            @include breakpoint-up('sm') {
+                margin-bottom: 24px;
+            }
+        }
+
+        li {
+            font-weight: 400;
+            font-size: fontsize(14px);
+            line-height: 150%;
+            margin-top: 12px;
+        
+            @include breakpoint-up('lg') {
+                font-size: 16px;
+            }
+            
+            @include breakpoint-up('xl') {
+                font-size: 18px;
+            }
+        }
+    }
+}

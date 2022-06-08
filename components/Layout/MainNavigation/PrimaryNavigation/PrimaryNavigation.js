@@ -38,7 +38,6 @@ const PrimaryNavigation = ({props, classes, setMobileMenuIsOpen}) => {
         </>
 
       )}
-
   </ul>
   )
 }

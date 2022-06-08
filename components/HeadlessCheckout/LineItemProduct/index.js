@@ -1,0 +1,1 @@
+export { default as LineItemProduct } from './LineItemProduct';

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
+import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext'
 import { CSSTransition } from 'react-transition-group'
 import { useMediaQuery } from 'react-responsive'
 import Link from 'next/link'
@@ -17,6 +18,7 @@ const NavigationUtilities = ({props, classes}) => {
 
   const modalContext = useModalContext()
   const customerContext = useCustomerContext()
+  const checkoutContext = useHeadlessCheckoutContext()
 
   const [showCustomerServiceInfo, setShowCustomerServiceInfo] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
@@ -98,7 +100,7 @@ const NavigationUtilities = ({props, classes}) => {
             </CSSTransition>
         </li>
       }
-      <li className={classes.navItem}><IconCart /></li>
+      <li onClick={() => checkoutContext.setFlyoutState(!checkoutContext.flyoutState)}className={classes.navItem}><IconCart /></li>
     </ul>
   )
 }

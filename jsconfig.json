@@ -8,7 +8,9 @@
       "@/styles/*": ["styles/*"],
       "@/context/*": ["context/*"],
       "@/utils/*": ["utils/*"],
-      "@/svgs/*": ["svgs/*"]
+      "@/svgs/*": ["svgs/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/i18n/*": ["i18n/*"]
     }
   }
 }

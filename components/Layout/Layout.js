@@ -1,10 +1,11 @@
-import { useCart, useCheckout } from '@nacelle/react-hooks'
+import { useCart } from '@nacelle/react-hooks'
 import { useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
 import { ModalProvider } from '@/context/ModalContext'
 import { PDPDrawerProvider } from '@/context/PDPDrawerContext'
 import { CustomerProvider } from '@/context/CustomerContext'
 import { PurchaseFlowProvider } from '@/context/PurchaseFlowContext'
+import { HeadlessCheckoutProvider } from '@/context/HeadlessCheckoutContext';
 
 import Header from '@/components/Layout/Header'
 import Footer from '@/components/Layout/Footer'
@@ -16,7 +17,6 @@ import Footer from '@/components/Layout/Footer'
 
 function Layout({ children }) {
   const [, { clearCart }] = useCart()
-  const [{ completed }, { clearCheckoutData }] = useCheckout()
 
   const [headerSettings, setHeaderSettings] = useState(null)
   const [footerSettings, setFooterSettings] = useState(null)
@@ -33,25 +33,20 @@ function Layout({ children }) {
     getContent()
   }, [])
 
-  useEffect(() => {
-    if (completed) {
-      clearCheckoutData()
-      clearCart()
-    }
-  }, [completed, clearCheckoutData, clearCart])
-
   return (
-    <PurchaseFlowProvider>
-      <CustomerProvider>
-        <PDPDrawerProvider>
-          <ModalProvider>
-            <Header content={headerSettings} pageHandle={children.props.handle} />
-            <main>{children}</main>
-            <Footer content={footerSettings} />
-          </ModalProvider>
-        </PDPDrawerProvider>
-      </CustomerProvider>
-    </PurchaseFlowProvider>
+    <HeadlessCheckoutProvider>
+      <PurchaseFlowProvider>
+        <CustomerProvider>
+          <PDPDrawerProvider>
+            <ModalProvider>
+              <Header content={headerSettings} pageHandle={children.props.handle} />
+              <main>{children}</main>
+              <Footer content={footerSettings} />
+            </ModalProvider>
+          </PDPDrawerProvider>
+        </CustomerProvider>
+      </PurchaseFlowProvider>
+    </HeadlessCheckoutProvider>
   )
 }
 

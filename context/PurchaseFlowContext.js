@@ -75,7 +75,7 @@ export function PurchaseFlowProvider({ children }) {
           })
           purchaseFlowData.product = product[0]
         }
-        console.log("update purchaseFlow options:", purchaseFlowData)
+        // console.log("update purchaseFlow options:", purchaseFlowData)
         setOptions({...purchaseFlowData, is_loaded: true})
       }
     }
@@ -83,7 +83,7 @@ export function PurchaseFlowProvider({ children }) {
   }, [])
 
   useEffect(() => {
-    console.log("options useEffect:", options)
+    // console.log("options useEffect:", options)
     const cookieReadyOptions = {...options}
     delete cookieReadyOptions.product
     Cookies.set('purchaseFlowData', JSON.stringify(cookieReadyOptions), { expires: 1, path: '/' })

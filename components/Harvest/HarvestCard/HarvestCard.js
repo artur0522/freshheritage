@@ -33,7 +33,7 @@ const HarvestCard = ({ fish, cardStyle }) => {
                 width={858}
                 height={572}
             />
-          </div>} 
+          </div>}
 
         {cardStyle === 'projected-card' && isDesktop && mounted &&
           <div className={classes['harvest__card-img']}>
@@ -67,8 +67,9 @@ const HarvestCard = ({ fish, cardStyle }) => {
                   className={classes['harvest__card-swiper']}
               >
                 {Object.keys(fish).filter((key) => key === "species" || key === "locations" || key === "fishermen" || key === "culinary").reverse().map((fishCategory) => {
+
                   return (
-                    <SwiperSlide key={fish._key} className={`${tabInfo._type ===  fishCategory ? classes['active'] : ""} ${classes['harvest__card-tab']}`}> 
+                    <SwiperSlide key={`${fish._key}-${fishCategory}`} className={`${tabInfo._type ===  fishCategory ? classes['active'] : ""} ${classes['harvest__card-tab']}`}>
                       <button className={`${cardStyle === 'projected-card' ? 'heading--projected-tab' : 'heading--tab'}`} onClick={() => findTabInfo(fishCategory.toString())}>
                         {fishCategory}
                       </button>

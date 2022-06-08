@@ -47,9 +47,9 @@ const MemoizedCheckoutButton = memo(
       const variants = lineItems
         .map((lineItem) => lineItem.product_data.variant_id)
         .join(',');
-      // const response = await fetch(`${process.env.INVENTORY_URL}?variants=${variants}`);
+      // const response = await fetch(`${process.env.CHECKOUT_URL}${process.env.INVENTORY_URL}?variants=${variants}`);
       const response = await fetch(
-        `https://sitkasalmontest.ngrok.io/api/checkout/validateInventory?variants=${variants}`
+        `${process.env.checkoutUrl}/api/checkout/validateInventory?variants=${variants}`
       );
       const responseData = await response.json();
       let inventory = Array.from(responseData).reduce(

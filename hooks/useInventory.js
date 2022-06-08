@@ -1,14 +1,18 @@
-import { useCallback } from "react"
+import { useCallback } from 'react'
 
 const useInventory = () => {
   const checkInventory = useCallback(async (lineItems) => {
     let inventoryIssues = false
     let productInventory = {}
-    const variants = lineItems.map((lineItem) => lineItem.product_data.variant_id).join(',')
+    const variants = lineItems
+      .map((lineItem) => lineItem.product_data.variant_id)
+      .join(',')
 
     // console.log("useinventory env: "+process.env.INVENTORY_URL)
-    // const response = await fetch(`${process.env.INVENTORY_URL}?variants=${variants}`)
-    const response = await fetch(`https://sitkasalmontest.ngrok.io/api/checkout/validateInventory?variants=${variants}`)
+    // const response = await fetch(`${process.env.CHECKOUT_URL}${process.env.INVENTORY_URL}?variants=${variants}`)
+    const response = await fetch(
+      `${process.env.checkoutUrl}/api/checkout/validateInventory?variants=${variants}`,
+    )
     let inventory = await response.json()
 
     // console.log("inventory response in hook: ",inventory)
@@ -19,11 +23,15 @@ const useInventory = () => {
       const productId = inventoryItem.product_id
 
       if (!inventoryItem.allow_backorder) {
-        if (inventoryItem.tracking_level !== 'product' && inventoryItem.quantity < lineItem.product_data.quantity) {
+        if (
+          inventoryItem.tracking_level !== 'product' &&
+          inventoryItem.quantity < lineItem.product_data.quantity
+        ) {
           inventoryIssues = true
         } else if (inventoryItem.tracking_level === 'product') {
           if (productInventory[productId]) {
-            inventoryItem.quantity = productInventory[productId] > 0 ? productInventory[productId] : 0
+            inventoryItem.quantity =
+              productInventory[productId] > 0 ? productInventory[productId] : 0
           } else {
             productInventory[productId] = inventoryItem.quantity
           }

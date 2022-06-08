@@ -29,7 +29,7 @@ const ConfirmationPage = () => {
 
   const continueShopping = () => {
     // location.href = `https://${state.initialData.shop_name}/cart/clear?return_to=/`;
-    location.href = `https://sitkasalmontest.ngrok.io/api/checkout/clearCart?return_to=/`;
+    location.href = `${process.env.checkoutUrl}/api/checkout/clearCart?return_to=/`;
   };
 
   const paymentList = payments.map((payment) => {

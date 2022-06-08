@@ -15,7 +15,7 @@ export function HeadlessCheckoutProvider({ children }) {
     const checkoutData = {
       jwt: data.jwt_token,
       public_order_id: data.public_order_id,
-      resumable_link: data.application_state.resumable_link || ''
+      resumable_link: data.application_state.resumable_link || '',
     }
     localStorage.setItem('checkout_data', JSON.stringify(checkoutData))
   }
@@ -33,11 +33,11 @@ export function HeadlessCheckoutProvider({ children }) {
     //   payload.customer = customer
     // }
     const res = await fetch(
-      `https://sitkasalmontest.ngrok.io/api/checkout/initialize-otp`,
+      `${process.env.checkoutUrl}/api/checkout/initialize-otp`,
       {
         method: 'POST',
-        body: JSON.stringify(payload)
-      }
+        body: JSON.stringify(payload),
+      },
     )
     const { data } = await res.json()
     saveDataInLocalStorage(data)
@@ -48,14 +48,14 @@ export function HeadlessCheckoutProvider({ children }) {
   // this endpoint also refreshes the jwt
   async function resumeCheckout({ public_order_id }) {
     const payload = {
-      publicOrderId: public_order_id
+      publicOrderId: public_order_id,
     }
     const res = await fetch(
-      `https://sitkasalmontest.ngrok.io/api/checkout/resume-order/`,
+      `${process.env.checkoutUrl}/api/checkout/resume-order/`,
       {
         method: 'POST',
-        body: JSON.stringify(payload)
-      }
+        body: JSON.stringify(payload),
+      },
     )
     const { data } = await res.json()
     // it's not needed to save all the data again but just to keep the jwt updated
@@ -66,14 +66,14 @@ export function HeadlessCheckoutProvider({ children }) {
 
   async function processBoldOrder() {
     const { public_order_id, jwt } = JSON.parse(
-      localStorage.getItem('checkout_data')
+      localStorage.getItem('checkout_data'),
     )
     const response = await fetch(
-      `https://sitkasalmontest.ngrok.io/api/checkout/process-order/`,
+      `${process.env.checkoutUrl}/api/checkout/process-order/`,
       {
         method: 'POST',
-        body: JSON.stringify({ publicOrderId: public_order_id, jwt })
-      }
+        body: JSON.stringify({ publicOrderId: public_order_id, jwt }),
+      },
     )
     const data = await response.json()
 
@@ -85,16 +85,16 @@ export function HeadlessCheckoutProvider({ children }) {
 
   async function getLineItemsFromOrder() {
     const { jwt, public_order_id } = JSON.parse(
-      localStorage.getItem('checkout_data')
+      localStorage.getItem('checkout_data'),
     )
     const response = await fetch(
       `https://api.boldcommerce.com/checkout/storefront/${process.env.SHOP_IDENTIFIER}/${public_order_id}/items`,
       {
         headers: {
           Authorization: `Bearer ${jwt}`,
-          'Content-Type': 'application/json'
-        }
-      }
+          'Content-Type': 'application/json',
+        },
+      },
     )
     const { data } = await response.json()
     console.log(data)
@@ -108,18 +108,18 @@ export function HeadlessCheckoutProvider({ children }) {
     //   }
     console.log(payload)
     const { jwt, public_order_id } = JSON.parse(
-      localStorage.getItem('checkout_data')
+      localStorage.getItem('checkout_data'),
     )
     const response = await fetch(
       `https://api.boldcommerce.com/checkout/storefront/${process.env.SHOP_IDENTIFIER}/${public_order_id}/items`,
       {
         headers: {
           Authorization: `Bearer ${jwt}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         method: 'PUT',
-        body: JSON.stringify(payload)
-      }
+        body: JSON.stringify(payload),
+      },
     )
     const data = await response.json()
     console.log('response update line item', data)
@@ -134,18 +134,18 @@ export function HeadlessCheckoutProvider({ children }) {
     // }
     console.log(payload)
     const { jwt, public_order_id } = JSON.parse(
-      localStorage.getItem('checkout_data')
+      localStorage.getItem('checkout_data'),
     )
     const response = await fetch(
       `https://api.boldcommerce.com/checkout/storefront/${process.env.SHOP_IDENTIFIER}/${public_order_id}/items`,
       {
         headers: {
           Authorization: `Bearer ${jwt}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         method: 'POST',
-        body: JSON.stringify(payload)
-      }
+        body: JSON.stringify(payload),
+      },
     )
     const data = await response.json()
     console.log('response add line item', data)
@@ -159,18 +159,18 @@ export function HeadlessCheckoutProvider({ children }) {
     // }
     console.log(payload)
     const { jwt, public_order_id } = JSON.parse(
-      localStorage.getItem('checkout_data')
+      localStorage.getItem('checkout_data'),
     )
     const response = await fetch(
       `https://api.boldcommerce.com/checkout/storefront/${process.env.SHOP_IDENTIFIER}/${public_order_id}/items`,
       {
         headers: {
           Authorization: `Bearer ${jwt}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         method: 'DELETE',
-        body: JSON.stringify(payload)
-      }
+        body: JSON.stringify(payload),
+      },
     )
     const data = await response.json()
     console.log('response remove line item', data)
@@ -188,7 +188,7 @@ export function HeadlessCheckoutProvider({ children }) {
         addLineItem,
         removeLineItem,
         flyoutState,
-        setFlyoutState
+        setFlyoutState,
       }}
     >
       <CheckoutFlyout />

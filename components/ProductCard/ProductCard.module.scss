@@ -5,10 +5,43 @@
 .card {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: flex-start;
   border-radius: 12px;
   border: 1px solid $fawn;
   padding: 12px 12px 26px 12px;
+  position: relative;
+  height: 100%;
+
+  @media screen and (min-width: 736px) {
+    padding: 25px 25px 31px 25px;
+  }
+
+  .best-seller {
+    display: none;
+    text-align: center;
+    background-color: $sitkablue;
+    color: #fff;
+    border-radius: 48px;
+    min-height: 25px;
+    min-width: 156px;
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    @media screen and (min-width: 736px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .metafield {
+    margin-top: 17.41px;
+    line-height: 140%;
+    font-weight: 500;
+  }
 
   .media {
     margin-bottom: 25px;
@@ -27,13 +60,13 @@
     .title {
       margin-bottom: 12px;
     }
-    
+
     .price-wrap {
       display: flex;
       justify-content: space-between;
       width: 100%;
     }
-    
+
     .compare {
       text-decoration: line-through;
     }

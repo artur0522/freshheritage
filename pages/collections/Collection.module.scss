@@ -14,15 +14,17 @@
         h1 {
             margin-bottom: 12px;
         }
-
-        h3 {
-            margin-bottom: 36px;
-        }
     }
 
     &__list {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+        grid-auto-rows: auto;
         gap: 62px 36px;
+        margin-top: 36px;
+
+        @include breakpoint-up('md') {
+            margin-top: 59px;
+        }
     }
 }

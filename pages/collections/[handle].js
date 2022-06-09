@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { nacelleClient } from "services";
+
 import ProductCard from "@/components/ProductCard/ProductCard";
+import { useCustomerContext } from '@/context/CustomerContext'
+
 import classes from "./Collection.module.scss";
 
 function Collection(props) {
@@ -11,8 +14,8 @@ function Collection(props) {
   const [products, setProducts] = useState(props.products);
   const [canFetch, setCanFetch] = useState(props.canFetch);
   const [isFetching, setIsFetching] = useState(false);
-
-  console.log("props", props);
+  const context = useCustomerContext()
+  const  { customer } = context
 
   const activeProducts = canFetch
     ? products?.slice(0, products.length - 1)
@@ -36,6 +39,10 @@ function Collection(props) {
     setIsFetching(false);
   };
 
+  console.log("props", props)
+  console.log("customer", customer)
+  // not gating collections
+  console.log("collection", collection)
   return (
     collection && (
       <div className={`${classes["collection"]} container`}>
@@ -128,6 +135,13 @@ const PRODUCT_FRAGMENT = `
       altText
     }
   }
+  tags
+  metafields {
+    id
+    key
+    namespace
+    value
+  }
   variants{
     nacelleEntryId
     sourceEntryId
@@ -175,6 +189,7 @@ const PAGE_QUERY = `
       content{
         title
         description
+        handle
       }
       products(first: 13){
         ${PRODUCT_FRAGMENT}

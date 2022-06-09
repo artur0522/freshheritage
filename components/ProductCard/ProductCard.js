@@ -17,8 +17,6 @@ function ProductCard({ product }) {
   const isMobile =  useMediaQuery({ query: '(max-width: 736px)' })
   const isDesktop = useMediaQuery({query: '(min-width: 737px)'})
 
-  console.log(product)
-
   useEffect(() => {
     setMounted(true)
   }, [])

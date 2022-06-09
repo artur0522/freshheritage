@@ -350,6 +350,28 @@
      }
    }
 
+  &--product-title {
+    font-size: fontsize(24px);
+    line-height: 100%;
+    letter-spacing: 0.02em;
+
+    @include breakpoint-up('sm') {
+      font-size: fontsize(28px);
+    }
+
+    @include breakpoint-up('md') {
+      font-size: fontsize(28px);
+    }
+
+    @include breakpoint-up('lg') {
+      font-size: fontsize(28px);
+    }
+
+    @include breakpoint-up('xl') {
+      font-size: fontsize(28px);
+    }
+  }
+
    &--projected-tab {
     font-weight: 500;
     font-size: fontsize(16px);

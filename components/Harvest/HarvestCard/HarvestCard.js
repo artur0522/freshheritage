@@ -12,6 +12,8 @@ const HarvestCard = ({ fish, cardStyle }) => {
   const [tabInfo, setTabInfo] = useState(fish['species'])
   const [mounted, setMounted] = useState(false)
 
+  console.log(fish);
+
   useEffect(() => {
     setMounted(true)
   }, [])
@@ -68,7 +70,7 @@ const HarvestCard = ({ fish, cardStyle }) => {
               >
                 {Object.keys(fish).filter((key) => key === "species" || key === "locations" || key === "fishermen" || key === "culinary").reverse().map((fishCategory) => {
                   return (
-                    <SwiperSlide key={fish._key} className={`${tabInfo._type ===  fishCategory ? classes['active'] : ""} ${classes['harvest__card-tab']}`}> 
+                    <SwiperSlide key={fishCategory._id} className={`${tabInfo._type ===  fishCategory ? classes['active'] : ""} ${classes['harvest__card-tab']}`}> 
                       <button className={`${cardStyle === 'projected-card' ? 'heading--projected-tab' : 'heading--tab'}`} onClick={() => findTabInfo(fishCategory.toString())}>
                         {fishCategory}
                       </button>

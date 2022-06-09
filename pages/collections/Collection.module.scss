@@ -4,7 +4,13 @@
 .collection {
     padding: 36px 0 122px 0;
 
+    @include breakpoint-up('sm') {
+        padding: 132px 0 122px 0;
+    }
+
     &__header {
+        max-width: 822px;
+
         h1 {
             margin-bottom: 12px;
         }
@@ -17,6 +23,6 @@
     &__list {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
-        gap: 30px 0;
+        gap: 62px 36px;
     }
 }

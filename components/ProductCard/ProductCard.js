@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useCart } from '@nacelle/react-hooks';
-import { getSelectedVariant } from 'utils/getSelectedVariant';
-import { getCartVariant } from 'utils/getCartVariant';
-import classes from './ProductCard.module.scss';
+import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useCart } from "@nacelle/react-hooks";
+import { getSelectedVariant } from "utils/getSelectedVariant";
+import { getCartVariant } from "utils/getCartVariant";
+import classes from "./ProductCard.module.scss";
 
 function ProductCard({ product }) {
-  console.log("product", product)
+  console.log("productcard", product);
   const [, { addToCart }] = useCart();
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
   const [selectedOptions, setSelectedOptions] = useState(
@@ -21,9 +21,9 @@ function ProductCard({ product }) {
 
   const buttonText = selectedVariant
     ? selectedVariant.availableForSale
-      ? 'Add To Cart'
-      : 'Sold Out'
-    : 'Select Option';
+      ? "Add To Cart"
+      : "Sold Out"
+    : "Select Option";
 
   const handleOptionChange = (event, option) => {
     const newOption = { name: option.name, value: event.target.value };
@@ -40,7 +40,7 @@ function ProductCard({ product }) {
     }
     const variant = getSelectedVariant({
       product,
-      options: newSelectedOptions
+      options: newSelectedOptions,
     });
     setSelectedVariant(variant ? { ...variant } : null);
   };
@@ -51,27 +51,24 @@ function ProductCard({ product }) {
   const handleAddItem = () => {
     const variant = getCartVariant({
       product,
-      variant: selectedVariant
+      variant: selectedVariant,
     });
     addToCart({
       variant,
-      quantity: 1
+      quantity: 1,
     });
   };
 
   return (
     product && (
-      <div className={classes['card']}>
-        <Link
-          href={`/products/${encodeURIComponent(product.content.handle)}`}
-          className={classes.media}
-        >
-          <a>
+      <div className={classes["card"]}>
+        <Link href={`/products/${encodeURIComponent(product.content.handle)}`}>
+          <a className={classes["media"]}>
             {product.content.featuredMedia ? (
               <Image
                 src={product.content.featuredMedia.src}
                 alt={product.content.featuredMedia.altText}
-                width={530}
+                width={650}
                 height={350}
                 className={classes.image}
               />
@@ -80,18 +77,30 @@ function ProductCard({ product }) {
             )}
           </a>
         </Link>
-        <div className={classes.main}>
+
+        <div className={classes["card__content"]}>
           {product.content.title && (
-            <h2 className={classes.title}>{product.content.title}</h2>
+            <h4
+              className={`${classes["title"]} heading--product-title uppercase`}
+            >
+              {product.content.title}
+            </h4>
           )}
-          <div className={classes.prices}>
-            {selectedVariant.compareAtPrice && (
-              <div className={classes.compare}>
-                ${selectedVariant.compareAtPrice}
-              </div>
-            )}
-            <div>${selectedVariant.price}</div>
+
+          <div className={classes["price-wrap"]}>
+            <div className={classes["price"]}>
+              {selectedVariant.compareAtPrice && (
+                <p className={`${classes.compare} secondary--body`}>
+                  ${selectedVariant.compareAtPrice}
+                </p>
+              )}
+              <p className="secondary--body">${selectedVariant.price}</p>
+            </div>
+            <p className={`${classes["weight"]} secondary--body`}>
+              {selectedVariant.weight}lbs
+            </p>
           </div>
+
           {options &&
             options.map((option, oIndex) => (
               <div key={oIndex}>
@@ -110,10 +119,11 @@ function ProductCard({ product }) {
                 </select>
               </div>
             ))}
-          <Link href={`products/${product.content?.handle}`}>
-            <a className="btn salmon">View Details</a>
-          </Link>
         </div>
+
+        <Link href={`products/${product.content?.handle}`}>
+          <a className="btn salmon">View Details</a>
+        </Link>
       </div>
     )
   );

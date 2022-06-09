@@ -9,10 +9,38 @@
   border-radius: 12px;
   border: 1px solid $fawn;
   padding: 12px 12px 26px 12px;
+
+  .media {
+    margin-bottom: 25px;
+    display: block;
+  }
+
+  // card__content
+  &__content {
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 32px;
+
+    .title {
+      margin-bottom: 12px;
+    }
+    
+    .price-wrap {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+    
+    .compare {
+      text-decoration: line-through;
+    }
+  }
 }
 
-.media,
-.main {
+.media {
   width: 100%;
   overflow: hidden;
 }
@@ -20,24 +48,4 @@
 .image {
   width: 100%;
   border-radius: 12px;
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-}
-
-.title {
-  margin: 0;
-}
-
-.prices {
-  display: flex;
-  gap: 10px;
-}
-
-.compare {
-  text-decoration: line-through;
 }

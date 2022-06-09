@@ -3,20 +3,16 @@ import { useRouter } from "next/router";
 import { nacelleClient } from "services";
 
 import ProductCard from "@/components/ProductCard/ProductCard";
-import { useCustomerContext } from '@/context/CustomerContext'
 
 import classes from "./Collection.module.scss";
 
 function Collection(props) {
-  // 1. grab customer info - tags and show gate this collection based on whether customer is a member or not
   const router = useRouter();
   const { collection } = props;
   const [products, setProducts] = useState(props.products);
   const [canFetch, setCanFetch] = useState(props.canFetch);
   const [isFetching, setIsFetching] = useState(false);
-  const context = useCustomerContext()
-  const  { customer } = context
-
+  
   const activeProducts = canFetch
     ? products?.slice(0, products.length - 1)
     : products;
@@ -39,10 +35,6 @@ function Collection(props) {
     setIsFetching(false);
   };
 
-  console.log("props", props)
-  console.log("customer", customer)
-  // not gating collections
-  console.log("collection", collection)
   return (
     collection && (
       <div className={`${classes["collection"]} container`}>

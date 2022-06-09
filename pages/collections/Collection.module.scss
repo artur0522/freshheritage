@@ -5,7 +5,7 @@
     padding: 36px 0 122px 0;
 
     @include breakpoint-up('sm') {
-        padding: 132px 0 122px 0;
+        padding: 132px 0 92px 0;
     }
 
     &__header {
@@ -13,6 +13,10 @@
 
         h1 {
             margin-bottom: 12px;
+
+            @media screen and (min-width: 736px) {
+                margin-bottom: 24px;
+            }
         }
     }
 

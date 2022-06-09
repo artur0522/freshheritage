@@ -41,6 +41,7 @@ export default async function handler(req, res) {
   // FREQ=MONTHLYINTERVAL=2WKST=MOBYMONTH=1,2,3,4,5,6,7,8,9,10,11,12
   // 20467 - 6 Prepaids
   // 20468 - 12 Prepaids
+
   const bodyParsed = JSON.parse(req.body)
 
   const { products, customer } = bodyParsed
@@ -52,13 +53,15 @@ export default async function handler(req, res) {
     body.customer = customer
   }
 
-  products.forEach((product) => {
-    body.cart_items.push({
-      platform_id: product.id,
-      quantity: product.quantity,
-      line_item_key: crypto.randomUUID()
+  if (products) {
+    products.forEach((product) => {
+      body.cart_items.push({
+        platform_id: product.id,
+        quantity: product.quantity,
+        line_item_key: crypto.randomUUID()
+      })
     })
-  })
+  }
 
   try {
     // Initialize checkout

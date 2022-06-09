@@ -21,39 +21,29 @@ export function HeadlessCheckoutProvider({ children }) {
     localStorage.setItem('checkout_data', JSON.stringify(checkoutData))
   }
 
-  // if checkout does not exist, initiliaze checkout instead
-  // if checkout does exist
-    // and item exists, updatelineitem instead by incrementing quantity
-    // it item doesn't exist, addline item
+  //item exists, updatelineitem instead by incrementing quantity
+  //it item doesn't exist, addline item
   function addItemToOrder({variant, quantity}) {
     const variantId = variant.id.replace('gid://shopify/ProductVariant/', '')
-    if (!data) {
-      initializeCheckout({
-        products: [{
-          id: variantId,
-          quantity: quantity
-        }]
+    const { line_items } = data.application_state
+    const foundLineItem = line_items.find(item => item.product_data.id.includes(variantId))
+    if (foundLineItem) {
+      updateLineItem({
+        quantity: foundLineItem.product_data.quantity + quantity,
+        line_item_key: foundLineItem.product_data.line_item_key
       })
     } else {
-      const { line_items } = data.application_state
-      const foundLineItem = line_items.find(item => item.product_data.id.includes(variantId))
-      if (foundLineItem) {
-        updateLineItem({
-          quantity: foundLineItem.product_data.quantity + quantity,
-          line_item_key: foundLineItem.product_data.line_item_key
-        })
-      } else {
-        addLineItem({
-          platform_id: variantId,
-          quantity: quantity,
-          line_item_key: uuidv4()
-        })
-      }
+      addLineItem({
+        platform_id: variantId,
+        quantity: quantity,
+        line_item_key: uuidv4()
+      })
     }
+    setFlyoutState(true)
   }
 
   // can only initializeCheckout if order has items
-  async function initializeCheckout(payload) {
+  async function initializeCheckout(payload = {}) {
     // payload example
     // {
     //   products: [

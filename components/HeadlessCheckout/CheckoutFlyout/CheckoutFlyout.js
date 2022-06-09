@@ -9,10 +9,6 @@ const CheckoutFlyout = () => {
     data,
     initializeCheckout,
     resumeCheckout,
-    // getLineItemsFromOrder,
-    // updateLineItem,
-    // addLineItem,
-    // removeLineItem
     flyoutState,
     setFlyoutState
   } = useHeadlessCheckoutContext();
@@ -23,6 +19,8 @@ const CheckoutFlyout = () => {
     // resume checkout if there's a checkout saved otherwise initialize it
     if (Object.keys(localStorageCheckoutData).length) {
       resumeCheckout(localStorageCheckoutData);
+    } else {
+      initializeCheckout()
     }
   }, []);
 

@@ -26,11 +26,12 @@ const LineItem = ({ title, image, quantity, totalPrice, variants, lineItemKey })
       removeLineItem({
         line_item_key: lineItemKey
       })
+    } else {
+      updateLineItem({
+        quantity: quantity - 1,
+        line_item_key: lineItemKey
+      })
     }
-    updateLineItem({
-      quantity: quantity - 1,
-      line_item_key: lineItemKey
-    })
   }
 
   return (

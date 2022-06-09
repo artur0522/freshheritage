@@ -51,6 +51,7 @@ export default async function handler(req, res) {
   if (customer) {
     body.customer = customer
   }
+
   products.forEach((product) => {
     body.cart_items.push({
       platform_id: product.id,
@@ -90,7 +91,7 @@ export default async function handler(req, res) {
     //   functions.logger.error("initialize",e)
     console.log(e)
     res.json({
-      message: 'something went wrong',
+      message: 'sometproductsng went wrong',
       error: e
     })
   }

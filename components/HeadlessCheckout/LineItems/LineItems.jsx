@@ -6,7 +6,6 @@ import { useVariants } from '@/hooks/index.js';
 
 const LineItems = () => {
   const { data: lineItems } = useLineItems();
-
   return (
     <MemoizedLineItems
       lineItems={lineItems}

@@ -33,12 +33,18 @@
       @include breakpoint-down('sm') {
         position: absolute;
         left: 0;
+        width: 105px;
+        height: 75px;
       }
       @include breakpoint-down('xs') {
         width: 84px;
         height: 60px;
       }
       a {
+        @include breakpoint-down('sm') {
+          width: 81px;
+          height: 52px;
+        }
         @include breakpoint-down('xs') {
           width: 65px;
           height: 42px;
@@ -118,29 +124,21 @@
     align-items: center;
     justify-content: center;
     background-color: $sitkablue;
-    width: 97px;
+    width: 130px;
     height: 60px;
     position: absolute;
     top: 0;
     z-index: 1001;
     @include breakpoint-up('sm') {
-      width: 140px;
-      height: 96px;
-    }
-    @include breakpoint-up('lg') {
-      width: 183px;
-      height: 108px;
+      width: 204px;
+      height: 120px;
     }
   }
   a {
     display: flex;
-    width: 65px;
-    height: 42px;
+    width: 71px;
+    height: 45px;
     @include breakpoint-up('sm') {
-      width: 111px;
-      height: 72px;
-    }
-    @include breakpoint-up('lg') {
       width: 130px;
       height: 84px;
     }
@@ -150,20 +148,27 @@
 .navItem {
   margin: 0 12px;
   a:not(.navButton) {
-    font-size: 18px;
-    line-height: 23px;
+    font-size: 14px;
+    line-height: 18px;
     font-weight: 500;
     text-decoration: none;
+    @include breakpoint-up('lg') {
+      font-size: 18px;
+      line-height: 23px;
+    }
     &:hover {
       text-decoration: underline;
     }
   }
   .navButton {
-    font-size: 18px;
+    font-size: 14px;
     line-height: 22px;
-    min-width: 193px;
+    min-width: 170px;
     height: 48px;
-    margin-right: 35px;
+    @include breakpoint-up('lg') {
+      font-size: 18px;
+      min-width: 193px;
+    }
   }
   .navIconButton {
     display: flex;

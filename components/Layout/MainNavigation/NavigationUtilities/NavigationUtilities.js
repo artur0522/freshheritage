@@ -100,7 +100,7 @@ const NavigationUtilities = ({props, classes}) => {
             </CSSTransition>
         </li>
       }
-      <li onClick={() => checkoutContext.setFlyoutState(!checkoutContext.flyoutState)}className={classes.navItem}><IconCart /></li>
+      <li onClick={() => checkoutContext.setFlyoutState(true)}className={classes.navItem}><IconCart /></li>
     </ul>
   )
 }

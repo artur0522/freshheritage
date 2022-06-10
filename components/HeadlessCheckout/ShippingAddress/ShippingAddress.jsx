@@ -2,7 +2,6 @@ import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useCountryInfo, useLoadingStatus, useSavedAddresses, useShippingAddress } from '@boldcommerce/checkout-react-components';
 import { Address } from '@/components/HeadlessCheckout/Address';
 import { SavedAddressList } from './components';
-import { CheckoutSection } from '../CheckoutSection';
 // import './ShippingAddress.css';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';
@@ -74,10 +73,8 @@ const MemoizedShippingAddress = memo(({
   }, [shippingAddress]);
 
   return (
-    <CheckoutSection
-      className="FieldSet--ShippingAddress"
-      title={t('shipping.address')}
-    >
+    <div>
+      <h3>{t('shipping.address')}</h3>
       <SavedAddressList
         savedAddresses={savedAddresses}
         selectedAddress={applicationLoading ? savedAddresses[0].id : address?.id}
@@ -102,7 +99,7 @@ const MemoizedShippingAddress = memo(({
           requiredAddressFields={requiredAddressFields}
         />
       )}
-    </CheckoutSection>
+    </div>
   );
 });
 

@@ -8,7 +8,6 @@ import {
   useErrors
 } from '@boldcommerce/checkout-react-components';
 import React, { memo, useEffect, useState } from 'react';
-import { CheckoutSection } from '../CheckoutSection';
 import { EmptyState } from '@/components/HeadlessCheckout/EmptyState';
 import { LoadingState } from '../LoadingState';
 // import './PaymentMethod.css';
@@ -249,10 +248,8 @@ const MemoizedPaymentMethod = memo(
     }, []);
 
     return (
-      <CheckoutSection
-        className="FieldSet--PaymentMethod"
-        title={t('payment.method')}
-      >
+      <div>
+        <h3>{t('payment.method')}</h3>
         <iframe
           title="payments"
           data-bold-pigi-iframe
@@ -262,7 +259,7 @@ const MemoizedPaymentMethod = memo(
           onLoad={onPaymentIframeLoaded}
         />
         {content}
-      </CheckoutSection>
+      </div>
     );
   }
 );

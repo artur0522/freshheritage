@@ -1,3 +1,5 @@
+@import './checkout.scss';
+
 @import './stacks_ui/Button.scss';
 @import './stacks_ui/LoadingSpinner.scss';
 @import './stacks_ui/WidgetFrame.scss';
@@ -32,7 +34,7 @@
 @import './components/SelectField.scss';
 @import './components/ShippingAddress.scss';
 
-@import './steps/SinglePageLayout.scss';
+// @import './steps/SinglePageLayout.scss';
 @import './steps/ConfirmationPage.scss';
 @import './steps/ProcessingPage.scss';
 @import './steps/InventoryIssuesPage.scss';

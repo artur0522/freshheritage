@@ -1,7 +1,6 @@
 import React from 'react';
 import { useCheckoutStore } from '@boldcommerce/checkout-react-components';
 import {
-  CheckoutSection,
   OrderSummary,
   ConfirmationList,
   ConfirmationListItem,
@@ -50,16 +49,12 @@ const ConfirmationPage = () => {
         <h1 className="Checkout__ThankYou">{`${t('confirmation.thank_you')}, ${
           customer.first_name || shippingAddress.first_name
         }!`}</h1>
-        <CheckoutSection
-          className="Confirmation__Section"
-          title={t('confirmation.order_confirmed')}
-        >
+        <div>
+          <h3>{t('confirmation.order_confirmed')}</h3>
           <p>{t('confirmation.order_accepted')}</p>
-        </CheckoutSection>
-        <CheckoutSection
-          className="Confirmation__Section"
-          title={t('customer.info')}
-        >
+        </div>
+        <div>
+          <h3>{t('customer.info')}</h3>
           <ConfirmationList>
             <ConfirmationListItem title={t('shipping.address')}>
               <p>{`${shippingAddress.first_name} ${shippingAddress.last_name}`}</p>
@@ -110,7 +105,7 @@ const ConfirmationPage = () => {
               <ul className="Payment__List">{paymentList}</ul>
             </ConfirmationListItem>
           </ConfirmationList>
-        </CheckoutSection>
+        </div>
         <div className="Checkout__Navigation">
           <button
             className="Checkout__ContinueButton"

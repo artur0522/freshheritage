@@ -48,20 +48,24 @@ const IndexPage = () => {
 
   return (
     <>
-      <div className="Checkout__Layout Checkout__Main" role="main">
-        <OrderSummary />
-        <OrderErrors />
-        <Customer />
-        <ShippingAddress applicationLoading={loading} />
-        <BillingAddress applicationLoading={loading} />
-        <ShippingLines applicationLoading={loading} />
-        <PaymentMethod applicationLoading={loading} />
-        <div className="Checkout__Navigation">
+      <div className="checkout__layout checkout__main" role="main">
+        <div className="checkout__panel">
+          <OrderSummary />
+          <OrderErrors />
+        </div>
+        <div className="checkout__panel">
+          <Customer />
+          <ShippingAddress applicationLoading={loading} />
+          <BillingAddress applicationLoading={loading} />
+          <ShippingLines applicationLoading={loading} />
+          <PaymentMethod applicationLoading={loading} />
+        </div>
+        {/* <div className="Checkout__Navigation">
           <CheckoutButton />
           <a className="Checkout__ReturnLink" href={process.env.CART_URL}>
             {t('return_to_cart')}
           </a>
-        </div>
+        </div> */}
         {/* <div className="Checkout__Footer">
           <p className="Checkout__Rights">{`All rights reserved ${t('website_name')}`}</p>
         </div> */}

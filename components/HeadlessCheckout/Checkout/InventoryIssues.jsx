@@ -4,7 +4,7 @@ import {
   useCheckoutStore,
   useLineItems
 } from '@boldcommerce/checkout-react-components';
-import { CheckoutSection, InventoryItem, OrderSummary } from '..';
+import { InventoryItem, OrderSummary } from '..';
 import { useErrorLogging, useVariants } from '@/hooks/index.js';
 // import './InventoryIssuesPage.css';
 // import { Button } from '@boldcommerce/stacks-ui';
@@ -85,12 +85,10 @@ const InventoryIssuesPage = () => {
   return (
     <div className="Checkout__Layout Checkout__InventoryIssues" role="main">
       <OrderSummary readOnly />
-      <CheckoutSection
-        className="InventoryIssues__Section"
-        title={t('inventory.issues')}
-      >
+      <div>
+        <h3>{t('inventory.issues')}</h3>
         <p>{t('inventory.issues_description')}</p>
-      </CheckoutSection>
+      </div>
       <div className="InventoryIssues__List">
         <div className="InventoryIssues__List__Header">
           <h3>{t('inventory.product_name')}</h3>

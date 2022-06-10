@@ -2,8 +2,6 @@ import { useBillingAddress, useBillingSameAsShipping, useCountryInfo } from '@bo
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { BillingSameAsShipping } from './components';
 import { Address } from '../Address';
-// import './BillingAddress.css';
-import { CheckoutSection } from '../CheckoutSection';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';
 
@@ -95,10 +93,7 @@ const MemoizedBillingAddress = memo(({
   }, [address]);
 
   return (
-    <CheckoutSection
-      className="FieldSet--BillingAddress"
-      title={t('billing.address')}
-    >
+    <div>
       <BillingSameAsShipping
         billingSameAsShipping={sameAsShipping}
         setBillingSameAsShipping={updateBillingSameAsShipping}
@@ -117,7 +112,7 @@ const MemoizedBillingAddress = memo(({
           submit={() => updateBillingAddress(address)}
         />
       )}
-    </CheckoutSection>
+    </div>
   );
 });
 

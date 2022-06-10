@@ -1,7 +1,6 @@
 export * from './Address';
 export * from './BillingAddress';
 export * from './CheckoutButton';
-export * from './CheckoutSection';
 export * from './Customer';
 export * from './DiscountForm';
 export * from './EmptyState';

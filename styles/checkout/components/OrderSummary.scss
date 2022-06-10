@@ -1,79 +1,21 @@
-.OrderSummary__Breakdown {
-  border-top: 1px solid rgba(0,0,0,0.1);
-}
 
-.OrderSummaryItem {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  align-items: center;
-}
-
-.OrderSummaryItem__Title {
-  color: #595959;
-}
-
-.OrderSummaryItem--removable {
-  display: block;
-}
-
-.OrderSummaryItem__Description {
-  display: flex;
-  margin-top: 10px;
-}
-
-.OrderSummaryItem__Label {
-  flex: 1;
-}
-
-.OrderSummaryItem__Amount {
-  display: flex;
-  align-items: center;
-}
-
-.OrderSummaryItem__Amount .stx-price__amount {
-  font-size: 14px;
-  color: #1A1A1A;
-}
-
-.Breakdown__Section {
-  gap: 10px;
-  display: flex;
-  flex-direction: column;
-  padding: 16px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-}
-
-.Breakdown__Section--Total .OrderSummaryItem__Title,
-.Breakdown__Section--Total .OrderSummaryItem__Amount .stx-price__amount {
-  font-size: 18px;
-  color: #1A1A1A
-}
-
-.OrderSummaryItem__Action {
-  border: none;
-  background: none;
-  height: auto;
-  display: flex;
-  align-items: center;
+.order-summary__header {
+  position: relative;
   cursor: pointer;
-  justify-content: center;
-  margin-right: 5px;
-}
-
-@media only screen and (max-width: 769px) {
-  .Breakdown__Section--Total {
-    border: none;
+  h3 {
+    font-family: $bebas;
+    letter-spacing: 0.02em;
   }
-  
-  .FieldSet--OrderSummary {
-    height: 100%;
-    overflow:hidden;
-    transition: 0.4s all ease-in;
-    padding: 0px 32px;
+  svg {
+    position: absolute;
+    top: calc(50% - 4.25px);
+    right: 0;
+    width: 17px;
+    transform: rotate(180deg);
   }
-
-  .FieldSet--OrderSummary--Closed {
-    height: 0px;
+  &--closed {
+    svg {
+      transform: rotate(0deg);
+    }
   }
 }

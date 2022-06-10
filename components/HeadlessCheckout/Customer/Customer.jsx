@@ -1,9 +1,6 @@
 import React, { memo, useCallback, useState } from 'react';
 import { useCustomer } from '@boldcommerce/checkout-react-components';
-// import { CheckboxField } from "@boldcommerce/stacks-ui/lib";
 import { InputField } from '../InputField';
-import { CheckoutSection } from '../CheckoutSection';
-// import './Customer.css';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';
 
@@ -37,10 +34,8 @@ const MemoizedCustomer = memo(({ customer, submitCustomer }) => {
   }, [email, acceptsMarketing]);
 
   return (
-    <CheckoutSection
-      className="FieldSet--CustomerInformation"
-      title={t('customer.info')}
-    >
+    <div>
+      <h3>{t('customer.info')}</h3>
       {customer?.email_address ? (
         <div className="FieldSet--CustomerEmail">
           <div>{customer.email_address}</div>
@@ -76,7 +71,7 @@ const MemoizedCustomer = memo(({ customer, submitCustomer }) => {
         checked={acceptsMarketing}
         onChange={() => setAcceptsMarketing(!acceptsMarketing)}
       />
-    </CheckoutSection>
+    </div>
   );
 });
 

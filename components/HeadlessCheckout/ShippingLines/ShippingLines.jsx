@@ -77,7 +77,7 @@ const MemoizedShippingLines = memo(
      */
     useEffect(() => {
       refreshShippingLines();
-    }, []);
+    }, [refreshShippingLines]);
 
     // Keep local state for selected shipping line in sync with server app state
     useEffect(() => {

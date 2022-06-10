@@ -44,7 +44,11 @@ const IndexPage = () => {
     }
 
     trackEvent('landing_page');
-  }, []);
+  }, [
+    setDefaultAddress,
+    state.applicationState.customer.saved_addresses,
+    trackEvent
+  ]);
 
   return (
     <>

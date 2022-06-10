@@ -246,7 +246,11 @@ const MemoizedPaymentMethod = memo(
       };
 
       applyMembershipDiscount();
-    }, []);
+    }, [
+      applicationState.applicationState.line_items,
+      applicationState.applicationState.order_meta_data.cart_parameters,
+      applyDiscount
+    ]);
 
     return (
       <CheckoutSection

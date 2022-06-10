@@ -28,7 +28,7 @@ const CheckoutFlyout = () => {
         products: [{ id: '39396153295034', quantity: 2 }]
       });
     }
-  }, []);
+  }, [initializeCheckout, resumeCheckout]);
 
   const checkoutStateStyle = flyoutState ? classes['show'] : classes['hide'];
 

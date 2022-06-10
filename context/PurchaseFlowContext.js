@@ -75,9 +75,9 @@ export function PurchaseFlowProvider({ children }) {
           })
           purchaseFlowData.product = product[0]
         }
-        // console.log("update purchaseFlow options:", purchaseFlowData)
-        setOptions({...purchaseFlowData, is_loaded: true})
       }
+      // console.log("update purchaseFlow options:", purchaseFlowData)
+      setOptions({...purchaseFlowData, is_loaded: true})
     }
     updateOptions()
   }, [])

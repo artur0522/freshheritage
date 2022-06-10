@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import Link from 'next/link'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { nacelleClient } from 'services'
 import { PortableText } from '@portabletext/react'
@@ -17,7 +18,7 @@ const ChooseYourBox = ({props}) => {
   useEffect(() => {
     async function getTierOptions() {
       const products = await nacelleClient.products({
-        handles: props.tiers.map(tier => tier.product)
+        handles: [...props.tiers.map(tier => tier.product), 'intro-box']
       })
       purchaseFlowContext.setTierOptions(products)
     }
@@ -25,6 +26,30 @@ const ChooseYourBox = ({props}) => {
       getTierOptions()
     }
   }, [])
+
+  const myPortableTextComponents = {
+    marks: {
+      link: ({children, value}) => {
+        const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined
+        if (value.href.includes('expand=')) {
+          var productHandle = value.href.slice(value.href.indexOf('expand=') + 'expand='.length)
+          return (
+            <a onClick={() => {
+              const product = purchaseFlowContext.tierOptions.find(option => option.content.handle === productHandle)
+              PDPDrawerContext.openDrawer(product)
+            }}>
+              {children}
+            </a>
+          )
+        }
+        return (
+          <Link href={value.href}>
+            <a rel={rel}>{children}</a>
+          </Link>
+        )
+      }
+    }
+  }
 
   return (
     <>
@@ -77,7 +102,7 @@ const ChooseYourBox = ({props}) => {
           </div>
           {props.tierContent &&
             <div className={`${classes['choose-your-box__tier-content']}`}>
-              <PortableText value={props.tierContent} />
+              <PortableText value={props.tierContent} components={myPortableTextComponents} />
             </div>
           }
         </div>

@@ -8,6 +8,7 @@ import ProductStamps from '@/components/Product/ProductStamps'
 import ProductDetailsList from '@/components/Product/ProductDetailsList'
 import FAQs from '@/components/FAQs'
 import IconClose from '@/svgs/close.svg'
+import ProductHarvests from '@/components/Product/ProductHarvests'
 
 const PDPDrawer = ({box = undefined}) => {
   const PDPDrawerContext = usePDPDrawerContext()
@@ -57,6 +58,7 @@ const PDPDrawer = ({box = undefined}) => {
               {!!boxDetails.stamps &&
                 <ProductStamps fields={boxDetails.stamps} product={product} />
               }
+              <ProductHarvests product={product} />
               <FAQs fields={boxDetails.membershipInfo} parentClasses={'pdp-drawer__faq'} />
               <FAQs fields={boxDetails.faqs} parentClasses={'pdp-drawer__faq'}  />
             </div>

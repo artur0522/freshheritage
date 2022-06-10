@@ -16,6 +16,8 @@ const CurrentHarvest = ({ fields }) => {
   const [currentYear, setCurrentYear] = useState(null)
   const [currentDate, setCurrentDate] = useState(null)
 
+console.log("harvestList:", harvestList)
+
   useEffect(() => {
     // make reusable
     const month = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
@@ -36,7 +38,7 @@ const CurrentHarvest = ({ fields }) => {
     setHarvestListMonths(foundHarvest.months)
     setActiveTab(foundHarvest)
   }
- 
+
   const filteredHarvestListByCurrentMonth = harvestListMonths.filter(harvestList => currentMonth === harvestList.month.trim().toLowerCase())
   const foundHarvestsByDate = filteredHarvestListByCurrentMonth.filter(harvest => currentDate >= harvest.sellStart && currentDate <= harvest.sellEnd)
 
@@ -58,7 +60,7 @@ const CurrentHarvest = ({ fields }) => {
                     {header ? <h1>{header}</h1> : <h1>{`${currentMonth} ${currentYear} Harvest`}</h1>}
                     {description && <h3>{description}</h3>}
                 </div>
-                
+
                 {harvestList.length >= 2 && <Swiper
                     slidesPerView={"auto"}
                     spaceBetween={36}
@@ -92,7 +94,7 @@ const CurrentHarvest = ({ fields }) => {
                                 )
                             })
                         )
-                    })}   
+                    })}
                 </div>}
 
                 {_type === 'currentMonthHarvest' && <div className={`${classes['harvest__fish-list']} container`}>

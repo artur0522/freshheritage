@@ -13,7 +13,7 @@ const SplitHero = ({ fields }) => {
     {query: '(min-width: 768px)'}
   )
   const { imageContainer, imageWidth, style, textColor, valueProps, disclaimer, desktopBackgroundImage, mobileBackgroundImage } = fields
-    
+
   return (
     <div className={`${classes['hero']} ${classes[style]} ${classes[imageContainer]} ${classes[textColor]}`}>
       <div className={`${classes['hero__row']}`}>
@@ -23,18 +23,18 @@ const SplitHero = ({ fields }) => {
             {fields.subheader && <h2 className={classes['subheader']}>{fields.subheader}</h2>}
 
             {valueProps && <ul className={classes['value-props']}>{
-              valueProps.map((prop) => 
+              valueProps.map((prop) =>
                 <li className="body" key={prop}><span><IconBullet /></span>{prop}</li>
             )}
             </ul>}
-            
+
             <div className={classes['btn-wrap']}>
               {fields.primaryCtaUrl && <Link href={`${fields.primaryCtaUrl}`}>
                   <a className={`${classes['primary-btn']} btn salmon no-underline text-align--center`}>
                   {fields.primaryCtaText}
                   </a>
               </Link>}
-             
+
               {fields.secondaryCtaUrl && <Link href={`${fields.secondaryCtaUrl}`}>
                   <a className={`btn--only-mobile alabaster ${classes['secondary-btn']}`}>{fields.secondaryCtaText}</a>
               </Link>}
@@ -57,7 +57,7 @@ const SplitHero = ({ fields }) => {
             layout="fill"
           />
         </div>}
-        
+
         {isDesktop && <div className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
           <Image
             className={classes.mbl__img}

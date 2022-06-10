@@ -27,7 +27,7 @@ const SinglePageLayout = () => {
   const [component, setComponent] = useState(<StartStep />);
   useEffect(() => {
     checkInventory();
-  }, []);
+  }, [checkInventory]);
   // let component = <IndexPage />;
   useEffect(() => {
     if (orderStatus === 'error') {
@@ -37,7 +37,7 @@ const SinglePageLayout = () => {
     } else if (orderStatus === 'completed') {
       setComponent(<ConfirmationStep />);
     }
-  }, [orderStatus]);
+  }, [orderStatus, router]);
 
   return <div className="Checkout">{component}</div>;
 };

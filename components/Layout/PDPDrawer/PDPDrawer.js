@@ -33,7 +33,7 @@ const PDPDrawer = ({box = undefined}) => {
         setDrawerOpen(true)
       }, timeout)
     }
-  }, [box])
+  }, [box, boxDetails, product])
 
   return (
     <div className={classes['pdp-flyout']}>

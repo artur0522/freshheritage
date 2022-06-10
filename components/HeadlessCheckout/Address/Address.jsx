@@ -55,6 +55,7 @@ const Address = ({
     }, 2000);
     return () => clearTimeout(postalCodeTimeout);
   }, [
+    handleSubmit,
     address?.first_name,
     address?.last_name,
     address?.business_name,

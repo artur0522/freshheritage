@@ -44,7 +44,7 @@ const MemoizedDiscountForm = memo(
     }, [discount, applyDiscount, logError, trackEvent]);
 
     return (
-      <div className="SummaryBlock Summary__DiscountForm">
+      <div className="SummaryBlock Summary__DiscountForm checkout__row">
         <div className="DiscountForm">
           <InputField
             className="Field"

@@ -1,53 +1,62 @@
-import { useState } from 'react';
-import Image from 'next/image';
-import { useCart } from '@nacelle/react-hooks';
-import { nacelleClient } from 'services';
-import { getSelectedVariant } from 'utils/getSelectedVariant';
-import { getCartVariant } from 'utils/getCartVariant';
-import styles from 'styles/Product.module.css';
+import { useState } from 'react'
+import Image from 'next/image'
+import { useCart } from '@nacelle/react-hooks'
+import { nacelleClient } from 'services'
+import { getSelectedVariant } from 'utils/getSelectedVariant'
+import { getCartVariant } from 'utils/getCartVariant'
+import ProductReviewStars from '../../components/Product/ProductReviewStars'
+import ProductSlider from '../../components/Product/ProductSlider'
+
+import classes from './Product.module.scss'
 
 function Product({ product }) {
-  const [, { addToCart }] = useCart();
-  const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
+  console.log(product)
+  const [, { addToCart }] = useCart()
+  const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
   const [selectedOptions, setSelectedOptions] = useState(
     selectedVariant.content.selectedOptions
-  );
-  const [quantity, setQuantity] = useState(1);
+  )
+  const [quantity, setQuantity] = useState(1)
+  const [checked, setChecked] = useState(false);
 
-  let options = null;
+  const handleCheckbox = () => {
+    setChecked(!checked);
+  };
+
+  let options = null
   if (product?.content?.options?.some((option) => option.values.length > 1)) {
-    options = product?.content?.options;
+    options = product?.content?.options
   }
 
   const buttonText = selectedVariant
     ? selectedVariant.availableForSale
       ? 'Add To Cart'
       : 'Sold Out'
-    : 'Select Option';
+    : 'Select Option'
 
   const handleOptionChange = (event, option) => {
-    const newOption = { name: option.name, value: event.target.value };
+    const newOption = { name: option.name, value: event.target.value }
     const optionIndex = selectedOptions.findIndex((selectedOption) => {
-      return selectedOption.name === newOption.name;
-    });
+      return selectedOption.name === newOption.name
+    })
 
-    const newSelectedOptions = [...selectedOptions];
+    const newSelectedOptions = [...selectedOptions]
     if (optionIndex > -1) {
-      newSelectedOptions.splice(optionIndex, 1, newOption);
-      setSelectedOptions([...newSelectedOptions]);
+      newSelectedOptions.splice(optionIndex, 1, newOption)
+      setSelectedOptions([...newSelectedOptions])
     } else {
-      setSelectedOptions([...newSelectedOptions, newOption]);
+      setSelectedOptions([...newSelectedOptions, newOption])
     }
     const variant = getSelectedVariant({
       product,
       options: newSelectedOptions
-    });
-    setSelectedVariant(variant ? { ...variant } : null);
-  };
+    })
+    setSelectedVariant(variant ? { ...variant } : null)
+  }
 
   const handleQuantityChange = (event) => {
-    setQuantity(+event.target.value);
-  };
+    setQuantity(+event.target.value)
+  }
 
   // Get product data and add it to the cart by using `addToCart`
   // from the `useCart` hook provided by `@nacelle/react-hooks`.
@@ -56,95 +65,135 @@ function Product({ product }) {
     const variant = getCartVariant({
       product,
       variant: selectedVariant
-    });
+    })
     addToCart({
       variant,
       quantity
-    });
-  };
+    })
+  }
 
   return (
     product && (
-      <div className={styles.product}>
-        <div className={styles.media}>
-          <Image
-            src={product.content.featuredMedia.src}
-            alt={product.content.featuredMedia.altText}
-            width={530}
-            height={350}
-            className={styles.image}
-          />
-        </div>
-        <div className={styles.main}>
-          {product.content.title && <h1>{product.content.title}</h1>}
-          <div className={styles.prices}>
-            {selectedVariant.compareAtPrice && (
-              <div className={styles.compare}>
-                ${selectedVariant.compareAtPrice}
+      <div className={classes['product']}>
+          <div className={`${classes['product__inner']} container`}>
+            <ProductSlider product={product} />
+            <ProductReviewStars />
+
+            <div className={classes['main']}>
+            {product.content.title && <h1 className={classes['product-title']}>{product.content.title}</h1>}
+
+            <div className={classes['prices']}>
+              <div className={classes['price-wrap']}>
+                {selectedVariant.compareAtPrice && (
+                  <h3 className={classes.compare}>
+                    ${selectedVariant.compareAtPrice}
+                  </h3>
+                )}
+                <h3>${selectedVariant.price}</h3>
               </div>
-            )}
-            <div>${selectedVariant.price}</div>
-          </div>
-          {options &&
-            options.map((option, oIndex) => (
-              <div key={oIndex}>
-                <label htmlFor={`select-${oIndex}-${product.id}`}>
-                  {option.name}
+              <h3 className={classes['weight']}>{selectedVariant.weight} lbs</h3>
+            </div>
+
+
+
+
+            <div className={classes['gift']}>
+              <div className={classes['gift__check']}>
+                <input
+                  id="giftCheck"
+                  type="checkbox"
+                  checked={checked}
+                  onChange={handleCheckbox}
+                />
+                <label htmlFor="giftCheck" className="heading--label">
+                  This is a Gift
                 </label>
-                <select
-                  id={`select-${oIndex}-${product.id}`}
-                  onChange={($event) => handleOptionChange($event, option)}
-                >
-                  {option.values.map((value, vIndex) => (
-                    <option key={vIndex} value={value}>
-                      {value}
-                    </option>
-                  ))}
-                </select>
               </div>
-            ))}
-          {product.content.description && (
-            <div
-              dangerouslySetInnerHTML={{ __html: product.content.description }}
-            />
-          )}
-          <div>
-            <label htmlFor={`quantity-${product.nacelleEntryId}`}>
-              Quantity:
-            </label>
-            <input
-              id={`quantity-${product.nacelleEntryId}`}
-              type="number"
-              min="1"
-              value={quantity}
-              onChange={handleQuantityChange}
-            />
+              <div className={classes['gift__info']}>
+                  <h4>Recipient's Information</h4>
+                  <form>
+                    <div className={classes['form__col']}>
+                      <label className="secondary--body" htmlFor="email">Email Address</label>
+                      <input type="email" id="email" className="secondary--body" />
+                    </div>
+                    <div className={classes['form__col']}>
+                      <label className="secondary--body" htmlFor="name">Recipient's Name</label>
+                      <input type="text" id="name" className="secondary--body" />
+                    </div>
+                    <button type="submit" className="btn salmon">Add to Cart</button>
+                  </form>
+              </div>
+            </div>
+            
+
+
+
+
+
+            {options &&
+              options.map((option, oIndex) => (
+                <div key={oIndex}>
+                  <label htmlFor={`select-${oIndex}-${product.id}`}>
+                    {option.name}
+                  </label>
+                  <select
+                    id={`select-${oIndex}-${product.id}`}
+                    onChange={($event) => handleOptionChange($event, option)}
+                  >
+                    {option.values.map((value, vIndex) => (
+                      <option key={vIndex} value={value}>
+                        {value}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              ))}
+
+            {product.content.description && (
+              <div
+                dangerouslySetInnerHTML={{ __html: product.content.description }}
+              />
+            )}
+
+            <div>
+              <label htmlFor={`quantity-${product.nacelleEntryId}`}>
+                Quantity:
+              </label>
+              <input
+                id={`quantity-${product.nacelleEntryId}`}
+                type="number"
+                min="1"
+                value={quantity}
+                onChange={handleQuantityChange}
+              />
+            </div>
+
+            <button type="button" onClick={handleAddItem}>
+              {buttonText}
+            </button>
           </div>
-          <button type="button" onClick={handleAddItem}>
-            {buttonText}
-          </button>
         </div>
       </div>
     )
-  );
+  )
 }
 
-export default Product;
+export default Product
 
 export async function getStaticPaths() {
   // Performs a GraphQL query to Nacelle to get product handles.
   // (https://nacelle.com/docs/querying-data/storefront-sdk)
   const results = await nacelleClient.query({
     query: HANDLES_QUERY
-  });
+  })
   const handles = results.products
     .filter((product) => product.content?.handle)
-    .map((product) => ({ params: { handle: product.content.handle } }));
+    .map((product) => ({ params: { handle: product.content.handle } }))
 
   return {
     paths: handles,
     fallback: 'blocking'
-  };
+  }
 }
 
 export async function getStaticProps({ params }) {
@@ -154,19 +203,19 @@ export async function getStaticProps({ params }) {
   const { products } = await nacelleClient.query({
     query: PAGE_QUERY,
     variables: { handle: params.handle }
-  });
+  })
 
   if (!products.length) {
     return {
       notFound: true
-    };
+    }
   }
 
   return {
     props: {
       product: products[0]
     }
-  };
+  }
 }
 
 // GraphQL query for the handles of products. Used in `getStaticPaths`.
@@ -179,7 +228,7 @@ const HANDLES_QUERY = `
       }
     }
   }
-`;
+`
 
 // GraphQL query for product content. Used in `getStaticProps`.
 // (https://nacelle.com/docs/querying-data/storefront-api)
@@ -192,6 +241,13 @@ const PAGE_QUERY = `
         handle
         title
         description
+        media {
+          altText
+          id
+          src
+          thumbnailSrc
+          type
+        }
         options{
           name
           values
@@ -209,6 +265,7 @@ const PAGE_QUERY = `
         availableForSale
         price
         compareAtPrice
+        weight
         content{
           title
           selectedOptions{
@@ -224,4 +281,4 @@ const PAGE_QUERY = `
       }
     }
   }
-`;
+`

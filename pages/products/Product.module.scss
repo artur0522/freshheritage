@@ -1,0 +1,100 @@
+@import '@/styles/_shared.scss';
+
+.product {
+    width: 100%;
+    gap: 40px;
+
+    .main {
+        gap: 10px;
+    }
+
+    .prices {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        height: 36px;
+        margin-bottom: 13px;
+    }
+
+    .product-title {
+        margin-bottom: 12px;
+    }
+
+    .gift {
+
+        // gift__check
+        &__check {
+            display: flex;
+            align-items: center;
+            margin-bottom: 17px;
+
+            label {
+                margin-left: 14.16px;
+            }
+
+            input {
+                border: 1px solid $black20;
+                border-radius: 2px;
+                accent-color: $sitkablue;
+                width: 28.31px;
+                height: 28.31px;
+            }
+
+            button {
+                margin-top: 28px;
+            }
+        }
+
+        //gift__info
+        &__info {
+            border-top: 1px solid $black20;
+            padding: 28px 0;
+
+            h4 {
+                margin-bottom: 11px;
+            }
+
+            .form__col {
+                label {
+                    display: block;
+                    margin-bottom: 11px;
+                }
+
+                input {
+                    width: 100%;
+                    border-radius: 12px;
+                    border: 1px solid $fawn50-2;
+                    padding: 20px 0 20px 18px;
+                    color: rgba(45, 43, 38, 0.6);
+                }
+
+                &:not(:first-child) {
+                    margin-top: 9px;
+                }
+            }
+        }
+    }
+
+    .compare {
+        text-decoration: line-through;
+    }
+}
+
+.media,
+.main {
+    width: 100%;
+    overflow: hidden;
+
+    @include breakpoint-up('sm') {
+
+        .media,
+        .main {
+            width: 50%;
+        }
+    }
+}
+
+.image {
+    width: 100%;
+}

@@ -51,7 +51,7 @@ const MemoizedOrderSummaryBreakdown = memo(({
     } catch(e) {
       logError('discount_code', e);
     }
-  }, [discountCode]);
+  }, [discountCode, logError, onRemoveDiscount, trackEvent]);
 
   const discountLines = discountCode && (
     <OrderSummaryItemLine

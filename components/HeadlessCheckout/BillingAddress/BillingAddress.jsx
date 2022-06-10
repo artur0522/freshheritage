@@ -66,7 +66,7 @@ const MemoizedBillingAddress = memo(({
         setAddress(billingAddress);
       }
     }
-  }, [billingAddress]);
+  }, [billingAddress, logError, submitAddress, trackEvent]);
 
   const updateBillingSameAsShipping = useCallback(async (value) => {
     setLoading(true);
@@ -85,7 +85,7 @@ const MemoizedBillingAddress = memo(({
       }
     }
     setLoading(false);
-  }, [billingSameAsShipping]);
+  }, [billingSameAsShipping, logError, setBillingSameAsShipping, trackEvent]);
 
   const handleChange = useCallback((data) => {
     setAddress({

@@ -71,7 +71,7 @@ const MemoizedShippingAddress = memo(({
       }
     }
     setLoading(false);
-  }, [shippingAddress]);
+  }, [shippingAddress, logError, submitAddress, trackEvent]);
 
   return (
     <CheckoutSection

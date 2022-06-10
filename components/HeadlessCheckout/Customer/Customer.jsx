@@ -34,7 +34,7 @@ const MemoizedCustomer = memo(({ customer, submitCustomer }) => {
       setErrors(e.body.errors);
       logError('customer', e);
     }
-  }, [email, acceptsMarketing]);
+  }, [email, acceptsMarketing, logError, submitCustomer, trackEvent]);
 
   return (
     <CheckoutSection

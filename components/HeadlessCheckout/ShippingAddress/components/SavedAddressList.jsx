@@ -24,14 +24,14 @@ const SavedAddressList = ({
     } else {
       return savedAddresses[0];
     }
-  }, [prevAddress]);
+  }, [prevAddress, savedAddresses]);
 
   const handleNewAddressChange = useCallback(() => {
     onChange({
       ...lastSelectedAddress,
       id: null
     });
-  }, [lastSelectedAddress]);
+  }, [lastSelectedAddress, onChange]);
 
   if (!savedAddresses || savedAddresses.length === 0) return null;
 

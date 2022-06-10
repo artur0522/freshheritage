@@ -23,7 +23,7 @@ const SinglePageLayout = () => {
       console.log('inventory issues detected');
       // handle error when there are inventory issues
     }
-  }, []);
+  }, [state.applicationState.line_items, validateInventory]);
   const [component, setComponent] = useState(<StartStep />);
   useEffect(() => {
     checkInventory();

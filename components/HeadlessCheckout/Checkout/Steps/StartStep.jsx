@@ -35,7 +35,7 @@ const IndexPage = () => {
       setLoading(false);
     }
     setLoading(false);
-  }, [state]);
+  }, [state, logError, submitShippingAddress]);
 
   useEffect(() => {
     // If customer is logged in with saved addresses, default the shipping address to the first one.

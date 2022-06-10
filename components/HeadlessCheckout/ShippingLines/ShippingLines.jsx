@@ -69,7 +69,7 @@ const MemoizedShippingLines = memo(
           setErrors(e.body.errors);
         }
       }
-    }, [showShippingLines]);
+    }, [showShippingLines, getShippingLines, logError, trackEvent]);
 
     /**
      * If this component rendered and shipping address is already selected.
@@ -96,7 +96,7 @@ const MemoizedShippingLines = memo(
         setErrors(e.body.errors);
       }
       setLoading(false);
-    }, []);
+    }, [selectedShippingLine, updateShippingLine]);
 
     let content = null;
 

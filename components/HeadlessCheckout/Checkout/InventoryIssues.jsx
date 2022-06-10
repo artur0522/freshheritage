@@ -80,7 +80,7 @@ const InventoryIssuesPage = () => {
       setLoading(false);
       logError('inventory_issues', e);
     }
-  }, [lineItems]);
+  }, [lineItems, logError, navigate, removeLineItem, updateLineItemQuantity]);
 
   return (
     <div className="Checkout__Layout Checkout__InventoryIssues" role="main">

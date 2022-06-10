@@ -32,19 +32,7 @@ const Address = ({
       submit();
     }
   }, [
-    address?.country_code,
-    address?.province_code,
-    address?.postal_code,
-    showProvince,
-    showPostalCode,
-    address?.first_name,
-    address?.last_name,
-    address?.business_name,
-    address?.address_line_1,
-    address?.address_line_2,
-    address?.city,
-    address?.phone_number,
-    address?.id,
+    address,
     submit,
   ]);
 

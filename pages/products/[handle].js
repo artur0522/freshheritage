@@ -59,7 +59,8 @@ function Product({ product }) {
     });
     addItemToOrder({
       variant,
-      quantity
+      quantity,
+      //properties
     })
   };
 

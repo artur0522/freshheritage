@@ -23,7 +23,7 @@ export function HeadlessCheckoutProvider({ children }) {
 
   //item exists, updatelineitem instead by incrementing quantity
   //it item doesn't exist, addline item
-  function addItemToOrder({variant, quantity}) {
+  function addItemToOrder({variant, quantity, properties = {}}) {
     const variantId = variant.id.replace('gid://shopify/ProductVariant/', '')
     const { line_items } = data.application_state
     const foundLineItem = line_items.find(item => item.product_data.id.includes(variantId))
@@ -36,7 +36,8 @@ export function HeadlessCheckoutProvider({ children }) {
       addLineItem({
         platform_id: variantId,
         quantity: quantity,
-        line_item_key: uuidv4()
+        line_item_key: uuidv4(),
+        line_item_properties: properties
       })
     }
     setFlyoutState(true)

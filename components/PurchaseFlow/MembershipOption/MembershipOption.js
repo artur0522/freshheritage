@@ -8,6 +8,8 @@ import { useMediaQuery } from 'react-responsive'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import IconMinus from '@/svgs/minus.svg'
 import IconPlus from '@/svgs/plus.svg'
+import { getVariantByOptions } from '@/utils/getVariantByOptions'
+
 
 const MembershipOption = ({option, membershipType}) => {
   const purchaseFlowContext = usePurchaseFlowContext()
@@ -37,24 +39,21 @@ const MembershipOption = ({option, membershipType}) => {
     height === 0 ? setHeight('auto') : setHeight(0)
   }
 
-  const getVariant = (value) => {
-    return variants.find(variant => {
-      // hardcoded logic to find variant for premium seafood box if shellfish free is selected
-      if (purchaseFlowContext.options.productHandle === 'premium-seafood-subscription-box') {
-        const shellFishOptionValue = purchaseFlowContext.options.shellfish_free_selected ? 'shellfish' : 'no shellfish'
-        return variant.content.selectedOptions.filter(option => option.value === value || option.value === shellFishOptionValue).length >= 2
-      }
-      return variant.content.selectedOptions.some(option => option.value === value)
-    })
-  }
-
   const onSelectVariant = ({value}) => {
-    const variant = getVariant(value)
+    const variant = getVariantByOptions({
+      variants,
+      matchOptionValue: value,
+      purchaseFlowOptions: purchaseFlowContext.options
+    })
     setSelectedVariant(variant)
   }
 
   useEffect(() => {
-    const variant = getVariant(frequencyOptions[0])
+    const variant = getVariantByOptions({
+      variants,
+      matchOptionValue: frequencyOptions[0],
+      purchaseFlowOptions: purchaseFlowContext.options
+    })
     setSelectedVariant(variant)
   }, [])
 

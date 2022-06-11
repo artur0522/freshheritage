@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react'
 import CheckoutFlyout from '@/components/HeadlessCheckout/CheckoutFlyout'
+import { v4 as uuidv4 } from 'uuid';
 
 const HeadlessCheckoutContext = createContext()
 
@@ -8,7 +9,7 @@ export function useHeadlessCheckoutContext() {
 }
 
 export function HeadlessCheckoutProvider({ children }) {
-  const [data, setData] = useState()
+  const [data, setData] = useState(null)
   const [flyoutState, setFlyoutState] = useState(false)
 
   function saveDataInLocalStorage(data) {
@@ -20,7 +21,30 @@ export function HeadlessCheckoutProvider({ children }) {
     localStorage.setItem('checkout_data', JSON.stringify(checkoutData))
   }
 
-  async function initializeCheckout(payload) {
+  //item exists, updatelineitem instead by incrementing quantity
+  //it item doesn't exist, addline item
+  function addItemToOrder({variant, quantity, properties = {}}) {
+    const variantId = variant.id.replace('gid://shopify/ProductVariant/', '')
+    const { line_items } = data.application_state
+    const foundLineItem = line_items.find(item => item.product_data.id.includes(variantId))
+    if (foundLineItem) {
+      updateLineItem({
+        quantity: foundLineItem.product_data.quantity + quantity,
+        line_item_key: foundLineItem.product_data.line_item_key
+      })
+    } else {
+      addLineItem({
+        platform_id: variantId,
+        quantity: quantity,
+        line_item_key: uuidv4(),
+        line_item_properties: properties
+      })
+    }
+    setFlyoutState(true)
+  }
+
+  // can only initializeCheckout if order has items
+  async function initializeCheckout(payload = {}) {
     // payload example
     // {
     //   products: [
@@ -41,7 +65,7 @@ export function HeadlessCheckoutProvider({ children }) {
     )
     const { data } = await res.json()
     saveDataInLocalStorage(data)
-
+    console.log(data, 'init checkout')
     setData(data)
   }
 
@@ -83,23 +107,6 @@ export function HeadlessCheckoutProvider({ children }) {
     }
   }
 
-  async function getLineItemsFromOrder() {
-    const { jwt, public_order_id } = JSON.parse(
-      localStorage.getItem('checkout_data'),
-    )
-    const response = await fetch(
-      `https://api.boldcommerce.com/checkout/storefront/${process.env.SHOP_IDENTIFIER}/${public_order_id}/items`,
-      {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-          'Content-Type': 'application/json',
-        },
-      },
-    )
-    const { data } = await response.json()
-    console.log(data)
-  }
-
   async function updateLineItem(payload) {
     // payload example
     //   {
@@ -121,8 +128,12 @@ export function HeadlessCheckoutProvider({ children }) {
         body: JSON.stringify(payload),
       },
     )
-    const data = await response.json()
-    console.log('response update line item', data)
+    const updatedData = await response.json()
+    console.log('response update line item', updatedData)
+    setData({
+      ...data,
+      application_state: updatedData.data.application_state
+    })
   }
 
   async function addLineItem(payload) {
@@ -147,8 +158,12 @@ export function HeadlessCheckoutProvider({ children }) {
         body: JSON.stringify(payload),
       },
     )
-    const data = await response.json()
-    console.log('response add line item', data)
+    const updatedData = await response.json()
+    console.log('response add line item', updatedData)
+    setData({
+      ...data,
+      application_state: updatedData.data.application_state
+    })
   }
 
   async function removeLineItem(payload) {
@@ -172,8 +187,12 @@ export function HeadlessCheckoutProvider({ children }) {
         body: JSON.stringify(payload),
       },
     )
-    const data = await response.json()
-    console.log('response remove line item', data)
+    const updatedData = await response.json()
+    console.log('response remove line item', updatedData)
+    setData({
+      ...data,
+      application_state: updatedData.data.application_state
+    })
   }
 
   return (
@@ -183,12 +202,12 @@ export function HeadlessCheckoutProvider({ children }) {
         initializeCheckout,
         resumeCheckout,
         processBoldOrder,
-        getLineItemsFromOrder,
         updateLineItem,
         addLineItem,
         removeLineItem,
         flyoutState,
         setFlyoutState,
+        addItemToOrder
       }}
     >
       <CheckoutFlyout />

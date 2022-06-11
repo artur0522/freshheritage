@@ -1,15 +1,16 @@
 import React, { useEffect, useCallback, useState } from 'react';
-
-import { useCheckoutStore } from '@boldcommerce/checkout-react-components';
+import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
+import { useCheckoutStore, useApplicationState } from '@boldcommerce/checkout-react-components';
 import { useInventory } from '@/hooks/index.js';
 import StartStep from './Steps/StartStep';
 import ProcessingStep from './Steps/ProcessingStep';
 import ConfirmationStep from './Steps/ConfirmationStep';
-// import './SinglePageLayout.css';
 import { useRouter } from 'next/router';
 
 const SinglePageLayout = () => {
   const { state } = useCheckoutStore();
+  const { data: checkoutData } = useHeadlessCheckoutContext();
+  const { updateApplicationState } = useApplicationState();
   const router = useRouter();
   const validateInventory = useInventory();
   const orderStatus = state.orderInfo.orderStatus;
@@ -25,11 +26,19 @@ const SinglePageLayout = () => {
     }
   }, []);
   const [component, setComponent] = useState(<StartStep />);
+
   useEffect(() => {
     checkInventory();
   }, []);
+
+  useEffect(() => {
+    console.log("update application state")
+    updateApplicationState(checkoutData.application_state)
+  }, [checkoutData])
+
   // let component = <IndexPage />;
   useEffect(() => {
+    console.log("orderStatus:", orderStatus)
     if (orderStatus === 'error') {
       router.push('/');
     } else if (orderStatus === 'processing') {

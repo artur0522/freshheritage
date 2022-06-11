@@ -92,6 +92,10 @@ const MemoizedCheckoutButton = memo(
       }
     }, [logError, trackEvent, processOrder, validateInventory]);
 
+    if (!loading && !processing) {
+      return ''
+    }
+
     return (
       <button
         type="button"

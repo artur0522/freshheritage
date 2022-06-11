@@ -51,18 +51,22 @@ const SplitHero = ({ fields }) => {
         </div>
 
         {isMobile && <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
+          {/* TODO: Add image alt */}
           <Image
             className={classes.dsktp__img}
             src={mobileBackgroundImage.asset.url}
             layout="fill"
+            alt=""
           />
         </div>}
 
         {isDesktop && <div className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
+          {/* TODO: Add image alt */}
           <Image
             className={classes.mbl__img}
             src={desktopBackgroundImage.asset.url}
             layout="fill"
+            alt=""
           />
         </div>}
       </div>

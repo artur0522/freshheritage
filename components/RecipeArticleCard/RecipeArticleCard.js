@@ -12,10 +12,12 @@ const RecipeArticleCard = ({ article }) => {
     <Link href={`${article.handle.current}`} passHref>
         <div className={classes['article__card']}>
             {article.heroImage.asset.url && <div className={classes['article__card-img']}>
+                {/* TODO: Add image alt */}
                 <Image
                     src={article.heroImage.asset.url}
                     layout="fill"
                     objectFit="cover"
+                    alt=""
                 />
                 <div className={classes['bookmark']}>
                     <BookmarkIcon />

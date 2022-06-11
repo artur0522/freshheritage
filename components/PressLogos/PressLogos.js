@@ -12,10 +12,12 @@ const PressLogos = ({ fields }) => {
            {pressLogos.map(({logo}) => {
               return (
                 <div className={classes['logos__img']} key={logo.asset._id}>
+                    {/* TODO: Add image alt */}
                     <Image
                         src={logo.asset.url}
                         layout="fill"
                         objectFit='contain'
+                        alt=''
                     />
                 </div>
               )

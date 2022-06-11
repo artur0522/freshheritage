@@ -47,10 +47,12 @@ console.log("harvestList:", harvestList)
         <div className={classes['harvest__inner']}>
             {illustration && <div className={`${classes['harvest__illustration']}`}>
                 <div className={classes['harvest__illustration-img']}>
+                    {/* TODO: Add image alt */}
                     <Image
                         src={illustration.asset.url}
                         width={587}
                         height={440}
+                        alt=""
                     />
                 </div>
             </div>}

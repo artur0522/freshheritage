@@ -9,7 +9,8 @@ const FiftyFifty = ({ fields }) => {
 
   // Check if image exists
   if (fields.image) {
-        sectionImage = <Image className={classes.mbl__img} src={fields.image.asset.url} layout="fill" />
+    // TODO: Add image alt
+    sectionImage = <Image className={classes.mbl__img} src={fields.image.asset.url} layout="fill" alt="" />
   } else {
     return null
   }

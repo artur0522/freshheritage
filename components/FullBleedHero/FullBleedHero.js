@@ -39,19 +39,23 @@ const FullBleedHero = ({ fields }) => {
       </div>
 
       {isMobile && 
+        // TODO: Add image alt
         <div className={`${classes['hero__wrap']} ${classes['hero__wrap--mbl']}`}>
           <Image
             className={classes.dsktp__img}
             src={mobileBackgroundImage.asset.url}
             layout="fill"
+            alt=""
           />
         </div>}
 
         {isDesktop && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--dsktp']}`}>
+          {/* TODO: Add image alt */}
           <Image
             className={classes.mbl__img}
             src={desktopBackgroundImage.asset.url}
             layout="fill"
+            alt=""
           />
         </div>}
     </div>

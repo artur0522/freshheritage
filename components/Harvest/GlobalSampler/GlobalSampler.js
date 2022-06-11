@@ -26,20 +26,24 @@ const GlobalSampler = ({ fields }) => {
            
             {illustration && <div className={`${classes['harvest__illustration']} ${classes['illustration-1']}`}>
                 <div className={classes['harvest__illustration-img']}>
+                    {/* TODO: Add image alt */}
                     <Image
                         src={illustration.asset.url}
                         width={325}
                         height={549}
+                        alt=""
                     />
                 </div>
             </div>}
 
             {illustration_2 && <div className={`${classes['harvest__illustration']} ${classes['illustration-2']}`}>
                 <div className={classes['harvest__illustration-img']}>
+                    {/* TODO: Add image alt */}
                     <Image
                         src={illustration_2.asset.url}
                         width={587}
                         height={440}
+                        alt=""
                     />
                 </div>
             </div>}

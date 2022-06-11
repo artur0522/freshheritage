@@ -99,6 +99,10 @@ const MemoizedCheckoutButton = memo(
       processBoldOrder
     ]);
 
+    if (!loading && !processing) {
+      return ''
+    }
+
     return (
       <button
         type="button"

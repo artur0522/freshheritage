@@ -12,6 +12,7 @@ const PurchaseFlow = ({page}) => {
   const { step1 } = fields
 
   useEffect(() => {
+    console.log("purchaseFlowContext:", purchaseFlowContext)
     if (purchaseFlowContext.options.step === 2) {
       router.push('/pages/customize-your-plan')
     }

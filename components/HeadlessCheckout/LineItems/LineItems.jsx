@@ -6,7 +6,6 @@ import { useVariants } from '@/hooks/index.js';
 
 const LineItems = () => {
   const { data: lineItems } = useLineItems();
-
   return (
     <MemoizedLineItems
       lineItems={lineItems}
@@ -28,6 +27,7 @@ const MemoizedLineItems = memo(({
       price={item.product_data.price}
       totalPrice={item.product_data.total_price}
       key={item.product_data.line_item_key}
+      lineItemKey={item.product_data.line_item_key}
     />
   ));
 

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import classes from './CheckoutFlyout.module.scss';
 import { StateBasedCheckout } from '../Checkout/StateBasedCheckout';
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
@@ -9,10 +9,6 @@ const CheckoutFlyout = () => {
     data,
     initializeCheckout,
     resumeCheckout,
-    // getLineItemsFromOrder,
-    // updateLineItem,
-    // addLineItem,
-    // removeLineItem
     flyoutState,
     setFlyoutState
   } = useHeadlessCheckoutContext();
@@ -24,9 +20,7 @@ const CheckoutFlyout = () => {
     if (Object.keys(localStorageCheckoutData).length) {
       resumeCheckout(localStorageCheckoutData);
     } else {
-      initializeCheckout({
-        products: [{ id: '39396153295034', quantity: 2 }]
-      });
+      initializeCheckout()
     }
   }, [initializeCheckout, resumeCheckout]);
 

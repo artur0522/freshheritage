@@ -54,11 +54,12 @@ const IndexPage = () => {
           <OrderErrors />
         </div>
         <div className="checkout__panel">
-          <Customer />
-          <ShippingAddress applicationLoading={loading} />
-          <BillingAddress applicationLoading={loading} />
-          <ShippingLines applicationLoading={loading} />
-          <PaymentMethod applicationLoading={loading} />
+          <Customer>
+            <ShippingAddress applicationLoading={loading} />
+            <BillingAddress applicationLoading={loading} />
+            <ShippingLines applicationLoading={loading} />
+            <PaymentMethod applicationLoading={loading} />
+          </Customer>
         </div>
         {/* <div className="Checkout__Navigation">
           <CheckoutButton />

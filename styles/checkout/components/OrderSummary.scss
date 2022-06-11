@@ -1,15 +1,13 @@
 
 .order-summary__header {
-  position: relative;
+  display: flex;
+  justify-content: space-between;
   cursor: pointer;
   h3 {
     font-family: $bebas;
     letter-spacing: 0.02em;
   }
   svg {
-    position: absolute;
-    top: calc(50% - 4.25px);
-    right: 0;
     width: 17px;
     transform: rotate(180deg);
   }
@@ -17,10 +15,12 @@
     svg {
       transform: rotate(0deg);
     }
+    border: none;
   }
 }
 
 .order-summary__breakdown {
+  padding-top: 10px;
   .breakdown__section {
     &.breakdown__section--total {
       border: none;

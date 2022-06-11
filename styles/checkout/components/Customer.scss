@@ -1,51 +1,65 @@
-.FieldSet--CustomerInformation {
-  padding: 0;
+.order-customer__header {
+  display: flex;
+  justify-content: space-between;
+  border: none;
+  h3 {
+    font-family: $bebas;
+    letter-spacing: 0.02em;
+  }
+  svg {
+    width: 17px;
+    transform: rotate(180deg);
+    margin-left: 30px;
+  }
+  &--closed {
+    svg {
+      transform: rotate(0deg);
+    }
+  }
+}
+
+.order-customer__header-links {
+  display: flex;
+  align-items: center;
+}
+
+.order-customer__header-link {
+  font-size: 14px;
+  a {
+    font-size: 14px;
+    color: $salmon;
+    text-decoration: underline;
+    &:hover {
+      color: $sitkablue;
+    }
+  }
+}
+
+.order-customer__checkbox-wrapper {
+  margin: 15px 0;
   font-size: 14px;
 }
 
-.FieldSet--CustomerInformation .FieldSet__Content{
-  display: flex;
-  flex-direction: column;
-  row-gap: 8px;
-}
-
-.FieldSet--CustomerEmail {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.Field--Email {
-  flex: 1;
-}
-
-.Field--Email .InputField.Field--Email {
-  width: auto;
-}
-
-.stx-field.InputField {
-  display: flex;
-  flex-direction: column;
-}
-
-.stx-input.InputField {
-  padding: 5px;
-  margin: 0 5px;
-}
-
-.FieldSet--CustomerInformation .stx-field__message {
-  margin: 0 5px;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 16px;
-}
-
-.FieldSet--CustomerInformation .InputField--alert + .stx-field__message {
-  color: red;
-}
-
-.FieldSet--CustomerInformation .stx-checkbox-field__checkbox {
-  width: 16px;
-  height: 16px;
+.order-customer__checkbox {
+  border: 1px solid $black10 !important;
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 2px;
+  margin-right: 5px;
+  svg {
+    width: 12px;
+    height: 12px;
+    * {
+      fill: $pureWhite;
+    }
+  }
+  .checkbox--checked {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: $sitkablue;
+    border-radius: 2px;
+  }
 }

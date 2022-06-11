@@ -1,29 +1,33 @@
-.InputField {
+.input-field {
   position: relative;
-  outline: 1px solid #D9D9D9;
-  border-radius: 4px;
-  box-shadow: 0px 1px 2px 0px #0000001A inset;
+  flex: 1;
+  width: 100%;
+
+  &__container {
+    width: 100%;
+  }
 
   &--disabled {
     opacity: 0.4;
   }
 
-  &__Input {
+  &__input {
     width: 100%;
-    min-height: 44px;
-    padding: 20px 10px 5px 10px;
-    font-size: 14px;
-    border: none;
+    height: 48px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 1px solid $black10;
+    padding: 0 15px;
   }
 
-  &__Input:focus + &__Label,
-  &__Input:not([value=""]) + &__Label,
-  &__Input:-webkit-autofill + &__Label {
+  &__input:focus + &__label,
+  &__input:not([value=""]) + &__label,
+  &__input:-webkit-autofill + &__label {
     top: 12px;
     font-size: 12px;
   }
 
-  &__Label {
+  &__label {
     position: absolute;
     pointer-events: none;
     left: 10px;
@@ -34,7 +38,14 @@
     font-size: 14px;
   }
 
+  &__message {
+    font-size: 14px;
+    margin-top: 20px;
+  }
+
   &--alert {
-    outline-color: red;
+    .input-field__input {
+      border-color: red;
+    }
   }
 }

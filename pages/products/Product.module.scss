@@ -40,10 +40,6 @@
                 width: 28.31px;
                 height: 28.31px;
             }
-
-            button {
-                margin-top: 28px;
-            }
         }
 
         //gift__info
@@ -71,6 +67,50 @@
 
                 &:not(:first-child) {
                     margin-top: 9px;
+                }
+            }
+
+            button {
+                margin-top: 28px;
+            }
+        }
+    }
+
+    .accordion {
+
+        // acccordion__row
+        &__row {
+            width: 100%;
+            border-bottom: 1px solid rgba(22, 49, 68, 0.1);
+        }
+
+        button {
+            background-color: transparent;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            color: $sitkablue;
+
+            svg {
+                width: 15.4px;
+                height: 15.4px;
+
+                path {
+                    fill: $sitkablue;
+                }
+            }
+        }
+
+        &__content {
+            list-style: none;
+
+            li {
+                padding: 12px 0;
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid rgba(22, 49, 68, 0.1);
                 }
             }
         }

@@ -3,9 +3,32 @@
 .product {
     width: 100%;
     gap: 40px;
+    background-color: #fffdfc;
+
+    // product__row
+    &__row {
+        padding: 6px 0 60px 0;
+
+        @include breakpoint-up('md') {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            padding: 86px 0 74px 0;
+        }
+    }
+
+    .slider {
+        @include breakpoint-up('md') {
+            width: 48.69%
+        }
+    }
 
     .main {
         gap: 10px;
+
+        @include breakpoint-up('md') {
+            width: 48.69%
+        }
     }
 
     .prices {
@@ -22,6 +45,10 @@
     }
 
     .gift {
+        .number {
+            color: $salmon;
+            margin-right: 4px;
+        }
 
         // gift__check
         &__check {
@@ -42,13 +69,28 @@
             }
         }
 
-        //gift__info
+        // gift__card {
+        &-card {
+            padding-bottom: 32px;
+        }
+
+        // gift__info
         &__info {
             border-top: 1px solid $black20;
             padding: 28px 0;
 
-            h4 {
+            // gift__info-header
+            &-header {
                 margin-bottom: 11px;
+            }
+
+
+            form {
+                padding-bottom: 32px;
+            }
+
+            .delivery {
+                color: rgba(45, 43, 38, 0.6);
             }
 
             .form__col {
@@ -65,8 +107,22 @@
                     color: rgba(45, 43, 38, 0.6);
                 }
 
+                textarea {
+                    width: 100%;
+                    border: 1px solid $fawn50-2;
+                    color: rgba(45, 43, 38, 0.6);
+                    min-height: 146px;
+                    padding: 21px 0 0 18px;
+                    margin-bottom: 5px;
+                }
+
                 &:not(:first-child) {
                     margin-top: 9px;
+                }
+
+                &:last-child {
+                    padding-bottom: 17px;
+                    border-bottom: 1px solid #D5D5D4;
                 }
             }
 
@@ -76,42 +132,45 @@
         }
     }
 
-    .accordion {
+    .gift-card {
 
-        // acccordion__row
-        &__row {
-            width: 100%;
-            border-bottom: 1px solid rgba(22, 49, 68, 0.1);
-        }
+        // gift-card__amount
+        &__amount {
+            margin-bottom: 11px;
 
-        button {
-            background-color: transparent;
-            border: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            color: $sitkablue;
-
-            svg {
-                width: 15.4px;
-                height: 15.4px;
-
-                path {
-                    fill: $sitkablue;
-                }
+            .number {
+                color: $salmon;
+                margin-right: 4px;
             }
         }
 
-        &__content {
-            list-style: none;
+        &__buttons {
+            display: flex;
+            flex-wrap: wrap;
 
-            li {
-                padding: 12px 0;
+            .btn {
+                margin-right: 10px;
+                display: flex;
+            }
 
-                &:not(:last-child) {
-                    border-bottom: 1px solid rgba(22, 49, 68, 0.1);
-                }
+            input[type=radio] {
+                display: none;
+            }
+
+            input[type=radio]+label {
+                padding: 13px 0;
+                border-radius: 6px;
+                border: 1px solid $fawn50-2;
+                cursor: pointer;
+                background-color: #fff;
+                color: $sitkablue;
+                width: 72px;
+                text-align: center;
+            }
+
+            input[type=radio]:checked+label {
+                background-color: $sitkablue;
+                color: #fff;
             }
         }
     }
@@ -120,6 +179,12 @@
         text-decoration: line-through;
     }
 }
+
+
+
+
+
+
 
 .media,
 .main {

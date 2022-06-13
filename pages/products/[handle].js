@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useCart } from '@nacelle/react-hooks'
 import { nacelleClient } from 'services'
@@ -7,7 +7,9 @@ import { getCartVariant } from 'utils/getCartVariant'
 import ContentSections from '@/components/ContentSections'
 import ProductReviewStars from '../../components/Product/ProductReviewStars'
 import ProductSlider from '../../components/Product/ProductSlider'
-import IconPlus from '@/svgs/plus.svg'
+import ProductAccordion from '../../components/Product/ProductAccordion'
+import { useMediaQuery } from 'react-responsive'
+import ResponsiveImage from '@/components/ResponsiveImage'
 
 import classes from './Product.module.scss'
 
@@ -21,6 +23,17 @@ function Product({ product, page }) {
   )
   const [quantity, setQuantity] = useState(1)
   const [checked, setChecked] = useState(false);
+  const handle = product.content.handle
+
+  useEffect(() =>  {
+    if(product.content.handle === 'digital-gift-card') {
+      setChecked(true)
+    }
+  }, [])
+  
+  const isDesktop = useMediaQuery(
+    { minWidth: 1074 }
+  )
 
   const handleCheckbox = () => {
     setChecked(!checked);
@@ -32,10 +45,12 @@ function Product({ product, page }) {
   }
 
   const productAccordionHeaders = page[0].fields.content.find(block => block._type === 'productAccordionHeaders')
-  const accordionDeliveryHeader = productAccordionHeaders.details
-  const accordionDescriptionHeader = productAccordionHeaders.description
+  const accordionDeliveryHeader = productAccordionHeaders?.details
+  const accordionDescriptionHeader = productAccordionHeaders?.description
   const deliveryDetails = product.metafields.find(metafield => metafield.key === 'delivery_details')
-  const deliveryDetailsList = JSON.parse(deliveryDetails.value)
+  const deliveryDetailsList = deliveryDetails ? JSON.parse(deliveryDetails.value) : null
+  const stampSection = page[0].fields.content.find(field => field._type === 'stamps')
+  
 
   console.log("list", deliveryDetailsList)
 
@@ -86,11 +101,14 @@ function Product({ product, page }) {
   return (
     product && (
       <div className={classes['product']}>
-        <div className={`${classes['product__inner']}`}>
-            <div className={`container`}>
+        <div className={classes['product__inner']}>
+            <div className={`${classes['product__row']} container`}>
+            <div className={classes['slider']}>
               <ProductSlider product={product} />
-              <ProductReviewStars />
+            </div>
+             
               <div className={classes['main']}>
+                <ProductReviewStars />
                 {product.content.title && <h1 className={classes['product-title']}>{product.content.title}</h1>}
 
                 <div className={classes['prices']}>
@@ -105,11 +123,36 @@ function Product({ product, page }) {
                   <h3 className={classes['weight']}>{selectedVariant.weight} lbs</h3>
                 </div>
 
+                {handle === 'digital-gift-card' && <form className={classes['gift-card']}>
+                  <div className={classes['gift-card__amount']}>
+                    <h4><span className={classes['number']}>1</span>Amount</h4>
+                  </div>
 
+                  <div className={classes['gift-card__buttons']}>
+                    <div className={classes['btn']}>
+                      <input type="radio" id="fifty" name="giftCardButtons" value="50" />
+                      <label htmlFor="fifty">$50</label>
+                    </div>
 
+                    <div className={classes['btn']}>
+                      <input type="radio" id="one-hundred" name="giftCardButtons" value="100" />
+                      <label htmlFor="one-hundred">$100</label>
+                    </div>
+                    
+                    <div className={classes['btn']}>
+                      <input type="radio" id="one-fifty" name="giftCardButtons" value="150" />
+                      <label htmlFor="one-fifty">$150</label>
+                    </div>
+                    
+                    <div className={classes['btn']}>
+                        <input type="radio" id="two-hundred" name="giftCardButtons" value="200" />
+                        <label htmlFor="two-hundred">$200</label>
+                      </div>
+                  </div>
+                </form>}
 
                 <div className={classes['gift']}>
-                  <div className={classes['gift__check']}>
+                  {handle !== 'digital-gift-card' && <div className={classes['gift__check']}>
                     <input
                       id="giftCheck"
                       type="checkbox"
@@ -119,21 +162,35 @@ function Product({ product, page }) {
                     <label htmlFor="giftCheck" className="heading--label">
                       This is a Gift
                     </label>
-                  </div>
-                  <div className={classes['gift__info']}>
-                      <h4>Recipient's Information</h4>
+                  </div>}
+                  {checked && <div className={classes['gift__info']}>
+                      <div className={classes['gift__info-header']}>
+                        <h4>
+                          {handle === 'digital-gift-card' && <span className={classes['number']}>2</span>}
+                          Recipient's Information
+                        </h4>
+                        <span className={`${classes['delivery']} delivery--time`}>Delivered via email one day after purchase.</span>
+                      </div>
+                     
                       <form>
-                        <div className={classes['form__col']}>
-                          <label className="secondary--body" htmlFor="email">Email Address</label>
-                          <input type="email" id="email" className="secondary--body" />
-                        </div>
-                        <div className={classes['form__col']}>
-                          <label className="secondary--body" htmlFor="name">Recipient's Name</label>
-                          <input type="text" id="name" className="secondary--body" />
+                        <div className={classes['form__inner']}>
+                          <div className={classes['form__col']}>
+                            <label className="secondary--body" htmlFor="email">Email Address</label>
+                            <input type="email" id="email" className="secondary--body" />
+                          </div>
+                          <div className={classes['form__col']}>
+                            <label className="secondary--body" htmlFor="name">Recipient's Name</label>
+                            <input type="text" id="name" className="secondary--body" />
+                          </div>
+                          <div className={classes['form__col']}>
+                            <label className="secondary--body" htmlFor="message">Message</label>
+                            <textarea type="text" id="message" name="message" maxlength="250" className="secondary--body" />
+                            <p className="disclaimer">*Digital giftcard will be delivered to recipient via email one day after purchase and will include your gift message! </p>
+                          </div>
                         </div>
                         <button type="submit" className="btn salmon">Add to Cart</button>
                       </form>
-                  </div>
+                  </div>}
                 </div>
                 
                 {options &&
@@ -155,26 +212,21 @@ function Product({ product, page }) {
                     </div>
                   ))}
 
-                <div className={classes['accordion']}>
-                  <div className={classes['accordion__row']}>
-                    <button className="h4">
-                      <span>{accordionDescriptionHeader}</span>
-                      <IconPlus />
-                    </button>
-                  </div>
-                  <div className={classes['accordion__row']}>
-                    <button className="h4">
-                      <span>{accordionDeliveryHeader}</span>
-                      <IconPlus />
-                    </button>
-                    <ul className={classes['accordion__content']}>
-                      {deliveryDetailsList.map((listItem) => {
-                        return (
-                          <li>{listItem}</li>
-                        )
-                      })}
-                    </ul>
-                  </div>
+
+                {/* ACCORDION */}
+                {deliveryDetailsList && <div className={classes['accordion']}>
+                  <ProductAccordion header={accordionDescriptionHeader}  content={deliveryDetailsList} />
+                  <ProductAccordion header={accordionDeliveryHeader}  content={deliveryDetailsList} />
+                </div>}
+
+               
+                <div className={classes['product-stamps']}>
+                  {isDesktop &&
+                    <ResponsiveImage src={stampSection.stamps.desktopImage.asset.url} alt={stampSection.stamps.desktopImage.asset.alt || product.content?.title} />
+                  }
+                  {!isDesktop &&
+                    <ResponsiveImage src={stampSection.stamps.mobileImage.asset.url} alt={stampSection.stamps.mobileImage.asset.alt || product.content?.title} />
+                  }
                 </div>
               </div>
             </div>

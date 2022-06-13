@@ -413,6 +413,17 @@ button {
   }
 }
 
+.delivery--time {
+  font-size: fontsize(12px);
+  line-height: 120%;
+  font-weight: 400;
+  color: $salmon;
+
+  @include breakpoint-up('sm') {
+    font-size: fontsize(16px);
+  }
+}
+
 .capitalize {
   text-transform: capitalize;
 }
@@ -431,4 +442,9 @@ button {
 
 .no-underline {
   text-decoration: none;
+}
+
+.disclaimer {
+  font-size: fontsize(11px);
+  line-height: 150%;
 }

@@ -34,19 +34,19 @@ function Layout({ children }) {
   }, [])
 
   return (
-    <HeadlessCheckoutProvider>
+    <CustomerProvider>
       <PurchaseFlowProvider>
-        <CustomerProvider>
-          <PDPDrawerProvider>
-            <ModalProvider>
+        <PDPDrawerProvider>
+          <ModalProvider>
+            <HeadlessCheckoutProvider>
               <Header content={headerSettings} pageHandle={children.props.handle} />
               <main>{children}</main>
               <Footer content={footerSettings} />
-            </ModalProvider>
-          </PDPDrawerProvider>
-        </CustomerProvider>
+            </HeadlessCheckoutProvider>
+          </ModalProvider>
+        </PDPDrawerProvider>
       </PurchaseFlowProvider>
-    </HeadlessCheckoutProvider>
+    </CustomerProvider>
   )
 }
 

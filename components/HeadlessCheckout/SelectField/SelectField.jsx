@@ -13,11 +13,6 @@ const SelectField = ({
   className,
   ...otherProps
 }) => {
-  const containerClassNames = cn([
-    'SelectField__Container',
-    className,
-  ]);
-
   const classNames = cn([
     'SelectField',
     {'SelectField--alert': messageType === 'alert' || messageType === 'error'},
@@ -25,7 +20,7 @@ const SelectField = ({
   ])
 
   return (
-    <div className={containerClassNames}>
+    <div className="input-group">
       <div className={classNames}>
         <select
           {...otherProps}

@@ -57,7 +57,7 @@ const MemoizedDiscountForm = memo(
         {!!formOpen &&
           <div className="discount-form">
             <InputField
-              className="discount-form__field"
+              className="input discount-form__field"
               type="text"
               placeholder={t('discount.enter_code')}
               value={discount}
@@ -68,10 +68,9 @@ const MemoizedDiscountForm = memo(
             />
             <button
               className="discount-form__btn btn sitkablue"
-              primary={discountApplied || discount.length > 0}
               disabled={discount.length === 0 || discountApplied || loading}
               onClick={handleApply}
-              loading={loading}
+              loading={loading.toString()}
             >
               {t('discount.apply')}
             </button>

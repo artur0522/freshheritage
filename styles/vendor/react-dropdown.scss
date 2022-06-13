@@ -8,7 +8,7 @@
     position: absolute;
     top: 20px;
     right: 12px;
-    z-index: 10000;
+    z-index: 1001;
     @include breakpoint-up('sm') {
       width: 23px;
       top: 24px;

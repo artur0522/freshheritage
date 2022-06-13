@@ -10,11 +10,6 @@ const InputField = ({
   className,
   ...otherParams
 }) => {
-  const containerClassNames = cn([
-    'input-field__container',
-    className
-  ]);
-
   const classNames = cn([
     'input-field',
     {'input-field--alert': messageType === 'alert' || messageType === 'error'},
@@ -22,7 +17,7 @@ const InputField = ({
   ])
 
   return (
-    <div className={containerClassNames}>
+    <div className="input-group">
       <div className={classNames}>
         <input
           {...otherParams}

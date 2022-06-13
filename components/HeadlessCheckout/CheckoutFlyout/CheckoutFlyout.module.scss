@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   position: fixed;
-  z-index: 1001;
+  z-index: 2001;
   height: 100%;
   width: 100%;
   &.hide {
@@ -38,6 +38,7 @@
   box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.1);
   transition: 0.2s ease-in-out transform;
   overflow-y: auto;
+  z-index: 1001;
   @include breakpoint-up('sm') {
     padding: 40px;
   }

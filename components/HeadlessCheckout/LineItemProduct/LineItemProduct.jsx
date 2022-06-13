@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ResponsiveImage from '@/components/ResponsiveImage';
 import IconPlus from '@/svgs/plus.svg'
 import IconMinus from '@/svgs/minus.svg'
@@ -8,7 +7,7 @@ import { useVariants } from '@/hooks/index.js';
 import { formatPrice } from '@/utils/formatPrice';
 import Link from 'next/link';
 
-const LineItemProduct = ({ item }) => {
+const LineItemProduct = ({ item, children }) => {
 
   const handleVariants = useVariants();
   const variants = handleVariants(item.title)
@@ -20,26 +19,26 @@ const LineItemProduct = ({ item }) => {
 
   const increment = () => {
     updateLineItem({
-      quantity: quantity + 1,
-      line_item_key: lineItemKey
+      quantity: item.quantity + 1,
+      line_item_key: item.line_item_key
     })
   }
 
   const decrement = () => {
-    if (quantity <= 1) {
+    if (item.quantity <= 1) {
       removeLineItem({
-        line_item_key: lineItemKey
+        line_item_key: item.line_item_key
       })
     } else {
       updateLineItem({
-        quantity: quantity - 1,
-        line_item_key: lineItemKey
+        quantity: item.quantity - 1,
+        line_item_key: item.line_item_key
       })
     }
   }
 
   return (
-    <>
+    <div className="order-item checkout__row">
       <div className="order-item__image">
         <ResponsiveImage src={item.image_url} alt={item.product_title} />
       </div>
@@ -78,14 +77,9 @@ const LineItemProduct = ({ item }) => {
           }
         </div>
       </div>
-    </>
+      {children}
+    </div>
   )
-};
-
-LineItemProduct.propTypes = {
-  title: PropTypes.string.isRequired,
-  image: PropTypes.string,
-  variants: PropTypes.array
 };
 
 export default LineItemProduct;

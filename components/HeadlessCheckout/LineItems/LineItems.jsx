@@ -18,8 +18,7 @@ const MemoizedLineItems = memo(({
   return (
     <div className="order-item-list">
       {lineItems.map(item => (
-        <div className="order-item checkout__row">
-          <LineItemProduct item={item.product_data} />
+          <LineItemProduct item={item.product_data} key={item.product_data.line_item_key} >
             {item.product_data.tags.includes("Subscription Box") &&
               <div className="order-item__disclaimer">
                 <h3>Membership Info</h3>
@@ -27,7 +26,7 @@ const MemoizedLineItems = memo(({
                 <p>By making this purchase, <a href={process.env.TERMS_URL} target="_blank">I agree to these terms and conditions</a>.</p>
               </div>
             }
-        </div>
+          </LineItemProduct>
       ))}
     </div>
   );

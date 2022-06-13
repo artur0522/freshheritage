@@ -1,3 +1,15 @@
+export const transformEdges = (object, field) => {
+  if (field == null) {
+    return object.edges.map((edge) => {
+      return edge.node
+    })
+  } else {
+    return object.edges.map((edge) => {
+      return edge.node[field]
+    })
+  }
+}
+
 export const CUSTOMER_ACCESS_TOKEN_CREATE = `mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
   customerAccessTokenCreate(input: $input) {
     userErrors {
@@ -7,6 +19,17 @@ export const CUSTOMER_ACCESS_TOKEN_CREATE = `mutation customerAccessTokenCreate(
     customerAccessToken {
       accessToken
       expiresAt
+    }
+  }
+}`
+
+export const CUSTOMER_ACCESS_TOKEN_DELETE = `mutation customerAccessTokenDelete($customerAccessToken: String!) {
+  customerAccessTokenDelete(customerAccessToken: $customerAccessToken) {
+    deletedAccessToken
+    deletedCustomerAccessTokenId
+    userErrors {
+      field
+      message
     }
   }
 }`
@@ -23,6 +46,48 @@ export const GET_CUSTOMER = `query getCustomer($customerAccessToken: String!) {
     firstName
     phone
     tags
+    defaultAddress {
+      address1
+      address2
+      city
+      company
+      country
+      countryCodeV2
+      firstName
+      formatted
+      formattedArea
+      id
+      lastName
+      latitude
+      longitude
+      name
+      phone
+      province
+      provinceCode
+      zip
+    }
+    addresses (first: 50) {
+      edges {
+        node {
+          address1
+          address2
+          city
+          company
+          country
+          countryCodeV2
+          firstName
+          formatted
+          formattedArea
+          id
+          lastName
+          name
+          phone
+          province
+          provinceCode
+          zip
+        }
+      }
+    }
   }
 }`
 

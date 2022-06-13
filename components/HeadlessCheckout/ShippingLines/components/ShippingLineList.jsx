@@ -1,31 +1,28 @@
-// import { RadioField, Price } from '@boldcommerce/stacks-ui';
-import React from 'react';
-// import { useTranslation } from 'react-i18next';
-
+import Checkbox from "react-custom-checkbox";
+import { formatPrice } from '@/utils/formatPrice';
 const ShippingLineList = ({
   shippingLines,
   selectedShippingLine,
   onChange,
   disabled
 }) => {
-  // const { t } = useTranslation();
   return (
-    <div className="FieldSet__Content">
+    <div className="shipping-method-selector">
       {shippingLines &&
         shippingLines.map((method, index) => (
-          <div className="RadioButton" key={index}>
-            <input
-              type="radio"
-              label={method.description}
+          <div className={`checkout__radio-wrapper ${selectedShippingLine === parseInt(method.id, 10) ? 'is-selected' : ''}`} key={index}>
+            <Checkbox
+              className="checkout__radio"
+              icon={<div className="radio--checked"></div>}
+              label={<div className="checkout__radio-label"><span>{method.description}</span><span>{`$${formatPrice(method.amount, true)}`}</span></div>}
               name="shipping-method"
               checked={selectedShippingLine === parseInt(method.id, 10)}
-              className="RadioField"
-              disabled={disabled}
+              value="SAME_AS_SHIPPING_ADDRESS"
+              disabled={disabled || selectedShippingLine === parseInt(method.id, 10)}
               onChange={() => onChange(index)}
             />
-            {/* <Price className="ShippingMethod__Price" amount={method.amount} moneyFormatString={t('currency_format')} /> */}
-            <p>{method.amount}</p>
           </div>
+
         ))}
     </div>
   );

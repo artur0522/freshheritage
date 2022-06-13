@@ -10,8 +10,8 @@ import {
 import React, { memo, useEffect, useState } from 'react';
 import { EmptyState } from '@/components/HeadlessCheckout/EmptyState';
 import { LoadingState } from '../LoadingState';
-// import './PaymentMethod.css';
 import { useTranslation } from 'react-i18next';
+import IconSelectArrow from '@/svgs/select-arrow.svg'
 import {
   useOrderMetadata,
   useDiscount
@@ -65,6 +65,7 @@ const MemoizedPaymentMethod = memo(
     loading
   }) => {
     const [disabled, setDisabled] = useState();
+    const [paymentMethodOpen, setPaymentMethodOpen] = useState(true);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -248,17 +249,24 @@ const MemoizedPaymentMethod = memo(
     }, []);
 
     return (
-      <div>
-        <h3>{t('payment.method')}</h3>
-        <iframe
-          title="payments"
-          data-bold-pigi-iframe
-          className="PaymentMethod__Iframe"
-          src={paymentIframeUrl}
-          style={style}
-          onLoad={onPaymentIframeLoaded}
-        />
-        {content}
+      <div className="order-paymenth-method">
+        <div onClick={() => setPaymentMethodOpen(!paymentMethodOpen)} className={`checkout__header checkout__header--border-on-closed checkout__row ${paymentMethodOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
+          <h3>Payment Method</h3>
+          <IconSelectArrow />
+        </div>
+        {!!paymentMethodOpen &&
+          <>
+            <iframe
+              title="payments"
+              data-bold-pigi-iframe
+              className="PaymentMethod__Iframe"
+              src={paymentIframeUrl}
+              style={style}
+              onLoad={onPaymentIframeLoaded}
+            />
+            {content}
+          </>
+        }
       </div>
     );
   }

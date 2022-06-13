@@ -1,6 +1,7 @@
 .input-group {
   position: relative;
   margin-bottom: 12px;
+	width: 100%;
 	@include breakpoint-up('lg') {
 		margin-bottom: 25px;
 	}

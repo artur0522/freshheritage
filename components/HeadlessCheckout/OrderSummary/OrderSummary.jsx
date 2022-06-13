@@ -9,17 +9,15 @@ const OrderSummary = ({ readOnly }) => {
   const [summaryOpen, setSummaryOpen] = useState(true);
   return (
     <div className="order-summary">
-      <div onClick={() => setSummaryOpen(!summaryOpen)} className={`order-summary__header checkout__row ${summaryOpen ? 'order-summary__header--open' : 'order-summary__header--closed'}`}>
+      <div onClick={() => setSummaryOpen(!summaryOpen)} className={`checkout__header checkout__row ${summaryOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
         <h3>Order Summary</h3>
         <IconSelectArrow />
       </div>
       {!!summaryOpen &&
-        <>
-          <LineItems readOnly={readOnly} />
-          {!readOnly && <DiscountForm /> }
-          <OrderSummaryBreakdown />
-        </>
+        <LineItems readOnly={readOnly} />
       }
+      {!readOnly && <DiscountForm /> }
+      <OrderSummaryBreakdown />
     </div>
   );
 };

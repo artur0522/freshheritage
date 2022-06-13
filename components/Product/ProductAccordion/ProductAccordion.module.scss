@@ -3,6 +3,7 @@
 // acccordion__row
 .accordion__row {
     width: 100%;
+    padding: 12px 0;
     border-bottom: 1px solid rgba(22, 49, 68, 0.1);
 
     button {
@@ -13,7 +14,6 @@
         align-items: center;
         width: 100%;
         color: $sitkablue;
-        padding: 12px 0;
 
         svg {
             path {
@@ -39,8 +39,20 @@
     li {
         padding: 12px 0;
 
+        @include breakpoint-up('md') {
+            padding: 24px 0;
+        }
+
         &:not(:last-child) {
             border-bottom: 1px solid rgba(22, 49, 68, 0.1);
+        }
+
+        &:last-child {
+            padding: 12px 0 24px 0;
+
+            @include breakpoint-up('md') {
+                padding: 24px 0;
+            }
         }
     }
 }

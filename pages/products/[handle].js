@@ -50,9 +50,6 @@ function Product({ product, page }) {
   const deliveryDetails = product.metafields.find(metafield => metafield.key === 'delivery_details')
   const deliveryDetailsList = deliveryDetails ? JSON.parse(deliveryDetails.value) : null
   const stampSection = page[0].fields.content.find(field => field._type === 'stamps')
-  
-
-  console.log("list", deliveryDetailsList)
 
   const buttonText = selectedVariant
     ? selectedVariant.availableForSale
@@ -98,6 +95,11 @@ function Product({ product, page }) {
     })
   }
 
+  const formSubmit = (event) => {
+    event.preventDefault()
+    console.log('form submit')
+  }
+
   return (
     product && (
       <div className={classes['product']}>
@@ -123,57 +125,59 @@ function Product({ product, page }) {
                   <h3 className={classes['weight']}>{selectedVariant.weight} lbs</h3>
                 </div>
 
-                {handle === 'digital-gift-card' && <form className={classes['gift-card']}>
-                  <div className={classes['gift-card__amount']}>
-                    <h4><span className={classes['number']}>1</span>Amount</h4>
-                  </div>
-
-                  <div className={classes['gift-card__buttons']}>
-                    <div className={classes['btn']}>
-                      <input type="radio" id="fifty" name="giftCardButtons" value="50" />
-                      <label htmlFor="fifty">$50</label>
-                    </div>
-
-                    <div className={classes['btn']}>
-                      <input type="radio" id="one-hundred" name="giftCardButtons" value="100" />
-                      <label htmlFor="one-hundred">$100</label>
-                    </div>
-                    
-                    <div className={classes['btn']}>
-                      <input type="radio" id="one-fifty" name="giftCardButtons" value="150" />
-                      <label htmlFor="one-fifty">$150</label>
-                    </div>
-                    
-                    <div className={classes['btn']}>
-                        <input type="radio" id="two-hundred" name="giftCardButtons" value="200" />
-                        <label htmlFor="two-hundred">$200</label>
-                      </div>
-                  </div>
-                </form>}
-
                 <div className={classes['gift']}>
-                  {handle !== 'digital-gift-card' && <div className={classes['gift__check']}>
-                    <input
-                      id="giftCheck"
-                      type="checkbox"
-                      checked={checked}
-                      onChange={handleCheckbox}
-                    />
-                    <label htmlFor="giftCheck" className="heading--label">
-                      This is a Gift
-                    </label>
-                  </div>}
-                  {checked && <div className={classes['gift__info']}>
-                      <div className={classes['gift__info-header']}>
+                    {handle !== 'digital-gift-card' && <div className={classes['gift__check']}>
+                      <input
+                        id="giftCheck"
+                        type="checkbox"
+                        checked={checked}
+                        onChange={handleCheckbox}
+                      />
+                      <label htmlFor="giftCheck" className="heading--label">
+                        This is a Gift
+                      </label>
+                    </div>}
+
+
+
+                    <form onSubmit={(event) => formSubmit(event)} className={classes['gift__info']}>
+                      {handle === 'digital-gift-card' && <div className={classes['gift-card']}>
+                        <div className={classes['gift-card__amount']}>
+                          <h4><span className={classes['number']}>1</span>Amount</h4>
+                        </div>
+
+                        <div className={classes['gift-card__buttons']}>
+                          <div className={classes['btn']}>
+                            <input type="radio" id="fifty" name="giftCardButtons" value="50" />
+                            <label htmlFor="fifty">$50</label>
+                          </div>
+
+                          <div className={classes['btn']}>
+                            <input type="radio" id="one-hundred" name="giftCardButtons" value="100" />
+                            <label htmlFor="one-hundred">$100</label>
+                          </div>
+                          
+                          <div className={classes['btn']}>
+                            <input type="radio" id="one-fifty" name="giftCardButtons" value="150" />
+                            <label htmlFor="one-fifty">$150</label>
+                          </div>
+                          
+                          <div className={classes['btn']}>
+                              <input type="radio" id="two-hundred" name="giftCardButtons" value="200" />
+                              <label htmlFor="two-hundred">$200</label>
+                          </div>
+                        </div>
+                      </div>}
+                      {checked && <div className={classes['gift__info-header']}>
                         <h4>
                           {handle === 'digital-gift-card' && <span className={classes['number']}>2</span>}
                           Recipient's Information
                         </h4>
                         <span className={`${classes['delivery']} delivery--time`}>Delivered via email one day after purchase.</span>
-                      </div>
+                      </div>}
                      
-                      <form>
-                        <div className={classes['form__inner']}>
+                   
+                      {checked && <div className={classes['form__inner']}>
                           <div className={classes['form__col']}>
                             <label className="secondary--body" htmlFor="email">Email Address</label>
                             <input type="email" id="email" className="secondary--body" />
@@ -182,15 +186,14 @@ function Product({ product, page }) {
                             <label className="secondary--body" htmlFor="name">Recipient's Name</label>
                             <input type="text" id="name" className="secondary--body" />
                           </div>
-                          <div className={classes['form__col']}>
+                          {handle === 'digital-gift-card' && <div className={`${classes['form__col']} ${classes['textarea']}`}>
                             <label className="secondary--body" htmlFor="message">Message</label>
-                            <textarea type="text" id="message" name="message" maxlength="250" className="secondary--body" />
+                            <textarea type="text" id="message" name="message" maxLength="250" className="secondary--body" />
                             <p className="disclaimer">*Digital giftcard will be delivered to recipient via email one day after purchase and will include your gift message! </p>
-                          </div>
-                        </div>
+                          </div>}
+                        </div>}
                         <button type="submit" className="btn salmon">Add to Cart</button>
                       </form>
-                  </div>}
                 </div>
                 
                 {options &&
@@ -220,6 +223,7 @@ function Product({ product, page }) {
                 </div>}
 
                
+                {/* STAMPS */}
                 <div className={classes['product-stamps']}>
                   {isDesktop &&
                     <ResponsiveImage src={stampSection.stamps.desktopImage.asset.url} alt={stampSection.stamps.desktopImage.asset.alt || product.content?.title} />
@@ -230,6 +234,7 @@ function Product({ product, page }) {
                 </div>
               </div>
             </div>
+          {/* SECTIONS */}
           <ContentSections sections={page[0].fields.content} />
         </div>
       </div>

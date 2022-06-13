@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { PortableText } from '@portabletext/react'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
@@ -13,6 +13,10 @@ const SplitHero = ({ fields }) => {
     {query: '(min-width: 768px)'}
   )
   const { imageContainer, imageWidth, style, textColor, valueProps, disclaimer, desktopBackgroundImage, mobileBackgroundImage } = fields
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
     
   return (
     <div className={`${classes['hero']} ${classes[style]} ${classes[imageContainer]} ${classes[textColor]}`}>
@@ -50,7 +54,7 @@ const SplitHero = ({ fields }) => {
           </div>
         </div>
 
-        {isMobile && <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
+        {isMobile && mounted && <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
           <Image
             className={classes.dsktp__img}
             src={mobileBackgroundImage.asset.url}
@@ -58,7 +62,7 @@ const SplitHero = ({ fields }) => {
           />
         </div>}
         
-        {isDesktop && <div className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
+        {isDesktop && mounted && <div className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
           <Image
             className={classes.mbl__img}
             src={desktopBackgroundImage.asset.url}

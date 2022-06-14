@@ -3,6 +3,10 @@
 .number {
     color: $salmon;
     margin-right: 4px;
+
+    @include breakpoint-up('md') {
+        margin-right: 8px;
+    }
 }
 
 .gift-card {
@@ -11,11 +15,19 @@
     @include breakpoint-up('md') {
         padding: 23px 0;
         border-top: 1px solid $black20;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     // gift-card__amount
     &__amount {
         margin-bottom: 11px;
+
+        @include breakpoint-up('md') {
+            margin-bottom: 0;
+            width: 22.62%;
+        }
 
         .number {
             color: $salmon;
@@ -25,11 +37,17 @@
 
     &__buttons {
         display: flex;
+        justify-content: space-between;
         flex-wrap: wrap;
+
+        @include breakpoint-up('md') {
+            width: 76.52%;
+        }
 
         .btn {
             margin-right: 10px;
             display: flex;
+            width: 18.44%;
         }
 
         input[type=radio] {
@@ -45,6 +63,11 @@
             color: $sitkablue;
             width: 72px;
             text-align: center;
+
+            @include breakpoint-up('md') {
+                padding: 18.5px 0;
+                width: 100%;
+            }
         }
 
         input[type=radio]:checked+label {
@@ -71,7 +94,7 @@
         padding-top: 17px;
 
         @include breakpoint-up('md') {
-            margin-bottom: 9.33px;
+            margin-bottom: 10px;
             display: flex;
             align-items: flex-end;
             padding-top: 24px;
@@ -151,6 +174,7 @@
 
             @include breakpoint-up('md') {
                 height: 60px;
+                padding: 21px 0 21px 18px;
             }
         }
     }

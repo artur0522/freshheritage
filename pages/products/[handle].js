@@ -110,7 +110,7 @@ function Product({ product, page }) {
                 <ProductReviewStars />
                 {product.content.title && <h1 className={classes['product-title']}>{product.content.title}</h1>}
 
-                <div className={classes['prices']}>
+                {handle !== 'digital-gift-card' && <div className={classes['prices']}>
                   <div className={classes['price-wrap']}>
                     {selectedVariant.compareAtPrice && (
                       <h3 className={classes.compare}>
@@ -120,7 +120,7 @@ function Product({ product, page }) {
                     <h3>${selectedVariant.price}</h3>
                   </div>
                   <h3 className={classes['weight']}>{selectedVariant.weight} lbs</h3>
-                </div>
+                </div>}
 
                 <div className={classes['gift']}>
                     {handle !== 'digital-gift-card' && <div className={classes['gift__check']}>

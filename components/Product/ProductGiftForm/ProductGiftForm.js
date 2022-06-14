@@ -36,22 +36,22 @@ const ProductGiftForm = (props) => {
 
                 <div className={classes['gift-card__buttons']}>
                     <div className={classes['btn']}>
-                        <input type="radio" id="fifty" checked={giftCardButtons === 50} name="giftCardButtons" onChange={handleChange} value={giftCardButtons} />
+                        <input type="radio" id="fifty" name="giftCardButtons" onChange={handleChange} value={50} />
                         <label htmlFor="fifty">$50</label>
                     </div>
 
                     <div className={classes['btn']}>
-                        <input type="radio" id="one-hundred" checked={giftCardButtons === 100} name="giftCardButtons" onChange={handleChange} value={giftCardButtons} />
+                        <input type="radio" id="one-hundred" name="giftCardButtons" onChange={handleChange} value={100} />
                         <label htmlFor="one-hundred">$100</label>
                     </div>
                     
                     <div className={classes['btn']}>
-                        <input type="radio" id="one-fifty" checked={giftCardButtons === 150} name="giftCardButtons" onChange={handleChange} value={giftCardButtons} />
+                        <input type="radio" id="one-fifty" name="giftCardButtons" onChange={handleChange} value={150} />
                         <label htmlFor="one-fifty">$150</label>
                     </div>
                     
                     <div className={classes['btn']}>
-                        <input type="radio" id="two-hundred" checked={giftCardButtons === 200} name="giftCardButtons" onChange={handleChange} value={giftCardButtons} />
+                        <input type="radio" id="two-hundred"  name="giftCardButtons" onChange={handleChange} value={200} />
                         <label htmlFor="two-hundred">$200</label>
                     </div>
                 </div>

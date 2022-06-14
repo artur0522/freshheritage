@@ -48,4 +48,8 @@
 
 .input-field__input {
   color: $sitkablue;
+  &::placeholder {
+    font-weight: 400;
+    color: rgba(22, 49, 68, 0.6);
+	}
 }

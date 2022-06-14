@@ -157,7 +157,7 @@ const Address = ({
           messageType={errors && errorMap?.country && 'alert' || ''}
           messageText={errors && errorMap?.country && t('address.country_hint') || ''}
           onChange={(e) => onChange({
-            country_code: e.target.value,
+            country_code: e.value,
           })}
         >
           {countryList}
@@ -171,7 +171,7 @@ const Address = ({
           messageType={errors && errorMap?.province && 'alert' || ''}
           messageText={errors && errorMap?.province && provincePlaceholder || ''}
           onChange={(e) => onChange({
-            province_code: e.target.value,
+            province_code: e.value,
           })}
         >
           {provinceList}

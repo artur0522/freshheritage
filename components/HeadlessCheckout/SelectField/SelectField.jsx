@@ -1,7 +1,8 @@
 /* eslint-disable */
 import cn from 'classnames';
 import React from 'react';
-// import './SelectField.scss';
+import Dropdown from 'react-dropdown'
+import IconTriangleSelector from '@/svgs/triangle-selector.svg'
 
 const SelectField = ({
   placeholder,
@@ -14,26 +15,35 @@ const SelectField = ({
   ...otherProps
 }) => {
   const classNames = cn([
-    'SelectField',
-    {'SelectField--alert': messageType === 'alert' || messageType === 'error'},
-    {'SelectField--disabled': disabled}
+    'select-field',
+    {'select-field--alert': messageType === 'alert' || messageType === 'error'},
+    {'select-field--disabled': disabled}
   ])
+
+  const options = children.map(child => {
+    return {
+      value: child.props.value,
+      label: child.props.children
+    }
+  })
 
   return (
     <div className="input-group">
       <div className={classNames}>
-        <select
+        {otherProps.name &&
+          <label className="checkout-dropdown-label">{otherProps.name}</label>
+        }
+         <Dropdown
           {...otherProps}
-          className="SelectField__Select"
-          disabled={disabled}
+          className={`checkout-dropdown-selector`}
+          options={options}
           value={value}
           valueattr={value}
-        >
-          <option value="" hidden></option>
-
-          {children}
-        </select>
-        <label className="SelectField__Label">{placeholder}</label>
+          arrowClosed={<div className="dropdown-selector__arrow-closed"><IconTriangleSelector /></div>}
+          arrowOpen={<div className="dropdown-selector__arrow-open"><IconTriangleSelector /></div>}
+          disabled={disabled}
+          placeholder={placeholder}
+        />
       </div>
       { messageText && <div className='stx-field__message'>{ messageText }</div> }
     </div>

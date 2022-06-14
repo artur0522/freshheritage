@@ -31,7 +31,6 @@ const InputField = ({
           placeholder={placeholder}
         />
       </div>
-      { messageText && <div className='input-field__message'>{ messageText }</div> }
     </div>
   );
 };

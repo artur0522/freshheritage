@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import Expand from 'react-expand-animated'
 import Dropdown from 'react-dropdown'
-import 'react-dropdown/style.css'
 import IconSelectArrow from '@/svgs/select-arrow.svg'
 import classes from './MembershipOption.module.scss'
 import { useMediaQuery } from 'react-responsive'

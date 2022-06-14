@@ -7,7 +7,6 @@ import classes from './GlobalSampler.module.scss'
 import HarvestCard from "../HarvestCard"
 
 const GlobalSampler = ({ fields }) => {
-    console.log(fields)
   const {header, description, harvestList, illustration, illustration_2, alt, alt2 } = fields
   const [currentMonth, setCurrentMonth] = useState(null)
   const harvestListMonths = harvestList[0].months

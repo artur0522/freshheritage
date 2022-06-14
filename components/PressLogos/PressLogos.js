@@ -5,8 +5,6 @@ import classes from './PressLogos.module.scss';
 
 const PressLogos = ({ fields }) => {
   const { pressLogos } = fields;
-  console.log('presslogos', pressLogos)
-  console.log('pressfields', fields)
 
   return (
     <div className={classes['logos']}>

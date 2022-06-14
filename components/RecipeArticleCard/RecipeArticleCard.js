@@ -8,7 +8,6 @@ import BookmarkIcon from '@/svgs/bookmark.svg'
 import classes from './RecipeArticleCard.module.scss';
 
 const RecipeArticleCard = ({ article }) => {
-    console.log(article)
   return (
     <Link href={`${article.handle.current}`} passHref>
         <div className={classes['article__card']}>

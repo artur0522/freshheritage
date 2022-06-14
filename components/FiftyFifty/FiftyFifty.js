@@ -10,7 +10,6 @@ const FiftyFifty = ({ fields }) => {
 
   // Check if image exists
   if (fields.image) {
-    console.log('fields', fields)
     sectionImage = <Image className={classes.mbl__img} src={fields.image.asset.url} layout="fill" alt={alt} />
   } else {
     return null

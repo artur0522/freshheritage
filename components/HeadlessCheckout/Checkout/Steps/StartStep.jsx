@@ -35,7 +35,8 @@ const IndexPage = () => {
       setLoading(false);
     }
     setLoading(false);
-  }, [state, logError, submitShippingAddress]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state]);
 
   useEffect(() => {
     // If customer is logged in with saved addresses, default the shipping address to the first one.
@@ -44,11 +45,8 @@ const IndexPage = () => {
     }
 
     trackEvent('landing_page');
-  }, [
-    setDefaultAddress,
-    state.applicationState.customer.saved_addresses,
-    trackEvent
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

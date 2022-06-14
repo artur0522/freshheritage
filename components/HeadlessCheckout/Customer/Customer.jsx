@@ -34,7 +34,8 @@ const MemoizedCustomer = memo(({ customer, submitCustomer }) => {
       setErrors(e.body.errors);
       logError('customer', e);
     }
-  }, [email, acceptsMarketing, logError, submitCustomer, trackEvent]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email, acceptsMarketing]);
 
   return (
     <CheckoutSection

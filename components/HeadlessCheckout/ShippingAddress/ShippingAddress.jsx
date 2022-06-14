@@ -53,7 +53,8 @@ const MemoizedShippingAddress = memo(({
 
   useEffect(() => {
     setAddress(shippingAddress);
-  }, [shippingAddress]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const updateSelectedShippingAddress = useCallback(async (currentAddress) => {
     setAddress(currentAddress);
@@ -71,7 +72,8 @@ const MemoizedShippingAddress = memo(({
       }
     }
     setLoading(false);
-  }, [shippingAddress, logError, submitAddress, trackEvent]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shippingAddress]);
 
   return (
     <CheckoutSection

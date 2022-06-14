@@ -51,7 +51,8 @@ const MemoizedOrderSummaryBreakdown = memo(({
     } catch(e) {
       logError('discount_code', e);
     }
-  }, [discountCode, logError, onRemoveDiscount, trackEvent]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [discountCode]);
 
   const discountLines = discountCode && (
     <OrderSummaryItemLine

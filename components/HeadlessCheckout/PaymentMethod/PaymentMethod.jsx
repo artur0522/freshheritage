@@ -78,7 +78,8 @@ const MemoizedPaymentMethod = memo(
       } else {
         setDisabled(false);
       }
-    }, [billingAddress, shippingAddress, billingSameAsShipping, shippingLines]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [billingAddress, shippingAddress, billingSameAsShipping]);
 
     const clearCart = async () => {
       //method to delete shopify cart
@@ -94,11 +95,11 @@ const MemoizedPaymentMethod = memo(
       // })
       // .then(response => response.json());
     };
-    
+
     useEffect(() => {
       const handleMessageReceived = async (event) => {
         const message = event.data;
-  
+
         if (
           message.responseType === 'PIGI_ADD_PAYMENT' &&
           message.payload.success
@@ -150,7 +151,8 @@ const MemoizedPaymentMethod = memo(
           //console.log(e)
         }
       };
-    }, [appendOrderMetadata]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const { data2, errors, loadingStatus, applyDiscount } = useDiscount();
     useEffect(() => {
@@ -246,11 +248,8 @@ const MemoizedPaymentMethod = memo(
       };
 
       applyMembershipDiscount();
-    }, [
-      applicationState.applicationState.line_items,
-      applicationState.applicationState.order_meta_data.cart_parameters,
-      applyDiscount
-    ]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
       <CheckoutSection

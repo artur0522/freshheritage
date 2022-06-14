@@ -66,7 +66,8 @@ const MemoizedBillingAddress = memo(({
         setAddress(billingAddress);
       }
     }
-  }, [billingAddress, logError, submitAddress, trackEvent]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [billingAddress]);
 
   const updateBillingSameAsShipping = useCallback(async (value) => {
     setLoading(true);
@@ -85,7 +86,8 @@ const MemoizedBillingAddress = memo(({
       }
     }
     setLoading(false);
-  }, [billingSameAsShipping, logError, setBillingSameAsShipping, trackEvent]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [billingSameAsShipping]);
 
   const handleChange = useCallback((data) => {
     setAddress({

@@ -24,17 +24,20 @@ const SinglePageLayout = () => {
       console.log('inventory issues detected');
       // handle error when there are inventory issues
     }
-  }, [state.applicationState.line_items, validateInventory]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [component, setComponent] = useState(<StartStep />);
 
   useEffect(() => {
     checkInventory();
-  }, [checkInventory]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     console.log("update application state")
     updateApplicationState(checkoutData.application_state)
-  }, [checkoutData, updateApplicationState])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkoutData])
 
   // let component = <IndexPage />;
   useEffect(() => {
@@ -46,7 +49,8 @@ const SinglePageLayout = () => {
     } else if (orderStatus === 'completed') {
       setComponent(<ConfirmationStep />);
     }
-  }, [orderStatus, router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orderStatus]);
 
   return <div className="Checkout">{component}</div>;
 };

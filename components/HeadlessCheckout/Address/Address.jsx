@@ -31,10 +31,8 @@ const Address = ({
     if (address && address.country_code) {
       submit();
     }
-  }, [
-    address,
-    submit,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address, submit]);
 
   // Submit address if user has stopped typing
   useEffect(() => {
@@ -42,8 +40,8 @@ const Address = ({
       handleSubmit();
     }, 2000);
     return () => clearTimeout(postalCodeTimeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    handleSubmit,
     address?.first_name,
     address?.last_name,
     address?.business_name,

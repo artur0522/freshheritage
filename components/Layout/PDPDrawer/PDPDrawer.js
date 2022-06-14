@@ -1,5 +1,4 @@
-
-import {useEffect, useState, useRef} from 'react'
+import {useEffect, useMemo, useState, useRef} from 'react'
 import { CSSTransition } from 'react-transition-group'
 import classes from './PDPDrawer.module.scss'
 import { usePDPDrawerContext } from '@/context/PDPDrawerContext'
@@ -13,8 +12,8 @@ import ProductHarvests from '@/components/Product/ProductHarvests'
 const PDPDrawer = ({box = undefined}) => {
   const PDPDrawerContext = usePDPDrawerContext()
 
-  const product = box ? box.product : {}
-  const boxDetails = box ? box.boxDetails?.fields : {}
+  const product = useMemo(() => box ? box.product : {}, [box])
+  const boxDetails = useMemo(() => box ? box.boxDetails?.fields : {}, [box])
 
   const [drawerOpen, setDrawerOpen] = useState(false)
   const nodeRef = useRef(null)
@@ -33,7 +32,7 @@ const PDPDrawer = ({box = undefined}) => {
         setDrawerOpen(true)
       }, timeout)
     }
-  }, [box])
+  }, [box, boxDetails, product])
 
   return (
     <div className={classes['pdp-flyout']}>

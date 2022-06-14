@@ -15,7 +15,7 @@ const PurchaseFlow = ({page}) => {
     if (purchaseFlowContext.options.step === 1) {
       router.replace('/pages/choose-your-plan')
     }
-  }, [purchaseFlowContext])
+  }, [purchaseFlowContext, router])
 
   if (!purchaseFlowContext.options.is_loaded) {
     return ''

@@ -25,7 +25,7 @@ const ChooseYourBox = ({props}) => {
     if (!purchaseFlowContext.tierOptions.length) {
       getTierOptions()
     }
-  }, [])
+  }, [props.tiers, purchaseFlowContext])
 
   const myPortableTextComponents = {
     marks: {

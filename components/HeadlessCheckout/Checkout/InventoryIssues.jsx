@@ -80,6 +80,7 @@ const InventoryIssuesPage = () => {
       setLoading(false);
       logError('inventory_issues', e);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lineItems]);
 
   return (

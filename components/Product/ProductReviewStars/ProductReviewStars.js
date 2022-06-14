@@ -55,7 +55,7 @@ const ProductReviewStars = ({productId}) => {
         }
       }
     })
-  }, [])
+  }, [productId])
 
   if (!reviews) {
     return ''

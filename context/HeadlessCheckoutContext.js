@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 import CheckoutFlyout from '@/components/HeadlessCheckout/CheckoutFlyout'
 import { v4 as uuidv4 } from 'uuid';
 
@@ -12,6 +12,17 @@ export function HeadlessCheckoutProvider({ children }) {
   const [data, setData] = useState(null)
   const [flyoutState, setFlyoutState] = useState(false)
 
+  useEffect(() => {
+    const localStorageCheckoutData =
+      JSON.parse(localStorage.getItem('checkout_data')) || '';
+    // resume checkout if there's a checkout saved otherwise initialize it
+    if (Object.keys(localStorageCheckoutData).length) {
+      resumeCheckout(localStorageCheckoutData);
+    } else {
+      initializeCheckout()
+    }
+  }, [])
+
   function saveDataInLocalStorage(data) {
     const checkoutData = {
       jwt: data.jwt_token,
@@ -24,6 +35,9 @@ export function HeadlessCheckoutProvider({ children }) {
   //item exists, updatelineitem instead by incrementing quantity
   //it item doesn't exist, addline item
   function addItemToOrder({variant, quantity, properties = {}}) {
+    if (!data) {
+      return false;
+    }
     const variantId = variant.id.replace('gid://shopify/ProductVariant/', '')
     const { line_items } = data.application_state
     const foundLineItem = line_items.find(item => item.product_data.id.includes(variantId))

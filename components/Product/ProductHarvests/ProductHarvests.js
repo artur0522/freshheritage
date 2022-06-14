@@ -28,7 +28,7 @@ const ProductHarvests = ({product}) => {
       setHarvests(harvestsInfo)
     }
     getHarvest()
-  }, [])
+  }, [product.variants])
 
   if (harvests.length === 0) {
     return ''

@@ -9,13 +9,14 @@ import classes from './RecipeArticleCard.module.scss';
 
 const RecipeArticleCard = ({ article }) => {
   return (
-    <Link href={`${article.handle.current}`}>
+    <Link href={`${article.handle.current}`} passHref>
         <div className={classes['article__card']}>
             {article.heroImage.asset.url && <div className={classes['article__card-img']}>
                 <Image
                     src={article.heroImage.asset.url}
                     layout="fill"
                     objectFit="cover"
+                    alt={article.alt}
                 />
                 <div className={classes['bookmark']}>
                     <BookmarkIcon />

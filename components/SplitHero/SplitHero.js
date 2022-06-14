@@ -12,7 +12,7 @@ const SplitHero = ({ fields }) => {
   const isDesktop = useMediaQuery(
     {query: '(min-width: 768px)'}
   )
-  const { imageContainer, imageWidth, style, textColor, valueProps, disclaimer, desktopBackgroundImage, mobileBackgroundImage } = fields
+  const { imageContainer, imageWidth, style, textColor, valueProps, disclaimer, desktopBackgroundImage, mobileBackgroundImage, alt } = fields
 
   return (
     <div className={`${classes['hero']} ${classes[style]} ${classes[imageContainer]} ${classes[textColor]}`}>
@@ -51,22 +51,20 @@ const SplitHero = ({ fields }) => {
         </div>
 
         {isMobile && <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
-          {/* TODO: Add image alt */}
           <Image
             className={classes.dsktp__img}
             src={mobileBackgroundImage.asset.url}
             layout="fill"
-            alt=""
+            alt={alt}
           />
         </div>}
 
         {isDesktop && <div className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
-          {/* TODO: Add image alt */}
           <Image
             className={classes.mbl__img}
             src={desktopBackgroundImage.asset.url}
             layout="fill"
-            alt=""
+            alt={alt}
           />
         </div>}
       </div>

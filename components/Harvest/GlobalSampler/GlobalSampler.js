@@ -7,7 +7,8 @@ import classes from './GlobalSampler.module.scss'
 import HarvestCard from "../HarvestCard"
 
 const GlobalSampler = ({ fields }) => {
-  const {header, description, harvestList, illustration, illustration_2 } = fields
+    console.log(fields)
+  const {header, description, harvestList, illustration, illustration_2, alt, alt2 } = fields
   const [currentMonth, setCurrentMonth] = useState(null)
   const harvestListMonths = harvestList[0].months
 
@@ -26,24 +27,22 @@ const GlobalSampler = ({ fields }) => {
            
             {illustration && <div className={`${classes['harvest__illustration']} ${classes['illustration-1']}`}>
                 <div className={classes['harvest__illustration-img']}>
-                    {/* TODO: Add image alt */}
                     <Image
                         src={illustration.asset.url}
                         width={325}
                         height={549}
-                        alt=""
+                        alt={alt}
                     />
                 </div>
             </div>}
 
             {illustration_2 && <div className={`${classes['harvest__illustration']} ${classes['illustration-2']}`}>
                 <div className={classes['harvest__illustration-img']}>
-                    {/* TODO: Add image alt */}
                     <Image
                         src={illustration_2.asset.url}
                         width={587}
                         height={440}
-                        alt=""
+                        alt={alt2}
                     />
                 </div>
             </div>}

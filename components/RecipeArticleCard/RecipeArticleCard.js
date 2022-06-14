@@ -8,16 +8,16 @@ import BookmarkIcon from '@/svgs/bookmark.svg'
 import classes from './RecipeArticleCard.module.scss';
 
 const RecipeArticleCard = ({ article }) => {
+    console.log(article)
   return (
     <Link href={`${article.handle.current}`} passHref>
         <div className={classes['article__card']}>
             {article.heroImage.asset.url && <div className={classes['article__card-img']}>
-                {/* TODO: Add image alt */}
                 <Image
                     src={article.heroImage.asset.url}
                     layout="fill"
                     objectFit="cover"
-                    alt=""
+                    alt={article.alt}
                 />
                 <div className={classes['bookmark']}>
                     <BookmarkIcon />

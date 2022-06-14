@@ -27,13 +27,12 @@ const ValueProps = ({ fields }) => {
                         {valueProp.propImage.asset.url && 
                         <div className={classes['props__col-wrap']}>
                             <div className={classes['props__col-img']}>
-                                {/* TODO: Add image alt */}
                                 <Image
                                     src={valueProp.propImage.asset.url}
                                     layout="fill"
                                     objectFit='contain'
                                     objectPosition={'center'}
-                                    alt=""
+                                    alt={valueProp.alt}
                                 />
                             </div>
                         </div>

@@ -5,19 +5,20 @@ import classes from './PressLogos.module.scss';
 
 const PressLogos = ({ fields }) => {
   const { pressLogos } = fields;
+  console.log('presslogos', pressLogos)
+  console.log('pressfields', fields)
 
   return (
     <div className={classes['logos']}>
         <div className={`${classes['logos__row']}`}>
-           {pressLogos.map(({logo}) => {
+           {pressLogos.map((logo) => {
               return (
-                <div className={classes['logos__img']} key={logo.asset._id}>
-                    {/* TODO: Add image alt */}
+                <div className={classes['logos__img']} key={logo.logo.asset._id}>
                     <Image
-                        src={logo.asset.url}
+                        src={logo.logo.asset.url}
                         layout="fill"
                         objectFit='contain'
-                        alt=''
+                        alt={logo.alt}
                     />
                 </div>
               )

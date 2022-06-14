@@ -1,6 +1,7 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 import CheckoutFlyout from '@/components/HeadlessCheckout/CheckoutFlyout'
 import { v4 as uuidv4 } from 'uuid';
+import { useRouter } from 'next/router'
 
 const HeadlessCheckoutContext = createContext()
 
@@ -9,6 +10,7 @@ export function useHeadlessCheckoutContext() {
 }
 
 export function HeadlessCheckoutProvider({ children }) {
+  const router = useRouter()
   const [data, setData] = useState(null)
   const [flyoutState, setFlyoutState] = useState(false)
 
@@ -194,6 +196,16 @@ export function HeadlessCheckoutProvider({ children }) {
       application_state: updatedData.data.application_state
     })
   }
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setFlyoutState(false)
+    }
+    router.events.on('routeChangeStart', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange)
+    }
+  }, [])
 
   return (
     <HeadlessCheckoutContext.Provider

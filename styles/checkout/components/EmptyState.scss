@@ -1,6 +1,6 @@
-.FieldSet--EmptyState {
-  border: 1px solid #d9d9d9;
-  border-radius: 4px;
+.field-set--empty-state {
+  border: 1px solid $black10;
+  border-radius: 12px;
   margin-bottom: 0;
   height: 60px;
   font-style: normal;
@@ -10,10 +10,11 @@
   display: flex;
   align-items: center;
   padding-left: 20px;
-  background: #fafafa;
-  color: #868686;
+  background: $alabaster;
+  color: $sitkablue;
 }
 
-.FieldSet--EmptyState svg {
-    margin-right: 17px;
+.field-set--empty-state svg {
+  width: 24px;
+  margin-right: 17px;
 }

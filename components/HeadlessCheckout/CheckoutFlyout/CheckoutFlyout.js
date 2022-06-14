@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import classes from './CheckoutFlyout.module.scss';
 import { StateBasedCheckout } from '../Checkout/StateBasedCheckout';
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
+import Link from 'next/link';
 import IconClose from '@/svgs/close.svg'
 
 const CheckoutFlyout = () => {
@@ -30,10 +31,21 @@ const CheckoutFlyout = () => {
     <div className={`${classes['checkout-flyout']} ${checkoutStateStyle}`}>
       <div onClick={() => setFlyoutState(false)} className={classes['checkout-flyout__overlay']}></div>
       <div className={classes['checkout-flyout__content']}>
-        <header className={classes['checkout-flyout__header']}>
-          <h4>Checkout</h4>
-        </header>
-        {data && <StateBasedCheckout data={data} />}
+        {data?.application_state?.line_items.length > 0 ? (
+          <>
+            <header className={classes['checkout-flyout__header']}>
+              <h4>Checkout</h4>
+            </header>
+            <StateBasedCheckout data={data} />
+          </>
+        ):(
+          <header className={classes['checkout-flyout__header']}>
+            <h4>Your Cart Is Empty</h4>
+            <Link href="/">
+              <a className={`${classes['checkout-flyout__continue-shopping-btn']} btn sitkablue`}>Continue Shopping</a>
+            </Link>
+          </header>
+        )}
       </div>
     </div>
   );

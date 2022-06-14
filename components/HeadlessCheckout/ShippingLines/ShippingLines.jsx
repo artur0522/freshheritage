@@ -104,11 +104,11 @@ const MemoizedShippingLines = memo(
       content = <LoadingState />;
     } else if (!showShippingLines) {
       content = (
-        <EmptyShippingLines title={t('shipping.options_description')} />
+        <EmptyShippingLines title={t('shipping.options_description')} icon={'box'} />
       );
     } else if (shippingLines.length === 0) {
       content = (
-        <EmptyShippingLines title={t('shipping.no_options_description')} />
+        <EmptyShippingLines title={t('shipping.no_options_description')} icon={'box'} />
       );
     } else {
       content = (

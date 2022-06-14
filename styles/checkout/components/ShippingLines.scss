@@ -1,8 +1,19 @@
+.order-shipping-method {
+  margin-bottom: 20px;
+}
+
 .shipping-method-selector {
   .checkout__radio-wrapper.is-selected {
     > label {
       border: 1px solid $success;
       background: rgba(70, 124, 82, 0.1);
     }
+  }
+}
+
+.field-set__content {
+  color: $sitkablue;
+  svg {
+    width: 24px;
   }
 }

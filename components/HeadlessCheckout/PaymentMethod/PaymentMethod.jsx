@@ -121,7 +121,7 @@ const MemoizedPaymentMethod = memo(
     let content = '';
 
     if (disabled) {
-      content = <EmptyState title={t('payment.empty')} />;
+      content = <EmptyState title={t('payment.empty')} icon="money" />;
     } else if (loading) {
       content = <LoadingState />;
     }
@@ -249,10 +249,10 @@ const MemoizedPaymentMethod = memo(
     }, []);
 
     return (
-      <div className="order-paymenth-method">
+      <div className="order-payment-method">
         <div className={`checkout__header checkout__header--border-on-closed checkout__row ${paymentMethodOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
           <h3>Payment Method</h3>
-          <button  onClick={() => setPaymentMethodOpen(!paymentMethodOpen)} className="checkout__header-toggle-btn">
+          <button onClick={() => setPaymentMethodOpen(!paymentMethodOpen)} className="checkout__header-toggle-btn">
             <IconSelectArrow />
           </button>
         </div>

@@ -250,9 +250,11 @@ const MemoizedPaymentMethod = memo(
 
     return (
       <div className="order-paymenth-method">
-        <div onClick={() => setPaymentMethodOpen(!paymentMethodOpen)} className={`checkout__header checkout__header--border-on-closed checkout__row ${paymentMethodOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
+        <div className={`checkout__header checkout__header--border-on-closed checkout__row ${paymentMethodOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
           <h3>Payment Method</h3>
-          <IconSelectArrow />
+          <button  onClick={() => setPaymentMethodOpen(!paymentMethodOpen)} className="checkout__header-toggle-btn">
+            <IconSelectArrow />
+          </button>
         </div>
         {!!paymentMethodOpen &&
           <>

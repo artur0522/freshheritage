@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { useCustomerContext } from '@/context/CustomerContext'
 import { useModalContext } from '@/context/ModalContext'
 import { InputField } from '../InputField';
@@ -6,11 +6,12 @@ import { useTranslation } from 'react-i18next';
 import IconSelectArrow from '@/svgs/select-arrow.svg'
 import IconCheckmark from '@/svgs/checkmark.svg'
 import Checkbox from "react-custom-checkbox";
+import LoginAccountForm from '@/components/Forms/LoginAccountForm'
+import ForgotPasswordForm from '@/components/Forms/ForgotPasswordForm'
 
 const Customer = () => {
   const { customer: data, logout } = useCustomerContext()
   const modalContext = useModalContext()
-  console.log("modalContext:", modalContext)
   return <MemoizedCustomer customer={data} logout={logout} modalContext={modalContext} />;
 };
 
@@ -20,13 +21,43 @@ const MemoizedCustomer = memo(({ customer, logout, modalContext }) => {
   const [acceptsMarketing, setAcceptsMarketing] = useState(false);
   const [isGift, setIsGift] = useState(false)
   const [customerOpen, setCustomerOpen] = useState(true)
+  const [accountFormType, setAccountFormType] = useState('default')
   const { t } = useTranslation();
-  console.log("customer", customer);
+
+  const getAccountFormContent = (type) => {
+    switch(type) {
+      case 'login':
+        return <LoginAccountForm isCheckout={true} onForgotPasswordClick={() => setAccountFormType('forgot_password')}  />
+      case 'forgot_password':
+        return <ForgotPasswordForm isCheckout={true} />
+      default:
+        return (
+          <InputField
+            className="order-customer__email"
+            placeholder="email"
+            type="email"
+            name="email"
+            autoComplete="email"
+            messageType={errors && 'alert'}
+            messageText={errors && errors[0].message}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        )
+    }
+  }
+
+  useEffect(() => {
+    console.log("hi:", customer?.email)
+    if (customer?.email) {
+      setAccountFormType('default')
+    }
+  }, [customer])
 
   return (
     <div className="order-info">
       <div className="order-customer">
-        <div onClick={() => setCustomerOpen(!customerOpen)} className={`checkout__header checkout__header--border-on-closed checkout__row ${customerOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
+        <div className={`checkout__header checkout__header--border-on-closed checkout__row ${customerOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
           <h3>Customer Info</h3>
           <div className="order-customer__header-links">
             {customer?.email ? (
@@ -35,18 +66,27 @@ const MemoizedCustomer = memo(({ customer, logout, modalContext }) => {
                 <button onClick={() => logout()} className="btn-link-underline">{t('customer.logout')}</button>
               </div>
             ): (
-              <div className="order-customer__header-link">
-                {t('customer.already_have_account')}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    modalContext.setModalType('login')
-                    modalContext.setIsOpen(true)
-                  }}
-                  className="btn-link-underline">{t('customer.login')}</button>
-              </div>
+              (accountFormType === 'login' ? (
+                <div className="order-customer__header-link">
+                  {`Don't have an account? `}
+                  <button
+                    onClick={() => {
+                      modalContext.setModalType('create')
+                      modalContext.setIsOpen(true)
+                    }}
+                    className="btn-link-underline">Sign Up</button>
+                </div>
+              ):(
+                <div className="order-customer__header-link">
+                  {t('customer.already_have_account')}
+                  <button onClick={() => setAccountFormType('login')} className="btn-link-underline">{t('customer.login')}</button>
+                </div>
+              ))
+
             )}
-            <IconSelectArrow />
+            <button onClick={() => setCustomerOpen(!customerOpen)} className="checkout__header-toggle-btn">
+              <IconSelectArrow />
+            </button>
           </div>
         </div>
         {!!customerOpen &&
@@ -54,18 +94,9 @@ const MemoizedCustomer = memo(({ customer, logout, modalContext }) => {
             {customer?.email ? (
               <div>{customer.email}</div>
             ):(
-              <InputField
-                className="order-customer__email"
-                placeholder={t('customer.email')}
-                type="email"
-                name="email"
-                autoComplete="email"
-                messageType={errors && 'alert'}
-                messageText={errors && errors[0].message}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <div className="order-customer-account-form">{getAccountFormContent(accountFormType)}</div>
             )}
+
             <div className="checkout__checkbox-wrapper">
               <Checkbox
                 className="checkout__checkbox"
@@ -84,6 +115,40 @@ const MemoizedCustomer = memo(({ customer, logout, modalContext }) => {
                 onChange={() => setIsGift(!isGift)}
               />
             </div>
+            {isGift &&
+              <div className="order-giftnote-form">
+                <div className="input-group--wrapper">
+                  <InputField
+                    className="input"
+                    placeholder="recipient@email.com"
+                    type="email"
+                    name="recipient_email"
+                    autoComplete="email"
+                    label="Recipient Email"
+                    // value={email}
+                    // onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <InputField
+                    className="input"
+                    placeholder="Recipient Name"
+                    type="text"
+                    name="recipient_name"
+                    label="Recipient Name"
+                    // value={email}
+                    // onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <InputField
+                  className="input"
+                  placeholder="gift message"
+                  type="textarea"
+                  name="gift_message"
+                  // value={email}
+                  // onChange={(e) => setEmail(e.target.value)}
+                />
+                <p className="order-giftnote-disclaimer">*We will alert the recipient of their delivery via email one week before they receive it, and include your gift message along with delivery information!</p>
+              </div>
+            }
           </>
         }
       </div>

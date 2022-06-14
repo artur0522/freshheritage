@@ -46,13 +46,15 @@ const MemoizedDiscountForm = memo(
 
     return (
       <div className="order-discount-form checkout__row">
-        <div onClick={() => setFormOpen(!formOpen)} className="order-discount-form__header">
+        <div className="order-discount-form__header">
           <h3>Have a discount code?</h3>
-          {formOpen ? (
-            <IconMinus />
-          ):(
-            <IconPlus />
-          )}
+          <button onClick={() => setFormOpen(!formOpen)} className="checkout__header-toggle-btn">
+            {formOpen ? (
+              <IconMinus />
+            ):(
+              <IconPlus />
+            )}
+          </button>
         </div>
         {!!formOpen &&
           <div className="discount-form">

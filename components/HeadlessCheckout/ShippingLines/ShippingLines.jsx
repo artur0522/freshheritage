@@ -123,9 +123,11 @@ const MemoizedShippingLines = memo(
 
     return (
       <div className="order-shipping-method">
-        <div onClick={() => setShippingMethodOpen(!shippingMethodOpen)} className={`checkout__header checkout__header--border-on-closed checkout__row ${shippingMethodOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
+        <div className={`checkout__header checkout__header--border-on-closed checkout__row ${shippingMethodOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
           <h3>Shipping Method</h3>
-          <IconSelectArrow />
+          <button onClick={() => setShippingMethodOpen(!shippingMethodOpen)} className="checkout__header-toggle-btn">
+            <IconSelectArrow />
+          </button>
         </div>
         {!! shippingMethodOpen &&
           <>

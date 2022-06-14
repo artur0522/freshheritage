@@ -96,9 +96,11 @@ const MemoizedBillingAddress = memo(({
 
   return (
     <div className="order-address">
-      <div onClick={() => setAddressOpen(!addressOpen)} className={`checkout__header checkout__header--border-on-closed checkout__row ${addressOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
+      <div className={`checkout__header checkout__header--border-on-closed checkout__row ${addressOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
         <h3>Billing Address</h3>
-        <IconSelectArrow />
+        <button className="checkout__header-toggle-btn" onClick={() => setAddressOpen(!addressOpen)}>
+          <IconSelectArrow />
+        </button>
       </div>
       {!!addressOpen &&
         <>

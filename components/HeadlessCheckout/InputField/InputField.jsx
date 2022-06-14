@@ -8,6 +8,7 @@ const InputField = ({
   messageText,
   messageType,
   className,
+  label,
   ...otherParams
 }) => {
   const classNames = cn([
@@ -19,6 +20,9 @@ const InputField = ({
   return (
     <div className="input-group">
       <div className={classNames}>
+        {label &&
+          <label className="input-field__label">{label}</label>
+        }
         <input
           {...otherParams}
           className="input-field__input"

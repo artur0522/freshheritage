@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import classes from './CheckoutFlyout.module.scss';
 import { StateBasedCheckout } from '../Checkout/StateBasedCheckout';
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
@@ -7,22 +6,9 @@ import IconClose from '@/svgs/close.svg'
 const CheckoutFlyout = () => {
   const {
     data,
-    initializeCheckout,
-    resumeCheckout,
     flyoutState,
     setFlyoutState
   } = useHeadlessCheckoutContext();
-
-  useEffect(() => {
-    const localStorageCheckoutData =
-      JSON.parse(localStorage.getItem('checkout_data')) || '';
-    // resume checkout if there's a checkout saved otherwise initialize it
-    if (Object.keys(localStorageCheckoutData).length) {
-      resumeCheckout(localStorageCheckoutData);
-    } else {
-      initializeCheckout()
-    }
-  }, [initializeCheckout, resumeCheckout]);
 
   const checkoutStateStyle = flyoutState ? classes['show'] : classes['hide'];
 

@@ -80,7 +80,8 @@ const InventoryIssuesPage = () => {
       setLoading(false);
       logError('inventory_issues', e);
     }
-  }, [lineItems, logError, navigate, removeLineItem, updateLineItemQuantity]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lineItems]);
 
   return (
     <div className="Checkout__Layout Checkout__InventoryIssues" role="main">

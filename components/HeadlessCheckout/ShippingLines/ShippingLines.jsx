@@ -69,7 +69,8 @@ const MemoizedShippingLines = memo(
           setErrors(e.body.errors);
         }
       }
-    }, [showShippingLines, getShippingLines, logError, trackEvent]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [showShippingLines]);
 
     /**
      * If this component rendered and shipping address is already selected.
@@ -77,7 +78,8 @@ const MemoizedShippingLines = memo(
      */
     useEffect(() => {
       refreshShippingLines();
-    }, [refreshShippingLines]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     // Keep local state for selected shipping line in sync with server app state
     useEffect(() => {
@@ -96,7 +98,8 @@ const MemoizedShippingLines = memo(
         setErrors(e.body.errors);
       }
       setLoading(false);
-    }, [selectedShippingLine, updateShippingLine]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     let content = null;
 

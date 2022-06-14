@@ -24,14 +24,16 @@ const SavedAddressList = ({
     } else {
       return savedAddresses[0];
     }
-  }, [prevAddress, savedAddresses]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prevAddress]);
 
   const handleNewAddressChange = useCallback(() => {
     onChange({
       ...lastSelectedAddress,
       id: null
     });
-  }, [lastSelectedAddress, onChange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastSelectedAddress]);
 
   if (!savedAddresses || savedAddresses.length === 0) return null;
 

@@ -4,12 +4,14 @@ import { useCart } from '@nacelle/react-hooks'
 import { nacelleClient } from 'services'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
 import { getCartVariant } from 'utils/getCartVariant'
+import { useMediaQuery } from 'react-responsive'
+import ResponsiveImage from '@/components/ResponsiveImage'
+
 import ContentSections from '@/components/ContentSections'
 import ProductReviewStars from '../../components/Product/ProductReviewStars'
 import ProductSlider from '../../components/Product/ProductSlider'
 import ProductAccordion from '../../components/Product/ProductAccordion'
-import { useMediaQuery } from 'react-responsive'
-import ResponsiveImage from '@/components/ResponsiveImage'
+import ProductGiftForm from '@/components/Product/ProductGiftForm'
 
 import classes from './Product.module.scss'
 
@@ -95,11 +97,6 @@ function Product({ product, page }) {
     })
   }
 
-  const formSubmit = (event) => {
-    event.preventDefault()
-    console.log('form submit')
-  }
-
   return (
     product && (
       <div className={classes['product']}>
@@ -137,65 +134,12 @@ function Product({ product, page }) {
                         This is a Gift
                       </label>
                     </div>}
-
-
-
-                    <form onSubmit={(event) => formSubmit(event)} className={classes['gift__info']}>
-                      {handle === 'digital-gift-card' && <div className={classes['gift-card']}>
-                        <div className={classes['gift-card__amount']}>
-                          <h4><span className={classes['number']}>1</span>Amount</h4>
-                        </div>
-
-                        <div className={classes['gift-card__buttons']}>
-                          <div className={classes['btn']}>
-                            <input type="radio" id="fifty" name="giftCardButtons" value="50" />
-                            <label htmlFor="fifty">$50</label>
-                          </div>
-
-                          <div className={classes['btn']}>
-                            <input type="radio" id="one-hundred" name="giftCardButtons" value="100" />
-                            <label htmlFor="one-hundred">$100</label>
-                          </div>
-                          
-                          <div className={classes['btn']}>
-                            <input type="radio" id="one-fifty" name="giftCardButtons" value="150" />
-                            <label htmlFor="one-fifty">$150</label>
-                          </div>
-                          
-                          <div className={classes['btn']}>
-                              <input type="radio" id="two-hundred" name="giftCardButtons" value="200" />
-                              <label htmlFor="two-hundred">$200</label>
-                          </div>
-                        </div>
-                      </div>}
-                      {checked && <div className={classes['gift__info-header']}>
-                        <h4>
-                          {handle === 'digital-gift-card' && <span className={classes['number']}>2</span>}
-                          Recipient's Information
-                        </h4>
-                        <span className={`${classes['delivery']} delivery--time`}>Delivered via email one day after purchase.</span>
-                      </div>}
-                     
-                   
-                      {checked && <div className={classes['form__inner']}>
-                          <div className={classes['form__col']}>
-                            <label className="secondary--body" htmlFor="email">Email Address</label>
-                            <input type="email" id="email" className="secondary--body" />
-                          </div>
-                          <div className={classes['form__col']}>
-                            <label className="secondary--body" htmlFor="name">Recipient's Name</label>
-                            <input type="text" id="name" className="secondary--body" />
-                          </div>
-                          {handle === 'digital-gift-card' && <div className={`${classes['form__col']} ${classes['textarea']}`}>
-                            <label className="secondary--body" htmlFor="message">Message</label>
-                            <textarea type="text" id="message" name="message" maxLength="250" className="secondary--body" />
-                            <p className="disclaimer">*Digital giftcard will be delivered to recipient via email one day after purchase and will include your gift message! </p>
-                          </div>}
-                        </div>}
-                        <button type="submit" className="btn salmon">Add to Cart</button>
-                      </form>
                 </div>
+                    
+                {/* GIFT FORM */}
+                <ProductGiftForm checked={checked} handle={handle} />
                 
+                {/* VARIANT OPTIONS */}
                 {options &&
                   options.map((option, oIndex) => (
                     <div key={oIndex}>

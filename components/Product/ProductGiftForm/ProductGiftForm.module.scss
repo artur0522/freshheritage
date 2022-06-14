@@ -1,0 +1,157 @@
+@import '@/styles/_shared.scss';
+
+.number {
+    color: $salmon;
+    margin-right: 4px;
+}
+
+.gift-card {
+    padding: 32px 0;
+
+    @include breakpoint-up('md') {
+        padding: 23px 0;
+        border-top: 1px solid $black20;
+    }
+
+    // gift-card__amount
+    &__amount {
+        margin-bottom: 11px;
+
+        .number {
+            color: $salmon;
+            margin-right: 4px;
+        }
+    }
+
+    &__buttons {
+        display: flex;
+        flex-wrap: wrap;
+
+        .btn {
+            margin-right: 10px;
+            display: flex;
+        }
+
+        input[type=radio] {
+            display: none;
+        }
+
+        input[type=radio]+label {
+            padding: 13px 0;
+            border-radius: 6px;
+            border: 1px solid $fawn50-2;
+            cursor: pointer;
+            background-color: #fff;
+            color: $sitkablue;
+            width: 72px;
+            text-align: center;
+        }
+
+        input[type=radio]:checked+label {
+            background-color: $sitkablue;
+            color: #fff;
+        }
+    }
+}
+
+// gift__info
+.gift__info {
+    margin-top: 17px;
+    margin-bottom: 55px;
+
+    @include breakpoint-up('md') {
+        margin-bottom: 57px;
+        margin-top: 30px;
+    }
+
+    // gift__info-header
+    &-header {
+        border-top: 1px solid $black20;
+        margin-bottom: 11px;
+        padding-top: 17px;
+
+        @include breakpoint-up('md') {
+            margin-bottom: 9.33px;
+            display: flex;
+            align-items: flex-end;
+            padding-top: 24px;
+        }
+
+        span {
+            @include breakpoint-up('md') {
+                margin-bottom: 5px;
+                margin-left: 7px;
+            }
+        }
+    }
+
+    .delivery {
+        color: rgba(45, 43, 38, 0.6);
+    }
+
+    button {
+        margin-top: 28px;
+
+        @include breakpoint-up('md') {
+            margin-top: 32px;
+        }
+    }
+}
+
+.form__inner {
+    border-bottom: 1px solid #D5D5D4;
+    padding-bottom: 20px;
+
+    @include breakpoint-up('md') {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding-bottom: 27px;
+    }
+
+    .form__col {
+        margin-top: 9px;
+
+        @include breakpoint-up('md') {
+            width: 47.56%;
+            margin-top: 0;
+        }
+
+        &.textarea {
+            @include breakpoint-up('md') {
+                width: 100%;
+                margin-top: 20px;
+            }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 11px;
+
+            @include breakpoint-up('md') {
+                margin-bottom: 8px;
+            }
+        }
+
+        input {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid $fawn50-2;
+            padding: 20px 0 20px 18px;
+            color: rgba(45, 43, 38, 0.6);
+        }
+
+        textarea {
+            width: 100%;
+            border: 1px solid $fawn50-2;
+            color: rgba(45, 43, 38, 0.6);
+            height: 146px;
+            padding: 21px 0 0 18px;
+            margin-bottom: 5px;
+
+            @include breakpoint-up('md') {
+                height: 60px;
+            }
+        }
+    }
+}

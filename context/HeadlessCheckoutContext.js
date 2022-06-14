@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 import CheckoutFlyout from '@/components/HeadlessCheckout/CheckoutFlyout'
 import { v4 as uuidv4 } from 'uuid';
 
@@ -11,6 +11,17 @@ export function useHeadlessCheckoutContext() {
 export function HeadlessCheckoutProvider({ children }) {
   const [data, setData] = useState(null)
   const [flyoutState, setFlyoutState] = useState(false)
+
+  useEffect(() => {
+    const localStorageCheckoutData =
+      JSON.parse(localStorage.getItem('checkout_data')) || '';
+    // resume checkout if there's a checkout saved otherwise initialize it
+    if (Object.keys(localStorageCheckoutData).length) {
+      resumeCheckout(localStorageCheckoutData);
+    } else {
+      initializeCheckout()
+    }
+  }, [])
 
   function saveDataInLocalStorage(data) {
     const checkoutData = {

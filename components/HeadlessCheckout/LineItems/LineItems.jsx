@@ -23,7 +23,7 @@ const MemoizedLineItems = memo(({
               <div className="order-item__disclaimer">
                 <h3>Membership Info</h3>
                 <p>I acknowledge that my subscription is continuous until canceled. My credit card will be charged at the payment intervals I have chosen above. I can manage my subscription preferences or cancel the subscription anytime in my user portal.</p>
-                <p>By making this purchase, <a href={process.env.TERMS_URL} target="_blank">I agree to these terms and conditions</a>.</p>
+                <p>By making this purchase, I agree to these <a href={process.env.TERMS_URL} target="_blank">terms and conditions</a>.</p>
               </div>
             }
           </LineItemProduct>

@@ -84,9 +84,6 @@ const MemoizedCustomer = memo(({ customer, logout, modalContext }) => {
               ))
 
             )}
-            <button onClick={() => setCustomerOpen(!customerOpen)} className="checkout__header-toggle-btn">
-              <IconSelectArrow />
-            </button>
           </div>
         </div>
         {!!customerOpen &&

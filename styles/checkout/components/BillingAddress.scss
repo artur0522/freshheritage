@@ -1,3 +1,18 @@
 .billing-address-selector {
   margin-bottom: 20px;
+  border: 1px solid $black10;
+  border-radius: 12px;
+  .checkout__radio-wrapper {
+    margin: 0;
+    &:last-child {
+      > label {
+        border: none;
+      }
+    }
+    > label {
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid $black10;
+    }
+  }
 }

@@ -77,9 +77,6 @@ const MemoizedShippingAddress = memo(({
     <div className="order-address">
       <div className={`checkout__header checkout__header--border-on-closed checkout__row ${addressOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
         <h3>{t('shipping.address')}</h3>
-        <button onClick={() => setAddressOpen(!addressOpen)} className="checkout__header-toggle-btn">
-          <IconSelectArrow />
-        </button>
       </div>
       <SavedAddressList
         savedAddresses={savedAddresses}

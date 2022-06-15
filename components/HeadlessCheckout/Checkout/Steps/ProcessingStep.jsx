@@ -1,6 +1,4 @@
 import React from 'react';
-// import { LoadingSpinner } from '@boldcommerce/stacks-ui';
-// import './ProcessingPage.css';
 import { useTranslation } from 'react-i18next';
 
 const ProcessingPage = () => {

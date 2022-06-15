@@ -7,7 +7,6 @@ import {
 import { InventoryItem, OrderSummary } from '..';
 import { useErrorLogging, useVariants } from '@/hooks/index.js';
 // import './InventoryIssuesPage.css';
-// import { Button } from '@boldcommerce/stacks-ui';
 import { useTranslation } from 'react-i18next';
 
 const InventoryIssuesPage = () => {

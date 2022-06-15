@@ -12,6 +12,7 @@ export function useHeadlessCheckoutContext() {
 export function HeadlessCheckoutProvider({ children }) {
   const router = useRouter()
   const [data, setData] = useState(null)
+  const [PIGIMediaRules, setPIGIMediaRules] = useState([]);
   const [flyoutState, setFlyoutState] = useState(false)
 
   function saveDataInLocalStorage(data) {
@@ -84,6 +85,25 @@ export function HeadlessCheckoutProvider({ children }) {
         {
           "cssText": ".InputField, .SelectField, .CreditCardInputField { border-radius: 12px; padding: 0 15px; height: 60px; }"
         }
+      ],
+      media_rules: [
+        {
+          "conditionText": "screen and (max-width: 767px)",
+          "cssRules": [
+            {
+              "cssText": "* {font-size: 14px; }"
+            },
+            {
+              "cssText": ".TogglePanel__Header { height: 48px; padding: 0 12px;}"
+            },
+            {
+              "cssText": ".TogglePanel__Content { padding: 12px; }"
+            },
+            {
+              "cssText": ".InputField, .SelectField, .CreditCardInputField { padding: 0 12px; height: 48px; }"
+            }
+          ]
+        }
       ]
     }
 
@@ -101,6 +121,12 @@ export function HeadlessCheckoutProvider({ children }) {
         body: JSON.stringify(payload),
       },
     )
+
+    const { data } = await response.json()
+    const { mediaRules } = data.style_sheet;
+
+    setPIGIMediaRules(mediaRules);
+    // console.log("check:", check)
   }
 
   // can only initializeCheckout if order has items
@@ -270,6 +296,11 @@ export function HeadlessCheckoutProvider({ children }) {
   //   }
   // }, [])
 
+  useEffect(() => {
+    if (flyoutState) document.querySelector('html').classList.add('disable-scroll')
+    if (!flyoutState) document.querySelector('html').classList.remove('disable-scroll')
+  }, [flyoutState]);
+
   return (
     <HeadlessCheckoutContext.Provider
       value={{
@@ -282,7 +313,8 @@ export function HeadlessCheckoutProvider({ children }) {
         removeLineItem,
         flyoutState,
         setFlyoutState,
-        addItemToOrder
+        addItemToOrder,
+        PIGIMediaRules
       }}
     >
       <CheckoutFlyout />

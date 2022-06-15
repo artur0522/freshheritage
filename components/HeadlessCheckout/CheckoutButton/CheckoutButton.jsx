@@ -6,8 +6,6 @@ import {
 } from '@boldcommerce/checkout-react-components';
 // import { useNavigate } from 'react-router-dom';
 import { useRouter } from 'next/router';
-
-// import { Button } from '@boldcommerce/stacks-ui';
 import React, { memo, useCallback, useState, useContext } from 'react';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';

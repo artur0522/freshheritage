@@ -13,12 +13,17 @@
 
   &__input {
     width: 100%;
-    height: 60px;
-    font-size: 16px;
+    height: 48px;
+    font-size: 14px;
     font-weight: 500;
     border-radius: 12px;
     border: 1px solid $black10;
-    padding: 0 15px;
+    padding: 0 12px;
+    @include breakpoint-up('sm') {
+      font-size: 16px;
+      height: 60px;
+      padding: 0 15px;
+    }
   }
 
   &__input:focus + &__label,
@@ -50,8 +55,11 @@
 }
 
 .field__message {
-  font-size: 14px;
+  font-size: 12px;
   margin-top: 5px;
+  @include breakpoint-up('sm') {
+    font-size: 14px;
+  }
 }
 
 .input-field__input {

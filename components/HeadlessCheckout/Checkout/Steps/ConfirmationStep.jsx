@@ -10,7 +10,6 @@ import {
 // import { ConfirmationList, ConfirmationListItem } from './components';
 // import { RedactedCreditCard } from './components/RedactedCreditCard';
 import { useTranslation } from 'react-i18next';
-// import { Button } from '@boldcommerce/stacks-ui/lib';
 
 const ConfirmationPage = () => {
   const { state } = useCheckoutStore();

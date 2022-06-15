@@ -28,21 +28,26 @@
   }
 }
 
-
 .order-summary__item {
-  font-size: 14px;
+  font-size: 12px;
   line-height: 150%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   margin-bottom: 10px;
+  @include breakpoint-up('sm') {
+    font-size: 14px;
+  }
   &:last-child {
     margin: 0;
   }
   .breakdown__section--total & {
     font-family: $bebas;
-    font-size: 28px;
+    font-size: 21px;
+    @include breakpoint-up('sm') {
+      font-size: 28px;
+    }
   }
 }
 

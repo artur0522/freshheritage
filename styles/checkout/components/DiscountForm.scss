@@ -2,23 +2,39 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
   cursor: pointer;
   h3 {
-    font-size: 16px;
-    color: $salmon;
+    font-size: 14px;
+    color: $sitkablue;
+    @include breakpoint-up('sm') {
+      font-size: 16px;
+      color: $salmon;
+    }
   }
   svg {
-    width: 25px;
-    height: 25px;
+    width: 15px;
+    height: 15px;
+    @include breakpoint-up('sm') {
+      width: 25px;
+      height: 25px;
+    }
     * {
-      fill: $salmon;
+      fill: $sitkablue;
+      @include breakpoint-up('sm') {
+        fill: $salmon;
+      }
     }
   }
 }
 
 .discount-form {
   display: flex;
+  flex-direction: column;
   margin-top: 20px;
+  @include breakpoint-up('sm') {
+    flex-direction: row;
+  }
   .input-group {
     margin: 0;
   }
@@ -26,5 +42,8 @@
 
 .discount-form__btn {
   max-width: 253px;
-  margin-left: 20px;
+  margin: 12px 0 0;
+  @include breakpoint-up('sm') {
+    margin: 20px 0 0 20px;
+  }
 }

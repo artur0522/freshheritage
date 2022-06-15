@@ -2,7 +2,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 35px 0;
+  padding: 25px 0;
+  @include breakpoint-up('sm') {
+    padding: 35px 0;
+  }
 }
 
 .order-item__title {
@@ -12,9 +15,14 @@
 }
 
 .order-item__image {
-  width: 130px;
-  flex-basis: 130px;
-  margin-right: 15px;
+  width: 60px;
+  flex-basis: 60px;
+  margin-right: 10px;
+  @include breakpoint-up('sm') {
+    width: 130px;
+    flex-basis: 130px;
+    margin-right: 15px;
+  }
 }
 
 .order-item__details {
@@ -27,12 +35,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 71px;
-  height: 23px;
+  width: 52px;
+  height: 17px;
   background-color: $fawn50-2;
   margin-top: 10px;
   border-radius: 20px;
   padding: 0 3px;
+  @include breakpoint-up('sm') {
+    width: 71px;
+      height: 23px;
+  }
 }
 
 .order-item__decrement-btn,
@@ -40,18 +52,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   border-radius: 100%;
   border: 0.5px solid $sitkablue;
   padding: 0;
   background-color: $pureWhite;
+  @include breakpoint-up('sm') {
+    width: 16px;
+    height: 16px;
+  }
   svg {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
+    @include breakpoint-up('sm') {
+      width: 8px;
+      height: 8px;
+    }
     * {
       stroke: $sitkablue;
     }
+  }
+}
+
+.order-item__description {
+  font-size: 12px;
+  @include breakpoint-up('sm') {
+    font-size: 14px;
   }
 }
 
@@ -63,19 +90,28 @@
   width: 100%;
   margin-top: 20px;
   h3 {
-    font-size: 16px;
-    margin-bottom: 20px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    @include breakpoint-up('sm') {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
   }
   p, a {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
     line-height: 21px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    @include breakpoint-up('sm') {
+      margin-bottom: 20px;
+    }
     &:last-child {
       margin: 0;
     }
   }
   a {
+    display: inline;
+    font-weight: 500;
     color: $salmon;
     text-decoration: underline;
     &:hover {

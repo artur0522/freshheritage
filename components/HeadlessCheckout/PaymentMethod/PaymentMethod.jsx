@@ -9,6 +9,7 @@ import {
 } from '@boldcommerce/checkout-react-components';
 import React, { memo, useEffect, useState } from 'react';
 import { EmptyState } from '@/components/HeadlessCheckout/EmptyState';
+import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
 import { LoadingState } from '../LoadingState';
 import { useTranslation } from 'react-i18next';
 import IconSelectArrow from '@/svgs/select-arrow.svg'
@@ -31,6 +32,7 @@ const PaymentMethod = ({ applicationLoading }) => {
     paymentIframeOnLoaded
   } = usePaymentIframe();
   const { data } = useShippingLines();
+  const { PIGIMediaRules } = useHeadlessCheckoutContext()
   const shippingLines = data.shippingLines;
   const orderStatus = state.orderInfo.orderStatus;
   const loading =
@@ -48,6 +50,7 @@ const PaymentMethod = ({ applicationLoading }) => {
       paymentIframeHeight={paymentIframe.height}
       onPaymentIframeLoaded={paymentIframeOnLoaded}
       loading={loading}
+      PIGIMediaRules={PIGIMediaRules}
     />
   );
 };
@@ -62,7 +65,8 @@ const MemoizedPaymentMethod = memo(
     paymentIframeUrl,
     paymentIframeHeight,
     onPaymentIframeLoaded,
-    loading
+    loading,
+    PIGIMediaRules
   }) => {
     const [disabled, setDisabled] = useState();
     const [paymentMethodOpen, setPaymentMethodOpen] = useState(true);
@@ -252,9 +256,6 @@ const MemoizedPaymentMethod = memo(
       <div className="order-payment-method">
         <div className={`checkout__header checkout__header--border-on-closed checkout__row ${paymentMethodOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
           <h3>Payment Method</h3>
-          <button onClick={() => setPaymentMethodOpen(!paymentMethodOpen)} className="checkout__header-toggle-btn">
-            <IconSelectArrow />
-          </button>
         </div>
         {!!paymentMethodOpen &&
           <>
@@ -264,7 +265,29 @@ const MemoizedPaymentMethod = memo(
               className="PaymentMethod__Iframe"
               src={paymentIframeUrl}
               style={style}
-              onLoad={onPaymentIframeLoaded}
+              onLoad={() => {
+                onPaymentIframeLoaded()
+
+
+                function updateMediaMatch(event) {
+                  const payload = {
+                    conditionText: event.media,
+                    matches: event.matches,
+                  };
+                  const iframeElement = document.querySelector("iframe.PaymentMethod__Iframe");
+                  const iframeWindow = iframeElement.contentWindow;
+                  const action = { actionType: "PIGI_UPDATE_MEDIA_MATCH", payload };
+                  iframeWindow.postMessage(action, "*");
+                }
+
+                PIGIMediaRules.forEach((rule) => {
+                  const mediaMatch = window.matchMedia(rule.conditionText);
+                  mediaMatch.addListener(updateMediaMatch);
+                  updateMediaMatch(mediaMatch);
+                });
+
+
+              }}
             />
             {content}
           </>

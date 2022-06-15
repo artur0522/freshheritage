@@ -2,19 +2,28 @@
   border: 1px solid $black10;
   border-radius: 12px;
   margin-bottom: 0;
-  height: 60px;
+  height: 48px;
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 12px;
+  line-height: 14px;
   display: flex;
   align-items: center;
-  padding-left: 20px;
+  padding: 0 12px;
   background: $alabaster;
   color: $sitkablue;
+  @include breakpoint-up('sm') {
+    font-size: 14px;
+    line-height: 20px;
+    height: 60px;
+    padding: 0 15px;
+  }
 }
 
 .field-set--empty-state svg {
   width: 24px;
-  margin-right: 17px;
+  margin-right: 12px;
+  @include breakpoint-up('sm') {
+    margin-right: 17px;
+  }
 }

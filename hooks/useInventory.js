@@ -8,8 +8,8 @@ const useInventory = () => {
       .map((lineItem) => lineItem.product_data.variant_id)
       .join(',')
 
-    // console.log("useinventory env: "+process.env.INVENTORY_URL)
-    // const response = await fetch(`${process.env.CHECKOUT_URL}${process.env.INVENTORY_URL}?variants=${variants}`)
+    // console.log("useinventory env: "+process.env.NEXT_PUBLIC_INVENTORY_URL)
+    // const response = await fetch(`${process.env.NEXT_PUBLIC_CHECKOUT_URLL}${process.env.NEXT_PUBLIC_INVENTORY_URL}?variants=${variants}`)
     const response = await fetch(
       `${process.env.checkoutUrl}/api/checkout/validateInventory?variants=${variants}`,
     )

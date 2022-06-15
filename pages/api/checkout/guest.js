@@ -126,14 +126,14 @@ export default async function handler(req, res) {
 
     // functions.logger.debug("cart body",JSON.stringify(body))
     // console.log("cart body",JSON.stringify(body))
-    // console.log(process.env.SHOP_IDENTIFIER)
+    // console.log(process.env.NEXT_PUBLIC_SHOP_IDENTIFIER)
 
     try {
       // Initialize guest checkout
-      const response = await fetch(`https://api.boldcommerce.com/checkout/orders/${process.env.SHOP_IDENTIFIER}/init`, {
+      const response = await fetch(`https://api.boldcommerce.com/checkout/orders/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/init`, {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${process.env.BOLD_ACCESS_TOKEN}`,
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_BOLD_ACCESS_TOKEN}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),

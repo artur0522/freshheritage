@@ -3,9 +3,9 @@ export default async function handler(req, res) {
     const variants = req.query.variants
 
     try {
-      const inventoryData = await fetch(`https://api.boldcommerce.com/products/v2/shops/${process.env.SHOP_IDENTIFIER}/variants?filter=in(platform_id:${variants})`, {
+      const inventoryData = await fetch(`https://api.boldcommerce.com/products/v2/shops/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/variants?filter=in(platform_id:${variants})`, {
         headers: {
-          Authorization: `Bearer ${process.env.BOLD_ACCESS_TOKEN}`,
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_BOLD_ACCESS_TOKEN}`,
           'Content-Type': 'application/json',
         },
       }).then((response) => {

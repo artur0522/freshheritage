@@ -31,17 +31,6 @@ const CheckoutFlyout = () => {
     }
   }, [flyoutState]);
 
-  useEffect(() => {
-    const localStorageCheckoutData =
-      JSON.parse(localStorage.getItem('checkout_data')) || '';
-    // resume checkout if there's a checkout saved otherwise initialize it
-    if (Object.keys(localStorageCheckoutData).length) {
-      resumeCheckout(localStorageCheckoutData);
-    } else {
-      initializeCheckout()
-    }
-  }, []);
-
   const checkoutStateStyle = flyoutState ? classes['show'] : classes['hide'];
 
   return (

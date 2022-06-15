@@ -114,7 +114,7 @@ export function HeadlessCheckoutProvider({ children }) {
       localStorage.getItem('checkout_data'),
     )
     const response = await fetch(
-      `https://api.boldcommerce.com/checkout/storefront/${process.env.SHOP_IDENTIFIER}/${public_order_id}/payments/styles`,
+      `https://api.boldcommerce.com/checkout/storefront/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/${public_order_id}/payments/styles`,
       {
         headers: {
           Authorization: `Bearer ${jwt}`,
@@ -209,7 +209,7 @@ export function HeadlessCheckoutProvider({ children }) {
       localStorage.getItem('checkout_data'),
     )
     const response = await fetch(
-      `https://api.boldcommerce.com/checkout/storefront/${process.env.SHOP_IDENTIFIER}/${public_order_id}/items`,
+      `https://api.boldcommerce.com/checkout/storefront/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/${public_order_id}/items`,
       {
         headers: {
           Authorization: `Bearer ${jwt}`,
@@ -239,7 +239,7 @@ export function HeadlessCheckoutProvider({ children }) {
       localStorage.getItem('checkout_data'),
     )
     const response = await fetch(
-      `https://api.boldcommerce.com/checkout/storefront/${process.env.SHOP_IDENTIFIER}/${public_order_id}/items`,
+      `https://api.boldcommerce.com/checkout/storefront/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/${public_order_id}/items`,
       {
         headers: {
           Authorization: `Bearer ${jwt}`,
@@ -268,7 +268,7 @@ export function HeadlessCheckoutProvider({ children }) {
       localStorage.getItem('checkout_data'),
     )
     const response = await fetch(
-      `https://api.boldcommerce.com/checkout/storefront/${process.env.SHOP_IDENTIFIER}/${public_order_id}/items`,
+      `https://api.boldcommerce.com/checkout/storefront/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/${public_order_id}/items`,
       {
         headers: {
           Authorization: `Bearer ${jwt}`,

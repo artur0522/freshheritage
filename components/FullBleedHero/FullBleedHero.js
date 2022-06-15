@@ -8,7 +8,7 @@ import classes from './FullBleedHero.module.scss'
 const FullBleedHero = ({ fields }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
-  let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage } = fields
+  let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage, alt } = fields
   let btnColor
   // Conditionally change the color of the button
   if (textColor === 'text--light') {
@@ -44,6 +44,7 @@ const FullBleedHero = ({ fields }) => {
             className={classes.dsktp__img}
             src={mobileBackgroundImage.asset.url}
             layout="fill"
+            alt={alt}
           />
         </div>}
 
@@ -52,6 +53,7 @@ const FullBleedHero = ({ fields }) => {
             className={classes.mbl__img}
             src={desktopBackgroundImage.asset.url}
             layout="fill"
+            alt={alt}
           />
         </div>}
     </div>

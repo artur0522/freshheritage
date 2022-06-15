@@ -27,6 +27,9 @@ export function HeadlessCheckoutProvider({ children }) {
   //item exists, updatelineitem instead by incrementing quantity
   //it item doesn't exist, addline item
   function addItemToOrder({variant, quantity, properties = {}}) {
+    if (!data) {
+      return false;
+    }
     const variantId = variant.id.replace('gid://shopify/ProductVariant/', '')
     const { line_items } = data.application_state
     const foundLineItem = line_items.find(item => item.product_data.id.includes(variantId))
@@ -295,6 +298,17 @@ export function HeadlessCheckoutProvider({ children }) {
   //     router.events.off('routeChangeStart', handleRouteChange)
   //   }
   // }, [])
+
+  useEffect(() => {
+    const localStorageCheckoutData =
+      JSON.parse(localStorage.getItem('checkout_data')) || '';
+    // resume checkout if there's a checkout saved otherwise initialize it
+    if (Object.keys(localStorageCheckoutData).length) {
+      resumeCheckout(localStorageCheckoutData);
+    } else {
+      initializeCheckout()
+    }
+  }, [])
 
   useEffect(() => {
     if (flyoutState) document.querySelector('html').classList.add('disable-scroll')

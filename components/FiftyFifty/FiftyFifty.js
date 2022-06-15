@@ -6,10 +6,11 @@ import classes from './FiftyFifty.module.scss'
 
 const FiftyFifty = ({ fields }) => {
   let sectionImage
+  const { alt } = fields
 
   // Check if image exists
   if (fields.image) {
-        sectionImage = <Image className={classes.mbl__img} src={fields.image.asset.url} layout="fill" />
+    sectionImage = <Image className={classes.mbl__img} src={fields.image.asset.url} layout="fill" alt={alt} />
   } else {
     return null
   }

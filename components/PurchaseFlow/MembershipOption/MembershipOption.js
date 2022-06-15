@@ -54,7 +54,7 @@ const MembershipOption = ({option, membershipType}) => {
       purchaseFlowOptions: purchaseFlowContext.options
     })
     setSelectedVariant(variant)
-  }, [])
+  }, [frequencyOptions, purchaseFlowContext.options, variants])
 
   return (
     <li className={classes['membership-option']}>

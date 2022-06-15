@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import classes from './CheckoutFlyout.module.scss';
 import { StateBasedCheckout } from '../Checkout/StateBasedCheckout';
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
@@ -12,8 +12,6 @@ const CheckoutFlyout = () => {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const {
     data,
-    initializeCheckout,
-    resumeCheckout,
     flyoutState,
     setFlyoutState
   } = useHeadlessCheckoutContext();

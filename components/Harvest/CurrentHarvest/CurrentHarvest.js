@@ -9,7 +9,7 @@ import HarvestCard from "../HarvestCard"
 
 // Used for both CURRENT SELLING HARVEST AND CURRENT MONTH HARVEST: _type inside of fields will dicate this
 const CurrentHarvest = ({ fields }) => {
-  const { header, description, harvestList, illustration, _type } = fields
+  const { header, description, harvestList, illustration, _type, alt } = fields
   const [harvestListMonths, setHarvestListMonths] = useState(harvestList[0].months)
   const [activeTab, setActiveTab] = useState(harvestList[0])
   const [currentMonth, setCurrentMonth] = useState(null)
@@ -51,6 +51,7 @@ console.log("harvestList:", harvestList)
                         src={illustration.asset.url}
                         width={587}
                         height={440}
+                        alt={alt}
                     />
                 </div>
             </div>}

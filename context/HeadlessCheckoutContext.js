@@ -45,6 +45,61 @@ export function HeadlessCheckoutProvider({ children }) {
     setFlyoutState(true)
   }
 
+  async function stylePaymentIframe() {
+    const payload = {
+      css_rules: [
+        {
+          "cssText": "* {font-family: 'FrankRuhl'; font-size: 16px; font-weight: 500; }"
+        },
+        {
+          "cssText": ".TogglePanel__Header { height: 60px; display: flex; align-items: center; padding: 0 15px;}"
+        },
+        {
+          "cssText": ".ToggleField__Input:focus { box-shadow: 0 0 0 2px #163144 inset !important;}"
+        },
+        {
+          "cssText": ".ToggleField__Input--Checkbox:checked { box-shadow: 0 0 0 10px #163144 inset !important;}"
+        },
+        {
+          "cssText": ".ToggleField__Input--Radio { box-shadow: 0 0 0 2px #fff inset !important; border: 1px solid #163144; background-color: #163144; }"
+        },
+        {
+          "cssText": ".TogglePanelGroup { border-radius: 12px !important; border: 1px solid #eaeae9; }"
+        },
+        {
+          "cssText": ".TogglePanel { border-bottom: 1px solid #eaeae9; }"
+        },
+        {
+          "cssText": ".TogglePanel__Content { padding: 24px; border-top: 1px solid #eaeae9; background-color: #fffdfc; }"
+        },
+        {
+          "cssText": ".Button--Primary { background-color: #163144;}"
+        },
+        {
+          "cssText": ".Button--Primary:hover { background-color: #D18357;}"
+        },
+        {
+          "cssText": ".InputField, .SelectField, .CreditCardInputField { border-radius: 12px; padding: 0 15px; height: 60px; }"
+        }
+      ]
+    }
+
+    const { jwt, public_order_id } = JSON.parse(
+      localStorage.getItem('checkout_data'),
+    )
+    const response = await fetch(
+      `https://api.boldcommerce.com/checkout/storefront/${process.env.SHOP_IDENTIFIER}/${public_order_id}/payments/styles`,
+      {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify(payload),
+      },
+    )
+  }
+
   // can only initializeCheckout if order has items
   async function initializeCheckout(payload = {}) {
     // payload example
@@ -68,6 +123,7 @@ export function HeadlessCheckoutProvider({ children }) {
     const { data } = await res.json()
     saveDataInLocalStorage(data)
     console.log(data, 'init checkout')
+    stylePaymentIframe()
     setData(data)
   }
 
@@ -87,6 +143,7 @@ export function HeadlessCheckoutProvider({ children }) {
     // it's not needed to save all the data again but just to keep the jwt updated
     saveDataInLocalStorage(data)
     console.log(data, 'resumed checkout')
+    stylePaymentIframe()
     setData(data)
   }
 

@@ -129,7 +129,7 @@ const MemoizedShippingLines = memo(
             <IconSelectArrow />
           </button>
         </div>
-        {!! shippingMethodOpen &&
+        {!!shippingMethodOpen &&
           <>
             {errors && <p type="alert">{errors[0].message}</p>}
             {content}

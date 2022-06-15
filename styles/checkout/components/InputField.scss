@@ -41,9 +41,17 @@
 
   &--alert {
     .input-field__input {
-      border-color: red;
+      border-color: $error;
+    }
+    .field__message {
+      color: $error;
     }
   }
+}
+
+.field__message {
+  font-size: 14px;
+  margin-top: 5px;
 }
 
 .input-field__input {

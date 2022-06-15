@@ -4,6 +4,9 @@
     opacity: 0.4;
   }
   &--alert {
-    outline-color: red;
+    outline-color: $error;
+    .field__message {
+      color: $error;
+    }
   }
 }

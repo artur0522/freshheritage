@@ -30,6 +30,7 @@ const InputField = ({
           disabled={disabled}
           placeholder={placeholder}
         />
+        { messageText && <div className='field__message'>{ messageText }</div> }
       </div>
     </div>
   );

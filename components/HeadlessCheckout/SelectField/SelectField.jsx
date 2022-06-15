@@ -44,8 +44,8 @@ const SelectField = ({
           disabled={disabled}
           placeholder={placeholder}
         />
+        { messageText && <div className='field__message'>{ messageText }</div> }
       </div>
-      { messageText && <div className='stx-field__message'>{ messageText }</div> }
     </div>
   );
 };

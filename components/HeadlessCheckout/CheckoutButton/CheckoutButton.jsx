@@ -92,16 +92,12 @@ const MemoizedCheckoutButton = memo(
       }
     }, [logError, trackEvent, processOrder, validateInventory]);
 
-    if (!loading && !processing) {
-      return ''
-    }
-
     return (
       <button
         type="button"
-        className="Checkout__ConfirmButton"
+        className="checkout__complete-order-btn btn salmon"
         onClick={handleProcessPayment}
-        loading={loading || processing}
+        loading={loading.toString() || processing.toString()}
         disabled={!hasBillingAddress || processing || appLoading}
       >
         {t('complete_order')}

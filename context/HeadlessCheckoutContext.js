@@ -79,6 +79,9 @@ export function HeadlessCheckoutProvider({ children }) {
           "cssText": ".Button--Primary:hover { background-color: #D18357;}"
         },
         {
+          "cssText": ".Message--HasError { border-color: #c04a30; color: #C04A31;}"
+        },
+        {
           "cssText": ".InputField, .SelectField, .CreditCardInputField { border-radius: 12px; padding: 0 15px; height: 60px; }"
         }
       ]
@@ -254,15 +257,18 @@ export function HeadlessCheckoutProvider({ children }) {
     })
   }
 
-  useEffect(() => {
-    const handleRouteChange = () => {
-      setFlyoutState(false)
-    }
-    router.events.on('routeChangeStart', handleRouteChange)
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChange)
-    }
-  }, [])
+  // this keeps closing the flyout since the route changes on processing order
+
+  // useEffect(() => {
+  //   const handleRouteChange = () => {
+  //     console.log("wut")
+  //     setFlyoutState(false)
+  //   }
+  //   router.events.on('routeChangeStart', handleRouteChange)
+  //   return () => {
+  //     router.events.off('routeChangeStart', handleRouteChange)
+  //   }
+  // }, [])
 
   return (
     <HeadlessCheckoutContext.Provider

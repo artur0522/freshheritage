@@ -27,6 +27,12 @@ const SelectField = ({
     }
   })
 
+  let defaultValue = value;
+
+  if (options.length === 0) {
+    defaultValue = options.some(option => option.value === value) ? options.find(option => option.value === value) : options[0]
+  }
+
   return (
     <div className="input-group">
       <div className={classNames}>
@@ -37,8 +43,8 @@ const SelectField = ({
           {...otherProps}
           className={`checkout-dropdown-selector`}
           options={options}
-          value={value}
-          valueattr={value}
+          value={defaultValue}
+          valueattr={defaultValue}
           arrowClosed={<div className="dropdown-selector__arrow-closed"><IconTriangleSelector /></div>}
           arrowOpen={<div className="dropdown-selector__arrow-open"><IconTriangleSelector /></div>}
           disabled={disabled}

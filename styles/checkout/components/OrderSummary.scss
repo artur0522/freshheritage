@@ -56,6 +56,11 @@
   letter-spacing: 0.02em;
 }
 
+.order-summary-item__amount,
+.order-summary-item__amount p {
+  font-size: inherit;
+}
+
 .order-summary__amount {
   font-size: 14px;
 }

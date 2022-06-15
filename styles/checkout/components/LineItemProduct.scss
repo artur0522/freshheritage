@@ -43,7 +43,12 @@
   padding: 0 3px;
   @include breakpoint-up('sm') {
     width: 71px;
-      height: 23px;
+    height: 23px;
+  }
+  &--quantity-only {
+    width: auto;
+    display: inline-flex;
+    padding: 0 10px;
   }
 }
 
@@ -84,6 +89,7 @@
 
 .order-item__quantity {
   font-size: 11px;
+  margin: 0 auto;
 }
 
 .order-item__disclaimer {

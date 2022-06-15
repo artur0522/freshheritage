@@ -56,7 +56,7 @@ const LoginAccountForm = ({ isCheckout, onForgotPasswordClick }) => {
             <button className="btn sitkablue" disabled={isLoading}>Login</button>
             <button
               onClick={() => onForgotPasswordClick()}
-              class="btn-link-underline">Forgot Your Password?</button>
+              className="btn-link-underline">Forgot Your Password?</button>
           </div>
         ):(
           <button className="btn sitkablue" disabled={isLoading}>Login</button>

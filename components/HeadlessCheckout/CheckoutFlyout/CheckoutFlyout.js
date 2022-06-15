@@ -48,7 +48,7 @@ const CheckoutFlyout = () => {
             className={classes['checkout-flyout__close-btn']}><IconClose /></button>
           {data?.application_state?.line_items.length > 0 ? (
             <>
-              <header className={classes['checkout-flyout__header']}>
+              <header className="checkout__header-main">
                 <h4>Checkout</h4>
               </header>
               <StateBasedCheckout data={data} />

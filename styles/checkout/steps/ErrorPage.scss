@@ -1,4 +1,4 @@
-.checkout__processing {
+.checkout__error {
   width: 100%;
   text-align: center;
   display: flex;
@@ -15,6 +15,9 @@
     }
   }
   p {
+    .btn-link-underline {
+      font-size: inherit;
+    }
     color: $sitkablue;
   }
 }

@@ -1,4 +1,3 @@
-// import Price from '@boldcommerce/stacks-ui/lib/components/price/Price';
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -6,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { formatPrice } from '@/utils/formatPrice';
 
 const OrderSummaryItem = ({ title, amount, lines }) => {
-  const { t } = useTranslation();
   return (
     <div
       className={classNames(

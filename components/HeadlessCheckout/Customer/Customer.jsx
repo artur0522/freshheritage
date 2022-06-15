@@ -1,4 +1,5 @@
 import React, { memo, useState, useEffect } from 'react';
+import { useCustomer } from '@boldcommerce/checkout-react-components';
 import { useCustomerContext } from '@/context/CustomerContext'
 import { useModalContext } from '@/context/ModalContext'
 import { InputField } from '../InputField';
@@ -10,12 +11,13 @@ import LoginAccountForm from '@/components/Forms/LoginAccountForm'
 import ForgotPasswordForm from '@/components/Forms/ForgotPasswordForm'
 
 const Customer = () => {
+  const { submitCustomer } = useCustomer();
   const { customer: data, logout } = useCustomerContext()
   const modalContext = useModalContext()
-  return <MemoizedCustomer customer={data} logout={logout} modalContext={modalContext} />;
+  return <MemoizedCustomer customer={data} logout={logout} submitCustomer={submitCustomer} modalContext={modalContext} />;
 };
 
-const MemoizedCustomer = memo(({ customer, logout, modalContext }) => {
+const MemoizedCustomer = memo(({ customer, logout, modalContext, submitCustomer }) => {
   const [email, setEmail] = useState(customer?.email);
   const [errors, setErrors] = useState(null);
   const [acceptsMarketing, setAcceptsMarketing] = useState(false);
@@ -51,6 +53,14 @@ const MemoizedCustomer = memo(({ customer, logout, modalContext }) => {
     console.log("hi:", customer?.email)
     if (customer?.email) {
       setAccountFormType('default')
+      submitCustomer({
+        platform_id: customer.id.replace('gid://shopify/Customer/', ''),
+        first_name: customer.firstName,
+        last_name: customer.lastName,
+        email_address: customer.email,
+        accepts_marketing: customer.acceptsMarketing
+      })
+      // console.log("submitting customer")
     }
   }, [customer])
 

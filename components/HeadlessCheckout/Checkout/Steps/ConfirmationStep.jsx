@@ -32,7 +32,7 @@ const ConfirmationPage = () => {
 
   const paymentList = payments.map((payment) => {
     return (
-      <li className="Payment__ListItem" key={payment.id}>
+      <li className="payment__list-item" key={payment.id}>
         <RedactedCreditCard
           brand={payment.friendly_brand}
           lineText={payment.lineText}
@@ -43,17 +43,23 @@ const ConfirmationPage = () => {
 
   return (
     <>
-      <div className="Checkout__Layout Checkout__Confirmation" role="main">
-        <OrderSummary readOnly />
-        <h1 className="Checkout__ThankYou">{`${t('confirmation.thank_you')}, ${
-          customer.first_name || shippingAddress.first_name
-        }!`}</h1>
-        <div>
-          <h3>{t('confirmation.order_confirmed')}</h3>
-          <p>{t('confirmation.order_accepted')}</p>
+      <div className="checkout__layout checkout__confirmation" role="main">
+        <div className="checkout__panel">
+          <OrderSummary readOnly />
         </div>
-        <div>
-          <h3>{t('customer.info')}</h3>
+        <header className="checkout__header-main">
+          <h4>{`${t('confirmation.thank_you')}, ${
+            customer.first_name || shippingAddress.first_name
+          }!`}</h4>
+        </header>
+        <div className="checkout__panel">
+          <div className="checkout__header checkout__header--flex-direction-column checkout__row">
+            <h3>{t('confirmation.order_confirmed')}</h3>
+            <p>{t('confirmation.order_accepted')}</p>
+          </div>
+          <div className="checkout__header checkout__row">
+            <h3>{t('customer.info')}</h3>
+          </div>
           <ConfirmationList>
             <ConfirmationListItem title={t('shipping.address')}>
               <p>{`${shippingAddress.first_name} ${shippingAddress.last_name}`}</p>
@@ -101,22 +107,13 @@ const ConfirmationPage = () => {
               <p>{shippingMethod}</p>
             </ConfirmationListItem>
             <ConfirmationListItem title={t('payment.method')}>
-              <ul className="Payment__List">{paymentList}</ul>
+              <ul className="payment__list">{paymentList}</ul>
             </ConfirmationListItem>
           </ConfirmationList>
         </div>
-        <div className="Checkout__Navigation">
-          <button
-            className="Checkout__ContinueButton"
-            onClick={continueShopping}
-          >
-            {t('confirmation.continue_shopping')}
-          </button>
-          {/* <p className="Checkout__ContactUs">{t('confirmation.need_help')}<a href={`https://${state.initialData.shop_name}${process.env.CONTACT_URL}`}>{t('confirmation.contact_us')}</a></p> */}
+        <div className="checkout__navigation">
+          <button class="checkout__cta-btn btn sitkablue">Continue Shopping</button>
         </div>
-        {/* <div className="Checkout__Footer">
-          <p className="Checkout__Rights">{`All rights reserved ${t('website_name')}`}</p>
-        </div> */}
       </div>
     </>
   );

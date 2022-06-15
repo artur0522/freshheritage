@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import CheckoutFlyout from '@/components/HeadlessCheckout/CheckoutFlyout'
+import { useCustomerContext } from './CustomerContext';
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router'
 
@@ -14,6 +15,7 @@ export function HeadlessCheckoutProvider({ children }) {
   const [data, setData] = useState(null)
   const [PIGIMediaRules, setPIGIMediaRules] = useState([]);
   const [flyoutState, setFlyoutState] = useState(false)
+  const { customer } = useCustomerContext()
 
   function saveDataInLocalStorage(data) {
     const checkoutData = {
@@ -22,6 +24,16 @@ export function HeadlessCheckoutProvider({ children }) {
       resumable_link: data.application_state.resumable_link || '',
     }
     localStorage.setItem('checkout_data', JSON.stringify(checkoutData))
+  }
+
+  function transformCustomerData(customer) {
+    return {
+        platform_id: customer.id.replace('gid://shopify/Customer/', ''),
+        first_name: customer.firstName,
+        last_name: customer.lastName,
+        email_address: customer.email,
+        accepts_marketing: customer.acceptsMarketing
+      }
   }
 
   //item exists, updatelineitem instead by incrementing quantity
@@ -142,9 +154,9 @@ export function HeadlessCheckoutProvider({ children }) {
     //   ]
     // }
     // if the user is logged in add the attribute customer to the payload
-    // if (customer) {
-    //   payload.customer = customer
-    // }
+    if (customer) {
+      payload.customer = transformCustomerData(customer)
+    }
     const res = await fetch(
       `${process.env.checkoutUrl}/api/checkout/initialize-otp`,
       {

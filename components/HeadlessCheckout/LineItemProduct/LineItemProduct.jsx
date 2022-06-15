@@ -7,7 +7,7 @@ import { useVariants } from '@/hooks/index.js';
 import { formatPrice } from '@/utils/formatPrice';
 import Link from 'next/link';
 
-const LineItemProduct = ({ item, children }) => {
+const LineItemProduct = ({ item, children, readOnly }) => {
 
   const handleVariants = useVariants();
   const variants = handleVariants(item.title)
@@ -50,17 +50,25 @@ const LineItemProduct = ({ item, children }) => {
               return <div key={i}>{variant}</div>;
             })}
           </div>
-          <div className="order-item__quantity-wrapper">
-            <button onClick={() => decrement()} className="order-item__decrement-btn">
-              <IconMinus />
-            </button>
-            <div className="order-item__quantity" aria-label="product quantity">
-              {item.quantity}
+          {readOnly ? (
+            <div className="order-item__quantity-wrapper order-item__quantity-wrapper--quantity-only">
+              <div className="order-item__quantity" aria-label="product quantity">
+                {item.quantity}
+              </div>
             </div>
-            <button onClick={() => increment()} className="order-item__increment-btn">
-              <IconPlus />
-            </button>
-          </div>
+          ):(
+            <div className="order-item__quantity-wrapper">
+              <button onClick={() => decrement()} className="order-item__decrement-btn">
+                <IconMinus />
+              </button>
+              <div className="order-item__quantity" aria-label="product quantity">
+                {item.quantity}
+              </div>
+              <button onClick={() => increment()} className="order-item__increment-btn">
+                <IconPlus />
+              </button>
+            </div>
+          )}
         </div>
         <div className="order-item__price-delivery">
           {/* 3 types of prices to render subscriptions (prepaid & monthly) vs one-time */}

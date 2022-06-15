@@ -87,7 +87,7 @@ const MemoizedPaymentMethod = memo(
 
     const clearCart = async () => {
       //method to delete shopify cart
-      // return await fetch(`${process.env.NEXT_PUBLIC_CHECKOUT_URLL}${process.env.NEXT_PUBLIC_SERVER_BASE}/clearCart`, {
+      // return await fetch(`${process.env.NEXT_PUBLIC_CHECKOUT_URL}${process.env.NEXT_PUBLIC_SERVER_BASE}/clearCart`, {
       // commented out to stop getting an error
       // return await fetch(`https://sitkasalmontest.ngrok.io/api/checkout/clearCart`, {
       //   method: "POST",
@@ -270,14 +270,15 @@ const MemoizedPaymentMethod = memo(
               style={style}
               onLoad={() => {
                 onPaymentIframeLoaded()
-
-
                 function updateMediaMatch(event) {
                   const payload = {
                     conditionText: event.media,
                     matches: event.matches,
                   };
                   const iframeElement = document.querySelector("iframe.PaymentMethod__Iframe");
+                  if (!iframeElement) {
+                    return false
+                  }
                   const iframeWindow = iframeElement.contentWindow;
                   const action = { actionType: "PIGI_UPDATE_MEDIA_MATCH", payload };
                   iframeWindow.postMessage(action, "*");

@@ -1,25 +1,22 @@
-// import { Price } from '@boldcommerce/stacks-ui';
 import React from 'react';
 import { RemoveIcon } from '../../Icons';
-import { useTranslation } from 'react-i18next';
+import { formatPrice } from '@/utils/formatPrice';
 
 const OrderSummaryItemLine = ({ description, amount, onRemove }) => {
-  const { t } = useTranslation();
   return (
-    <div className="OrderSummaryItem__Description">
+    <div className="order-summary-item__description">
       {onRemove && (
         <button
-          className="OrderSummaryItem__Action"
+          className="order-summary-item__action"
           type="button"
           onClick={onRemove}
         >
           <RemoveIcon />
         </button>
       )}
-      <span className="OrderSummaryItem__Label">{description}</span>
-      <span className="OrderSummaryItem__Amount">
-        ({/*<Price amount={amount} moneyFormatString={t('currency_format')}/>*/}
-        )<p>{amount}</p>
+      <span className="order-summary-item__label">{description}</span>
+      <span className="order-summary-item__amount">
+        <p>${formatPrice(amount, true)}</p>
       </span>
     </div>
   );

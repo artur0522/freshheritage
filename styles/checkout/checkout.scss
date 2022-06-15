@@ -1,3 +1,10 @@
+.checkout__header-main {
+  margin-bottom: 10px;
+  @include breakpoint-up('sm') {
+    margin-bottom: 30px;
+  }
+}
+
 .checkout__panel {
   background-color: $pureWhite;
   border: 1px solid $fawn50-2;
@@ -28,6 +35,9 @@
   @include breakpoint-up('sm') {
     flex-direction: row;
   }
+  &--flex-direction-column {
+    flex-direction: column;
+  }
   h3 {
     font-family: $bebas;
     font-size: 18px;
@@ -51,6 +61,13 @@
       border-bottom: 1px solid $fawn50-2;
     }
   }
+  p {
+    font-size: 14px;
+    margin-top: 10px;
+    @include breakpoint-up('sm') {
+      font-size: 16px;
+    }
+  }
 }
 
 .checkout__header-toggle-btn {
@@ -72,7 +89,7 @@
   margin-top: 48px;
 }
 
-.checkout__complete-order-btn {
+.checkout__cta-btn {
   max-width: 392px;
   margin-left: auto;
 }

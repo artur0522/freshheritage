@@ -45,7 +45,7 @@ const MemoizedCheckoutButton = memo(
       const variants = lineItems
         .map((lineItem) => lineItem.product_data.variant_id)
         .join(',');
-      // const response = await fetch(`${process.env.NEXT_PUBLIC_CHECKOUT_URLL}${process.env.NEXT_PUBLIC_INVENTORY_URL}?variants=${variants}`);
+      // const response = await fetch(`${process.env.NEXT_PUBLIC_CHECKOUT_URL}${process.env.NEXT_PUBLIC_INVENTORY_URL}?variants=${variants}`);
       const response = await fetch(
         `${process.env.checkoutUrl}/api/checkout/validateInventory?variants=${variants}`
       );
@@ -94,7 +94,7 @@ const MemoizedCheckoutButton = memo(
     return (
       <button
         type="button"
-        className="checkout__complete-order-btn btn salmon"
+        className="checkout__cta-btn btn salmon"
         onClick={handleProcessPayment}
         loading={loading.toString() || processing.toString()}
         disabled={!hasBillingAddress || processing || appLoading}

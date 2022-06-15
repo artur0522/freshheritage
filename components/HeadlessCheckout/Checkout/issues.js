@@ -1,7 +1,5 @@
 import React from 'react'
-// import ReactDOM from "react-dom";
-// import { useRouter, BrowserRouter } from 'next/router';
-import NoSSRWrapper from '../../components/no-ssr-wrapper'
+import NoSSRWrapper from '../no-ssr-wrapper'
 import '../../i18n/config'
 import StateBasedCheckout from './StateBasedCheckout'
 
@@ -23,7 +21,7 @@ export async function getServerSideProps(context) {
   const variants = context.query.variants
 
   // console.log("useinventory env: "+process.env.NEXT_PUBLIC_INVENTORY_URL);
-  // const response = await fetch(`${process.env.NEXT_PUBLIC_CHECKOUT_URLL}${process.env.NEXT_PUBLIC_INVENTORY_URL}?variants=${variants}`);
+  // const response = await fetch(`${process.env.NEXT_PUBLIC_CHECKOUT_URL}${process.env.NEXT_PUBLIC_INVENTORY_URL}?variants=${variants}`);
   const response = await fetch(
     `${process.env.checkoutUrl}/api/checkout/validateInventory?variants=${variants}`,
   )

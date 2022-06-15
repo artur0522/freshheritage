@@ -68,7 +68,7 @@ export function CustomerProvider({ children }) {
       }
     }
 
-    if (customer.addresses.length) {
+    if (customer.addresses?.edges.length > 0) {
       customer.addresses = transformEdges(customer.addresses)
     }
 

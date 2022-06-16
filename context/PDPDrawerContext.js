@@ -2,6 +2,7 @@ import { createContext, useContext, useReducer, useEffect } from 'react'
 import { nacelleClient } from 'services'
 import PDPDrawer from '@/components/Layout/PDPDrawer'
 import { useRouter } from 'next/router'
+import { GET_PRODUCT } from '../gql'
 
 const PDPDrawerContext = createContext()
 
@@ -84,15 +85,13 @@ export function PDPDrawerProvider({ children }) {
 
   // triggers pdp flyout on page load if url has a param of expand
   useEffect(() => {
-    async function getProductData(productHandle) {
-      return await nacelleClient.products({
-        handles: [productHandle]
-      })
-    }
     async function onLoad(productHandle) {
-      const productData = await getProductData(productHandle)
-      if (productData.length) {
-        openDrawer(productData[0])
+      const { products } = await nacelleClient.query({
+        query: GET_PRODUCT,
+        variables: { handle: productHandle}
+      })
+      if (products.length) {
+        openDrawer(products[0])
       }
     }
     if (router.isReady && router.query?.expand) {

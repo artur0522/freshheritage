@@ -4,12 +4,8 @@ import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 
 const PurchaseFlow = ({page}) => {
   const purchaseFlowContext = usePurchaseFlowContext()
-
-  const { fields } = page[0]
-  const { step2 } = fields
-
-  if (purchaseFlowContext?.options.is_loaded) {
-    return <CustomizeYourPlan props={step2} />
+  if (purchaseFlowContext.options.is_loaded) {
+    return <CustomizeYourPlan props={page} />
   }
   return ''
 }
@@ -18,9 +14,13 @@ export async function getStaticProps() {
   const page = await nacelleClient.content({
     type: 'purchaseFlow'
   })
+
+  const { fields } = page[0]
+  const { step2 } = fields
+
   return {
     props: {
-      page,
+      page: step2,
       handle: 'purchase-flow'
     }
   }

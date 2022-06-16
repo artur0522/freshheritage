@@ -1,4 +1,6 @@
+import App from 'next/app';
 import { CartProvider } from '@nacelle/react-hooks';
+import { nacelleClient } from 'services'
 import Layout from '@/components/Layout';
 import '../styles/global.scss';
 import 'react-dropdown/style.css'
@@ -14,16 +16,26 @@ import 'react-dropdown/style.css'
 // and passed to the `CheckoutProvider`.
 // (https://github.com/getnacelle/nacelle-js/tree/main/packages/shopify-checkout)
 
-function AppContainer({ Component, pageProps }) {
-
-
+const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) => {
   return (
     <CartProvider>
-      <Layout>
+      <Layout headerSettings={headerSettings} footerSettings={footerSettings}>
         <Component {...pageProps} />
       </Layout>
     </CartProvider>
   );
 }
+
+AppContainer.getInitialProps = async (appContext) => {
+  const contentEntry = await nacelleClient.content({
+    handles: ['header-settings', 'footer-settings']
+  })
+
+  const headerSettings = contentEntry[0].fields
+  const footerSettings = contentEntry[1].fields
+  const appProps = await App.getInitialProps(appContext);
+
+  return { ...appProps, headerSettings, footerSettings };
+};
 
 export default AppContainer;

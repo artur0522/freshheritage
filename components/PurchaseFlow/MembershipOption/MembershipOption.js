@@ -13,10 +13,13 @@ import { getVariantByOptions } from '@/utils/getVariantByOptions'
 const MembershipOption = ({option, membershipType}) => {
   const purchaseFlowContext = usePurchaseFlowContext()
 
+  console.log("purchaseFlowContext:", purchaseFlowContext)
+
   const [selectedVariant, setSelectedVariant] = useState(purchaseFlowContext.options.product.variants[0])
 
   const { product } = purchaseFlowContext.options
   const { variants } = product;
+
   const membershipText = selectedVariant.metafields.find(metafield => metafield.key === `${membershipType}_membership_text`)
   const frequencyOptions = product.content.options.find(option => option.name === 'frequency').values
   const variantPrice = membershipType === 'prepaid' ? (selectedVariant.price * .97).toFixed(2) : selectedVariant.price

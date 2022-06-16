@@ -4,6 +4,7 @@ import { useHeadlessCheckoutContext } from './HeadlessCheckoutContext'
 import * as Cookies from 'es-cookie'
 import { useRouter } from 'next/router'
 import { getCartVariant } from 'utils/getCartVariant'
+import { GET_PRODUCT } from '../gql'
 
 const PurchaseFlowContext = createContext()
 
@@ -15,7 +16,6 @@ export function PurchaseFlowProvider({ children }) {
 
   const router = useRouter()
   const { addItemToOrder } = useHeadlessCheckoutContext()
-  const [tierOptions, setTierOptions] = useState([])
   const [options, setOptions] = useState({
     step: 1,
     product: null,
@@ -67,7 +67,8 @@ export function PurchaseFlowProvider({ children }) {
       if (as.includes('/pages/choose-your-plan') && router.asPath === '/pages/customize-your-plan') {
         setOptions({
           ...options,
-          step: 1
+          step: 1,
+          is_loaded: true
         })
       }
       return true
@@ -78,21 +79,20 @@ export function PurchaseFlowProvider({ children }) {
     };
   }, [router])
 
-  // on page load, get saved data from cookie
+  // on page load, get saved data from local storage
   useEffect(() => {
     async function updateOptions() {
-      let purchaseFlowData = Cookies.get('purchaseFlowData')
-      if (purchaseFlowData) {
-        purchaseFlowData = JSON.parse(purchaseFlowData)
-        if (purchaseFlowData.productHandle) {
-          const product = await nacelleClient.products({
-            handles: [purchaseFlowData.productHandle]
+      let localStoragePurchaseFlowData = JSON.parse(localStorage.getItem('purchase_flow_data')) || {...options};
+      if (Object.keys(localStoragePurchaseFlowData).length) {
+        if (localStoragePurchaseFlowData.productHandle) {
+          const { products } = await nacelleClient.query({
+            query: GET_PRODUCT,
+            variables: { handle: localStoragePurchaseFlowData.productHandle }
           })
-          purchaseFlowData.product = product[0]
+          localStoragePurchaseFlowData.product = products[0]
         }
       }
-      console.log("update purchaseFlow options:", purchaseFlowData)
-      setOptions({...purchaseFlowData, is_loaded: true})
+      setOptions({...localStoragePurchaseFlowData, is_loaded: true})
     }
     updateOptions()
   }, [])
@@ -102,7 +102,7 @@ export function PurchaseFlowProvider({ children }) {
       '/pages/choose-your-plan',
       '/pages/customize-your-plan'
     ]
-    if (pages.includes(router.pathname)) {
+    if (pages.includes(router.pathname) && options.is_loaded) {
       if (options.step === 1 && router.pathname !== '/pages/choose-your-plan') {
         router.push('/pages/choose-your-plan')
       }
@@ -112,15 +112,19 @@ export function PurchaseFlowProvider({ children }) {
     }
   }, [options, router])
 
+  function saveDataInLocalStorage(data) {
+    const saveData = {...data};
+    delete saveData.product
+    localStorage.setItem('purchase_flow_data', JSON.stringify(saveData))
+  }
+
   useEffect(() => {
     console.log("options useEffect:", options)
-    const cookieReadyOptions = {...options}
-    delete cookieReadyOptions.product
-    Cookies.set('purchaseFlowData', JSON.stringify(cookieReadyOptions), { expires: 1, path: '/' })
+    saveDataInLocalStorage(options)
   }, [options])
 
   return (
-    <PurchaseFlowContext.Provider value={{options, setOptions, tierOptions, setTierOptions, selectBox, selectMembershipPlan}}>
+    <PurchaseFlowContext.Provider value={{options, setOptions, selectBox, selectMembershipPlan}}>
       {children}
     </PurchaseFlowContext.Provider>
   )

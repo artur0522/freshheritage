@@ -34,7 +34,7 @@ function Layout({ children }) {
   }, [])
 
   return (
-    <HeadlessCheckoutProvider>
+    // <HeadlessCheckoutProvider>
       <PurchaseFlowProvider>
         <CustomerProvider>
           <PDPDrawerProvider>
@@ -46,7 +46,7 @@ function Layout({ children }) {
           </PDPDrawerProvider>
         </CustomerProvider>
       </PurchaseFlowProvider>
-    </HeadlessCheckoutProvider>
+    // </HeadlessCheckoutProvider>
   )
 }
 

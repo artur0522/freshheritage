@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Image from 'next/image'
 import { useCart } from '@nacelle/react-hooks'
 import { nacelleClient } from 'services'
@@ -7,6 +7,8 @@ import { getCartVariant } from 'utils/getCartVariant'
 import { useMediaQuery } from 'react-responsive'
 import ResponsiveImage from '@/components/ResponsiveImage'
 
+import { useModalContext } from '@/context/ModalContext'
+import { useCustomerContext } from '@/context/CustomerContext'
 import ContentSections from '@/components/ContentSections'
 import ProductReviewStars from '../../components/Product/ProductReviewStars'
 import ProductSlider from '../../components/Product/ProductSlider'
@@ -14,6 +16,7 @@ import ProductAccordion from '../../components/Product/ProductAccordion'
 import ProductGiftForm from '@/components/Product/ProductGiftForm'
 
 import classes from './Product.module.scss'
+import { useCustomer } from '@boldcommerce/checkout-react-components'
 
 function Product({ product, page }) {
   console.log('page', page)
@@ -27,11 +30,31 @@ function Product({ product, page }) {
   const [checked, setChecked] = useState(false);
   const handle = product.content.handle
 
+  const modalContext = useModalContext()
+  const customerContext = useCustomerContext()
+  const { customer } = customerContext
+
   useEffect(() =>  {
     if(product.content.handle === 'digital-gift-card') {
       setChecked(true)
     }
-  }, [])
+
+    const foundVisibleTag = product.tags.find(tag => tag.includes('Visible'));
+    const splitTag = foundVisibleTag?.split(':')[1]
+    const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
+    const refinedSplitTag = splitTag?.replace(/\s/g, '').toLowerCase()
+
+    const foundTag = customer?.tags.find((tag) => {
+      return tag.replace(/\s/g, '').toLowerCase() === refinedSplitTag 
+    })
+    
+    if(foundVisibleTag && customer && foundTag) {
+      const gatedPopup = page.find(field => field.handle === splitTagWithDash)
+      modalContext.setContent(gatedPopup.fields)
+      modalContext.setIsOpen(true)
+      modalContext.setModalType('gated_product')
+    }
+  }, [customer])
   
   const isDesktop = useMediaQuery(
     { minWidth: 1074 }
@@ -213,8 +236,13 @@ export async function getStaticProps({ params }) {
     variables: { handle: params.handle }
   })
 
+  const product = products[0]
+  const foundVisibleTag = product.tags.find(tag => tag.includes('Visible'));
+  const splitTag = foundVisibleTag?.split(':')[1]
+  const refinedSplitTag = splitTag?.replace(' ', '-').toLowerCase()
+
   const page = await nacelleClient.content({
-    handles: ['product']
+    handles: ['product', refinedSplitTag ? refinedSplitTag : '']
   })
 
   if (!products.length) {
@@ -271,6 +299,7 @@ const PAGE_QUERY = `
           altText
         }
 			}
+      tags
       metafields {
         id
         key

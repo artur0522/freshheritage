@@ -112,15 +112,11 @@ export function PurchaseFlowProvider({ children }) {
     }
   }, [options, router])
 
-  function saveDataInLocalStorage(data) {
+  useEffect(() => {
+    console.log("options useEffect:", options)
     const saveData = {...data};
     delete saveData.product
     localStorage.setItem('purchase_flow_data', JSON.stringify(saveData))
-  }
-
-  useEffect(() => {
-    console.log("options useEffect:", options)
-    saveDataInLocalStorage(options)
   }, [options])
 
   return (

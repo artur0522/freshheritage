@@ -57,7 +57,7 @@ const SinglePageLayout = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderStatus]);
 
-  return <div className="Checkout">{component}</div>;
+  return component;
 };
 
 export default SinglePageLayout;

@@ -1,7 +1,9 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
+import { useHeadlessCheckoutContext } from './HeadlessCheckoutContext'
 import * as Cookies from 'es-cookie'
 import { useRouter } from 'next/router'
+import { getCartVariant } from 'utils/getCartVariant'
 
 const PurchaseFlowContext = createContext()
 
@@ -12,6 +14,7 @@ export function usePurchaseFlowContext() {
 export function PurchaseFlowProvider({ children }) {
 
   const router = useRouter()
+  const { addItemToOrder } = useHeadlessCheckoutContext()
   const [tierOptions, setTierOptions] = useState([])
   const [options, setOptions] = useState({
     step: 1,
@@ -41,9 +44,21 @@ export function PurchaseFlowProvider({ children }) {
   const selectMembershipPlan = (variantSelected, membershipType) => {
     setOptions({
       ...options,
+      step: 3,
       membership_type: membershipType,
       variantIdSelected: variantSelected.sourceEntryId
     })
+    // add to cart
+    const variant = getCartVariant({
+      product: options.product,
+      variant: variantSelected
+    });
+    addItemToOrder({
+      variant: variant,
+      //properties
+      openFlyout: false
+    })
+    router.push('/checkout')
   }
 
   // on browser back button, reset step back to 1
@@ -75,12 +90,27 @@ export function PurchaseFlowProvider({ children }) {
           })
           purchaseFlowData.product = product[0]
         }
-        console.log("update purchaseFlow options:", purchaseFlowData)
-        setOptions({...purchaseFlowData, is_loaded: true})
       }
+      console.log("update purchaseFlow options:", purchaseFlowData)
+      setOptions({...purchaseFlowData, is_loaded: true})
     }
     updateOptions()
   }, [])
+
+  useEffect(() => {
+    const pages = [
+      '/pages/choose-your-plan',
+      '/pages/customize-your-plan'
+    ]
+    if (pages.includes(router.pathname)) {
+      if (options.step === 1 && router.pathname !== '/pages/choose-your-plan') {
+        router.push('/pages/choose-your-plan')
+      }
+      if (options.step === 2 && router.pathname !== '/pages/customize-your-plan') {
+        router.push('/pages/customize-your-plan')
+      }
+    }
+  }, [options, router])
 
   useEffect(() => {
     console.log("options useEffect:", options)

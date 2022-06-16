@@ -7,8 +7,14 @@ import PurchaseFlowNavigation from './PurchaseFlowNavigation'
 
 const MainNavigation = ({props, setMobileMenuIsOpen, pageHandle}) => {
 
+  let navigationType;
+
+  if (pageHandle === 'purchase-flow' || 'checkout') {
+    navigationType = pageHandle
+  }
+
   return (
-    <nav className={`${classes.mainNavigation} ${pageHandle === 'purchase-flow' ? classes['purchase-flow'] : '' }`}>
+    <nav className={`${classes.mainNavigation} ${navigationType ? classes[navigationType] : '' }`}>
       <div className={`${classes.mainNavContainer} container`}>
         {pageHandle !== 'purchase-flow' &&
           <PrimaryNavigation props={props} classes={classes} setMobileMenuIsOpen={setMobileMenuIsOpen} />

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import CheckoutFlyout from '@/components/HeadlessCheckout/CheckoutFlyout'
-import { useCustomerContext } from './CustomerContext';
+import { useCustomerContext } from './CustomerContext'
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router'
 
@@ -28,17 +28,17 @@ export function HeadlessCheckoutProvider({ children }) {
 
   function transformCustomerData(customer) {
     return {
-        platform_id: customer.id.replace('gid://shopify/Customer/', ''),
-        first_name: customer.firstName,
-        last_name: customer.lastName,
-        email_address: customer.email,
-        accepts_marketing: customer.acceptsMarketing
-      }
+      platform_id: customer.id.replace('gid://shopify/Customer/', ''),
+      first_name: customer.firstName,
+      last_name: customer.lastName,
+      email_address: customer.email,
+      accepts_marketing: customer.acceptsMarketing
+    }
   }
 
   //item exists, updatelineitem instead by incrementing quantity
   //it item doesn't exist, addline item
-  function addItemToOrder({variant, quantity, properties = {}}) {
+  function addItemToOrder({variant, quantity = 1, properties = {}, openFlyout = true}) {
     if (!data) {
       return false;
     }
@@ -58,7 +58,9 @@ export function HeadlessCheckoutProvider({ children }) {
         line_item_properties: properties
       })
     }
-    setFlyoutState(true)
+    if (openFlyout) {
+      setFlyoutState(true)
+    }
   }
 
   async function stylePaymentIframe() {

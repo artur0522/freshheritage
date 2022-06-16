@@ -28,7 +28,7 @@ const Header = ({ content, pageHandle }) => {
       }
       <MainNavigation props={content} setMobileMenuIsOpen={setMobileMenuIsOpen} pageHandle={pageHandle}  />
       {pageHandle !== 'purchaseFlow' &&
-        <MobileMenu props={content} mobileMenuIsOpen={mobileMenuIsOpen} setMobileMenuIsOpen={setMobileMenuIsOpen} />
+        <MobileMenu props={content} mobileMenuIsOpen={mobileMenuIsOpen} setMobileMenuIsOpen={setMobileMenuIsOpen} pageHandle={pageHandle} />
       }
     </header>
   )

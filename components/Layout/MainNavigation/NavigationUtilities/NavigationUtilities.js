@@ -9,6 +9,7 @@ import IconSearch from '@/svgs/search.svg'
 import IconQuestion from '@/svgs/question-circle.svg'
 import IconUser from '@/svgs/user.svg'
 import IconCart from '@/svgs/cart.svg'
+import { useRouter } from 'next/router'
 
 const NavigationUtilities = ({props, classes}) => {
 
@@ -16,6 +17,7 @@ const NavigationUtilities = ({props, classes}) => {
     { minWidth: 1074 }
   )
 
+  const router = useRouter()
   const modalContext = useModalContext()
   const customerContext = useCustomerContext()
   const checkoutContext = useHeadlessCheckoutContext()
@@ -100,7 +102,16 @@ const NavigationUtilities = ({props, classes}) => {
             </CSSTransition>
         </li>
       }
-      <li onClick={() => checkoutContext.setFlyoutState(true)}className={classes.navItem}><IconCart /></li>
+      <li
+        onClick={() => {
+          if (router.pathname === '/checkout') {
+            return
+          }
+          checkoutContext.setFlyoutState(true)
+        }}
+        className={classes.navItem}>
+          <IconCart />
+      </li>
     </ul>
   )
 }

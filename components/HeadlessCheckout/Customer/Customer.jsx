@@ -36,7 +36,7 @@ const MemoizedCustomer = memo(({ customer, logout, modalContext, submitCustomer 
         return (
           <InputField
             className="order-customer__email"
-            placeholder="email"
+            placeholder="Email"
             type="email"
             name="email"
             autoComplete="email"

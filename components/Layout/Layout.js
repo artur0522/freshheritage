@@ -35,17 +35,17 @@ function Layout({ children }) {
 
   return (
     <CustomerProvider>
-      <PurchaseFlowProvider>
-        <PDPDrawerProvider>
-          <ModalProvider>
-            <HeadlessCheckoutProvider>
+      <HeadlessCheckoutProvider pageHandle={children.props.handle}>
+        <PurchaseFlowProvider>
+          <PDPDrawerProvider>
+            <ModalProvider>
               <Header content={headerSettings} pageHandle={children.props.handle} />
               <main>{children}</main>
               <Footer content={footerSettings} />
-            </HeadlessCheckoutProvider>
-          </ModalProvider>
-        </PDPDrawerProvider>
-      </PurchaseFlowProvider>
+            </ModalProvider>
+          </PDPDrawerProvider>
+        </PurchaseFlowProvider>
+      </HeadlessCheckoutProvider>
     </CustomerProvider>
   )
 }

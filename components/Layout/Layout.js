@@ -1,6 +1,3 @@
-import { useCart } from '@nacelle/react-hooks'
-import { useState, useEffect } from 'react'
-import { nacelleClient } from 'services'
 import { ModalProvider } from '@/context/ModalContext'
 import { PDPDrawerProvider } from '@/context/PDPDrawerContext'
 import { CustomerProvider } from '@/context/CustomerContext'
@@ -15,23 +12,7 @@ import Footer from '@/components/Layout/Footer'
 // checkout is completed.
 // https://github.com/getnacelle/nacelle-react/tree/main/packages/react-hooks
 
-function Layout({ children }) {
-  const [, { clearCart }] = useCart()
-
-  const [headerSettings, setHeaderSettings] = useState(null)
-  const [footerSettings, setFooterSettings] = useState(null)
-
-  useEffect(() => {
-    async function getContent() {
-      const contentEntry = await nacelleClient.content({
-        handles: ['header-settings', 'footer-settings']
-      })
-      // console.log("contentEntry:", contentEntry)
-      setHeaderSettings(contentEntry[0].fields)
-      setFooterSettings(contentEntry[1].fields)
-    }
-    getContent()
-  }, [])
+function Layout({ children, headerSettings, footerSettings }) {
 
   return (
     <HeadlessCheckoutProvider>

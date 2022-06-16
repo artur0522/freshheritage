@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { StateBasedCheckout } from '../Checkout/StateBasedCheckout';
+import { StateBasedCheckout } from './StateBasedCheckout';
 
-const Checkout = ({data}) => {
+const CheckoutContent = ({data}) => {
 
   if (data?.application_state?.line_items.length > 0) {
     return (
@@ -24,4 +24,4 @@ const Checkout = ({data}) => {
   }
 };
 
-export default Checkout;
+export default CheckoutContent;

@@ -42,6 +42,12 @@ export function HeadlessCheckoutProvider({ children }) {
     if (!data) {
       return false;
     }
+
+    variant.selectedOptions.forEach(option => {
+      if (option.name === 'frequency') properties.frequency = option.value
+      if (option.name === 'preference') properties.preference = option.value
+    })
+
     const variantId = variant.id.replace('gid://shopify/ProductVariant/', '')
     const { line_items } = data.application_state
     const foundLineItem = line_items.find(item => item.product_data.id.includes(variantId))
@@ -55,7 +61,9 @@ export function HeadlessCheckoutProvider({ children }) {
         platform_id: variantId,
         quantity: quantity,
         line_item_key: uuidv4(),
-        line_item_properties: properties
+        line_item_properties: {
+          ...properties,
+        }
       })
     }
     if (openFlyout) {

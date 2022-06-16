@@ -1,3 +1,3 @@
-import Checkout from './Checkout'
+import CheckoutContent from './CheckoutContent'
 
-export default Checkout
+export default CheckoutContent

@@ -1,4 +1,4 @@
-import Checkout from '@/components/HeadlessCheckout/Checkout'
+import CheckoutContent from '@/components/HeadlessCheckout/Checkout/CheckoutContent'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import { useHeadlessCheckoutContext} from '@/context/HeadlessCheckoutContext'
 
@@ -13,7 +13,7 @@ const CheckoutPage = () => {
   return (
     <div className="checkout-page">
       <div className="container">
-        <Checkout data={data} />
+        <CheckoutContent data={data} />
       </div>
     </div>
   )

@@ -20,7 +20,7 @@ const MemoizedLineItems = memo(({
   return (
     <div className="order-item-list">
       {lineItems.map(item => (
-          <LineItemProduct readOnly={readOnly} item={item.product_data} key={item.product_data.line_item_key} >
+          <LineItemProduct readOnly={readOnly} item={item.product_data} key={item.product_data.line_item_key}>
             {item.product_data.tags.includes("Subscription Box") && !readOnly &&
               <div className="order-item__disclaimer">
                 <h3>Membership Info</h3>

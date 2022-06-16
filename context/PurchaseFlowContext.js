@@ -55,7 +55,10 @@ export function PurchaseFlowProvider({ children }) {
     });
     addItemToOrder({
       variant: variant,
-      //properties
+      properties: {
+        membership_type: membershipType,
+        shipments: '12'
+      },
       openFlyout: false
     })
     router.push('/checkout')
@@ -68,6 +71,13 @@ export function PurchaseFlowProvider({ children }) {
         setOptions({
           ...options,
           step: 1,
+          is_loaded: true
+        })
+      }
+      if (as.includes('/pages/customize-your-plan') && router.asPath === '/checkout') {
+        setOptions({
+          ...options,
+          step: 2,
           is_loaded: true
         })
       }

@@ -3,7 +3,7 @@ import classes from './CheckoutFlyout.module.scss';
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
 import { CSSTransition } from 'react-transition-group';
 import IconClose from '@/svgs/close.svg';
-import Checkout from '../Checkout/checkout';
+import CheckoutContent from '../Checkout/CheckoutContent';
 
 const CheckoutFlyout = () => {
   const nodeRef = useRef(null);
@@ -45,7 +45,7 @@ const CheckoutFlyout = () => {
           <button
             onClick={() => closeDrawer()}
             className={classes['checkout-flyout__close-btn']}><IconClose /></button>
-          <Checkout data={data} />
+          <CheckoutContent data={data} />
         </div>
       </CSSTransition>
     </div>

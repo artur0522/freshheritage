@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import ReactHtmlParser from 'react-html-parser'
 import * as Cookies from 'es-cookie';
 
@@ -7,8 +7,12 @@ import IconClose from '@/svgs/close.svg'
 
 const PrimaryAnnouncement = ({props}) => {
 
-  const hidePrimaryAnnoucement = Cookies.get('hidePrimaryAnnoucement')
-  const [show, setShow] = useState(hidePrimaryAnnoucement == 'true' ? false : true)
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    const hidePrimaryAnnoucement = Cookies.get('hidePrimaryAnnoucement')
+    setShow(hidePrimaryAnnoucement == 'true' ? false : true)
+  }, []);
 
   const removeAnnoucemet = () => {
     setShow(!show)

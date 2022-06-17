@@ -116,7 +116,7 @@ const ConfirmationPage = () => {
           </div>
         </div>
         <div className="checkout__navigation">
-          <button class="checkout__cta-btn btn sitkablue">Continue Shopping</button>
+          <button className="checkout__cta-btn btn sitkablue">Continue Shopping</button>
         </div>
       </div>
     </>

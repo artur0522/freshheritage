@@ -50,6 +50,17 @@
       min-width: 166px;
     }
   }
+  .order-item__delivery.hide-on-mobile {
+    flex-direction: column;
+    li {
+      border: none;
+      margin: 5px 0;
+      padding: 0;
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
 }
 
 .checkout__layout {

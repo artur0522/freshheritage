@@ -43,8 +43,8 @@ const LineItemProduct = ({ item, children, readOnly }) => {
         <div className="order-item__image">
           <ResponsiveImage src={item.image_url} alt={item.product_title} />
         </div>
-        <div className="order-item__details">
 
+        <div className="order-item__details">
           <div className="order-item__detail-item">
             <h3 className="order-item__title">{item.product_title}</h3>
             <div className="order-item__price">
@@ -84,7 +84,7 @@ const LineItemProduct = ({ item, children, readOnly }) => {
                 </button>
               </div>
             )}
-            {item.tags.includes("Subscription Box") &&
+            {item.properties.membership_type &&
               <ul className="order-item__delivery hide-on-mobile">
                 {item.properties.membership_type === 'prepaid' &&
                   <li>{item.properties.shipments} {item.properties.shipments === 1 ? 'delivery' : 'deliveries'} prepaid</li>
@@ -96,9 +96,9 @@ const LineItemProduct = ({ item, children, readOnly }) => {
               </ul>
             }
           </div>
+       </div>
       </div>
 
-      </div>
       {item.tags.includes("Subscription Box") &&
         <div className="order-item__mobile">
           <div className="checkout__row">

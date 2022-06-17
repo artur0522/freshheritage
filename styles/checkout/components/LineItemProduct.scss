@@ -157,6 +157,7 @@
   margin-bottom: 5px;
   width: 100%;
   &:last-child {
+    align-items: flex-end;
     margin-top: auto;
     margin-bottom: 0;
   }
@@ -171,6 +172,7 @@
     margin-right: 10px;
     padding-right: 10px;
     border-right: 1px solid $black10;
+    text-align: right;
     &:last-child {
       margin-right: 0;
       padding-right: 0;

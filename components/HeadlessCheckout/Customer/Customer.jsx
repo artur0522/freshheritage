@@ -50,7 +50,6 @@ const MemoizedCustomer = memo(({ customer, logout, modalContext, submitCustomer 
   }
 
   useEffect(() => {
-    console.log("hi:", customer?.email)
     if (customer?.email) {
       setAccountFormType('default')
       submitCustomer({

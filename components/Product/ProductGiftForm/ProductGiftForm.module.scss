@@ -37,17 +37,20 @@
 
     &__buttons {
         display: flex;
-        justify-content: space-between;
         flex-wrap: wrap;
 
         @include breakpoint-up('md') {
             width: 76.52%;
+            justify-content: space-between;
         }
 
         .btn {
             margin-right: 10px;
             display: flex;
-            width: 18.44%;
+
+            @include breakpoint-up('md') {
+                width: 18.44%;
+            }
         }
 
         input[type=radio] {
@@ -85,6 +88,11 @@
     @include breakpoint-up('md') {
         margin-bottom: 57px;
         margin-top: 30px;
+    }
+
+    .quantity {
+        visibility: hidden;
+        height: 0;
     }
 
     // gift__info-header

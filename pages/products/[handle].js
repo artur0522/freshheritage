@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useCart } from '@nacelle/react-hooks'
 import { nacelleClient } from 'services'
-import { getSelectedVariant } from 'utils/getSelectedVariant'
-import { getCartVariant } from 'utils/getCartVariant'
 import { useMediaQuery } from 'react-responsive'
 import ResponsiveImage from '@/components/ResponsiveImage'
 
@@ -17,14 +14,17 @@ import ProductGiftForm from '@/components/Product/ProductGiftForm'
 import classes from './Product.module.scss'
 
 function Product({ product, page }) {
-  const [, { addToCart }] = useCart()
-  const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
-  const [selectedOptions, setSelectedOptions] = useState(
-    selectedVariant.content.selectedOptions
-  )
-  const [quantity, setQuantity] = useState(1)
   const [checked, setChecked] = useState(false)
+  const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
+  
   const handle = product.content.handle
+  const productAccordionHeaders = page[0].fields.content.find(block => block._type === 'productAccordionHeaders')
+  const accordionDeliveryHeader = productAccordionHeaders?.details
+  const productDescription = product.content.description
+  const accordionDescriptionHeader = productAccordionHeaders?.description
+  const deliveryDetails = product.metafields.find(metafield => metafield.key === 'delivery_details')
+  const deliveryDetailsList = deliveryDetails ? JSON.parse(deliveryDetails.value) : null
+  const stampSection = page[0].fields.content.find(field => field._type === 'stamps')
 
   const modalContext = useModalContext()
   const customerContext = useCustomerContext()
@@ -59,63 +59,7 @@ function Product({ product, page }) {
   const handleCheckbox = () => {
     setChecked(!checked);
   };
-
-  let options = null
-  if (product?.content?.options?.some((option) => option.values.length > 1)) {
-    options = product?.content?.options
-  }
   
-  const productAccordionHeaders = page[0].fields.content.find(block => block._type === 'productAccordionHeaders')
-  const accordionDeliveryHeader = productAccordionHeaders?.details
-  const accordionDescriptionHeader = productAccordionHeaders?.description
-  const deliveryDetails = product.metafields.find(metafield => metafield.key === 'delivery_details')
-  const deliveryDetailsList = deliveryDetails ? JSON.parse(deliveryDetails.value) : null
-  const stampSection = page[0].fields.content.find(field => field._type === 'stamps')
-
-  const buttonText = selectedVariant
-    ? selectedVariant.availableForSale
-      ? 'Add To Cart'
-      : 'Sold Out'
-    : 'Select Option'
-
-  const handleOptionChange = (event, option) => {
-    const newOption = { name: option.name, value: event.target.value }
-    const optionIndex = selectedOptions.findIndex((selectedOption) => {
-      return selectedOption.name === newOption.name
-    })
-
-    const newSelectedOptions = [...selectedOptions]
-    if (optionIndex > -1) {
-      newSelectedOptions.splice(optionIndex, 1, newOption)
-      setSelectedOptions([...newSelectedOptions])
-    } else {
-      setSelectedOptions([...newSelectedOptions, newOption])
-    }
-    const variant = getSelectedVariant({
-      product,
-      options: newSelectedOptions
-    })
-    setSelectedVariant(variant ? { ...variant } : null)
-  }
-
-  const handleQuantityChange = (event) => {
-    setQuantity(+event.target.value)
-  }
-
-  // Get product data and add it to the cart by using `addToCart`
-  // from the `useCart` hook provided by `@nacelle/react-hooks`.
-  // (https://github.com/getnacelle/nacelle-react/tree/main/packages/react-hooks)
-  const handleAddItem = () => {
-    const variant = getCartVariant({
-      product,
-      variant: selectedVariant
-    })
-    addToCart({
-      variant,
-      quantity
-    })
-  }
-
   return (
     product && (
       <div className={classes['product']}>
@@ -157,32 +101,12 @@ function Product({ product, page }) {
                 </div>
                     
                 {/* GIFT FORM */}
-                <ProductGiftForm checked={checked} handle={handle} />
-                
-                {/* VARIANT OPTIONS */}
-                {options &&
-                  options.map((option, oIndex) => (
-                    <div key={oIndex}>
-                      <label htmlFor={`select-${oIndex}-${product.id}`}>
-                        {option.name}
-                      </label>
-                      <select
-                        id={`select-${oIndex}-${product.id}`}
-                        onChange={($event) => handleOptionChange($event, option)}
-                      >
-                        {option.values.map((value, vIndex) => (
-                          <option key={vIndex} value={value}>
-                            {value}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  ))}
+                <ProductGiftForm checked={checked} handle={handle} product={product} setSelectedVariant={setSelectedVariant} selectedVariant={selectedVariant} />
 
                 {/* ACCORDION */}
                 {deliveryDetailsList && <div className={classes['accordion']}>
-                  <ProductAccordion header={accordionDescriptionHeader}  content={deliveryDetailsList} />
-                  <ProductAccordion header={accordionDeliveryHeader}  content={deliveryDetailsList} />
+                  <ProductAccordion stuff={productAccordionHeaders} header={accordionDescriptionHeader}  description={productDescription} />
+                  <ProductAccordion stuff={productAccordionHeaders} header={accordionDeliveryHeader}  contentList={deliveryDetailsList} />
                 </div>}
 
                 {/* STAMPS */}
@@ -311,6 +235,7 @@ const PAGE_QUERY = `
         weight
         content{
           title
+          variantEntryId
           selectedOptions{
             name
             value

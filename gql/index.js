@@ -66,3 +66,70 @@ export const CUSTOMER_RESET = `mutation customerReset($id: ID!, $input: Customer
     }
   }
 }`
+
+export const GET_PRODUCTS = `query products($filter: ProductFilterInput) {
+  products(filter: $filter){
+    nacelleEntryId
+    sourceEntryId
+    sourceId
+    availableForSale
+    productType
+    tags
+    content {
+      nacelleEntryId
+      sourceEntryId
+      sourceId
+      handle
+      title
+      description
+      metafields {
+        namespace
+        value
+        key
+      }
+      options {
+        name
+        values
+      }
+      featuredMedia {
+        src
+        thumbnailSrc
+        altText
+      }
+      media {
+        id
+        src
+        thumbnailSrc
+        altText
+      }
+    }
+    variants {
+      nacelleEntryId
+      sourceEntryId
+      sku
+      availableForSale
+      price
+      compareAtPrice
+      weight
+      productHandle
+      quantityAvailable
+      metafields {
+        namespace
+        value
+        key
+      }
+      content {
+        title
+        selectedOptions {
+          name
+          value
+        }
+        featuredMedia {
+          src
+          thumbnailSrc
+          altText
+        }
+      }
+    }
+  }
+}`;

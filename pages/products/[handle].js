@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
-import Image from 'next/image'
+import { useState, useEffect } from 'react'
 import { useCart } from '@nacelle/react-hooks'
 import { nacelleClient } from 'services'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
@@ -16,18 +15,15 @@ import ProductAccordion from '../../components/Product/ProductAccordion'
 import ProductGiftForm from '@/components/Product/ProductGiftForm'
 
 import classes from './Product.module.scss'
-import { useCustomer } from '@boldcommerce/checkout-react-components'
 
 function Product({ product, page }) {
-  console.log('page', page)
-  console.log('product', product)
   const [, { addToCart }] = useCart()
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
   const [selectedOptions, setSelectedOptions] = useState(
     selectedVariant.content.selectedOptions
   )
   const [quantity, setQuantity] = useState(1)
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(false)
   const handle = product.content.handle
 
   const modalContext = useModalContext()
@@ -54,7 +50,7 @@ function Product({ product, page }) {
       modalContext.setIsOpen(true)
       modalContext.setModalType('gated_product')
     }
-  }, [customer])
+  })
   
   const isDesktop = useMediaQuery(
     { minWidth: 1074 }
@@ -68,7 +64,7 @@ function Product({ product, page }) {
   if (product?.content?.options?.some((option) => option.values.length > 1)) {
     options = product?.content?.options
   }
-
+  
   const productAccordionHeaders = page[0].fields.content.find(block => block._type === 'productAccordionHeaders')
   const accordionDeliveryHeader = productAccordionHeaders?.details
   const accordionDescriptionHeader = productAccordionHeaders?.description
@@ -131,6 +127,7 @@ function Product({ product, page }) {
              
               <div className={classes['main']}>
                 <ProductReviewStars />
+
                 {product.content.title && <h1 className={classes['product-title']}>{product.content.title}</h1>}
 
                 {handle !== 'digital-gift-card' && <div className={classes['prices']}>
@@ -182,14 +179,12 @@ function Product({ product, page }) {
                     </div>
                   ))}
 
-
                 {/* ACCORDION */}
                 {deliveryDetailsList && <div className={classes['accordion']}>
                   <ProductAccordion header={accordionDescriptionHeader}  content={deliveryDetailsList} />
                   <ProductAccordion header={accordionDeliveryHeader}  content={deliveryDetailsList} />
                 </div>}
 
-               
                 {/* STAMPS */}
                 <div className={classes['product-stamps']}>
                   {isDesktop &&

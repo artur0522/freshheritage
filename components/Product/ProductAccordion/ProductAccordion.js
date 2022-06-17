@@ -8,7 +8,6 @@ import classes from "./ProductAccordion.module.scss"
 const ProductAccordion = (props) => {
     const { header, content } = props
     const [isAccordionActive, setIsAccordionActive] = useState(false)
-    const [isDeliveryAccordionActive, setIsDeliveryAccordionActive] = useState(false)
 
     console.log(props)
 

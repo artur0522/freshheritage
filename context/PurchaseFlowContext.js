@@ -41,7 +41,7 @@ export function PurchaseFlowProvider({ children }) {
   }
 
   // step 2 - selecting membership and frequency variant option
-  const selectMembershipPlan = (variantSelected, membershipType) => {
+  const selectMembershipPlan = async (variantSelected, membershipType) => {
     setOptions({
       ...options,
       step: 3,
@@ -53,7 +53,7 @@ export function PurchaseFlowProvider({ children }) {
       product: options.product,
       variant: variantSelected
     });
-    addItemToOrder({
+    await addItemToOrder({
       variant: variant,
       properties: {
         membership_type: membershipType,
@@ -61,7 +61,9 @@ export function PurchaseFlowProvider({ children }) {
       },
       openFlyout: false
     })
-    router.push('/checkout')
+    .then(() => {
+      router.push('/checkout')
+    })
   }
 
   // on browser back button, reset step back to 1

@@ -36,33 +36,63 @@ export function HeadlessCheckoutProvider({ children }) {
     }
   }
 
-  //item exists, updatelineitem instead by incrementing quantity
-  //it item doesn't exist, addline item
-  function addItemToOrder({variant, quantity = 1, properties = {}, openFlyout = true}) {
+  async function addNewSubscription(currSubscription, newSubscription) {
+    const removedCurrSubscriptionResponse = await removeLineItem({
+      line_item_key: currSubscription.product_data.line_item_key
+    })
+    const addedNewSubscriptionResponse = await addLineItem(newSubscription)
+    console.log("replaced current subscription with new subscription")
+  }
+
+  async function addItemToOrder({variant, quantity = 1, properties = {}, openFlyout = true}) {
     if (!data) {
       return false;
     }
 
-    variant.selectedOptions.forEach(option => {
-      if (option.name === 'frequency') properties.frequency = option.value
-      if (option.name === 'preference') properties.preference = option.value
+    const newItem = {
+      variant,
+      variantId: variant.id.replace('gid://shopify/ProductVariant/', ''),
+      quantity,
+      properties
+    }
+
+    // variant names need to be line item properties to render correctly in checkout
+    newItem.variant.selectedOptions.forEach(option => {
+      if (option.name === 'frequency') newItem.properties.frequency = option.value
+      if (option.name === 'preference') newItem.properties.preference = option.value
     })
 
-    const variantId = variant.id.replace('gid://shopify/ProductVariant/', '')
     const { line_items } = data.application_state
-    const foundLineItem = line_items.find(item => item.product_data.id.includes(variantId))
-    if (foundLineItem) {
-      updateLineItem({
-        quantity: foundLineItem.product_data.quantity + quantity,
+    const foundLineItem = line_items.find(item => item.product_data.id.includes(newItem.variantId))
+    const foundSubscriptionItem = line_items.find(item => item.product_data.properties.membership_type)
+
+    if (newItem.properties.membership_type && foundSubscriptionItem) {
+      // if new item is a subscription and if there's a line item that is a subscription, replace it by removing it and then adding the new item
+      const response = await addNewSubscription(foundSubscriptionItem, {
+        platform_id: newItem.variantId,
+        quantity: newItem.quantity,
+        line_item_key: uuidv4(),
+        line_item_properties: {
+          ...newItem.properties,
+        }
+      })
+    } else if (foundLineItem) {
+      // if item exists, updatelineitem instead by incrementing quantity
+        // TODO: if line item and new item is the same but has different properties,
+        // (not subscription since the rule is to have only 1 subscription product per order)
+        // then add a new line item instead.
+      const response = await updateLineItem({
+        quantity: foundLineItem.product_data.quantity + newItem.quantity,
         line_item_key: foundLineItem.product_data.line_item_key
       })
     } else {
-      addLineItem({
-        platform_id: variantId,
-        quantity: quantity,
+      // if item doesn't exist, addline item
+      const response = await addLineItem({
+        platform_id: newItem.variantId,
+        quantity: newItem.quantity,
         line_item_key: uuidv4(),
         line_item_properties: {
-          ...properties,
+          ...newItem.properties,
         }
       })
     }
@@ -247,6 +277,7 @@ export function HeadlessCheckoutProvider({ children }) {
       ...data,
       application_state: updatedData.data.application_state
     })
+    return updatedData
   }
 
   async function addLineItem(payload) {
@@ -277,6 +308,7 @@ export function HeadlessCheckoutProvider({ children }) {
       ...data,
       application_state: updatedData.data.application_state
     })
+    return updatedData
   }
 
   async function removeLineItem(payload) {
@@ -306,6 +338,7 @@ export function HeadlessCheckoutProvider({ children }) {
       ...data,
       application_state: updatedData.data.application_state
     })
+    return updatedData
   }
 
   // this keeps closing the flyout since the route changes on processing order

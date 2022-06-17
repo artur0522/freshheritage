@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useCart } from '@nacelle/react-hooks'
-import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
+import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
 import { getCartVariant } from 'utils/getCartVariant'
 
@@ -13,9 +13,11 @@ const defaultFormFields = {
 }
 
 const ProductGiftForm = (props) => {
-    const { addItemToOrder } = useHeadlessCheckoutContext();
+    const { addItemToOrder } = useHeadlessCheckoutContext()
     const { checked, handle, product, selectedVariant, setSelectedVariant } = props
     const [formFields, setFormFields] = useState(defaultFormFields)
+
+    console.log('selectedvar', selectedVariant)
 
     const [, { addToCart }] = useCart()
     const [selectedOptions, setSelectedOptions] = useState(
@@ -29,9 +31,7 @@ const ProductGiftForm = (props) => {
       options = product?.content?.options
     }
 
-    console.log(selectedVariant)
-
-    const handleChange = (event) => {
+    const handleGiftInfo = (event) => {
         const {name, value} = event.target
         setFormFields({...formFields, [name]:value })
     }
@@ -72,13 +72,12 @@ const ProductGiftForm = (props) => {
         const variant = getCartVariant({
             product,
             variant: selectedVariant
-        });
+        })
 
         addItemToOrder({
             variant,
             quantity,
-            properties: null,
-            gift_properties: formFields
+            properties: formFields
         })
 
         // EXAMPLE: addItemToOrder({
@@ -127,7 +126,6 @@ const ProductGiftForm = (props) => {
                             </div>))
                         ))      
                     }
-                   
                 </div>
             </div>}
 
@@ -143,15 +141,15 @@ const ProductGiftForm = (props) => {
             {checked && <div className={classes['form__inner']}>
                 <div className={classes['form__col']}>
                     <label className="secondary--body" htmlFor="email">Email Address</label>
-                    <input type="email" id="email" name="recipient_email" className="secondary--body" onChange={handleChange} value={recipient_email} />
+                    <input type="email" id="email" name="recipient_email" className="secondary--body" onChange={handleGiftInfo} value={recipient_email} />
                 </div>
                 <div className={classes['form__col']}>
                     <label className="secondary--body" htmlFor="name">Recipient's Name</label>
-                    <input type="text" id="name" name="recipient_name" className="secondary--body" onChange={handleChange} value={recipient_name} />
+                    <input type="text" id="name" name="recipient_name" className="secondary--body" onChange={handleGiftInfo} value={recipient_name} />
                 </div>
                 {handle === 'digital-gift-card' && <div className={`${classes['form__col']} ${classes['textarea']}`}>
                     <label className="secondary--body" htmlFor="message">Message</label>
-                    <textarea type="text" id="message" name="gift_message" maxLength="250" className="secondary--body" onChange={handleChange} value={gift_message} />
+                    <textarea type="text" id="message" name="gift_message" maxLength="250" className="secondary--body" onChange={handleGiftInfo} value={gift_message} />
                     <p className="disclaimer">*Digital giftcard will be delivered to recipient via email one day after purchase and will include your gift message! </p>
                 </div>}
             </div>}

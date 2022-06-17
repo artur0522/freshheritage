@@ -35,16 +35,19 @@ function Product({ product, page }) {
       setChecked(true)
     }
 
-    const foundVisibleTag = product.tags.find(tag => tag.includes('Visible'));
-    const splitTag = foundVisibleTag?.split(':')[1]
+    const foundVisibleTags = product.tags.filter(tag => tag.includes('Visible'));
+
+    const splitTag = foundVisibleTags[0]?.split(':')[1]
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
     const refinedSplitTag = splitTag?.replace(/\s/g, '').toLowerCase()
 
     const foundTag = customer?.tags.find((tag) => {
       return tag.replace(/\s/g, '').toLowerCase() === refinedSplitTag 
     })
+
+    console.log(foundTags)
     
-    if(foundVisibleTag && customer && foundTag) {
+    if(foundVisibleTags.length > 0 && customer && !foundTag) {
       const gatedPopup = page.find(field => field.handle === splitTagWithDash)
       modalContext.setContent(gatedPopup.fields)
       modalContext.setIsOpen(true)

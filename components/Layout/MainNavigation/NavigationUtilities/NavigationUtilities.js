@@ -22,6 +22,7 @@ const NavigationUtilities = ({props, classes}) => {
   const customerContext = useCustomerContext()
   const checkoutContext = useHeadlessCheckoutContext()
 
+  const [mounted, setMounted] = useState(false);
   const [showCustomerServiceInfo, setShowCustomerServiceInfo] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const nodeRef = useRef(null)
@@ -39,9 +40,13 @@ const NavigationUtilities = ({props, classes}) => {
     isHovered ? setShowCustomerServiceInfo(true) : setShowCustomerServiceInfo(false)
   }, [isHovered])
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <ul className={[classes.navItems, classes.navUtilities].join(' ')}>
-      {isDesktop &&
+      {mounted && isDesktop &&
         <>
           <li className={classes.navItem}>
             <Link href={navCTA.ctaUrl ? navCTA.ctaUrl : ''}>
@@ -66,7 +71,7 @@ const NavigationUtilities = ({props, classes}) => {
           </button>
         )}
       </li>
-      {isDesktop &&
+      {mounted && isDesktop &&
         <li
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}

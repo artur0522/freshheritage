@@ -303,10 +303,10 @@
     }
   }
   .input-group {
-    height: 48px;
+    // height: 48px;
     margin-bottom: 12px;
     @include breakpoint-up('sm') {
-      height: 60px;
+      // height: 60px;
     }
   }
 }

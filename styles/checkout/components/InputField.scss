@@ -34,9 +34,12 @@
   }
 
   &__label {
-    font-size: 18px;
+    font-size: 14px;
     display: block;
     margin-bottom: 8px;
+    @include breakpoint-up('sm') {
+      font-size: 18px;
+    }
   }
 
   &__message {

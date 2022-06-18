@@ -75,6 +75,22 @@
   }
 }
 
+.order-item__remove-btn {
+  display: inline-flex;
+  padding: 2px;
+  background-color: $pureWhite;
+  border: none;
+  margin-top: 5px;
+  svg {
+    width: 10px;
+    height: 10px;
+    @include breakpoint-up('sm') {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
 .order-item__description {
   font-size: 12px;
   @include breakpoint-up('sm') {
@@ -157,9 +173,10 @@
   margin-bottom: 5px;
   width: 100%;
   &:last-child {
-    align-items: flex-end;
+    align-items: flex;
     margin-top: auto;
     margin-bottom: 0;
+    text-align: right;
   }
 }
 
@@ -197,6 +214,33 @@
     font-size: 12px;
     div:first-child {
       font-weight: 500;
+      padding-right: 20px;
+    }
+  }
+}
+
+.order-item__gift-details {
+  border-top: 1px solid $black10;
+  margin-top: 20px;
+  .checkout__row {
+    padding: 12px 0;
+    &:last-child {
+      border: none;
+      margin-bottom: -15px;
+      @include breakpoint-up('sm') {
+        margin-bottom: -25px;
+      }
+    }
+  }
+  .order-item__detail-item {
+    font-size: 12px;
+    > div:first-child {
+      font-size: 12px;
+      font-weight: 500;
+      padding-right: 20px;
+      @include breakpoint-up('sm') {
+        font-size: 14px;
+      }
     }
   }
 }

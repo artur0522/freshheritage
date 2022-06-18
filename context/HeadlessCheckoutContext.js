@@ -3,6 +3,7 @@ import CheckoutFlyout from '@/components/HeadlessCheckout/CheckoutFlyout'
 import { useCustomerContext } from './CustomerContext'
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router'
+import { isEqual } from 'lodash-es';
 
 const HeadlessCheckoutContext = createContext()
 
@@ -36,24 +37,39 @@ export function HeadlessCheckoutProvider({ children }) {
     }
   }
 
-  async function addNewSubscription(currSubscription, newSubscription) {
+  async function addNewSubscription(curr_subscription, new_subscription) {
     const removedCurrSubscriptionResponse = await removeLineItem({
-      line_item_key: currSubscription.product_data.line_item_key
+      line_item_key: curr_subscription.product_data.line_item_key
     })
-    const addedNewSubscriptionResponse = await addLineItem(newSubscription)
+    const addedNewSubscriptionResponse = await addLineItem(new_subscription)
     console.log("replaced current subscription with new subscription")
   }
 
-  async function addItemToOrder({variant, quantity = 1, properties = {}, openFlyout = true}) {
+  async function addItemToOrder({variant, quantity = 1, properties = {}, open_flyout = true}) {
+
     if (!data) {
       return false;
     }
+
+    /* sample data for properties
+      properties {
+        is_gift_order, // optional -> to determine if email, name and message should be added as order metadata instead of line item properties
+        membership_type: // required for subscriptions -> 'regular' or 'prepaid'
+        shipments,  // required for subscriptions -> '1', '3', '6', '12' -> !String
+        recipient_email // optional, but required for digital gift cards
+        recipient_name, // optional
+        recipient_message // optional
+      }
+    */
 
     const newItem = {
       variant,
       variantId: variant.id.replace('gid://shopify/ProductVariant/', ''),
       quantity,
-      properties
+      properties: {
+        ...properties,
+        product_handle: variant.productHandle // because Bold doesn't provide product handle
+      }
     }
 
     // variant names need to be line item properties to render correctly in checkout
@@ -65,6 +81,8 @@ export function HeadlessCheckoutProvider({ children }) {
     const { line_items } = data.application_state
     const foundLineItem = line_items.find(item => item.product_data.id.includes(newItem.variantId))
     const foundSubscriptionItem = line_items.find(item => item.product_data.properties.membership_type)
+    const isGiftOrder = newItem.properties.is_gift_order && newItem.properties.productHandle !== 'digital-gift-card'
+
 
     if (newItem.properties.membership_type && foundSubscriptionItem) {
       // if new item is a subscription and if there's a line item that is a subscription, replace it by removing it and then adding the new item
@@ -76,11 +94,8 @@ export function HeadlessCheckoutProvider({ children }) {
           ...newItem.properties,
         }
       })
-    } else if (foundLineItem) {
+    } else if (foundLineItem && isEqual(foundLineItem.product_data.properties, newItem.properties) && newItem.properties.product_handle != 'digital-gift-card') {
       // if item exists, updatelineitem instead by incrementing quantity
-        // TODO: if line item and new item is the same but has different properties,
-        // (not subscription since the rule is to have only 1 subscription product per order)
-        // then add a new line item instead.
       const response = await updateLineItem({
         quantity: foundLineItem.product_data.quantity + newItem.quantity,
         line_item_key: foundLineItem.product_data.line_item_key
@@ -92,13 +107,26 @@ export function HeadlessCheckoutProvider({ children }) {
         quantity: newItem.quantity,
         line_item_key: uuidv4(),
         line_item_properties: {
-          ...newItem.properties,
+          ...newItem.properties
         }
       })
     }
-    if (openFlyout) {
+    if (open_flyout) {
       setFlyoutState(true)
     }
+
+    if (isGiftOrder) {
+      const response = await updateOrderMetaData({
+        note_attributes: {
+          is_gift_order: newItem.properties.is_gift_order,
+          recipient_email: newItem.properties.recipient_email,
+          recipient_name: newItem.properties.recipient_name,
+          gift_message: newItem.properties.gift_message
+        }
+      })
+    }
+
+    return true
   }
 
   async function stylePaymentIframe() {
@@ -250,6 +278,31 @@ export function HeadlessCheckoutProvider({ children }) {
     }
   }
 
+  async function updateOrderMetaData(payload) {
+    console.log(payload)
+    const { jwt, public_order_id } = JSON.parse(
+      localStorage.getItem('checkout_data'),
+    )
+    const response = await fetch(
+      `https://api.boldcommerce.com/checkout/storefront/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/${public_order_id}/meta_data`,
+      {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json',
+        },
+        method: 'PATCH',
+        body: JSON.stringify(payload),
+      },
+    )
+    const updatedData = await response.json()
+    console.log('update meta data', updatedData)
+    setData({
+      ...data,
+      application_state: updatedData.data.application_state
+    })
+    return updatedData
+  }
+
   async function updateLineItem(payload) {
     // payload example
     //   {
@@ -383,6 +436,7 @@ export function HeadlessCheckoutProvider({ children }) {
         flyoutState,
         setFlyoutState,
         addItemToOrder,
+        updateOrderMetaData,
         PIGIMediaRules
       }}
     >

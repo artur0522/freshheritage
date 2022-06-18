@@ -1,7 +1,8 @@
 import React, { memo, useState, useEffect } from 'react';
-import { useCustomer } from '@boldcommerce/checkout-react-components';
+import { useCustomer, useOrderMetadata } from '@boldcommerce/checkout-react-components';
 import { useCustomerContext } from '@/context/CustomerContext'
 import { useModalContext } from '@/context/ModalContext'
+import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
 import { InputField } from '../InputField';
 import { useTranslation } from 'react-i18next';
 import IconSelectArrow from '@/svgs/select-arrow.svg'
@@ -9,19 +10,21 @@ import IconCheckmark from '@/svgs/checkmark.svg'
 import Checkbox from "react-custom-checkbox";
 import LoginAccountForm from '@/components/Forms/LoginAccountForm'
 import ForgotPasswordForm from '@/components/Forms/ForgotPasswordForm'
+import { GiftOrder } from '../GiftOrder';
 
 const Customer = () => {
   const { submitCustomer } = useCustomer();
   const { customer: data, logout } = useCustomerContext()
+  const { data: orderMetaData } = useOrderMetadata()
   const modalContext = useModalContext()
-  return <MemoizedCustomer customer={data} logout={logout} submitCustomer={submitCustomer} modalContext={modalContext} />;
+  return <MemoizedCustomer customer={data} orderMetaData={orderMetaData} logout={logout} submitCustomer={submitCustomer} modalContext={modalContext} />;
 };
 
-const MemoizedCustomer = memo(({ customer, logout, modalContext, submitCustomer }) => {
+const MemoizedCustomer = memo(({ customer, orderMetaData, logout, modalContext, submitCustomer }) => {
   const [email, setEmail] = useState(customer?.email);
   const [errors, setErrors] = useState(null);
   const [acceptsMarketing, setAcceptsMarketing] = useState(false);
-  const [isGift, setIsGift] = useState(false)
+  const { updateOrderMetaData } = useHeadlessCheckoutContext()
   const [customerOpen, setCustomerOpen] = useState(true)
   const [accountFormType, setAccountFormType] = useState('default')
   const { t } = useTranslation();
@@ -117,43 +120,16 @@ const MemoizedCustomer = memo(({ customer, logout, modalContext, submitCustomer 
                 className="checkout__checkbox"
                 icon={<div className="checkbox--checked"><IconCheckmark /></div>}
                 label={'This order is a gift shipping directly to the recipient'}
-                checked={isGift}
-                onChange={() => setIsGift(!isGift)}
+                checked={orderMetaData.note_attributes.is_gift_order == 'true' ? true : false}
+                onChange={() => updateOrderMetaData({
+                  note_attributes: {
+                    is_gift_order: (orderMetaData.note_attributes.is_gift_order == 'true' ? 'false' : 'true')
+                  }
+                })}
               />
             </div>
-            {isGift &&
-              <div className="order-giftnote-form">
-                <div className="input-group--wrapper">
-                  <InputField
-                    className="input"
-                    placeholder="recipient@email.com"
-                    type="email"
-                    name="recipient_email"
-                    autoComplete="email"
-                    label="Recipient Email"
-                    // value={email}
-                    // onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <InputField
-                    className="input"
-                    placeholder="Recipient Name"
-                    type="text"
-                    name="recipient_name"
-                    label="Recipient Name"
-                    // value={email}
-                    // onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <InputField
-                  className="input"
-                  placeholder="gift message"
-                  type="textarea"
-                  name="gift_message"
-                  // value={email}
-                  // onChange={(e) => setEmail(e.target.value)}
-                />
-                <p className="order-giftnote-disclaimer">*We will alert the recipient of their delivery via email one week before they receive it, and include your gift message along with delivery information!</p>
-              </div>
+            {orderMetaData.note_attributes.is_gift_order == 'true' &&
+              <GiftOrder orderMetaData={orderMetaData} updateOrderMetaData={updateOrderMetaData} />
             }
           </>
         }

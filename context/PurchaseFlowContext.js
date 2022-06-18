@@ -59,7 +59,7 @@ export function PurchaseFlowProvider({ children }) {
         membership_type: membershipType,
         shipments: '12'
       },
-      openFlyout: false
+      open_flyout: false
     })
     .then(() => {
       router.push('/checkout')

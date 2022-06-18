@@ -88,6 +88,7 @@ const MembershipOption = ({option, membershipType}) => {
               arrowOpen={<IconSelectArrow className="dropdown-selector__arrow-open" />}
             />
           }
+          {/* should add a loading state when this function is called */}
           <button
             onClick={() => purchaseFlowContext.selectMembershipPlan(selectedVariant, membershipType)}
             className="btn salmon">

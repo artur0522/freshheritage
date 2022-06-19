@@ -34,13 +34,13 @@ function Product({ product, page }) {
     if(product.content.handle === 'digital-gift-card') {
       setChecked(true)
     }
-    
+
     const foundVisibleTags = product.tags.filter(tag => tag.includes('Visible'));
     const splitTag = foundVisibleTags[0]?.split(':')[1]
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
 
     const foundCustomerTag = customer?.tags.find(tag => tag.includes('member') || tag.includes('sustainer'))
-    const productHasCustomerTag = foundVisibleTags.includes(foundCustomerTag)
+    const productHasCustomerTag = foundVisibleTags.find(tag => tag.includes('member') || tag.includes('sustainer'))
   
     if(foundVisibleTags.length > 0 && customer && !productHasCustomerTag) {
       const gatedPopup = page.find(field => field.handle === splitTagWithDash)

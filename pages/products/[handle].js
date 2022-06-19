@@ -34,20 +34,15 @@ function Product({ product, page }) {
     if(product.content.handle === 'digital-gift-card') {
       setChecked(true)
     }
-
+    
     const foundVisibleTags = product.tags.filter(tag => tag.includes('Visible'));
-
     const splitTag = foundVisibleTags[0]?.split(':')[1]
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
-    const refinedSplitTag = splitTag?.replace(/\s/g, '').toLowerCase()
 
-    const foundTag = customer?.tags.find((tag) => {
-      return tag.replace(/\s/g, '').toLowerCase() === refinedSplitTag 
-    })
-
-    console.log(foundTags)
-    
-    if(foundVisibleTags.length > 0 && customer && !foundTag) {
+    const foundCustomerTag = customer?.tags.find(tag => tag.includes('member') || tag.includes('sustainer'))
+    const productHasCustomerTag = foundVisibleTags.includes(foundCustomerTag)
+  
+    if(foundVisibleTags.length > 0 && customer && !productHasCustomerTag) {
       const gatedPopup = page.find(field => field.handle === splitTagWithDash)
       modalContext.setContent(gatedPopup.fields)
       modalContext.setIsOpen(true)

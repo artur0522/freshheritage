@@ -17,8 +17,6 @@ const ProductGiftForm = (props) => {
     const { checked, handle, product, selectedVariant, setSelectedVariant } = props
     const [formFields, setFormFields] = useState(defaultFormFields)
 
-    console.log('selectedvar', selectedVariant)
-
     const [, { addToCart }] = useCart()
     const [selectedOptions, setSelectedOptions] = useState(
       selectedVariant.content.selectedOptions
@@ -74,25 +72,16 @@ const ProductGiftForm = (props) => {
             variant: selectedVariant
         })
 
+        const formFieldsWithGiftOption = {
+            ...formFields,
+            is_gift_order: checked
+        }
+
         addItemToOrder({
             variant,
             quantity,
-            properties: formFields
+            properties: formFieldsWithGiftOption
         })
-
-        // EXAMPLE: addItemToOrder({
-        //     variant,
-        //     quantity,
-        //     properties: {
-        //       membership_type: membershipType, // regular or prepaid
-        //       shipments: '12'
-        //     },
-        //     gift_properties: {
-        //       recipient_email,
-        //       recipient_name,
-        //       recipient_message
-        //     }
-        // })
     }
 
     return (                

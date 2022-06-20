@@ -60,13 +60,12 @@ function Product({ product }) {
     addItemToOrder({
       variant,
       quantity,
-      //properties
-      properties: {
-        recipient_email: 'sung@scoutside.com',
-        recipient_name: 'sung',
-        gift_message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium diam in senectus semper mi lacus nisl imperdiet.Nunc pretium diam in senectus semper mi lacus nisl imperdiet.',
-        is_gift_order: 'true'
-      }
+      // properties: {
+      //   recipient_email: 'sung@scoutside.com',
+      //   recipient_name: 'sung',
+      //   gift_message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium diam in senectus semper mi lacus nisl imperdiet.Nunc pretium diam in senectus semper mi lacus nisl imperdiet.',
+      //   is_gift_order: 'true'
+      // }
     })
   };
 

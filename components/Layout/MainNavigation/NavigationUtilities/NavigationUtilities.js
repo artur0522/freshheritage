@@ -22,7 +22,7 @@ const NavigationUtilities = ({props, classes}) => {
   const customerContext = useCustomerContext()
   const checkoutContext = useHeadlessCheckoutContext()
 
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(false)
   const [showCustomerServiceInfo, setShowCustomerServiceInfo] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const nodeRef = useRef(null)

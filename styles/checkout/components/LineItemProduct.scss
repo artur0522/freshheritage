@@ -3,6 +3,12 @@
   @include breakpoint-up('sm') {
     padding: 35px 0;
   }
+  .order-item__title-link {
+    text-decoration: none;
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
 
 .order-item__main {
@@ -15,6 +21,7 @@
   font-family: $bebas;
   letter-spacing: 0.02em;
 }
+
 
 .order-item__image {
   width: 60px;

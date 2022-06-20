@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import {useState} from 'react'
+import { useState, useEffect } from 'react'
 import IconMinus from '@/svgs/minus.svg'
 import Expand from 'react-expand-animated'
 import { useMediaQuery } from 'react-responsive'
@@ -14,6 +14,7 @@ const FooterMenuItems = ({item, classes}) => {
     { minWidth: 1440 }, undefined, handleMediaQueryChange
   )
   const [height, setHeight] = useState(isDesktop ? 'auto' : 0)
+  const [mounted, setMounted] = useState(false)
 
   const toggleExpand = (e) => {
     e.preventDefault()
@@ -23,13 +24,17 @@ const FooterMenuItems = ({item, classes}) => {
     height === 0 ? setHeight('auto') : setHeight(0)
   }
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <li className={classes.footerNavigationListItem} key={item._key}>
       <button
         className={classes.footerNavigationListItemButton}
         onClick={(e) => toggleExpand(e)}>
           <h2>{item.title}</h2>
-          {height !== 0 && !isDesktop &&
+          {height !== 0 && mounted && !isDesktop &&
             <IconMinus />
           }
       </button>

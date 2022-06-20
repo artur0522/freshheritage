@@ -4,7 +4,6 @@ import { useCustomerContext } from './CustomerContext'
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router'
 import { isEqual } from 'lodash-es';
-
 const HeadlessCheckoutContext = createContext()
 
 export function useHeadlessCheckoutContext() {
@@ -303,6 +302,29 @@ export function HeadlessCheckoutProvider({ children }) {
     return updatedData
   }
 
+  async function removeOrderMetaData() {
+    const { jwt, public_order_id } = JSON.parse(
+      localStorage.getItem('checkout_data'),
+    )
+    const response = await fetch(
+      `https://api.boldcommerce.com/checkout/storefront/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/${public_order_id}/meta_data`,
+      {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json',
+        },
+        method: 'DELETE',
+      }
+    )
+    const updatedData = await response.json()
+    console.log('removed meta data', updatedData)
+    setData({
+      ...data,
+      application_state: updatedData.data.application_state
+    })
+    return updatedData
+  }
+
   async function updateLineItem(payload) {
     // payload example
     //   {
@@ -330,6 +352,7 @@ export function HeadlessCheckoutProvider({ children }) {
       ...data,
       application_state: updatedData.data.application_state
     })
+
     return updatedData
   }
 
@@ -391,21 +414,24 @@ export function HeadlessCheckoutProvider({ children }) {
       ...data,
       application_state: updatedData.data.application_state
     })
+
+    // remove order meta data if there are no items in checkout order
+    if (updatedData.data.application_state.line_items.length === 0) {
+      return await removeOrderMetaData()
+    }
+
     return updatedData
   }
 
-  // this keeps closing the flyout since the route changes on processing order
-
-  // useEffect(() => {
-  //   const handleRouteChange = () => {
-  //     console.log("wut")
-  //     setFlyoutState(false)
-  //   }
-  //   router.events.on('routeChangeStart', handleRouteChange)
-  //   return () => {
-  //     router.events.off('routeChangeStart', handleRouteChange)
-  //   }
-  // }, [])
+  useEffect(() => {
+    const handleRouteChange = (e) => {
+      setFlyoutState(false)
+    }
+    router.events.on('routeChangeStart', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange)
+    }
+  }, [])
 
   useEffect(() => {
     const localStorageCheckoutData =

@@ -8,34 +8,39 @@ import CheckoutContent from '../Checkout/CheckoutContent';
 const CheckoutFlyout = () => {
   const nodeRef = useRef(null);
   const timeout = 200
-  const [drawerOpen, setDrawerOpen] = useState(false)
+  const [flyoutOpen, setFlyoutOpen] = useState(false)
+  const [overlayOpen, setOverLayOpen] = useState(false)
   const {
     data,
-    flyoutState,
-    setFlyoutState
+    flyoutState
   } = useHeadlessCheckoutContext();
 
   const closeDrawer = () => {
-    setDrawerOpen(false)
+    setFlyoutOpen(false)
     setTimeout(() => {
-      setFlyoutState(false)
+      setOverLayOpen(false)
+    }, timeout)
+  }
+
+  const openDrawer = () => {
+    setOverLayOpen(true)
+    setTimeout(() => {
+      setFlyoutOpen(true)
     }, timeout)
   }
 
   useEffect(() => {
     if (flyoutState) {
-      setTimeout(() => {
-        setDrawerOpen(true)
-      }, timeout)
+      openDrawer()
+    } else {
+      closeDrawer()
     }
-  }, [flyoutState]);
-
-  const checkoutStateStyle = flyoutState ? classes['show'] : classes['hide'];
+  }, [flyoutState])
 
   return (
-    <div className={`${classes['checkout-flyout']} ${checkoutStateStyle}`}>
+    <div className={`${classes['checkout-flyout']} ${overlayOpen ? classes['show'] : classes['hide']}`}>
       <div onClick={() => closeDrawer()} className={classes['checkout-flyout__overlay']}></div>
-      <CSSTransition in={drawerOpen} timeout={timeout} nodeRef={nodeRef} unmountOnExit classNames={{
+      <CSSTransition in={flyoutOpen} timeout={timeout} nodeRef={nodeRef} unmountOnExit classNames={{
           'enter': classes['checkout-flyout__content--enter'],
           'enterActive': classes['checkout-flyout__content--enter-active'],
           'enterDone': classes['checkout-flyout__content--enter-done'],

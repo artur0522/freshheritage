@@ -45,12 +45,20 @@ const LineItemProduct = ({ item, children, readOnly }) => {
     <div className="order-item checkout__row">
       <div className="order-item__main">
         <div className="order-item__image">
-          <ResponsiveImage src={item.image_url} alt={item.product_title} />
+        <Link href={`/products/${item.properties.product_handle}` || ''}>
+            <a>
+              <ResponsiveImage src={item.image_url} alt={item.product_title} />
+            </a>
+          </Link>
         </div>
 
         <div className="order-item__details">
           <div className="order-item__detail-item">
-            <h3 className="order-item__title">{item.product_title}</h3>
+            <Link href={`/products/${item.properties.product_handle}` || ''}>
+              <a className="order-item__title-link">
+                <h3 className="order-item__title">{item.product_title}</h3>
+              </a>
+            </Link>
             <div className="order-item__price">
               <span className="price">${formatPrice(item.total_price)}</span>
               {item.tags.includes('Subscription Box') &&

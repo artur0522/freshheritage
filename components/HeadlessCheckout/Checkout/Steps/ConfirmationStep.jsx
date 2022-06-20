@@ -10,8 +10,11 @@ import {
 // import { ConfirmationList, ConfirmationListItem } from './components';
 // import { RedactedCreditCard } from './components/RedactedCreditCard';
 import { useTranslation } from 'react-i18next';
+import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
+import { useRouter } from 'next/router'
 
 const ConfirmationPage = () => {
+  const router = useRouter();
   const { state } = useCheckoutStore();
   const customer = state.applicationState.customer;
   const shippingAddress = state.applicationState.addresses.shipping;
@@ -20,6 +23,7 @@ const ConfirmationPage = () => {
     state.applicationState.shipping.selected_shipping.description;
   const payments = state.applicationState.payments;
   const { t } = useTranslation();
+  const { setFlyoutState } = useHeadlessCheckoutContext()
 
   // const continueShopping = () => {
   //   location.href = `https://${state.initialData.shop_name}`;
@@ -116,7 +120,15 @@ const ConfirmationPage = () => {
           </div>
         </div>
         <div className="checkout__navigation">
-          <button className="checkout__cta-btn btn sitkablue">Continue Shopping</button>
+          <button
+            onClick={() => {
+              if (router.pathname === '/checkout') {
+                router.push('/')
+                return
+              }
+              setFlyoutState(false)
+            }}
+            className="checkout__cta-btn btn sitkablue">Continue Shopping</button>
         </div>
       </div>
     </>

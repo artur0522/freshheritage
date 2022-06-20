@@ -70,7 +70,7 @@ export default async function handler(req, res) {
       {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_BOLD_ACCESS_TOKEN}`,
+          Authorization: `Bearer ${process.env.BOLD_ACCESS_TOKEN}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(body)

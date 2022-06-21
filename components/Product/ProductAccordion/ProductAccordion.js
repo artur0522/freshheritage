@@ -13,7 +13,7 @@ const ProductAccordion = (props) => {
         if(header === 'Product Description') {
             setIsAccordionActive(true)
         }
-    }, [])
+    }, [props])
 
     return (
         <div className={classes['accordion__row']}>

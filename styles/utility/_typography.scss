@@ -470,6 +470,7 @@ button {
 
   @include breakpoint-up('sm') {
     font-size: fontsize(14px);
+  }
 }
 
 .capitalize {

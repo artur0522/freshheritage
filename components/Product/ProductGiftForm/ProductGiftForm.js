@@ -121,9 +121,9 @@ const ProductGiftForm = (props) => {
             {checked && <div className={classes['gift__info-header']}>
                 <h4>
                 {handle === 'digital-gift-card' && <span className={classes['number']}>2</span>}
-                Recipient's Information
+                {"Recipient's"} Information
                 </h4>
-                <span className={`${classes['delivery']} delivery--time`}>Delivered via email one day after purchase.</span>
+                <span className={`delivery--time ${classes['delivery']}`}>Delivered via email one day after purchase.</span>
             </div>}
         
         
@@ -133,7 +133,7 @@ const ProductGiftForm = (props) => {
                     <input type="email" id="email" name="recipient_email" className="secondary--body" onChange={handleGiftInfo} value={recipient_email} />
                 </div>
                 <div className={classes['form__col']}>
-                    <label className="secondary--body" htmlFor="name">Recipient's Name</label>
+                    <label className="secondary--body" htmlFor="name">{"Recipient's"} Name</label>
                     <input type="text" id="name" name="recipient_name" className="secondary--body" onChange={handleGiftInfo} value={recipient_name} />
                 </div>
                 {handle === 'digital-gift-card' && <div className={`${classes['form__col']} ${classes['textarea']}`}>

@@ -45,6 +45,11 @@
   align-items: center;
 }
 
+.CartItem .CartItem__DecrementBtn,
+.CartItem .CartItem__IncrementBtn {
+  width: 20px;
+}
+
 .InventoryItem  .CartItem__ProductDetails,
 .CartItem .CartItem__ProductDetails {
   display: flex;

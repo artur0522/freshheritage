@@ -351,6 +351,28 @@ button {
     }
   }
 
+  &--product-title {
+    font-size: fontsize(24px);
+    line-height: 100%;
+    letter-spacing: 0.02em;
+
+    @include breakpoint-up('sm') {
+      font-size: fontsize(28px);
+    }
+
+    @include breakpoint-up('md') {
+      font-size: fontsize(28px);
+    }
+
+    @include breakpoint-up('lg') {
+      font-size: fontsize(28px);
+    }
+
+    @include breakpoint-up('xl') {
+      font-size: fontsize(28px);
+    }
+  }
+
   &--projected-tab {
     font-weight: 500;
     font-size: fontsize(16px);
@@ -402,17 +424,6 @@ button {
   }
 }
 
-.recipe--time {
-  font-size: fontsize(12px);
-  line-height: 120%;
-  font-weight: 500;
-  color: $salmon;
-
-  @include breakpoint-up('sm') {
-    font-size: fontsize(14px);
-  }
-}
-
 .delivery--time {
   font-size: fontsize(12px);
   line-height: 120%;
@@ -422,6 +433,43 @@ button {
   @include breakpoint-up('sm') {
     font-size: fontsize(16px);
   }
+}
+
+.base-font {
+  font-size: fontsize(16px);
+
+  @include breakpoint-up('sm') {
+    font-size: fontsize(16px);
+  }
+
+  @include breakpoint-up('md') {
+    font-size: fontsize(16px);
+  }
+
+  @include breakpoint-up('lg') {
+    font-size: fontsize(16px);
+  }
+
+  @include breakpoint-up('xl') {
+    font-size: fontsize(16px);
+  }
+}
+
+.best-seller {
+  font-size: fontsize(11px);
+  font-weight: 500;
+  font-family: 'FrankRuhl';
+  line-height: 120%;
+}
+
+.recipe--time {
+  font-size: fontsize(12px);
+  line-height: 120%;
+  font-weight: 500;
+  color: $salmon;
+
+  @include breakpoint-up('sm') {
+    font-size: fontsize(14px);
 }
 
 .capitalize {

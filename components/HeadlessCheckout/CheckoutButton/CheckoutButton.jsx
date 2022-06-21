@@ -90,7 +90,12 @@ const MemoizedCheckoutButton = memo(
         logError('process_order', e);
         setLoading(false);
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [logError, trackEvent, processOrder, validateInventory]);
+
+    if (!loading && !processing) {
+      return ''
+    }
 
     return (
       <button

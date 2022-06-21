@@ -78,6 +78,7 @@ const MemoizedPaymentMethod = memo(
       } else {
         setDisabled(false);
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [billingAddress, shippingAddress, billingSameAsShipping]);
 
     const clearCart = async () => {
@@ -95,18 +96,18 @@ const MemoizedPaymentMethod = memo(
       // .then(response => response.json());
     };
 
-    const handleMessageReceived = async (event) => {
-      const message = event.data;
-
-      if (
-        message.responseType === 'PIGI_ADD_PAYMENT' &&
-        message.payload.success
-      ) {
-        await clearCart();
-      }
-    };
-
     useEffect(() => {
+      const handleMessageReceived = async (event) => {
+        const message = event.data;
+
+        if (
+          message.responseType === 'PIGI_ADD_PAYMENT' &&
+          message.payload.success
+        ) {
+          await clearCart();
+        }
+      };
+
       window.addEventListener('message', handleMessageReceived);
       return () => {
         window.removeEventListener('message', handleMessageReceived);
@@ -150,6 +151,7 @@ const MemoizedPaymentMethod = memo(
           //console.log(e)
         }
       };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const { data2, errors, loadingStatus, applyDiscount } = useDiscount();
@@ -246,6 +248,7 @@ const MemoizedPaymentMethod = memo(
       };
 
       applyMembershipDiscount();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

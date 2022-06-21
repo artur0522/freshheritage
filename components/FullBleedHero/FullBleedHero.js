@@ -9,7 +9,8 @@ const FullBleedHero = ({ fields }) => {
   const [mounted, setMounted] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
-  let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage } = fields
+
+  let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage, alt } = fields
 
   useEffect(() => {
     setMounted(true)
@@ -49,6 +50,7 @@ const FullBleedHero = ({ fields }) => {
             className={classes.dsktp__img}
             src={mobileBackgroundImage.asset.url}
             layout="fill"
+            alt={alt}
           />
         </div>}
 
@@ -57,6 +59,7 @@ const FullBleedHero = ({ fields }) => {
             className={classes.mbl__img}
             src={desktopBackgroundImage.asset.url}
             layout="fill"
+            alt={alt}
           />
         </div>}
     </div>

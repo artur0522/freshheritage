@@ -14,7 +14,7 @@ const ProductMain = ({box}) => {
   return (
     <div className={classes['product-main']}>
       <ProductSlider product={product} />
-      <ProductReviewStars />
+      <ProductReviewStars productId={product.sourceEntryId.replace('gid://shopify/Product/', '')} />
       <h1 className={classes['product-title']}>{product.content?.title}</h1>
       <div className={classes['product-price-pounds']}>
         <span>${firstVariant.price} /box</span>

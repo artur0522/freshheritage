@@ -31,7 +31,7 @@ const ProductSlider = ({product, timeout = 0}) => {
     setTimeout(() => {
       setIsLoaded(true)
     }, timeout)
-  }, [])
+  }, [timeout])
 
   if (!isLoaded) {
     return ''

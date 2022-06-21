@@ -32,6 +32,7 @@ const ValueProps = ({ fields }) => {
                                     layout="fill"
                                     objectFit='contain'
                                     objectPosition={'center'}
+                                    alt={valueProp.alt}
                                 />
                             </div>
                         </div>

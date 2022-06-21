@@ -11,7 +11,7 @@ import classes from './HarvestCard.module.scss'
 const HarvestCard = ({ fish, cardStyle }) => {
   const [tabInfo, setTabInfo] = useState(fish['species'])
   const [mounted, setMounted] = useState(false)
-
+  
   useEffect(() => {
     setMounted(true)
   }, [])
@@ -33,7 +33,7 @@ const HarvestCard = ({ fish, cardStyle }) => {
                 width={858}
                 height={572}
             />
-          </div>} 
+          </div>}
 
         {cardStyle === 'projected-card' && isDesktop && mounted &&
           <div className={classes['harvest__card-img']}>

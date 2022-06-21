@@ -35,6 +35,7 @@ const IndexPage = () => {
       setLoading(false);
     }
     setLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
   useEffect(() => {
@@ -44,6 +45,7 @@ const IndexPage = () => {
     }
 
     trackEvent('landing_page');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -24,6 +24,7 @@ const SavedAddressList = ({
     } else {
       return savedAddresses[0];
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prevAddress]);
 
   const handleNewAddressChange = useCallback(() => {
@@ -31,6 +32,7 @@ const SavedAddressList = ({
       ...lastSelectedAddress,
       id: null
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastSelectedAddress]);
 
   if (!savedAddresses || savedAddresses.length === 0) return null;

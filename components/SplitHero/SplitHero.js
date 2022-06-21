@@ -8,11 +8,12 @@ import classes from './SplitHero.module.scss'
 import IconBullet from '@/svgs/list-item.svg'
 
 const SplitHero = ({ fields }) => {
+  const [mounted, setMounted] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery(
     {query: '(min-width: 768px)'}
   )
-
+  
   const { imageContainer, imageWidth, style, textColor, valueProps, disclaimer, desktopBackgroundImage, mobileBackgroundImage, alt } = fields
 
   useEffect(() => {
@@ -22,7 +23,7 @@ const SplitHero = ({ fields }) => {
   return (
     <div className={`${classes['hero']} ${classes[style]} ${classes[imageContainer]} ${classes[textColor]}`}>
       <div className={`${classes['hero__row']}`}>
-        <div className={classes.hero__text}>
+        <div className={classes['hero__text']}>
           <div className={classes['hero__text--inner']}>
             {fields.header && <h1>{fields.header}</h1>}
             {fields.subheader && <h2 className={classes['subheader']}>{fields.subheader}</h2>}
@@ -63,7 +64,7 @@ const SplitHero = ({ fields }) => {
             alt={alt}
           />
         </div>}
- 
+
         {isDesktop && mounted && <div className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
           <Image
             className={classes.mbl__img}

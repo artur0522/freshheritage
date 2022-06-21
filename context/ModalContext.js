@@ -35,3 +35,27 @@ export function ModalProvider({ children }) {
     </ModalContext.Provider>
   )
 }
+
+export async function getStaticProps({ params }) {
+  const { products } = await nacelleClient.query({
+    query: PAGE_QUERY,
+    variables: { handle: params.handle }
+  })
+
+  const page = await nacelleClient.content({
+    handles: ['product']
+  })
+
+  if (!products.length) {
+    return {
+      notFound: true
+    }
+  }
+
+  return {
+    props: {
+      product: products[0],
+      page
+    }
+  }
+}

@@ -4,6 +4,7 @@ import IconClose from '@/svgs/close.svg'
 import CreateAccountForm from '@/components/Forms/CreateAccountForm'
 import LoginAccountForm from '@/components/Forms/LoginAccountForm'
 import ForgotPasswordForm from '@/components/Forms/ForgotPasswordForm'
+import GatedProductModal from '@/components/Forms/GatedProductModal'
 
 const Modal = ({props, children}) => {
 
@@ -17,24 +18,26 @@ const Modal = ({props, children}) => {
         return <LoginAccountForm />
       case 'forgot_password':
         return <ForgotPasswordForm />
+      case 'gated_product':
+        return <GatedProductModal />
       default:
         return children
     }
   }
 
   return (
-    <div className={classes['modal']}>
+    <div className={`${classes['modal']} ${modalContext.modalType === 'gated_product' ? classes['gated-zindex'] : ''}`}>
       <div
-        onClick={() => modalContext.setIsOpen(false)}
-        className={classes['modal__overlay']}>
+        onClick={modalContext.modalType !== 'gated_product' ? () => modalContext.setIsOpen(false) : undefined}
+        className={`${classes['modal__overlay']} ${modalContext.modalType !== 'gated_product' ? classes['blur'] : ''}`}>
       </div>
-      <div className={classes['modal__content']}>
-        <div className={classes['modal__content-container']}>
-          <button
+      <div className={`${classes['modal__content']} ${modalContext.modalType === 'gated_product' ? classes['gated-content'] : ''}`}>
+        <div className={`${classes['modal__content-container']} ${modalContext.modalType === 'gated_product' ? classes['gated-container'] : ''}`}>
+          {modalContext.modalType !== 'gated_product' && <button
             onClick={() => modalContext.setIsOpen(false)}
             className={classes['modal__close-btn']}>
             <IconClose />
-          </button>
+          </button>}
           {getContent(modalContext.modalType, children)}
         </div>
       </div>

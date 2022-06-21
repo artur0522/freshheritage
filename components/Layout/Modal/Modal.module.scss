@@ -5,9 +5,13 @@
   align-items: center;
   justify-content: center;
   position: fixed;
-  z-index: 1001;
   height: 100%;
   width: 100%;
+  z-index: 1001;
+
+  &.gated-zindex {
+    z-index: 1000;
+  }
 }
 
 .modal__overlay {
@@ -20,7 +24,10 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(7px);
+
+  &.blur {
+    backdrop-filter: blur(7px);
+  }
 }
 
 .modal__content {
@@ -32,8 +39,15 @@
   top: 0;
   bottom: 0;
   width: 90%;
+
   @include breakpoint-up('sm') {
     max-width: 540px;
+  }
+
+  &.gated-content {
+    align-items: flex-end;
+    max-width: none;
+    width: 100vw;
   }
 }
 
@@ -46,30 +60,42 @@
   overflow-y: auto;
   max-height: 90%;
   border-radius: 12px;
+
   @include breakpoint-up('sm') {
     padding: 70px 60px;
+  }
+
+  &.gated-container {
+    width: 100vw;
+    background-color: $fawn50-2;
+    padding: 32px 0;
   }
 }
 
 .modal__close-btn {
-  display: flex;;
+  display: flex;
+  ;
   position: absolute;
   top: 5px;
   right: 5px;
   padding: 10px;
   border: none;
   background-color: transparent;
+
   @include breakpoint-up('sm') {
     top: 15px;
     right: 15px;
   }
+
   svg {
     width: 15px;
     height: 15px;
+
     @include breakpoint-up('sm') {
       width: 23px;
       height: 23px;
     }
+
     * {
       fill: $sitkablue;
     }

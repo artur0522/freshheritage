@@ -393,6 +393,16 @@ button {
     }
   }
 
+  &--label {
+    font-size: fontsize(16px);
+    line-height: 140%;
+    font-weight: 500;
+
+    @include breakpoint-up('sm') {
+      font-size: fontsize(18px);
+    }
+  }
+
   &--projected-title {
     font-size: fontsize(24px);
 
@@ -411,6 +421,17 @@ button {
     @include breakpoint-up('xl') {
       font-size: fontsize(36px);
     }
+  }
+}
+
+.delivery--time {
+  font-size: fontsize(12px);
+  line-height: 120%;
+  font-weight: 400;
+  color: $salmon;
+
+  @include breakpoint-up('sm') {
+    font-size: fontsize(16px);
   }
 }
 
@@ -449,7 +470,6 @@ button {
 
   @include breakpoint-up('sm') {
     font-size: fontsize(14px);
-  }
 }
 
 .capitalize {
@@ -470,4 +490,9 @@ button {
 
 .no-underline {
   text-decoration: none;
+}
+
+.disclaimer {
+  font-size: fontsize(11px);
+  line-height: 150%;
 }

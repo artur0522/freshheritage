@@ -1,0 +1,25 @@
+.checkout__error {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  margin-top: 20px;
+  h3 {
+    font-family: $bebas;
+    font-size: 24px;
+    line-height: 36px;
+    margin-bottom: 10px;
+    @include breakpoint-up('sm') {
+      font-size: 32px;
+    }
+  }
+  p {
+    .btn-link-underline {
+      font-size: inherit;
+    }
+    color: $sitkablue;
+  }
+}

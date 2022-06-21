@@ -1,7 +1,9 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
+import { useHeadlessCheckoutContext } from './HeadlessCheckoutContext'
 import * as Cookies from 'es-cookie'
 import { useRouter } from 'next/router'
+import { getCartVariant } from 'utils/getCartVariant'
 import { GET_PRODUCT } from '../gql'
 
 const PurchaseFlowContext = createContext()
@@ -13,6 +15,7 @@ export function usePurchaseFlowContext() {
 export function PurchaseFlowProvider({ children }) {
 
   const router = useRouter()
+  const { addItemToOrder } = useHeadlessCheckoutContext()
   const [options, setOptions] = useState({
     step: 1,
     product: null,
@@ -38,11 +41,28 @@ export function PurchaseFlowProvider({ children }) {
   }
 
   // step 2 - selecting membership and frequency variant option
-  const selectMembershipPlan = (variantSelected, membershipType) => {
+  const selectMembershipPlan = async (variantSelected, membershipType) => {
     setOptions({
       ...options,
+      step: 3,
       membership_type: membershipType,
       variantIdSelected: variantSelected.sourceEntryId
+    })
+    // add to cart
+    const variant = getCartVariant({
+      product: options.product,
+      variant: variantSelected
+    });
+    await addItemToOrder({
+      variant: variant,
+      properties: {
+        membership_type: membershipType,
+        shipments: '12'
+      },
+      open_flyout: false
+    })
+    .then(() => {
+      router.push('/checkout')
     })
   }
 
@@ -56,13 +76,20 @@ export function PurchaseFlowProvider({ children }) {
           is_loaded: true
         })
       }
+      if (as.includes('/pages/customize-your-plan') && router.asPath === '/checkout') {
+        setOptions({
+          ...options,
+          step: 2,
+          is_loaded: true
+        })
+      }
       return true
     });
 
     return () => {
       router.beforePopState(() => true);
     };
-  }, [router])
+  }, [router, options])
 
   // on page load, get saved data from local storage
   useEffect(() => {
@@ -97,15 +124,11 @@ export function PurchaseFlowProvider({ children }) {
     }
   }, [options, router])
 
-  function saveDataInLocalStorage(data) {
-    const saveData = {...data};
+  useEffect(() => {
+    // console.log("options useEffect:", options)
+    const saveData = {...options};
     delete saveData.product
     localStorage.setItem('purchase_flow_data', JSON.stringify(saveData))
-  }
-
-  useEffect(() => {
-    console.log("options useEffect:", options)
-    saveDataInLocalStorage(options)
   }, [options])
 
   return (

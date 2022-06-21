@@ -9,6 +9,7 @@ import IconSearch from '@/svgs/search.svg'
 import IconQuestion from '@/svgs/question-circle.svg'
 import IconUser from '@/svgs/user.svg'
 import IconCart from '@/svgs/cart.svg'
+import { useRouter } from 'next/router'
 
 const NavigationUtilities = ({props, classes}) => {
 
@@ -16,10 +17,12 @@ const NavigationUtilities = ({props, classes}) => {
     { minWidth: 1074 }
   )
 
+  const router = useRouter()
   const modalContext = useModalContext()
   const customerContext = useCustomerContext()
   const checkoutContext = useHeadlessCheckoutContext()
 
+  const [mounted, setMounted] = useState(false)
   const [showCustomerServiceInfo, setShowCustomerServiceInfo] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const nodeRef = useRef(null)
@@ -37,9 +40,13 @@ const NavigationUtilities = ({props, classes}) => {
     isHovered ? setShowCustomerServiceInfo(true) : setShowCustomerServiceInfo(false)
   }, [isHovered])
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <ul className={[classes.navItems, classes.navUtilities].join(' ')}>
-      {isDesktop &&
+      {mounted && isDesktop &&
         <>
           <li className={classes.navItem}>
             <Link href={navCTA.ctaUrl ? navCTA.ctaUrl : ''}>
@@ -64,7 +71,7 @@ const NavigationUtilities = ({props, classes}) => {
           </button>
         )}
       </li>
-      {isDesktop &&
+      {mounted && isDesktop &&
         <li
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -100,7 +107,16 @@ const NavigationUtilities = ({props, classes}) => {
             </CSSTransition>
         </li>
       }
-      <li onClick={() => checkoutContext.setFlyoutState(!checkoutContext.flyoutState)}className={classes.navItem}><IconCart /></li>
+      <li
+        onClick={() => {
+          if (router.pathname === '/checkout') {
+            return
+          }
+          checkoutContext.setFlyoutState(true)
+        }}
+        className={classes.navItem}>
+          <IconCart />
+      </li>
     </ul>
   )
 }

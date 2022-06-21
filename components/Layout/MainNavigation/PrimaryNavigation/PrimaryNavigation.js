@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import IconMenu from '@/svgs/menu.svg'
 import IconSearch from '@/svgs/search.svg'
@@ -9,13 +10,18 @@ const PrimaryNavigation = ({props, classes, setMobileMenuIsOpen}) => {
   const customerContext = useCustomerContext()
   const {menuItems} = (customerContext.customer?.is_member) ? props.memberPrimaryNavigation : props.nonMemberPrimaryNavigation
 
+  const [mounted, setMounted] = useState(false);
   const isDesktop = useMediaQuery(
     { minWidth: 1074 }
   )
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <ul className={classes.navItems}>
-      {isDesktop ? (
+      {mounted && isDesktop ? (
         menuItems.map(item => {
           return (
             <li className={classes.navItem} key={item._key}>

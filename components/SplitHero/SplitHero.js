@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { PortableText } from '@portabletext/react'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
@@ -8,16 +8,22 @@ import classes from './SplitHero.module.scss'
 import IconBullet from '@/svgs/list-item.svg'
 
 const SplitHero = ({ fields }) => {
+  const [mounted, setMounted] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery(
     {query: '(min-width: 768px)'}
   )
+  
   const { imageContainer, imageWidth, style, textColor, valueProps, disclaimer, desktopBackgroundImage, mobileBackgroundImage, alt } = fields
 
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+    
   return (
     <div className={`${classes['hero']} ${classes[style]} ${classes[imageContainer]} ${classes[textColor]}`}>
       <div className={`${classes['hero__row']}`}>
-        <div className={classes.hero__text}>
+        <div className={classes['hero__text']}>
           <div className={classes['hero__text--inner']}>
             {fields.header && <h1>{fields.header}</h1>}
             {fields.subheader && <h2 className={classes['subheader']}>{fields.subheader}</h2>}
@@ -50,7 +56,7 @@ const SplitHero = ({ fields }) => {
           </div>
         </div>
 
-        {isMobile && <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
+        {isMobile && mounted && <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
           <Image
             className={classes.dsktp__img}
             src={mobileBackgroundImage.asset.url}
@@ -59,7 +65,7 @@ const SplitHero = ({ fields }) => {
           />
         </div>}
 
-        {isDesktop && <div className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
+        {isDesktop && mounted && <div className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
           <Image
             className={classes.mbl__img}
             src={desktopBackgroundImage.asset.url}

@@ -73,7 +73,7 @@ const FeaturedBlogContent = ({ fields }) => {
             >
                 {selectedSwiper.tabList.map((article) => {
                     return (
-                        <SwiperSlide key={article._id}>
+                        <SwiperSlide key={`${article._type}-${article._id}`}>
                             <RecipeArticleCard article={article} />
                         </SwiperSlide>
                     )

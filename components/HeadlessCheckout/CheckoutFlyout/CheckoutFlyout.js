@@ -1,35 +1,59 @@
+import { useState, useEffect, useRef } from 'react';
 import classes from './CheckoutFlyout.module.scss';
-import { StateBasedCheckout } from '../Checkout/StateBasedCheckout';
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
-import IconClose from '@/svgs/close.svg'
+import { CSSTransition } from 'react-transition-group';
+import IconClose from '@/svgs/close.svg';
+import CheckoutContent from '../Checkout/CheckoutContent';
 
 const CheckoutFlyout = () => {
+  const nodeRef = useRef(null);
+  const timeout = 200
+  const [flyoutOpen, setFlyoutOpen] = useState(false)
+  const [overlayOpen, setOverLayOpen] = useState(false)
   const {
     data,
     flyoutState,
     setFlyoutState
   } = useHeadlessCheckoutContext();
 
-  const checkoutStateStyle = flyoutState ? classes['show'] : classes['hide'];
+  const closeDrawer = () => {
+    setFlyoutOpen(false)
+    setTimeout(() => {
+      setOverLayOpen(false)
+    }, timeout)
+  }
+
+  const openDrawer = () => {
+    setOverLayOpen(true)
+    setTimeout(() => {
+      setFlyoutOpen(true)
+    }, timeout)
+  }
+
+  useEffect(() => {
+    if (flyoutState) {
+      openDrawer()
+    } else {
+      closeDrawer()
+    }
+  }, [flyoutState])
 
   return (
-    <div className={`${classes.cart} ${checkoutStateStyle}`}>
-      <header className={classes['cart-header']}>
-        <h3 className={classes['cart-title']}>Flyout Checkout</h3>
-        <button
-          className={classes['close-button']}
-          onClick={() => setFlyoutState(false)}>
-            <IconClose />
-        </button>
-      </header>
-      <section className={classes['cart-items']}>
-        {data && <StateBasedCheckout data={data} />}
-      </section>
-      <footer className={classes['sub-total-footer']}>
-        <h4 className={classes['sub-total']}>
-          <span>Total:</span>
-        </h4>
-      </footer>
+    <div className={`${classes['checkout-flyout']} ${overlayOpen ? classes['show'] : classes['hide']}`}>
+      <div onClick={() => setFlyoutState(false)} className={classes['checkout-flyout__overlay']}></div>
+      <CSSTransition in={flyoutOpen} timeout={timeout} nodeRef={nodeRef} unmountOnExit classNames={{
+          'enter': classes['checkout-flyout__content--enter'],
+          'enterActive': classes['checkout-flyout__content--enter-active'],
+          'enterDone': classes['checkout-flyout__content--enter-done'],
+          'exit': classes['checkout-flyout__content--exit'],
+        }}>
+        <div ref={nodeRef} className={classes['checkout-flyout__content']}>
+          <button
+            onClick={() => setFlyoutState(false)}
+            className={classes['checkout-flyout__close-btn']}><IconClose /></button>
+          <CheckoutContent data={data} />
+        </div>
+      </CSSTransition>
     </div>
   );
 };

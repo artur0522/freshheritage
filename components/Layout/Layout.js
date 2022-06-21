@@ -15,9 +15,9 @@ import Footer from '@/components/Layout/Footer'
 function Layout({ children, headerSettings, footerSettings }) {
 
   return (
-    <HeadlessCheckoutProvider>
-      <PurchaseFlowProvider>
-        <CustomerProvider>
+    <CustomerProvider>
+      <HeadlessCheckoutProvider pageHandle={children.props.handle}>
+        <PurchaseFlowProvider>
           <PDPDrawerProvider>
             <ModalProvider>
               <Header content={headerSettings} pageHandle={children.props.handle} />
@@ -25,9 +25,9 @@ function Layout({ children, headerSettings, footerSettings }) {
               <Footer content={footerSettings} />
             </ModalProvider>
           </PDPDrawerProvider>
-        </CustomerProvider>
-      </PurchaseFlowProvider>
-    </HeadlessCheckoutProvider>
+        </PurchaseFlowProvider>
+      </HeadlessCheckoutProvider>
+    </CustomerProvider>
   )
 }
 

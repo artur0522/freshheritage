@@ -5,7 +5,13 @@ import classes from './MobileMenu.module.scss'
 import { CSSTransition } from 'react-transition-group'
 import { useCustomerContext } from '@/context/CustomerContext'
 
-const MobileMenu = ({props, mobileMenuIsOpen, setMobileMenuIsOpen}) => {
+const MobileMenu = ({props, mobileMenuIsOpen, setMobileMenuIsOpen, pageHandle}) => {
+
+  let navigationType;
+
+  if (pageHandle === 'purchase-flow' || 'checkout') {
+    navigationType = pageHandle
+  }
 
   const customerContext = useCustomerContext()
   const {menuItems} = (customerContext.customer?.is_member) ? props.memberPrimaryNavigation : props.nonMemberPrimaryNavigation
@@ -20,7 +26,7 @@ const MobileMenu = ({props, mobileMenuIsOpen, setMobileMenuIsOpen}) => {
       'enterDone': classes.mobileMenuEnterDone,
       'exit': classes.mobileMenuExit,
     }}>
-      <div ref={nodeRef} className={classes.mobileMenu}>
+      <div ref={nodeRef} className={`${classes.mobileMenu} ${navigationType ? classes[navigationType] : '' }`}>
         <button
           onClick={() => setMobileMenuIsOpen(false)}
           className={classes.mobileMenuCloseBtn}><IconClose /></button>

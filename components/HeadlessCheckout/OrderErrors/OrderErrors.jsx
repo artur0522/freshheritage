@@ -1,7 +1,5 @@
-// import { Message } from '@boldcommerce/stacks-ui';
 import React, { useEffect } from 'react';
 import { useErrors } from '@boldcommerce/checkout-react-components';
-// import './OrderErrors.css';
 
 const OrderErrors = () => {
   const { data } = useErrors();

@@ -2,10 +2,9 @@ import { useBillingAddress, useBillingSameAsShipping, useCountryInfo } from '@bo
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { BillingSameAsShipping } from './components';
 import { Address } from '../Address';
-// import './BillingAddress.css';
-import { CheckoutSection } from '../CheckoutSection';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';
+import IconSelectArrow from '@/svgs/select-arrow.svg'
 
 const BillingAddress = ({ applicationLoading }) => {
   const { data, submitBillingAddress } = useBillingAddress();
@@ -43,6 +42,7 @@ const MemoizedBillingAddress = memo(({
   const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(false);
   const [sameAsShipping, setSameAsShipping] = useState(billingSameAsShipping);
+  const [addressOpen, setAddressOpen] = useState(true);
   const { t } = useTranslation();
 
   let provincePlaceholder = provinceLabel;
@@ -97,29 +97,33 @@ const MemoizedBillingAddress = memo(({
   }, [address]);
 
   return (
-    <CheckoutSection
-      className="FieldSet--BillingAddress"
-      title={t('billing.address')}
-    >
-      <BillingSameAsShipping
-        billingSameAsShipping={sameAsShipping}
-        setBillingSameAsShipping={updateBillingSameAsShipping}
-        disabled={loading || applicationLoading}
-      />
-      { !billingSameAsShipping && (
-        <Address
-          address={address}
-          onChange={handleChange}
-          errors={errors}
-          countries={countries}
-          provinces={provinces}
-          showPostalCode={showPostalCode}
-          showProvince={showProvince}
-          provinceLabel={provincePlaceholder}
-          submit={() => updateBillingAddress(address)}
-        />
-      )}
-    </CheckoutSection>
+    <div className="order-address">
+      <div className={`checkout__header checkout__header--border-on-closed checkout__row ${addressOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
+        <h3>Billing Address</h3>
+      </div>
+      {!!addressOpen &&
+        <>
+          <BillingSameAsShipping
+            billingSameAsShipping={sameAsShipping}
+            setBillingSameAsShipping={updateBillingSameAsShipping}
+            disabled={loading || applicationLoading}
+          />
+          { !billingSameAsShipping && (
+            <Address
+              address={address}
+              onChange={handleChange}
+              errors={errors}
+              countries={countries}
+              provinces={provinces}
+              showPostalCode={showPostalCode}
+              showProvince={showProvince}
+              provinceLabel={provincePlaceholder}
+              submit={() => updateBillingAddress(address)}
+            />
+          )}
+        </>
+      }
+    </div>
   );
 });
 

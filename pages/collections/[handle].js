@@ -1,8 +1,10 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { nacelleClient } from 'services';
-import ProductCard from 'components/ProductCard';
-import styles from 'styles/Collection.module.css';
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { nacelleClient } from "services";
+
+import ProductCard from "@/components/ProductCard/ProductCard";
+
+import classes from "./Collection.module.scss";
 
 function Collection(props) {
   const router = useRouter();
@@ -10,7 +12,7 @@ function Collection(props) {
   const [products, setProducts] = useState(props.products);
   const [canFetch, setCanFetch] = useState(props.canFetch);
   const [isFetching, setIsFetching] = useState(false);
-
+  
   const activeProducts = canFetch
     ? products?.slice(0, products.length - 1)
     : products;
@@ -23,7 +25,7 @@ function Collection(props) {
     const after = products[products?.length - 1].nacelleEntryId;
     const { productCollections } = await nacelleClient.query({
       query: PRODUCTS_QUERY,
-      variables: { handle: router.query.handle, after }
+      variables: { handle: router.query.handle, after },
     });
     const newProducts = productCollections[0]?.products;
     if (newProducts) {
@@ -35,18 +37,24 @@ function Collection(props) {
 
   return (
     collection && (
-      <div className={styles.collection}>
-        {collection.content?.title && <h1>{collection.content.title}</h1>}
-        <div className={styles.list}>
+      <div className={`${classes["collection"]} container`}>
+        <div className={classes["collection__header"]}>
+          {collection.content?.title && <h1>{collection.content.title}</h1>}
+          {collection.content?.description && (
+            <h3>{collection.content.description}</h3>
+          )}
+        </div>
+        <div className={classes["collection__list"]}>
           {activeProducts.map((product, index) => (
-            <div className={styles.item} key={`${product.id}-${index}`}>
+            <div className={classes.item} key={`${product.id}-${index}`}>
               <ProductCard product={product} />
             </div>
           ))}
         </div>
+
         {canFetch && (
           <button
-            className={styles.action}
+            className={classes.action}
             disabled={isFetching}
             onClick={handleFetch}
           >
@@ -64,7 +72,7 @@ export async function getStaticPaths() {
   // Performs a GraphQL query to Nacelle to get product collection handles.
   // (https://nacelle.com/docs/querying-data/storefront-sdk)
   const results = await nacelleClient.query({
-    query: HANDLES_QUERY
+    query: HANDLES_QUERY,
   });
   const handles = results.productCollections
     .filter((collection) => collection.content?.handle)
@@ -72,7 +80,7 @@ export async function getStaticPaths() {
 
   return {
     paths: handles,
-    fallback: 'blocking'
+    fallback: "blocking",
   };
 }
 
@@ -82,12 +90,12 @@ export async function getStaticProps({ params }) {
   // (https://nacelle.com/docs/querying-data/storefront-sdk)
   const { productCollections } = await nacelleClient.query({
     query: PAGE_QUERY,
-    variables: { handle: params.handle }
+    variables: { handle: params.handle },
   });
 
   if (!productCollections.length) {
     return {
-      notFound: true
+      notFound: true,
     };
   }
 
@@ -96,8 +104,8 @@ export async function getStaticProps({ params }) {
     props: {
       collection: rest,
       products,
-      canFetch: products?.length > 12
-    }
+      canFetch: products?.length > 12,
+    },
   };
 }
 
@@ -119,6 +127,13 @@ const PRODUCT_FRAGMENT = `
       altText
     }
   }
+  tags
+  metafields {
+    id
+    key
+    namespace
+    value
+  }
   variants{
     nacelleEntryId
     sourceEntryId
@@ -126,6 +141,7 @@ const PRODUCT_FRAGMENT = `
     availableForSale
     price
     compareAtPrice
+    weight
     content{
       title
       selectedOptions{
@@ -164,6 +180,8 @@ const PAGE_QUERY = `
       sourceEntryId
       content{
         title
+        description
+        handle
       }
       products(first: 13){
         ${PRODUCT_FRAGMENT}

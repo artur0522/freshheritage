@@ -1,7 +1,5 @@
 import React from 'react'
-// import ReactDOM from "react-dom";
-// import { useRouter, BrowserRouter } from 'next/router';
-import NoSSRWrapper from '../../components/no-ssr-wrapper'
+import NoSSRWrapper from '../no-ssr-wrapper'
 import '../../i18n/config'
 import StateBasedCheckout from './StateBasedCheckout'
 

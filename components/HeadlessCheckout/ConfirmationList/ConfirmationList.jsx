@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ConfirmationList = ({ children }) => (
-  <div className="Confirmation__List">
+  <div className="confirmation__list">
     { children }
   </div>
 );

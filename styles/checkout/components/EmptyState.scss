@@ -1,19 +1,29 @@
-.FieldSet--EmptyState {
-  border: 1px solid #d9d9d9;
-  border-radius: 4px;
+.field-set--empty-state {
+  border: 1px solid $black10;
+  border-radius: 12px;
   margin-bottom: 0;
-  height: 60px;
+  height: 48px;
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 12px;
+  line-height: 14px;
   display: flex;
   align-items: center;
-  padding-left: 20px;
-  background: #fafafa;
-  color: #868686;
+  padding: 0 12px;
+  background: $alabaster;
+  color: $sitkablue;
+  @include breakpoint-up('sm') {
+    font-size: 14px;
+    line-height: 20px;
+    height: 60px;
+    padding: 0 15px;
+  }
 }
 
-.FieldSet--EmptyState svg {
+.field-set--empty-state svg {
+  width: 24px;
+  margin-right: 12px;
+  @include breakpoint-up('sm') {
     margin-right: 17px;
+  }
 }

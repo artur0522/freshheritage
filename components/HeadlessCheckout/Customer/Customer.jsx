@@ -1,64 +1,45 @@
-import React, { memo, useCallback, useState } from 'react';
-import { useCustomer } from '@boldcommerce/checkout-react-components';
-// import { CheckboxField } from "@boldcommerce/stacks-ui/lib";
+import React, { memo, useState, useEffect } from 'react';
+import { useCustomer, useOrderMetadata } from '@boldcommerce/checkout-react-components';
+import { useCustomerContext } from '@/context/CustomerContext'
+import { useModalContext } from '@/context/ModalContext'
+import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
 import { InputField } from '../InputField';
-import { CheckoutSection } from '../CheckoutSection';
-// import './Customer.css';
-import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';
+import IconSelectArrow from '@/svgs/select-arrow.svg'
+import IconCheckmark from '@/svgs/checkmark.svg'
+import Checkbox from "react-custom-checkbox";
+import LoginAccountForm from '@/components/Forms/LoginAccountForm'
+import ForgotPasswordForm from '@/components/Forms/ForgotPasswordForm'
+import { GiftOrder } from '../GiftOrder';
 
 const Customer = () => {
-  const { data, submitCustomer } = useCustomer();
-
-  return <MemoizedCustomer customer={data} submitCustomer={submitCustomer} />;
+  const { submitCustomer } = useCustomer();
+  const { customer: data, logout } = useCustomerContext()
+  const { data: orderMetaData } = useOrderMetadata()
+  const modalContext = useModalContext()
+  return <MemoizedCustomer customer={data} orderMetaData={orderMetaData} logout={logout} submitCustomer={submitCustomer} modalContext={modalContext} />;
 };
 
-const MemoizedCustomer = memo(({ customer, submitCustomer }) => {
-  const trackEvent = useAnalytics();
-  const logError = useErrorLogging();
-  const [email, setEmail] = useState(customer?.email_address);
+const MemoizedCustomer = memo(({ customer, orderMetaData, logout, modalContext, submitCustomer }) => {
+  const [email, setEmail] = useState(customer?.email);
   const [errors, setErrors] = useState(null);
   const [acceptsMarketing, setAcceptsMarketing] = useState(false);
+  const { updateOrderMetaData } = useHeadlessCheckoutContext()
+  const [customerOpen, setCustomerOpen] = useState(true)
+  const [accountFormType, setAccountFormType] = useState('default')
   const { t } = useTranslation();
-  //console.log("customer", customer);
 
-  const handleSubmit = useCallback(async () => {
-    try {
-      await submitCustomer({
-        email_address: email,
-        accepts_marketing: acceptsMarketing
-      });
-      trackEvent('set_customer');
-      setErrors(null);
-    } catch (e) {
-      setErrors(e.body.errors);
-      logError('customer', e);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email, acceptsMarketing]);
-
-  return (
-    <CheckoutSection
-      className="FieldSet--CustomerInformation"
-      title={t('customer.info')}
-    >
-      {customer?.email_address ? (
-        <div className="FieldSet--CustomerEmail">
-          <div>{customer.email_address}</div>
-          <div>
-            {t('customer.not_you')}
-            <a href={process.env.LOGIN_URL}>{t('customer.logout')}</a>
-          </div>
-        </div>
-      ) : (
-        <>
-          <div>
-            {t('customer.already_have_account')}
-            <a href={process.env.LOGIN_URL}>{t('customer.login')}</a>
-          </div>
+  const getAccountFormContent = (type) => {
+    switch(type) {
+      case 'login':
+        return <LoginAccountForm isCheckout={true} onForgotPasswordClick={() => setAccountFormType('forgot_password')}  />
+      case 'forgot_password':
+        return <ForgotPasswordForm isCheckout={true} />
+      default:
+        return (
           <InputField
-            className="Field--Email"
-            placeholder={t('customer.email')}
+            className="order-customer__email"
+            placeholder="Email"
             type="email"
             name="email"
             autoComplete="email"
@@ -66,18 +47,95 @@ const MemoizedCustomer = memo(({ customer, submitCustomer }) => {
             messageText={errors && errors[0].message}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            disabled={customer.isAuthenticated}
-            onBlur={handleSubmit}
           />
-        </>
-      )}
-      <input
-        type="checkbox"
-        label={t('customer.subscribe')}
-        checked={acceptsMarketing}
-        onChange={() => setAcceptsMarketing(!acceptsMarketing)}
-      />
-    </CheckoutSection>
+        )
+    }
+  }
+
+  useEffect(() => {
+    if (customer?.email) {
+      setAccountFormType('default')
+      submitCustomer({
+        platform_id: customer.id.replace('gid://shopify/Customer/', ''),
+        first_name: customer.firstName,
+        last_name: customer.lastName,
+        email_address: customer.email,
+        accepts_marketing: customer.acceptsMarketing
+      })
+      // console.log("submitting customer")
+    }
+  }, [customer])
+
+  return (
+    <div className="order-info">
+      <div className="order-customer">
+        <div className={`checkout__header checkout__header--border-on-closed checkout__row ${customerOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
+          <h3>Customer Info</h3>
+          <div className="order-customer__header-links">
+            {customer?.email ? (
+              <div className="order-customer__header-link">
+                {t('customer.not_you')}
+                <button onClick={() => logout()} className="btn-link-underline">{t('customer.logout')}</button>
+              </div>
+            ): (
+              (accountFormType === 'login' ? (
+                <div className="order-customer__header-link">
+                  {`Don't have an account? `}
+                  <button
+                    onClick={() => {
+                      modalContext.setModalType('create')
+                      modalContext.setIsOpen(true)
+                    }}
+                    className="btn-link-underline">Sign Up</button>
+                </div>
+              ):(
+                <div className="order-customer__header-link">
+                  {t('customer.already_have_account')}
+                  <button onClick={() => setAccountFormType('login')} className="btn-link-underline">{t('customer.login')}</button>
+                </div>
+              ))
+
+            )}
+          </div>
+        </div>
+        {!!customerOpen &&
+          <>
+            {customer?.email ? (
+              <div>{customer.email}</div>
+            ):(
+              <div className="order-customer-account-form">{getAccountFormContent(accountFormType)}</div>
+            )}
+
+            <div className="checkout__checkbox-wrapper">
+              <Checkbox
+                className="checkout__checkbox"
+                icon={<div className="checkbox--checked"><IconCheckmark /></div>}
+                label={t('customer.subscribe')}
+                checked={acceptsMarketing}
+                onChange={() => setAcceptsMarketing(!acceptsMarketing)}
+              />
+            </div>
+            <div className="checkout__checkbox-wrapper">
+              <Checkbox
+                className="checkout__checkbox"
+                icon={<div className="checkbox--checked"><IconCheckmark /></div>}
+                label={'This order is a gift shipping directly to the recipient'}
+                checked={orderMetaData.note_attributes.is_gift_order == 'true' ? true : false}
+                onChange={() => updateOrderMetaData({
+                  note_attributes: {
+                    is_gift_order: (orderMetaData.note_attributes.is_gift_order == 'true' ? 'false' : 'true')
+                  }
+                })}
+              />
+            </div>
+            {orderMetaData.note_attributes.is_gift_order == 'true' &&
+              <GiftOrder orderMetaData={orderMetaData} updateOrderMetaData={updateOrderMetaData} />
+            }
+          </>
+        }
+      </div>
+    </div>
+
   );
 });
 

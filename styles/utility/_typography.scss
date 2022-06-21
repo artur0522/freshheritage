@@ -12,355 +12,378 @@
  * line-height: lineheight(normal, 12); // unitless
  */
 
- @use "sass:math";
+@use "sass:math";
 
- $font-size-root: 16; // No units | Assume font size base of most browsers is 16px.
- 
- // Remove units from a number.
- // @param {Number} $numb - Number to remove unit from
- // @return {Number} - Unitless number REF:
- // https://css-tricks.com/snippets/sass/strip-unit-function/
- @function strip-unit($num) {
-   @return math.div($num, $num * 0 + 1);
- }
- 
- // Convert px to rem
- // Use this for font-size
- // @param {Number} $pxval - Number in pixels to convert to rem
- // @param {Number} $font-size-root - Base font size for most browsers in px
- // @return - value in `rem`s
- @function pxtorem($pxval, $base: $font-size-root) {
-   @return math.div(strip-unit($pxval), $base) * 1rem;
- }
- 
- @function fontsize($pxval, $base: $font-size-root) {
-   @return pxtorem($pxval, $base);
- }
- 
- // Convert px to em
- // Use this for letter-spacing
- // @param {Number} $pxval - Number in pixels to convert to em
- // @param {Number} $font-size-root - Base font size for most browsers in px
- // @return - value in `em`s
- @function pxtoem($pxval, $base: $font-size-root) {
-   @return math.div(strip-unit($pxval), $base) * 1em;
- }
- 
- @function letterspacing($pxval, $base: $font-size-root) {
-   @return pxtoem($pxval, $base);
- }
- 
- // Convert to unitless value
- // Use this for line-height
- // @param {Number} $line-height-in-px - Line height in px
- // @param {Number} $font-size-in-px - Font size in px
- 
- // *line-height* (unit-less) = line height (px) / font size (px)
- @function lineheight($line-height-in-px, $font-size-in-px: 1) {
-   // If "normal" entered, font size is ignored
-   @if ($line-height-in-px == 'normal') {
-     @return 1.2; // Standard "normal" line-height
-   }
- 
-   @return math.div(strip-unit($line-height-in-px), strip-unit($font-size-in-px));
- }
- 
- h1,
- .h1 {
-   font-family: 'BebasNeue';
-   font-size: fontsize(36px);
-   line-height: 100%;
-   letter-spacing: 0.02em;
- 
-   @include breakpoint-up('sm') {
-     font-size: fontsize(48px);
-   }
- 
-   @include breakpoint-up('md') {
-     font-size: fontsize(56px);
-   }
- 
-   @include breakpoint-up('lg') {
-     font-size: fontsize(60px);
-   }
- 
-   @include breakpoint-up('xl') {
-     font-size: fontsize(72px);
-     line-height: 120%;
-   }
- }
- 
- h2,
- .h2 {
-   font-family: 'FrankRuhl';
-   font-weight: 500;
-   font-size: fontsize(18px);
-   line-height: 120%;
- 
-   @include breakpoint-up('sm') {
-     font-size: fontsize(21px);
-   }
- 
-   @include breakpoint-up('md') {
-     font-size: fontsize(24px);
-   }
- 
-   @include breakpoint-up('xl') {
-     font-size: fontsize(28px);
-   }
- }
- 
- h3,
- .h3 {
-   font-family: 'FrankRuhl';
-   font-weight: 500;
-   font-size: fontsize(16px);
-   line-height: 120%;
- 
-   @include breakpoint-up('sm') {
-     font-size: fontsize(18px);
-   }
- 
-   @include breakpoint-up('md') {
-     font-size: fontsize(21px);
-   }
- 
-   @include breakpoint-up('xl') {
-     font-size: fontsize(24px);
-   }
- }
- 
- h4,
- .h4 {
-   font-family: 'BebasNeue';
-   font-size: fontsize(24px);
-   font-weight: 500;
-   line-height: 100%;
-   letter-spacing: 0.02em;
- 
-   @include breakpoint-up('sm') {
-     font-size: fontsize(28px);
-   }
- 
-   @include breakpoint-up('md') {
-     font-size: fontsize(36px);
-   }
- 
-   @include breakpoint-up('lg') {
-     font-size: fontsize(42px);
-   }
- 
-   @include breakpoint-up('xl') {
-     font-size: fontsize(48px);
-   }
- }
- 
- h5,
- .h5 {
-   font-family: 'FrankRuhl';
-   font-weight: 500;
-   font-size: fontsize(16px);
-   line-height: 120%;
- 
-   @include breakpoint-up('sm') {
-     font-size: fontsize(18px);
-   }
- 
-   @include breakpoint-up('lg') {
-     font-size: fontsize(21px);
-   }
- 
-   @include breakpoint-up('xl') {
-     font-size: fontsize(24px);
-   }
- }
- 
- h6,
- .h6 {
-   font-family: 'FrankRuhl';
-   font-weight: 500;
-   font-size: fontsize(14px);
-   line-height: 120%;
- 
-   @include breakpoint-up('sm') {
-     font-size: fontsize(16px);
-   }
- 
-   @include breakpoint-up('lg') {
-     font-size: fontsize(18px);
-   }
- 
-   @include breakpoint-up('xl') {
-     font-size: fontsize(21px);
-   }
- }
- 
- p,
- .body {
-   font-family: 'FrankRuhl';
-   font-weight: 400;
-   font-size: fontsize(16px);
-   line-height: 150%;
- 
-   @include breakpoint-up('md') {
-     font-size: fontsize(18px);
-   }
- 
-   @include breakpoint-up('xl') {
-     font-size: fontsize(21px);
-   }
- }
- 
- .secondary--body {
-   font-family: 'FrankRuhl';
-   font-weight: 400;
-   font-size: fontsize(14px);
-   line-height: 150%;
- 
-   @include breakpoint-up('lg') {
-     font-size: 16px;
-   }
- 
-   @include breakpoint-up('xl') {
-     font-size: 18px;
-   }
- }
- 
- a {
-   font-family: 'FrankRuhl';
-   font-weight: 400;
-   font-size: fontsize(16px);
-   line-height: 120%;
-   cursor: pointer;
-   display: inline-block;
-   color: $sitkablue;
- 
-   @include breakpoint-up('lg') {
-     font-size: fontsize(18px);
-   }
- }
- 
- .link {
-   text-decoration: underline !important;
- 
-   &.disabled {
-     color: $black;
-     opacity: 0.6;
-   }
- 
-   &:hover {
-     color: $salmon;
-   }
- 
-   &.salmon {
-     color: $salmon;
- 
-     &:hover {
-       color: $sitkablue;
-     }
-   }
- 
-   &.sitkablue {
-     color: $sitkablue;
- 
-     &:hover {
-       color: $salmon;
-     }
-   }
- }
- 
- button {
-   font-family: 'FrankRuhl';
-   font-weight: 400;
-   font-size: fontsize(16px);
-   line-height: 120%;
-   cursor: pointer;
- 
-   @include breakpoint-up('lg') {
-     font-size: fontsize(18px);
-   }
- }
- 
- .heading {
-   &--xxl {
-     @extend h1;
-   }
- 
-   &--xl {
-     @extend h2;
-   }
- 
-   &--l {
-     @extend h3;
-   }
- 
-   &--m {
-     @extend h4;
-   }
- 
-   &--s {
-     @extend h5;
-   }
- 
-   &--xs {
-     @extend h6;
-   }
- 
-   &--prop {
-     font-size: fontsize(21px);
-     line-height: 100%;
-     letter-spacing: 0.02em;
- 
-     @include breakpoint-up('sm') {
-       font-size: fontsize(21px);
-     }
- 
-     @include breakpoint-up('md') {
-       font-size: fontsize(21px);
-     }
- 
-     @include breakpoint-up('lg') {
-       font-size: fontsize(36px);
-     }
- 
-     @include breakpoint-up('xl') {
-       font-size: fontsize(36px);
-     }
-   }
- 
-   &--article {
-     font-size: fontsize(18px);
-     line-height: 120%;
-     letter-spacing: 0.02em;
- 
-     @include breakpoint-up('sm') {
-       font-size: fontsize(24px);
-     }
- 
-     @include breakpoint-up('md') {
-       font-size: fontsize(24px);
-     }
- 
-     @include breakpoint-up('lg') {
-       font-size: fontsize(24px);
-     }
- 
-     @include breakpoint-up('xl') {
-       font-size: fontsize(24px);
-     }
-   }
+$font-size-root: 16; // No units | Assume font size base of most browsers is 16px.
 
-   &--projected-tab {
+// Remove units from a number.
+// @param {Number} $numb - Number to remove unit from
+// @return {Number} - Unitless number REF:
+// https://css-tricks.com/snippets/sass/strip-unit-function/
+@function strip-unit($num) {
+  @return math.div($num, $num * 0 + 1);
+}
+
+// Convert px to rem
+// Use this for font-size
+// @param {Number} $pxval - Number in pixels to convert to rem
+// @param {Number} $font-size-root - Base font size for most browsers in px
+// @return - value in `rem`s
+@function pxtorem($pxval, $base: $font-size-root) {
+  @return math.div(strip-unit($pxval), $base) * 1rem;
+}
+
+@function fontsize($pxval, $base: $font-size-root) {
+  @return pxtorem($pxval, $base);
+}
+
+// Convert px to em
+// Use this for letter-spacing
+// @param {Number} $pxval - Number in pixels to convert to em
+// @param {Number} $font-size-root - Base font size for most browsers in px
+// @return - value in `em`s
+@function pxtoem($pxval, $base: $font-size-root) {
+  @return math.div(strip-unit($pxval), $base) * 1em;
+}
+
+@function letterspacing($pxval, $base: $font-size-root) {
+  @return pxtoem($pxval, $base);
+}
+
+// Convert to unitless value
+// Use this for line-height
+// @param {Number} $line-height-in-px - Line height in px
+// @param {Number} $font-size-in-px - Font size in px
+
+// *line-height* (unit-less) = line height (px) / font size (px)
+@function lineheight($line-height-in-px, $font-size-in-px: 1) {
+
+  // If "normal" entered, font size is ignored
+  @if ($line-height-in-px =='normal') {
+    @return 1.2; // Standard "normal" line-height
+  }
+
+  @return math.div(strip-unit($line-height-in-px), strip-unit($font-size-in-px));
+}
+
+h1,
+.h1 {
+  font-family: 'BebasNeue';
+  font-size: fontsize(36px);
+  line-height: 100%;
+  letter-spacing: 0.02em;
+
+  @include breakpoint-up('sm') {
+    font-size: fontsize(48px);
+  }
+
+  @include breakpoint-up('md') {
+    font-size: fontsize(56px);
+  }
+
+  @include breakpoint-up('lg') {
+    font-size: fontsize(60px);
+  }
+
+  @include breakpoint-up('xl') {
+    font-size: fontsize(72px);
+    line-height: 120%;
+  }
+}
+
+h2,
+.h2 {
+  font-family: 'FrankRuhl';
+  font-weight: 500;
+  font-size: fontsize(18px);
+  line-height: 120%;
+
+  @include breakpoint-up('sm') {
+    font-size: fontsize(21px);
+  }
+
+  @include breakpoint-up('md') {
+    font-size: fontsize(24px);
+  }
+
+  @include breakpoint-up('xl') {
+    font-size: fontsize(28px);
+  }
+}
+
+h3,
+.h3 {
+  font-family: 'FrankRuhl';
+  font-weight: 500;
+  font-size: fontsize(16px);
+  line-height: 120%;
+
+  @include breakpoint-up('sm') {
+    font-size: fontsize(18px);
+  }
+
+  @include breakpoint-up('md') {
+    font-size: fontsize(21px);
+  }
+
+  @include breakpoint-up('xl') {
+    font-size: fontsize(24px);
+  }
+}
+
+h4,
+.h4 {
+  font-family: 'BebasNeue';
+  font-size: fontsize(24px);
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: 0.02em;
+
+  @include breakpoint-up('sm') {
+    font-size: fontsize(28px);
+  }
+
+  @include breakpoint-up('md') {
+    font-size: fontsize(36px);
+  }
+
+  @include breakpoint-up('lg') {
+    font-size: fontsize(42px);
+  }
+
+  @include breakpoint-up('xl') {
+    font-size: fontsize(48px);
+  }
+}
+
+h5,
+.h5 {
+  font-family: 'FrankRuhl';
+  font-weight: 500;
+  font-size: fontsize(16px);
+  line-height: 120%;
+
+  @include breakpoint-up('sm') {
+    font-size: fontsize(18px);
+  }
+
+  @include breakpoint-up('lg') {
+    font-size: fontsize(21px);
+  }
+
+  @include breakpoint-up('xl') {
+    font-size: fontsize(24px);
+  }
+}
+
+h6,
+.h6 {
+  font-family: 'FrankRuhl';
+  font-weight: 500;
+  font-size: fontsize(14px);
+  line-height: 120%;
+
+  @include breakpoint-up('sm') {
+    font-size: fontsize(16px);
+  }
+
+  @include breakpoint-up('lg') {
+    font-size: fontsize(18px);
+  }
+
+  @include breakpoint-up('xl') {
+    font-size: fontsize(21px);
+  }
+}
+
+p,
+.body {
+  font-family: 'FrankRuhl';
+  font-weight: 400;
+  font-size: fontsize(16px);
+  line-height: 150%;
+
+  @include breakpoint-up('md') {
+    font-size: fontsize(18px);
+  }
+
+  @include breakpoint-up('xl') {
+    font-size: fontsize(21px);
+  }
+}
+
+.secondary--body {
+  font-family: 'FrankRuhl';
+  font-weight: 400;
+  font-size: fontsize(14px);
+  line-height: 150%;
+
+  @include breakpoint-up('lg') {
+    font-size: 16px;
+  }
+
+  @include breakpoint-up('xl') {
+    font-size: 18px;
+  }
+}
+
+a {
+  font-family: 'FrankRuhl';
+  font-weight: 400;
+  font-size: fontsize(16px);
+  line-height: 120%;
+  cursor: pointer;
+  display: inline-block;
+  color: $sitkablue;
+
+  @include breakpoint-up('lg') {
+    font-size: fontsize(18px);
+  }
+}
+
+.link {
+  text-decoration: underline !important;
+
+  &.disabled {
+    color: $black;
+    opacity: 0.6;
+  }
+
+  &:hover {
+    color: $salmon;
+  }
+
+  &.salmon {
+    color: $salmon;
+
+    &:hover {
+      color: $sitkablue;
+    }
+  }
+
+  &.sitkablue {
+    color: $sitkablue;
+
+    &:hover {
+      color: $salmon;
+    }
+  }
+}
+
+button {
+  font-family: 'FrankRuhl';
+  font-weight: 400;
+  font-size: fontsize(16px);
+  line-height: 120%;
+  cursor: pointer;
+
+  @include breakpoint-up('lg') {
+    font-size: fontsize(18px);
+  }
+}
+
+.heading {
+  &--xxl {
+    @extend h1;
+  }
+
+  &--xl {
+    @extend h2;
+  }
+
+  &--l {
+    @extend h3;
+  }
+
+  &--m {
+    @extend h4;
+  }
+
+  &--s {
+    @extend h5;
+  }
+
+  &--xs {
+    @extend h6;
+  }
+
+  &--prop {
+    font-size: fontsize(21px);
+    line-height: 100%;
+    letter-spacing: 0.02em;
+
+    @include breakpoint-up('sm') {
+      font-size: fontsize(21px);
+    }
+
+    @include breakpoint-up('md') {
+      font-size: fontsize(21px);
+    }
+
+    @include breakpoint-up('lg') {
+      font-size: fontsize(36px);
+    }
+
+    @include breakpoint-up('xl') {
+      font-size: fontsize(36px);
+    }
+  }
+
+  &--article {
+    font-size: fontsize(18px);
+    line-height: 120%;
+    letter-spacing: 0.02em;
+
+    @include breakpoint-up('sm') {
+      font-size: fontsize(24px);
+    }
+
+    @include breakpoint-up('md') {
+      font-size: fontsize(24px);
+    }
+
+    @include breakpoint-up('lg') {
+      font-size: fontsize(24px);
+    }
+
+    @include breakpoint-up('xl') {
+      font-size: fontsize(24px);
+    }
+  }
+
+  &--product-title {
+    font-size: fontsize(24px);
+    line-height: 100%;
+    letter-spacing: 0.02em;
+
+    @include breakpoint-up('sm') {
+      font-size: fontsize(28px);
+    }
+
+    @include breakpoint-up('md') {
+      font-size: fontsize(28px);
+    }
+
+    @include breakpoint-up('lg') {
+      font-size: fontsize(28px);
+    }
+
+    @include breakpoint-up('xl') {
+      font-size: fontsize(28px);
+    }
+  }
+
+  &--projected-tab {
     font-weight: 500;
     font-size: fontsize(16px);
     line-height: 150%;
-  
+
     @include breakpoint-up('md') {
       font-size: fontsize(16px);
     }
-   }
+  }
 
-   &--tab {
+  &--tab {
     font-size: fontsize(14px);
     line-height: 140%;
     font-weight: 500;
@@ -368,56 +391,109 @@
     @include breakpoint-up('sm') {
       font-size: fontsize(18px);
     }
-   }
+  }
 
-   &--projected-title {
+  &--label {
+    font-size: fontsize(16px);
+    line-height: 140%;
+    font-weight: 500;
+
+    @include breakpoint-up('sm') {
+      font-size: fontsize(18px);
+    }
+  }
+
+  &--projected-title {
     font-size: fontsize(24px);
-    
+
     @include breakpoint-up('sm') {
       font-size: fontsize(28px);
     }
-  
+
     @include breakpoint-up('md') {
       font-size: fontsize(36px);
     }
 
     @include breakpoint-up('lg') {
-        font-size: fontsize(36px);
+      font-size: fontsize(36px);
     }
-    
+
     @include breakpoint-up('xl') {
-        font-size: fontsize(36px);
+      font-size: fontsize(36px);
     }
-   }
- }
- 
- .recipe--time {
-   font-size: fontsize(12px);
-   line-height: 120%;
-   font-weight: 500;
-   color: $salmon;
- 
-   @include breakpoint-up('sm') {
-       font-size: fontsize(14px);
-   }
- }
- 
- .capitalize {
-   text-transform: capitalize;
- }
- 
- .uppercase {
-   text-transform: uppercase;
- }
- 
- .lowercase {
-   text-transform: lowercase;
- }
- 
- .underline {
-   text-decoration: underline;
- }
- 
- .no-underline {
-   text-decoration: none;
- }
+  }
+}
+
+.delivery--time {
+  font-size: fontsize(12px);
+  line-height: 120%;
+  font-weight: 400;
+  color: $salmon;
+
+  @include breakpoint-up('sm') {
+    font-size: fontsize(16px);
+  }
+}
+
+.base-font {
+  font-size: fontsize(16px);
+
+  @include breakpoint-up('sm') {
+    font-size: fontsize(16px);
+  }
+
+  @include breakpoint-up('md') {
+    font-size: fontsize(16px);
+  }
+
+  @include breakpoint-up('lg') {
+    font-size: fontsize(16px);
+  }
+
+  @include breakpoint-up('xl') {
+    font-size: fontsize(16px);
+  }
+}
+
+.best-seller {
+  font-size: fontsize(11px);
+  font-weight: 500;
+  font-family: 'FrankRuhl';
+  line-height: 120%;
+}
+
+.recipe--time {
+  font-size: fontsize(12px);
+  line-height: 120%;
+  font-weight: 500;
+  color: $salmon;
+
+  @include breakpoint-up('sm') {
+    font-size: fontsize(14px);
+  }
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.no-underline {
+  text-decoration: none;
+}
+
+.disclaimer {
+  font-size: fontsize(11px);
+  line-height: 150%;
+}

@@ -1,51 +1,36 @@
-.FieldSet--CustomerInformation {
-  padding: 0;
+.order-customer__header-links {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  @include breakpoint-up('sm') {
+    margin-top: 0;
+  }
+}
+
+.order-customer__header-link {
   font-size: 14px;
+  a, .btn-link-underline {
+    font-size: 14px;
+    color: $salmon;
+    text-decoration: underline;
+    &:hover {
+      color: $sitkablue;
+    }
+  }
 }
 
-.FieldSet--CustomerInformation .FieldSet__Content{
-  display: flex;
-  flex-direction: column;
-  row-gap: 8px;
+.order-giftnote-disclaimer {
+  font-size: 11px;
 }
 
-.FieldSet--CustomerEmail {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.Field--Email {
-  flex: 1;
-}
-
-.Field--Email .InputField.Field--Email {
-  width: auto;
-}
-
-.stx-field.InputField {
-  display: flex;
-  flex-direction: column;
-}
-
-.stx-input.InputField {
-  padding: 5px;
-  margin: 0 5px;
-}
-
-.FieldSet--CustomerInformation .stx-field__message {
-  margin: 0 5px;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 16px;
-}
-
-.FieldSet--CustomerInformation .InputField--alert + .stx-field__message {
-  color: red;
-}
-
-.FieldSet--CustomerInformation .stx-checkbox-field__checkbox {
-  width: 16px;
-  height: 16px;
+.order-customer-account-form {
+  h3 {
+    font-family: $bebas;
+    letter-spacing: 0.02em;
+    margin-bottom: 15px;
+  }
+  .btn {
+    margin: 24px 0;
+    max-width: 392px;
+  }
 }

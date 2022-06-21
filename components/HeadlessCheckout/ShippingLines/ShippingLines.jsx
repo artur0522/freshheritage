@@ -7,10 +7,9 @@ import {
 } from '@boldcommerce/checkout-react-components';
 import { LoadingState } from '../LoadingState';
 import { ShippingLineList, EmptyShippingLines } from './components';
-// import { Message } from '@boldcommerce/stacks-ui';
-// import './ShippingLines.css';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';
+import IconSelectArrow from '@/svgs/select-arrow.svg'
 
 const ShippingLines = ({ applicationLoading }) => {
   const { data, updateShippingLine, getShippingLines } = useShippingLines();
@@ -56,6 +55,7 @@ const MemoizedShippingLines = memo(
       useState(selectedShippingLine);
     const [errors, setErrors] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [shippingMethodOpen, setShippingMethodOpen] = useState(true);
     const { t } = useTranslation();
 
     const refreshShippingLines = useCallback(async () => {
@@ -107,11 +107,11 @@ const MemoizedShippingLines = memo(
       content = <LoadingState />;
     } else if (!showShippingLines) {
       content = (
-        <EmptyShippingLines title={t('shipping.options_description')} />
+        <EmptyShippingLines title={t('shipping.options_description')} icon={'box'} />
       );
     } else if (shippingLines.length === 0) {
       content = (
-        <EmptyShippingLines title={t('shipping.no_options_description')} />
+        <EmptyShippingLines title={t('shipping.no_options_description')} icon={'box'} />
       );
     } else {
       content = (
@@ -125,13 +125,17 @@ const MemoizedShippingLines = memo(
     }
 
     return (
-      <section className="FieldSet FieldSet--ShippingMethod">
-        {errors && <p type="alert">{errors[0].message}</p>}
-        <div className="FieldSet__Header">
-          <h2 className="FieldSet__Heading">{t('shipping.method')}</h2>
+      <div className="order-shipping-method">
+        <div className={`checkout__header checkout__header--border-on-closed checkout__row ${shippingMethodOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
+          <h3>Shipping Method</h3>
         </div>
-        {content}
-      </section>
+        {!!shippingMethodOpen &&
+          <>
+            {errors && <p type="alert">{errors[0].message}</p>}
+            {content}
+          </>
+        }
+      </div>
     );
   }
 );

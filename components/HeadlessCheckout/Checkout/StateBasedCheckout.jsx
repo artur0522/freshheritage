@@ -14,7 +14,7 @@ export function StateBasedCheckout({data}) {
       initialData={data.initial_data}
       publicOrderId={data.public_order_id}
       token={data.jwt_token}
-      storeIdentifier={data.storeIdentifier}
+      storeIdentifier={process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}
       apiBase="https://api.boldcommerce.com/checkout/storefront"
     >
       <CheckoutSwitch />

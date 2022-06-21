@@ -3,7 +3,7 @@ export default async function handler(req, res) {
   try {
     console.log('process order with id', publicOrderId)
     const response = await fetch(
-      `https://api.boldcommerce.com/checkout/storefront/${process.env.SHOP_IDENTIFIER}/${publicOrderId}/process_order`,
+      `https://api.boldcommerce.com/checkout/storefront/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/${publicOrderId}/process_order`,
       {
         headers: {
           Authorization: `Bearer ${jwt}`,

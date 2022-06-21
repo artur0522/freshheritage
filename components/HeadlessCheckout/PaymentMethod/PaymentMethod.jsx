@@ -8,11 +8,11 @@ import {
   useErrors
 } from '@boldcommerce/checkout-react-components';
 import React, { memo, useEffect, useState } from 'react';
-import { CheckoutSection } from '../CheckoutSection';
 import { EmptyState } from '@/components/HeadlessCheckout/EmptyState';
+import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
 import { LoadingState } from '../LoadingState';
-// import './PaymentMethod.css';
 import { useTranslation } from 'react-i18next';
+import IconSelectArrow from '@/svgs/select-arrow.svg'
 import {
   useOrderMetadata,
   useDiscount
@@ -32,6 +32,7 @@ const PaymentMethod = ({ applicationLoading }) => {
     paymentIframeOnLoaded
   } = usePaymentIframe();
   const { data } = useShippingLines();
+  const { PIGIMediaRules } = useHeadlessCheckoutContext()
   const shippingLines = data.shippingLines;
   const orderStatus = state.orderInfo.orderStatus;
   const loading =
@@ -49,6 +50,7 @@ const PaymentMethod = ({ applicationLoading }) => {
       paymentIframeHeight={paymentIframe.height}
       onPaymentIframeLoaded={paymentIframeOnLoaded}
       loading={loading}
+      PIGIMediaRules={PIGIMediaRules}
     />
   );
 };
@@ -63,9 +65,11 @@ const MemoizedPaymentMethod = memo(
     paymentIframeUrl,
     paymentIframeHeight,
     onPaymentIframeLoaded,
-    loading
+    loading,
+    PIGIMediaRules
   }) => {
     const [disabled, setDisabled] = useState();
+    const [paymentMethodOpen, setPaymentMethodOpen] = useState(true);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -83,7 +87,7 @@ const MemoizedPaymentMethod = memo(
 
     const clearCart = async () => {
       //method to delete shopify cart
-      // return await fetch(`${process.env.CHECKOUT_URL}${process.env.SERVER_BASE}/clearCart`, {
+      // return await fetch(`${process.env.NEXT_PUBLIC_CHECKOUT_URL}${process.env.NEXT_PUBLIC_SERVER_BASE}/clearCart`, {
       // commented out to stop getting an error
       // return await fetch(`https://sitkasalmontest.ngrok.io/api/checkout/clearCart`, {
       //   method: "POST",
@@ -122,7 +126,7 @@ const MemoizedPaymentMethod = memo(
     let content = '';
 
     if (disabled) {
-      content = <EmptyState title={t('payment.empty')} />;
+      content = <EmptyState title={t('payment.empty')} icon="money" />;
     } else if (loading) {
       content = <LoadingState />;
     }
@@ -252,20 +256,47 @@ const MemoizedPaymentMethod = memo(
     }, []);
 
     return (
-      <CheckoutSection
-        className="FieldSet--PaymentMethod"
-        title={t('payment.method')}
-      >
-        <iframe
-          title="payments"
-          data-bold-pigi-iframe
-          className="PaymentMethod__Iframe"
-          src={paymentIframeUrl}
-          style={style}
-          onLoad={onPaymentIframeLoaded}
-        />
-        {content}
-      </CheckoutSection>
+      <div className="order-payment-method">
+        <div className={`checkout__header checkout__header--border-on-closed checkout__row ${paymentMethodOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
+          <h3>Payment Method</h3>
+        </div>
+        {!!paymentMethodOpen &&
+          <>
+            <iframe
+              title="payments"
+              data-bold-pigi-iframe
+              className="PaymentMethod__Iframe"
+              src={paymentIframeUrl}
+              style={style}
+              onLoad={() => {
+                onPaymentIframeLoaded()
+                function updateMediaMatch(event) {
+                  const payload = {
+                    conditionText: event.media,
+                    matches: event.matches,
+                  };
+                  const iframeElement = document.querySelector("iframe.PaymentMethod__Iframe");
+                  if (!iframeElement) {
+                    return false
+                  }
+                  const iframeWindow = iframeElement.contentWindow;
+                  const action = { actionType: "PIGI_UPDATE_MEDIA_MATCH", payload };
+                  iframeWindow.postMessage(action, "*");
+                }
+
+                PIGIMediaRules.forEach((rule) => {
+                  const mediaMatch = window.matchMedia(rule.conditionText);
+                  mediaMatch.addListener(updateMediaMatch);
+                  updateMediaMatch(mediaMatch);
+                });
+
+
+              }}
+            />
+            {content}
+          </>
+        }
+      </div>
     );
   }
 );

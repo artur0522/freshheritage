@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { accountClientPost } from '@/utils/account'
-import { CUSTOMER_ACCESS_TOKEN_CREATE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_RECOVER, CUSTOMER_RESET } from '@/gql/index.js'
+import { CUSTOMER_ACCESS_TOKEN_CREATE, CUSTOMER_ACCESS_TOKEN_DELETE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_RECOVER, CUSTOMER_RESET, transformEdges } from '@/gql/index.js'
 import { encode } from 'js-base64'
 import * as Cookies from 'es-cookie'
 
@@ -68,6 +68,10 @@ export function CustomerProvider({ children }) {
       }
     }
 
+    if (customer.addresses?.edges.length > 0) {
+      customer.addresses = transformEdges(customer.addresses)
+    }
+
     setCustomer(customer)
     console.log("customer:", customer)
     return { data }
@@ -86,6 +90,21 @@ export function CustomerProvider({ children }) {
       accessToken: customerAccessToken.accessToken,
       expiresAt: customerAccessToken.expiresAt
     })
+  }
+
+  async function logout() {
+    const customerAccessToken = Cookies.get('customerAccessToken')
+    const response = await accountClientPost({
+      query: CUSTOMER_ACCESS_TOKEN_DELETE,
+      variables: { customerAccessToken: customerAccessToken }
+    })
+    const { deletedAccessToken, userErrors } =
+    response.data.customerAccessTokenDelete
+    if (deletedAccessToken) {
+      setCustomer(null)
+      Cookies.remove('customerAccessToken')
+    }
+    return { deletedAccessToken, errors: userErrors }
   }
 
   async function register({ firstName, lastName, email, password }) {
@@ -144,7 +163,7 @@ export function CustomerProvider({ children }) {
   }
 
   return (
-    <CustomerContext.Provider value={{customer, setCustomer, customerLoading, login, register, recover, reset}}>
+    <CustomerContext.Provider value={{customer, setCustomer, customerLoading, login, logout, register, recover, reset}}>
       {children}
     </CustomerContext.Provider>
   )

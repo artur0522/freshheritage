@@ -1,164 +1,86 @@
 @import '@/styles/_shared.scss';
 
-.cart {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  background-color: white;
-  z-index: 10001;
+.checkout-flyout__content--enter {
+  transform: translate(100%);
+}
+.checkout-flyout__content--enter-active {
+  transform: translate(0);
+}
+.checkout-flyout__content--enter-done {
+  transform: translate(0);
+}
+.checkout-flyout__content--exit {
+  transform: translate(100%);
+}
+
+.checkout-flyout {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100vh;
-  transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
-  border-left: 1px solid #dedede7a;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 2001;
+  height: 100%;
+  width: 100%;
   &.hide {
-    transform: translateX(100%);
-  }
-  &.show {
-    transform: translateX(0%);
-  }
-}
-
-.close-icon {
-  width: 16px;
-}
-
-.cart-header {
-  border-bottom: 1px solid #dedede
-}
-
-.close-button {
-  outline: 0;
-  border: 0;
-  background: none;
-  position: absolute;
-  padding: 1px 6px;
-  height: auto;
-  top: 24px;
-  right: 32px;
-  cursor: pointer;
-  z-index: 100;
-  svg {
-    width: 20px;
-    * {
-      stroke: $sitkablue;
+    display: none;
+    .checkout-flyout__content {
+      transform: translate(100%);
+    }
+    .checkout-flyout__overlay {
+      display: none;
     }
   }
 }
 
-.cart-title {
-  font-family: 'Bebas Neue';
-  font-size: 22px;
-  text-transform: uppercase;
-  text-align: center;
-  margin: 24px;
-  cursor: pointer
-}
-
-.checkout-button {
-  background-color: #3b3b3b;
-  width: 100%;
-  padding: 32px;
-  text-transform: uppercase;
-  font-size: 16px;
-  letter-spacing: 1px;
-  color: white;
-  border: 0;
-  outline: 0;
-  height: auto;
-  border-radius: 0;
-}
-
-.cart-item {
-  padding: 16;
-  display: flex;
-}
-
-.cart-item-title {
-  font-family: 'Bebas Neue';
-  font-size: 22px;
-  margin-top: 0;
-  margin-bottom: 11px;
-  text-transform: uppercase;
-}
-
-.cart-item-thumbnail {
-  width: 100%;
-}
-
-.thumbnail-container {
-  flex: none;
-  padding: 12px;
-  width: 25%;
-  margin-top: 5px;
-}
-
-.remove-product-button {
-  text-transform: uppercase;
-  color: #363636;
-  background-color: #f3f3f3;
-  margin-left: 16px;
-  height: 48px;
-  border: 0;
-  outline: 0;
-  font-size: 14px;
-  letter-spacing: 1px;
-  font-weight: 600;
-  padding: 6px 14px;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 12px;
-}
-
-.product-interact-layout {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.cart-item-price {
-  flex-grow: 1;
-}
-
-.cart-items {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  flex-grow: 5;
-  overflow-y: scroll;
-}
-
-.sub-total-footer {
-  border-top: 1px solid #dedede;
-  padding: 24px 0;
-}
-
-.sub-total {
-  font-size: 18px;
-  line-height: 28px;
-  text-transform: uppercase;
-  color: #616161;
-  text-align: center;
-  margin-top: 0;
-  margin-bottom: 0;
-  & span:first-of-type {
-    margin-right: 8px;
+.checkout-flyout__close-btn {
+  background-color: transparent;
+  border: none;
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  @include breakpoint-up('md') {
+    top: 15px;
+    right: 15px;
+  }
+  svg {
+    width: 14px;
+    @include breakpoint-up('sm') {
+      width: 20px;
+    }
+    @include breakpoint-up('md') {
+      width: 27px;
+    }
+    * {
+      fill: $sitkablue;
+    }
   }
 }
 
-.subtotal-price {
-  font-family: 'Source Sans Pro';
-  font-weight: 600;
+.checkout-flyout__overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  cursor: pointer;
 }
 
-.cart-item-title-layout {
-  display: flex;
-  justify-content: space-between;
+.checkout-flyout__content {
+  width: 100%;
+  max-width: 980px;
+  position: fixed;
+  right: 0;
+  height: 100%;
+  background-color: $alabaster2;
+  padding: 50px 30px;
+  box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.1);
+  transition: 0.2s ease-in-out transform;
+  overflow-y: auto;
+  z-index: 1001;
+  @include breakpoint-up('sm') {
+    padding: 50px 40px;
+  }
+  @include breakpoint-up('md') {
+    padding: 80px;
+  }
 }

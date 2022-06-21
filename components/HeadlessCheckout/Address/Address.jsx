@@ -56,14 +56,14 @@ const Address = ({
   ]);
 
   return (
-    <div className={classNames('FieldSet--Address' , className)}>
-      <div className="FieldGroup">
+    <div className={classNames('address-form' , className)}>
+      <div className="input-group--wrapper">
         <InputField
           placeholder={hasRequiredFields && requiredAddressFields.includes('first_name') ? t('address.first_name') : t('address.first_name_optional')}
           type="text"
           name="first_name"
           autoComplete="given-name"
-          className="Field Field--FirstName"
+          className="input"
           value={address?.first_name ?? ''}
           messageType={errors && errorMap?.first_name && 'alert' || ''}
           messageText={errors && errorMap?.first_name && t('address.first_name_hint') || ''}
@@ -76,7 +76,7 @@ const Address = ({
           type="text"
           name="last_name"
           autoComplete="family-name"
-          className="Field Field--LastName"
+          className="input"
           value={address?.last_name ?? ''}
           messageType={errors && errorMap?.last_name && 'alert' || ''}
           messageText={errors && errorMap?.last_name && t('address.last_name_hint') || ''}
@@ -85,72 +85,66 @@ const Address = ({
           })}
         />
       </div>
-      <div className="FieldGroup">
-        <InputField
-          placeholder={hasRequiredFields && requiredAddressFields.includes('business_name') ? t('address.business_name') : t('address.business_name_optional')}
-          type="text"
-          name="business_name"
-          className="Field Field--Company"
-          value={address?.business_name ?? ''}
-          messageType={errors && errorMap?.business_name && 'alert' || ''}
-          messageText={errors && errorMap?.business_name && t('address.business_name_hint') || ''}
-          onChange={(e) => onChange({
-            business_name: e.target.value,
-          })}
-        />
-      </div>
-      <div className="FieldGroup">
-        <InputField
-          placeholder={hasRequiredFields && requiredAddressFields.includes('address_line_1') ? t('address.address_line_1') : t('address.address_line_1_optional')}
-          type="text"
-          name="address_line_1"
-          autoComplete="address_line1"
-          className="Field Field--Address"
-          value={address?.address_line_1 ?? ''}
-          messageType={errors && errorMap?.address_line_1 && 'alert' || ''}
-          messageText={errors && errorMap?.address_line_1 && t('address.address_line_1_hint') || ''}
-          onChange={(e) => onChange({
-            address_line_1: e.target.value,
-          })}
-        />
-        <InputField
-          placeholder={t('address.address_line_2')}
-          type="text"
-          name="address_line_2"
-          autoComplete="address_line2"
-          className="Field Field--Address2"
-          value={address?.address_line_2 ?? ''}
-          onChange={(e) => onChange({
-            address_line_2: e.target.value,
-          })}
-        />
-      </div>
-      <div className="FieldGroup">
-        <InputField
-          placeholder={hasRequiredFields && requiredAddressFields.includes('city') ? t('address.city') : t('address.city_optional')}
-          type="text"
-          name="city"
-          autoComplete="address-level2"
-          value={address?.city ?? ''}
-          messageType={errors && errorMap?.city && 'alert' || ''}
-          messageText={errors && errorMap?.city && t('address.city_hint') || ''}
-          className="Field Field--City"
-          onChange={(e) => onChange({
-            city: e.target.value,
-          })}
-        />
-      </div>
-      <div className="FieldGroup">
+      <InputField
+        placeholder={hasRequiredFields && requiredAddressFields.includes('business_name') ? t('address.business_name') : t('address.business_name_optional')}
+        type="text"
+        name="business_name"
+        className="input"
+        value={address?.business_name ?? ''}
+        messageType={errors && errorMap?.business_name && 'alert' || ''}
+        messageText={errors && errorMap?.business_name && t('address.business_name_hint') || ''}
+        onChange={(e) => onChange({
+          business_name: e.target.value,
+        })}
+      />
+      <InputField
+        placeholder={hasRequiredFields && requiredAddressFields.includes('address_line_1') ? t('address.address_line_1') : t('address.address_line_1_optional')}
+        type="text"
+        name="address_line_1"
+        autoComplete="address_line1"
+        className="input"
+        value={address?.address_line_1 ?? ''}
+        messageType={errors && errorMap?.address_line_1 && 'alert' || ''}
+        messageText={errors && errorMap?.address_line_1 && t('address.address_line_1_hint') || ''}
+        onChange={(e) => onChange({
+          address_line_1: e.target.value,
+        })}
+      />
+      <InputField
+        placeholder={t('address.address_line_2')}
+        type="text"
+        name="address_line_2"
+        autoComplete="address_line2"
+        className="input"
+        value={address?.address_line_2 ?? ''}
+        onChange={(e) => onChange({
+          address_line_2: e.target.value,
+        })}
+      />
+      <InputField
+        placeholder={hasRequiredFields && requiredAddressFields.includes('city') ? t('address.city') : t('address.city_optional')}
+        type="text"
+        name="city"
+        autoComplete="address-level2"
+        value={address?.city ?? ''}
+        messageType={errors && errorMap?.city && 'alert' || ''}
+        messageText={errors && errorMap?.city && t('address.city_hint') || ''}
+        className="input"
+        onChange={(e) => onChange({
+          city: e.target.value,
+        })}
+      />
+      <div className="input-group--wrapper">
         <SelectField
           placeholder={t('address.country_hint')}
           name="country"
           autoComplete="country"
-          className="Field Field--Country"
+          className="input"
           value={address?.country_code ?? ''}
           messageType={errors && errorMap?.country && 'alert' || ''}
           messageText={errors && errorMap?.country && t('address.country_hint') || ''}
           onChange={(e) => onChange({
-            country_code: e.target.value,
+            country_code: e.value,
           })}
         >
           {countryList}
@@ -159,22 +153,24 @@ const Address = ({
           placeholder={provincePlaceholder}
           name="province"
           autoComplete="address-level1"
-          className={classNames("Field Field--Province", !(address?.country_code && showProvince) && 'Field--Hidden')}
+          className={classNames("input", !(address?.country_code && showProvince) && 'input--hidden')}
           value={address?.province_code ?? ''}
           messageType={errors && errorMap?.province && 'alert' || ''}
           messageText={errors && errorMap?.province && provincePlaceholder || ''}
           onChange={(e) => onChange({
-            province_code: e.target.value,
+            province_code: e.value,
           })}
         >
           {provinceList}
         </SelectField>
+      </div>
+      <div className="input-group--wrapper">
         <InputField
           placeholder={postalCodePlaceholder}
           type="text"
           name="postal"
           autoComplete="postal-code"
-          className={classNames("Field Field--Postal_Code", !(address?.country_code && showPostalCode) && 'Field--Hidden')}
+          className={classNames("input", !(address?.country_code && showPostalCode) && 'input--hidden')}
           messageType={errors && errorMap?.postal_code && 'alert' || ''}
           messageText={errors && errorMap?.postal_code}
           value={address?.postal_code ?? ''}
@@ -182,14 +178,12 @@ const Address = ({
             postal_code: e.target.value,
           })}
         />
-      </div>
-      <div className="FieldGroup">
         <InputField
           placeholder={hasRequiredFields && requiredAddressFields.includes('phone_number') ? t('address.phone_number') : t('address.phone_number_optional')}
           type="tel"
           name="phone_number"
           autoComplete="tel"
-          className="Field Field--Phone"
+          className="input"
           value={address?.phone_number ?? ''}
           messageType={errors && errorMap?.phone_number && 'alert' || ''}
           messageText={errors && errorMap?.phone_number && t('address.phone_number_hint') || ''}

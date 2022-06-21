@@ -55,6 +55,15 @@
       background-color: $alabaster;
     }
   }
+  &.checkout {
+    background-color: $alabaster;
+    .customerServiceInfo {
+      background-color: $alabaster;
+    }
+    .navButton {
+      display: none;
+    }
+  }
   .mainNavContainer {
     display: flex;
     justify-content: space-between;

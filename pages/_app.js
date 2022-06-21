@@ -3,6 +3,7 @@ import { CartProvider } from '@nacelle/react-hooks';
 import { nacelleClient } from 'services'
 import Layout from '@/components/Layout';
 import '../styles/global.scss';
+import 'react-dropdown/style.css'
 
 // The `AppContainer` overrides Next's default `App` component.
 // (https://nextjs.org/docs/advanced-features/custom-app)

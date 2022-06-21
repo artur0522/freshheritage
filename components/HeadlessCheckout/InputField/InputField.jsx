@@ -1,7 +1,5 @@
-/* eslint-disable */
 import cn from 'classnames';
 import React from 'react';
-// import './InputField.scss';
 
 const InputField = ({
   value,
@@ -10,31 +8,30 @@ const InputField = ({
   messageText,
   messageType,
   className,
+  label,
   ...otherParams
 }) => {
-  const containerClassNames = cn([
-    'InputField__Container',
-    className
-  ]);
-
   const classNames = cn([
-    'InputField',
-    {'InputField--alert': messageType === 'alert' || messageType === 'error'},
-    {'InputField--disabled': disabled}
+    'input-field',
+    {'input-field--alert': messageType === 'alert' || messageType === 'error'},
+    {'input-field--disabled': disabled}
   ])
 
   return (
-    <div className={containerClassNames}>
+    <div className="input-group">
       <div className={classNames}>
+        {label &&
+          <label className="input-field__label">{label}</label>
+        }
         <input
           {...otherParams}
-          className="InputField__Input"
+          className="input-field__input"
           value={value}
           disabled={disabled}
+          placeholder={placeholder}
         />
-        <label className="InputField__Label">{placeholder}</label>
+        { messageText && <div className='field__message'>{ messageText }</div> }
       </div>
-      { messageText && <div className='stx-field__message'>{ messageText }</div> }
     </div>
   );
 };

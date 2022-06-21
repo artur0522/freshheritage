@@ -103,11 +103,10 @@ export function PDPDrawerProvider({ children }) {
     router.beforePopState(({ as }) => {
       dispatch({ type: 'close_drawer' })
       return true
-    });
-
+    })
     return () => {
       router.beforePopState(() => true);
-    };
+    }
   }, [router])
 
   return (

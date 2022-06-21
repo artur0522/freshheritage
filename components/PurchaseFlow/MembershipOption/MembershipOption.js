@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import Expand from 'react-expand-animated'
 import Dropdown from 'react-dropdown'
-import 'react-dropdown/style.css'
 import IconSelectArrow from '@/svgs/select-arrow.svg'
 import classes from './MembershipOption.module.scss'
 import { useMediaQuery } from 'react-responsive'
@@ -89,6 +88,7 @@ const MembershipOption = ({option, membershipType}) => {
               arrowOpen={<IconSelectArrow className="dropdown-selector__arrow-open" />}
             />
           }
+          {/* should add a loading state when this function is called */}
           <button
             onClick={() => purchaseFlowContext.selectMembershipPlan(selectedVariant, membershipType)}
             className="btn salmon">

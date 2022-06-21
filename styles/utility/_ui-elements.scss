@@ -21,6 +21,22 @@
       $black;
   }
 
+  &.copper {
+    background-color: $copper;
+    &:hover {
+      background-color: $salmon;
+    }
+
+    &:disabled {
+      background: linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.6),
+          rgba(255, 255, 255, 0.6)
+        ),
+        $salmon;
+    }
+  }
+
   &.salmon {
     background-color: $salmon;
 

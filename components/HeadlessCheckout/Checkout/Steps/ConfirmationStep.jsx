@@ -1,7 +1,6 @@
 import React from 'react';
 import { useCheckoutStore } from '@boldcommerce/checkout-react-components';
 import {
-  CheckoutSection,
   OrderSummary,
   ConfirmationList,
   ConfirmationListItem,
@@ -11,9 +10,11 @@ import {
 // import { ConfirmationList, ConfirmationListItem } from './components';
 // import { RedactedCreditCard } from './components/RedactedCreditCard';
 import { useTranslation } from 'react-i18next';
-// import { Button } from '@boldcommerce/stacks-ui/lib';
+import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
+import { useRouter } from 'next/router'
 
 const ConfirmationPage = () => {
+  const router = useRouter();
   const { state } = useCheckoutStore();
   const customer = state.applicationState.customer;
   const shippingAddress = state.applicationState.addresses.shipping;
@@ -22,6 +23,7 @@ const ConfirmationPage = () => {
     state.applicationState.shipping.selected_shipping.description;
   const payments = state.applicationState.payments;
   const { t } = useTranslation();
+  const { setFlyoutState } = useHeadlessCheckoutContext()
 
   // const continueShopping = () => {
   //   location.href = `https://${state.initialData.shop_name}`;
@@ -34,7 +36,7 @@ const ConfirmationPage = () => {
 
   const paymentList = payments.map((payment) => {
     return (
-      <li className="Payment__ListItem" key={payment.id}>
+      <li className="payment__list-item" key={payment.id}>
         <RedactedCreditCard
           brand={payment.friendly_brand}
           lineText={payment.lineText}
@@ -45,84 +47,89 @@ const ConfirmationPage = () => {
 
   return (
     <>
-      <div className="Checkout__Layout Checkout__Confirmation" role="main">
-        <OrderSummary readOnly />
-        <h1 className="Checkout__ThankYou">{`${t('confirmation.thank_you')}, ${
-          customer.first_name || shippingAddress.first_name
-        }!`}</h1>
-        <CheckoutSection
-          className="Confirmation__Section"
-          title={t('confirmation.order_confirmed')}
-        >
-          <p>{t('confirmation.order_accepted')}</p>
-        </CheckoutSection>
-        <CheckoutSection
-          className="Confirmation__Section"
-          title={t('customer.info')}
-        >
-          <ConfirmationList>
-            <ConfirmationListItem title={t('shipping.address')}>
-              <p>{`${shippingAddress.first_name} ${shippingAddress.last_name}`}</p>
-              <p>
-                {`
-                  ${shippingAddress.address_line_1},
-                  ${
-                    shippingAddress.address_line_2 &&
-                    shippingAddress.address_line_2 + ','
-                  }
-                  ${shippingAddress.city},
-                  ${shippingAddress.province && shippingAddress.province + ','}
-                  ${
-                    shippingAddress.postal_code &&
-                    shippingAddress.postal_code + ','
-                  }
-                  ${shippingAddress.country},
-                  ${
-                    shippingAddress.phone_number && shippingAddress.phone_number
-                  }
-                `}
-              </p>
-            </ConfirmationListItem>
-            <ConfirmationListItem title={t('billing.address')}>
-              <p>{`${billingAddress.first_name} ${billingAddress.last_name}`}</p>
-              <p>
-                {`
-                  ${billingAddress.address_line_1},
-                  ${
-                    billingAddress.address_line_2 &&
-                    billingAddress.address_line_2 + ','
-                  }
-                  ${billingAddress.city},
-                  ${billingAddress.province && billingAddress.province + ','}
-                  ${
-                    billingAddress.postal_code &&
-                    billingAddress.postal_code + ','
-                  }
-                  ${billingAddress.country},
-                  ${billingAddress.phone_number && billingAddress.phone_number}
-                `}
-              </p>
-            </ConfirmationListItem>
-            <ConfirmationListItem title={t('shipping.method')}>
-              <p>{shippingMethod}</p>
-            </ConfirmationListItem>
-            <ConfirmationListItem title={t('payment.method')}>
-              <ul className="Payment__List">{paymentList}</ul>
-            </ConfirmationListItem>
-          </ConfirmationList>
-        </CheckoutSection>
-        <div className="Checkout__Navigation">
-          <button
-            className="Checkout__ContinueButton"
-            onClick={continueShopping}
-          >
-            {t('confirmation.continue_shopping')}
-          </button>
-          {/* <p className="Checkout__ContactUs">{t('confirmation.need_help')}<a href={`https://${state.initialData.shop_name}${process.env.CONTACT_URL}`}>{t('confirmation.contact_us')}</a></p> */}
+      <div className="checkout__layout checkout__confirmation" role="main">
+        <div className="checkout__panel-wrapper">
+          <div className="checkout__panel">
+            <OrderSummary readOnly />
+          </div>
+          <header className="checkout__header-main">
+            <h4>{`${t('confirmation.thank_you')}, ${
+              customer.first_name || shippingAddress.first_name
+            }!`}</h4>
+          </header>
         </div>
-        {/* <div className="Checkout__Footer">
-          <p className="Checkout__Rights">{`All rights reserved ${t('website_name')}`}</p>
-        </div> */}
+        <div className="checkout__panel-wrapper">
+          <div className="checkout__panel">
+            <div className="checkout__header checkout__header--flex-direction-column checkout__row">
+              <h3>{t('confirmation.order_confirmed')}</h3>
+              <p>{t('confirmation.order_accepted')}</p>
+            </div>
+            <div className="checkout__header checkout__row">
+              <h3>{t('customer.info')}</h3>
+            </div>
+            <ConfirmationList>
+              <ConfirmationListItem title={t('shipping.address')}>
+                <p>{`${shippingAddress.first_name} ${shippingAddress.last_name}`}</p>
+                <p>
+                  {`
+                    ${shippingAddress.address_line_1},
+                    ${
+                      shippingAddress.address_line_2 &&
+                      shippingAddress.address_line_2 + ','
+                    }
+                    ${shippingAddress.city},
+                    ${shippingAddress.province && shippingAddress.province + ','}
+                    ${
+                      shippingAddress.postal_code &&
+                      shippingAddress.postal_code + ','
+                    }
+                    ${shippingAddress.country},
+                    ${
+                      shippingAddress.phone_number && shippingAddress.phone_number
+                    }
+                  `}
+                </p>
+              </ConfirmationListItem>
+              <ConfirmationListItem title={t('billing.address')}>
+                <p>{`${billingAddress.first_name} ${billingAddress.last_name}`}</p>
+                <p>
+                  {`
+                    ${billingAddress.address_line_1},
+                    ${
+                      billingAddress.address_line_2 &&
+                      billingAddress.address_line_2 + ','
+                    }
+                    ${billingAddress.city},
+                    ${billingAddress.province && billingAddress.province + ','}
+                    ${
+                      billingAddress.postal_code &&
+                      billingAddress.postal_code + ','
+                    }
+                    ${billingAddress.country},
+                    ${billingAddress.phone_number && billingAddress.phone_number}
+                  `}
+                </p>
+              </ConfirmationListItem>
+              <ConfirmationListItem title={t('shipping.method')}>
+                <p>{shippingMethod}</p>
+              </ConfirmationListItem>
+              <ConfirmationListItem title={t('payment.method')}>
+                <ul className="payment__list">{paymentList}</ul>
+              </ConfirmationListItem>
+            </ConfirmationList>
+          </div>
+        </div>
+        <div className="checkout__navigation">
+          <button
+            onClick={() => {
+              if (router.pathname === '/checkout') {
+                router.push('/')
+                return
+              }
+              setFlyoutState(false)
+            }}
+            className="checkout__cta-btn btn sitkablue">Continue Shopping</button>
+        </div>
       </div>
     </>
   );

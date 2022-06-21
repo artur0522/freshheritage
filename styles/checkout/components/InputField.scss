@@ -1,40 +1,74 @@
-.InputField {
+.input-field {
   position: relative;
-  outline: 1px solid #D9D9D9;
-  border-radius: 4px;
-  box-shadow: 0px 1px 2px 0px #0000001A inset;
+  flex: 1;
+  width: 100%;
+
+  &__container {
+    width: 100%;
+  }
 
   &--disabled {
     opacity: 0.4;
   }
 
-  &__Input {
+  &__input {
     width: 100%;
-    min-height: 44px;
-    padding: 20px 10px 5px 10px;
+    height: 48px;
     font-size: 14px;
-    border: none;
+    font-weight: 500;
+    border-radius: 12px;
+    border: 1px solid $black10;
+    padding: 0 12px;
+    @include breakpoint-up('sm') {
+      font-size: 16px;
+      height: 60px;
+      padding: 0 15px;
+    }
   }
 
-  &__Input:focus + &__Label,
-  &__Input:not([value=""]) + &__Label,
-  &__Input:-webkit-autofill + &__Label {
+  &__input:focus + &__label,
+  &__input:not([value=""]) + &__label,
+  &__input:-webkit-autofill + &__label {
     top: 12px;
     font-size: 12px;
   }
 
-  &__Label {
-    position: absolute;
-    pointer-events: none;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: all .2s ease;
-    color: rgba(0, 0, 0, 0.4);
+  &__label {
     font-size: 14px;
+    display: block;
+    margin-bottom: 8px;
+    @include breakpoint-up('sm') {
+      font-size: 18px;
+    }
+  }
+
+  &__message {
+    font-size: 14px;
+    margin-top: 20px;
   }
 
   &--alert {
-    outline-color: red;
+    .input-field__input {
+      border-color: $error;
+    }
+    .field__message {
+      color: $error;
+    }
   }
+}
+
+.field__message {
+  font-size: 12px;
+  margin-top: 5px;
+  @include breakpoint-up('sm') {
+    font-size: 14px;
+  }
+}
+
+.input-field__input {
+  color: $sitkablue;
+  &::placeholder {
+    font-weight: 400;
+    color: rgba(22, 49, 68, 0.6);
+	}
 }

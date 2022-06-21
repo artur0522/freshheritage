@@ -5,6 +5,7 @@ import { useInventory } from '@/hooks/index.js';
 import StartStep from './Steps/StartStep';
 import ProcessingStep from './Steps/ProcessingStep';
 import ConfirmationStep from './Steps/ConfirmationStep';
+import ErrorStep from './Steps/ErrorStep';
 import { useRouter } from 'next/router';
 
 const SinglePageLayout = () => {
@@ -28,6 +29,10 @@ const SinglePageLayout = () => {
   }, []);
   const [component, setComponent] = useState(<StartStep />);
 
+  const backToStarStep = () => {
+    setComponent(<StartStep />)
+  }
+
   useEffect(() => {
     checkInventory();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -43,7 +48,7 @@ const SinglePageLayout = () => {
   useEffect(() => {
     console.log("orderStatus:", orderStatus)
     if (orderStatus === 'error') {
-      router.push('/');
+      setComponent(<ErrorStep backToStarStep={backToStarStep} />);
     } else if (orderStatus === 'processing') {
       setComponent(<ProcessingStep />);
     } else if (orderStatus === 'completed') {
@@ -52,7 +57,7 @@ const SinglePageLayout = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderStatus]);
 
-  return <div className="Checkout">{component}</div>;
+  return component;
 };
 
 export default SinglePageLayout;

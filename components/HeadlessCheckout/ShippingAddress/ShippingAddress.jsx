@@ -2,10 +2,9 @@ import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useCountryInfo, useLoadingStatus, useSavedAddresses, useShippingAddress } from '@boldcommerce/checkout-react-components';
 import { Address } from '@/components/HeadlessCheckout/Address';
 import { SavedAddressList } from './components';
-import { CheckoutSection } from '../CheckoutSection';
-// import './ShippingAddress.css';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';
+import IconSelectArrow from '@/svgs/select-arrow.svg'
 
 const ShippingAddress = ({ applicationLoading }) => {
   const requiredAddressFields = ['first_name', 'last_name', 'address_line_1', 'city'];
@@ -39,6 +38,7 @@ const MemoizedShippingAddress = memo(({
   const logError = useErrorLogging();
   const [address, setAddress] = useState(shippingAddress);
   const { data } = useCountryInfo(address);
+  const [addressOpen, setAddressOpen] = useState(true);
   const {
     countries,
     provinces,
@@ -76,17 +76,17 @@ const MemoizedShippingAddress = memo(({
   }, [shippingAddress]);
 
   return (
-    <CheckoutSection
-      className="FieldSet--ShippingAddress"
-      title={t('shipping.address')}
-    >
+    <div className="order-address">
+      <div className={`checkout__header checkout__header--border-on-closed checkout__row ${addressOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>
+        <h3>{t('shipping.address')}</h3>
+      </div>
       <SavedAddressList
         savedAddresses={savedAddresses}
         selectedAddress={applicationLoading ? savedAddresses[0].id : address?.id}
         onChange={updateSelectedShippingAddress}
         disabled={loading || applicationLoading || setting}
       />
-      { !applicationLoading && (address?.id === undefined || address?.id === null) && (
+      { addressOpen && !applicationLoading && (address?.id === undefined || address?.id === null) && (
         <Address
           className={(savedAddresses && savedAddresses.length > 0) ? 'FieldSet--AddressNew' : ''}
           address={address}
@@ -104,7 +104,7 @@ const MemoizedShippingAddress = memo(({
           requiredAddressFields={requiredAddressFields}
         />
       )}
-    </CheckoutSection>
+    </div>
   );
 });
 

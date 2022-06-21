@@ -1,27 +1,26 @@
-// import Price from '@boldcommerce/stacks-ui/lib/components/price/Price';
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { formatPrice } from '@/utils/formatPrice';
 
 const OrderSummaryItem = ({ title, amount, lines }) => {
-  const { t } = useTranslation();
   return (
     <div
       className={classNames(
-        'OrderSummaryItem',
-        lines ? 'OrderSummaryItem--removable' : ''
+        'order-summary__item',
+        lines ? 'order-summary__item--removable' : ''
       )}
     >
-      <span className="OrderSummaryItem__Title">{title}</span>
+      <span className="order-summary__item-title">{title}</span>
       {lines
         ? lines
-        : amount > 0 && (
-            <span className="OrderSummaryItem__Amount">
-              {/*<Price amount={amount} moneyFormatString={t('currency_format')}/>*/}
-              <p>{amount}</p>
-            </span>
-          )}
+        : (amount > 0 ? (
+            <span className="order-summary__item-amount">${formatPrice(amount, true)}</span>
+          ):(
+            <div>-</div>
+          )
+      )}
     </div>
   );
 };

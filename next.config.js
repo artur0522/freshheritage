@@ -13,6 +13,6 @@ module.exports = {
     return config
   },
   env: {
-    checkoutUrl: process.env.CHECKOUT_URL || 'https://sitka-staging.vercel.app',
+    checkoutUrl: process.env.NEXT_PUBLIC_CHECKOUT_URL || 'https://sitka-staging.vercel.app',
   },
 }

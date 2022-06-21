@@ -4,7 +4,7 @@ import { useCustomerContext } from '@/context/CustomerContext'
 import { accountFormReducer, initialState } from '@/utils/account'
 import classes from './AccountForm.module.scss'
 
-const LoginAccountForm = () => {
+const LoginAccountForm = ({ isCheckout, onForgotPasswordClick }) => {
 
   const modalContext = useModalContext()
   const customerContext = useCustomerContext()
@@ -12,6 +12,14 @@ const LoginAccountForm = () => {
   const passwordRef = useRef()
   const [state, dispatch] = useReducer(accountFormReducer, initialState)
   const { showSuccessMessage, showErrorMessage, errorMessage, isLoading} = state
+  const title = (isCheckout ? (
+      <h3>Sign In To Your Account</h3>
+    ):(
+      <>
+        <h4>Log in To Your Sitka Seafood Member Portal</h4>
+        <h5>Track orders and manage your<br /> subscription in your account.</h5>
+      </>
+    ))
 
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -24,8 +32,6 @@ const LoginAccountForm = () => {
       console.log(response)
       dispatch({ type: 'error', payload: response.errors[0].message })
     } else {
-      emailRef.current.value = ''
-      passwordRef.current.value = ''
       dispatch({ type: 'success' })
       modalContext.setIsOpen(false)
       // TODO: redirect to account page
@@ -33,9 +39,8 @@ const LoginAccountForm = () => {
   }
 
   return (
-    <div className={classes['account-form']}>
-      <h4>Log in To Your Sitka Seafood Member Portal</h4>
-      <h5>Track orders and manage your<br /> subscription in your account.</h5>
+    <div className={`${classes['account-form']} ${isCheckout ? classes['account-form--checkout'] : ''}`}>
+      {title}
       <form onSubmit={(e) => onSubmit(e)}>
         {showErrorMessage &&
           <p className={classes['account-form__error']}>{errorMessage}</p>
@@ -46,22 +51,34 @@ const LoginAccountForm = () => {
         <div className="input-group">
           <input type="password" className="input" placeholder="password" ref={passwordRef} />
         </div>
-        <button className="btn sitkablue" disabled={isLoading}>Login</button>
+        {isCheckout && onForgotPasswordClick ? (
+          <div className={classes['account-form-btn-wrapper']}>
+            <button className="btn sitkablue" disabled={isLoading}>Login</button>
+            <button
+              onClick={() => onForgotPasswordClick()}
+              className="btn-link-underline">Forgot Your Password?</button>
+          </div>
+        ):(
+          <button className="btn sitkablue" disabled={isLoading}>Login</button>
+        )}
       </form>
-      <p>
-        <button
-          onClick={() => modalContext.setModalType('forgot_password')}
-          className="btn-link-underline">
-            Forgot Password?
-        </button>
-      </p>
-      <p>{`Don't have an account? `}
-        <button
-          onClick={() => modalContext.setModalType('create')}
-          className="btn-link-underline">
-            Sign Up
-        </button>
-      </p>
+
+      {!isCheckout &&
+        <>
+          <p>
+            <button
+                onClick={() => modalContext.setModalType('forgot_password')}
+                className="btn-link-underline">Forgot Password?</button>
+          </p>
+          <p>{`Don't have an account? `}
+            <button
+              onClick={() => modalContext.setModalType('create')}
+              className="btn-link-underline">
+                Sign Up
+            </button>
+          </p>
+        </>
+      }
     </div>
   )
 }

@@ -3,7 +3,7 @@
 .account-form {
   display: flex;
   align-items: center;
-  flex-direction: column;;
+  flex-direction: column;
   width: 100%;
   max-width: 320px;
   margin: 0 auto;
@@ -11,6 +11,30 @@
   bottom: 0;
   @include breakpoint-up('sm') {
     max-width: 540px;
+  }
+  &.account-form--checkout {
+    max-width: none;
+    align-items: flex-start;
+    form {
+      margin: 0;
+      padding: 0;
+      @include breakpoint-up('sm') {
+        margin: 0;
+        padding: 0;
+      }
+    }
+    .account-form-btn-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 24px 0;
+      button {
+        margin: 0;
+      }
+      button:last-child {
+        font-size: 14px;
+      }
+    }
   }
   h4 {
     margin-bottom: 10px;

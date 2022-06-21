@@ -71,8 +71,8 @@ const MemoizedOrderSummaryBreakdown = memo(({
   ));
 
   return (
-    <div className="OrderSummary__Breakdown">
-      <div className="Breakdown__Section">
+    <div className="order-summary__breakdown">
+      <div className="breakdown__section checkout__row">
         <OrderSummaryItem
           title={t('summary.subtotal')}
           amount={subTotal}
@@ -90,14 +90,14 @@ const MemoizedOrderSummaryBreakdown = memo(({
           amount={taxesTotal}
         />
       </div>
-      <div className="Breakdown__Section Breakdown__Section--Total">
+      <div className="breakdown__section checkout__row breakdown__section--total">
         <OrderSummaryItem
           title={t('summary.total')}
           amount={total}
         />
       </div>
       { (paymentLines && paymentLines.length > 0) && (
-        <div className="Breakdown__Section">
+        <div className="breakdown__section">
           <OrderSummaryItem
             title={t('payment.title')}
             lines={paymentLines}

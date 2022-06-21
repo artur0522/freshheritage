@@ -6,8 +6,6 @@ import {
 } from '@boldcommerce/checkout-react-components';
 // import { useNavigate } from 'react-router-dom';
 import { useRouter } from 'next/router';
-
-// import { Button } from '@boldcommerce/stacks-ui';
 import React, { memo, useCallback, useState, useContext } from 'react';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';
@@ -47,7 +45,7 @@ const MemoizedCheckoutButton = memo(
       const variants = lineItems
         .map((lineItem) => lineItem.product_data.variant_id)
         .join(',');
-      // const response = await fetch(`${process.env.CHECKOUT_URL}${process.env.INVENTORY_URL}?variants=${variants}`);
+      // const response = await fetch(`${process.env.NEXT_PUBLIC_CHECKOUT_URL}${process.env.NEXT_PUBLIC_INVENTORY_URL}?variants=${variants}`);
       const response = await fetch(
         `${process.env.checkoutUrl}/api/checkout/validateInventory?variants=${variants}`
       );
@@ -93,16 +91,12 @@ const MemoizedCheckoutButton = memo(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [logError, trackEvent, processOrder, validateInventory]);
 
-    if (!loading && !processing) {
-      return ''
-    }
-
     return (
       <button
         type="button"
-        className="Checkout__ConfirmButton"
+        className="checkout__cta-btn btn salmon"
         onClick={handleProcessPayment}
-        loading={loading || processing}
+        loading={loading.toString() || processing.toString()}
         disabled={!hasBillingAddress || processing || appLoading}
       >
         {t('complete_order')}

@@ -1,53 +1,24 @@
-.FieldSet.Confirmation__Section {
-  padding: 16px;
-  border: 1px solid #d9d9d9;
-  border-radius: 4px;
-  margin: 0px 32px;
+.confirmation__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-.Confirmation__Section .FieldSet__Heading{
-  font-weight: normal;
-}
-
-.Confirmation__List {
-  column-gap: 16px;
-  row-gap: 16px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-}
-
-.Checkout__ThankYou {
-  font-size: 20px;
-  font-weight: normal;
-  line-height: 20px;
-}
-
-.Confirmation__Section .FieldSet__Content {
-  font-size: 14px;
-  color: rgba(0,0,0,0.65);
-  line-height: 16px;
-}
-
-.Confirmation__Section .Confirmation__List strong {
-  margin-bottom: 8px;
-  display: block;
-  color: rgba(0,0,0,0.9);
-}
-
-.Checkout__ContactUs {
-  font-size: 14px;
-  line-height: 20px;
-  color: rgba(0, 0, 0, 0.65);
-}
-
-.Payment__List {
-  list-style: none;
-}
-
-.Confirmation__ListItem p {
-  margin-bottom: 8px;
-}
-
-.Confirmation__ListItem p:last-child {
-  margin-bottom: 0;
+.confirmation__list-item {
+  width: 100%;
+  margin: 20px 0 0;
+  @include breakpoint-up('sm') {
+    width: calc(50% - 20px);
+    margin: 20px 0;
+  }
+  h3 {
+    font-family: $bebas;
+    margin-bottom: 10px;
+  }
+  p {
+    font-size: 14px;
+    @include breakpoint-up('sm') {
+      font-size: 16px;
+    }
+  }
 }

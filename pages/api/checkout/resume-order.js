@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   try {
     // console.log('checkout resumed', publicOrderId)
     const response = await fetch(
-      `https://api.boldcommerce.com/checkout/orders/${process.env.SHOP_IDENTIFIER}/resume`,
+      `https://api.boldcommerce.com/checkout/orders/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/resume`,
       {
         headers: {
           Authorization: `Bearer ${process.env.BOLD_ACCESS_TOKEN}`,
@@ -27,7 +27,7 @@ export default async function handler(req, res) {
     // checkout['initial_data']['cart_id'] = cartId
     // console.log("checkout passed to client: ",checkout)
 
-    responseJson.data.storeIdentifier = process.env.SHOP_IDENTIFIER
+    responseJson.data.storeIdentifier = process.env.NEXT_PUBLIC_SHOP_IDENTIFIER
     res.status(200).json(responseJson)
 
     // functions.logger.info("checkout app populated with publicOrderId: " + publicOrderId)

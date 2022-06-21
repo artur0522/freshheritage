@@ -1,11 +1,13 @@
 import classes from './ProductMain.module.scss'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
+import { usePDPDrawerContext } from '@/context/PDPDrawerContext'
 import ProductSlider from '../ProductSlider'
 import ProductReviewStars from '../ProductReviewStars'
 
 const ProductMain = ({box}) => {
 
   const purchaseFlowContext = usePurchaseFlowContext()
+  const PDPDrawerContext = usePDPDrawerContext()
 
   const product = box ? box.product : {}
   const boxDetails = box ? box.boxDetails?.fields : {}
@@ -21,7 +23,10 @@ const ProductMain = ({box}) => {
         <span>{firstVariant.weight} lbs</span>
       </div>
       <button
-        onClick={() => purchaseFlowContext.selectBox(product)}
+        onClick={() => {
+          purchaseFlowContext.selectBox(product)
+          PDPDrawerContext.dispatch({ type: 'close_drawer' })
+        }}
         className={`${classes['product-atc-btn']} btn salmon`}>
           {boxDetails.ctaText}
       </button>

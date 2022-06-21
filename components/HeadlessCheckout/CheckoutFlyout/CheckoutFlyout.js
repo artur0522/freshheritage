@@ -12,7 +12,8 @@ const CheckoutFlyout = () => {
   const [overlayOpen, setOverLayOpen] = useState(false)
   const {
     data,
-    flyoutState
+    flyoutState,
+    setFlyoutState
   } = useHeadlessCheckoutContext();
 
   const closeDrawer = () => {
@@ -39,7 +40,7 @@ const CheckoutFlyout = () => {
 
   return (
     <div className={`${classes['checkout-flyout']} ${overlayOpen ? classes['show'] : classes['hide']}`}>
-      <div onClick={() => closeDrawer()} className={classes['checkout-flyout__overlay']}></div>
+      <div onClick={() => setFlyoutState(false)} className={classes['checkout-flyout__overlay']}></div>
       <CSSTransition in={flyoutOpen} timeout={timeout} nodeRef={nodeRef} unmountOnExit classNames={{
           'enter': classes['checkout-flyout__content--enter'],
           'enterActive': classes['checkout-flyout__content--enter-active'],
@@ -48,7 +49,7 @@ const CheckoutFlyout = () => {
         }}>
         <div ref={nodeRef} className={classes['checkout-flyout__content']}>
           <button
-            onClick={() => closeDrawer()}
+            onClick={() => setFlyoutState(false)}
             className={classes['checkout-flyout__close-btn']}><IconClose /></button>
           <CheckoutContent data={data} />
         </div>

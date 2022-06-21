@@ -1,0 +1,38 @@
+@import '@/styles/_shared.scss';
+
+.gated-modal {
+    max-width: 621px;
+    margin: auto;
+
+    .reminder {
+        margin-bottom: 25px;
+
+        p {
+            font-weight: 500;
+        }
+
+        a {
+            color: $salmon;
+            font-weight: 500;
+            margin-left: 5px;
+        }
+    }
+
+    .header {
+        margin-bottom: 22px;
+    }
+
+    .description {
+        margin-bottom: 28px;
+    }
+
+    .btn-wrap {
+        max-width: 269px;
+        margin: auto;
+    }
+
+    li {
+        font-weight: 500;
+
+    }
+}

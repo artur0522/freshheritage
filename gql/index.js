@@ -132,74 +132,7 @@ export const CUSTOMER_RESET = `mutation customerReset($id: ID!, $input: Customer
   }
 }`
 
-export const GET_PRODUCT = `query getProduct($handle: String!){
-  products(filter: { handles: [$handle] }){
-    nacelleEntryId
-    sourceEntryId
-    sourceId
-    availableForSale
-    productType
-    tags
-    content {
-      nacelleEntryId
-      sourceEntryId
-      sourceId
-      handle
-      title
-      description
-      metafields {
-        namespace
-        key
-        value
-      }
-      options {
-        name
-        values
-      }
-      featuredMedia {
-        src
-        thumbnailSrc
-        altText
-      }
-      media {
-        id
-        src
-        thumbnailSrc
-        altText
-      }
-    }
-    variants {
-      nacelleEntryId
-      sourceEntryId
-      sku
-      availableForSale
-      price
-      compareAtPrice
-      weight
-      productHandle
-      quantityAvailable
-      metafields {
-        namespace
-        key
-        value
-      }
-      content {
-        title
-        selectedOptions {
-          name
-          value
-        }
-        featuredMedia {
-          src
-          thumbnailSrc
-          altText
-        }
-      }
-    }
-  }
-}`;
-
-export const GET_PRODUCTS = `query getProducts($filter: ProductFilterInput) {
+export const GET_PRODUCTS = `query products($filter: ProductFilterInput) {
   products(filter: $filter){
     nacelleEntryId
     sourceEntryId
@@ -216,8 +149,8 @@ export const GET_PRODUCTS = `query getProducts($filter: ProductFilterInput) {
       description
       metafields {
         namespace
-        key
         value
+        key
       }
       options {
         name
@@ -247,8 +180,8 @@ export const GET_PRODUCTS = `query getProducts($filter: ProductFilterInput) {
       quantityAvailable
       metafields {
         namespace
-        key
         value
+        key
       }
       content {
         title

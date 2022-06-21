@@ -1,0 +1,113 @@
+@import '@/styles/_shared.scss';
+
+.product {
+    width: 100%;
+    gap: 40px;
+    background-color: #fffdfc;
+
+    // product__row
+    &__row {
+        padding: 6px 0 0 0;
+
+        @include breakpoint-up('md') {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            padding: 86px 0 74px 0;
+        }
+    }
+
+    .slider {
+        @include breakpoint-up('md') {
+            width: 48.69%
+        }
+    }
+
+    .main {
+        gap: 10px;
+
+        @include breakpoint-up('md') {
+            width: 48.69%
+        }
+    }
+
+    .prices {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        height: 36px;
+        margin-bottom: 13px;
+
+        @include breakpoint-up('md') {
+            margin-bottom: 47.52px;
+        }
+    }
+
+    .product-title {
+        margin-bottom: 12px;
+
+        @include breakpoint-up('md') {
+            margin-bottom: 0;
+            height: 85px;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .accordion {
+        margin-bottom: 49px;
+
+        @include breakpoint-up('md') {
+            margin-bottom: 39px;
+        }
+    }
+
+    .gift {
+
+        // gift__check
+        &__check {
+            display: flex;
+            align-items: center;
+
+            label {
+                margin-left: 14.16px;
+            }
+
+            input {
+                border: 1px solid $black20;
+                border-radius: 2px;
+                accent-color: $sitkablue;
+                width: 28.31px;
+                height: 28.31px;
+            }
+        }
+
+        // gift__card {
+        &-card {
+            padding-bottom: 32px;
+        }
+    }
+
+    .compare {
+        text-decoration: line-through;
+    }
+}
+
+.media,
+.main {
+    width: 100%;
+    overflow: hidden;
+
+    @include breakpoint-up('sm') {
+
+        .media,
+        .main {
+            width: 50%;
+        }
+    }
+}
+
+.image {
+    width: 100%;
+}

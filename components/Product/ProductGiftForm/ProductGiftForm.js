@@ -45,7 +45,7 @@ const ProductGiftForm = (props) => {
         const optionIndex = selectedOptions.findIndex((selectedOption) => {
           return selectedOption.name === newOption.name
         })
-    
+
         const newSelectedOptions = [...selectedOptions]
         if (optionIndex > -1) {
           newSelectedOptions.splice(optionIndex, 1, newOption)
@@ -74,7 +74,8 @@ const ProductGiftForm = (props) => {
 
         const formFieldsWithGiftOption = {
             ...formFields,
-            is_gift_order: checked
+            membership_type: product.tags.includes('Subscription Box') ? 'regular' : 'prepaid',
+            is_gift_order: checked.toString()
         }
 
         addItemToOrder({
@@ -84,7 +85,7 @@ const ProductGiftForm = (props) => {
         })
     }
 
-    return (                
+    return (
         <form onSubmit={(event) => handleAddItem(event)} className={classes['gift__info']}>
             <div className={classes['quantity']}>
                 <label htmlFor={`quantity-${product.nacelleEntryId}`}>
@@ -113,7 +114,7 @@ const ProductGiftForm = (props) => {
                                 <input type="radio" id={value} name="giftCardButtons" onChange={($event) => handleOptionChange($event, option)} value={value} />
                                 <label htmlFor={value}>${value}</label>
                             </div>))
-                        ))      
+                        ))
                     }
                 </div>
             </div>}
@@ -125,8 +126,8 @@ const ProductGiftForm = (props) => {
                 </h4>
                 <span className={`delivery--time ${classes['delivery']}`}>Delivered via email one day after purchase.</span>
             </div>}
-        
-        
+
+
             {checked && <div className={classes['form__inner']}>
                 <div className={classes['form__col']}>
                     <label className="secondary--body" htmlFor="email">Email Address</label>

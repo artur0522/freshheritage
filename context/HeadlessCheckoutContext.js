@@ -52,7 +52,7 @@ export function HeadlessCheckoutProvider({ children }) {
 
     /* sample data for properties
       properties {
-        is_gift_order, // optional -> to determine if email, name and message should be added as order metadata instead of line item properties
+        is_gift_order, // optional -> to determine if email, name and message should be added as order metadata instead of line item properties // !String
         membership_type: // required for subscriptions -> 'regular' or 'prepaid'
         shipments,  // required for subscriptions -> '1', '3', '6', '12' -> !String
         recipient_email // optional, but required for digital gift cards

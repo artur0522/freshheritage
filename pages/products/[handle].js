@@ -11,6 +11,7 @@ import ProductSlider from '../../components/Product/ProductSlider'
 import ProductAccordion from '../../components/Product/ProductAccordion'
 import ProductGiftForm from '@/components/Product/ProductGiftForm'
 import { GET_PRODUCTS } from '@/gql/index.js'
+import PageSEO from '@/components/Layout/PageSEO'
 
 import classes from './Product.module.scss'
 
@@ -62,6 +63,7 @@ function Product({ product, page }) {
   return (
     product && (
       <div className={classes['product']}>
+        <PageSEO product={product} />
         <div className={classes['product__inner']}>
             <div className={`${classes['product__row']} container`}>
             <div className={classes['slider']}>

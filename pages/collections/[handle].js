@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { nacelleClient } from "services";
 
 import ProductCard from "@/components/ProductCard/ProductCard";
+import PageSEO from "@/components/Layout/PageSEO";
 
 import classes from "./Collection.module.scss";
 
@@ -12,7 +13,7 @@ function Collection(props) {
   const [products, setProducts] = useState(props.products);
   const [canFetch, setCanFetch] = useState(props.canFetch);
   const [isFetching, setIsFetching] = useState(false);
-  
+
   const activeProducts = canFetch
     ? products?.slice(0, products.length - 1)
     : products;
@@ -38,6 +39,7 @@ function Collection(props) {
   return (
     collection && (
       <div className={`${classes["collection"]} container`}>
+        <PageSEO collection={collection} />
         <div className={classes["collection__header"]}>
           {collection.content?.title && <h1>{collection.content.title}</h1>}
           {collection.content?.description && (

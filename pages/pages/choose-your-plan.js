@@ -1,12 +1,19 @@
 import { nacelleClient } from 'services'
 import ChooseYourBox from '@/components/PurchaseFlow/ChooseYourBox'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
-import { GET_PRODUCTS } from '@/gql/index.js';
+import { GET_PRODUCTS } from '@/gql/index.js'
+import PageSEO from '@/components/Layout/PageSEO'
 
 const PurchaseFlow = ({page, tierOptions}) => {
   const purchaseFlowContext = usePurchaseFlowContext()
+
   if (purchaseFlowContext.options.is_loaded) {
-    return <ChooseYourBox tierOptions={tierOptions} props={page} />
+    return (
+      <>
+        <PageSEO seo={page.seo} />
+        <ChooseYourBox tierOptions={tierOptions} props={page} />
+      </>
+    )
   }
   return ''
 }

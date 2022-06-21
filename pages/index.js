@@ -1,24 +1,24 @@
 import React, {useState, useEffect} from 'react'
-
 import { nacelleClient } from 'services'
 import ContentSections from '../components/ContentSections'
 import DynamicHero from "../components/DynamicHero"
 import { useCustomerContext } from '@/context/CustomerContext'
+import PageSEO from '@/components/Layout/PageSEO'
 
 export default function Home({ pages }) {
   const homePage = pages.find((page) => page.handle === 'homepage')
   const context = useCustomerContext()
-  
+
   let foundDynamicHero
-  
-  const  { customer } = context
+
+  const { customer } = context
 
   const dynamicHeroSections = homePage.fields.content.filter((section) => {
     return section._type === 'dynamicHero'
   })
 
   const foundTags = customer?.tags.filter((tag) => {
-    return tag === 'seafood box' || tag === 'bi monthly seafood box'  || tag === 'premium seafood box'  || tag === 'premium seafood box no shellfish' || tag === 'salmon box' 
+    return tag === 'seafood box' || tag === 'bi monthly seafood box'  || tag === 'premium seafood box'  || tag === 'premium seafood box no shellfish' || tag === 'salmon box'
   })
 
   if(foundTags?.includes('premium seafood box')) {
@@ -49,6 +49,7 @@ export default function Home({ pages }) {
 
   return (
     <>
+      <PageSEO seo={homePage.fields.seo} />
       {!context.customerLoading && <DynamicHero fields={foundDynamicHero} />}
       <ContentSections sections={homePage.fields.content} />
     </>

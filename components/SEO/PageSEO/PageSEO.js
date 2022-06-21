@@ -8,12 +8,12 @@ import { stripHtml } from "string-strip-html"
 
 const PageSEO = ({ seo, images = [], product, collection }) => {
 
+  const router = useRouter()
+  const url = `${process.env.NEXT_PUBLIC_MYSHOPIFY_DOMAIN}/${router.pathname}`
+
   if (!seo && !product && !collection) {
     return ''
   }
-
-  const router = useRouter()
-  const url = `${process.env.NEXT_PUBLIC_MYSHOPIFY_DOMAIN}/${router.pathname}`
 
   if (seo?.shareGraphic) {
     images.push({

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { nacelleClient } from "services";
 
 import ProductCard from "@/components/ProductCard/ProductCard";
-import PageSEO from "@/components/Layout/PageSEO";
+import PageSEO from "@/components/SEO/PageSEO";
 
 import classes from "./Collection.module.scss";
 

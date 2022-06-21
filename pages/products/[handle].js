@@ -11,7 +11,7 @@ import ProductSlider from '../../components/Product/ProductSlider'
 import ProductAccordion from '../../components/Product/ProductAccordion'
 import ProductGiftForm from '@/components/Product/ProductGiftForm'
 import { GET_PRODUCTS } from '@/gql/index.js'
-import PageSEO from '@/components/Layout/PageSEO'
+import PageSEO from '@/components/SEO/PageSEO'
 
 import classes from './Product.module.scss'
 

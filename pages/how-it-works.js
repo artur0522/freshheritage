@@ -1,5 +1,5 @@
 import React from 'react'
-import PageSEO from '@/components/Layout/PageSEO'
+import PageSEO from '@/components/SEO/PageSEO'
 import { nacelleClient } from 'services'
 import ContentSections from '../components/ContentSections'
 

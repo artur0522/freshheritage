@@ -3,7 +3,7 @@ import { nacelleClient } from 'services'
 import ContentSections from '../components/ContentSections'
 import DynamicHero from "../components/DynamicHero"
 import { useCustomerContext } from '@/context/CustomerContext'
-import PageSEO from '@/components/Layout/PageSEO'
+import PageSEO from '@/components/SEO/PageSEO'
 
 export default function Home({ pages }) {
   const homePage = pages.find((page) => page.handle === 'homepage')

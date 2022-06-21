@@ -11,7 +11,7 @@ import classes from './HarvestCard.module.scss'
 const HarvestCard = ({ fish, cardStyle }) => {
   const [tabInfo, setTabInfo] = useState(fish['species'])
   const [mounted, setMounted] = useState(false)
-
+  
   useEffect(() => {
     setMounted(true)
   }, [])

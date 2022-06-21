@@ -1,0 +1,34 @@
+@import '../../styles/mixins/_breakpoints.scss';
+@import '../../styles/variables/_breakpoints.scss';
+
+.collection {
+    padding: 36px 0 122px 0;
+
+    @include breakpoint-up('sm') {
+        padding: 132px 0 92px 0;
+    }
+
+    &__header {
+        max-width: 1001px;
+
+        h1 {
+            margin-bottom: 12px;
+
+            @media screen and (min-width: 736px) {
+                margin-bottom: 24px;
+            }
+        }
+    }
+
+    &__list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+        grid-auto-rows: auto;
+        gap: 62px 36px;
+        margin-top: 36px;
+
+        @include breakpoint-up('md') {
+            margin-top: 59px;
+        }
+    }
+}

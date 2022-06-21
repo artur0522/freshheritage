@@ -11,6 +11,8 @@ import FiftyFifty from '../FiftyFifty'
 import PressLogos from '../PressLogos'
 import ValueProps from '../ValueProps'
 import FAQs from '../FAQs'
+import BlogHero from "../BlogHero"
+import RecipeCategoriesList from '../RecipeCategoriesList'
 
 const ContentSections = ({ sections }) => {
   if (!Array.isArray(sections)) {
@@ -43,6 +45,10 @@ const ContentSections = ({ sections }) => {
         return <GlobalSampler fields={section} key={section._key} />
       case 'faqs':
         return <FAQs fields={section} key={section._key} />
+      case 'blogHero':
+        return <BlogHero fields={section} key={section._key} />
+      case 'recipeCategoriesList':
+        return <RecipeCategoriesList fields={section} key={section._key} />
       default:
         return null
     }

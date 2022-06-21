@@ -5,7 +5,6 @@ import {
 } from '@boldcommerce/checkout-react-components';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import {
-  OrderErrors,
   Customer,
   ShippingAddress,
   BillingAddress,
@@ -54,7 +53,6 @@ const IndexPage = () => {
         <div className="checkout__panel-wrapper">
           <div className="checkout__panel">
             <OrderSummary />
-            <OrderErrors />
           </div>
         </div>
         <div className="checkout__panel-wrapper">

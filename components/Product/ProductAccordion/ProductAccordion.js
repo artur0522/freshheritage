@@ -5,7 +5,7 @@ import IconMinus from '@/svgs/accordion-minus.svg'
 import classes from "./ProductAccordion.module.scss"
 
 const ProductAccordion = (props) => {
-    const { header, contentList, description, stuff } = props
+    const { header, contentList, description } = props
     const [isAccordionActive, setIsAccordionActive] = useState(false)
     const strippedDescription = description?.replace(/(<([^>]+)>)/ig, '')
 
@@ -22,9 +22,9 @@ const ProductAccordion = (props) => {
                 {isAccordionActive ? <IconMinus className={classes['minus']} /> : <IconPlus className={classes['plus']} />}
             </button>
             {isAccordionActive && contentList && <ul className={classes['accordion__content']}>
-                {contentList.map((listItem) => {
+                {contentList.map((listItem, index) => {
                     return (
-                    <li className="body">{listItem}</li>
+                    <li key={index} className="body">{listItem}</li>
                     )
                 })}
             </ul>}

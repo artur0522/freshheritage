@@ -103,8 +103,8 @@ function Product({ product, page }) {
 
                 {/* ACCORDION */}
                 {deliveryDetailsList && <div className={classes['accordion']}>
-                  <ProductAccordion stuff={productAccordionHeaders} header={accordionDescriptionHeader}  description={productDescription} />
-                  <ProductAccordion stuff={productAccordionHeaders} header={accordionDeliveryHeader}  contentList={deliveryDetailsList} />
+                  <ProductAccordion header={accordionDescriptionHeader}  description={productDescription} />
+                  <ProductAccordion header={accordionDeliveryHeader}  contentList={deliveryDetailsList} />
                 </div>}
 
                 {/* STAMPS */}

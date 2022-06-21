@@ -12,7 +12,8 @@ const SplitHero = ({ fields }) => {
   const isDesktop = useMediaQuery(
     {query: '(min-width: 768px)'}
   )
-  const { imageContainer, imageWidth, style, textColor, valueProps, disclaimer, desktopBackgroundImage, mobileBackgroundImage } = fields
+
+  const { imageContainer, imageWidth, style, textColor, valueProps, disclaimer, desktopBackgroundImage, mobileBackgroundImage, alt } = fields
 
   useEffect(() => {
     setMounted(true)
@@ -27,18 +28,18 @@ const SplitHero = ({ fields }) => {
             {fields.subheader && <h2 className={classes['subheader']}>{fields.subheader}</h2>}
 
             {valueProps && <ul className={classes['value-props']}>{
-              valueProps.map((prop) => 
+              valueProps.map((prop) =>
                 <li className="body" key={prop}><span><IconBullet /></span>{prop}</li>
             )}
             </ul>}
-            
+
             <div className={classes['btn-wrap']}>
               {fields.primaryCtaUrl && <Link href={`${fields.primaryCtaUrl}`}>
                   <a className={`${classes['primary-btn']} btn salmon no-underline text-align--center`}>
                   {fields.primaryCtaText}
                   </a>
               </Link>}
-             
+
               {fields.secondaryCtaUrl && <Link href={`${fields.secondaryCtaUrl}`}>
                   <a className={`btn--only-mobile alabaster ${classes['secondary-btn']}`}>{fields.secondaryCtaText}</a>
               </Link>}
@@ -59,14 +60,16 @@ const SplitHero = ({ fields }) => {
             className={classes.dsktp__img}
             src={mobileBackgroundImage.asset.url}
             layout="fill"
+            alt={alt}
           />
         </div>}
-        
+ 
         {isDesktop && mounted && <div className={`${classes['hero__wrap--dsktp']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
           <Image
             className={classes.mbl__img}
             src={desktopBackgroundImage.asset.url}
             layout="fill"
+            alt={alt}
           />
         </div>}
       </div>

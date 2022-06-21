@@ -2,14 +2,17 @@ module.exports = {
   reactStrictMode: true,
   images: {
     // add image domains here as needed, for next/image
-    domains: ["cdn.shopify.com", "cdn.sanity.io"],
+    domains: ['cdn.shopify.com', 'cdn.sanity.io'],
   },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
-      use: ["@svgr/webpack"]
-    });
+      use: ['@svgr/webpack'],
+    })
 
-    return config;
-  }
-};
+    return config
+  },
+  env: {
+    checkoutUrl: process.env.CHECKOUT_URL || 'https://sitka-staging.vercel.app',
+  },
+}

@@ -12,13 +12,17 @@
 .review-stars__wrap {
   display: flex;
   list-style: none;
+  li {
+    // display: flex;
+    // align-items: center;
+    margin-right: 6px;
+  }
 }
 
 .review-star-full,
 .review-star-half,
 .review-star-empty {
   width: 12px;
-  margin-right: 6px;
   @include breakpoint-up('sm') {
     width: 16px;
   }

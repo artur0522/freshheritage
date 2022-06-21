@@ -44,7 +44,7 @@ const ProjectedHarvest = ({ fields }) => {
         setCurrentMonth(monthName)
         setActiveTab(splicedMonths[0])
         setHarvestListMonths(splicedMonths)
-    }, [])
+    }, [harvestList])
 
     // METHODS
     const findFilteredFish = (harvestMonth) => {

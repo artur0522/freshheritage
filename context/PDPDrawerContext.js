@@ -2,7 +2,7 @@ import { createContext, useContext, useReducer, useEffect } from 'react'
 import { nacelleClient } from 'services'
 import PDPDrawer from '@/components/Layout/PDPDrawer'
 import { useRouter } from 'next/router'
-import { GET_PRODUCT } from '../gql'
+import { GET_PRODUCTS } from '../gql'
 
 const PDPDrawerContext = createContext()
 
@@ -87,8 +87,12 @@ export function PDPDrawerProvider({ children }) {
   useEffect(() => {
     async function onLoad(productHandle) {
       const { products } = await nacelleClient.query({
-        query: GET_PRODUCT,
-        variables: { handle: productHandle}
+        query: GET_PRODUCTS,
+        variables: {
+          "filter": {
+            "handles": [productHandle]
+          }
+        }
       })
       if (products.length) {
         openDrawer(products[0])

@@ -12,6 +12,7 @@ import ProductAccordion from '../../components/Product/ProductAccordion'
 import ProductGiftForm from '@/components/Product/ProductGiftForm'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import PageSEO from '@/components/SEO/PageSEO'
+import StructuredData from '@/components/SEO/StructuredData'
 
 import classes from './Product.module.scss'
 
@@ -63,6 +64,7 @@ function Product({ product, page }) {
   return (
     product && (
       <div className={classes['product']}>
+        <StructuredData type="product" data={product} />
         <PageSEO product={product} />
         <div className={classes['product__inner']}>
             <div className={`${classes['product__row']} container`}>
@@ -71,7 +73,7 @@ function Product({ product, page }) {
             </div>
 
               <div className={classes['main']}>
-                <ProductReviewStars />
+                <ProductReviewStars productId={product.sourceEntryId.replace('gid://shopify/Product/', '')} />
 
                 {product.content.title && <h1 className={classes['product-title']}>{product.content.title}</h1>}
 

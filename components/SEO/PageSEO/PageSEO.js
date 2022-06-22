@@ -9,7 +9,7 @@ import { stripHtml } from "string-strip-html"
 const PageSEO = ({ seo, images = [], product, collection }) => {
 
   const router = useRouter()
-  const url = `${process.env.NEXT_PUBLIC_MYSHOPIFY_DOMAIN}/${router.pathname}`
+  const url = `${process.env.NEXT_PUBLIC_MYSHOPIFY_DOMAIN}${router.asPath}`
 
   if (!seo && !product && !collection) {
     return ''
@@ -32,9 +32,9 @@ const PageSEO = ({ seo, images = [], product, collection }) => {
     })
     seo = {
       metaTitle: title,
-      metaDesc: stripHtml(description).result,
+      metaDesc: description ? stripHtml(description).result : null,
       shareTitle: title,
-      shareDesc: stripHtml(description).result,
+      shareDesc: description ? stripHtml(description).result : null,
       images
     }
   }
@@ -43,9 +43,9 @@ const PageSEO = ({ seo, images = [], product, collection }) => {
     const { title, description } = collection.content
     seo = {
       metaTitle: title,
-      metaDesc: stripHtml(description).result,
+      metaDesc: description ? stripHtml(description).result : null,
       shareTitle: title,
-      shareDesc: stripHtml(description).result,
+      shareDesc: description ? stripHtml(description).result : null,
       images: []
     }
   }

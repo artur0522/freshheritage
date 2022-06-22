@@ -1,2 +1,3 @@
-export { default as StructuredData } from './StructuredData';
-export * from './components';
+import StructuredData from './StructuredData'
+
+export default StructuredData

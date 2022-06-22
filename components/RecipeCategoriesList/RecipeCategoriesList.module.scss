@@ -55,6 +55,7 @@
     &__card {
         margin-bottom: 28.94px;
         display: block;
+        text-decoration: none;
 
         @include breakpoint-up('sm') {
             width: 48%;

@@ -13,6 +13,8 @@ import ValueProps from '../ValueProps'
 import FAQs from '../FAQs'
 import BlogHero from "../BlogHero"
 import RecipeCategoriesList from '../RecipeCategoriesList'
+import HalfHeroHalfSlider from '../HalfHeroHalfSlider'
+import EmailSignup from '../EmailSignup'
 
 const ContentSections = ({ sections }) => {
   if (!Array.isArray(sections)) {
@@ -49,6 +51,10 @@ const ContentSections = ({ sections }) => {
         return <BlogHero fields={section} key={section._key} />
       case 'recipeCategoriesList':
         return <RecipeCategoriesList fields={section} key={section._key} />
+      case 'halfHeroHalfSlider':
+        return <HalfHeroHalfSlider fields={section} key={section._key} />
+      case 'emailSignup':
+        return <EmailSignup fields={section} key={section._key} />
       default:
         return null
     }

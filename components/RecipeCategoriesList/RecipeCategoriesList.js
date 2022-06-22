@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Swiper, SwiperSlide } from 'swiper/react'
 import IconArrow from '@/svgs/arrow-right.svg'
 
-import "swiper/css"
 import classes from './RecipeCategoriesList.module.scss'
 
 const RecipeCategoriesList = ({ fields }) => {

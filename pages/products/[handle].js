@@ -12,6 +12,7 @@ import ProductAccordion from '../../components/Product/ProductAccordion'
 import ProductGiftForm from '@/components/Product/ProductGiftForm'
 
 import classes from './Product.module.scss'
+import { split } from 'lodash-es'
 
 function Product({ product, page }) {
   const [checked, setChecked] = useState(false)
@@ -29,6 +30,7 @@ function Product({ product, page }) {
   const modalContext = useModalContext()
   const customerContext = useCustomerContext()
   const { customer } = customerContext
+  console.log('customer', customer)
 
   useEffect(() =>  {
     if(product.content.handle === 'digital-gift-card') {
@@ -40,8 +42,15 @@ function Product({ product, page }) {
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
 
     const foundCustomerTag = customer?.tags.find(tag => tag.includes('member') || tag.includes('sustainer'))
-    const productHasCustomerTag = foundVisibleTags.find(tag => tag.includes('member') || tag.includes('sustainer'))
-  
+    const productHasCustomerTag = foundVisibleTags?.find((tag) => { 
+      let splitTag = tag.split(':')[1] === foundCustomerTag
+      if(splitTag) {
+        return splitTag
+      } else {
+        return null
+      }
+    })
+
     if(foundVisibleTags.length > 0 && customer && !productHasCustomerTag) {
       const gatedPopup = page.find(field => field.handle === splitTagWithDash)
       modalContext.setContent(gatedPopup.fields)

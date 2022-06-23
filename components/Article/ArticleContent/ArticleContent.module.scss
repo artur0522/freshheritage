@@ -3,6 +3,7 @@
 .article-content {
   width: 53%;
   margin-top: 50px;
+  padding-right: 75px;
 }
 
 .article-description {
@@ -26,7 +27,17 @@
     list-style: none;
   }
   li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 20px;
+  }
+  .article-section__cta-btn {
+    width: auto;
+    display: inline-flex;
+    padding: 0 23px;
+    align-items: center;
   }
 }
 
@@ -44,5 +55,59 @@
   }
   li {
     margin-bottom: 65px;
+  }
+}
+
+.article-section__image {
+  img {
+    border-radius: 12px;
+  }
+}
+
+.article-product {
+  background-color: $fawn50;
+  border-radius: 12px;
+  border: 1px solid $fawn50-2;
+  padding: 25px;
+  margin: -20px 0 50px;
+}
+
+.article-product__content {
+  display: flex;
+}
+
+.article-product__image {
+  flex-basis: 215px;
+  width: 215px;
+}
+
+.article-product__details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-left: 40px;
+  h4 {
+    margin-bottom: 15px;
+  }
+}
+
+.article-product____tier-price-pounds {
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+}
+
+.article-product__details-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid $fawn50-2;
+  button:first-child {
+    font-size: 14px;
+  }
+  button:last-child {
+    max-width: 203px;
   }
 }

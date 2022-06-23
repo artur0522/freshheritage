@@ -2,10 +2,12 @@ import ArticleHero from '@/components/Article/ArticleHero'
 import ArticleNav from '@/components/Article/ArticleNav'
 import ArticleMain from '@/components/Article/ArticleMain'
 import { nacelleClient } from 'services'
+import { GET_PRODUCTS } from '@/gql/index.js'
 
-const RecipeArticle = ({ page }) => {
+const RecipeArticle = ({ page, product }) => {
 
   console.log("page:", page)
+  console.log("product:", product)
 
   const { hero } = page.fields
   const { content } = page.fields
@@ -14,7 +16,7 @@ const RecipeArticle = ({ page }) => {
     <>
       <ArticleHero fields={hero}  />
       <ArticleNav fields={content} />
-      <ArticleMain fields={content} />
+      <ArticleMain fields={content} product={product} />
     </>
   )
 }
@@ -47,9 +49,29 @@ export async function getStaticProps({ params }) {
     }
   }
 
-  return {
-    props: {
-      page: pages[0]
+  const page = pages[0]
+
+  const props = {
+    page,
+    product: null
+  }
+
+  if (page.fields?.content?.addToCartProduct) {
+    const handle = page.fields.content.addToCartProduct
+    let { products } = await nacelleClient.query({
+      query: GET_PRODUCTS,
+      variables: {
+        "filter": {
+          "handles": [handle]
+        }
+      }
+    })
+    if (products) {
+      props.product = products[0]
     }
+  }
+
+  return {
+    props
   }
 }

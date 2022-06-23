@@ -1,0 +1,48 @@
+@import '@/styles/_shared.scss';
+
+.article-content {
+  width: 53%;
+  margin-top: 50px;
+}
+
+.article-description {
+  margin-bottom: 50px;
+  * {
+    font-size: 24px;
+    line-height: 120%;
+    font-weight: 500;
+  }
+}
+
+.article-ingredients {
+  margin-bottom: 50px;
+  h4 {
+    margin-bottom: 20px;
+  }
+  h5 {
+    margin-bottom: 10px;
+  }
+  ul {
+    list-style: none;
+  }
+  li {
+    margin-bottom: 20px;
+  }
+}
+
+.article-directions,
+.article-pro-tips {
+  margin-bottom: 50px;
+  h4 {
+    margin-bottom: 20px;
+  }
+  h5 {
+    margin-bottom: 10px;
+  }
+  ul {
+    list-style: none;
+  }
+  li {
+    margin-bottom: 65px;
+  }
+}

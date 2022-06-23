@@ -1,10 +1,18 @@
 @import '@/styles/_shared.scss';
 
+.article-nav {
+  position: sticky;
+  top: 0;
+  background-color: $alabaster;
+  z-index: 1;
+  // transition: 0.5s ease-in-out top;
+}
+
 .article-nav-list {
   display: flex;
   list-style-type: none;
   border-bottom: 1px solid $black20;
-  width: calc(100% - 315px);
+  width: 85%;
   margin-left: auto;
   li {
     display: flex;

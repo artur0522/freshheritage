@@ -1,58 +1,28 @@
-import { useState, useEffect, useRef } from 'react'
+import { forwardRef, useRef } from 'react'
 import PrimaryAnnouncement from '../PrimaryAnnouncement'
 import MainNavigation from '../MainNavigation'
 import MobileMenu from '../MobileMenu'
-import Router from 'next/router'
+import { useHeaderContext } from '@/context/HeaderContext'
 
 import classes from './Header.module.scss'
 
-const Header = ({ content, pageHandle }) => {
+const Header = forwardRef(({ content, pageHandle }, ref) => {
 
-  const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false)
-  const [hide, setHide] = useState(false)
-  const oldScrollYPosition = useRef(0)
-
-  const stickyNavbar = (e) => {
-    if (window !== undefined) {
-      if (window.scrollY > oldScrollYPosition.current + 250) {
-        setHide(true)
-        oldScrollYPosition.current = window.scrollY
-      } else if (window.scrollY < oldScrollYPosition.current - 250) {
-        setHide(false)
-        oldScrollYPosition.current = window.scrollY
-      }
-    }
-  }
-
-  useEffect(() => {
-    window.addEventListener('scroll', stickyNavbar)
-    return () => {
-      window.removeEventListener('scroll', stickyNavbar)
-    }
-  }, [])
-
-  useEffect(() => {
-    const onRountChangeComplete = () => {
-      setMobileMenuIsOpen(false)
-    };
-    Router.events.on('routeChangeComplete', onRountChangeComplete);
-  }, [])
-
-  if (!content) {
-    return ''
-  }
+  const { hide } = useHeaderContext()
 
   return (
-    <header className={`${classes['header']} ${!hide ? classes['is-visible'] : ''}`}>
-      {content.primaryAnnouncement?.showAnnouncement &&
-        <PrimaryAnnouncement props={content.primaryAnnouncement} />
-      }
-      <MainNavigation props={content} setMobileMenuIsOpen={setMobileMenuIsOpen} pageHandle={pageHandle}  />
+    <>
+      <header ref={ref} className={`${classes['header']} ${!hide ? classes['is-visible'] : ''}`}>
+        {content.primaryAnnouncement?.showAnnouncement &&
+          <PrimaryAnnouncement props={content.primaryAnnouncement} />
+        }
+        <MainNavigation props={content} pageHandle={pageHandle}  />
+      </header>
       {pageHandle !== 'purchaseFlow' &&
-        <MobileMenu props={content} mobileMenuIsOpen={mobileMenuIsOpen} setMobileMenuIsOpen={setMobileMenuIsOpen} pageHandle={pageHandle} />
+        <MobileMenu props={content} pageHandle={pageHandle} />
       }
-    </header>
+    </>
   )
-}
+})
 
 export default Header

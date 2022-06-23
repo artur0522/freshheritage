@@ -1,13 +1,26 @@
+import { useRef } from 'react'
 import classes from './ArticleMain.module.scss'
+import ArticleNav from '@/components/Article/ArticleNav'
 import ArticleContent from '../ArticleContent'
 import ArticleSidebar from '../ArticleSidebar'
 
 const ArticleMain = ({fields, product}) => {
+
+  const ingredientsRef = useRef()
+  const directionsRef = useRef()
+  const proTipsRef = useRef()
+
+  const refs = useRef({ingredientsRef, directionsRef, proTipsRef })
+
+
   return (
-    <div className={classes['article-main']}>
-      <ArticleContent fields={fields} product={product} />
-      <ArticleSidebar fields={fields} />
-    </div>
+    <>
+      <ArticleNav ref={refs} fields={fields} />
+      <div className={classes['article-main']}>
+        <ArticleContent ref={refs} fields={fields} product={product} />
+        <ArticleSidebar fields={fields} />
+      </div>
+    </>
   )
 }
 

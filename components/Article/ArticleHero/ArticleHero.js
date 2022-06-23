@@ -67,13 +67,13 @@ const ArticleHero = ({fields}) => {
         </div>
       </div>
       <div className={classes['article-hero__image']}>
-        {isMobile && mounted &&
+        {mobileBackgroundImage && isMobile && mounted &&
           <Image
             src={mobileBackgroundImage.asset.url}
             layout="fill"
             alt={mobileBackgroundImage.asset.alt || ''}
           />}
-        {isDesktop && mounted &&
+        {desktopBackgroundImage && isDesktop && mounted &&
           <Image
             src={desktopBackgroundImage.asset.url}
             layout="fill"

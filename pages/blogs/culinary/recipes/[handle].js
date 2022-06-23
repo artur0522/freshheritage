@@ -1,5 +1,4 @@
 import ArticleHero from '@/components/Article/ArticleHero'
-import ArticleNav from '@/components/Article/ArticleNav'
 import ArticleMain from '@/components/Article/ArticleMain'
 import { nacelleClient } from 'services'
 import { GET_PRODUCTS } from '@/gql/index.js'
@@ -15,7 +14,6 @@ const RecipeArticle = ({ page, product }) => {
   return (
     <>
       <ArticleHero fields={hero}  />
-      <ArticleNav fields={content} />
       <ArticleMain fields={content} product={product} />
     </>
   )

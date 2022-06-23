@@ -3,6 +3,7 @@ import { PDPDrawerProvider } from '@/context/PDPDrawerContext'
 import { CustomerProvider } from '@/context/CustomerContext'
 import { PurchaseFlowProvider } from '@/context/PurchaseFlowContext'
 import { HeadlessCheckoutProvider } from '@/context/HeadlessCheckoutContext';
+import { HeaderProvider } from '@/context/HeaderContext';
 
 import Header from '@/components/Layout/Header'
 import Footer from '@/components/Layout/Footer'
@@ -20,9 +21,10 @@ function Layout({ children, headerSettings, footerSettings }) {
         <PurchaseFlowProvider>
           <PDPDrawerProvider>
             <ModalProvider>
-              <Header content={headerSettings} pageHandle={children.props.handle} />
-              <main>{children}</main>
-              <Footer content={footerSettings} />
+              <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
+                <main>{children}</main>
+                <Footer content={footerSettings} />
+              </HeaderProvider>
             </ModalProvider>
           </PDPDrawerProvider>
         </PurchaseFlowProvider>

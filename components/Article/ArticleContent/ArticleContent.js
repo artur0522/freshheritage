@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, forwardRef } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { PortableText } from '@portabletext/react'
@@ -8,8 +8,10 @@ import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext'
 import { getCartVariant } from 'utils/getCartVariant'
 import Link from 'next/link'
 
-const ArticleContent = ({fields, product}) => {
-  console.log("fields:", fields)
+const ArticleContent = forwardRef(({fields, product}, ref) => {
+
+  const { directionsRef, ingredientsRef, proTipsRef } = ref.current
+
   const PDPDrawerContext = usePDPDrawerContext()
   const { addItemToOrder } = useHeadlessCheckoutContext()
   const [mounted, setMounted] = useState(false)
@@ -18,7 +20,7 @@ const ArticleContent = ({fields, product}) => {
     {query: '(min-width: 768px)'}
   )
 
-  const { addToCartProduct, description, directions, ingredients, proTips } = fields
+  const { description, directions, ingredients, proTips } = fields
 
   useEffect(() => {
     setMounted(true)
@@ -30,7 +32,7 @@ const ArticleContent = ({fields, product}) => {
         <PortableText value={description} />
       </div>
 
-      {ingredients && <div className={classes['article-ingredients']}>
+      {ingredients && <div ref={ingredientsRef} className={classes['article-ingredients']}>
         <h4>Ingredients</h4>
         <ul>
           {ingredients.ingredientList.map((item, index) => {
@@ -45,7 +47,7 @@ const ArticleContent = ({fields, product}) => {
             </li>
           })}
         </ul>
-        {isMobile && mounted &&
+        {ingredients.mobileBackgroundImage && isMobile && mounted &&
           <div className={classes['article-section__image']}>
             <ResponsiveImage
               classes={classes['article-section__image']}
@@ -54,7 +56,7 @@ const ArticleContent = ({fields, product}) => {
             />
           </div>
         }
-        {isDesktop && mounted &&
+        {ingredients.desktopBackgroundImage && isDesktop && mounted &&
           <div className={classes['article-section__image']}>
             <ResponsiveImage
               src={ingredients.desktopBackgroundImage.asset.url}
@@ -64,7 +66,7 @@ const ArticleContent = ({fields, product}) => {
         }
       </div>}
 
-      {directions && <div className={classes['article-directions']}>
+      {directions && <div ref={directionsRef} className={classes['article-directions']}>
         <h4>Directions</h4>
         <ul>
           {directions.stepList.map(item => {
@@ -130,7 +132,7 @@ const ArticleContent = ({fields, product}) => {
         </div>
       }
 
-      {proTips && <div className={classes['article-pro-tips']}>
+      {proTips && <div ref={proTipsRef} className={classes['article-pro-tips']}>
         <h4>Pro Tips</h4>
         <ul>
           {proTips.proTipList.map(item => {
@@ -161,6 +163,6 @@ const ArticleContent = ({fields, product}) => {
 
     </div>
   )
-}
+})
 
 export default ArticleContent

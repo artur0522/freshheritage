@@ -30,7 +30,6 @@ function Product({ product, page }) {
   const modalContext = useModalContext()
   const customerContext = useCustomerContext()
   const { customer } = customerContext
-  console.log('customer', customer)
 
   useEffect(() =>  {
     if(product.content.handle === 'digital-gift-card') {

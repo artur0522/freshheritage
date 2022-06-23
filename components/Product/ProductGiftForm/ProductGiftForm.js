@@ -72,10 +72,16 @@ const ProductGiftForm = (props) => {
             variant: selectedVariant
         })
 
+        console.log("product:", product)
+
         const formFieldsWithGiftOption = {
             ...formFields,
-            membership_type: product.tags.includes('Subscription Box') ? 'regular' : 'prepaid',
             is_gift_order: checked.toString()
+        }
+
+        if (product.tags.includes('Subscription Box')) {
+            // add some logic here to determine if regular or prepaid
+            formFieldsWithGiftOption.membership_type = 'regular'
         }
 
         addItemToOrder({

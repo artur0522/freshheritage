@@ -4,7 +4,7 @@ import { useHeadlessCheckoutContext } from './HeadlessCheckoutContext'
 import * as Cookies from 'es-cookie'
 import { useRouter } from 'next/router'
 import { getCartVariant } from 'utils/getCartVariant'
-import { GET_PRODUCT } from '../gql'
+import { GET_PRODUCTS } from '../gql'
 
 const PurchaseFlowContext = createContext()
 
@@ -98,8 +98,12 @@ export function PurchaseFlowProvider({ children }) {
       if (Object.keys(localStoragePurchaseFlowData).length) {
         if (localStoragePurchaseFlowData.productHandle) {
           const { products } = await nacelleClient.query({
-            query: GET_PRODUCT,
-            variables: { handle: localStoragePurchaseFlowData.productHandle }
+            query: GET_PRODUCTS,
+            variables: {
+              "filter": {
+                "handles": [localStoragePurchaseFlowData.productHandle]
+              }
+            }
           })
           localStoragePurchaseFlowData.product = products[0]
         }

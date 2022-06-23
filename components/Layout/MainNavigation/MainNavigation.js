@@ -7,7 +7,7 @@ import PurchaseFlowNavigation from './PurchaseFlowNavigation'
 
 const MainNavigation = ({props, setMobileMenuIsOpen, pageHandle}) => {
 
-  let navigationType;
+  let navigationType
 
   if (pageHandle === 'purchase-flow' || 'checkout') {
     navigationType = pageHandle

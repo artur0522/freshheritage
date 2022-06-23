@@ -15,6 +15,7 @@ import BlogHero from "../BlogHero"
 import RecipeCategoriesList from '../RecipeCategoriesList'
 import HalfHeroHalfSlider from '../HalfHeroHalfSlider'
 import EmailSignup from '../EmailSignup'
+import BrowseCategory from '../BrowseCategory'
 
 const ContentSections = ({ sections }) => {
   if (!Array.isArray(sections)) {
@@ -55,6 +56,8 @@ const ContentSections = ({ sections }) => {
         return <HalfHeroHalfSlider fields={section} key={section._key} />
       case 'emailSignup':
         return <EmailSignup fields={section} key={section._key} />
+      case 'browseCategory':
+        return <BrowseCategory fields={section} key={section._key} />
       default:
         return null
     }

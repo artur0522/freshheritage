@@ -8,7 +8,6 @@ import RecipeArticleCard from '../RecipeArticleCard'
 import IconLongArrow from '@/svgs/long-arrow-right.svg'
 import IconArrow from '@/svgs/arrow-right.svg'
 
-
 import "swiper/css"
 import classes from './HalfHeroHalfSlider.module.scss'
 

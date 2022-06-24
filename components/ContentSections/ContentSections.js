@@ -16,6 +16,8 @@ import RecipeCategoriesList from '../RecipeCategoriesList'
 import HalfHeroHalfSlider from '../HalfHeroHalfSlider'
 import EmailSignup from '../EmailSignup'
 import BrowseCategory from '../BrowseCategory'
+import ArticleRow from '../ArticleRow'
+import HalfVideoBlock from '../HalfVideoBlock'
 
 const ContentSections = ({ sections }) => {
   if (!Array.isArray(sections)) {
@@ -58,6 +60,10 @@ const ContentSections = ({ sections }) => {
         return <EmailSignup fields={section} key={section._key} />
       case 'browseCategory':
         return <BrowseCategory fields={section} key={section._key} />
+      case 'articleRow':
+        return <ArticleRow fields={section} key={section._key} />
+      case 'halfVideoBlock':
+        return <HalfVideoBlock fields={section} key={section._key} />
       default:
         return null
     }

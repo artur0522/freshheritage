@@ -4,13 +4,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import IconArrow from '@/svgs/arrow-right.svg'
-import IconSearch from '@/svgs/search.svg'
+import IconBullet from '@/svgs/list-item.svg'
 
-import classes from "./BrowseCategory.module.scss"
+import classes from "./ArticleRow.module.scss"
 import "swiper/css"
 
-const BrowseCategory = ({fields}) => {
-  const {header, mobileCta, mobileUrl, categoriesList} = fields
+const ArticleRow = ({fields}) => {
+  const {header, ctaText, ctaUrl, articles} = fields
+  console.log(articles)
   const [mounted, setMounted] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })
   const isDesktop = useMediaQuery({ query: '(min-width: 1074px)' })
@@ -20,28 +21,19 @@ const BrowseCategory = ({fields}) => {
     }, [])
 
   return (
-    <div className={classes['browse']}>
+    <div className={classes['articles']}>
         <div className="container">
             <div className={classes['header']}>
                 {header && <h1>{header}</h1>}
 
-                {mobileUrl && isMobile && <div className={classes['header-link']}>
-                    <Link href={mobileUrl}>
-                        <a>{mobileCta}</a>
+                {ctaUrl && <div className={classes['header-link']}>
+                    <Link href={ctaUrl}>
+                        <a>{ctaText}</a>
                     </Link>
                     <IconArrow />
                 </div>}
-
-                {isDesktop && <div className={classes['header-search']}>
-                    <form>
-                        <button type="button">
-                            <IconSearch />
-                        </button>
-                    <input type="text" placeholder='Search' className="secondary--body" />
-                   </form>
-                </div>}
             </div>
-            {categoriesList.length > 0 && mounted &&
+            {articles.length > 0 && mounted &&
                 <div className={classes['slider']}>
                     <Swiper
                         loop={true}
@@ -56,19 +48,22 @@ const BrowseCategory = ({fields}) => {
                             }
                         }}
                         >
-                        {categoriesList.map((category) => {
+                        {articles.map((article) => {
                             return (
                                 <SwiperSlide className={classes['slider__slide']}>
                                     <div className={classes['image-wrap']}>
-                                        <Image width={438} height={600} alt={category.alt} src={category.image.asset.url} />
+                                        <Image width={438} height={600} alt={article.alt} src={article.heroImage.asset.url} />
                                     </div>
                                     <div className={classes['text']}>
-                                        <h1>{category.header}</h1>
-                                        <div className={classes['btn-wrap']}>
-                                            <Link href={category.ctaUrl}>
-                                                <a className="btn alabaster">{category.ctaText}</a>
-                                            </Link>
-                                        </div>
+                                        <h4>{article.heroHeader}</h4>
+                                        <p>
+                                            <span>
+                                                {article.heroSubheader}
+                                            </span>
+                                            <span>
+                                                <IconBullet />
+                                            </span>
+                                        </p>
                                     </div>
                                 </SwiperSlide>
                             )
@@ -81,4 +76,4 @@ const BrowseCategory = ({fields}) => {
   )
 }
 
-export default BrowseCategory
+export default ArticleRow

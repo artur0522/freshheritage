@@ -1,4 +1,4 @@
-import { forwardRef, useRef } from 'react'
+import { forwardRef } from 'react'
 import PrimaryAnnouncement from '../PrimaryAnnouncement'
 import MainNavigation from '../MainNavigation'
 import MobileMenu from '../MobileMenu'

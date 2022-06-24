@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, forwardRef } from 'react'
+import { useState, useEffect, useRef, forwardRef, useLayoutEffect } from 'react'
 import classes from './ArticleNav.module.scss'
 import { animateScroll as scroll } from 'react-scroll'
 import { useHeaderContext } from '@/context/HeaderContext'
@@ -36,17 +36,7 @@ const ArticleNav = forwardRef(({ fields }, ref) => {
       return carry
     }, 'ingredients')
     setActiveTab(`${getActiveTab.replace('Ref', '')}`);
-    setStickyTopNum(headerRef.current.getBoundingClientRect().top + headerRef.current.offsetHeight <= 0 ? 0 : headerRef.current.getBoundingClientRect().top + headerRef.current.offsetHeight)
   }
-
-  // useEffect(() => {
-  //   console.log("change")
-  //   setTimeout(() => {
-  //     console.log("init!:", headerRef.current.getBoundingClientRect().top + headerRef.current.offsetHeight)
-  //     setStickyTopNum(headerRef.current.getBoundingClientRect().top + headerRef.current.offsetHeight <= 0 ? 0 : headerRef.current.getBoundingClientRect().top + headerRef.current.offsetHeight)
-  //   }, 500)
-  // }, [hide])
-
 
   useEffect(() => {
     window.addEventListener('scroll', onScroll)
@@ -56,7 +46,7 @@ const ArticleNav = forwardRef(({ fields }, ref) => {
   }, [])
 
   return (
-    <div ref={navRef} className={classes['article-nav']} style={{'top': `${stickyTopNum}px`}}>
+    <div ref={navRef} className={classes['article-nav']} style={{'top': `${ hide ? 0 : headerRef.current.offsetHeight}px`}}>
       <ul className={classes['article-nav-list']}>
         {ingredients &&
           <li className={activeTab === 'ingredients' ? classes['is-active'] : ''}><button onClick={() => onClick('ingredients')}>Ingredients</button></li>

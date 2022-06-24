@@ -3,4 +3,31 @@
 .article-sidebar {
   width: 47%;
   background-color: $fawn50-2;
+  padding: 65px;
+}
+
+.article-sidebar__main {
+  max-width: 430px;
+}
+
+.article-sidebar__section {
+  padding-bottom: 40px;
+  border-bottom: 1px solid $black20;
+  &:last-child {
+    padding: 0;
+    border-bottom: none;
+  }
+}
+
+.article-author__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.article-author__image {
+  flex-basis: 137px;
+  width: 137px;
+  margin-right: 35px;
+  border-radius: 82px;;
 }

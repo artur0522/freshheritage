@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, forwardRef, useLayoutEffect } from 'react'
+import { useState, useEffect, useRef, forwardRef } from 'react'
 import classes from './ArticleNav.module.scss'
 import { animateScroll as scroll } from 'react-scroll'
 import { useHeaderContext } from '@/context/HeaderContext'
@@ -7,7 +7,6 @@ const ArticleNav = forwardRef(({ fields }, ref) => {
 
   const { directions, ingredients, proTips } = fields;
   const [activeTab, setActiveTab] = useState('ingredients')
-  const [stickyTopNum, setStickyTopNum] = useState(0)
   const navRef = useRef()
   const { hide, headerRef } = useHeaderContext()
 
@@ -46,7 +45,7 @@ const ArticleNav = forwardRef(({ fields }, ref) => {
   }, [])
 
   return (
-    <div ref={navRef} className={classes['article-nav']} style={{'top': `${ hide ? 0 : headerRef.current.offsetHeight}px`}}>
+    <div ref={navRef} className={classes['article-nav']} style={{'top': `${ hide ? 0 : headerRef.current?.offsetHeight}px`}}>
       <ul className={classes['article-nav-list']}>
         {ingredients &&
           <li className={activeTab === 'ingredients' ? classes['is-active'] : ''}><button onClick={() => onClick('ingredients')}>Ingredients</button></li>

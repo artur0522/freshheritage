@@ -12,13 +12,14 @@ const ArticleMain = ({fields, product}) => {
 
   const refs = useRef({ingredientsRef, directionsRef, proTipsRef })
 
+  const { content, sidebar } = fields
 
   return (
     <>
       <ArticleNav ref={refs} fields={fields} />
       <div className={classes['article-main']}>
-        <ArticleContent ref={refs} fields={fields} product={product} />
-        <ArticleSidebar fields={fields} />
+        <ArticleContent ref={refs} fields={content} product={product} />
+        <ArticleSidebar fields={sidebar} />
       </div>
     </>
   )

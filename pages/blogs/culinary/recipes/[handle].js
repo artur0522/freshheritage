@@ -9,12 +9,11 @@ const RecipeArticle = ({ page, product }) => {
   console.log("product:", product)
 
   const { hero } = page.fields
-  const { content } = page.fields
 
   return (
     <>
       <ArticleHero fields={hero}  />
-      <ArticleMain fields={content} product={product} />
+      <ArticleMain fields={page.fields} product={product} />
     </>
   )
 }

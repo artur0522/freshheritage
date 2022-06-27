@@ -10,6 +10,7 @@ import ProductReviewStars from '../../components/Product/ProductReviewStars'
 import ProductSlider from '../../components/Product/ProductSlider'
 import ProductAccordion from '../../components/Product/ProductAccordion'
 import ProductGiftForm from '@/components/Product/ProductGiftForm'
+import { GET_PRODUCTS } from '@/gql/index.js'
 
 import classes from './Product.module.scss'
 import { split } from 'lodash-es'
@@ -17,7 +18,7 @@ import { split } from 'lodash-es'
 function Product({ product, page }) {
   const [checked, setChecked] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
-  
+
   const handle = product.content.handle
   const productAccordionHeaders = page[0].fields.content.find(block => block._type === 'productAccordionHeaders')
   const accordionDeliveryHeader = productAccordionHeaders?.details
@@ -57,7 +58,7 @@ function Product({ product, page }) {
       modalContext.setModalType('gated_product')
     }
   })
-  
+
   const isDesktop = useMediaQuery(
     { minWidth: 1074 }
   )
@@ -65,7 +66,7 @@ function Product({ product, page }) {
   const handleCheckbox = () => {
     setChecked(!checked);
   };
-  
+
   return (
     product && (
       <div className={classes['product']}>
@@ -74,7 +75,7 @@ function Product({ product, page }) {
             <div className={classes['slider']}>
               <ProductSlider product={product} />
             </div>
-             
+
               <div className={classes['main']}>
                 <ProductReviewStars />
 
@@ -105,7 +106,7 @@ function Product({ product, page }) {
                       </label>
                     </div>}
                 </div>
-                    
+
                 {/* GIFT FORM */}
                 <ProductGiftForm checked={checked} handle={handle} product={product} setSelectedVariant={setSelectedVariant} selectedVariant={selectedVariant} />
 
@@ -157,8 +158,12 @@ export async function getStaticProps({ params }) {
   // using the handle of the current page.
   // (https://nacelle.com/docs/querying-data/storefront-sdk)
   const { products } = await nacelleClient.query({
-    query: PAGE_QUERY,
-    variables: { handle: params.handle }
+    query: GET_PRODUCTS,
+    variables: {
+      "filter": {
+        "handles": [params.handle]
+      }
+    }
   })
 
   const product = products[0]
@@ -191,67 +196,6 @@ const HANDLES_QUERY = `
     products {
       content {
         handle
-      }
-    }
-  }
-`
-
-// GraphQL query for product content. Used in `getStaticProps`.
-// (https://nacelle.com/docs/querying-data/storefront-api)
-const PAGE_QUERY = `
-  query ProductPage($handle: String!){
-    products(filter: { handles: [$handle] }){
-      nacelleEntryId
-      sourceEntryId
-      content{
-        handle
-        title
-        description
-        media {
-          altText
-          id
-          src
-          thumbnailSrc
-          type
-        }
-        options{
-          name
-          values
-        }
-        featuredMedia{
-          src
-          thumbnailSrc
-          altText
-        }
-			}
-      tags
-      metafields {
-        id
-        key
-        namespace
-        value
-      }
-      variants{
-        nacelleEntryId
-        sourceEntryId
-        sku
-        availableForSale
-        price
-        compareAtPrice
-        weight
-        content{
-          title
-          variantEntryId
-          selectedOptions{
-            name
-            value
-          }
-          featuredMedia{
-            src
-            thumbnailSrc
-            altText
-          }
-        }
       }
     }
   }

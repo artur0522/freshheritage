@@ -67,7 +67,7 @@ const LineItemProduct = ({ item, children, readOnly }) => {
             </div>
           </div>
 
-          {isGiftCard ? (
+          {isGiftCard || isSubscription ? (
             <div>
               <button onClick={() => removeLineItem({line_item_key: item.line_item_key})} className="order-item__remove-btn">
                 <IconTrashCan />
@@ -86,7 +86,9 @@ const LineItemProduct = ({ item, children, readOnly }) => {
 
           {!isGiftCard &&
             <div className="order-item__detail-item">
-              {readOnly ? (
+              { isSubscription ? (
+                <div></div>
+              ):(readOnly ? (
                 <div className="order-item__quantity-wrapper order-item__quantity-wrapper--quantity-only">
                   <div className="order-item__quantity" aria-label="product quantity">
                     {item.quantity}
@@ -104,13 +106,13 @@ const LineItemProduct = ({ item, children, readOnly }) => {
                     <IconPlus />
                   </button>
                 </div>
-              )}
+              ))}
               {item.properties.membership_type &&
                 <ul className="order-item__delivery hide-on-mobile">
-                  {item.properties.membership_type === 'prepaid' &&
+                  {item.properties.membership_type === 'prepaid' && item.properties.shipments &&
                     <li>{item.properties.shipments} {item.properties.shipments === 1 ? 'delivery' : 'deliveries'} prepaid</li>
                   }
-                  {item.properties.membership_type === 'regular' &&
+                  {item.properties.membership_type === 'regular' && item.properties.shipments &&
                     <li>{item.properties.shipments} {item.properties.shipments === 1 ? 'box' : 'boxes'}</li>
                   }
                   <li>Ships {item.properties.frequency}</li>

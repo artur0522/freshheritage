@@ -9,7 +9,7 @@ import classes from "./HalfVideoBlock.module.scss"
 
 const HalfVideoBlock = ({fields}) => {
   const {header, subheader, ctaText, ctaUrl, article, imageAlign, reverse} = fields
-  console.log('halfvideo', fields)
+
   return (
     <div className={classes['wrapper']}>
         <div className="container">
@@ -25,14 +25,14 @@ const HalfVideoBlock = ({fields}) => {
                     </Link>}
                 </div>
                 <div className={classes['article']}>
-                    <div className={classes['article__image']}>
+                    {article.heroImage && <div className={classes['article__image']}>
                         <Image
                             src={article.heroImage.asset.url}
                             layout="fill"
                             objectFit="cover"
                             alt={article.alt}
                         />
-                    </div>
+                    </div>}
                     <div className={classes['article__text']}>
                         {article.heroHeader && <h4>{article.heroHeader}</h4>}
                         {article.heroSubheader && <p>{article.heroSubheader}</p>}

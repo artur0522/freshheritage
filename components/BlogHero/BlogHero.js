@@ -13,7 +13,7 @@ const BlogHero = ({ fields }) => {
 
   useEffect(() => {
     setMounted(true)
-  }, [])
+  }, [fields])
 
   // Conditionally change the color of the button
   if (textColor === 'text--light') {
@@ -31,7 +31,7 @@ const BlogHero = ({ fields }) => {
         </div>
       </div>
 
-      {isMobile && mounted &&
+      {isMobile && mounted && mobileBackgroundImage.asset.url &&
         <div className={`${classes['hero__wrap']} ${classes['hero__wrap--mbl']}`}>
           <Image
             className={classes.dsktp__img}
@@ -40,7 +40,7 @@ const BlogHero = ({ fields }) => {
           />
         </div>}
 
-        {isDesktop && mounted && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--dsktp']}`}>
+        {isDesktop && mounted && desktopBackgroundImage.asset.url && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--dsktp']}`}>
           <Image
             className={classes.mbl__img}
             src={desktopBackgroundImage.asset.url}

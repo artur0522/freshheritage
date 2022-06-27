@@ -17,7 +17,7 @@ const ArticleRow = ({fields}) => {
 
     useEffect(() => {
         setMounted(true)
-    }, [])
+    }, [fields])
 
   return (
     <div className={classes['articles']}>

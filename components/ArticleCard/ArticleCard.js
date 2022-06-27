@@ -10,19 +10,19 @@ const ArticleCard = ({ article }) => {
     <Link href={`/${article.handle.current}`}>
         <a className={classes['article-card']}>
             <div className={classes['slider__slide']}>
-                <div className={classes['image-wrap']}>
+                {article.heroImage && <div className={classes['image-wrap']}>
                     <Image width={438} height={600} alt={article.alt} src={article.heroImage.asset.url} />
-                </div>
+                </div>}
                 <div className={classes['text']}>
-                    <h4>{article.heroHeader}</h4>
-                    <p>
+                    {article.heroHeader && <h4>{article.heroHeader}</h4>}
+                    {article.heroSubheader && <p>
                         <span>
                             {article.heroSubheader}
                         </span>
                         <span>
                             <IconBullet />
                         </span>
-                    </p>
+                    </p>}
                 </div>
             </div>
         </a>

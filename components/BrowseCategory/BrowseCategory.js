@@ -17,7 +17,7 @@ const BrowseCategory = ({fields}) => {
 
     useEffect(() => {
         setMounted(true)
-    }, [])
+    }, [fields])
 
   return (
     <div className={classes['browse']}>

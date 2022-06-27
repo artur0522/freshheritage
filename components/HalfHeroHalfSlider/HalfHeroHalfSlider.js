@@ -19,7 +19,7 @@ const HalfHeroHalfSlider = ({ fields }) => {
 
   useEffect(() => {
     setMounted(true)
-  }, [mounted])
+  }, [fields])
 
   return (
     <div className={classes['wrapper']}>

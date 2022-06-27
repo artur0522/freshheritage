@@ -140,6 +140,12 @@ export const GET_PRODUCTS = `query products($filter: ProductFilterInput) {
     availableForSale
     productType
     tags
+    metafields {
+      id
+      key
+      namespace
+      value
+    }
     content {
       nacelleEntryId
       sourceEntryId
@@ -157,9 +163,11 @@ export const GET_PRODUCTS = `query products($filter: ProductFilterInput) {
         values
       }
       featuredMedia {
+        altText
+        id
         src
         thumbnailSrc
-        altText
+        type
       }
       media {
         id
@@ -185,6 +193,7 @@ export const GET_PRODUCTS = `query products($filter: ProductFilterInput) {
       }
       content {
         title
+        variantEntryId
         selectedOptions {
           name
           value

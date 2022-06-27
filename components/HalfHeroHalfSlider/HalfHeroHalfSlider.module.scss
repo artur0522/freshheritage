@@ -1,15 +1,21 @@
 @import '@/styles/_shared.scss';
 
 .wrapper {
+    padding-bottom: 27.5px;
+
+    @include breakpoint-up('md') {
+        padding-bottom: 57.5px;
+    }
+
     .header {
-        padding-top: 43px;
+        padding-top: 21.5px;
         padding-bottom: 21px;
 
         @include breakpoint-up('md') {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            padding-top: 115px;
+            padding-top: 57.5px;
             padding-bottom: 12.46px;
         }
 

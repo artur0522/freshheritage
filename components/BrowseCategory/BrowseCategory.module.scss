@@ -4,16 +4,18 @@
     padding-bottom: 24px;
 
     @include breakpoint-up('md') {
-        padding-bottom: 122px;
+        padding-bottom: 72px;
     }
 
     .header {
+        padding-top: 14px;
         padding-bottom: 14px;
 
         @include breakpoint-up('md') {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
+            padding-top: 72px;
             padding-bottom: 24px;
         }
 

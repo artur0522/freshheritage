@@ -4,10 +4,10 @@
 
 .hero {
     position: relative;
-    margin-bottom: 28px;
+    margin-bottom: 14px;
 
     @include breakpoint-up('md') {
-        margin-bottom: 144px;
+        margin-bottom: 72px;
     }
 
     // dynamic color modifiers

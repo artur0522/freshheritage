@@ -76,36 +76,35 @@ const HalfHeroHalfSlider = ({ fields }) => {
                     </div>
                 </div>
 
-               
-                    {isMobile && mounted && articles.length > 0 &&
-                        <div className={classes['slider']}>
-                            <Swiper
-                                loop={true}
-                                slidesPerView={"auto"}
-                                spaceBetween={18}
-                                centeredSlides={true}
-                            >
-                            {articles.map((article) => {
-                                return (
-                                    <SwiperSlide className={classes['slider__slide']} key={`${article._type}-${article._id}`}>
-                                        <RecipeArticleCard article={article} />
-                                    </SwiperSlide>
-                                )
-                            })}
-                            </Swiper>
-                        </div>}
+                {isMobile && mounted && articles.length > 0 &&
+                    <div className={classes['slider']}>
+                        <Swiper
+                            loop={true}
+                            slidesPerView={"auto"}
+                            spaceBetween={18}
+                            centeredSlides={true}
+                        >
+                        {articles.map((article) => {
+                            return (
+                                <SwiperSlide className={classes['slider__slide']} key={`${article._type}-${article._id}`}>
+                                    <RecipeArticleCard article={article} />
+                                </SwiperSlide>
+                            )
+                        })}
+                        </Swiper>
+                    </div>}
 
-                    {isDesktop && mounted && articles.length > 0 &&
-                        <div className={classes['slider']}>
-                            {articles.map((article) => {
-                                return (
-                                    <div className={classes['slider__slide']} key={`${article._type}-${article._id}`}>
-                                        <RecipeArticleCard article={article} />
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    }
+                {isDesktop && mounted && articles.length > 0 &&
+                    <div className={classes['slider']}>
+                        {articles.map((article) => {
+                            return (
+                                <div className={classes['slider__slide']} key={`${article._type}-${article._id}`}>
+                                    <RecipeArticleCard article={article} />
+                                </div>
+                            )
+                        })}
+                    </div>
+                }
             </div>
         </div>
        

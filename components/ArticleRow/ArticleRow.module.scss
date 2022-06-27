@@ -1,17 +1,18 @@
 @import '@/styles/_shared.scss';
 
 .articles {
-    padding-bottom: 24px;
+    padding-bottom: 12px;
 
     @include breakpoint-up('md') {
-        padding-bottom: 122px;
+        padding-bottom: 61px;
     }
 
     .header {
-
+        padding-top: 14px;
         padding-bottom: 14px;
 
         @include breakpoint-up('md') {
+            padding-top: 72px;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;

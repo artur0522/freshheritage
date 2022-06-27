@@ -15,6 +15,10 @@
     border-radius: 12px;
     min-height: 501px;
 
+    &.row {
+        display: flex;
+    }
+
     img {
         border-radius: 12px;
     }

@@ -1,12 +1,12 @@
 @import '@/styles/_shared.scss';
 
 .categories {
-    padding-top: 55px;
-    padding-bottom: 33px;
+    padding-top: 27.5px;
+    padding-bottom: 40px;
 
     @include breakpoint-up('sm') {
-        padding-top: 114px;
-        padding-bottom: 60px;
+        padding-top: 57.5px;
+        padding-bottom: 8px;
     }
 
     // categories__header

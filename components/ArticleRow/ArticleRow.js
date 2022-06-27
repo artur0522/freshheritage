@@ -3,15 +3,14 @@ import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import ArticleCard from '../ArticleCard'
 import IconArrow from '@/svgs/arrow-right.svg'
-import IconBullet from '@/svgs/list-item.svg'
 
 import classes from "./ArticleRow.module.scss"
 import "swiper/css"
 
 const ArticleRow = ({fields}) => {
   const {header, ctaText, ctaUrl, articles} = fields
-  console.log(articles)
   const [mounted, setMounted] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })
   const isDesktop = useMediaQuery({ query: '(min-width: 1074px)' })
@@ -25,7 +24,6 @@ const ArticleRow = ({fields}) => {
         <div className="container">
             <div className={classes['header']}>
                 {header && <h1>{header}</h1>}
-
                 {ctaUrl && <div className={classes['header-link']}>
                     <Link href={ctaUrl}>
                         <a>{ctaText}</a>
@@ -50,21 +48,8 @@ const ArticleRow = ({fields}) => {
                         >
                         {articles.map((article) => {
                             return (
-                                <SwiperSlide className={classes['slider__slide']}>
-                                    <div className={classes['image-wrap']}>
-                                        <Image width={438} height={600} alt={article.alt} src={article.heroImage.asset.url} />
-                                    </div>
-                                    <div className={classes['text']}>
-                                        <h4>{article.heroHeader}</h4>
-                                        <p>
-                                            <span>
-                                                {article.heroSubheader}
-                                            </span>
-                                            <span>
-                                                <IconBullet />
-                                            </span>
-                                        </p>
-                                    </div>
+                                <SwiperSlide key={article._id}>
+                                    <ArticleCard article={article} />
                                 </SwiperSlide>
                             )
                         })}

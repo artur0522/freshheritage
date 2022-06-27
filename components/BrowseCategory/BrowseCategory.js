@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
-import Image from 'next/image'
 import Link from 'next/link'
+import CategoryCard from '../CategoryCard'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import IconArrow from '@/svgs/arrow-right.svg'
 import IconSearch from '@/svgs/search.svg'
@@ -58,18 +58,8 @@ const BrowseCategory = ({fields}) => {
                         >
                         {categoriesList.map((category) => {
                             return (
-                                <SwiperSlide className={classes['slider__slide']}>
-                                    <div className={classes['image-wrap']}>
-                                        <Image width={438} height={600} alt={category.alt} src={category.image.asset.url} />
-                                    </div>
-                                    <div className={classes['text']}>
-                                        <h1>{category.header}</h1>
-                                        <div className={classes['btn-wrap']}>
-                                            <Link href={category.ctaUrl}>
-                                                <a className="btn alabaster">{category.ctaText}</a>
-                                            </Link>
-                                        </div>
-                                    </div>
+                                <SwiperSlide key={category._key}>
+                                    <CategoryCard category={category} />
                                 </SwiperSlide>
                             )
                         })}

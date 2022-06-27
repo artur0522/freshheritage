@@ -1,0 +1,33 @@
+import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import IconBullet from '@/svgs/list-item.svg'
+
+import classes from "./ArticleCard.module.scss"
+
+const ArticleCard = ({ article }) => {
+  return (
+    <Link href={`/${article.handle.current}`}>
+        <a className={classes['article-card']}>
+            <div className={classes['slider__slide']}>
+                <div className={classes['image-wrap']}>
+                    <Image width={438} height={600} alt={article.alt} src={article.heroImage.asset.url} />
+                </div>
+                <div className={classes['text']}>
+                    <h4>{article.heroHeader}</h4>
+                    <p>
+                        <span>
+                            {article.heroSubheader}
+                        </span>
+                        <span>
+                            <IconBullet />
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </a>
+    </Link>
+  )
+}
+
+export default ArticleCard

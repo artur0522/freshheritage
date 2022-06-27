@@ -1,0 +1,45 @@
+@import '@/styles/_shared.scss';
+
+.article-card {
+    text-decoration: none;
+
+    &:not(.btn):hover {
+        text-decoration: none;
+    }
+}
+
+.slider__slide {
+    position: relative;
+    padding: 17.94px 15px;
+    border: 1px solid $fawn50-2;
+    border-radius: 12px;
+    min-height: 501px;
+
+    img {
+        border-radius: 12px;
+    }
+
+    .text {
+        margin-top: 17.94px;
+
+        h4 {
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: $salmon;
+            height: 43.57px;
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-wrap {
+            width: 145px;
+            margin: auto;
+
+            a {
+                min-width: 0;
+            }
+        }
+    }
+}

@@ -1,15 +1,20 @@
 @import '@/styles/_shared.scss';
 
 .articles {
+    padding-bottom: 24px;
+
+    @include breakpoint-up('md') {
+        padding-bottom: 122px;
+    }
+
     .header {
-        padding-top: 28px;
+
         padding-bottom: 14px;
 
         @include breakpoint-up('md') {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            padding-top: 115px;
             padding-bottom: 24px;
         }
 
@@ -68,44 +73,6 @@
                     font-weight: 500;
                     color: $sitkablue;
                     font-weight: 500;
-                }
-            }
-        }
-    }
-
-    .slider {
-        &__slide {
-            position: relative;
-            padding: 17.94px 15px;
-            border: 1px solid $fawn50-2;
-            border-radius: 12px;
-            min-height: 501px;
-
-            img {
-                border-radius: 12px;
-            }
-
-            .text {
-                margin-top: 17.94px;
-
-                h4 {
-                    margin-bottom: 20px;
-                }
-
-                p {
-                    color: $salmon;
-                    height: 43.57px;
-                    display: flex;
-                    align-items: center;
-                }
-
-                .btn-wrap {
-                    width: 145px;
-                    margin: auto;
-
-                    a {
-                        min-width: 0;
-                    }
                 }
             }
         }

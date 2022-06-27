@@ -4,8 +4,29 @@
     padding: 32px 0 54px 0;
     background-color: #B7CD96;
 
+    @include breakpoint-up('md') {
+        padding: 118px 0 98px 0;
+    }
+
+    .row {
+        &.reverse {
+            flex-direction: row-reverse
+        }
+
+        @include breakpoint-up('md') {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
     .text {
         margin-bottom: 29px;
+
+        @include breakpoint-up('md') {
+            width: 36.78%
+        }
 
         h1 {
             margin-bottom: 12px;
@@ -31,9 +52,55 @@
         border-radius: 12px;
         border: 1px solid $fawn50-2;
 
+        @include breakpoint-up('md') {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
         &__image {
             position: relative;
-            height: 313px;
+            height: 262px;
+            margin-bottom: 14px;
+
+            @include breakpoint-up('md') {
+                width: 56.49%;
+                height: 499px;
+            }
+        }
+
+        &__text {
+            @include breakpoint-up('md') {
+                width: 38.71%
+            }
+
+            h4 {
+                margin-bottom: 9px;
+            }
+
+            p {
+                color: $salmon;
+            }
+
+            .btn {
+                width: 100%;
+                display: none;
+                margin-top: 53px;
+
+                @include breakpoint-up('md') {
+                    display: block;
+                }
+
+                a {
+                    min-width: 0;
+                }
+            }
+
+            .play-icon {
+                margin-right: 10px;
+                display: inline-block;
+            }
         }
     }
 }

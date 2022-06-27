@@ -3,16 +3,17 @@ import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import Link from 'next/link'
 import IconArrow from '@/svgs/arrow-right.svg'
+import IconPlay from '@/svgs/play.svg'
 
 import classes from "./HalfVideoBlock.module.scss"
 
 const HalfVideoBlock = ({fields}) => {
-    const {header, subheader, ctaText, ctaUrl, article, imageAlign} = fields
+  const {header, subheader, ctaText, ctaUrl, article, imageAlign, reverse} = fields
   console.log('halfvideo', fields)
   return (
     <div className={classes['wrapper']}>
         <div className="container">
-            <div className={classes['row']}>
+            <div className={`${classes['row']} ${reverse ? classes['reverse'] : ''}`}>
                 <div className={classes['text']}>
                     {header && <h1>{header}</h1>}
                     {subheader && <h2>{subheader}</h2>}
@@ -35,6 +36,14 @@ const HalfVideoBlock = ({fields}) => {
                     <div className={classes['article__text']}>
                         {article.heroHeader && <h4>{article.heroHeader}</h4>}
                         {article.heroSubheader && <p>{article.heroSubheader}</p>}
+                        {article.handle && <div className={classes['btn']}>
+                            <Link href={`/${article.handle.current}`}>
+                                <a className="btn sitkablue">
+                                    <span className={classes['play-icon']}><IconPlay /></span>
+                                    <span>Watch Video</span>
+                                </a>
+                            </Link>
+                        </div>}
                     </div>
                 </div>
             </div>

@@ -2,11 +2,11 @@
 
 .categories {
     padding-top: 55px;
-    padding-bottom: 80px;
+    padding-bottom: 33px;
 
     @include breakpoint-up('sm') {
         padding-top: 114px;
-        padding-bottom: 118px;
+        padding-bottom: 60px;
     }
 
     // categories__header

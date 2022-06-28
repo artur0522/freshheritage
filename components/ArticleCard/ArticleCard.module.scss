@@ -16,7 +16,25 @@
     min-height: 501px;
 
     &.row {
-        display: flex;
+        @include breakpoint-up('md') {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 0;
+            padding: 24px;
+        }
+
+        .image-wrap {
+            @include breakpoint-up('md') {
+                width: 48%;
+            }
+        }
+
+        .text {
+            @include breakpoint-up('md') {
+                width: 48%;
+            }
+        }
     }
 
     img {
@@ -25,10 +43,6 @@
 
     .text {
         margin-top: 17.94px;
-
-        h4 {
-            margin-bottom: 20px;
-        }
 
         p {
             color: $salmon;

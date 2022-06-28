@@ -9,11 +9,9 @@ import IconArrow from '@/svgs/arrow-right.svg'
 import classes from "./ArticleRow.module.scss"
 import "swiper/css"
 
-const ArticleRow = ({fields}) => {
-  const {header, ctaText, ctaUrl, articles} = fields
+const ArticleRow = ({ fields }) => {
+  const {header, ctaText, ctaUrl, articles, _key, reverseCard} = fields
   const [mounted, setMounted] = useState(false)
-  const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })
-  const isDesktop = useMediaQuery({ query: '(min-width: 1074px)' })
 
     useEffect(() => {
         setMounted(true)
@@ -35,21 +33,21 @@ const ArticleRow = ({fields}) => {
                 <div className={classes['slider']}>
                     <Swiper
                         loop={true}
-                        slidesPerView={1.5}
+                        slidesPerView={reverseCard ? 1.25 : 1.5}
                         spaceBetween={18}
                         breakpoints={{
                             768: {
-                                slidesPerView: 2.75
+                                slidesPerView: reverseCard ? 2.25 : 2.75
                             },
                             1074: {
-                                slidesPerView: 3.75
+                                slidesPerView: reverseCard ? 2.25 : 3.75
                             }
                         }}
                         >
-                        {articles.map((article) => {
+                        {articles.map((article, index) => {
                             return (
-                                <SwiperSlide key={article._id}>
-                                    <ArticleCard article={article} />
+                                <SwiperSlide key={`${article._id}-${_key}-${index}`}>
+                                    <ArticleCard article={article} reverse={reverseCard} />
                                 </SwiperSlide>
                             )
                         })}

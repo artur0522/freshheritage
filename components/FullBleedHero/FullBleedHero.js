@@ -10,7 +10,7 @@ const FullBleedHero = ({ fields }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
 
-  let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage, alt } = fields
+  let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage, alt, topMargin, bottomMargin } = fields
 
   useEffect(() => {
     setMounted(true)
@@ -25,7 +25,7 @@ const FullBleedHero = ({ fields }) => {
   }
   
   return (
-    <div className={`${classes['hero']} ${classes[heroStyle]} ${classes[textColor]}`}>
+    <div className={`${classes['hero']} ${classes[heroStyle]} ${classes[textColor]} ${topMargin ? classes['top-margin'] : ''} ${bottomMargin ? classes['bottom-margin'] : ''}`}>
       <div className={`${classes['hero__text']}`}>
         <div className={classes['hero__text-inner']}>
           {fields.header && <h1>{fields.header}</h1>}

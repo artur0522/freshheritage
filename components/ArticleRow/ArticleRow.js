@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -10,7 +9,7 @@ import classes from "./ArticleRow.module.scss"
 import "swiper/css"
 
 const ArticleRow = ({ fields }) => {
-  const {header, ctaText, ctaUrl, articles, _key, reverseCard} = fields
+  const {header, ctaText, ctaUrl, articles, _key, reverseCard, illustration, illustrationAlt, illustration2, illustration2Alt, greenBackground} = fields
   const [mounted, setMounted] = useState(false)
 
     useEffect(() => {
@@ -18,7 +17,23 @@ const ArticleRow = ({ fields }) => {
     }, [fields])
 
   return (
-    <div className={classes['articles']}>
+    <div className={`${classes['articles']} ${greenBackground ? classes['green-bg'] : ""}`}>
+        {illustration && <div className={classes['illustration-1']}>
+            <Image
+                src={illustration.asset.url}
+                alt={illustrationAlt}
+                width={420}
+                height={388}
+            />
+        </div>}
+        {illustration2 && <div className={classes['illustration-2']}>
+            <Image 
+                src={illustration2.asset.url}
+                alt={illustration2Alt}
+                width={370}
+                height={354}
+            />
+        </div>}
         <div className="container">
             <div className={classes['header']}>
                 {header && <h1>{header}</h1>}

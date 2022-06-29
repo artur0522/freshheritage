@@ -1,7 +1,9 @@
 @import '@/styles/_shared.scss';
 
 .article-card {
+    background-color: #fff;
     text-decoration: none;
+    border-radius: 12px;
 
     &:not(.btn):hover {
         text-decoration: none;

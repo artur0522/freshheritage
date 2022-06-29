@@ -2,9 +2,38 @@
 
 .articles {
     padding-bottom: 12px;
+    position: relative;
 
     @include breakpoint-up('md') {
         padding-bottom: 61px;
+    }
+
+    &.green-bg {
+        background-color: #B7CD96;
+    }
+
+    .illustration-1 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
+        z-index: -1;
+
+        @include breakpoint-up('md') {
+            display: block;
+        }
+    }
+
+    .illustration-2 {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        display: none;
+        z-index: -1;
+
+        @include breakpoint-up('md') {
+            display: block;
+        }
     }
 
     .header {

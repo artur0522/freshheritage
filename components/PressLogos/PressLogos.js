@@ -7,7 +7,7 @@ const PressLogos = ({ fields }) => {
   const { pressLogos } = fields;
 
   return (
-    <div className={classes['logos']}>
+    <div className={`${classes['logos']}`}>
         <div className={`${classes['logos__row']}`}>
            {pressLogos.map((logo) => {
               return (

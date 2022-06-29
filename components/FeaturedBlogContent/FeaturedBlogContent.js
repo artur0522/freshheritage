@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -14,6 +14,11 @@ const FeaturedBlogContent = ({ fields }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
   const [selectedSwiper, setSelectedSwiper] = useState(tabs[0])
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [fields])
 
   const filterArticles = (tabName) => {
     const foundTab = tabs.find((tab) => {
@@ -45,7 +50,7 @@ const FeaturedBlogContent = ({ fields }) => {
             <Swiper
                 loop={true}
                 slidesPerView={"auto"}
-                spaceBetween={10}
+                spaceBetween={40}
                 className={`${classes['articles__tabs-swiper']} ${classes['has-swiper']}`}
                 >
                 {tabs.map((tab) => {
@@ -59,26 +64,26 @@ const FeaturedBlogContent = ({ fields }) => {
                 })}
             </Swiper>
 
-            <Swiper
+            {mounted && <Swiper
                 loop={true}
-                slidesPerView={1.5}
+                slidesPerView={"auto"}
                 spaceBetween={18}
+                navigation={true}
+                className={classes['articles__swiper']}
                 breakpoints={{
-                    768: {
+                    1920: {
                         slidesPerView: 4
                     }
                 }}
-                navigation={true}
-                className={classes['articles__swiper']}
             >
                 {selectedSwiper.tabList.map((article) => {
                     return (
-                        <SwiperSlide key={`${article._type}-${article._id}`}>
+                        <SwiperSlide className={classes['article-slide']} key={`${article._type}-${article._id}`}>
                             <RecipeArticleCard article={article} />
                         </SwiperSlide>
                     )
                 })}
-            </Swiper>
+            </Swiper>}
 
             {ctaUrl && <Link href={`${ctaUrl}`}>
                     <a className={`${classes['articles__btn']} btn text-align--center no-underline`}>

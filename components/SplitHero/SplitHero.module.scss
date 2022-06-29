@@ -3,6 +3,7 @@
 @import '../../styles/variables/_colors.scss';
 
 .hero {
+
   // dynamic color modifiers
   &.bg--light {
     background-color: $alabaster;
@@ -58,7 +59,6 @@
 
   .disclaimer {
     display: none;
-    margin-top: 48px;
 
     @include breakpoint-up('sm') {
       display: block;
@@ -69,8 +69,8 @@
     }
   }
 
-   // hero__row
-   &__row {
+  // hero__row
+  &__row {
     display: flex;
   }
 
@@ -101,6 +101,7 @@
 
         li {
           font-weight: 500;
+
           span {
             display: inline-block;
             margin-right: 12.35px;
@@ -109,8 +110,10 @@
               margin-right: 24.71px;
             }
           }
+
           svg {
             width: 17px;
+
             @include breakpoint-up('sm') {
               width: 27px;
             }
@@ -126,6 +129,7 @@
         @include breakpoint-up('sm') {
           display: flex;
           align-items: center;
+          margin-bottom: 48px;
         }
 
         .primary-btn {
@@ -135,13 +139,13 @@
           @include breakpoint-up('sm') {
             max-width: 250px;
             margin-bottom: 0;
+            margin-right: 36px;
           }
         }
 
         .secondary-btn {
           @include breakpoint-up('sm') {
             text-align: left;
-            margin-left: 36px;
           }
         }
 
@@ -251,10 +255,12 @@
   // Cover Hero Option
   &.image--cover {
     .hero__text {
+
       // hero__text--inner
       &--inner {
         padding: 54px 28px 111px 28px;
         text-align: center;
+
         @include breakpoint-up('sm') {
           padding: 0 12.6% 0 16.77%;
           text-align: left;
@@ -290,6 +296,7 @@
     }
 
     .hero__wrap {
+
       // hero__wrap--mbl
       &--mbl {
         height: 300px;

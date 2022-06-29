@@ -2,6 +2,7 @@
 @import '../../styles/variables/_breakpoints.scss';
 
 .logos {
+
     // logos__row
     &__row {
         display: flex;
@@ -31,6 +32,7 @@
         @include breakpoint-up('sm') {
             max-width: none;
             width: 22%;
+            min-width: 0;
         }
 
         &:not(:first-child) {

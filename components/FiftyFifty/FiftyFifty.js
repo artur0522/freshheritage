@@ -17,7 +17,7 @@ const FiftyFifty = ({ fields }) => {
 
   return (
     <div className={classes['fifty-fifty']}>
-        <div className={`${classes['fifty-fifty__row']} ${classes[fields.imageAlign]} flex--justify-between container`}>
+        <div className={`${classes['fifty-fifty__row']} ${classes[fields.imageAlign]} ${classes['container']} flex--justify-between`}>
             {sectionImage &&  <div className={classes['fifty-fifty__image']}>
                 {sectionImage}
             </div>}

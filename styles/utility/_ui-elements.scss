@@ -1,6 +1,6 @@
 .btn {
   font-weight: 500;
-  color: $alabaster;
+  color: $alabaster2;
   background-color: $black;
   border: none;
   padding: 13px 0;
@@ -13,26 +13,23 @@
   transition: 0.2s ease-in-out background;
 
   &:disabled {
-    background: linear-gradient(
-        0deg,
+    background: linear-gradient(0deg,
         rgba(255, 255, 255, 0.6),
-        rgba(255, 255, 255, 0.6)
-      ),
+        rgba(255, 255, 255, 0.6)),
       $black;
   }
 
   &.copper {
     background-color: $copper;
+
     &:hover {
       background-color: $salmon;
     }
 
     &:disabled {
-      background: linear-gradient(
-          0deg,
+      background: linear-gradient(0deg,
           rgba(255, 255, 255, 0.6),
-          rgba(255, 255, 255, 0.6)
-        ),
+          rgba(255, 255, 255, 0.6)),
         $salmon;
     }
   }
@@ -45,11 +42,9 @@
     }
 
     &:disabled {
-      background: linear-gradient(
-          0deg,
+      background: linear-gradient(0deg,
           rgba(255, 255, 255, 0.6),
-          rgba(255, 255, 255, 0.6)
-        ),
+          rgba(255, 255, 255, 0.6)),
         $copper;
     }
   }
@@ -62,11 +57,9 @@
     }
 
     &:disabled {
-      background: linear-gradient(
-          0deg,
+      background: linear-gradient(0deg,
           rgba(255, 255, 255, 0.6),
-          rgba(255, 255, 255, 0.6)
-        ),
+          rgba(255, 255, 255, 0.6)),
         $sitkabluelight;
     }
   }
@@ -76,11 +69,9 @@
     color: $sitkablue;
 
     &:disabled {
-      background: linear-gradient(
-          0deg,
+      background: linear-gradient(0deg,
           rgba(255, 255, 255, 0.6),
-          rgba(255, 255, 255, 0.6)
-        ),
+          rgba(255, 255, 255, 0.6)),
         $alabaster;
     }
   }
@@ -101,11 +92,9 @@
     }
 
     &:disabled {
-      background: linear-gradient(
-          0deg,
+      background: linear-gradient(0deg,
           rgba(255, 255, 255, 0.6),
-          rgba(255, 255, 255, 0.6)
-        ),
+          rgba(255, 255, 255, 0.6)),
         $black;
     }
 
@@ -121,11 +110,9 @@
       }
 
       &:disabled {
-        background: linear-gradient(
-            0deg,
+        background: linear-gradient(0deg,
             rgba(255, 255, 255, 0.6),
-            rgba(255, 255, 255, 0.6)
-          ),
+            rgba(255, 255, 255, 0.6)),
           $copper;
       }
     }
@@ -142,11 +129,9 @@
       }
 
       &:disabled {
-        background: linear-gradient(
-            0deg,
+        background: linear-gradient(0deg,
             rgba(255, 255, 255, 0.6),
-            rgba(255, 255, 255, 0.6)
-          ),
+            rgba(255, 255, 255, 0.6)),
           $sitkabluelight;
       }
     }
@@ -160,11 +145,9 @@
       }
 
       &:disabled {
-        background: linear-gradient(
-            0deg,
+        background: linear-gradient(0deg,
             rgba(255, 255, 255, 0.6),
-            rgba(255, 255, 255, 0.6)
-          ),
+            rgba(255, 255, 255, 0.6)),
           $alabaster;
       }
     }
@@ -173,10 +156,12 @@
 
 a {
   transition: 0.2s ease-in-out color;
+
   &:not(.btn):hover {
     color: $salmon;
     text-decoration: underline;
   }
+
   &.btn {
     display: flex;
     justify-content: center;
@@ -192,6 +177,7 @@ a {
   border: none;
   box-shadow: none;
   transition: 0.2s ease-in-out color;
+
   &:hover {
     color: $salmon;
   }

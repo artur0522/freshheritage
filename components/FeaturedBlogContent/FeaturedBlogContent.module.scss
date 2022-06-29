@@ -11,8 +11,29 @@
     overflow: hidden;
 
     @include breakpoint-up('sm') {
-        background-image: url('./blog-content-bg.png');
         padding: 144px 0;
+    }
+
+    .illustration-1 {
+        position: absolute;
+        top: 108px;
+        left: -120px;
+        display: none;
+
+        @include breakpoint-up('md') {
+            display: block;
+        }
+    }
+
+    .illustration-2 {
+        position: absolute;
+        bottom: -36px;
+        right: -80px;
+        display: none;
+
+        @include breakpoint-up('md') {
+            display: block;
+        }
     }
 
     &__content {

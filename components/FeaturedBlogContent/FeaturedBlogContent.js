@@ -10,7 +10,7 @@ import "swiper/css"
 import classes from './FeaturedBlogContent.module.scss'
 
 const FeaturedBlogContent = ({ fields }) => {
-  const { tabs, header, subheader, ctaUrl, ctaText } = fields
+  const { tabs, header, subheader, ctaUrl, ctaText, illustration, illustration2, illustrationAlt, illustration2Alt } = fields
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
   const [selectedSwiper, setSelectedSwiper] = useState(tabs[0])
@@ -29,6 +29,22 @@ const FeaturedBlogContent = ({ fields }) => {
 
   return (
     <div className={`${classes['articles']}`}>
+        {illustration && <div className={classes['illustration-1']}>
+            <Image
+                src={illustration.asset.url}
+                alt={illustrationAlt}
+                width={743}
+                height={532}
+            />
+        </div>}
+        {illustration2 && <div className={classes['illustration-2']}>
+            <Image 
+                src={illustration2.asset.url}
+                alt={illustration2Alt}
+                width={524}
+                height={524}
+            />
+        </div>}
         <div className={`${classes['articles__content']}`}>
             <div className={`${classes['articles__header']}`}>
                 {header && <h1>{header}</h1>}

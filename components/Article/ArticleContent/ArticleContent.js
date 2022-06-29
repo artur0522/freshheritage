@@ -27,6 +27,11 @@ const ArticleContent = forwardRef(({fields, product}, ref) => {
   const { description, directions, ingredients, proTips } = fields
 
   const myPortableTextComponents = {
+    marks: {
+      buttonLink: ({ children, value }) => (<Link href={value.href}>
+        <a className={`${classes['article-ingredient__btn-link']} btn salmon`}>{children}</a>
+      </Link>)
+    },
     types: {
       image: ({value}) => (<div className={classes['article-section__image']}>
         <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />
@@ -34,6 +39,17 @@ const ArticleContent = forwardRef(({fields, product}, ref) => {
     },
     listItem: {
       bullet: ({children}) => {
+
+        const button = children[2]
+
+        if (button) {
+          return (
+            <li className={classes['article-ingredient--with-btn']}>
+              <span><p>{children.slice(0, 2)}</p></span><div>{button}</div>
+            </li>
+          )
+        }
+
         return (
           <li>
             <p>{children}</p>

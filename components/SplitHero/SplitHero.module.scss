@@ -58,11 +58,7 @@
   }
 
   .disclaimer {
-    display: none;
-
-    @include breakpoint-up('sm') {
-      display: block;
-    }
+    display: block;
 
     p {
       font-size: 14px;

@@ -172,7 +172,6 @@
 }
 
 a {
-  transition: 0.2s ease-in-out color;
   &:not(.btn):hover {
     color: $salmon;
     text-decoration: underline;

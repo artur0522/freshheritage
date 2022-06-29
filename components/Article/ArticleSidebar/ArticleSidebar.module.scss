@@ -12,10 +12,12 @@
 
 .article-sidebar__section {
   padding-bottom: 40px;
+  margin-bottom: 40px;
   border-bottom: 1px solid $black20;
   &:last-child {
     padding: 0;
     border-bottom: none;
+    margin-bottom: 0;
   }
 }
 
@@ -30,4 +32,26 @@
   width: 137px;
   margin-right: 35px;
   border-radius: 82px;;
+}
+
+.cooking-guides {
+  list-style: none;
+  li {
+    background-color: $pureWhite;
+    padding: 27px 20px;
+    border-radius: 12px;
+    margin: 40px 0 50px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .cooking-guide-item__image {
+    margin-bottom: 30px;
+  }
+  img {
+    border-radius: 12px;
+  }
+  a {
+    text-decoration: none;
+  }
 }

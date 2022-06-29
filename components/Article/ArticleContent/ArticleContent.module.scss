@@ -50,41 +50,40 @@
   }
 }
 
-.article-ingredients {
-  margin-bottom: 50px;
+.article-section {
+  margin-bottom: 60px;
   h4 {
     margin-bottom: 20px;
   }
-  h5 {
-    margin-bottom: 10px;
-  }
-  ul {
-    list-style: none;
-  }
-  li {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  .article-section__cta-btn {
-    width: auto;
-    display: inline-flex;
-    padding: 0 23px;
-    align-items: center;
+  .article-section__content {
+    h1, h2, h3, h4 {
+      font-family: $frank-ruhl;
+      font-weight: 500;
+      font-size: 16px;
+      margin-bottom: 10px;
+      letter-spacing: 0;
+      @include breakpoint-up('sm') {
+        font-size: 18px;
+      }
+      @include breakpoint-up('lg') {
+        font-size: 21px;
+      }
+      @include breakpoint-up('xl') {
+        font-size: 28px;
+      }
+    }
+    ul {
+      list-style: none;
+    }
+    li, > p {
+      margin-bottom: 20px;
+    }
   }
 }
 
 .article-directions,
 .article-pro-tips {
   margin-bottom: 50px;
-  h4 {
-    margin-bottom: 20px;
-  }
-  h5 {
-    margin-bottom: 10px;
-  }
   ul {
     list-style: none;
   }

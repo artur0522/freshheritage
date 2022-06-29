@@ -26,6 +26,23 @@ const ArticleContent = forwardRef(({fields, product}, ref) => {
 
   const { description, directions, ingredients, proTips } = fields
 
+  const myPortableTextComponents = {
+    types: {
+      image: ({value}) => (<div className={classes['article-section__image']}>
+        <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />
+      </div>)
+    },
+    listItem: {
+      bullet: ({children}) => {
+        return (
+          <li>
+            <p>{children}</p>
+          </li>
+        )
+      }
+    }
+  }
+
   useEffect(() => {
     setMounted(true)
   }, [])
@@ -40,11 +57,11 @@ const ArticleContent = forwardRef(({fields, product}, ref) => {
 
       {/* social sharing  */}
       <ul className={classes['article-social-sharing']}>
-        <li>
+        {/* <li>
           <button>
             <IconBookmark /><span>Save</span>
           </button>
-        </li>
+        </li> */}
         <li>
           <button>
             <IconShare /><span>Share</span>
@@ -60,64 +77,21 @@ const ArticleContent = forwardRef(({fields, product}, ref) => {
       {/* inredients */}
       {ingredients && <div ref={ingredientsRef} className={`${classes['article-ingredients']} ${classes['article-section']}`}>
         <h4>Ingredients</h4>
-        <ul>
-          {ingredients.ingredientList.map((item, index) => {
-
-            return <li key={item._key}>
-              <PortableText value={item.text} />
-              {index === 0 && ingredients.ctaText && ingredients.ctaUrl &&
-                <Link href={ingredients.ctaUrl || ''}>
-                  <a className={`${classes['article-section__cta-btn']} btn salmon`}>{ingredients.ctaText}</a>
-                </Link>
-              }
-            </li>
+        <div className={classes['article-section__content']}>
+          {ingredients.map(item => {
+            return <PortableText key={item._key} value={item} components={myPortableTextComponents} />
           })}
-        </ul>
-        {ingredients.mobileBackgroundImage && isMobile && mounted &&
-          <div className={classes['article-section__image']}>
-            <ResponsiveImage
-              src={ingredients.mobileBackgroundImage.asset.url}
-              alt={ingredients.mobileBackgroundImage.asset.alt || ''}
-            />
-          </div>
-        }
-        {ingredients.desktopBackgroundImage && isDesktop && mounted &&
-          <div className={classes['article-section__image']}>
-            <ResponsiveImage
-              src={ingredients.desktopBackgroundImage.asset.url}
-              alt={ingredients.desktopBackgroundImage.asset.alt || ''}
-            />
-          </div>
-        }
+        </div>
       </div>}
 
       {/* directions */}
       {directions && <div ref={directionsRef} className={`${classes['article-directions']} ${classes['article-section']}`}>
         <h4>Directions</h4>
-        <ul>
-          {directions.stepList.map(item => {
-            return <li key={item._key}>
-              <h5>{item.header}</h5>
-              <PortableText value={item.text} />
-            </li>
+        <div className={classes['article-section__content']}>
+          {directions.map(item => {
+            return <PortableText key={item._key} value={item} />
           })}
-        </ul>
-        {directions.mobileBackgroundImage && isMobile && mounted &&
-          <div className={classes['article-section__image']}>
-            <ResponsiveImage
-              src={directions.mobileBackgroundImage.asset.url}
-              alt={directions.mobileBackgroundImage.asset.alt || ''}
-            />
-          </div>
-        }
-        {directions.desktopBackgroundImage && isDesktop && mounted &&
-          <div className={classes['article-section__image']}>
-            <ResponsiveImage
-              src={directions.desktopBackgroundImage.asset.url}
-              alt={directions.desktopBackgroundImage.asset.alt || ''}
-            />
-          </div>
-        }
+        </div>
       </div>}
 
       {/* ATC - product */}
@@ -163,34 +137,15 @@ const ArticleContent = forwardRef(({fields, product}, ref) => {
       {/* Pro Tips */}
       {proTips && <div ref={proTipsRef} className={`${classes['article-pro-tips']} ${classes['article-section']}`}>
         <h4>Pro Tips</h4>
-        <ul>
-          {proTips.proTipList.map(item => {
-            return <li key={item._key}>
-              <h5>{item.header}</h5>
-              <PortableText value={item.text} />
-            </li>
+        <div className={classes['article-section__content']}>
+          {proTips.map(item => {
+            return <PortableText key={item._key} value={item} />
           })}
-        </ul>
-        {proTips.mobileBackgroundImage && isMobile && mounted &&
-          <div className={classes['article-section__image']}>
-            <ResponsiveImage
-              src={proTips.mobileBackgroundImage.asset.url}
-              alt={proTips.mobileBackgroundImage.asset.alt || ''}
-            />
-          </div>
-        }
-        {proTips.desktopBackgroundImage && isDesktop && mounted &&
-          <div className={classes['article-section__image']}>
-            <ResponsiveImage
-              src={proTips.desktopBackgroundImage.asset.url}
-              alt={proTips.desktopBackgroundImage.asset.alt || ''}
-            />
-          </div>
-        }
+        </div>
       </div>}
 
       {/* Rate Recipe */}
-      <div className={`${classes['article-rate-recipe']} ${classes['article-section']}`}>
+      {/* <div className={`${classes['article-rate-recipe']} ${classes['article-section']}`}>
         <div className={classes['article-rate-recipe__card']}>
           <div className={classes['article-rate-recipe__content']}>
             <h4>Rate This Recipe</h4>
@@ -205,7 +160,7 @@ const ArticleContent = forwardRef(({fields, product}, ref) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
     </div>
   )

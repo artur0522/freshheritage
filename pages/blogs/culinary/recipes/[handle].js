@@ -2,11 +2,11 @@ import ArticleHero from '@/components/Article/ArticleHero'
 import ArticleMain from '@/components/Article/ArticleMain'
 import { nacelleClient } from 'services'
 import { GET_PRODUCTS } from '@/gql/index.js'
+import ContentSections from '@/components/ContentSections'
 
 const RecipeArticle = ({ page, product }) => {
 
   console.log("page:", page)
-  console.log("product:", product)
 
   const { hero } = page.fields
 
@@ -14,6 +14,7 @@ const RecipeArticle = ({ page, product }) => {
     <>
       <ArticleHero fields={hero}  />
       <ArticleMain fields={page.fields} product={product} />
+      <ContentSections sections={page.fields.pageContent} />
     </>
   )
 }

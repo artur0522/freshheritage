@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import ArticleCard from '../ArticleCard'
+import DynamicArticleCard from '../DynamicArticleCard'
 import IconArrow from '@/svgs/arrow-right.svg'
 
 import classes from "./ArticleRow.module.scss"
@@ -62,7 +63,7 @@ const ArticleRow = ({ fields }) => {
                         {articles.map((article, index) => {
                             return (
                                 <SwiperSlide key={`${article._id}-${_key}-${index}`}>
-                                    <ArticleCard article={article} reverse={reverseCard} />
+                                    <DynamicArticleCard article={article} reverse={reverseCard} />
                                 </SwiperSlide>
                             )
                         })}

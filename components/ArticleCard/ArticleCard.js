@@ -14,8 +14,8 @@ const ArticleCard = ({ article, reverse }) => {
                     <Image width={438} height={600} alt={article.alt} src={article.heroImage.asset.url} />
                 </div>}
                 <div className={classes['text']}>
-                    {article.heroHeader && <h4>{article.heroHeader}</h4>}
-                    {article.heroSubheader && <p>
+                    {article.heroHeader && <h4 className='heading--article'>{article.heroHeader}</h4>}
+                    {article.heroSubheader && <p className="recipe--time">
                         <span>
                             {article.heroSubheader}
                         </span>

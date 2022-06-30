@@ -15,7 +15,6 @@
     padding: 17.94px 15px;
     border: 1px solid $fawn50-2;
     border-radius: 12px;
-    min-height: 501px;
 
     &.row {
         @include breakpoint-up('md') {
@@ -46,9 +45,12 @@
     .text {
         margin-top: 17.94px;
 
+        h4 {
+            margin-bottom: 12px;
+        }
+
         p {
             color: $salmon;
-            height: 43.57px;
             display: flex;
             align-items: center;
         }

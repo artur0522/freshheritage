@@ -32,7 +32,7 @@ const BrowseCategory = ({fields}) => {
                     <IconArrow />
                 </div>}
 
-                {isDesktop && <div className={classes['header-search']}>
+                {isDesktop && mounted && <div className={classes['header-search']}>
                     <form>
                         <button type="button">
                             <IconSearch />

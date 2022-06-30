@@ -11,8 +11,29 @@
     overflow: hidden;
 
     @include breakpoint-up('sm') {
-        background-image: url('./blog-content-bg.png');
         padding: 144px 0;
+    }
+
+    .illustration-1 {
+        position: absolute;
+        top: 108px;
+        left: -120px;
+        display: none;
+
+        @include breakpoint-up('md') {
+            display: block;
+        }
+    }
+
+    .illustration-2 {
+        position: absolute;
+        bottom: -36px;
+        right: -80px;
+        display: none;
+
+        @include breakpoint-up('md') {
+            display: block;
+        }
     }
 
     &__content {
@@ -21,17 +42,20 @@
         padding-left: 30px;
 
         @include breakpoint-up('sm') {
-          padding-left: 0;
-          width: calc(100% - 100px);
+            padding-left: 0;
+            width: calc(100% - 100px);
         }
+
         @include breakpoint-up('md') {
             width: calc(100% - 120px);
         }
+
         @include breakpoint-up('lg') {
             width: calc(100% - 170px);
         }
+
         @include breakpoint-up('xl') {
-             width: calc(100% - 240px);
+            width: calc(100% - 240px);
         }
     }
 
@@ -67,7 +91,7 @@
             min-width: 59px;
             display: flex;
             align-items: center;
-            width: 80%;
+            width: auto;
 
             @include breakpoint-up('sm') {
                 min-height: 61px;
@@ -109,10 +133,18 @@
     // articles__swiper
     &__swiper {
         padding-top: 30px;
-        border-top: 1px solid rgba(84,84,83, 0.25);
+        border-top: 1px solid rgba(84, 84, 83, 0.25);
 
         @include breakpoint-up('sm') {
             padding-top: 47px;
+        }
+
+        .article-slide {
+            width: auto;
+
+            @include breakpoint-up('xl') {
+                width: 100%;
+            }
         }
     }
 
@@ -149,13 +181,15 @@
 
     // articles__btn
     &__btn {
-        max-width: 243px;
+        width: 243px;
+        min-width: 0;
         margin: 36px auto 0 auto;
         background-color: $salmon;
-        color: $sitkablue;
+        color: $fawn50-2;
 
         @include breakpoint-up('sm') {
             margin: 60px auto 0 auto;
+            width: 393px;
         }
     }
 }

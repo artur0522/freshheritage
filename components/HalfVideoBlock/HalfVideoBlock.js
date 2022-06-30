@@ -1,5 +1,3 @@
-import React, { useState, useEffect } from 'react'
-import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import Link from 'next/link'
 import IconArrow from '@/svgs/arrow-right.svg'
@@ -8,7 +6,7 @@ import IconPlay from '@/svgs/play.svg'
 import classes from "./HalfVideoBlock.module.scss"
 
 const HalfVideoBlock = ({fields}) => {
-  const {header, subheader, ctaText, ctaUrl, article, imageAlign, reverse} = fields
+  const {header, subheader, ctaText, ctaUrl, article, reverse} = fields
 
   return (
     <div className={classes['wrapper']}>

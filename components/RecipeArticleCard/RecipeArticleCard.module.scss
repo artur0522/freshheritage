@@ -7,9 +7,15 @@
     border-radius: 12px;
     padding: 12px;
     cursor: pointer;
+    min-height: 432px;
 
     @include breakpoint-up('sm') {
         padding: 24px;
+    }
+
+    @include breakpoint-up('sm') {
+        width: 393px;
+        min-height: 576px;
     }
 
     // article__card-img
@@ -54,14 +60,14 @@
             line-height: 120%;
             font-weight: 500;
             color: $salmon;
-        
+
             @include breakpoint-up('sm') {
                 font-size: fontsize(14px);
             }
         }
 
-         h1 {
-             margin-top: 6px;
-         }
+        h1 {
+            margin-top: 6px;
+        }
     }
 }

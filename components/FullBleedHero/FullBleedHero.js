@@ -14,7 +14,7 @@ const FullBleedHero = ({ fields }) => {
 
   useEffect(() => {
     setMounted(true)
-  }, [])
+  }, [fields])
 
   let btnColor
   // Conditionally change the color of the button

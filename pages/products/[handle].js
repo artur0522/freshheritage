@@ -51,6 +51,13 @@ function Product({ product, page }) {
       }
     })
 
+    if(!customer) {
+      const gatedPopup = page.find(field => field.handle === splitTagWithDash)
+      modalContext.setContent(gatedPopup.fields)
+      modalContext.setIsOpen(true)
+      modalContext.setModalType('gated_product')
+    }
+
     if(foundVisibleTags.length > 0 && customer && !productHasCustomerTag) {
       const gatedPopup = page.find(field => field.handle === splitTagWithDash)
       modalContext.setContent(gatedPopup.fields)

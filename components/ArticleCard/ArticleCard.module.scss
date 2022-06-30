@@ -4,6 +4,7 @@
     background-color: #fff;
     text-decoration: none;
     border-radius: 12px;
+    width: 100%;
 
     &:not(.btn):hover {
         text-decoration: none;
@@ -42,6 +43,11 @@
 
     .image-wrap {
         position: relative;
+        height: 262px;
+
+        @include breakpoint-up('sm') {
+            height: 384px;
+        }
     }
 
     .play {
@@ -63,7 +69,7 @@
     }
 
     img {
-        border-radius: 12px;
+        border-radius: 6px;
     }
 
     .text {

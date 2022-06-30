@@ -3,7 +3,7 @@ import React from 'react'
 import ArticleCard from '../ArticleCard'
 import RecipeArticleCard from '../RecipeArticleCard'
 
-const DynamicArticleCard = ({ article, reverseCard }) => {
+const DynamicArticleCard = ({ article, reverse }) => {
   const tags = article.articleTags
   const recipeTag = tags?.find((tag) => {
     return tag.value === 'recipe'
@@ -18,7 +18,7 @@ const DynamicArticleCard = ({ article, reverseCard }) => {
   } else {
     return (
         <>
-            <ArticleCard article={article} reverse={reverseCard} />
+            <ArticleCard article={article} reverse={reverse} />
         </>
     )
   }

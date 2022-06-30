@@ -15,10 +15,14 @@
     // article__card-img
     &-img {
         position: relative;
-        height: 288px;
+        height: 262px;
 
         @include breakpoint-up('sm') {
             height: 384px;
+        }
+
+        img {
+            border-radius: 6px;
         }
 
         .bookmark {

@@ -8,6 +8,22 @@
         padding-bottom: 61px;
     }
 
+    &.top-margin {
+        margin-top: 60px;
+
+        @include breakpoint-up('md') {
+            margin-top: 132px;
+        }
+    }
+
+    &.bottom-margin {
+        margin-bottom: 60px;
+
+        @include breakpoint-up('md') {
+            margin-bottom: 132px;
+        }
+    }
+
     &.green-bg {
         background-color: #B7CD96;
     }

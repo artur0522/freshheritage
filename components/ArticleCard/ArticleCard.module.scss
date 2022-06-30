@@ -93,5 +93,15 @@
                 min-width: 0;
             }
         }
+
+        .recipe--time {
+            display: flex;
+        }
+
+        .icon {
+            width: 23px;
+            margin-left: 13px;
+            margin-top: 2px;
+        }
     }
 }

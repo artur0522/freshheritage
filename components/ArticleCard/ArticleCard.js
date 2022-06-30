@@ -7,7 +7,6 @@ import PlayIcon from '@/svgs/play.svg'
 import classes from "./ArticleCard.module.scss"
 
 const ArticleCard = ({ article, reverse }) => {
-  console.log('reverse' ,reverse)
   const tags = article.articleTags
   const foundTag = tags?.find(tag => tag === 'video' || 'live cooking class')
   return (
@@ -26,7 +25,7 @@ const ArticleCard = ({ article, reverse }) => {
                         <span>
                             {article.heroSubheader}
                         </span>
-                        <span>
+                        <span className={classes['icon']}>
                             <IconBullet />
                         </span>
                     </p>}

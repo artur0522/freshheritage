@@ -41,7 +41,14 @@ function Product({ product, page }) {
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
 
     const foundCustomerTag = customer?.tags.find(tag => tag.includes('member') || tag.includes('sustainer'))
-    const productHasCustomerTag = foundVisibleTags.find(tag => tag.includes('member') || tag.includes('sustainer'))
+    const productHasCustomerTag = foundVisibleTags?.find((tag) => { 
+      let splitTag = tag.split(':')[1] === foundCustomerTag
+      if(splitTag) {
+        return splitTag
+      } else {
+        return null
+      }
+    })
 
     if(foundVisibleTags.length > 0 && customer && !productHasCustomerTag) {
       const gatedPopup = page.find(field => field.handle === splitTagWithDash)

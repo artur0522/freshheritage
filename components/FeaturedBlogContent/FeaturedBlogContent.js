@@ -11,8 +11,6 @@ import classes from './FeaturedBlogContent.module.scss'
 
 const FeaturedBlogContent = ({ fields }) => {
   const { tabs, header, subheader, ctaUrl, ctaText, illustration, illustration2, illustrationAlt, illustration2Alt } = fields
-  const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
-  const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
   const [selectedSwiper, setSelectedSwiper] = useState(tabs[0])
   const [mounted, setMounted] = useState(false)
 

@@ -26,6 +26,8 @@
         }
 
         .image-wrap {
+            position: relative;
+
             @include breakpoint-up('md') {
                 width: 48%;
             }
@@ -35,6 +37,28 @@
             @include breakpoint-up('md') {
                 width: 48%;
             }
+        }
+    }
+
+    .image-wrap {
+        position: relative;
+    }
+
+    .play {
+        background-color: $alabaster;
+        border-radius: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 69px;
+        height: 69px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg path {
+            fill: $sitkablue;
         }
     }
 

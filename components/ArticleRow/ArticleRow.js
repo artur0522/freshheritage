@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import ArticleCard from '../ArticleCard'
 import DynamicArticleCard from '../DynamicArticleCard'
 import IconArrow from '@/svgs/arrow-right.svg'
 

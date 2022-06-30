@@ -13,6 +13,7 @@ import ProductGiftForm from '@/components/Product/ProductGiftForm'
 import { GET_PRODUCTS } from '@/gql/index.js'
 
 import classes from './Product.module.scss'
+import { split } from 'lodash-es'
 
 function Product({ product, page }) {
   const [checked, setChecked] = useState(false)

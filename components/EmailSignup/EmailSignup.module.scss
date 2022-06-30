@@ -1,0 +1,10 @@
+@import '@/styles/_shared.scss';
+
+.email-signup {
+    background-color: $fawn50-2;
+    margin-bottom: 14px;
+
+    @include breakpoint-up('md') {
+        margin-bottom: 57.5px;
+    }
+}

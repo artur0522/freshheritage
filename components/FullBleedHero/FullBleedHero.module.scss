@@ -5,6 +5,22 @@
 .hero {
   position: relative;
 
+  &.top-margin {
+    margin-top: 23px;
+
+    @include breakpoint-up('md') {
+      margin-top: 60px;
+    }
+  }
+
+  &.bottom-margin {
+    margin-bottom: 23px;
+
+    @include breakpoint-up('md') {
+      margin-bottom: 60px;
+    }
+  }
+
   // dynamic color modifiers
   &.text--light {
     color: $alabaster;

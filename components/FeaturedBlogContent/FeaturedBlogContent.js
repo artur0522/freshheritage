@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-import RecipeArticleCard  from "../RecipeArticleCard/RecipeArticleCard"
+import DynamicArticleCard from "../DynamicArticleCard"
 
 import "swiper/css"
 import classes from './FeaturedBlogContent.module.scss'
@@ -94,8 +94,8 @@ const FeaturedBlogContent = ({ fields }) => {
             >
                 {selectedSwiper.tabList.map((article) => {
                     return (
-                        <SwiperSlide className={classes['article-slide']} key={`${article._type}-${article._id}`}>
-                            <RecipeArticleCard article={article} />
+                        <SwiperSlide key={`${article._type}-${article._id}`}>
+                            <DynamicArticleCard article={article} />
                         </SwiperSlide>
                     )
                 })}

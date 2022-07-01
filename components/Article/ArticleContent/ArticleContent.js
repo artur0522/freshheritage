@@ -84,12 +84,12 @@ const ArticleContent = forwardRef(({fields, product}, ref) => {
             <IconShare /><span>Share</span>
           </button>
         </li>
-        {isMobile && <li>
+        {isMobile && mounted && <li>
           <button className={classes['more-info-btn']}>
             <IconThreeDotsCircle /><span>More Info</span>
           </button>
         </li>}
-        {isDesktop && <li>
+        {isDesktop && mounted && <li>
           <button onClick={() => window.print()}>
             <IconPrinter /><span>Print</span>
           </button>

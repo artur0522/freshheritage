@@ -1,18 +1,20 @@
-import ArticleHero from '@/components/Article/ArticleHero'
+import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import ArticleMain from '@/components/Article/ArticleMain'
 import { nacelleClient } from 'services'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import ContentSections from '@/components/ContentSections'
 
-const RecipeArticle = ({ page, product }) => {
+const RecipeArticle = ({ page, product, blogSettings }) => {
 
   console.log("page:", page)
+  console.log("blogSettings:", blogSettings)
 
   const { hero } = page.fields
+  const blogType = page.fields.blog?.blogType
 
   return (
     <>
-      <ArticleHero fields={hero}  />
+      <ArticleSplitHero fields={hero} renderType="recipe" blogType={blogType} blogSettings={blogSettings} />
       <ArticleMain fields={page.fields} product={product} />
       <ContentSections sections={page.fields.pageContent} />
     </>
@@ -41,6 +43,10 @@ export async function getStaticProps({ params }) {
     type: 'recipeArticle'
   })
 
+  const blogSettings = await nacelleClient.content({
+    type: 'blogSettings'
+  })
+
   if (!pages.length) {
     return {
       notFound: true
@@ -51,6 +57,7 @@ export async function getStaticProps({ params }) {
 
   const props = {
     page,
+    blogSettings: blogSettings[0],
     product: null
   }
 

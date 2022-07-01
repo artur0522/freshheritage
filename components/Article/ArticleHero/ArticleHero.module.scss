@@ -2,15 +2,31 @@
 
 .article-hero {
   display: flex;
-  height: 960px;
+  flex-wrap: wrap;
   background-color: $green;
+  @include breakpoint-down('sm') {
+    background-color: $alabaster2;
+  }
+  @include breakpoint-up('xl') {
+    min-height: 960px;
+  }
 }
 
 .article-hero__content {
-  width: 37%;
+  width: 100%;
   display: flex;
   align-items: center;
-  padding: 80px;
+  padding: 28px;
+  margin-bottom: -90px;
+  @include breakpoint-up('md') {
+    width: 45%;
+    padding: 40px;
+    margin-bottom: 0;
+  }
+  @include breakpoint-up('lg') {
+    width: 37%;
+    padding: 80px;
+  }
 }
 
 .article-hero__content-inner {
@@ -18,10 +34,23 @@
   flex-direction: column;
   height: 100%;
   background-color: $pureWhite;
-  padding: 25px 36px 40px;
+  padding: 25px 17px 35px;
   box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.05);
   border-radius: 12px;
   border: 1px solid $fawn50;
+  max-width: 536px;
+  margin: 0 auto;
+  position: relative;
+  top: -90px;
+  z-index: 1;
+  @include breakpoint-up('sm') {
+    padding: 25px 25px 40px;
+  }
+  @include breakpoint-up('md') {
+    position: static;
+    padding: 25px 36px 40px;
+    max-width: none;
+  }
 }
 
 .article-hero__navigation {
@@ -31,7 +60,11 @@
 }
 
 .article-hero__heading {
+  font-size: 36px;
   margin-bottom: 40px;
+  @include breakpoint-up('md') {
+    font-size: 48px;
+  }
 }
 
 .article-hero__tags {
@@ -41,9 +74,25 @@
   margin-bottom: 25px;
 }
 
+
+.article-hero__tag {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  padding: 8px 18px;
+  height: 36px;
+  background-color: $fawn50-2;
+  margin: 0 4px 12px 0;
+  border-radius: 60px;
+  @include breakpoint-up('md') {
+    margin: 0 12px 12px 0;
+  }
+}
+
 .recipe-meta-details {
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
   li {
     display: flex;
     align-items: center;
@@ -69,20 +118,17 @@
   margin-top: auto;
 }
 
-.article-hero__tag {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  padding: 8px 18px;
-  height: 36px;
-  background-color: $fawn50-2;
-  margin: 0 12px 12px 0;
-  border-radius: 60px;
-}
-
 .article-hero__image {
-  width: 63%;
+  width: 100%;
   position: relative;
+  order: -1;
+  @include breakpoint-up('md') {
+    width: 55%;
+    order: 0;
+  }
+  @include breakpoint-up('lg') {
+    width: 63%;
+  }
   img {
     object-fit: cover;
   }

@@ -1,9 +1,16 @@
 @import '@/styles/_shared.scss';
 
 .article-sidebar {
-  width: 47%;
+  width: 100%;
   background-color: $fawn50-2;
-  padding: 65px;
+  padding: 35px 30px;
+  @include breakpoint-up('sm') {
+    padding: 65px 50px;
+  }
+  @include breakpoint-up('md') {
+    width: 47%;
+    padding: 65px;
+  }
 }
 
 .article-sidebar__main {
@@ -37,16 +44,22 @@
 .cooking-guides {
   list-style: none;
   li {
+    display: flex;
+    flex-direction: column;
     background-color: $pureWhite;
     padding: 27px 20px;
     border-radius: 12px;
-    margin: 40px 0 50px;
+    margin: 20px 0 25px;
+    @include breakpoint-up('md') {
+      margin: 40px 0 50px;
+    }
     &:last-child {
       margin-bottom: 0;
     }
   }
   .cooking-guide-item__image {
     margin-bottom: 30px;
+    width: 100%;
   }
   img {
     border-radius: 12px;

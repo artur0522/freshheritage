@@ -8,15 +8,16 @@ import IconClock from '@/svgs/clock.svg'
 import IconChefHat from '@/svgs/chef-hat.svg'
 import IconCutlery from '@/svgs/cutlery.svg'
 import IconScale from '@/svgs/scale.svg'
+import ResponsiveImage from '@/components/ResponsiveImage'
 
 const ArticleHero = ({fields}) => {
   const [mounted, setMounted] = useState(false)
-  const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
+  const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })
   const isDesktop = useMediaQuery(
-    {query: '(min-width: 768px)'}
+    {query: '(min-width: 1074px)'}
   )
 
-  const {activeTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, servings, tags, totalTime } = fields
+  const {prepTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, servings, tags, cookTime } = fields
 
   useEffect(() => {
     setMounted(true)
@@ -34,16 +35,16 @@ const ArticleHero = ({fields}) => {
             })}
           </ul>
           <ul className={classes['recipe-meta-details']}>
-            {activeTime &&
+            {prepTime &&
               <li>
                 <IconClock />
-                <div><b>Active Time:</b><span>{activeTime}</span></div>
+                <div><b>Prep Time:</b><span>{prepTime}</span></div>
               </li>
             }
-            {totalTime &&
+            {cookTime &&
               <li>
                 <IconChefHat />
-                <div><b>Total Time:</b><span>{totalTime}</span></div>
+                <div><b>Cook Time:</b><span>{cookTime}</span></div>
               </li>
             }
             {servings &&
@@ -68,7 +69,7 @@ const ArticleHero = ({fields}) => {
       </div>
       <div className={classes['article-hero__image']}>
         {mobileBackgroundImage && isMobile && mounted &&
-          <Image
+          <ResponsiveImage
             src={mobileBackgroundImage.asset.url}
             layout="fill"
             alt={mobileBackgroundImage.asset.alt || ''}

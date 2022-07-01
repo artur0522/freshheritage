@@ -16,7 +16,7 @@ const ArticleMain = ({fields, product}) => {
 
   return (
     <>
-      <ArticleNav ref={refs} fields={fields} />
+      <ArticleNav ref={refs} fields={fields.content} />
       <div className={classes['article-main']}>
         <ArticleContent ref={refs} fields={content} product={product} />
         <ArticleSidebar fields={sidebar} />

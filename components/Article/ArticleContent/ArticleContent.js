@@ -7,6 +7,7 @@ import { usePDPDrawerContext } from '@/context/PDPDrawerContext'
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext'
 import { getCartVariant } from 'utils/getCartVariant'
 import Link from 'next/link'
+import IconThreeDotsCircle from '@/svgs/three-dots-circle.svg'
 import IconPrinter from '@/svgs/printer.svg'
 import IconBookmark from '@/svgs/bookmark.svg'
 import IconShare from '@/svgs/share.svg'
@@ -19,9 +20,9 @@ const ArticleContent = forwardRef(({fields, product}, ref) => {
   const PDPDrawerContext = usePDPDrawerContext()
   const { addItemToOrder } = useHeadlessCheckoutContext()
   const [mounted, setMounted] = useState(false)
-  const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
+  const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })
   const isDesktop = useMediaQuery(
-    {query: '(min-width: 768px)'}
+    {query: '(min-width: 1074px)'}
   )
 
   const { description, directions, ingredients, proTips } = fields
@@ -64,10 +65,10 @@ const ArticleContent = forwardRef(({fields, product}, ref) => {
   }, [])
 
   return (
-    <div className={`${classes['article-content']} ${classes['article-section']}`}>
+    <div className={`${classes['article-content']}`}>
 
       {/* description */}
-      <div className={classes['article-description']}>
+      <div className={`${classes['article-description']} ${classes['article-section']}`}>
         <PortableText value={description} />
       </div>
 
@@ -83,11 +84,16 @@ const ArticleContent = forwardRef(({fields, product}, ref) => {
             <IconShare /><span>Share</span>
           </button>
         </li>
-        <li>
+        {isMobile && <li>
+          <button className={classes['more-info-btn']}>
+            <IconThreeDotsCircle /><span>More Info</span>
+          </button>
+        </li>}
+        {isDesktop && <li>
           <button onClick={() => window.print()}>
             <IconPrinter /><span>Print</span>
           </button>
-        </li>
+        </li>}
       </ul>
 
       {/* inredients */}

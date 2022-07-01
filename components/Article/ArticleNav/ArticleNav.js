@@ -6,6 +6,7 @@ import { useHeaderContext } from '@/context/HeaderContext'
 const ArticleNav = forwardRef(({ fields }, ref) => {
 
   const { directions, ingredients, proTips } = fields;
+
   const [activeTab, setActiveTab] = useState('ingredients')
   const navRef = useRef()
   const { hide, headerRef } = useHeaderContext()

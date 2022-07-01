@@ -7,23 +7,23 @@ import PlayIcon from '@/svgs/play.svg'
 import classes from "./ArticleCard.module.scss"
 
 const ArticleCard = ({ article, reverse }) => {
-  const tags = article.articleTags
+  const tags = article.hero?.articleTags
   const foundTag = tags?.find(tag => tag === 'video' || 'live cooking class')
   return (
     <Link href={`/${article.handle.current}`}>
         <a className={classes['article-card']}>
             <div className={`${classes['slider__slide']} ${reverse ? classes['row'] : ''}`}>
                 {article.heroImage && <div className={classes['image-wrap']}>
-                    <Image  layout="fill" objectFit="cover" alt={article.alt} src={article.heroImage.asset.url} />
+                    <Image  layout="fill" objectFit="cover" alt={article.title} src={article.hero.desktopBackgroundImage.asset.url} />
                     {foundTag && <div className={classes['play']}>
                         <PlayIcon />
                     </div>}
                 </div>}
                 <div className={classes['text']}>
-                    {article.heroHeader && <h4 className='heading--article'>{article.heroHeader}</h4>}
-                    {article.heroSubheader && <p className="recipe--time">
+                    {article.title && <h4 className='heading--article'>{article.title}</h4>}
+                    {article.ctaText && <p className="recipe--time">
                         <span>
-                            {article.heroSubheader}
+                            {article.ctaText}
                         </span>
                         <span className={classes['icon']}>
                             <IconBullet />

@@ -48,20 +48,17 @@ const ArticleRow = ({ fields }) => {
                 <div className={classes['slider']}>
                     <Swiper
                         loop={true}
-                        slidesPerView={reverseCard ? 1.25 : 1.5}
-                        spaceBetween={18}
+                        slidesPerView={'auto'}
+                        spaceBetween={15}
                         breakpoints={{
-                            768: {
-                                slidesPerView: reverseCard ? 2.25 : 2.75
-                            },
                             1074: {
-                                slidesPerView: reverseCard ? 2.25 : 3.75
+                                spaceBetween: 40
                             }
                         }}
                         >
                         {articles.map((article, index) => {
                             return (
-                                <SwiperSlide key={`${article._id}-${_key}-${index}`}>
+                                <SwiperSlide className={classes['article-slide']} key={`${article._id}-${_key}-${index}`}>
                                     <DynamicArticleCard article={article} reverse={reverseCard} />
                                 </SwiperSlide>
                             )

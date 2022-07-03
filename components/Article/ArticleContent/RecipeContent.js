@@ -3,22 +3,18 @@ import { useMediaQuery } from 'react-responsive'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { PortableText } from '@portabletext/react'
 import classes from './ArticleContent.module.scss'
-import { usePDPDrawerContext } from '@/context/PDPDrawerContext'
-import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext'
-import { getCartVariant } from 'utils/getCartVariant'
 import Link from 'next/link'
 import IconThreeDotsCircle from '@/svgs/three-dots-circle.svg'
 import IconPrinter from '@/svgs/printer.svg'
 import IconBookmark from '@/svgs/bookmark.svg'
 import IconShare from '@/svgs/share.svg'
 import IconStar from '@/svgs/empty-star.svg'
+import ArticleProduct from '../ArticleProduct'
 
-const ArticleContent = forwardRef(({fields, product}, ref) => {
+const RecipeContent = forwardRef(({fields, product}, ref) => {
 
   const { directionsRef, ingredientsRef, proTipsRef } = ref.current
 
-  const PDPDrawerContext = usePDPDrawerContext()
-  const { addItemToOrder } = useHeadlessCheckoutContext()
   const [mounted, setMounted] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })
   const isDesktop = useMediaQuery(
@@ -26,6 +22,8 @@ const ArticleContent = forwardRef(({fields, product}, ref) => {
   )
 
   const { description, directions, ingredients, proTips } = fields
+
+  console.log("fields:", fields)
 
   const myPortableTextComponents = {
     marks: {
@@ -118,42 +116,7 @@ const ArticleContent = forwardRef(({fields, product}, ref) => {
 
       {/* ATC - product */}
       {product &&
-        <div className={`${classes['article-product']} ${classes['article-section']}`}>
-          <div className={classes['article-product__card']}>
-            <div className={classes['article-product__content']}>
-              <div className={classes['article-product__image']}>
-                <ResponsiveImage
-                  src={product.content.media[0].src}
-                  alt={product.content.media[0].altText || product.content.title}
-                />
-              </div>
-              <div className={classes['article-product__details']}>
-                <h4 className="heading--product-title">{product.content.title}</h4>
-                <div className={`${classes['article-product____tier-price-pounds']} secondary--body`}>
-                  <span>${product.variants[0].price} / box</span>
-                  <span>{product.variants[0].weight} lbs</span>
-                </div>
-                <div className={classes['article-product__details-footer']}>
-                  <button
-                    onClick={() => PDPDrawerContext.openDrawer(product)}
-                    className="btn-link-underline">
-                      Details & Projected Harvest
-                  </button>
-                  <button
-                    onClick={() => {
-                      const variant = getCartVariant({
-                        product,
-                        variant: product.variants[0]
-                      });
-                      addItemToOrder({variant})
-                    }}
-                    className="btn salmon"
-                  >Add to Cart</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ArticleProduct product={product} parentClasses={classes} />
       }
 
       {/* Pro Tips */}
@@ -188,4 +151,4 @@ const ArticleContent = forwardRef(({fields, product}, ref) => {
   )
 })
 
-export default ArticleContent
+export default RecipeContent

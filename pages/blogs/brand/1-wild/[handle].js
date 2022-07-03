@@ -14,8 +14,8 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
 
   return (
     <>
-      <ArticleSplitHero fields={hero} renderType="recipe" blogType={blogType} blogSettings={blogSettings} />
-      <ArticleMain contentType="recipe" showNav={true} fields={page.fields} product={product} />
+      <ArticleSplitHero fields={hero} renderType="default" blogType={blogType} blogSettings={blogSettings} />
+      <ArticleMain contentType="standard" fields={page.fields} product={product} />
       <ContentSections sections={page.fields.pageContent} />
     </>
   )
@@ -24,11 +24,13 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
 export default RecipeArticle
 
 export async function getStaticPaths() {
-  const recipeArticles = await nacelleClient.content({
-    type: 'recipeArticle'
+  const standardArticles = await nacelleClient.content({
+    type: 'standardArticle'
   })
 
-  const handles = recipeArticles.map((article) => ({ params: { handle: article.handle } }))
+  const validArticles = standardArticles.filter(article => article.fields.blog.handle === '1-wild')
+
+  const handles = validArticles.map((article) => ({ params: { handle: article.handle } }))
 
   return {
     paths: handles,
@@ -40,7 +42,7 @@ export async function getStaticProps({ params }) {
 
   const pages = await nacelleClient.content({
     handles: [params.handle],
-    type: 'recipeArticle'
+    type: 'standardArticle'
   })
 
   const blogSettings = await nacelleClient.content({
@@ -61,13 +63,13 @@ export async function getStaticProps({ params }) {
     product: null
   }
 
-  if (page.fields?.content?.addToCartProduct) {
-    const handle = page.fields.content.addToCartProduct
+  if (page.fields?.content) {
+    const handles = page.fields.content.filter(item => item._type === 'productBlock').map(item => item.product)
     let { products } = await nacelleClient.query({
       query: GET_PRODUCTS,
       variables: {
         "filter": {
-          "handles": [handle]
+          "handles": [...handles]
         }
       }
     })

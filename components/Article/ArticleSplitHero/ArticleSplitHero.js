@@ -8,6 +8,7 @@ import IconClock from '@/svgs/clock.svg'
 import IconChefHat from '@/svgs/chef-hat.svg'
 import IconCutlery from '@/svgs/cutlery.svg'
 import IconScale from '@/svgs/scale.svg'
+import IconBullet from '@/svgs/list-item.svg'
 import ResponsiveImage from '@/components/ResponsiveImage'
 
 /*
@@ -33,7 +34,7 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
     {query: '(min-width: 1074px)'}
   )
 
-  const {prepTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, servings, tags, cookTime } = fields
+  const {prepTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, subheader, servings, tags, cookTime } = fields
 
   useEffect(() => {
     setMounted(true)
@@ -65,14 +66,19 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
         }
 
         <div className={classes['article-hero__content-inner']}>
-          <div className={classes['article-hero__navigation']}></div>
-          <h4 className={classes['article-hero__heading']}>{header}</h4>
-          <ul className={classes['article-hero__tags']}>
-            {tags && tags.map((tag, index) => {
+          <div className={classes['article-hero__navigation']}>
+            <Link href="">
+              <a><IconBullet /> <span>Back to something something</span></a>
+            </Link>
+          </div>
+          <h1 className={classes['article-hero__heading']}>{header}</h1>
+          {subheader && <h2>{subheader}</h2>}
+          {tags && <ul className={classes['article-hero__tags']}>
+            {tags.map((tag, index) => {
               return <li className={classes['article-hero__tag']} key={index}>{tag.value}</li>
             })}
-          </ul>
-          <ul className={classes['recipe-meta-details']}>
+          </ul>}
+          {prepTime || cookTime || servings || difficulty && <ul className={classes['recipe-meta-details']}>
             {prepTime &&
               <li>
                 <IconClock />
@@ -97,7 +103,7 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
                 <div><b>Difficulty:</b><span>{difficulty}</span></div>
               </li>
             }
-          </ul>
+          </ul>}
           {ctaText && ctaUrl &&
             <Link href={ctaUrl}>
               <a className={`${classes['article-hero__cta']} btn-link-underline`}>{ctaText}</a>

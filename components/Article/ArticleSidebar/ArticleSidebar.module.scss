@@ -38,11 +38,14 @@
   flex-basis: 137px;
   width: 137px;
   margin-right: 35px;
-  border-radius: 82px;;
+  img {
+    border-radius: 82px;
+  }
 }
 
-.cooking-guides {
+.article-related-item-list {
   list-style: none;
+  margin-right: 40px;
   li {
     display: flex;
     flex-direction: column;
@@ -57,12 +60,15 @@
       margin-bottom: 0;
     }
   }
-  .cooking-guide-item__image {
+  .article-related-item__image {
     margin-bottom: 30px;
     width: 100%;
-  }
-  img {
-    border-radius: 12px;
+    position: relative;
+    height: 385px;
+    img {
+      border-radius: 12px;
+      object-fit: cover;
+    }
   }
   a {
     text-decoration: none;

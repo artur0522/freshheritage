@@ -1,11 +1,14 @@
 @import '@/styles/_shared.scss';
 
 .article-main {
+  background-color: $alabaster2;
+}
+
+.article-main__wrapper {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   margin-left: auto;
-  background-color: $alabaster2;
   @include breakpoint-up('md') {
     width: 95%;
   }

@@ -2,11 +2,12 @@ import classes from './ArticleSidebar.module.scss'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { PortableText } from '@portabletext/react'
 import EmailSignup from '@/components/EmailSignup'
+import Image from 'next/image'
 import Link from 'next/link'
 
 const ArticleSidebar = ({fields}) => {
 
-  const { author, relatedCookingGuide } = fields
+  const { author, relatedArticles } = fields
 
   return (
     <div className={classes['article-sidebar']}>
@@ -34,18 +35,22 @@ const ArticleSidebar = ({fields}) => {
           }} />
         </div>
 
-        {relatedCookingGuide &&
-          <div className={`${classes['article-related-cooking-guides']} ${classes['article-sidebar__section']}`}>
-            <h2>Related Cooking Guide</h2>
-            <ul className={classes['cooking-guides']}>
-              {relatedCookingGuide.map(item => {
+        {relatedArticles &&
+          <div className={`${classes['article-related-items']} ${classes['article-sidebar__section']}`}>
+            <h2>{relatedArticles.header}</h2>
+            <ul className={classes['article-related-item-list']}>
+              {relatedArticles.relatedArticleItems.map(item => {
+
+                const image = item.coverImage || item.hero.desktopBackgroundImage
+
                 return <li key={item._id}>
                   <Link href={item.handle.current}>
                     <a>
-                      <div className={classes['cooking-guide-item__image']}>
-                        <ResponsiveImage
-                          src={item.coverImage.asset.url}
-                          alt={item.coverImage.asset.alt || ''}
+                      <div className={classes['article-related-item__image']}>
+                        <Image
+                          src={image.asset.url}
+                          layout="fill"
+                          alt={image.asset.alt || ''}
                         />
                       </div>
                     </a>

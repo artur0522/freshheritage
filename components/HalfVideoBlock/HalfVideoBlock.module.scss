@@ -31,11 +31,19 @@
         }
 
         h1 {
-            margin-bottom: 12px;
+            margin-bottom: 25px;
+
+            @include breakpoint-up('md') {
+                margin-bottom: 32px;
+            }
         }
 
         h2 {
-            margin-bottom: 12px;
+            margin-bottom: 25px;
+
+            @include breakpoint-up('md') {
+                margin-bottom: 32px;
+            }
         }
 
         a {

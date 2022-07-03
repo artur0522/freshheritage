@@ -13,7 +13,7 @@ const ArticleCard = ({ article, reverse }) => {
     <Link href={`/${article.handle.current}`}>
         <a className={classes['article-card']}>
             <div className={`${classes['slider__slide']} ${reverse ? classes['row'] : ''}`}>
-                {article.heroImage && <div className={classes['image-wrap']}>
+                {article.hero?.desktopBackgroundImage.asset.url && <div className={classes['image-wrap']}>
                     <Image  layout="fill" objectFit="cover" alt={article.title} src={article.hero.desktopBackgroundImage.asset.url} />
                     {foundTag && <div className={classes['play']}>
                         <PlayIcon />

@@ -1,3 +1,4 @@
+import { ArticleProvider } from '@/context/ArticleContext'
 import { ModalProvider } from '@/context/ModalContext'
 import { PDPDrawerProvider } from '@/context/PDPDrawerContext'
 import { CustomerProvider } from '@/context/CustomerContext'
@@ -21,10 +22,12 @@ function Layout({ children, headerSettings, footerSettings }) {
         <PurchaseFlowProvider>
           <PDPDrawerProvider>
             <ModalProvider>
-              <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
-                <main>{children}</main>
-                <Footer content={footerSettings} />
-              </HeaderProvider>
+              <ArticleProvider>
+                <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
+                  <main>{children}</main>
+                  <Footer content={footerSettings} />
+                </HeaderProvider>
+              </ArticleProvider>
             </ModalProvider>
           </PDPDrawerProvider>
         </PurchaseFlowProvider>

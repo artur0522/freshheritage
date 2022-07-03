@@ -4,13 +4,22 @@ import { PortableText } from '@portabletext/react'
 import EmailSignup from '@/components/EmailSignup'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useArticleContext } from '@/context/ArticleContext'
+import IconCaret from '@/svgs/caret.svg'
 
 const ArticleSidebar = ({fields}) => {
 
   const { author, relatedArticles } = fields
+  const { isSidebarOpen, setIsSidebarOpen } = useArticleContext()
 
   return (
-    <div className={classes['article-sidebar']}>
+    <div className={`${classes['article-sidebar']} ${isSidebarOpen ? classes['is-open'] : ''}`}>
+
+      <div className={classes['article-sidebar__header']}>
+        <button onClick={() => setIsSidebarOpen()}><IconCaret /><span>Back</span></button>
+        <h5>About the Article</h5>
+      </div>
+
       <div className={classes['article-sidebar__main']}>
 
         <div className={`${classes['article-author']} ${classes['article-sidebar__section']}`}>

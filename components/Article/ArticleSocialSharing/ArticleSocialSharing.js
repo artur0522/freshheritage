@@ -1,10 +1,11 @@
-import React, { useState, useEffect, forwardRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import classes from './ArticleSocialSharing.module.scss'
 import { useMediaQuery } from 'react-responsive'
 import IconThreeDotsCircle from '@/svgs/three-dots-circle.svg'
 import IconPrinter from '@/svgs/printer.svg'
 import IconBookmark from '@/svgs/bookmark.svg'
 import IconShare from '@/svgs/share.svg'
+import { useArticleContext } from '@/context/ArticleContext'
 
 const ArticleSocialSharing = () => {
 
@@ -13,6 +14,7 @@ const ArticleSocialSharing = () => {
   const isDesktop = useMediaQuery(
     {query: '(min-width: 1074px)'}
   )
+  const { setIsSidebarOpen } = useArticleContext()
 
   useEffect(() => {
     setMounted(true)
@@ -31,7 +33,8 @@ const ArticleSocialSharing = () => {
         </button>
       </li>
       {isMobile && mounted && <li>
-        <button className={classes['more-info-btn']}>
+        <button onClick={() => setIsSidebarOpen(true)}
+          className={classes['more-info-btn']}>
           <IconThreeDotsCircle /><span>More Info</span>
         </button>
       </li>}

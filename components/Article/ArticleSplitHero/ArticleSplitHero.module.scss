@@ -1,5 +1,20 @@
 @import '@/styles/_shared.scss';
 
+:global(.article-cooking-guide) {
+  .article-hero__content {
+    width: 44%;
+  }
+  .article-hero__content-inner {
+    max-width: 500px;
+    margin: 0;
+  }
+  .article-hero__image,
+  .article-hero__video {
+    width: 56%;
+  }
+}
+
+
 .article-hero {
   display: flex;
   flex-wrap: wrap;

@@ -23,7 +23,7 @@ const ArticleMain = ({contentType, fields, product, showNav = false}) => {
       case 'recipe':
         return <RecipeContent ref={refs} fields={fields} product={product} />
       case 'standard':
-        return <StandardContent fields={fields} product={product} />
+        return <StandardContent ref={refs} fields={fields} product={product} />
       default:
         return ''
     }
@@ -34,7 +34,7 @@ const ArticleMain = ({contentType, fields, product, showNav = false}) => {
       {showNav && <ArticleNav ref={refs} />}
       <div className={classes['article-main__wrapper']}>
         {getContent(contentType)}
-        <ArticleSidebar fields={sidebar} />
+        {sidebar && <ArticleSidebar fields={sidebar} />}
       </div>
     </div>
   )

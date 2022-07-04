@@ -11,19 +11,19 @@ const RecipeContent = forwardRef(({fields, product}, ref) => {
 
   const { description, content } = fields
 
-  console.log("fields:", fields)
-
   const myPortableTextComponents = {
     block: {
       h1: ({children}) => {
         if (ref.current[children[0]]) {
           return <h1 ref={ref.current[children[0]]}>{children}</h1>
         }
-
         return <h1>{children}</h1>
       }
     },
     marks: {
+      arrowLink: ({ children, value }) => (<Link href={value.href || ''}>
+        <a className={classes['article-section__arrow-link']}>{children}<IconCaretThin /></a>
+      </Link>),
       buttonLink: ({ children, value }) => (<Link href={value.href}>
         <a className={`${classes['article-ingredient__btn-link']} btn salmon`}>{children}</a>
       </Link>)

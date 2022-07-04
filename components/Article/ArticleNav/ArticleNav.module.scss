@@ -8,6 +8,12 @@
   transition: 0.5s ease-in-out top;
 }
 
+:global(.article-cooking-guide) {
+  .article-nav-list {
+    width: calc(100% - 120px);
+  }
+}
+
 .article-nav-list {
   display: flex;
   list-style-type: none;

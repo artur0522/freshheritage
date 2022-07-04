@@ -5,7 +5,7 @@ import { useHeaderContext } from '@/context/HeaderContext'
 
 const ArticleNav = forwardRef(({}, ref) => {
 
-  const [activeTab, setActiveTab] = useState('ingredients')
+  const [activeTab, setActiveTab] = useState(Object.keys(ref.current)[0])
   const navRef = useRef()
   const { hide, headerRef } = useHeaderContext()
 
@@ -33,7 +33,7 @@ const ArticleNav = forwardRef(({}, ref) => {
       if (window.pageYOffset + 1 >= tabTopPosition) return key
       return carry
     }, Object.keys(ref.current)[0])
-    setActiveTab(getActiveTab);
+    setActiveTab(getActiveTab)
   }
 
   useEffect(() => {
@@ -46,8 +46,8 @@ const ArticleNav = forwardRef(({}, ref) => {
   return (
     <div ref={navRef} className={classes['article-nav']} style={{'top': `${ hide ? 0 : headerRef.current?.offsetHeight}px`}}>
       <ul className={classes['article-nav-list']}>
-        {Object.keys(ref.current).map(item => {
-          return <li className={activeTab === item ? classes['is-active'] : ''}><button onClick={() => onClick(item)}>{item}</button></li>
+        {Object.keys(ref.current).map((item, index) => {
+          return <li key={index} className={activeTab === item ? classes['is-active'] : ''}><button onClick={() => onClick(item)}>{item}</button></li>
         })}
       </ul>
     </div>

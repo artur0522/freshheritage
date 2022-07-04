@@ -1,5 +1,16 @@
 @import '@/styles/_shared.scss';
 
+:global(.article-cooking-guide) {
+  .article-content {
+    width: calc(100% - 120px);
+    margin-left: auto;
+    padding: 0;
+  }
+  .article-section__content {
+    padding: 0;
+  }
+}
+
 .article-content {
   width: 100%;
   margin-top: 25px;
@@ -13,6 +24,7 @@
     padding: 0 75px 0 0;
   }
 }
+
 
 .article-description {
   margin-bottom: 20px;

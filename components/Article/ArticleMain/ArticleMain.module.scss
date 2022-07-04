@@ -4,6 +4,17 @@
   background-color: $alabaster2;
 }
 
+:global(.article-cooking-guide) {
+  .article-main__wrapper {
+    @include breakpoint-up('md') {
+      margin: 0 auto 0 0;
+      width: 44%;
+      padding: 0;
+      margin-bottom: 0;
+    }
+  }
+}
+
 .article-main__wrapper {
   display: flex;
   flex-wrap: wrap;

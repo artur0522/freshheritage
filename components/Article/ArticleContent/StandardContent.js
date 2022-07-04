@@ -1,3 +1,4 @@
+import React, { forwardRef } from 'react'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { PortableText } from '@portabletext/react'
 import classes from './ArticleContent.module.scss'
@@ -6,7 +7,7 @@ import ArticleSocialSharing from '../ArticleSocialSharing'
 import Link from 'next/link'
 import IconCaretThin from '@/svgs/caret-thin.svg'
 
-const StandardContent = ({fields, product}) => {
+const StandardContent = forwardRef(({fields, product}, ref) => {
 
   const { content } = fields
 
@@ -14,6 +15,14 @@ const StandardContent = ({fields, product}) => {
   console.log("product:", product)
 
   const myPortableTextComponents = {
+    block: {
+      h1: ({children}) => {
+        if (ref.current[children[0]]) {
+          return <h1 ref={ref.current[children[0]]}>{children}</h1>
+        }
+        return <h1>{children}</h1>
+      }
+    },
     marks: {
       arrowLink: ({ children, value }) => (<Link href={value.href || ''}>
         <a className={classes['article-section__arrow-link']}>{children}<IconCaretThin /></a>
@@ -47,6 +56,6 @@ const StandardContent = ({fields, product}) => {
       </div>
     </div>
   )
-}
+})
 
 export default StandardContent

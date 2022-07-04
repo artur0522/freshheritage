@@ -15,9 +15,7 @@ const CurrentHarvest = ({ fields }) => {
   const [currentMonth, setCurrentMonth] = useState(null)
   const [currentYear, setCurrentYear] = useState(null)
   const [currentDate, setCurrentDate] = useState(null)
-
-console.log("harvestList:", harvestList)
-
+  
   useEffect(() => {
     // make reusable
     const month = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]

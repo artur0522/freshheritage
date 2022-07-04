@@ -11,13 +11,13 @@ import "swiper/css"
 const ArticleRow = ({ fields }) => {
   const {header, ctaText, ctaUrl, articles, _key, reverseCard, illustration, illustrationAlt, illustration2, illustration2Alt, greenBackground,  topMargin, bottomMargin} = fields
   const [mounted, setMounted] = useState(false)
-
+    console.log(articles)
     useEffect(() => {
         setMounted(true)
     }, [fields])
 
   return (
-    <div className={`${classes['articles']} ${greenBackground ? classes['green-bg'] : ""} ${topMargin ? classes['top-margin'] : ''} ${bottomMargin ? classes['bottom-margin'] : ''}`}>
+    <div className={`${classes['articles']} ${reverseCard ? classes['reverse'] : ''} ${greenBackground ? classes['green-bg'] : ""} ${topMargin ? classes['top-margin'] : ''} ${bottomMargin ? classes['bottom-margin'] : ''}`}>
         {illustration && <div className={classes['illustration-1']}>
             <Image
                 src={illustration.asset.url}

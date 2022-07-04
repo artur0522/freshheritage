@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { nacelleClient } from 'services'
 import { useMediaQuery } from 'react-responsive'
 import ResponsiveImage from '@/components/ResponsiveImage'
@@ -18,7 +18,6 @@ import { split } from 'lodash-es'
 function Product({ product, page }) {
   const [checked, setChecked] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
-
   const handle = product.content.handle
   const productAccordionHeaders = page[0].fields.content.find(block => block._type === 'productAccordionHeaders')
   const accordionDeliveryHeader = productAccordionHeaders?.details
@@ -36,12 +35,12 @@ function Product({ product, page }) {
     if(product.content.handle === 'digital-gift-card') {
       setChecked(true)
     }
-
+    
     const foundVisibleTags = product.tags.filter(tag => tag.includes('Visible'));
     const splitTag = foundVisibleTags[0]?.split(':')[1]
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
-
     const foundCustomerTag = customer?.tags.find(tag => tag.includes('member') || tag.includes('sustainer'))
+
     const productHasCustomerTag = foundVisibleTags?.find((tag) => { 
       let splitTag = tag.split(':')[1] === foundCustomerTag
       if(splitTag) {
@@ -51,20 +50,25 @@ function Product({ product, page }) {
       }
     })
 
-    if(!customer) {
-      const gatedPopup = page.find(field => field.handle === splitTagWithDash)
-      modalContext.setContent(gatedPopup.fields)
-      modalContext.setIsOpen(true)
-      modalContext.setModalType('gated_product')
-    }
+    const fetchModalData = async () => {
+      const foundCustomerTag = customer?.tags.find(tag => tag.includes('member') || tag.includes('sustainer'))
+      const modal = await nacelleClient.content({
+        handles: [foundCustomerTag ? foundCustomerTag?.replace(/\s/g, '-') : 'non-member']
+      })
+      if(!customer && foundVisibleTags.length > 0) {
+        modalContext.setContent(modal[0]?.fields)
+        modalContext.setModalType('gated_product')
+        modalContext.setIsOpen(true)
+      }
+      if(foundVisibleTags.length > 0 && !productHasCustomerTag) {   
+        modalContext.setContent(modal[0]?.fields)
+        modalContext.setModalType('gated_product')
+        modalContext.setIsOpen(true)
+      }
+    };
 
-    if(foundVisibleTags.length > 0 && customer && !productHasCustomerTag) {
-      const gatedPopup = page.find(field => field.handle === splitTagWithDash)
-      modalContext.setContent(gatedPopup.fields)
-      modalContext.setIsOpen(true)
-      modalContext.setModalType('gated_product')
-    }
-  })
+    fetchModalData()
+  }, [customer])
 
   const isDesktop = useMediaQuery(
     { minWidth: 1074 }

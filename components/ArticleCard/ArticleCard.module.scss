@@ -30,6 +30,7 @@
                 position: relative;
 
                 @include breakpoint-up('md') {
+                    min-width: 448px;
                     width: 48%;
                 }
             }
@@ -37,6 +38,7 @@
             .text {
                 @include breakpoint-up('md') {
                     width: 48%;
+                    padding-left: 24px;
                 }
             }
         }

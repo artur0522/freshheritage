@@ -177,13 +177,8 @@ export async function getStaticProps({ params }) {
     }
   })
 
-  const product = products[0]
-  const foundVisibleTag = product.tags.find(tag => tag.includes('Visible'));
-  const splitTag = foundVisibleTag?.split(':')[1]
-  const refinedSplitTag = splitTag?.replace(' ', '-').toLowerCase()
-
   const page = await nacelleClient.content({
-    handles: ['product', refinedSplitTag ? refinedSplitTag : '']
+    handles: ['product']
   })
 
   if (!products.length) {

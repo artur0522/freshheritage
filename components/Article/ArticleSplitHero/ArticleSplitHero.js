@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { PortableText } from '@portabletext/react'
+import Youtube from 'react-youtube'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -34,7 +34,7 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
     {query: '(min-width: 1074px)'}
   )
 
-  const {prepTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, subheader, servings, tags, cookTime } = fields
+  const {prepTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, subheader, servings, tags, cookTime, youtubeVideoId } = fields
 
   useEffect(() => {
     setMounted(true)
@@ -43,6 +43,17 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
   if (!blogSettings) {
     return ''
   }
+
+  const youtubeOptions = {
+    height: '390',
+    width: '640',
+    playerVars: {
+      controls: 0,
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 1,
+      rel: 0
+    },
+  };
 
   const backgroundColorClass = `article-hero--${blogSettings.fields[blogType].backgroundColor}-bg-color`
   const backgroundIllustrationImage = blogSettings.fields[blogType].illustrationImage
@@ -72,13 +83,13 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
             </Link>
           </div>
           <h1 className={classes['article-hero__heading']}>{header}</h1>
-          {subheader && <h2>{subheader}</h2>}
+          {subheader && <h2 className={classes['article-hero__subheading']}>{subheader}</h2>}
           {tags && <ul className={classes['article-hero__tags']}>
             {tags.map((tag, index) => {
               return <li className={classes['article-hero__tag']} key={index}>{tag.value}</li>
             })}
           </ul>}
-          {prepTime || cookTime || servings || difficulty && <ul className={classes['recipe-meta-details']}>
+          <ul className={classes['recipe-meta-details']}>
             {prepTime &&
               <li>
                 <IconClock />
@@ -103,7 +114,7 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
                 <div><b>Difficulty:</b><span>{difficulty}</span></div>
               </li>
             }
-          </ul>}
+          </ul>
           {ctaText && ctaUrl &&
             <Link href={ctaUrl}>
               <a className={`${classes['article-hero__cta']} btn-link-underline`}>{ctaText}</a>
@@ -111,21 +122,29 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
           }
         </div>
       </div>
-      <div className={classes['article-hero__image']}>
-        {mobileBackgroundImage && isMobile && mounted &&
-          <ResponsiveImage
-            src={mobileBackgroundImage.asset.url}
-            layout="fill"
-            alt={mobileBackgroundImage.asset.alt || ''}
-          />}
-        {desktopBackgroundImage && isDesktop && mounted &&
-          <Image
-            src={desktopBackgroundImage.asset.url}
-            layout="fill"
-            alt={desktopBackgroundImage.asset.alt || ''}
-          />
-        }
-      </div>
+
+      {youtubeVideoId ? (
+        <div className={classes['article-hero__video']}>
+          <Youtube videoId={youtubeVideoId} opts={youtubeOptions} />
+        </div>
+      ): (
+        <div className={classes['article-hero__image']}>
+          {mobileBackgroundImage && isMobile && mounted &&
+            <ResponsiveImage
+              src={mobileBackgroundImage.asset.url}
+              layout="fill"
+              alt={mobileBackgroundImage.asset.alt || ''}
+            />}
+          {desktopBackgroundImage && isDesktop && mounted &&
+            <Image
+              src={desktopBackgroundImage.asset.url}
+              layout="fill"
+              alt={desktopBackgroundImage.asset.alt || ''}
+            />
+          }
+        </div>
+      )}
+
     </div>
   )
 }

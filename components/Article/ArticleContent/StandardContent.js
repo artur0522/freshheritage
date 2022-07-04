@@ -3,6 +3,8 @@ import { PortableText } from '@portabletext/react'
 import classes from './ArticleContent.module.scss'
 import ArticleProduct from '../ArticleProduct'
 import ArticleSocialSharing from '../ArticleSocialSharing'
+import Link from 'next/link'
+import IconCaretThin from '@/svgs/caret-thin.svg'
 
 const StandardContent = ({fields, product}) => {
 
@@ -12,6 +14,11 @@ const StandardContent = ({fields, product}) => {
   console.log("product:", product)
 
   const myPortableTextComponents = {
+    marks: {
+      arrowLink: ({ children, value }) => (<Link href={value.href || ''}>
+        <a className={classes['article-section__arrow-link']}>{children}<IconCaretThin /></a>
+      </Link>)
+    },
     types: {
       image: ({value}) => (<div className={classes['article-section__image']}>
         <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />

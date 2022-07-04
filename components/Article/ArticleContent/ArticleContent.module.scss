@@ -45,55 +45,56 @@
   h4 {
     margin-bottom: 20px;
   }
-  .article-section__content {
-    h1 {
-      font-family: 'BebasNeue';
-      font-size: 24px;
-      font-weight: 500;
-      line-height: 100%;
-      letter-spacing: 0.02em;
-      margin: 30px 0 20px;
-      @include breakpoint-up('sm') {
-        font-size: 28px;
-      }
-      @include breakpoint-up('md') {
-        margin: 60px 0 20px;
-        font-size: 36px;
-      }
-      @include breakpoint-up('lg') {
-        font-size: 42px;
-      }
-      @include breakpoint-up('xl') {
-        font-size: 48px;
-      }
+}
+
+.article-section__content {
+  h1 {
+    font-family: 'BebasNeue';
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: 0.02em;
+    margin: 30px 0 20px;
+    @include breakpoint-up('sm') {
+      font-size: 28px;
     }
-    h2, h3, h4 {
-      font-family: $frank-ruhl;
-      font-weight: 500;
-      font-size: 21px;
-      margin: 30px 0 10px;
-      letter-spacing: 0;
-      @include breakpoint-up('md') {
-        margin: 60px 0 10px;
-      }
-      @include breakpoint-up('xl') {
-        font-size: 28px;
-      }
-      &:first-child {
-        margin-top: 0;
-      }
+    @include breakpoint-up('md') {
+      margin: 60px 0 20px;
+      font-size: 36px;
     }
+    @include breakpoint-up('lg') {
+      font-size: 42px;
+    }
+    @include breakpoint-up('xl') {
+      font-size: 48px;
+    }
+  }
+  h2, h3, h4 {
+    font-family: $frank-ruhl;
+    font-weight: 500;
+    font-size: 21px;
+    margin: 30px 0 10px;
+    letter-spacing: 0;
+    @include breakpoint-up('md') {
+      margin: 60px 0 10px;
+    }
+    @include breakpoint-up('xl') {
+      font-size: 28px;
+    }
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  ul {
+    margin: 0 0 20px 10px;
+  }
+  li {
     ul {
-      margin: 0 0 20px 10px;
+      margin: 0 0 0 40px;
     }
-    li {
-      ul {
-        margin: 0 0 0 40px;
-      }
-    }
-    p {
-      margin-bottom: 20px;
-    }
+  }
+  p {
+    margin-bottom: 20px;
   }
   blockquote {
     font-size: 18px;
@@ -121,6 +122,26 @@
     align-items: center;
     padding-left: 20px;
     padding-right: 20px;
+  }
+  .article-section__arrow-link {
+    text-decoration: none;
+    &:hover {
+      text-decoration: none;
+      svg {
+        * {
+          fill: $salmon;
+        }
+      }
+    }
+    svg {
+      position: relative;
+      top: 2px;
+      margin-left: 10px;
+      width: 8px;
+      * {
+        fill: $sitkablue;
+      }
+    }
   }
 }
 

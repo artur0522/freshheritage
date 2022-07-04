@@ -1,4 +1,5 @@
 import classes from './ArticleSidebar.module.scss'
+import articleContentClasses from '../ArticleContent/ArticleContent.module.scss'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { PortableText } from '@portabletext/react'
 import EmailSignup from '@/components/EmailSignup'
@@ -9,7 +10,7 @@ import IconCaret from '@/svgs/caret.svg'
 
 const ArticleSidebar = ({fields}) => {
 
-  const { author, relatedArticles } = fields
+  const { content, author, relatedArticles } = fields
   const { isSidebarOpen, setIsSidebarOpen } = useArticleContext()
 
   return (
@@ -22,7 +23,11 @@ const ArticleSidebar = ({fields}) => {
 
       <div className={classes['article-sidebar__main']}>
 
-        <div className={`${classes['article-author']} ${classes['article-sidebar__section']}`}>
+        {content && <div className={`${articleContentClasses['article-section__content']} ${classes['article-sidebar__section']}`}>
+          <PortableText value={content} />
+        </div>}
+
+        {author && <div className={`${classes['article-author']} ${classes['article-sidebar__section']}`}>
           <div className={classes['article-author__header']}>
             <div className={classes['article-author__image']}>
               <ResponsiveImage
@@ -35,7 +40,7 @@ const ArticleSidebar = ({fields}) => {
           <div className={classes['article-author__description']}>
             <PortableText value={author.description} />
           </div>
-        </div>
+        </div>}
 
         <div className={`${classes['article-email-signup']} ${classes['article-sidebar__section']}`}>
           <EmailSignup props={{

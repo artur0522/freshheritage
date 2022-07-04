@@ -12,8 +12,16 @@
   @include breakpoint-down('sm') {
     background-color: $alabaster2;
   }
+  @include breakpoint-up('lg') {
+    min-height: 720px;
+  }
   @include breakpoint-up('xl') {
     min-height: 960px;
+  }
+  &.article-hero--render-type-recipe {
+    .recipe-meta-details {
+      display: flex;
+    }
   }
   &.article-hero--render-type-blog-listing {
     .article-hero__content {
@@ -63,6 +71,8 @@
         padding: 0;
         @include breakpoint-up('sm') {
           padding-left: 40px;
+        }
+        @include breakpoint-up('xl') {
           margin-top: 120px;
         }
       }
@@ -179,6 +189,10 @@
   }
 }
 
+.article-hero__subheading {
+  margin-bottom: 20px;
+}
+
 .article-hero__tags {
   display: flex;
   flex-wrap: wrap;
@@ -202,7 +216,7 @@
 }
 
 .recipe-meta-details {
-  display: flex;
+  display: none;
   flex-direction: column;
   margin-bottom: 20px;
   li {
@@ -230,7 +244,8 @@
   margin-top: auto;
 }
 
-.article-hero__image {
+.article-hero__image,
+.article-hero__video {
   width: 100%;
   position: relative;
   order: -1;
@@ -243,5 +258,20 @@
   }
   img {
     object-fit: cover;
+  }
+  iframe {
+    width: 100%;
+    min-height: 320px;
+    @include breakpoint-up('sm') {
+      min-height: 500px;
+    }
+    @include breakpoint-up('md') {
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
   }
 }

@@ -61,13 +61,13 @@ export async function getStaticProps({ params }) {
     product: null
   }
 
-  if (page.fields?.content?.addToCartProduct) {
-    const handle = page.fields.content.addToCartProduct
+  if (page.fields?.content) {
+    const handles = page.fields.content.filter(item => item._type === 'productBlock').map(item => item.product)
     let { products } = await nacelleClient.query({
       query: GET_PRODUCTS,
       variables: {
         "filter": {
-          "handles": [handle]
+          "handles": [...handles]
         }
       }
     })

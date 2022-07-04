@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, createRef } from 'react'
 import classes from './ArticleMain.module.scss'
 import ArticleNav from '@/components/Article/ArticleNav'
 import StandardContent from '../ArticleContent/StandardContent'
@@ -7,18 +7,21 @@ import ArticleSidebar from '../ArticleSidebar'
 
 const ArticleMain = ({contentType, fields, product, showNav = false}) => {
 
-  const ingredientsRef = useRef()
-  const directionsRef = useRef()
-  const proTipsRef = useRef()
+  const h1blocks = fields.content.filter(item => item.style === 'h1')
 
-  const refs = useRef({ingredientsRef, directionsRef, proTipsRef })
+  const refs = useRef(h1blocks.reduce((carry, block) => {
+    return {
+      ...carry,
+      [block.children[0].text]: createRef()
+    }
+  }, {}))
 
-  const { content, sidebar } = fields
+  const { sidebar } = fields
 
   const getContent = (type) => {
     switch(type) {
       case 'recipe':
-        return <RecipeContent ref={refs} fields={content} product={product} />
+        return <RecipeContent ref={refs} fields={fields} product={product} />
       case 'standard':
         return <StandardContent fields={fields} product={product} />
       default:
@@ -28,7 +31,7 @@ const ArticleMain = ({contentType, fields, product, showNav = false}) => {
 
   return (
     <div className={classes['article-main']}>
-      {showNav && <ArticleNav ref={refs} fields={fields.content} />}
+      {showNav && <ArticleNav ref={refs} />}
       <div className={classes['article-main__wrapper']}>
         {getContent(contentType)}
         <ArticleSidebar fields={sidebar} />

@@ -3,9 +3,7 @@ import classes from './ArticleNav.module.scss'
 import { animateScroll as scroll } from 'react-scroll'
 import { useHeaderContext } from '@/context/HeaderContext'
 
-const ArticleNav = forwardRef(({ fields }, ref) => {
-
-  const { directions, ingredients, proTips } = fields;
+const ArticleNav = forwardRef(({}, ref) => {
 
   const [activeTab, setActiveTab] = useState('ingredients')
   const navRef = useRef()
@@ -17,7 +15,7 @@ const ArticleNav = forwardRef(({ fields }, ref) => {
   }
 
   const onClick = (value) => {
-    const sectionEl = ref.current[`${value}Ref`].current
+    const sectionEl = ref.current[`${value}`].current
     const sectionElTopPosition = getScrollPosition(sectionEl)
     scrollToEl(sectionElTopPosition)
   }
@@ -34,8 +32,8 @@ const ArticleNav = forwardRef(({ fields }, ref) => {
       const tabTopPosition = getScrollPosition(tab)
       if (window.pageYOffset + 1 >= tabTopPosition) return key
       return carry
-    }, 'ingredients')
-    setActiveTab(`${getActiveTab.replace('Ref', '')}`);
+    }, Object.keys(ref.current)[0])
+    setActiveTab(getActiveTab);
   }
 
   useEffect(() => {
@@ -48,15 +46,9 @@ const ArticleNav = forwardRef(({ fields }, ref) => {
   return (
     <div ref={navRef} className={classes['article-nav']} style={{'top': `${ hide ? 0 : headerRef.current?.offsetHeight}px`}}>
       <ul className={classes['article-nav-list']}>
-        {ingredients &&
-          <li className={activeTab === 'ingredients' ? classes['is-active'] : ''}><button onClick={() => onClick('ingredients')}>Ingredients</button></li>
-        }
-        {directions &&
-          <li className={activeTab === 'directions' ? classes['is-active'] : ''}><button onClick={() => onClick('directions')}>Directions</button></li>
-        }
-        {proTips &&
-          <li className={activeTab === 'proTips' ? classes['is-active'] : ''}><button onClick={() => onClick('proTips')}>Pro Tips</button></li>
-        }
+        {Object.keys(ref.current).map(item => {
+          return <li className={activeTab === item ? classes['is-active'] : ''}><button onClick={() => onClick(item)}>{item}</button></li>
+        })}
       </ul>
     </div>
   )

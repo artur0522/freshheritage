@@ -9,13 +9,20 @@ import ArticleSocialSharing from '../ArticleSocialSharing'
 
 const RecipeContent = forwardRef(({fields, product}, ref) => {
 
-  const { directionsRef, ingredientsRef, proTipsRef } = ref.current
-
-  const { description, directions, ingredients, proTips } = fields
+  const { description, content } = fields
 
   console.log("fields:", fields)
 
   const myPortableTextComponents = {
+    block: {
+      h1: ({children}) => {
+        if (ref.current[children[0]]) {
+          return <h1 ref={ref.current[children[0]]}>{children}</h1>
+        }
+
+        return <h1>{children}</h1>
+      }
+    },
     marks: {
       buttonLink: ({ children, value }) => (<Link href={value.href}>
         <a className={`${classes['article-ingredient__btn-link']} btn salmon`}>{children}</a>
@@ -24,13 +31,17 @@ const RecipeContent = forwardRef(({fields, product}, ref) => {
     types: {
       image: ({value}) => (<div className={classes['article-section__image']}>
         <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />
-      </div>)
+      </div>),
+      productBlock: () => (
+        <ArticleProduct product={product} parentClasses={classes} />
+      )
+    },
+    list: {
+      bullet: ({children}) => (<ul className={classes['article-ingredients']}>{children}</ul>)
     },
     listItem: {
       bullet: ({children}) => {
-
         const button = children[2]
-
         if (button) {
           return (
             <li className={classes['article-ingredient--with-btn']}>
@@ -38,7 +49,6 @@ const RecipeContent = forwardRef(({fields, product}, ref) => {
             </li>
           )
         }
-
         return (
           <li>
             <p>{children}</p>
@@ -58,40 +68,9 @@ const RecipeContent = forwardRef(({fields, product}, ref) => {
 
       <ArticleSocialSharing />
 
-      {/* inredients */}
-      {ingredients && <div ref={ingredientsRef} className={`${classes['article-ingredients']} ${classes['article-section']}`}>
-        <h4>Ingredients</h4>
-        <div className={classes['article-section__content']}>
-          {ingredients.map(item => {
-            return <PortableText key={item._key} value={item} components={myPortableTextComponents} />
-          })}
-        </div>
-      </div>}
-
-      {/* directions */}
-      {directions && <div ref={directionsRef} className={`${classes['article-directions']} ${classes['article-section']}`}>
-        <h4>Directions</h4>
-        <div className={classes['article-section__content']}>
-          {directions.map(item => {
-            return <PortableText key={item._key} value={item} />
-          })}
-        </div>
-      </div>}
-
-      {/* ATC - product */}
-      {product &&
-        <ArticleProduct product={product} parentClasses={classes} />
-      }
-
-      {/* Pro Tips */}
-      {proTips && <div ref={proTipsRef} className={`${classes['article-pro-tips']} ${classes['article-section']}`}>
-        <h4>Pro Tips</h4>
-        <div className={classes['article-section__content']}>
-          {proTips.map(item => {
-            return <PortableText key={item._key} value={item} />
-          })}
-        </div>
-      </div>}
+      <div className={`${classes['article-section__content']}`}>
+        <PortableText value={content} components={myPortableTextComponents} />
+      </div>
 
       {/* Rate Recipe */}
       {/* <div className={`${classes['article-rate-recipe']} ${classes['article-section']}`}>

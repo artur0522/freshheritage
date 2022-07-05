@@ -57,7 +57,7 @@ const ContentSections = ({ sections }) => {
       case 'halfHeroHalfSlider':
         return <HalfHeroHalfSlider fields={section} key={section._key} />
       case 'emailSignup':
-        return <EmailSignup fields={section} key={section._key} />
+        return <EmailSignup props={section} key={section._key} />
       case 'browseCategory':
         return <BrowseCategory fields={section} key={section._key} />
       case 'articleRow':

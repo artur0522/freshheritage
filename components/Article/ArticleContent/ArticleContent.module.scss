@@ -4,10 +4,13 @@
   .article-content {
     width: calc(100% - 120px);
     margin-left: auto;
-    padding: 0;
+    // padding: 0;
   }
   .article-section__content {
     padding: 0;
+    > * {
+      padding: 0 !important;
+    }
   }
 }
 

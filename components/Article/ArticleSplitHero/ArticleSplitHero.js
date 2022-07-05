@@ -10,6 +10,7 @@ import IconCutlery from '@/svgs/cutlery.svg'
 import IconScale from '@/svgs/scale.svg'
 import IconBullet from '@/svgs/list-item.svg'
 import ResponsiveImage from '@/components/ResponsiveImage'
+import { useHeaderContext } from '@/context/HeaderContext'
 
 /*
   Split Hero can be used for Article or Blog Listing Pages
@@ -24,6 +25,7 @@ import ResponsiveImage from '@/components/ResponsiveImage'
     - blog-listing -> colored background with illustration image
     - recipe -> recipe content inside floating panel/box
     - default -> white background
+    - cooking-guide -> same as default, but with sticky hero image/video
 
 */
 
@@ -33,8 +35,13 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
   const isDesktop = useMediaQuery(
     {query: '(min-width: 1074px)'}
   )
+  const { hide, headerRef } = useHeaderContext()
 
   const {prepTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, subheader, servings, tags, cookTime, youtubeVideoId } = fields
+
+  const getStickyPosition = () => {
+
+  }
 
   useEffect(() => {
     setMounted(true)
@@ -53,7 +60,7 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
       autoplay: 1,
       rel: 0
     },
-  };
+  }
 
   const backgroundColorClass = `article-hero--${blogSettings.fields[blogType].backgroundColor}-bg-color`
   const backgroundIllustrationImage = blogSettings.fields[blogType].illustrationImage
@@ -123,27 +130,29 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
         </div>
       </div>
 
-      {youtubeVideoId ? (
-        <div className={classes['article-hero__video']}>
-          <Youtube videoId={youtubeVideoId} opts={youtubeOptions} />
-        </div>
-      ): (
-        <div className={classes['article-hero__image']}>
-          {mobileBackgroundImage && isMobile && mounted &&
-            <ResponsiveImage
-              src={mobileBackgroundImage.asset.url}
-              layout="fill"
-              alt={mobileBackgroundImage.asset.alt || ''}
-            />}
-          {desktopBackgroundImage && isDesktop && mounted &&
-            <Image
-              src={desktopBackgroundImage.asset.url}
-              layout="fill"
-              alt={desktopBackgroundImage.asset.alt || ''}
-            />
-          }
-        </div>
-      )}
+      <div className={classes['article-hero__image-wrapper']} style={{'top': `${ hide ? 0 : headerRef.current?.offsetHeight}px`}}>
+        {youtubeVideoId ? (
+          <div className={classes['article-hero__video']}>
+            <Youtube videoId={youtubeVideoId} opts={youtubeOptions} />
+          </div>
+        ):(
+          <div className={classes['article-hero__image']}>
+            {mobileBackgroundImage && isMobile && mounted &&
+              <ResponsiveImage
+                src={mobileBackgroundImage.asset.url}
+                layout="fill"
+                alt={mobileBackgroundImage.asset.alt || ''}
+              />}
+            {desktopBackgroundImage && isDesktop && mounted &&
+              <Image
+                src={desktopBackgroundImage.asset.url}
+                layout="fill"
+                alt={desktopBackgroundImage.asset.alt || ''}
+              />
+            }
+          </div>
+        )}
+      </div>
 
     </div>
   )

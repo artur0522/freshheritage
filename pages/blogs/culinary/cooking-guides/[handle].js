@@ -14,7 +14,7 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
 
   return (
     <div className="article-cooking-guide">
-      <ArticleSplitHero fields={hero} renderType="default" blogType={blogType} blogSettings={blogSettings} />
+      <ArticleSplitHero fields={hero} renderType="cooking-guide" blogType={blogType} blogSettings={blogSettings} />
       <ArticleMain contentType="standard" fields={page.fields} product={product} showNav={true} />
       <ContentSections sections={page.fields.pageContent} />
     </div>

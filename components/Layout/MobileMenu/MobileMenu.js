@@ -4,8 +4,9 @@ import IconClose from '@/svgs/close.svg'
 import classes from './MobileMenu.module.scss'
 import { CSSTransition } from 'react-transition-group'
 import { useCustomerContext } from '@/context/CustomerContext'
+import { useHeaderContext } from '@/context/HeaderContext'
 
-const MobileMenu = ({props, mobileMenuIsOpen, setMobileMenuIsOpen, pageHandle}) => {
+const MobileMenu = ({props, pageHandle}) => {
 
   let navigationType;
 
@@ -14,6 +15,7 @@ const MobileMenu = ({props, mobileMenuIsOpen, setMobileMenuIsOpen, pageHandle}) 
   }
 
   const customerContext = useCustomerContext()
+  const { mobileMenuIsOpen, setMobileMenuIsOpen } = useHeaderContext()
   const {menuItems} = (customerContext.customer?.is_member) ? props.memberPrimaryNavigation : props.nonMemberPrimaryNavigation
   const navCTA = (customerContext.customer?.is_member) ? props.memberCta : props.nonMemberCta
   const customerService = props.customerService

@@ -1,0 +1,85 @@
+@import '@/styles/_shared.scss';
+
+.article-product {
+  margin: 35px 0 50px;
+  .article-product__card {
+    background-color: $fawn50;
+    border-radius: 12px;
+    border: 1px solid $fawn50-2;
+    padding: 8px 8px 25px;
+    max-width: 735px;
+    @include breakpoint-up('md') {
+      padding: 25px;
+    }
+  }
+
+  .article-product__content {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .article-product__image {
+    width: 100%;
+    margin-bottom: 10px;
+    @include breakpoint-up('md') {
+      flex-basis: 215px;
+      width: 215px;
+      margin: 0;
+    }
+  }
+
+  .article-product__details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 0 25px;
+    text-align: center;
+    @include breakpoint-up('md') {
+      padding: 0 0 0 40px;
+      text-align: left;
+    }
+    h4 {
+      font-family: $bebas;
+      margin-bottom: 15px;
+    }
+  }
+
+  .article-product____tier-price-pounds {
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    @include breakpoint-up('md') {
+      font-size: 16px;
+    }
+  }
+
+  .article-product__details-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(45, 43, 38, 0.1);
+    margin-top: 20px;
+    @include breakpoint-up('md') {
+      padding-top: 14px;
+      flex-direction: row;
+    }
+    button:first-child {
+      font-size: 16px;
+      @include breakpoint-up('md') {
+        font-size: 14px;
+      }
+    }
+    button:last-child {
+      max-width: 203px;
+      min-width: auto;
+      margin-top: 15px;
+      @include breakpoint-up('md') {
+        margin: 0;
+      }
+    }
+  }
+}

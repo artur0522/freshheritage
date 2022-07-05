@@ -1,3 +1,3 @@
-import EmailSignup from "./EmailSignup"
+import EmailSignup from './EmailSignup'
 
 export default EmailSignup

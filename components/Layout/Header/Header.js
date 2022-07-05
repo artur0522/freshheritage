@@ -1,37 +1,28 @@
-import { useState, useEffect } from 'react'
+import { forwardRef } from 'react'
 import PrimaryAnnouncement from '../PrimaryAnnouncement'
 import MainNavigation from '../MainNavigation'
 import MobileMenu from '../MobileMenu'
-import Router from 'next/router'
+import { useHeaderContext } from '@/context/HeaderContext'
 
 import classes from './Header.module.scss'
 
-const Header = ({ content, pageHandle }) => {
+const Header = forwardRef(({ content, pageHandle }, ref) => {
 
-  const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false)
-
-  useEffect(() => {
-    const onRountChangeComplete = () => {
-      setMobileMenuIsOpen(false)
-    };
-    Router.events.on('routeChangeComplete', onRountChangeComplete);
-  }, [])
-
-  if (!content) {
-    return ''
-  }
+  const { hide } = useHeaderContext()
 
   return (
-    <header className={classes.header}>
-      {content.primaryAnnouncement?.showAnnouncement &&
-        <PrimaryAnnouncement props={content.primaryAnnouncement} />
-      }
-      <MainNavigation props={content} setMobileMenuIsOpen={setMobileMenuIsOpen} pageHandle={pageHandle}  />
+    <>
+      <header ref={ref} className={`${classes['header']} ${!hide ? classes['is-visible'] : ''}`}>
+        {content.primaryAnnouncement?.showAnnouncement &&
+          <PrimaryAnnouncement props={content.primaryAnnouncement} />
+        }
+        <MainNavigation props={content} pageHandle={pageHandle}  />
+      </header>
       {pageHandle !== 'purchaseFlow' &&
-        <MobileMenu props={content} mobileMenuIsOpen={mobileMenuIsOpen} setMobileMenuIsOpen={setMobileMenuIsOpen} pageHandle={pageHandle} />
+        <MobileMenu props={content} pageHandle={pageHandle} />
       }
-    </header>
+    </>
   )
-}
+})
 
 export default Header

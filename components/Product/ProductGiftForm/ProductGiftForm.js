@@ -89,6 +89,8 @@ const ProductGiftForm = (props) => {
             quantity,
             properties: formFieldsWithGiftOption
         })
+
+        setFormFields(defaultFormFields)
     }
 
     return (
@@ -137,11 +139,11 @@ const ProductGiftForm = (props) => {
             {checked && <div className={classes['form__inner']}>
                 <div className={classes['form__col']}>
                     <label className="secondary--body" htmlFor="email">Email Address</label>
-                    <input type="email" id="email" name="recipient_email" className="secondary--body" onChange={handleGiftInfo} value={recipient_email} />
+                    <input type="email" id="email" name="recipient_email" className="secondary--body" onChange={handleGiftInfo} value={recipient_email} required />
                 </div>
                 <div className={classes['form__col']}>
                     <label className="secondary--body" htmlFor="name">{"Recipient's"} Name</label>
-                    <input type="text" id="name" name="recipient_name" className="secondary--body" onChange={handleGiftInfo} value={recipient_name} />
+                    <input type="text" id="name" name="recipient_name" className="secondary--body" onChange={handleGiftInfo} value={recipient_name} required />
                 </div>
                 {handle === 'digital-gift-card' && <div className={`${classes['form__col']} ${classes['textarea']}`}>
                     <label className="secondary--body" htmlFor="message">Message</label>

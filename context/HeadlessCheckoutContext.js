@@ -44,11 +44,21 @@ export function HeadlessCheckoutProvider({ children }) {
     console.log("replaced current subscription with new subscription")
   }
 
-  async function addItemToOrder({variant, quantity = 1, properties = {}, open_flyout = true}) {
+  async function addItemToOrder({variant, quantity = 1, properties = {}, open_flyout = true, product}) {
+
+    console.log("variant:", variant)
 
     if (!data) {
       return false;
     }
+
+    // if (!variant && !product) {
+    //   return false
+    // }
+
+    // if (!variant && product) {
+
+    // }
 
     /* sample data for properties
       properties {

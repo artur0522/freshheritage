@@ -1,0 +1,92 @@
+@import '@/styles/mixins/_breakpoints.scss';
+@import '@/styles/variables/_breakpoints.scss';
+
+.fifty-fifty {
+
+    // modifiers
+    .image--left {
+        @include breakpoint-up('sm') {
+            flex-direction: row-reverse;
+        }
+    }
+
+    .image--right {
+        @include breakpoint-up('sm') {
+            flex-direction: row;
+        }
+    }
+
+    // fifty-fifty__row
+    &__row {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding-top: 60px;
+
+        @include breakpoint-up('sm') {
+            padding: 7.5% 0;
+        }
+
+        &.container {
+            width: calc(100% - 56px);
+            max-width: 1680px;
+            margin: 0 auto;
+
+            @include breakpoint-up('sm') {
+                width: calc(100% - 100px);
+            }
+
+            @include breakpoint-up('md') {
+                width: calc(100% - 120px);
+            }
+
+            @include breakpoint-up('lg') {
+                width: calc(100% - 170px);
+            }
+
+            @include breakpoint-up('xl') {
+                width: calc(100% - 240px);
+            }
+        }
+    }
+
+    // fifty-fifty__text
+    &__text {
+        @include breakpoint-up('sm') {
+            width: 40.42%;
+            max-width: 716px;
+        }
+
+        h2 {
+            margin-top: 12px;
+            margin-bottom: 24px;
+
+            @include breakpoint-up('sm') {
+                margin-bottom: 48px;
+            }
+        }
+
+        .btn {
+            width: 243px;
+            min-width: 0;
+        }
+    }
+
+    // fifty-fifty__image
+    &__image {
+        position: relative;
+        height: 252px;
+        width: 100%;
+        margin-bottom: 36px;
+
+        @include breakpoint-up('sm') {
+            width: 48.92%;
+            height: 660px;
+        }
+
+        img {
+            object-fit: cover;
+            border-radius: 12px;
+        }
+    }
+}

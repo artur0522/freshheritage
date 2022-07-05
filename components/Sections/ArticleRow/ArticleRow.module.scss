@@ -1,0 +1,142 @@
+@import '@/styles/_shared.scss';
+
+.articles {
+    padding-bottom: 12px;
+    position: relative;
+
+    @include breakpoint-up('md') {
+        padding-bottom: 61px;
+    }
+
+    &.reverse {
+        .article-slide {
+            @include breakpoint-up('md') {
+                min-width: 841px;
+            }
+        }
+    }
+
+    .article-slide {
+        width: 300px;
+
+        @include breakpoint-up('md') {
+            min-width: 389px;
+        }
+    }
+
+    &.top-margin {
+        margin-top: 60px;
+
+        @include breakpoint-up('md') {
+            margin-top: 132px;
+        }
+    }
+
+    &.bottom-margin {
+        margin-bottom: 60px;
+
+        @include breakpoint-up('md') {
+            margin-bottom: 132px;
+        }
+    }
+
+    &.green-bg {
+        background-color: #B7CD96;
+    }
+
+    .illustration-1 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
+        z-index: -1;
+
+        @include breakpoint-up('md') {
+            display: block;
+        }
+    }
+
+    .illustration-2 {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        display: none;
+        z-index: -1;
+
+        @include breakpoint-up('md') {
+            display: block;
+        }
+    }
+
+    .header {
+        padding-top: 14px;
+        padding-bottom: 14px;
+
+        @include breakpoint-up('md') {
+            padding-top: 72px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-bottom: 24px;
+        }
+
+        h1 {
+            margin-bottom: 13px;
+
+            @include breakpoint-up('md') {
+                margin-bottom: 0;
+            }
+        }
+
+        // header-link
+        &-link {
+            display: flex;
+            align-items: center;
+
+            a {
+                margin-right: 7.77px;
+                font-weight: 500;
+                text-decoration: none;
+            }
+        }
+
+        // header-search
+        &-search {
+            background-color: #fff;
+            border-radius: 40px;
+            border: 1px solid $fawn50-2;
+            padding: 15.67px 0 15.65px 13.55px;
+
+            form {
+                display: flex;
+                align-items: center;
+            }
+
+            button {
+                border: none;
+                background: #fff;
+                padding: 0;
+                border-radius: 40px;
+            }
+
+            svg {
+                width: 25.95px;
+                height: 23.69px;
+            }
+
+            input {
+                border: none;
+                border-radius: 40px;
+                margin-left: 14.5px;
+                color: $sitkablue;
+                font-weight: 500;
+
+                &::placeholder {
+                    font-weight: 500;
+                    color: $sitkablue;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}

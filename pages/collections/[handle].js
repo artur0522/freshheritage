@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { nacelleClient } from "services";
 
-import ProductCard from "@/components/ProductCard/ProductCard";
+import ProductCard from "@/components/Cards/ProductCard/ProductCard";
 
 import classes from "./Collection.module.scss";
 

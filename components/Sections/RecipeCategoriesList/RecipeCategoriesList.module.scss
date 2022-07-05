@@ -1,0 +1,74 @@
+@import '@/styles/_shared.scss';
+
+.categories {
+    padding-top: 27.5px;
+    padding-bottom: 40px;
+
+    @include breakpoint-up('sm') {
+        padding-top: 57.5px;
+        padding-bottom: 8px;
+    }
+
+    // categories__header
+    &__header {
+        @include breakpoint-up('sm') {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            margin-bottom: 13px;
+
+            @include breakpoint-up('sm') {
+                margin-bottom: 0;
+            }
+        }
+
+        &-link {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20.5px;
+
+            @include breakpoint-up('sm') {
+                margin-bottom: 0;
+            }
+
+            a {
+                margin-right: 7.77px;
+                font-weight: 500;
+                text-decoration: none;
+            }
+        }
+    }
+
+    &__list {
+        @include breakpoint-up('sm') {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+    }
+
+    // categories__card
+    &__card {
+        margin-bottom: 28.94px;
+        display: block;
+        text-decoration: none;
+
+        @include breakpoint-up('sm') {
+            width: 48%;
+            margin-bottom: 64px;
+        }
+
+        .card__img {
+            position: relative;
+            margin-bottom: 14.8px;
+
+            img {
+                border-radius: 12px;
+            }
+        }
+    }
+}

@@ -1,16 +1,16 @@
 import React, {useState, useEffect} from 'react'
 
 import { nacelleClient } from 'services'
-import ContentSections from '../components/ContentSections'
-import DynamicHero from "../components/DynamicHero"
+import ContentSections from '../components/Sections/ContentSections'
+import DynamicHero from "@/components/Sections/DynamicHero"
 import { useCustomerContext } from '@/context/CustomerContext'
 
 export default function Home({ pages }) {
   const homePage = pages.find((page) => page.handle === 'homepage')
   const context = useCustomerContext()
-  
+
   let foundDynamicHero
-  
+
   const  { customer } = context
 
   const dynamicHeroSections = homePage.fields.content.filter((section) => {
@@ -18,7 +18,7 @@ export default function Home({ pages }) {
   })
 
   const foundTags = customer?.tags.filter((tag) => {
-    return tag === 'seafood box' || tag === 'bi monthly seafood box'  || tag === 'premium seafood box'  || tag === 'premium seafood box no shellfish' || tag === 'salmon box' 
+    return tag === 'seafood box' || tag === 'bi monthly seafood box'  || tag === 'premium seafood box'  || tag === 'premium seafood box no shellfish' || tag === 'salmon box'
   })
 
   if(foundTags?.includes('premium seafood box')) {

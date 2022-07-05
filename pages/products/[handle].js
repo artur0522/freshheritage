@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { nacelleClient } from 'services'
 import { useMediaQuery } from 'react-responsive'
 import ResponsiveImage from '@/components/ResponsiveImage'
 
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
-import ContentSections from '@/components/ContentSections'
+import ContentSections from '@/components/Sections/ContentSections'
 import ProductReviewStars from '../../components/Product/ProductReviewStars'
 import ProductSlider from '../../components/Product/ProductSlider'
 import ProductAccordion from '../../components/Product/ProductAccordion'
@@ -13,11 +13,11 @@ import ProductGiftForm from '@/components/Product/ProductGiftForm'
 import { GET_PRODUCTS } from '@/gql/index.js'
 
 import classes from './Product.module.scss'
+import { split } from 'lodash-es'
 
 function Product({ product, page }) {
   const [checked, setChecked] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
-
   const handle = product.content.handle
   const productAccordionHeaders = page[0].fields.content.find(block => block._type === 'productAccordionHeaders')
   const accordionDeliveryHeader = productAccordionHeaders?.details
@@ -39,17 +39,36 @@ function Product({ product, page }) {
     const foundVisibleTags = product.tags.filter(tag => tag.includes('Visible'));
     const splitTag = foundVisibleTags[0]?.split(':')[1]
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
-
     const foundCustomerTag = customer?.tags.find(tag => tag.includes('member') || tag.includes('sustainer'))
-    const productHasCustomerTag = foundVisibleTags.find(tag => tag.includes('member') || tag.includes('sustainer'))
 
-    if(foundVisibleTags.length > 0 && customer && !productHasCustomerTag) {
-      const gatedPopup = page.find(field => field.handle === splitTagWithDash)
-      modalContext.setContent(gatedPopup.fields)
-      modalContext.setIsOpen(true)
-      modalContext.setModalType('gated_product')
-    }
-  })
+    const productHasCustomerTag = foundVisibleTags?.find((tag) => {
+      let splitTag = tag.split(':')[1] === foundCustomerTag
+      if(splitTag) {
+        return splitTag
+      } else {
+        return null
+      }
+    })
+
+    const fetchModalData = async () => {
+      const foundCustomerTag = customer?.tags.find(tag => tag.includes('member') || tag.includes('sustainer'))
+      const modal = await nacelleClient.content({
+        handles: [foundCustomerTag ? foundCustomerTag?.replace(/\s/g, '-') : 'non-member']
+      })
+      if(!customer && foundVisibleTags.length > 0) {
+        modalContext.setContent(modal[0]?.fields)
+        modalContext.setModalType('gated_product')
+        modalContext.setIsOpen(true)
+      }
+      if(foundVisibleTags.length > 0 && !productHasCustomerTag) {
+        modalContext.setContent(modal[0]?.fields)
+        modalContext.setModalType('gated_product')
+        modalContext.setIsOpen(true)
+      }
+    };
+
+    fetchModalData()
+  }, [customer])
 
   const isDesktop = useMediaQuery(
     { minWidth: 1074 }
@@ -158,13 +177,8 @@ export async function getStaticProps({ params }) {
     }
   })
 
-  const product = products[0]
-  const foundVisibleTag = product.tags.find(tag => tag.includes('Visible'));
-  const splitTag = foundVisibleTag?.split(':')[1]
-  const refinedSplitTag = splitTag?.replace(' ', '-').toLowerCase()
-
   const page = await nacelleClient.content({
-    handles: ['product', refinedSplitTag ? refinedSplitTag : '']
+    handles: ['product']
   })
 
   if (!products.length) {

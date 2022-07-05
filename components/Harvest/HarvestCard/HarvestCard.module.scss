@@ -1,6 +1,6 @@
-@import '../../../styles/mixins/_breakpoints.scss';
-@import '../../../styles/variables/_breakpoints.scss';
-@import '../../../styles/variables/_colors.scss';
+@import '@/styles/mixins/_breakpoints.scss';
+@import '@/styles/variables/_breakpoints.scss';
+@import '@/styles/variables/_colors.scss';
 
 .harvest__card {
     padding: 11px 12px 45px 12px;
@@ -51,18 +51,18 @@
         .harvest__card-content {
             h4 {
                 margin-bottom: 12px;
-    
+
                 @include breakpoint-up('sm') {
                     margin-bottom: 12px;
                 }
             }
         }
-        
+
         .harvest__card-tabs {
             margin-bottom: 23px;
         }
     }
-    
+
     &-img {
         margin-bottom: 24px;
         position: relative;
@@ -90,7 +90,7 @@
     &-tab {
         min-height: 37px;
         display: flex;
-        align-items: center; 
+        align-items: center;
         color: $sitkablue;
         width: auto;
 
@@ -146,11 +146,11 @@
             font-size: fontsize(14px);
             line-height: 150%;
             margin-top: 12px;
-        
+
             @include breakpoint-up('lg') {
                 font-size: 16px;
             }
-            
+
             @include breakpoint-up('xl') {
                 font-size: 18px;
             }

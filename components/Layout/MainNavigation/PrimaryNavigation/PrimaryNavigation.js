@@ -4,10 +4,12 @@ import IconMenu from '@/svgs/menu.svg'
 import IconSearch from '@/svgs/search.svg'
 import { useMediaQuery } from 'react-responsive'
 import { useCustomerContext } from '@/context/CustomerContext'
+import { useHeaderContext } from '@/context/HeaderContext'
 
-const PrimaryNavigation = ({props, classes, setMobileMenuIsOpen}) => {
+const PrimaryNavigation = ({props, classes}) => {
 
   const customerContext = useCustomerContext()
+  const { setMobileMenuIsOpen } = useHeaderContext()
   const {menuItems} = (customerContext.customer?.is_member) ? props.memberPrimaryNavigation : props.nonMemberPrimaryNavigation
 
   const [mounted, setMounted] = useState(false);

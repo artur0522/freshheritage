@@ -9,6 +9,7 @@ import IconChefHat from '@/svgs/chef-hat.svg'
 import IconCutlery from '@/svgs/cutlery.svg'
 import IconScale from '@/svgs/scale.svg'
 import IconBullet from '@/svgs/list-item.svg'
+import IconPlayButton from '@/svgs/play-button.svg'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { useHeaderContext } from '@/context/HeaderContext'
 
@@ -31,6 +32,7 @@ import { useHeaderContext } from '@/context/HeaderContext'
 
 const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary', blogSettings }) => {
   const [mounted, setMounted] = useState(false)
+  const [startVideo, setStartVideo] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })
   const isDesktop = useMediaQuery(
     {query: '(min-width: 1074px)'}
@@ -60,6 +62,16 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
       autoplay: 1,
       rel: 0
     },
+  }
+
+  const showVideo = () => {
+    setStartVideo(true)
+  }
+
+  const test = (event) => {
+    setTimeout(() => {
+      event.target.playVideo();
+    }, 1000)
   }
 
   const backgroundColorClass = `article-hero--${blogSettings.fields[blogType].backgroundColor}-bg-color`
@@ -131,27 +143,29 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
       </div>
 
       <div className={classes['article-hero__image-wrapper']} style={{'top': `${ hide ? 0 : headerRef.current?.offsetHeight}px`}}>
-        {youtubeVideoId ? (
-          <div className={classes['article-hero__video']}>
-            <Youtube videoId={youtubeVideoId} opts={youtubeOptions} />
-          </div>
-        ):(
-          <div className={classes['article-hero__image']}>
-            {mobileBackgroundImage && isMobile && mounted &&
-              <ResponsiveImage
-                src={mobileBackgroundImage.asset.url}
-                layout="fill"
-                alt={mobileBackgroundImage.asset.alt || ''}
-              />}
-            {desktopBackgroundImage && isDesktop && mounted &&
-              <Image
-                src={desktopBackgroundImage.asset.url}
-                layout="fill"
-                alt={desktopBackgroundImage.asset.alt || ''}
-              />
-            }
-          </div>
-        )}
+        {!startVideo && <div className={classes['article-hero__image']}>
+          {mobileBackgroundImage && isMobile && mounted &&
+            <ResponsiveImage
+              src={mobileBackgroundImage.asset.url}
+              layout="fill"
+              alt={mobileBackgroundImage.asset.alt || ''}
+            />}
+          {desktopBackgroundImage && isDesktop && mounted &&
+            <Image
+              src={desktopBackgroundImage.asset.url}
+              layout="fill"
+              alt={desktopBackgroundImage.asset.alt || ''}
+            />
+          }
+          {youtubeVideoId &&
+            <button
+              className={classes['article-hero__play-btn']}
+              onClick={() => showVideo()}><IconPlayButton /></button>
+          }
+        </div>}
+        {youtubeVideoId && startVideo && <div className={classes['article-hero__video']}>
+          <Youtube videoId={youtubeVideoId} opts={youtubeOptions} onReady={(e) => test(e)} />
+        </div>}
       </div>
 
     </div>

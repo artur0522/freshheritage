@@ -301,3 +301,16 @@
     }
   }
 }
+
+.article-hero__play-btn {
+  position: absolute;
+  top: calc(50% - 53.5px);
+  left: calc(50% - 53.5px);
+  border: none;
+  background: none;
+  box-shadow: none;
+  svg {
+    width: 107px;
+    height: 107px;
+  }
+}

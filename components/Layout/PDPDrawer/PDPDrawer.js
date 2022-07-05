@@ -5,7 +5,7 @@ import { usePDPDrawerContext } from '@/context/PDPDrawerContext'
 import ProductMain from '@/components/Product/ProductMain'
 import ProductStamps from '@/components/Product/ProductStamps'
 import ProductDetailsList from '@/components/Product/ProductDetailsList'
-import FAQs from '@/components/FAQs'
+import FAQs from '@/components/Sections/FAQs'
 import IconClose from '@/svgs/close.svg'
 import ProductHarvests from '@/components/Product/ProductHarvests'
 

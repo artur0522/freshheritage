@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import Link from 'next/link'
-import CategoryCard from '../CategoryCard'
+import CategoryCard from '@/components/Cards/CategoryCard'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import IconArrow from '@/svgs/arrow-right.svg'
 import IconSearch from '@/svgs/search.svg'

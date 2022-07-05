@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-import DynamicArticleCard from "../DynamicArticleCard"
+import DynamicArticleCard from "@/components/Cards/DynamicArticleCard"
 
 import "swiper/css"
 import classes from './FeaturedBlogContent.module.scss'
@@ -36,7 +36,7 @@ const FeaturedBlogContent = ({ fields }) => {
             />
         </div>}
         {illustration2 && <div className={classes['illustration-2']}>
-            <Image 
+            <Image
                 src={illustration2.asset.url}
                 alt={illustration2Alt}
                 width={524}

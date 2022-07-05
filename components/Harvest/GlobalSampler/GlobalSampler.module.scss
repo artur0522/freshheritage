@@ -1,6 +1,6 @@
-@import '../../../styles/mixins/_breakpoints.scss';
-@import '../../../styles/variables/_breakpoints.scss';
-@import '../../../styles/variables/_colors.scss';
+@import '@/styles/mixins/_breakpoints.scss';
+@import '@/styles/variables/_breakpoints.scss';
+@import '@/styles/variables/_colors.scss';
 
 .harvest {
     position: relative;
@@ -16,7 +16,7 @@
             position: relative;
             z-index: -1;
         }
-       
+
         &.illustration-1 {
             top: 230px;
             left: 0;
@@ -34,7 +34,7 @@
             .harvest__illustration-img {
                 width: 215px;
                 height: 162px;
-    
+
                 @include breakpoint-up('md') {
                     width: 586.67px;
                     height: 440px;

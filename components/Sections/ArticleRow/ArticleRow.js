@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import DynamicArticleCard from '../DynamicArticleCard'
+import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
 import IconArrow from '@/svgs/arrow-right.svg'
 
 import classes from "./ArticleRow.module.scss"
@@ -27,7 +27,7 @@ const ArticleRow = ({ fields }) => {
             />
         </div>}
         {illustration2 && <div className={classes['illustration-2']}>
-            <Image 
+            <Image
                 src={illustration2.asset.url}
                 alt={illustration2Alt}
                 width={370}

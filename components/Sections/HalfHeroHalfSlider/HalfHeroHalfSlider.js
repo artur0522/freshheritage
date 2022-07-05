@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-import RecipeArticleCard from '../RecipeArticleCard'
+import RecipeArticleCard from '@/components/Cards/RecipeArticleCard'
 import IconLongArrow from '@/svgs/long-arrow-right.svg'
 import IconArrow from '@/svgs/arrow-right.svg'
 
@@ -54,7 +54,7 @@ const HalfHeroHalfSlider = ({ fields }) => {
                                 objectFit="cover"
                             />
                         </div>}
-                    
+
                         <div className={classes['hero-wrap__text']}>
                             {imageHeader && <h1>{imageHeader}</h1>}
                             {imageCtaUrl && <Link href={imageCtaUrl}>
@@ -107,7 +107,7 @@ const HalfHeroHalfSlider = ({ fields }) => {
                 }
             </div>
         </div>
-       
+
     </div>
   )
 }

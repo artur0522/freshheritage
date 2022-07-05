@@ -1,6 +1,6 @@
-@import '../../styles/mixins/_breakpoints.scss';
-@import '../../styles/variables/_breakpoints.scss';
-@import '../../styles/variables/_colors.scss';
+@import '@/styles/mixins/_breakpoints.scss';
+@import '@/styles/variables/_breakpoints.scss';
+@import '@/styles/variables/_colors.scss';
 
 .card {
   display: flex;

@@ -1,11 +1,11 @@
-@import '../../styles/mixins/_breakpoints.scss';
-@import '../../styles/variables/_breakpoints.scss';
-@import '../../styles/variables/_colors.scss';
+@import '@/styles/mixins/_breakpoints.scss';
+@import '@/styles/variables/_breakpoints.scss';
+@import '@/styles/variables/_colors.scss';
 
 .props {
     padding: 60px 0;
 
-    @include breakpoint-up('sm') { 
+    @include breakpoint-up('sm') {
         padding: 180px 0;
     }
 
@@ -25,7 +25,7 @@
         align-items: center;
         margin: 0 auto 0 auto;
 
-        @include breakpoint-up('sm') { 
+        @include breakpoint-up('sm') {
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: center;
@@ -35,7 +35,7 @@
         &.extra-props {
             align-items: flex-start;
 
-            @include breakpoint-up('sm') { 
+            @include breakpoint-up('sm') {
                 width: initial;
             }
         }
@@ -47,7 +47,7 @@
         margin: 24px auto 0 auto;
         max-width: 319px;
 
-        @include breakpoint-up('sm') { 
+        @include breakpoint-up('sm') {
             max-width: none;
             width: 21.14%;
             margin: 72px 0 0 0;
@@ -60,7 +60,7 @@
             margin: 24px 0 0 0;
             max-width: none;
 
-            @include breakpoint-up('sm') { 
+            @include breakpoint-up('sm') {
                 flex-direction: column;
                 align-items: center;
                 margin: 72px 0 0 0;
@@ -75,7 +75,7 @@
                 align-items: center;
                 justify-content: center;
 
-                @include breakpoint-up('sm') { 
+                @include breakpoint-up('sm') {
                     width: 108px;
                     height: 108px;
                 }
@@ -87,7 +87,7 @@
                 min-width: 24px;
                 min-height: 24px;
 
-                @include breakpoint-up('sm') { 
+                @include breakpoint-up('sm') {
                     min-width: 48px;
                     min-height: 48px;
                 }
@@ -98,7 +98,7 @@
                 margin-left: 20px;
                 text-align: left;
 
-                @include breakpoint-up('sm') { 
+                @include breakpoint-up('sm') {
                     margin-left: 0;
                     text-align: center;
                     margin-top: 24px;
@@ -113,7 +113,7 @@
             margin: auto;
             position: relative;
 
-            @include breakpoint-up('sm') { 
+            @include breakpoint-up('sm') {
                 min-height: 156px;
                 min-width: 156px;
             }
@@ -124,7 +124,7 @@
             text-align: center;
             margin-top: 24px;
 
-            @include breakpoint-up('sm') { 
+            @include breakpoint-up('sm') {
                 margin-top: 36px;
             }
 
@@ -144,7 +144,7 @@
         width: 80%;
         margin:  0 auto 24px auto;
 
-        @include breakpoint-up('sm') { 
+        @include breakpoint-up('sm') {
             max-width: 822px;
         }
 
@@ -162,7 +162,7 @@
         max-width: 243px;
         margin: 34px auto 0 auto;
 
-        @include breakpoint-up('sm') { 
+        @include breakpoint-up('sm') {
             max-width: 389px;
             margin: 72px auto 0 auto;
         }

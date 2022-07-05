@@ -1,7 +1,7 @@
 
 import FAQItem from './FAQItem'
 import classes from './FAQs.module.scss'
-import ResponsiveImage from '../ResponsiveImage'
+import ResponsiveImage from '@/components/ResponsiveImage'
 import { useMediaQuery } from 'react-responsive'
 
 const FAQs = ({ fields, parentClasses }) => {

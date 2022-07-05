@@ -1,7 +1,7 @@
 import React from 'react'
 
-import FullBleedHero from '../FullBleedHero'
-import SplitHero from '../SplitHero'
+import FullBleedHero from '@/components/Sections/FullBleedHero'
+import SplitHero from '@/components/Sections/SplitHero'
 
 const DynamicHero = ({ fields }) => {
   const { heroType, fullBleedHero, splitHero } = fields

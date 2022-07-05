@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react'
+import Youtube from 'react-youtube'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { PortableText } from '@portabletext/react'
 import classes from './ArticleContent.module.scss'
@@ -6,6 +7,8 @@ import ArticleProduct from '../ArticleProduct'
 import ArticleSocialSharing from '../ArticleSocialSharing'
 import Link from 'next/link'
 import IconCaretThin from '@/svgs/caret-thin.svg'
+import IconKnife from '@/svgs/knife.svg'
+import IconPan from '@/svgs/pan.svg'
 
 const StandardContent = forwardRef(({fields, product}, ref) => {
 
@@ -13,6 +16,28 @@ const StandardContent = forwardRef(({fields, product}, ref) => {
 
   console.log("content:", content)
   console.log("product:", product)
+
+  const getIcon = (icon) => {
+    switch(icon) {
+      case 'knife':
+        return <IconKnife />
+      case 'pan':
+        return <IconPan />
+      default:
+        return ''
+    }
+  }
+
+  const youtubeOptions = {
+    height: '390',
+    width: '640',
+    playerVars: {
+      controls: 0,
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 1,
+      rel: 0
+    },
+  }
 
   const myPortableTextComponents = {
     block: {
@@ -26,7 +51,13 @@ const StandardContent = forwardRef(({fields, product}, ref) => {
     marks: {
       arrowLink: ({ children, value }) => (<Link href={value.href || ''}>
         <a className={classes['article-section__arrow-link']}>{children}<IconCaretThin /></a>
-      </Link>)
+      </Link>),
+      iconWithText: ({children, value}) => {
+        return (<div className={classes['article-section__cooking-tools']}>
+          <span className={classes['article-section__cooking-tools-icon']}>{getIcon(value.icon)}</span>
+          <span className={classes['article-section__cooking-tools-text']}>{children}</span>
+        </div>)
+      }
     },
     types: {
       image: ({value}) => (<div className={classes['article-section__image']}>
@@ -34,6 +65,11 @@ const StandardContent = forwardRef(({fields, product}, ref) => {
       </div>),
       productBlock: () => (
         <ArticleProduct product={product} parentClasses={classes} />
+      ),
+      youtubeVideoBlock: ({value}) => (
+        <div className={classes['article-section__video']}>
+          <Youtube videoId={value.youtubeVideoId} opts={youtubeOptions} />
+        </div>
       )
     },
     listItem: {

@@ -5,17 +5,33 @@
 .hero {
   position: relative;
 
+  &.top-margin {
+    margin-top: 23px;
+
+    @include breakpoint-up('md') {
+      margin-top: 60px;
+    }
+  }
+
+  &.bottom-margin {
+    margin-bottom: 23px;
+
+    @include breakpoint-up('md') {
+      margin-bottom: 60px;
+    }
+  }
+
   // dynamic color modifiers
   &.text--light {
     color: $alabaster;
 
     .btn-wrap {
       a:first-child {
-        min-width: 250px;
+        min-width: 243px;
       }
-      
+
       a:not(:first-child) {
-        color:  $alabaster;
+        color: $alabaster;
       }
     }
   }
@@ -79,7 +95,7 @@
       }
 
       .btn {
-        width: 243px;
+        min-width: 243px;
         margin: 0 auto 24px auto;
       }
 
@@ -115,7 +131,7 @@
 
         a {
           @include breakpoint-up('sm') {
-            max-width: 250px;
+            max-width: 243px;
           }
         }
       }
@@ -125,11 +141,11 @@
   // HERO TRANSPARENT BG STYLES
   &.hero--center-transparent {
     .hero__wrap--mbl {
-      height: 622px;
+      height: 636px;
     }
 
     .hero__text {
-      padding: 84px 35px;
+      padding: 57.03px 36.5px;
       box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.1);
       background-color: rgba(252, 250, 248, 0.95);
       position: absolute;
@@ -143,9 +159,19 @@
         border-radius: 12px;
       }
 
+      @include breakpoint-up('lg') {
+        padding: 0;
+        width: 1108px;
+        min-height: 623px;
+        display: flex;
+        align-items: center;
+      }
+
       // hero__text-inner
       &-inner {
         text-align: center;
+        max-width: 822px;
+        margin: auto;
 
         a {
           @include breakpoint-up('sm') {
@@ -154,7 +180,7 @@
         }
 
         .btn {
-          min-width: 250px;
+          min-width: 243px;
 
           @include breakpoint-up('sm') {
             width: 392px;
@@ -190,7 +216,7 @@
 
         a {
           @include breakpoint-up('sm') {
-            max-width: 250px;
+            max-width: 243px;
           }
         }
       }

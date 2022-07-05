@@ -13,6 +13,7 @@ import ProductGiftForm from '@/components/Product/ProductGiftForm'
 import { GET_PRODUCTS } from '@/gql/index.js'
 
 import classes from './Product.module.scss'
+import { split } from 'lodash-es'
 
 function Product({ product, page }) {
   const [checked, setChecked] = useState(false)
@@ -41,7 +42,21 @@ function Product({ product, page }) {
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
 
     const foundCustomerTag = customer?.tags.find(tag => tag.includes('member') || tag.includes('sustainer'))
-    const productHasCustomerTag = foundVisibleTags.find(tag => tag.includes('member') || tag.includes('sustainer'))
+    const productHasCustomerTag = foundVisibleTags?.find((tag) => { 
+      let splitTag = tag.split(':')[1] === foundCustomerTag
+      if(splitTag) {
+        return splitTag
+      } else {
+        return null
+      }
+    })
+
+    if(!customer) {
+      const gatedPopup = page.find(field => field.handle === splitTagWithDash)
+      modalContext.setContent(gatedPopup.fields)
+      modalContext.setIsOpen(true)
+      modalContext.setModalType('gated_product')
+    }
 
     if(foundVisibleTags.length > 0 && customer && !productHasCustomerTag) {
       const gatedPopup = page.find(field => field.handle === splitTagWithDash)

@@ -24,7 +24,7 @@ const RecipeArticleCard = ({ article }) => {
             </div>}
             <div className={classes['article__card-content']}>
                 {article.heroSubheader && <span className="recipe--time">{article.heroSubheader}</span>}
-                {article.heroHeader && <h1 className='heading--article'>{article.heroHeader}</h1>}
+                {article.heroHeader && <h4 className='heading--article'>{article.heroHeader}</h4>}
             </div>
         </div>
     </Link>

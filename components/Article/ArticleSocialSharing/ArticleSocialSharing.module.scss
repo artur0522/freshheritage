@@ -1,0 +1,52 @@
+@import '@/styles/_shared.scss';
+
+.article-social-sharing {
+  display: flex;
+  list-style: none;
+  margin-bottom: 25px;
+  @include breakpoint-up('md') {
+    margin-bottom: 50px;
+  }
+  li {
+    margin-right: 20px;
+    @include breakpoint-up('md') {
+      margin-right: 35px;
+    }
+    button {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      border: none;
+      background: none;
+      @include breakpoint-up('md') {
+        font-size: 18px;
+      }
+      &.more-info-btn {
+        &:hover {
+          color: $salmon;
+          svg {
+            circle {
+              fill: $salmon;
+            }
+            path {
+              stroke: $salmon;
+            }
+          }
+        }
+      }
+      &:hover:not(.more-info-btn) {
+        color: $salmon;
+        svg {
+          * {
+            fill: $salmon;
+          }
+        }
+      }
+      svg {
+        width: 26px;
+        margin-right: 5px;
+      }
+    }
+  }
+}

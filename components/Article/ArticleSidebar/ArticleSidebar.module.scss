@@ -1,0 +1,132 @@
+@import '@/styles/_shared.scss';
+
+.article-sidebar {
+  width: 100%;
+  background-color: $fawn50-2;
+  padding: 35px 30px;
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  transition: 0.3s ease-in-out transform;
+  transform: translateX(100%);
+  overflow-y: auto;
+  &.is-open {
+    transform: translateX(0);
+  }
+  @include breakpoint-up('sm') {
+    padding: 65px 50px;
+  }
+  @include breakpoint-up('md') {
+    overflow-y: visible;
+    position: static;
+    height: auto;
+    transform: translateX(0);
+    z-index: auto;
+    width: 47%;
+    padding: 65px;
+  }
+}
+
+.article-sidebar__header {
+  position: relative;
+  padding-bottom: 35px;
+  text-align: center;
+  margin-top: -20px;
+  button {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: -2px;
+    left: -20px;
+    border: none;
+    color: $salmon;
+    background-color: transparent;
+    svg {
+      width: 9px;
+      margin-right: 4px;
+    }
+    span {
+      position: relative;
+      top: 1px;
+    }
+  }
+  h5 {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  @include breakpoint-up('md') {
+    display: none;
+  }
+}
+
+.article-sidebar__main {
+  max-width: 430px;
+}
+
+.article-sidebar__section {
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid $black20;
+  &:last-child {
+    padding: 0;
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+}
+
+.article-author__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.article-author__image {
+  flex-basis: 137px;
+  width: 137px;
+  margin-right: 35px;
+  img {
+    border-radius: 82px;
+  }
+}
+
+.article-related-item-list {
+  list-style: none;
+  @include breakpoint-up('md') {
+    margin-right: 40px;
+  }
+  li {
+    display: flex;
+    flex-direction: column;
+    background-color: $pureWhite;
+    padding: 27px 20px;
+    border-radius: 12px;
+    margin: 20px 0 25px;
+    @include breakpoint-up('md') {
+      margin: 40px 0 50px;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .article-related-item__image {
+    margin-bottom: 30px;
+    width: 100%;
+    position: relative;
+    height: 266px;
+    @include breakpoint-up('md') {
+      height: 385px;
+    }
+    img {
+      border-radius: 12px;
+      object-fit: cover;
+    }
+  }
+  a {
+    text-decoration: none;
+  }
+}

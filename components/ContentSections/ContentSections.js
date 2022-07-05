@@ -4,20 +4,20 @@ import CurrentHarvest from '../Harvest/CurrentHarvest'
 import ProjectedHarvestDrawer from '../Harvest/ProjectedHarvestDrawer'
 import ProjectedHarvest from '../Harvest/ProjectedHarvest'
 import GlobalSampler from '../Harvest/GlobalSampler'
-import FeaturedBlogContent from '../FeaturedBlogContent'
-import FullBleedHero from '../FullBleedHero'
-import SplitHero from '../SplitHero'
-import FiftyFifty from '../FiftyFifty'
-import PressLogos from '../PressLogos'
-import ValueProps from '../ValueProps'
-import FAQs from '../FAQs'
-import BlogHero from "../BlogHero"
-import RecipeCategoriesList from '../RecipeCategoriesList'
-import HalfHeroHalfSlider from '../HalfHeroHalfSlider'
+import FeaturedBlogContent from '@/components/Sections/FeaturedBlogContent'
+import FullBleedHero from '@/components/Sections/FullBleedHero'
+import SplitHero from '@/components/Sections/SplitHero'
+import FiftyFifty from '@/components/Sections/FiftyFifty'
+import PressLogos from '@/components/Sections/PressLogos'
+import ValueProps from '@/components/Sections/ValueProps'
+import FAQs from '@/components/Sections/FAQs'
+import BlogHero from "@/components/Sections/BlogHero"
+import RecipeCategoriesList from '@/components/Sections/RecipeCategoriesList'
+import HalfHeroHalfSlider from '@/components/Sections/HalfHeroHalfSlider'
 import EmailSignup from '../EmailSignup'
-import BrowseCategory from '../BrowseCategory'
-import ArticleRow from '../ArticleRow'
-import HalfVideoBlock from '../HalfVideoBlock'
+import BrowseCategory from '@/components/Sections/BrowseCategory'
+import ArticleRow from '@/components/Sections/ArticleRow'
+import HalfVideoBlock from '@/components/Sections/HalfVideoBlock'
 
 const ContentSections = ({ sections }) => {
   if (!Array.isArray(sections)) {
@@ -26,7 +26,7 @@ const ContentSections = ({ sections }) => {
 
   return sections.map((section) => {
     const type = section?._type
-    
+
     switch (type) {
       case 'hero':
         return <FullBleedHero fields={section} key={section._key} />

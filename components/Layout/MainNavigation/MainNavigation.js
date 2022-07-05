@@ -5,9 +5,9 @@ import PrimaryNavigation from './PrimaryNavigation'
 import NavigationUtilities from './NavigationUtilities'
 import PurchaseFlowNavigation from './PurchaseFlowNavigation'
 
-const MainNavigation = ({props, setMobileMenuIsOpen, pageHandle}) => {
+const MainNavigation = ({props, pageHandle}) => {
 
-  let navigationType;
+  let navigationType
 
   if (pageHandle === 'purchase-flow' || 'checkout') {
     navigationType = pageHandle
@@ -17,7 +17,7 @@ const MainNavigation = ({props, setMobileMenuIsOpen, pageHandle}) => {
     <nav className={`${classes.mainNavigation} ${navigationType ? classes[navigationType] : '' }`}>
       <div className={`${classes.mainNavContainer} container`}>
         {pageHandle !== 'purchase-flow' &&
-          <PrimaryNavigation props={props} classes={classes} setMobileMenuIsOpen={setMobileMenuIsOpen} />
+          <PrimaryNavigation props={props} classes={classes} />
         }
         <div className={classes.navLogo}>
           <div className={classes.navLogoContainer}>

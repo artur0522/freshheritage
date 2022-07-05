@@ -1,6 +1,6 @@
 import classes from './Footer.module.scss'
 
-import FooterEmailSignup from './FooterEmailSignup'
+import FooterTop from './FooterTop'
 import FooterNavigation from './FooterNavigation'
 import FooterBottom from './FooterBottom'
 
@@ -13,7 +13,7 @@ const Footer = ({ content }) => {
   return (
     <footer className={classes.footer}>
       <div className="container">
-        <FooterEmailSignup props={content.emailSignup} classes={classes} />
+        <FooterTop props={content} classes={classes} />
         <FooterNavigation props={content} classes={classes} />
         <FooterBottom props={content} classes={classes} />
       </div>

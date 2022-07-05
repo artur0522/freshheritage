@@ -1,10 +1,53 @@
 @import '@/styles/_shared.scss';
 
 .email-signup {
-    background-color: $fawn50-2;
-    margin-bottom: 14px;
-
-    @include breakpoint-up('md') {
-        margin-bottom: 57.5px;
+  width: 100%;
+  height: 100%;
+  h2 {
+    margin-bottom: 20px;
+  }
+  input {
+    border: 1px solid $fawn50-2;
+    border-radius: 12px;
+    width: 100%;
+    height: 48px;
+    padding: 20px;
+    margin: 0;
+    @include breakpoint-up('sm') {
+      height: 60px;
     }
+  }
+  svg {
+    position: absolute;
+    top: calc(50% - 14px);
+    right: 20px;
+  }
+  button {
+    height: 48px;
+    @include breakpoint-up('md') {
+      max-width: 220px;
+    }
+    @include breakpoint-up('lg') {
+      max-width: 286px;
+    }
+  }
+}
+
+.email-signup__text-success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1.1;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+.email-signup__text-error {
+  font-size: 16px;
+  line-height: 1.1;
+  margin: 10px 0 0;
+  color: $error;
 }

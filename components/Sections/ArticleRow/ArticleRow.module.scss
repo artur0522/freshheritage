@@ -8,6 +8,22 @@
         padding-bottom: 61px;
     }
 
+    &.reverse {
+        .article-slide {
+            @include breakpoint-up('md') {
+                min-width: 841px;
+            }
+        }
+    }
+
+    .article-slide {
+        width: 300px;
+
+        @include breakpoint-up('md') {
+            min-width: 389px;
+        }
+    }
+
     &.top-margin {
         margin-top: 60px;
 

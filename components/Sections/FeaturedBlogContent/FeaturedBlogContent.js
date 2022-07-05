@@ -92,7 +92,7 @@ const FeaturedBlogContent = ({ fields }) => {
             >
                 {selectedSwiper.tabList.map((article) => {
                     return (
-                        <SwiperSlide key={`${article._type}-${article._id}`}>
+                        <SwiperSlide className={classes['article-slide']} key={`${article._type}-${article._id}`}>
                             <DynamicArticleCard article={article} />
                         </SwiperSlide>
                     )

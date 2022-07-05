@@ -25,7 +25,7 @@ const BrowseCategory = ({fields}) => {
             <div className={classes['header']}>
                 {header && <h1>{header}</h1>}
 
-                {mobileUrl && isMobile && <div className={classes['header-link']}>
+                {mobileUrl && isMobile && mounted && <div className={classes['header-link']}>
                     <Link href={mobileUrl}>
                         <a>{mobileCta}</a>
                     </Link>

@@ -62,6 +62,8 @@ const ContentSections = ({ sections }) => {
         return <BrowseCategory fields={section} key={section._key} />
       case 'articleRow':
         return <ArticleRow fields={section} key={section._key} />
+      case 'recipeArticleRow':
+        return <ArticleRow fields={section} key={section._key} />
       case 'halfVideoBlock':
         return <HalfVideoBlock fields={section} key={section._key} />
       default:

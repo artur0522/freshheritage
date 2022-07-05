@@ -4,7 +4,7 @@ import ArticleCard from '../ArticleCard'
 import RecipeArticleCard from '../RecipeArticleCard'
 
 const DynamicArticleCard = ({ article, reverse }) => {
-  const tags = article.articleTags
+  const tags = article.fields ? article.fields.hero?.articleTags : article.hero?.articleTags
   const recipeTag = tags?.find((tag) => {
     return tag.value === 'recipe'
   })

@@ -1,14 +1,14 @@
 import React from 'react'
 
 import { nacelleClient } from 'services'
-import ContentSections from '../components/ContentSections'
+import ContentSections from '../../../components/ContentSections'
 
-export default function CulinaryBlog({ pages }) {
-  const culinaryBlogPage = pages.find((page) => page.handle === 'culinary-blog')
+export default function BrandBlog({ pages }) {
+  const brandBlogPage = pages.find((page) => page.handle === 'brand-blog')
 
   return (
     <>
-       <ContentSections sections={culinaryBlogPage.fields.content} />
+       <ContentSections sections={brandBlogPage.fields.content} />
     </>
   )
 }
@@ -16,7 +16,7 @@ export default function CulinaryBlog({ pages }) {
 export async function getStaticProps({ previewData }) {
   try {
     const pages = await nacelleClient.content({
-      handles: ['culinary-blog']
+      handles: ['brand-blog']
     })
 
     return {

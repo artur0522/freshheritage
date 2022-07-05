@@ -4,6 +4,7 @@ import { PortableText } from '@portabletext/react'
 import classes from './ArticleContent.module.scss'
 import Link from 'next/link'
 import IconStar from '@/svgs/empty-star.svg'
+import IconCaretThin from '@/svgs/caret-thin.svg'
 import ArticleProduct from '../ArticleProduct'
 import ArticleSocialSharing from '../ArticleSocialSharing'
 

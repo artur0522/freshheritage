@@ -39,7 +39,7 @@ const StandardContent = forwardRef(({fields, product}, ref) => {
     listItem: {
       bullet: ({children}) => {
         return (
-          <li class="body">{children}</li>
+          <li className="body">{children}</li>
         )
       }
     }

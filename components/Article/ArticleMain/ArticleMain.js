@@ -9,7 +9,7 @@ const ArticleMain = ({contentType, fields, product, showNav = false}) => {
 
   const h1blocks = fields.content?.filter(item => item.style === 'h1')
 
-  const refs = useRef(h1blocks.reduce((carry, block) => {
+  const refs = useRef(h1blocks?.reduce((carry, block) => {
     return {
       ...carry,
       [block.children[0].text]: createRef()

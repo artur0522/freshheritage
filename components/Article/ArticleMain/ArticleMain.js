@@ -31,7 +31,7 @@ const ArticleMain = ({contentType, fields, product, showNav = false}) => {
 
   return (
     <div className={classes['article-main']}>
-      {showNav && <ArticleNav ref={refs} />}
+      {showNav && refs.current?.length && <ArticleNav ref={refs} />}
       <div className={classes['article-main__wrapper']}>
         {getContent(contentType)}
         {sidebar && <ArticleSidebar fields={sidebar} />}

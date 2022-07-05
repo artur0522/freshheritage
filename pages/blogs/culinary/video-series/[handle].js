@@ -6,8 +6,8 @@ import ContentSections from '@/components/ContentSections'
 
 const RecipeArticle = ({ page, product, blogSettings }) => {
 
-  console.log("page:", page)
-  console.log("blogSettings:", blogSettings)
+  // console.log("page:", page)
+  // console.log("blogSettings:", blogSettings)
 
   const { hero } = page.fields
   const blogType = page.fields.blog?.blogType

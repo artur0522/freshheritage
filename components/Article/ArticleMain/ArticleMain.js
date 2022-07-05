@@ -7,7 +7,7 @@ import ArticleSidebar from '../ArticleSidebar'
 
 const ArticleMain = ({contentType, fields, product, showNav = false}) => {
 
-  const h1blocks = fields.content.filter(item => item.style === 'h1')
+  const h1blocks = fields.content?.filter(item => item.style === 'h1')
 
   const refs = useRef(h1blocks.reduce((carry, block) => {
     return {

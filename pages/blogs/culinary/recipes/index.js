@@ -1,6 +1,6 @@
 import React from 'react'
 import { nacelleClient } from 'services'
-import DynamicArticleCard from '@/components/DynamicArticleCard'
+import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
 import IconSearch from '@/svgs/search.svg'
 import IconArrow from '@/svgs/arrow-down.svg'
 

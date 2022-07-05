@@ -4,11 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-<<<<<<< HEAD:components/HalfHeroHalfSlider/HalfHeroHalfSlider.js
-import DynamicArticleCard from '../DynamicArticleCard'
-=======
-import RecipeArticleCard from '@/components/Cards/RecipeArticleCard'
->>>>>>> Sung/release-22.30.06:components/Sections/HalfHeroHalfSlider/HalfHeroHalfSlider.js
+import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
 import IconLongArrow from '@/svgs/long-arrow-right.svg'
 import IconArrow from '@/svgs/arrow-right.svg'
 

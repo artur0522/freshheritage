@@ -7,8 +7,7 @@
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         row-gap: 61px;
-        padding-top: 61px;
-        padding-bottom: 61px;
+        margin-bottom: 41px;
 
         @include breakpoint-up('md') {
             grid-template-columns: repeat(3, 1fr);
@@ -27,6 +26,7 @@
     &__filter-row {
         display: flex;
         justify-content: space-between;
+        margin-bottom: 20px;
 
         .toggle-filters {
             background-color: transparent;
@@ -39,12 +39,18 @@
                 margin-right: 5px;
             }
 
+            .select-wrap {
+                position: relative;
+            }
+
             select {
                 border: none;
                 color: $sitkablue;
                 -moz-appearance: none;
                 -webkit-appearance: none;
                 -webkit-border-radius: 0px;
+                background: url("./arrow-down.png") no-repeat right;
+                min-width: 78.65px;
             }
         }
     }
@@ -54,7 +60,9 @@
         background-color: #fff;
         border-radius: 40px;
         border: 1px solid $fawn50-2;
-        padding: 15.67px 0 15.65px 13.55px;
+        padding: 14px 0 14px 13px;
+        margin-top: 49px;
+        margin-bottom: 29px;
 
         form {
             display: flex;
@@ -86,5 +94,10 @@
                 font-weight: 500;
             }
         }
+    }
+
+    // recipes__pagination
+    &__pagination {
+        margin-bottom: 37px;
     }
 }

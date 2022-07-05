@@ -2,7 +2,7 @@ import {useRef, useState} from 'react'
 import IconEnvelope from '@/svgs/envelope.svg'
 import classes from './EmailSignup.module.scss'
 
-const EmailSignup = ({props}) => {
+const EmailSignup = ({ props }) => {
 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
   const [showErrorMessage, setShowErrorMessage] = useState(false)

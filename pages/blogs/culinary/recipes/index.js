@@ -13,31 +13,37 @@ const RecipeListings = ({recipeArticles, blogSettings}) => {
       <ArticleSplitHero fields={''} renderType="blog-listing" blogType="culinary" blogSettings={blogSettings} />
       <div className={classes['recipes']}>
         <div className="container">
-          <div className={classes['recipes__search']}>
-              <form>
-                  <button type="button">
-                      <IconSearch />
-                  </button>
+
+          <form>
+            <div className={classes['recipes__search']}>
+              <button type="button">
+                  <IconSearch />
+              </button>
               <input type="text" placeholder='Search' className="secondary--body" />
-              </form>
-          </div>
-
-          <div className={classes['recipes__filter-row']}>
-            <button className={classes['toggle-filters']}><span>Show Filters</span></button>
-
-            <div className={classes['sort-by']}>
-            <label>Sort By</label>
-            <select>
-                <option>Newest</option>
-                <option>Oldest</option>
-            </select>
-            <IconArrow />
             </div>
-          </div>
+
+            <div className={classes['recipes__filter-row']}>
+              <button type="button" className={classes['toggle-filters']}><span>Show Filters</span></button>
+
+              <div className={classes['sort-by']}>
+                  <label>Sort By</label>
+                    <select>
+                        <option>Newest</option>
+                        <option>Oldest</option>
+                    </select>
+              </div>
+            </div>
+          </form>
 
           <div className={classes['recipes__list']}>
             {recipeArticles.map(article => <div key={article.handle}><DynamicArticleCard article={article} /></div>)}
           </div>
+
+
+          <div className={classes['recipes__pagination']}>
+            pagination
+          </div>
+
         </div>
       </div>
     </>

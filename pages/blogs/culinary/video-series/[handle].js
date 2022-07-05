@@ -2,7 +2,7 @@ import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import ArticleMain from '@/components/Article/ArticleMain'
 import { nacelleClient } from 'services'
 import { GET_PRODUCTS } from '@/gql/index.js'
-import ContentSections from '@/components/ContentSections'
+import ContentSections from '@/components/Sections/ContentSections'
 
 const RecipeArticle = ({ page, product, blogSettings }) => {
 

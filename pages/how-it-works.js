@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { nacelleClient } from 'services'
-import ContentSections from '../components/ContentSections'
+import ContentSections from '../components/Sections/ContentSections'
 
 export default function HowItWorks({ pages }) {
   const howItWorksPage = pages.find((page) => page.handle === 'how-it-works')

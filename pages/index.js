@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 
 import { nacelleClient } from 'services'
-import ContentSections from '../components/ContentSections'
+import ContentSections from '../components/Sections/ContentSections'
 import DynamicHero from "@/components/Sections/DynamicHero"
 import { useCustomerContext } from '@/context/CustomerContext'
 

@@ -5,7 +5,7 @@ import ResponsiveImage from '@/components/ResponsiveImage'
 
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
-import ContentSections from '@/components/ContentSections'
+import ContentSections from '@/components/Sections/ContentSections'
 import ProductReviewStars from '../../components/Product/ProductReviewStars'
 import ProductSlider from '../../components/Product/ProductSlider'
 import ProductAccordion from '../../components/Product/ProductAccordion'
@@ -35,13 +35,13 @@ function Product({ product, page }) {
     if(product.content.handle === 'digital-gift-card') {
       setChecked(true)
     }
-    
+
     const foundVisibleTags = product.tags.filter(tag => tag.includes('Visible'));
     const splitTag = foundVisibleTags[0]?.split(':')[1]
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
     const foundCustomerTag = customer?.tags.find(tag => tag.includes('member') || tag.includes('sustainer'))
 
-    const productHasCustomerTag = foundVisibleTags?.find((tag) => { 
+    const productHasCustomerTag = foundVisibleTags?.find((tag) => {
       let splitTag = tag.split(':')[1] === foundCustomerTag
       if(splitTag) {
         return splitTag
@@ -60,7 +60,7 @@ function Product({ product, page }) {
         modalContext.setModalType('gated_product')
         modalContext.setIsOpen(true)
       }
-      if(foundVisibleTags.length > 0 && !productHasCustomerTag) {   
+      if(foundVisibleTags.length > 0 && !productHasCustomerTag) {
         modalContext.setContent(modal[0]?.fields)
         modalContext.setModalType('gated_product')
         modalContext.setIsOpen(true)

@@ -11,6 +11,8 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
 
   const { hero } = page.fields
   const blogType = page.fields.blog?.blogType
+  hero.header = page.title
+  hero.subheader = page.subheader
 
   return (
     <>

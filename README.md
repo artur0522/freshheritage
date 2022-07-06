@@ -6,10 +6,17 @@ Please note that this starter supports Nacelle's [v2 backend](https://dashboard.
 
 ## Getting Started
 
+
 First, pull down a fresh copy of the Next.js Starter:
 
 ```
 npx degit https://github.com/getnacelle/nacelle-js/starters/next
+```
+
+Set Node version to 16.14.2
+
+```
+nvm use 16.14.2
 ```
 
 Next, install dependencies and run the project.

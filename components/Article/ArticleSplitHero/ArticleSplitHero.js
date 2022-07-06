@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Youtube from 'react-youtube'
+import { useTimer } from 'react-timer-hook'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,6 +12,7 @@ import IconBullet from '@/svgs/list-item.svg'
 import IconPlayButton from '@/svgs/play-button.svg'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { useHeaderContext } from '@/context/HeaderContext'
+import ArticleVideo from '../ArticleVideo'
 
 /*
   Split Hero can be used for Article or Blog Listing Pages
@@ -27,7 +28,7 @@ import { useHeaderContext } from '@/context/HeaderContext'
     - recipe -> recipe content inside floating panel/box
     - default -> white background
     - cooking-guide -> same as default, but with sticky hero image/video
-
+    - live-cooking-class -> same as default, but with a countdown timer
 */
 
 const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary', blogSettings }) => {
@@ -163,9 +164,7 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
               onClick={() => showVideo()}><IconPlayButton /></button>
           }
         </div>}
-        {youtubeVideoId && startVideo && <div className={classes['article-hero__video']}>
-          <Youtube videoId={youtubeVideoId} opts={youtubeOptions} onReady={(e) => test(e)} />
-        </div>}
+        {youtubeVideoId && <ArticleVideo youtubeVideoId={youtubeVideoId} startVideo={startVideo} className={classes['article-hero__video']} />}
       </div>
 
     </div>

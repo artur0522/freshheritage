@@ -1,5 +1,4 @@
 import React, { forwardRef } from 'react'
-import Youtube from 'react-youtube'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { PortableText } from '@portabletext/react'
 import classes from './ArticleContent.module.scss'
@@ -9,13 +8,11 @@ import Link from 'next/link'
 import IconCaretThin from '@/svgs/caret-thin.svg'
 import IconKnife from '@/svgs/knife.svg'
 import IconPan from '@/svgs/pan.svg'
+import ArticleVideo from '../ArticleVideo'
 
 const StandardContent = forwardRef(({fields, product}, ref) => {
 
   const { content } = fields
-
-  console.log("content:", content)
-  console.log("product:", product)
 
   const getIcon = (icon) => {
     switch(icon) {
@@ -26,17 +23,6 @@ const StandardContent = forwardRef(({fields, product}, ref) => {
       default:
         return ''
     }
-  }
-
-  const youtubeOptions = {
-    height: '390',
-    width: '640',
-    playerVars: {
-      controls: 0,
-      // https://developers.google.com/youtube/player_parameters
-      autoplay: 1,
-      rel: 0
-    },
   }
 
   const myPortableTextComponents = {
@@ -66,11 +52,7 @@ const StandardContent = forwardRef(({fields, product}, ref) => {
       productBlock: () => (
         <ArticleProduct product={product} parentClasses={classes} />
       ),
-      youtubeVideoBlock: ({value}) => (
-        <div className={classes['article-section__video']}>
-          <Youtube videoId={value.youtubeVideoId} opts={youtubeOptions} />
-        </div>
-      )
+      youtubeVideoBlock: ({value}) => <ArticleVideo youtubeVideoId={value.youtubeVideoId} autoplay={false} startVideo="true" className={classes['article-section__video']} />
     },
     listItem: {
       bullet: ({children}) => {

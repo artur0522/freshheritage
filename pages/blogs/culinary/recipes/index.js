@@ -7,8 +7,11 @@ import IconArrow from '@/svgs/arrow-down.svg'
 import classes from "./RecipesListings.module.scss"
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 
-const RecipeListings = ({recipeArticles, blogSettings, recipesListingsSections}) => {
-  console.log('recipeslistings', recipesListingsSections)
+const RecipeListings = ({recipeArticles, blogSettings, recipeListings}) => {
+  const { content } = recipeListings[0].fields
+  const heroSection = content?.find(section => section._type === 'hero')
+  const articleRowSection = content?.find(section => section.__type === 'recipeArticleRow')
+
   return (
     <>
       <ArticleSplitHero fields={''} renderType="blog-listing" blogType="culinary" blogSettings={blogSettings} />
@@ -64,9 +67,9 @@ export async function getStaticProps({ params }) {
     type: 'blogSettings'
   })
 
-  const recipesListingsSections  = await nacelleClient.content({
-    handles: ['recipes-listings'],
-    type: 'page'
+  const recipeListings  = await nacelleClient.content({
+    handles: ['recipe-listings'],
+    type: 'blog'
   })
 
   if (!recipeArticles.length) {
@@ -79,7 +82,7 @@ export async function getStaticProps({ params }) {
     props: {
       recipeArticles: recipeArticles,
       blogSettings: blogSettings[0],
-      recipesListingsSections: recipesListingsSections
+      recipeListings: recipeListings
     }
   }
 }

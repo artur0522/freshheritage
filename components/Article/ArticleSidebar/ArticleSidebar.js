@@ -48,7 +48,7 @@ const ArticleSidebar = ({fields}) => {
           </div>
           <ul className={classes['article-host-list']}>
             {hosts.hostList.map(author => {
-              return <li>
+              return <li key={author._id}>
                 <div className={classes['article-author__image']}>
                   <ResponsiveImage
                     src={author.image.asset.url}

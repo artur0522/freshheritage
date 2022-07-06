@@ -10,6 +10,7 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
   // console.log("blogSettings:", blogSettings)
 
   const { hero } = page.fields
+  hero.classStartDate = page.fields.classStartDate
 
   return (
     <>

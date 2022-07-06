@@ -40,29 +40,18 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
   )
   const { hide, headerRef } = useHeaderContext()
 
-  const {prepTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, subheader, servings, tags, cookTime, youtubeVideoId } = fields
+  const {prepTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, subheader, servings, tags, cookTime, youtubeVideoId, classStartDate } = fields
 
-  const expiryTimestamp = new Date();
-  expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 600); // 10 minutes timer
+  const expiryTimestamp = new Date('2022-07-10 12:30:00');
 
-  console.log("expiryTimestamp:", expiryTimestamp)
+  console.log("expiryTimestamp", expiryTimestamp)
 
-  // const {
-  //   seconds,
-  //   minutes,
-  //   hours,
-  //   days,
-  //   isRunning,
-  //   start,
-  //   pause,
-  //   resume,
-  //   restart,
-  // } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
-
-
-  // console.log("seconds:", seconds)
-  // console.log("minutes:", minutes)
-  // console.log("hours:", hours)
+  const {
+    minutes,
+    hours,
+    days,
+    isRunning
+  } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
 
   const getStickyPosition = () => {
 
@@ -76,32 +65,14 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
     return ''
   }
 
-  const youtubeOptions = {
-    height: '390',
-    width: '640',
-    playerVars: {
-      controls: 0,
-      // https://developers.google.com/youtube/player_parameters
-      autoplay: 1,
-      rel: 0
-    },
-  }
-
   const showVideo = () => {
     setStartVideo(true)
-  }
-
-  const test = (event) => {
-    setTimeout(() => {
-      event.target.playVideo();
-    }, 1000)
   }
 
   const backgroundColorClass = `article-hero--${blogSettings.fields[blogType].backgroundColor}-bg-color`
   const backgroundIllustrationImage = blogSettings.fields[blogType].illustrationImage
   const renderTypeClass = `article-hero--render-type-${renderType}`
 
-  // TODO for Sung: add logic to render other content if renderType is default
   // TODO for Adrian: add navigation once all blogs and articles are added by getStaticPaths
 
   return (
@@ -127,14 +98,22 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
           <h1 className={classes['article-hero__heading']}>{header}</h1>
           {subheader && <h2 className={classes['article-hero__subheading']}>{subheader}</h2>}
 
-          <h4>Next Class Starts In</h4>
-
+          {isRunning && classStartDate && <div className={classes['article-hero__countdown-timer']}>
+            <h4>Next Class Starts In</h4>
+            <ul>
+              <li>Days: {days}</li>
+              <li>Hours: {hours}</li>
+              <li>Minutes: {minutes}</li>
+            </ul>
+            <button className={`${classes['article-hero__action-btn']} btn salmon`}>Sign Me Up</button>
+          </div>}
 
           {tags && <ul className={classes['article-hero__tags']}>
             {tags.map((tag, index) => {
               return <li className={classes['article-hero__tag']} key={index}>{tag.value}</li>
             })}
           </ul>}
+
           <ul className={classes['recipe-meta-details']}>
             {prepTime &&
               <li>

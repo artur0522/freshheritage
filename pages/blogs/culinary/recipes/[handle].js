@@ -10,6 +10,7 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
   // console.log("blogSettings:", blogSettings)
 
   const { hero } = page.fields
+  hero.tags = page.fields.articleTags
   const blogType = page.fields.blog?.blogType
 
   return (

@@ -47,22 +47,22 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
 
   console.log("expiryTimestamp:", expiryTimestamp)
 
-  const {
-    seconds,
-    minutes,
-    hours,
-    days,
-    isRunning,
-    start,
-    pause,
-    resume,
-    restart,
-  } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
+  // const {
+  //   seconds,
+  //   minutes,
+  //   hours,
+  //   days,
+  //   isRunning,
+  //   start,
+  //   pause,
+  //   resume,
+  //   restart,
+  // } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
 
 
-  console.log("seconds:", seconds)
-  console.log("minutes:", minutes)
-  console.log("hours:", hours)
+  // console.log("seconds:", seconds)
+  // console.log("minutes:", minutes)
+  // console.log("hours:", hours)
 
   const getStickyPosition = () => {
 

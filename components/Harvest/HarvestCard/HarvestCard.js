@@ -25,7 +25,7 @@ const HarvestCard = ({ fish, cardStyle }) => {
 
   return (
     <div className={`${classes['harvest__card']} ${cardStyle === 'projected-card' ? classes['projected-card'] : ""}`}>
-       {cardStyle === 'projected-card' && isMobile && mounted &&
+       {cardStyle === 'projected-card' && isMobile && mounted && tabInfo.image.asset.url && 
           <div className={classes['harvest__card-img']}>
             <Image
                 src={tabInfo.image.asset.url}
@@ -35,7 +35,7 @@ const HarvestCard = ({ fish, cardStyle }) => {
             />
           </div>}
 
-        {cardStyle === 'projected-card' && isDesktop && mounted &&
+        {cardStyle === 'projected-card' && isDesktop && mounted && tabInfo.image.asset.url && 
           <div className={classes['harvest__card-img']}>
               <Image
                   src={tabInfo.image.asset.url}
@@ -45,7 +45,7 @@ const HarvestCard = ({ fish, cardStyle }) => {
               />
           </div>}
 
-          {cardStyle !== 'projected-card' &&
+          {cardStyle !== 'projected-card' && tabInfo.image.asset.url && mounted &&
           <div className={classes['harvest__card-img']}>
               <Image
                   src={tabInfo.image.asset.url}

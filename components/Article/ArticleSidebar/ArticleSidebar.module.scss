@@ -79,6 +79,19 @@
   }
 }
 
+.article-host-list {
+  list-style: none;
+  margin-top: -20px;
+  li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    &:last-child {
+      margin: 0;
+    }
+  }
+}
+
 .article-author__header {
   display: flex;
   align-items: center;

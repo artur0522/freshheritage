@@ -10,7 +10,7 @@ import IconCaret from '@/svgs/caret.svg'
 
 const ArticleSidebar = ({fields}) => {
 
-  const { content, author, relatedArticles } = fields
+  const { content, author, hosts, relatedArticles } = fields
   const { isSidebarOpen, setIsSidebarOpen } = useArticleContext()
 
   return (
@@ -40,6 +40,25 @@ const ArticleSidebar = ({fields}) => {
           <div className={classes['article-author__description']}>
             <PortableText value={author.description} />
           </div>
+        </div>}
+
+        {hosts && <div className={`${classes['article-author']} ${classes['article-sidebar__section']}`}>
+          <div className={`${articleContentClasses['article-section__content']}`}>
+            <PortableText value={hosts.description} />
+          </div>
+          <ul className={classes['article-host-list']}>
+            {hosts.hostList.map(author => {
+              return <li>
+                <div className={classes['article-author__image']}>
+                  <ResponsiveImage
+                    src={author.image.asset.url}
+                    alt={author.image.asset.alt || ''}
+                  />
+                </div>
+                <h2>{author.name}</h2>
+              </li>
+            })}
+          </ul>
         </div>}
 
         <div className={`${classes['article-email-signup']} ${classes['article-sidebar__section']}`}>

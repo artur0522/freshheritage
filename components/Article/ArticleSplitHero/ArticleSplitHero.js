@@ -42,6 +42,28 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
 
   const {prepTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, subheader, servings, tags, cookTime, youtubeVideoId } = fields
 
+  const expiryTimestamp = new Date();
+  expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 600); // 10 minutes timer
+
+  console.log("expiryTimestamp:", expiryTimestamp)
+
+  const {
+    seconds,
+    minutes,
+    hours,
+    days,
+    isRunning,
+    start,
+    pause,
+    resume,
+    restart,
+  } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
+
+
+  console.log("seconds:", seconds)
+  console.log("minutes:", minutes)
+  console.log("hours:", hours)
+
   const getStickyPosition = () => {
 
   }
@@ -104,6 +126,10 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
           </div>
           <h1 className={classes['article-hero__heading']}>{header}</h1>
           {subheader && <h2 className={classes['article-hero__subheading']}>{subheader}</h2>}
+
+          <h4>Next Class Starts In</h4>
+
+
           {tags && <ul className={classes['article-hero__tags']}>
             {tags.map((tag, index) => {
               return <li className={classes['article-hero__tag']} key={index}>{tag.value}</li>

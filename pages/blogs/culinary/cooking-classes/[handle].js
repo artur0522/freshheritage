@@ -28,7 +28,7 @@ export async function getStaticPaths() {
     type: 'videoArticle'
   })
 
-  const validArticles = videoArticles.filter(article => article.fields.blog.handle === 'cooking-class')
+  const validArticles = videoArticles.filter(article => article.fields.blog.handle === 'cooking-classes')
 
   const handles = validArticles.map((article) => ({ params: { handle: article.handle } }))
 

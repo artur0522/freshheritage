@@ -6,11 +6,13 @@ import ContentSections from '@/components/Sections/ContentSections'
 
 const RecipeArticle = ({ page, product, blogSettings }) => {
 
-  // console.log("page:", page)
+  console.log("page:", page)
   // console.log("blogSettings:", blogSettings)
 
   const { hero } = page.fields
   const blogType = page.fields.blog?.blogType
+  hero.header = page.title
+  hero.subheader = page.subheader
 
   return (
     <div className="article-cooking-guide">

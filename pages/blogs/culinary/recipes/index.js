@@ -7,27 +7,28 @@ import IconArrow from '@/svgs/arrow-down.svg'
 import classes from "./RecipesListings.module.scss"
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 
-const RecipeListings = ({recipeArticles, blogSettings}) => {
+const RecipeListings = ({recipeArticles, blogSettings, recipesListingsSections}) => {
+  console.log('recipeslistings', recipesListingsSections)
   return (
     <>
       <ArticleSplitHero fields={''} renderType="blog-listing" blogType="culinary" blogSettings={blogSettings} />
       <div className={classes['recipes']}>
         <div className="container">
 
-          <form>
+          <form className={classes['recipes__filter-wrap']}>
             <div className={classes['recipes__search']}>
               <button type="button">
                   <IconSearch />
               </button>
-              <input type="text" placeholder='Search' className="secondary--body" />
+              <input type="text" placeholder='Search' className="body" />
             </div>
 
             <div className={classes['recipes__filter-row']}>
-              <button type="button" className={classes['toggle-filters']}><span>Show Filters</span></button>
+              <button type="button" className={classes['toggle-filters']}><span className="body">Show Filters</span></button>
 
               <div className={classes['sort-by']}>
-                  <label>Sort By</label>
-                    <select>
+                  <label className="body">Sort By</label>
+                    <select className="body">
                         <option>Newest</option>
                         <option>Oldest</option>
                     </select>
@@ -63,6 +64,11 @@ export async function getStaticProps({ params }) {
     type: 'blogSettings'
   })
 
+  const recipesListingsSections  = await nacelleClient.content({
+    handles: ['recipes-listings'],
+    type: 'page'
+  })
+
   if (!recipeArticles.length) {
     return {
       notFound: true
@@ -73,6 +79,7 @@ export async function getStaticProps({ params }) {
     props: {
       recipeArticles: recipeArticles,
       blogSettings: blogSettings[0],
+      recipesListingsSections: recipesListingsSections
     }
   }
 }

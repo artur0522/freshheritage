@@ -17,6 +17,11 @@
 	color: $sitkablue;
 }
 
+.input-group--flex {
+	display: flex;
+	align-items: center;
+}
+
 .input-group--wrapper {
 	display: flex;
 	flex-wrap: wrap;

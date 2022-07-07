@@ -7,8 +7,9 @@ const EmailSignup = ({props}) => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
   const [showErrorMessage, setShowErrorMessage] = useState(false)
   const emailRef = useRef()
+  const customCheckBoxRef = useRef()
 
-  const { title, ctaText, listId } = props
+  const { title, ctaText, listId, customCheckbox } = props
 
   const submitForm = (e) => {
     e.preventDefault()
@@ -42,6 +43,13 @@ const EmailSignup = ({props}) => {
         <p className={classes['email-signup__text-success']}>Thank you for subscribing! Check your inbox!</p>
       ):(
         <form onSubmit={(e) => submitForm(e)} className={classes['email-signup__form']}>
+          {customCheckbox && <div className="input-group">
+            <div className="input-group--flex">
+              <input className="input" id="custom_checkbox" type="checkbox" ref={customCheckBoxRef} />
+              {customCheckbox.label && <label htmlFor="custom_checkbox">{customCheckbox.label}</label>}
+            </div>
+            {customCheckbox.disclaimer && <p className={classes['email-signup__disclaimer']}>{customCheckbox.disclaimer}</p>}
+          </div>}
           <div className="input-group">
             <input className="input" name="email" type="email" placeholder="email address" ref={emailRef} />
             <IconEnvelope />

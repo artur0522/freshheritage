@@ -143,3 +143,13 @@
     text-decoration: none;
   }
 }
+
+.article-class-signup {
+  input {
+    border-radius: 0;
+  }
+  button {
+    max-width: 222px;
+    min-width: auto;
+  }
+}

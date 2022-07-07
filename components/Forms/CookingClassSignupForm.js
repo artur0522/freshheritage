@@ -1,18 +1,27 @@
-import { useState } from 'react'
 import { useModalContext } from '@/context/ModalContext'
-import Link from 'next/link'
+import classes from "./CookingClassSignupForm.module.scss"
+import EmailSignup from '../EmailSignup'
+import moment from 'moment'
 
-import classes from "./GatedProductModal.module.scss"
+const CookingClassSignupForm = () => {
+  const { content } = useModalContext()
 
-const GatedProductModal = () => {
-  const modalContext = useModalContext()
-  const { content } = modalContext
+  const date = moment(content.classStartDate).format('dddd MMMM Do YYYY h:mm')
 
   return (
-    <div className={`${classes['cooking-class-modal']} container`}>
-
+    <div className={`${classes['cooking-class-signup-form']} container`}>
+      <h2 className="h4">{content.header}</h2>
+      <h4>Class Starts On</h4>
+      <h6 className={classes['cooking-class-signup-time']}>{date}pm CT</h6>
+      <div className={classes['cooking-class-signup-container']}>
+        <EmailSignup props={{
+          title: 'Email Signup',
+          ctaText: 'Sign Me Up',
+          listId: ''
+        }} />
+      </div>
     </div>
   )
 }
 
-export default GatedProductModal
+export default CookingClassSignupForm

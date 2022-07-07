@@ -10,8 +10,10 @@ import IconCaret from '@/svgs/caret.svg'
 
 const ArticleSidebar = ({fields}) => {
 
-  const { content, author, hosts, relatedArticles } = fields
+  const { content, author, hosts, relatedArticles, classSignup } = fields
   const { isSidebarOpen, setIsSidebarOpen } = useArticleContext()
+
+  console.log("fields:", fields)
 
   return (
     <div className={`${classes['article-sidebar']} ${isSidebarOpen ? classes['is-open'] : ''}`}>
@@ -26,6 +28,18 @@ const ArticleSidebar = ({fields}) => {
         {content && <div className={`${articleContentClasses['article-section__content']} ${classes['article-sidebar__section']}`}>
           <PortableText value={content} />
         </div>}
+
+        <div className={`${classes['article-class-signup']} ${classes['article-sidebar__section']}`}>
+          <EmailSignup props={{
+            title: classSignup.header,
+            ctaText: 'Sign Me Up',
+            listId: '',
+            customCheckbox: {
+              label: classSignup.checkboxLabel,
+              disclaimer: classSignup.disclaimer
+            }
+          }} />
+        </div>
 
         {author && <div className={`${classes['article-author']} ${classes['article-sidebar__section']}`}>
           <div className={classes['article-author__header']}>

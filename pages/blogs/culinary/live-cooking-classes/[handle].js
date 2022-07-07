@@ -1,20 +1,31 @@
+import { useEffect } from 'react'
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import ArticleMain from '@/components/Article/ArticleMain'
 import { nacelleClient } from 'services'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import ContentSections from '@/components/Sections/ContentSections'
+import { useModalContext } from '@/context/ModalContext'
 
 const RecipeArticle = ({ page, product, blogSettings }) => {
 
   // console.log("page:", page)
   // console.log("blogSettings:", blogSettings)
 
+  const { setContent } = useModalContext()
+
   const { hero } = page.fields
   hero.classStartDate = page.fields.classStartDate
 
+  useEffect(() => {
+    setContent({
+      header: page.title,
+      classStartDate: page.fields.classStartDate
+    })
+  }, [])
+
   return (
     <>
-      <ArticleSplitHero fields={hero} renderType="default" blogType="culinary" blogSettings={blogSettings} />
+      <ArticleSplitHero fields={hero} renderType="live-cooking-class" blogType="culinary" blogSettings={blogSettings} />
       <ArticleMain contentType="standard" fields={page.fields} product={product} />
       <ContentSections sections={page.fields.pageContent} />
     </>

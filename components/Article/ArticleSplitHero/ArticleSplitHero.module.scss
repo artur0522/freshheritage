@@ -58,7 +58,8 @@
     }
   }
   &.article-hero--render-type-default,
-  &.article-hero--render-type-cooking-guide {
+  &.article-hero--render-type-cooking-guide,
+  &.article-hero--render-type-live-cooking-class {
     .article-hero__content {
       background-color: $pureWhite;
       padding: 20px 30px;

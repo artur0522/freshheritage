@@ -12,6 +12,7 @@ import IconBullet from '@/svgs/list-item.svg'
 import IconPlayButton from '@/svgs/play-button.svg'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { useHeaderContext } from '@/context/HeaderContext'
+import { useModalContext } from '@/context/ModalContext'
 import ArticleVideo from '../ArticleVideo'
 
 /*
@@ -39,12 +40,13 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
     {query: '(min-width: 1074px)'}
   )
   const { hide, headerRef } = useHeaderContext()
+  const { setIsOpen, setModalType } = useModalContext()
 
   const {prepTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, subheader, servings, tags, cookTime, youtubeVideoId, classStartDate } = fields
 
-  const expiryTimestamp = new Date('2022-07-10 12:30:00');
+  const expiryTimestamp = new Date(classStartDate);
 
-  console.log("expiryTimestamp", expiryTimestamp)
+  // console.log("expiryTimestamp", expiryTimestamp)
 
   const {
     minutes,
@@ -95,7 +97,11 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
               <a><IconBullet /> <span>Back to something something</span></a>
             </Link>
           </div>
-          <h1 className={classes['article-hero__heading']}>{header}</h1>
+          {renderType === 'live-cooking-class' ? (
+            <h1 className={classes['article-hero__heading']}>Live Cooking Class</h1>
+          ):(
+            <h1 className={classes['article-hero__heading']}>{header}</h1>
+          )}
           {subheader && <h2 className={classes['article-hero__subheading']}>{subheader}</h2>}
 
           {isRunning && classStartDate && <div className={classes['article-hero__countdown-timer']}>
@@ -105,7 +111,11 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
               <li>Hours: {hours}</li>
               <li>Minutes: {minutes}</li>
             </ul>
-            <button className={`${classes['article-hero__action-btn']} btn salmon`}>Sign Me Up</button>
+            <button onClick={() => {
+              setModalType('cooking_class_signup')
+              setIsOpen(true)}
+            }
+            className={`${classes['article-hero__action-btn']} btn salmon`}>Sign Me Up</button>
           </div>}
 
           {tags && <ul className={classes['article-hero__tags']}>

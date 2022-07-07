@@ -104,28 +104,131 @@
         }
     }
 
-    //recipes__list
-    &__list {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        row-gap: 61px;
-        margin-bottom: 41px;
+
+    // filter__list-wrap
+    .filters-list__wrap {
+        width: 100%;
 
         @include breakpoint-up('md') {
-            grid-template-columns: repeat(3, 1fr);
-            column-gap: 36px;
-            row-gap: 98px;
-            margin-bottom: 198px;
+            display: flex;
+            justify-content: space-between;
         }
 
-        @include breakpoint-up('lg') {
-            grid-template-columns: repeat(4, 1fr);
-            row-gap: 144px;
+        .filters {
+            display: none;
+
+            @include breakpoint-up('md') {
+                width: 25%;
+                display: block;
+            }
+        }
+
+        //recipes__list
+        .recipes__list-wrap {
+            width: 100%;
+
+            &.filters-open {
+                @include breakpoint-up('md') {
+                    width: 75%;
+                }
+            }
+        }
+
+        .recipes__list {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            row-gap: 61px;
+            margin-bottom: 41px;
+
+            @include breakpoint-up('sm') {
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 36px;
+            }
+
+            @include breakpoint-up('md') {
+                grid-template-columns: repeat(3, 1fr);
+                column-gap: 36px;
+                row-gap: 98px;
+                margin-bottom: 98px;
+            }
+
+            @include breakpoint-up('lg') {
+                grid-template-columns: repeat(4, 1fr);
+                row-gap: 144px;
+            }
+
+            &.filters-open {
+                @include breakpoint-up('lg') {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
         }
     }
 
-    // recipes__pagination
-    &__pagination {
+    .pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         margin-bottom: 37px;
+
+        @include breakpoint-up('md') {
+            margin-bottom: 107px;
+        }
+    }
+
+    .paginationItem {
+        background: $fawn50-2;
+        color: $sitkablue;
+        border: 2px solid $fawn50-2;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        position: relative;
+        margin: 0 10px;
+        cursor: pointer;
+        transition: border 0.1s ease-in-out;
+
+        &:hover {
+            border: 2px solid $sitkablue;
+        }
+    }
+
+    .paginationItem span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .prev,
+    .next {
+        background: transparent;
+        border: none;
+        padding: 0 20px;
+        cursor: pointer;
+
+        svg path {
+            fill: $sitkablue;
+        }
+
+        &.disabled {
+            svg path {
+                fill: $fawn50-2
+            }
+        }
+    }
+
+    .paginationItem.active {
+        border: 1px solid $sitkablue;
+        background-color: $sitkablue;
+        color: #fff;
+        pointer-events: none;
+    }
+
+    .prev.disabled,
+    .next.disabled {
+        pointer-events: none;
+        box-shadow: none;
+        color: #999;
     }
 }

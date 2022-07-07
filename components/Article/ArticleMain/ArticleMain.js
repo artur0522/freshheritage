@@ -1,11 +1,11 @@
-import { useRef, createRef } from 'react'
+import { useRef, createRef, forwardRef } from 'react'
 import classes from './ArticleMain.module.scss'
 import ArticleNav from '@/components/Article/ArticleNav'
 import StandardContent from '../ArticleContent/StandardContent'
 import RecipeContent from '../ArticleContent/RecipeContent'
 import ArticleSidebar from '../ArticleSidebar'
 
-const ArticleMain = ({contentType, fields, product, showNav = false}) => {
+const ArticleMain = forwardRef(({contentType, fields, product, showNav = false}, ref) => {
 
   const h1blocks = fields.content?.filter(item => item.style === 'h1')
 
@@ -29,10 +29,8 @@ const ArticleMain = ({contentType, fields, product, showNav = false}) => {
     }
   }
 
-  // console.log("refs:", refs)
-
   return (
-    <div className={classes['article-main']}>
+    <div ref={ref} className={classes['article-main']}>
       {showNav && refs.current && Object.keys(refs.current).length && <ArticleNav ref={refs} />}
       <div className={classes['article-main__wrapper']}>
         {getContent(contentType)}
@@ -40,6 +38,6 @@ const ArticleMain = ({contentType, fields, product, showNav = false}) => {
       </div>
     </div>
   )
-}
+})
 
 export default ArticleMain

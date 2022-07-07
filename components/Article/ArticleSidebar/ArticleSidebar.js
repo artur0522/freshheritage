@@ -29,7 +29,7 @@ const ArticleSidebar = ({fields}) => {
           <PortableText value={content} />
         </div>}
 
-        <div className={`${classes['article-class-signup']} ${classes['article-sidebar__section']}`}>
+        {classSignup && <div className={`${classes['article-class-signup']} ${classes['article-sidebar__section']}`}>
           <EmailSignup props={{
             title: classSignup.header,
             ctaText: 'Sign Me Up',
@@ -39,7 +39,7 @@ const ArticleSidebar = ({fields}) => {
               disclaimer: classSignup.disclaimer
             }
           }} />
-        </div>
+        </div>}
 
         {author && <div className={`${classes['article-author']} ${classes['article-sidebar__section']}`}>
           <div className={classes['article-author__header']}>

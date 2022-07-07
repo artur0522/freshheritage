@@ -11,7 +11,7 @@
   .article-hero__image-wrapper {
     width: 56%;
     height: 100%;
-    transition: 0.5s ease-in-out top;
+    transition: 0.5s ease-in-out height;
     order: -1;
     right: 0;
     z-index: 2;
@@ -263,13 +263,13 @@
   margin-top: auto;
 }
 
-.article-hero {
-  &.article-hero--render-type-cooking-guide {
-    .article-hero__image-wrapper {
-      position: fixed;
-    }
-  }
-}
+// .article-hero {
+//   &.article-hero--render-type-cooking-guide {
+//     .article-hero__image-wrapper {
+//       position: fixed;
+//     }
+//   }
+// }
 
 .article-hero__image-wrapper {
   @include breakpoint-up('md') {

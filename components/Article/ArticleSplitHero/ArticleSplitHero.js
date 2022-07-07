@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef, forwardRef } from 'react'
 import { useTimer } from 'react-timer-hook'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
@@ -32,7 +32,7 @@ import ArticleVideo from '../ArticleVideo'
     - live-cooking-class -> same as default, but with a countdown timer
 */
 
-const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary', blogSettings }) => {
+const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogType = 'culinary', blogSettings }, mainContentRef) => {
   const [mounted, setMounted] = useState(false)
   const [startVideo, setStartVideo] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })
@@ -44,9 +44,10 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
 
   const {prepTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, subheader, servings, tags, cookTime, youtubeVideoId, classStartDate } = fields
 
-  const expiryTimestamp = new Date(classStartDate);
+  const hasVideo = youtubeVideoId ? true : false
+  const heroImageRef = useRef()
 
-  // console.log("expiryTimestamp", expiryTimestamp)
+  const expiryTimestamp = new Date(classStartDate);
 
   const {
     minutes,
@@ -55,12 +56,31 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
     isRunning
   } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
 
+  /* Cooking Guide Articles will have a sticky hero video if available */
   const getStickyPosition = () => {
-
+    const mainContentRefBottomPos = mainContentRef.current.offsetHeight + mainContentRef.current.offsetTop
+    const headerRefIsVisible = (headerRef.current.getBoundingClientRect().top >= 0 || window.pageYOffset === 0) ? true : false
+    if (renderType === 'cooking-guide' && hasVideo) {
+      if (window !== undefined && (window.scrollY + window.innerHeight) > mainContentRefBottomPos) {
+        heroImageRef.current.style.top = `${mainContentRefBottomPos - heroImageRef.current.offsetHeight}px`
+        heroImageRef.current.style.position = 'absolute'
+      } else {
+        heroImageRef.current.style.top = !headerRefIsVisible ? 0 : headerRef.current?.offsetHeight + 'px'
+        heroImageRef.current.style.position = 'fixed'
+      }
+      heroImageRef.current.style.height = `${ !headerRefIsVisible ? '100%' : 'calc(100% - ' + headerRef.current?.offsetHeight + 'px)'}`
+    }
   }
 
   useEffect(() => {
     setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('scroll', getStickyPosition)
+    return () => {
+      window.removeEventListener('scroll', getStickyPosition)
+    }
   }, [])
 
   if (!blogSettings) {
@@ -158,7 +178,7 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
         </div>
       </div>
 
-      <div className={classes['article-hero__image-wrapper']} style={{'top': `${ hide ? 0 : headerRef.current?.offsetHeight}px`}}>
+      <div className={classes['article-hero__image-wrapper']} ref={heroImageRef}>
         {!startVideo && <div className={classes['article-hero__image']}>
           {mobileBackgroundImage && isMobile && mounted &&
             <ResponsiveImage
@@ -184,6 +204,6 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
 
     </div>
   )
-}
+})
 
 export default ArticleSplitHero

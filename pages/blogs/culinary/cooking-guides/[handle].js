@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import ArticleMain from '@/components/Article/ArticleMain'
 import { nacelleClient } from 'services'
@@ -6,7 +7,7 @@ import ContentSections from '@/components/Sections/ContentSections'
 
 const RecipeArticle = ({ page, product, blogSettings }) => {
 
-  console.log("page:", page)
+  // console.log("page:", page)
   // console.log("blogSettings:", blogSettings)
 
   const { hero } = page.fields
@@ -14,10 +15,14 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
   hero.header = page.title
   hero.subheader = page.subheader
 
+  const hasVideo = hero.youtubeVideoId ? true : false
+
+  const mainContentRef = useRef()
+
   return (
-    <div className="article-cooking-guide">
-      <ArticleSplitHero fields={hero} renderType="cooking-guide" blogType={blogType} blogSettings={blogSettings} />
-      <ArticleMain contentType="standard" fields={page.fields} product={product} showNav={true} />
+    <div className={`${!hasVideo ? 'article-cooking-guide--no-video' : 'article-cooking-guide'}`}>
+      <ArticleSplitHero ref={mainContentRef} fields={hero} renderType="cooking-guide" blogType={blogType} blogSettings={blogSettings} />
+      <ArticleMain ref={mainContentRef} contentType="standard" fields={page.fields} product={product} showNav={true} />
       <ContentSections sections={page.fields.pageContent} />
     </div>
   )

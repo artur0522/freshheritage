@@ -1,5 +1,31 @@
 @import '@/styles/_shared.scss';
 
+:global(.article-cooking-guide) {
+  .article-sidebar {
+    width: 100%;
+    padding-left: 120px;
+  }
+  .article-sidebar__main {
+    max-width: 100%;
+  }
+  .article-email-signup {
+    order: 1;
+    padding: 40px 0 0;
+    margin: 40px 0 0;
+    border-top: 1px solid $black20;
+    border-bottom: 0;
+    form {
+      max-width: 725px;
+    }
+  }
+  .article-related-item-list {
+    li {
+      max-width: 50%;
+      margin-right: 30px;
+    }
+  }
+}
+
 .article-sidebar {
   width: 100%;
   background-color: $fawn50-2;
@@ -65,6 +91,8 @@
 }
 
 .article-sidebar__main {
+  display: flex;
+  flex-direction: column;
   max-width: 430px;
 }
 

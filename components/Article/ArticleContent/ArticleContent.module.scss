@@ -2,14 +2,22 @@
 
 :global(.article-cooking-guide) {
   .article-content {
-    width: calc(100% - 120px);
-    margin-left: auto;
-    // padding: 0;
+    @include breakpoint-up('md') {
+      width: calc(100% - 40px);
+      margin-left: auto;
+    }
+    @include breakpoint-up('lg') {
+      width: calc(100% - 120px);
+    }
   }
   .article-section__content {
-    padding: 0;
+    @include breakpoint-up('md') {
+      padding: 0;
+    }
     > * {
-      padding: 0 !important;
+      @include breakpoint-up('md') {
+        padding: 0 !important;
+      }
     }
   }
 }
@@ -232,8 +240,17 @@
     margin-right: 15px;
   }
   .article-section__cooking-tool-text {
-    font-size: 28px;
     font-weight: 500;
+    font-size: 18px;
+    @include breakpoint-up('sm') {
+      font-size: 21px;
+    }
+    @include breakpoint-up('md') {
+      font-size: 24px;
+    }
+    @include breakpoint-up('xl') {
+      font-size: 28px;
+    }
   }
 }
 
@@ -242,5 +259,8 @@
   margin: 40px 0;
   iframe {
     width: 100%;
+    @include breakpoint-down('sm') {
+      min-height: 50vw;
+    }
   }
 }

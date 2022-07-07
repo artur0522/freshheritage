@@ -2,26 +2,40 @@
 
 :global(.article-cooking-guide) {
   .article-sidebar {
-    width: 100%;
-    padding-left: 120px;
+    @include breakpoint-up('md') {
+      width: 100%;
+      padding-left: 40px;
+    }
+    @include breakpoint-up('lg') {
+      padding-left: 120px;
+    }
   }
   .article-sidebar__main {
-    max-width: 100%;
+    @include breakpoint-up('md') {
+      max-width: 100%;
+    }
   }
   .article-email-signup {
-    order: 1;
-    padding: 40px 0 0;
-    margin: 40px 0 0;
-    border-top: 1px solid $black20;
-    border-bottom: 0;
+    @include breakpoint-up('md') {
+      order: 1;
+      padding: 40px 0 0;
+      margin: 40px 0 0;
+      border-top: 1px solid $black20;
+      border-bottom: 0;
+    }
     form {
-      max-width: 725px;
+      @include breakpoint-up('md') {
+        max-width: 725px;
+      }
     }
   }
   .article-related-item-list {
+    margin: 0;
     li {
-      max-width: 50%;
-      margin-right: 30px;
+      @include breakpoint-up('xl') {
+        max-width: 50%;
+        margin-right: 30px;
+      }
     }
   }
 }
@@ -42,9 +56,6 @@
   overflow-y: auto;
   &.is-open {
     transform: translateX(0);
-  }
-  @include breakpoint-up('sm') {
-    padding: 65px 50px;
   }
   @include breakpoint-up('md') {
     overflow-y: visible;
@@ -94,6 +105,10 @@
   display: flex;
   flex-direction: column;
   max-width: 430px;
+  margin: 0 auto;
+  @include breakpoint-up('md') {
+    margin: 0;
+  }
 }
 
 .article-sidebar__section {

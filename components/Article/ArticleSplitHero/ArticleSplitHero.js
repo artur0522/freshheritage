@@ -58,6 +58,9 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogType =
 
   /* Cooking Guide Articles will have a sticky hero video if available */
   const getStickyPosition = () => {
+    if (!mainContentRef) {
+      return false;
+    }
     const mainContentRefBottomPos = mainContentRef.current.offsetHeight + mainContentRef.current.offsetTop
     const headerRefIsVisible = (headerRef.current.getBoundingClientRect().top >= 0 || window.pageYOffset === 0) ? true : false
     if (renderType === 'cooking-guide' && hasVideo) {
@@ -74,6 +77,7 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogType =
 
   useEffect(() => {
     setMounted(true)
+    getStickyPosition()
   }, [])
 
   useEffect(() => {

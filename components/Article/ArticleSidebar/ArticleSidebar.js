@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useArticleContext } from '@/context/ArticleContext'
 import IconCaret from '@/svgs/caret.svg'
 
-const ArticleSidebar = ({fields}) => {
+const ArticleSidebar = ({fields, blogGlobalSettings}) => {
 
   const { content, author, hosts, relatedArticles, classSignup } = fields
   const { isSidebarOpen, setIsSidebarOpen } = useArticleContext()
@@ -31,7 +31,7 @@ const ArticleSidebar = ({fields}) => {
           <EmailSignup props={{
             title: classSignup.header,
             ctaText: 'Sign Me Up',
-            listId: '',
+            listId: classSignup.klaviyoListId,
             customCheckbox: {
               label: classSignup.checkboxLabel,
               disclaimer: classSignup.disclaimer
@@ -73,12 +73,13 @@ const ArticleSidebar = ({fields}) => {
           </ul>
         </div>}
 
-        <div className={`${classes['article-email-signup']} ${classes['article-sidebar__section']}`}>
+        {blogGlobalSettings?.klaviyoListId && <div className={`${classes['article-email-signup']} ${classes['article-sidebar__section']}`}>
           <EmailSignup props={{
             title: 'Get Recipes & Stories Delivered To Your Inbox',
-            ctaText: 'Join The List'
+            ctaText: 'Join The List',
+            listId: blogGlobalSettings.klaviyoListId
           }} />
-        </div>
+        </div>}
 
         {relatedArticles &&
           <div className={`${classes['article-related-items']} ${classes['article-sidebar__section']}`}>

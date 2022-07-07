@@ -34,6 +34,10 @@ const EmailSignup = ({props}) => {
     })
   }
 
+  if (!listId) {
+    return 'Missing list ID'
+  }
+
   return (
     <div className={classes['email-signup']}>
       {title &&

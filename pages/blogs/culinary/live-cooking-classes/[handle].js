@@ -14,6 +14,7 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
   const { setContent } = useModalContext()
 
   const { hero } = page.fields
+  const blogGlobalSettings = blogSettings ? blogSettings.fields['culinary'] : undefined
   hero.classStartDate = page.fields.classStartDate
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
 
   return (
     <>
-      <ArticleSplitHero fields={hero} renderType="live-cooking-class" blogType="culinary" blogSettings={blogSettings} />
+      <ArticleSplitHero fields={hero} renderType="live-cooking-class" blogGlobalSettings={blogGlobalSettings} />
       <ArticleMain contentType="standard" fields={page.fields} product={product} />
       <ContentSections sections={page.fields.pageContent} />
     </>

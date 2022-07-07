@@ -12,6 +12,7 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
 
   const { hero } = page.fields
   const blogType = page.fields.blog?.blogType
+  const blogGlobalSettings = blogSettings ? blogSettings.fields[blogType] : undefined
   hero.header = page.title
   hero.subheader = page.subheader
 
@@ -21,8 +22,8 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
 
   return (
     <div className={`${!hasVideo ? 'article-cooking-guide--no-video' : 'article-cooking-guide'}`}>
-      <ArticleSplitHero ref={mainContentRef} fields={hero} renderType="cooking-guide" blogType={blogType} blogSettings={blogSettings} />
-      <ArticleMain ref={mainContentRef} contentType="standard" fields={page.fields} product={product} showNav={true} />
+      <ArticleSplitHero ref={mainContentRef} fields={hero} renderType="cooking-guide" blogGlobalSettings={blogGlobalSettings} />
+      <ArticleMain ref={mainContentRef} contentType="standard" fields={page.fields} product={product} showNav={true} blogGlobalSettings={blogGlobalSettings} />
       <ContentSections sections={page.fields.pageContent} />
     </div>
   )

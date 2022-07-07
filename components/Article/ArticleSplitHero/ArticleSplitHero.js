@@ -32,7 +32,7 @@ import ArticleVideo from '../ArticleVideo'
     - live-cooking-class -> same as default, but with a countdown timer
 */
 
-const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogType = 'culinary', blogSettings }, mainContentRef) => {
+const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobalSettings }, mainContentRef) => {
   const [mounted, setMounted] = useState(false)
   const [startVideo, setStartVideo] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })
@@ -87,7 +87,7 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogType =
     }
   }, [])
 
-  if (!blogSettings) {
+  if (!blogGlobalSettings) {
     return ''
   }
 
@@ -95,8 +95,8 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogType =
     setStartVideo(true)
   }
 
-  const backgroundColorClass = `article-hero--${blogSettings.fields[blogType].backgroundColor}-bg-color`
-  const backgroundIllustrationImage = blogSettings.fields[blogType].illustrationImage
+  const backgroundColorClass = `article-hero--${blogGlobalSettings.backgroundColor}-bg-color`
+  const backgroundIllustrationImage = blogGlobalSettings.illustrationImage
   const renderTypeClass = `article-hero--render-type-${renderType}`
 
   // TODO for Adrian: add navigation once all blogs and articles are added by getStaticPaths

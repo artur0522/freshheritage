@@ -12,13 +12,14 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
   const { hero } = page.fields
   hero.tags = page.fields.articleTags
   const blogType = page.fields.blog?.blogType
+  const blogGlobalSettings = blogSettings ? blogSettings.fields[blogType] : undefined
   hero.header = page.title
   hero.subheader = page.subheader
 
   return (
     <>
-      <ArticleSplitHero fields={hero} renderType="recipe" blogType={blogType} blogSettings={blogSettings} />
-      <ArticleMain contentType="recipe" showNav={true} fields={page.fields} product={product} />
+      <ArticleSplitHero fields={hero} renderType="recipe" blogGlobalSettings={blogGlobalSettings} />
+      <ArticleMain contentType="recipe" showNav={true} fields={page.fields} product={product} blogGlobalSettings={blogGlobalSettings} />
       <ContentSections sections={page.fields.pageContent} />
     </>
   )

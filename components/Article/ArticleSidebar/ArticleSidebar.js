@@ -13,8 +13,6 @@ const ArticleSidebar = ({fields}) => {
   const { content, author, hosts, relatedArticles, classSignup } = fields
   const { isSidebarOpen, setIsSidebarOpen } = useArticleContext()
 
-  console.log("fields:", fields)
-
   return (
     <div className={`${classes['article-sidebar']} ${isSidebarOpen ? classes['is-open'] : ''}`}>
 

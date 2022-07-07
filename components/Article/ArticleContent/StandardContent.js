@@ -39,10 +39,10 @@ const StandardContent = forwardRef(({fields, product}, ref) => {
         <a className={classes['article-section__arrow-link']}>{children}<IconCaretThin /></a>
       </Link>),
       iconWithText: ({children, value}) => {
-        return (<div className={classes['article-section__cooking-tools']}>
-          <span className={classes['article-section__cooking-tools-icon']}>{getIcon(value.icon)}</span>
-          <span className={classes['article-section__cooking-tools-text']}>{children}</span>
-        </div>)
+        return (<span className={classes['article-section__cooking-tool']}>
+          <span className={classes['article-section__cooking-tool-icon']}>{getIcon(value.icon)}</span>
+          <span className={classes['article-section__cooking-tool-text']}>{children}</span>
+        </span>)
       }
     },
     types: {

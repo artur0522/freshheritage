@@ -17,10 +17,15 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
   const blogGlobalSettings = blogSettings ? blogSettings.fields['culinary'] : undefined
   hero.classStartDate = page.fields.classStartDate
 
+  if (page.fields?.sidebar?.classSignup && page.fields.klaviyoListId) {
+    page.fields.sidebar.classSignup.klaviyoListId = page.fields.klaviyoListId
+  }
+
   useEffect(() => {
     setContent({
       header: page.title,
-      classStartDate: page.fields.classStartDate
+      classStartDate: page.fields.classStartDate,
+      listId: page.fields.klaviyoListId
     })
   }, [])
 

@@ -12,18 +12,14 @@ import ArticleRow from '@/components/Sections/ArticleRow'
 import { filter } from 'lodash-es'
 
 const RecipeListings = ({recipeArticles, blogSettings, recipeListings}) => {
-  console.log(recipeArticles)
   const { content } = recipeListings[0].fields
   const heroSection = content?.find(section => section._type === 'hero')
   const articleRowSection = content?.find(section => section._type === 'articleRow')
 
-  // pagination
   const [pages] = useState(Math.ceil(recipeArticles.length / 20));
   const [currentPage, setCurrentPage] = useState(1);
 
-  // filters
   const [filterDrawer, toggleFilterDrawer]= useState(true)
-
 
   // useEffect(() => {
   //   window.scrollTo({ behavior: 'smooth', top: '0px' });
@@ -32,23 +28,19 @@ const RecipeListings = ({recipeArticles, blogSettings, recipeListings}) => {
   console.log('pages', pages)
 
   const goToNextPage = () => {
-      // not yet implemented
       setCurrentPage((page) => page + 1)
   }
 
   const goToPreviousPage = () => {
-      // not yet implemented
       setCurrentPage((page) => page - 1);
   }
 
   const changePage = (event) => {
-    // not yet implemented
     const pageNumber = Number(event.target.textContent);
     setCurrentPage(pageNumber);
   }
 
   const getPaginatedData = () => {
-      // not yet implemented
       const startIndex = currentPage * 20 - 20;
       const endIndex = startIndex + 20;
       console.log('getpagdata')
@@ -57,7 +49,6 @@ const RecipeListings = ({recipeArticles, blogSettings, recipeListings}) => {
   };
 
   const getPaginationGroup = () => {
-      // not yet implemented
       let start = Math.floor((currentPage - 1) / pages) * pages;
       return new Array(pages).fill().map((_, idx) => start + idx + 1);
   };
@@ -145,25 +136,21 @@ const RecipeListings = ({recipeArticles, blogSettings, recipeListings}) => {
 
           {currentPage !== 1 && <div className={`${classes['recipes__list']} container`}>
             {getPaginatedData().map((article, index) => (
-               <div key={article.handle}>
+                <div key={article.handle}>
                 <DynamicArticleCard article={article} />
               </div>
             ))}
           </div>}
-          </div>
-
-
 
           </div>
 
 
 
-
+          </div>
 
 
 
         <div className={classes['pagination']}>
-          {/* previous button */}
           <button
             onClick={goToPreviousPage}
             className={`${classes['prev']} ${classes[currentPage === 1 ? 'disabled' : '']} pagination-btn`}
@@ -171,7 +158,6 @@ const RecipeListings = ({recipeArticles, blogSettings, recipeListings}) => {
             <PaginationLeft />
           </button>
 
-          {/* show page numbers */}
           {getPaginationGroup().map((item, index) => (
               <button
                 key={index}
@@ -182,7 +168,6 @@ const RecipeListings = ({recipeArticles, blogSettings, recipeListings}) => {
               </button>
             ))}
 
-            {/* next button */}
             <button
               onClick={goToNextPage}
               className={`${classes['next']} ${classes[currentPage === pages ? 'disabled' : '']} pagination-btn`}

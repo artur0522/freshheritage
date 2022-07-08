@@ -1,17 +1,19 @@
 import React, {useState, useEffect} from 'react'
 import { nacelleClient } from 'services'
+
+import { useArticleFiltersDrawerContext } from '@/context/ArticleFiltersDrawerContext'
+import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
+import FullBleedHero from '@/components/Sections/FullBleedHero'
+import ArticleRow from '@/components/Sections/ArticleRow'
 import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
 import IconSearch from '@/svgs/search.svg'
 import PaginationLeft from '@/svgs/pagination-left.svg'
 import PaginationRight from '@/svgs/pagination-right.svg'
 
 import classes from "./RecipesListings.module.scss"
-import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
-import FullBleedHero from '@/components/Sections/FullBleedHero'
-import ArticleRow from '@/components/Sections/ArticleRow'
-import { filter } from 'lodash-es'
 
 const RecipeListings = ({recipeArticles, blogSettings, recipeListings}) => {
+  const drawerContext = useArticleFiltersDrawerContext()
   const { content } = recipeListings[0].fields
   const heroSection = content?.find(section => section._type === 'hero')
   const articleRowSection = content?.find(section => section._type === 'articleRow')
@@ -25,14 +27,12 @@ const RecipeListings = ({recipeArticles, blogSettings, recipeListings}) => {
   //   window.scrollTo({ behavior: 'smooth', top: '0px' });
   // }, [currentPage]);
 
-  console.log('pages', pages)
-
   const goToNextPage = () => {
-      setCurrentPage((page) => page + 1)
+    setCurrentPage((page) => page + 1)
   }
 
   const goToPreviousPage = () => {
-      setCurrentPage((page) => page - 1);
+    setCurrentPage((page) => page - 1);
   }
 
   const changePage = (event) => {
@@ -43,21 +43,21 @@ const RecipeListings = ({recipeArticles, blogSettings, recipeListings}) => {
   const getPaginatedData = () => {
       const startIndex = currentPage * 20 - 20;
       const endIndex = startIndex + 20;
-      console.log('getpagdata')
-      console.log(recipeArticles.slice(startIndex, endIndex))
       return recipeArticles.slice(startIndex, endIndex);
   };
 
   const getPaginationGroup = () => {
-      let start = Math.floor((currentPage - 1) / pages) * pages;
-      return new Array(pages).fill().map((_, idx) => start + idx + 1);
+    let start = Math.floor((currentPage - 1) / pages) * pages;
+    return new Array(pages).fill().map((_, idx) => start + idx + 1);
   };
   
-
   return (
     <>
       <ArticleSplitHero fields={''} renderType="blog-listing" blogType="culinary" blogSettings={blogSettings} />
       <div className={classes['recipes']}>
+          <button onClick={() => drawerContext.openDrawer}>
+            click me
+          </button>
       
           <form className={`${classes['recipes__filter-wrap']} container`}>
             <div className={classes['recipes__search']}>

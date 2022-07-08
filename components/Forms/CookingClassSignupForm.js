@@ -2,13 +2,8 @@ import { useModalContext } from '@/context/ModalContext'
 import classes from "./CookingClassSignupForm.module.scss"
 import EmailSignup from '../EmailSignup'
 import moment from 'moment'
-import { googleCalendarEventUrl } from 'google-calendar-url'
 import { ics, google } from "calendar-link";
 import IconPlusCircle from '@/svgs/plus-circle.svg'
-
-const googleTimeConverter = (date) => {
-  return date.toISOString().replace(/-|:|\.\d\d\d/g,"")
-}
 
 const CookingClassSignupForm = () => {
   const { content } = useModalContext()

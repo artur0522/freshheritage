@@ -9,6 +9,12 @@ import classes from "./ArticleCard.module.scss"
 const ArticleCard = ({ article, reverse }) => {
   const tags = article.fields ? article.fields.hero?.articleTags : article.hero?.articleTags
   const foundTag = tags?.find(tag => tag.value === 'video' || tag.value === 'live cooking class')
+
+  // if handle doesn't exist, you're probably on the same page of the article you are referencing
+  if (!article.handle) {
+      return ''
+  }
+
   return (
     <Link href={`/${article.handle.current}`}>
         <a className={classes['article-card']}>

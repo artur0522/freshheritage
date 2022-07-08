@@ -15,6 +15,7 @@ import ResponsiveImage from '@/components/ResponsiveImage'
 import { useHeaderContext } from '@/context/HeaderContext'
 import { useModalContext } from '@/context/ModalContext'
 import ArticleVideo from '../ArticleVideo'
+import Router, { useRouter } from 'next/router'
 
 /*
   Split Hero can be used for Article or Blog Listing Pages
@@ -34,6 +35,18 @@ import ArticleVideo from '../ArticleVideo'
     - cooking-class -> same as default, but adds watch now button if valid
 */
 
+const getBackNavigationInfo = (router) => {
+
+  const goBackUrl = router.asPath.replace(`/${router.query.handle}`, '')
+  const urlPathArray = goBackUrl.split('/')
+  const goBackTitle = urlPathArray[urlPathArray.length - 1]
+
+  return {
+    url: goBackUrl,
+    title: goBackTitle
+  }
+}
+
 const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobalSettings }, mainContentRef) => {
   const [mounted, setMounted] = useState(false)
   const [startVideo, setStartVideo] = useState(false)
@@ -43,6 +56,8 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
   )
   const { hide, headerRef } = useHeaderContext()
   const { setIsOpen, setModalType } = useModalContext()
+  const router = useRouter()
+  const goBackNavigationSettings = getBackNavigationInfo(router)
 
   const {prepTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, subheader, servings, tags, cookTime, youtubeVideoId, classStartDate } = fields
 
@@ -101,8 +116,6 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
   const backgroundIllustrationImage = blogGlobalSettings.illustrationImage
   const renderTypeClass = `article-hero--render-type-${renderType}`
 
-  // TODO for Adrian: add navigation once all blogs and articles are added by getStaticPaths
-
   return (
     <div className={`${classes['article-hero']} ${classes[renderTypeClass]} ${classes[backgroundColorClass]}`}>
       <div className={classes['article-hero__content']}>
@@ -119,9 +132,9 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
 
         <div className={classes['article-hero__content-inner']}>
           <div className={classes['article-hero__navigation']}>
-            <Link href="">
-              <a><IconBullet /> <span>Back to something something</span></a>
-            </Link>
+            {goBackNavigationSettings.url && <Link href={goBackNavigationSettings.url}>
+              <a><IconBullet /> <span>Back to all {goBackNavigationSettings.title}</span></a>
+            </Link>}
           </div>
           {renderType === 'live-cooking-class' ? (
             <h1 className={classes['article-hero__heading']}>Live Cooking Class</h1>

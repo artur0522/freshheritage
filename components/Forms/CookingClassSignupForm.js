@@ -3,6 +3,7 @@ import classes from "./CookingClassSignupForm.module.scss"
 import EmailSignup from '../EmailSignup'
 import moment from 'moment'
 import { googleCalendarEventUrl } from 'google-calendar-url'
+import { ics, google } from "calendar-link";
 import IconPlusCircle from '@/svgs/plus-circle.svg'
 
 const googleTimeConverter = (date) => {
@@ -16,21 +17,20 @@ const CookingClassSignupForm = () => {
     return ''
   }
 
-  const dateFormatted = moment(content.classStartDate).format('dddd MMMM Do YYYY h:mm')
-  const dateEndTime = moment(content.classStartDate).add(1, 'hours')
+  const dateTextFormatted = moment(content.classStartDate).format('dddd MMMM Do YYYY h:mm')
+  const dateEventFormatted = moment(content.classStartDate).format('YYYY-MM-DD HH:mm:ss')
 
-  const url = googleCalendarEventUrl({
-    start: googleTimeConverter(new Date(content.classStartDate)),
-    end: googleTimeConverter(new Date(dateEndTime)),
+  const event = {
     title: `Live Cooking Class - ${content.header}`,
-    details: 'Event details'
-  })
+    start: `${dateEventFormatted} -0500`,
+    duration: [1, "hour"],
+  };
 
   return (
     <div className={`${classes['cooking-class-signup-form']} container`}>
       <h2 className="h4">{content.header}</h2>
       <h4>Class Starts On</h4>
-      <h6 className={classes['cooking-class-signup-time']}>{dateFormatted}pm CT</h6>
+      <h6 className={classes['cooking-class-signup-time']}>{dateTextFormatted}pm CT</h6>
       <div className={classes['cooking-class-signup-container']}>
         <EmailSignup props={{
           title: 'Email Signup',
@@ -41,7 +41,10 @@ const CookingClassSignupForm = () => {
 
       <ul className={classes['cooking-class-calendar-links']}>
         <li>
-          <a href={url} target="_blank"><IconPlusCircle /><h2>Add to Google Calendar</h2></a>
+          <a href={google(event)} target="_blank"><IconPlusCircle /><h2>Add to Google Calendar</h2></a>
+        </li>
+        <li>
+          <a href={ics(event)}><IconPlusCircle /><h2>Add to iCal</h2></a>
         </li>
       </ul>
     </div>

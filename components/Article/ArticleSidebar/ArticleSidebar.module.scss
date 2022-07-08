@@ -142,9 +142,14 @@
 }
 
 .article-author__image {
-  flex-basis: 137px;
-  width: 137px;
-  margin-right: 35px;
+  flex-basis: 98px;
+  width: 98px;
+  margin-right: 23px;
+  @include breakpoint-up('sm') {
+    flex-basis: 137px;
+    width: 137px;
+    margin-right: 35px;
+  }
   img {
     border-radius: 82px;
   }

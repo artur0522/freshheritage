@@ -10,6 +10,7 @@ import IconCutlery from '@/svgs/cutlery.svg'
 import IconScale from '@/svgs/scale.svg'
 import IconBullet from '@/svgs/list-item.svg'
 import IconPlayButton from '@/svgs/play-button.svg'
+import IconPlayButtonTriangle from '@/svgs/play-button-triangle.svg'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { useHeaderContext } from '@/context/HeaderContext'
 import { useModalContext } from '@/context/ModalContext'
@@ -30,6 +31,7 @@ import ArticleVideo from '../ArticleVideo'
     - default -> white background
     - cooking-guide -> same as default, but with sticky hero image/video
     - live-cooking-class -> same as default, but with a countdown timer
+    - cooking-class -> same as default, but adds watch now button if valid
 */
 
 const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobalSettings }, mainContentRef) => {
@@ -140,6 +142,13 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
               setIsOpen(true)}
             }
             className={`${classes['article-hero__action-btn']} btn salmon`}>Sign Me Up</button>
+          </div>}
+
+          {renderType === 'cooking-class' && youtubeVideoId && <div>
+            <button onClick={() => showVideo()} className={`${classes['article-hero__action-btn']} btn salmon`}>
+              <IconPlayButtonTriangle />
+              <span>Watch Now</span>
+            </button>
           </div>}
 
           {tags && <ul className={classes['article-hero__tags']}>

@@ -65,7 +65,8 @@
   }
   &.article-hero--render-type-default,
   &.article-hero--render-type-cooking-guide,
-  &.article-hero--render-type-live-cooking-class {
+  &.article-hero--render-type-live-cooking-class,
+  &.article-hero--render-type-cooking-class {
     .article-hero__content {
       background-color: $pureWhite;
       padding: 30px 30px 60px;
@@ -335,7 +336,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 40px;
   svg {
+    width: 17px;
     margin-right: 10px;
   }
 }
@@ -353,12 +356,15 @@
     li {
       display: flex;
       align-items: center;
-      font-size: 21px;
-      letter-spacing: 0.02;
+      font-size: 16px;
+      letter-spacing: 0.02em;
       margin-right: 15px;
       padding-right: 15px;
       border-right: 1px solid rgba(45, 43, 38, 0.2);
       min-height: 29px;
+      @include breakpoint-up('sm') {
+        font-size: 21px;
+      }
       @include breakpoint-up('lg') {
         margin-right: 20px;
         padding-right: 20px;

@@ -12,20 +12,25 @@ import PaginationRight from '@/svgs/pagination-right.svg'
 
 import classes from "./RecipesListings.module.scss"
 
-const RecipeListings = ({recipeArticles, blogSettings, recipeListings}) => {
+const RecipeListings = ({recipeArticles, blogSettings, recipeListingsSections}) => {
+  console.log(recipeListingsSections)
   const drawerContext = useArticleFiltersDrawerContext()
-  const { content } = recipeListings[0].fields
+  const { addFilters, openDrawer, filters } = drawerContext
+  const { content, filterGroups } = recipeListingsSections[0].fields
   const heroSection = content?.find(section => section._type === 'hero')
   const articleRowSection = content?.find(section => section._type === 'articleRow')
 
-  const [pages] = useState(Math.ceil(recipeArticles.length / 20));
-  const [currentPage, setCurrentPage] = useState(1);
+  const [pages] = useState(Math.ceil(recipeArticles.length / 20))
+  const [currentPage, setCurrentPage] = useState(1)
 
   const [filterDrawer, toggleFilterDrawer]= useState(true)
+  
+  useEffect(() => {
+    addFilters(filterGroups)
+    window.scrollTo({ behavior: 'smooth', top: '0px' })
+  }, [currentPage]);
 
-  // useEffect(() => {
-  //   window.scrollTo({ behavior: 'smooth', top: '0px' });
-  // }, [currentPage]);
+  console.log('filtergroups', filters)
 
   const goToNextPage = () => {
     setCurrentPage((page) => page + 1)
@@ -55,7 +60,7 @@ const RecipeListings = ({recipeArticles, blogSettings, recipeListings}) => {
     <>
       <ArticleSplitHero fields={''} renderType="blog-listing" blogType="culinary" blogSettings={blogSettings} />
       <div className={classes['recipes']}>
-          <button onClick={() => drawerContext.openDrawer}>
+          <button onClick={() => openDrawer()}>
             click me
           </button>
       
@@ -191,7 +196,7 @@ export async function getStaticProps({ params }) {
     type: 'blogSettings'
   })
 
-  const recipeListings  = await nacelleClient.content({
+  const recipeListingsSections  = await nacelleClient.content({
     handles: ['recipe-listings'],
     type: 'blog'
   })
@@ -206,7 +211,7 @@ export async function getStaticProps({ params }) {
     props: {
       recipeArticles: recipeArticles,
       blogSettings: blogSettings[0],
-      recipeListings: recipeListings
+      recipeListingsSections: recipeListingsSections
     }
   }
 }

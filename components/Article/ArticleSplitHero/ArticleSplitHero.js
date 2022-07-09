@@ -39,7 +39,7 @@ const getBackNavigationInfo = (router) => {
 
   const goBackUrl = router.asPath.replace(`/${router.query.handle}`, '')
   const urlPathArray = goBackUrl.split('/')
-  const goBackTitle = urlPathArray[urlPathArray.length - 1]
+  const goBackTitle = urlPathArray[urlPathArray.length - 1].replace(/-/g, ' ')
 
   return {
     url: goBackUrl,

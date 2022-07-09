@@ -34,7 +34,8 @@ const ArticleSidebar = ({fields, blogGlobalSettings}) => {
             listId: classSignup.klaviyoListId,
             customCheckbox: {
               label: classSignup.checkboxLabel,
-              disclaimer: classSignup.disclaimer
+              disclaimer: classSignup.disclaimer,
+              checkboxKlaviyoProperty: classSignup.checkboxKlaviyoProperty
             }
           }} />
         </div>}

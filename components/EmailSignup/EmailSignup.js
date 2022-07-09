@@ -9,11 +9,21 @@ const EmailSignup = ({props}) => {
   const emailRef = useRef()
   const customCheckBoxRef = useRef()
 
-  const { title, ctaText, listId, customCheckbox } = props
+  const { title, ctaText, listId, customCheckbox, checkboxKlaviyoProperty } = props
 
-  const submitForm = (e) => {
+  const responseHandler = (data) => {
+    if (data.message === 'success') {
+      setShowSuccessMessage(true)
+      setShowErrorMessage(false)
+    } else {
+      setShowErrorMessage(true)
+      return false
+    }
+  }
+
+  const submitForm = async (e) => {
     e.preventDefault()
-    fetch('/api/klaviyo/klaviyo-add-to-list', {
+    const response = await fetch('/api/klaviyo/klaviyo-add-to-list', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -25,13 +35,28 @@ const EmailSignup = ({props}) => {
     })
     .then(res => res.json())
     .then((data) => {
-      if (data.message === 'success') {
-        setShowSuccessMessage(true)
-        setShowErrorMessage(false)
-      } else {
-        setShowErrorMessage(true)
+      if (data.message === 'success' && customCheckBoxRef?.current.checked) {
+        return true
       }
+      responseHandler(data)
     })
+
+    if (customCheckBoxRef?.current.checked && response) {
+      fetch('/api/klaviyo/klaviyo-update-profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          '$email': emailRef.current.value,
+          [`${customCheckbox.checkboxKlaviyoProperty} - ${listId}`]: 'true',
+        })
+      })
+      .then(res => res.json())
+      .then((data) => {
+        responseHandler(data)
+      })
+    }
   }
 
   if (!listId) {

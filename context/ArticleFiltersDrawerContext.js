@@ -58,10 +58,6 @@ export function ArticleFiltersDrawerProvider({ children }) {
   const [selectedFiltersList, setSelectedFiltersList ] = useState([])
   const { isOpen, filters, selectedFilters } = state
 
-  useEffect(() => {
-    dispatch({ type: 'add_selected_filters', payload: selectedFiltersList })
-  }, [selectedFiltersList])
-  
   const openDrawer = () => {
     dispatch({ type: 'open_drawer'})
   }
@@ -83,6 +79,8 @@ export function ArticleFiltersDrawerProvider({ children }) {
       
       if(foundFilterOption.isChecked) {
         foundFilterOption.isChecked = false
+        let filteredList = selectedFiltersList.filter(item => item !== foundFilterOption.value)
+        setSelectedFiltersList(filteredList)
       } else {
         foundFilterOption.isChecked = true
         setSelectedFiltersList(list => [...list, foundFilterOption.value])
@@ -94,7 +92,9 @@ export function ArticleFiltersDrawerProvider({ children }) {
           setSelectedFiltersList(list => [...list, subFilter.value])
         })
       } else {
-        foundFilterOption.subFilters?.forEach(subFilter => subFilter.isChecked = false)
+        foundFilterOption.subFilters?.forEach((subFilter) => {
+          subFilter.isChecked = false
+        })
       }
     } else {
       filterIndex = newFiltersArray.findIndex(filterGroup => filterGroup.title === filterGroupTitle)
@@ -105,6 +105,8 @@ export function ArticleFiltersDrawerProvider({ children }) {
       if(subFilter.isChecked) {
        subFilter.isChecked = false
        filterOption.isChecked = false
+       let filteredList = selectedFiltersList.filter(item => item !== foundFilterOption.value || item !== filter.option.value)
+       setSelectedFiltersList(filteredList)
       } else {
         subFilter.isChecked = true
         setSelectedFiltersList(list => [...list, subFilter.value])
@@ -122,6 +124,10 @@ export function ArticleFiltersDrawerProvider({ children }) {
       }, undefined, { shallow: true })
     }
   }
+
+  useEffect(() => {
+    dispatch({ type: 'add_selected_filters', payload: selectedFiltersList })
+  }, [selectedFiltersList])
 
   useEffect(() => {
     if (isOpen) document.querySelector('html').classList.add('disable-scroll')

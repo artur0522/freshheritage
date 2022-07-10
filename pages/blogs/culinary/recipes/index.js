@@ -13,24 +13,22 @@ import PaginationRight from '@/svgs/pagination-right.svg'
 import classes from "./RecipesListings.module.scss"
 
 const RecipeListings = ({recipeArticles, blogSettings, recipeListingsSections}) => {
-  console.log(recipeListingsSections)
   const drawerContext = useArticleFiltersDrawerContext()
-  const { addFilters, openDrawer, filters } = drawerContext
+  const { addFilters, openDrawer, filters, selectedFilters } = drawerContext
   const { content, filterGroups } = recipeListingsSections[0].fields
   const heroSection = content?.find(section => section._type === 'hero')
   const articleRowSection = content?.find(section => section._type === 'articleRow')
 
   const [pages] = useState(Math.ceil(recipeArticles.length / 20))
   const [currentPage, setCurrentPage] = useState(1)
-
   const [filterDrawer, toggleFilterDrawer]= useState(true)
   
   useEffect(() => {
     addFilters(filterGroups)
     window.scrollTo({ behavior: 'smooth', top: '0px' })
-  }, [currentPage]);
+  }, [currentPage, selectedFilters])
 
-  console.log('filtergroups', filters)
+  console.log("listings", selectedFilters)
 
   const goToNextPage = () => {
     setCurrentPage((page) => page + 1)

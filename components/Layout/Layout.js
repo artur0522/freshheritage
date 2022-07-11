@@ -5,6 +5,7 @@ import { CustomerProvider } from '@/context/CustomerContext'
 import { PurchaseFlowProvider } from '@/context/PurchaseFlowContext'
 import { HeadlessCheckoutProvider } from '@/context/HeadlessCheckoutContext';
 import { HeaderProvider } from '@/context/HeaderContext';
+import StructuredData from '../SEO/StructuredData'
 
 import Header from '@/components/Layout/Header'
 import Footer from '@/components/Layout/Footer'
@@ -24,6 +25,7 @@ function Layout({ children, headerSettings, footerSettings }) {
             <ModalProvider>
               <ArticleProvider>
                 <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
+                  <StructuredData type="breadcrumb" />
                   <main>{children}</main>
                   <Footer content={footerSettings} />
                 </HeaderProvider>

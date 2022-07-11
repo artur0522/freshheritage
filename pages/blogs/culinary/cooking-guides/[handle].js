@@ -5,6 +5,7 @@ import { nacelleClient } from 'services'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import ContentSections from '@/components/Sections/ContentSections'
 import PageSEO from '@/components/SEO/PageSEO'
+import StructuredData from '@/components/SEO/StructuredData'
 
 const RecipeArticle = ({ page, product, blogSettings }) => {
 
@@ -23,6 +24,7 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
 
   return (
     <div className={`${!hasVideo ? 'article-cooking-guide--no-video' : 'article-cooking-guide'}`}>
+      <StructuredData type="video" data={page} />
       <PageSEO seo={page.fields.seo} />
       <ArticleSplitHero ref={mainContentRef} fields={hero} renderType="cooking-guide" blogGlobalSettings={blogGlobalSettings} />
       <ArticleMain ref={mainContentRef} contentType="standard" fields={page.fields} product={product} showNav={true} blogGlobalSettings={blogGlobalSettings} />

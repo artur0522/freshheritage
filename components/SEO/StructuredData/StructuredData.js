@@ -5,7 +5,7 @@ const StructuredData = ({ type, data }) => {
     case 'product':
       return <ProductSD data={data} />
     case 'breadcrumb':
-      return <BreadcrumbSD data={data} />
+      return <BreadcrumbSD />
     case 'recipe':
       return <RecipeSD data={data} />
     case 'video':

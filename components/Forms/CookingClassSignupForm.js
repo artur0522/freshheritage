@@ -36,7 +36,7 @@ const CookingClassSignupForm = () => {
 
       <ul className={classes['cooking-class-calendar-links']}>
         <li>
-          <a href={google(event)} target="_blank"><IconPlusCircle /><h2>Add to Google Calendar</h2></a>
+          <a href={google(event)} target="_blank" rel="noreferrer"><IconPlusCircle /><h2>Add to Google Calendar</h2></a>
         </li>
         <li>
           <a href={ics(event)}><IconPlusCircle /><h2>Add to iCal</h2></a>

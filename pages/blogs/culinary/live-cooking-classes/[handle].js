@@ -27,6 +27,7 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
       classStartDate: page.fields.classStartDate,
       listId: page.fields.klaviyoListId
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

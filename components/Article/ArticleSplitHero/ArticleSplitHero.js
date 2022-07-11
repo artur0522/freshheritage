@@ -37,8 +37,8 @@ import Router, { useRouter } from 'next/router'
 
 const getBackNavigationInfo = (router) => {
 
-  const goBackUrl = router.asPath.replace(`/${router.query.handle}`, '')
-  const urlPathArray = goBackUrl.split('/')
+  let urlPathArray = router.asPath.split('/').slice(0, -1)
+  const goBackUrl = urlPathArray.join('/')
   const goBackTitle = urlPathArray[urlPathArray.length - 1].replace(/-/g, ' ')
 
   return {
@@ -54,7 +54,7 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
   const isDesktop = useMediaQuery(
     {query: '(min-width: 1074px)'}
   )
-  const { hide, headerRef } = useHeaderContext()
+  const {  headerRef } = useHeaderContext()
   const { setIsOpen, setModalType } = useModalContext()
   const router = useRouter()
   const goBackNavigationSettings = getBackNavigationInfo(router)
@@ -95,6 +95,7 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
   useEffect(() => {
     setMounted(true)
     getStickyPosition()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -102,6 +103,7 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
     return () => {
       window.removeEventListener('scroll', getStickyPosition)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   if (!blogGlobalSettings) {

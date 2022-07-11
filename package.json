@@ -28,7 +28,8 @@
     "js-base64": "^3.7.2",
     "lodash-es": "^4.17.21",
     "moment": "^2.29.4",
-    "next": "^12.1.7-canary.32",
+    "next": "^12.1.7-canary.42",
+    "next-seo": "^5.4.0",
     "react": "17.0.2",
     "react-animate-height": "^2.1.2",
     "react-custom-checkbox": "^2.0.1",
@@ -45,6 +46,7 @@
     "react-youtube": "^9.0.2",
     "sass": "^1.51.0",
     "sass-migrator": "^1.5.4",
+    "string-strip-html": "^9.1.12",
     "swiper": "^8.1.5",
     "universal-cookie": "^4.0.4",
     "uuid": "^8.3.2"

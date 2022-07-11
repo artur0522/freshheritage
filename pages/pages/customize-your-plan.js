@@ -1,11 +1,17 @@
 import { nacelleClient } from 'services'
 import CustomizeYourPlan from '@/components/PurchaseFlow/CustomizeYourPlan'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
+import PageSEO from '@/components/SEO/PageSEO'
 
 const PurchaseFlow = ({page}) => {
   const purchaseFlowContext = usePurchaseFlowContext()
   if (purchaseFlowContext.options.is_loaded) {
-    return <CustomizeYourPlan props={page} />
+    return (
+      <>
+        <PageSEO seo={page.seo} />
+        <CustomizeYourPlan props={page} />
+      </>
+    )
   }
   return ''
 }

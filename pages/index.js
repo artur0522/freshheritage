@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
-
 import { nacelleClient } from 'services'
 import ContentSections from '../components/Sections/ContentSections'
 import DynamicHero from "@/components/Sections/DynamicHero"
 import { useCustomerContext } from '@/context/CustomerContext'
+import PageSEO from '@/components/SEO/PageSEO'
 
 export default function Home({ pages }) {
   const homePage = pages.find((page) => page.handle === 'homepage')
@@ -11,7 +11,7 @@ export default function Home({ pages }) {
 
   let foundDynamicHero
 
-  const  { customer } = context
+  const { customer } = context
 
   const dynamicHeroSections = homePage.fields.content.filter((section) => {
     return section._type === 'dynamicHero'
@@ -49,6 +49,7 @@ export default function Home({ pages }) {
 
   return (
     <>
+      <PageSEO seo={homePage.fields.seo} />
       {!context.customerLoading && <DynamicHero fields={foundDynamicHero} />}
       <ContentSections sections={homePage.fields.content} />
     </>

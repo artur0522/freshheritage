@@ -1,5 +1,5 @@
 import React from 'react'
-
+import PageSEO from '@/components/SEO/PageSEO'
 import { nacelleClient } from 'services'
 import ContentSections from '../components/Sections/ContentSections'
 
@@ -8,6 +8,7 @@ export default function HowItWorks({ pages }) {
 
   return (
     <>
+      <PageSEO seo={howItWorksPage.fields.seo} />
       <ContentSections sections={howItWorksPage.fields.content} />
     </>
   )

@@ -8,24 +8,25 @@ import IconPlusCircle from '@/svgs/plus-circle.svg'
 const CookingClassSignupForm = () => {
   const { content } = useModalContext()
 
-  if (!content.classStartDate) {
+  if (!content.classStartDate || !content.classEndDate) {
     return ''
   }
 
-  const dateTextFormatted = moment(content.classStartDate).format('dddd MMMM Do YYYY h:mm')
-  const dateEventFormatted = moment(content.classStartDate).format('YYYY-MM-DD HH:mm:ss')
+  const startDateTextFormatted = moment(content.classStartDate).format('dddd MMMM Do YYYY h:mm')
+  const startDateEventFormatted = moment(content.classStartDate).format('YYYY-MM-DD HH:mm:ss')
+  const endDateEventFormatted = moment(content.classEndDate).format('YYYY-MM-DD HH:mm:ss')
 
   const event = {
     title: `Live Cooking Class - ${content.header}`,
-    start: `${dateEventFormatted} -0500`,
-    duration: [1, "hour"],
+    start: `${startDateEventFormatted} -0500`,
+    end: `${endDateEventFormatted} -0500`,
   };
 
   return (
     <div className={`${classes['cooking-class-signup-form']} container`}>
       <h2 className="h4">{content.header}</h2>
       <h4>Class Starts On</h4>
-      <h6 className={classes['cooking-class-signup-time']}>{dateTextFormatted}pm CT</h6>
+      <h6 className={classes['cooking-class-signup-time']}>{startDateTextFormatted}pm CT</h6>
       <div className={classes['cooking-class-signup-container']}>
         <EmailSignup props={{
           title: 'Email Signup',

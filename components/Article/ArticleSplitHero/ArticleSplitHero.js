@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, forwardRef } from 'react'
-import { useTimer } from 'react-timer-hook'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,9 +12,9 @@ import IconPlayButton from '@/svgs/play-button.svg'
 import IconPlayButtonTriangle from '@/svgs/play-button-triangle.svg'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { useHeaderContext } from '@/context/HeaderContext'
-import { useModalContext } from '@/context/ModalContext'
 import ArticleVideo from '../ArticleVideo'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
+import ArticleCountdownTimer from './ArticleCountdownTimer'
 
 /*
   Split Hero can be used for Article or Blog Listing Pages
@@ -55,23 +54,13 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
     {query: '(min-width: 1074px)'}
   )
   const {  headerRef } = useHeaderContext()
-  const { setIsOpen, setModalType } = useModalContext()
   const router = useRouter()
   const goBackNavigationSettings = getBackNavigationInfo(router)
 
-  const {prepTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, subheader, servings, tags, cookTime, youtubeVideoId, classStartDate } = fields
+  const {prepTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, subheader, servings, tags, cookTime, youtubeVideoId, classStartDate, classEndDate } = fields
 
   const hasVideo = youtubeVideoId ? true : false
   const heroImageRef = useRef()
-
-  const expiryTimestamp = new Date(classStartDate);
-
-  const {
-    minutes,
-    hours,
-    days,
-    isRunning
-  } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
 
   /* Cooking Guide Articles will have a sticky hero video if available */
   const getStickyPosition = () => {
@@ -145,19 +134,7 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
           )}
           {subheader && <h2 className={classes['article-hero__subheading']}>{subheader}</h2>}
 
-          {isRunning && classStartDate && <div className={classes['article-hero__countdown-timer']}>
-            <h4>Next Class Starts In</h4>
-            <ul>
-              <li>Days: {days}</li>
-              <li>Hours: {hours}</li>
-              <li>Minutes: {minutes}</li>
-            </ul>
-            <button onClick={() => {
-              setModalType('cooking_class_signup')
-              setIsOpen(true)}
-            }
-            className={`${classes['article-hero__action-btn']} btn salmon`}>Sign Me Up</button>
-          </div>}
+          {classStartDate && classEndDate && <ArticleCountdownTimer classStartDate={classStartDate} classEndDate={classEndDate} classes={classes} />}
 
           {renderType === 'cooking-class' && youtubeVideoId && <div>
             <button onClick={() => showVideo()} className={`${classes['article-hero__action-btn']} btn salmon`}>

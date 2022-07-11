@@ -18,6 +18,7 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
   const { hero } = page.fields
   const blogGlobalSettings = blogSettings ? blogSettings.fields['culinary'] : undefined
   hero.classStartDate = page.fields.classStartDate
+  hero.classEndDate = page.fields.classEndDate
 
   if (page.fields?.sidebar?.classSignup && page.fields.klaviyoListId) {
     page.fields.sidebar.classSignup.klaviyoListId = page.fields.klaviyoListId
@@ -27,6 +28,7 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
     setContent({
       header: page.title,
       classStartDate: page.fields.classStartDate,
+      classEndDate: page.fields.classEndDate,
       listId: page.fields.klaviyoListId
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps

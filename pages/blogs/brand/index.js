@@ -2,12 +2,14 @@ import React from 'react'
 
 import { nacelleClient } from 'services'
 import ContentSections from '../../../components/Sections/ContentSections'
+import PageSEO from '@/components/SEO/PageSEO'
 
 export default function BrandBlog({ pages }) {
   const brandBlogPage = pages.find((page) => page.handle === 'brand-blog')
 
   return (
     <>
+       <PageSEO seo={brandBlogPage.fields.seo} />
        <ContentSections sections={brandBlogPage.fields.content} />
     </>
   )

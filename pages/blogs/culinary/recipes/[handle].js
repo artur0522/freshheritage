@@ -3,6 +3,7 @@ import ArticleMain from '@/components/Article/ArticleMain'
 import { nacelleClient } from 'services'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import ContentSections from '@/components/Sections/ContentSections'
+import PageSEO from '@/components/SEO/PageSEO'
 
 const RecipeArticle = ({ page, product, blogSettings }) => {
 
@@ -18,6 +19,7 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
 
   return (
     <>
+       <PageSEO seo={page.fields.seo} />
       <ArticleSplitHero fields={hero} renderType="recipe" blogGlobalSettings={blogGlobalSettings} />
       <ArticleMain contentType="recipe" showNav={true} fields={page.fields} product={product} blogGlobalSettings={blogGlobalSettings} />
       <ContentSections sections={page.fields.pageContent} />

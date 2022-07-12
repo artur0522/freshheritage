@@ -36,6 +36,7 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
 
   return (
     <>
+      <StructuredData type="article" data={page} />
       <StructuredData type="video" data={page} />
       <PageSEO seo={page.fields.seo} />
       <ArticleSplitHero fields={hero} renderType="live-cooking-class" blogGlobalSettings={blogGlobalSettings} />

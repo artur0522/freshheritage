@@ -18,6 +18,7 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
 
   return (
     <>
+      <StructuredData type="article" data={page} />
       <PageSEO seo={page.fields.seo} />
       <ArticleSplitHero fields={hero} renderType="default" blogGlobalSettings={blogGlobalSettings} />
       <ArticleMain contentType="standard" fields={page.fields} product={product} blogGlobalSettings={blogGlobalSettings} />

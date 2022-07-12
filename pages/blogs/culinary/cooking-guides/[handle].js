@@ -24,6 +24,7 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
 
   return (
     <div className={`${!hasVideo ? 'article-cooking-guide--no-video' : 'article-cooking-guide'}`}>
+      <StructuredData type="article" data={page} />
       <StructuredData type="video" data={page} />
       <PageSEO seo={page.fields.seo} />
       <ArticleSplitHero ref={mainContentRef} fields={hero} renderType="cooking-guide" blogGlobalSettings={blogGlobalSettings} />

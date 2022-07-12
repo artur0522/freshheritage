@@ -1,7 +1,11 @@
-import { ProductSD, BreadcrumbSD, RecipeSD, VideoSD } from './components'
+import { ArticleSD, BlogSD, ProductSD, BreadcrumbSD, RecipeSD, VideoSD } from './components'
 
 const StructuredData = ({ type, data }) => {
   switch (type) {
+    case 'article':
+      return <ArticleSD data={data} />
+    case 'blog':
+      return <BlogSD data={data} />
     case 'product':
       return <ProductSD data={data} />
     case 'breadcrumb':

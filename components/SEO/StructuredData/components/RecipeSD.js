@@ -66,7 +66,7 @@ const RecipeSD = ({ data }) => {
       name={metaTitle}
       description={metaDesc}
       datePublished={datePublished}
-      authorName={[author]}
+      authorName={[author.name]}
       prepTime={prepTime}
       cookTime={cookTime}
       keywords={keywords}

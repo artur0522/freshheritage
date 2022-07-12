@@ -11,7 +11,7 @@ const VideoSD = ({data}) => {
   const { name = '', description = '' } = data.fields.structuredData
   const images = []
 
-  if (data.fields.hero.desktopBackgroundImage) {
+  if (data.fields.hero?.desktopBackgroundImage) {
     images.push(data.fields.hero.desktopBackgroundImage.asset.url)
   }
 

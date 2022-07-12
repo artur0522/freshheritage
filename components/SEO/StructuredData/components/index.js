@@ -1,3 +1,5 @@
+export { default as ArticleSD } from './ArticleSD'
+export { default as BlogSD } from './BlogSD'
 export { default as ProductSD } from './ProductSD'
 export { default as BreadcrumbSD } from './BreadcrumbSD'
 export { default as RecipeSD } from './RecipeSD'

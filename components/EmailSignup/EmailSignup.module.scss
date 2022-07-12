@@ -16,19 +16,6 @@
     @include breakpoint-up('sm') {
       height: 60px;
     }
-    &[type="checkbox"] {
-      flex-basis: 26px;
-      width: 26px;
-      height: 26px;
-      margin-right: 10px;
-      ~ label {
-        flex: 1;
-        font-size: 18px;
-        line-height: 150%;
-        position: relative;
-        top: -5px;
-      }
-    }
   }
   svg {
     position: absolute;

@@ -1,5 +1,20 @@
 @import '@/styles/_shared.scss';
 
+
+:global(.article-culinary-contest) {
+  .article-sidebar {
+    background-color: $alabaster2;
+    .article-sidebar__section {
+      border-bottom: 1px solid $black20;
+      &:last-child {
+        padding-bottom: 40px;
+        margin-bottom: 40px;
+        border-bottom: 1px solid $black20;
+      }
+    }
+  }
+}
+
 :global(.article-cooking-guide) {
   .article-sidebar {
     @include breakpoint-up('md') {

@@ -6,7 +6,7 @@ import ContentSections from '@/components/Sections/ContentSections'
 import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
 
-const RecipeArticle = ({ page, product, blogSettings }) => {
+const VideoSeriesArticle = ({ page, product, blogSettings }) => {
 
   // console.log("page:", page)
   // console.log("blogSettings:", blogSettings)
@@ -28,7 +28,7 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
   )
 }
 
-export default RecipeArticle
+export default VideoSeriesArticle
 
 export async function getStaticPaths() {
   const videoArticles = await nacelleClient.content({

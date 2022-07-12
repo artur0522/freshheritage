@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useArticleContext } from '@/context/ArticleContext'
 import IconCaret from '@/svgs/caret.svg'
 
-const ArticleSidebar = ({fields, blogGlobalSettings}) => {
+const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
 
   const { content, author, hosts, relatedArticles, classSignup } = fields
   const { isSidebarOpen, setIsSidebarOpen } = useArticleContext()

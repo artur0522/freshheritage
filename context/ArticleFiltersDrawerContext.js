@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useReducer, useEffect } from 'react'
+import { createContext, useContext, useState, useReducer, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import ArticleFiltersDrawer from '@/components/Layout/ArticleFiltersDrawer'
 import { filter } from 'lodash-es'
@@ -17,6 +17,18 @@ function drawerReducer(state, action) {
       return {
         ...state,
         isOpen: false,
+      }
+    }
+    case 'add_tag_count': {
+      return {
+        ...state,
+        tagCount: action.payload
+      }
+    }
+    case 'add_original_listings': {
+      return {
+        ...state,
+        originalListings: action.payload
       }
     }
     case 'add_listings': {
@@ -92,7 +104,9 @@ const initialState = {
   isOpen: false,
   filters: {},
   selectedFilterList: [],
-  listings: []
+  listings: [],
+  originalListings: [],
+  tagCount: {}
 };
 
 export function useArticleFiltersDrawerContext() {
@@ -102,7 +116,8 @@ export function useArticleFiltersDrawerContext() {
 export function ArticleFiltersDrawerProvider({ children }) {
   const router = useRouter()
   const [state, dispatch] = useReducer(drawerReducer, initialState)
-  const { isOpen, filters, selectedFilterList, listings } = state
+  
+  const { isOpen, filters, selectedFilterList, listings, originalListings, tagCount } = state
 
   const openDrawer = () => {
     dispatch({ type: 'open_drawer'})
@@ -112,10 +127,34 @@ export function ArticleFiltersDrawerProvider({ children }) {
     dispatch({ type: 'add_filters', payload: filters})
   }
 
+  const addTagCount = (tagCount) => {
+    dispatch({ type: 'add_tag_count', payload: tagCount})
+  }
+
   const addListings = (listings) => {
     dispatch({ type: 'add_listings', payload: listings})
   }
-  
+
+  const addOriginalListings = (listings) => {
+    dispatch({ type: 'add_original_listings', payload: listings})
+  }
+
+  const filterListingsByTags = (listings) => {
+    let res = []
+
+    if(selectedFilterList.length > 0) {
+      res = listings.filter((listing) => {
+        if(listing.fields?.articleTags && selectedFilterList.includes(listing.fields?.articleTags[1]?.value)) {
+          return listing
+        }
+      })
+    } else { 
+      res = originalListings
+    }
+    
+    dispatch({ type: 'add_listings', payload: res})
+  }
+
   const checkBoxHandler = (hasSubfilter, filterGroup, filterOption, subFilter) => {
     if(hasSubfilter) {
       dispatch({ type: 'toggle_checkbox', payload: {
@@ -124,27 +163,32 @@ export function ArticleFiltersDrawerProvider({ children }) {
         option: filterOption,
         subFilter: subFilter
       }})
-      // conditional
+
+      if(filters[filterGroup].options[filterOption].subFilters[subFilter].checked) { 
+        filters[filterGroup].options[filterOption].checked = false 
+      }  
+
+      // conditional to add into selectedFilters array
       if(filters[filterGroup].options[filterOption].subFilters[subFilter].checked) {
         dispatch({type: 'remove_selected_filters', payload: subFilter})
+        filterListingsByTags(listings)
       } else {
         dispatch({type: 'add_selected_filters', payload: subFilter})
+        filterListingsByTags(listings)
       }
-      
-      console.log(selectedFilterList)
+
     } else {
       const nestedSubFilters = filters[filterGroup].options[filterOption].subFilters
 
       Object.keys(nestedSubFilters).forEach((key) => {
-        console.log(key)
-        filters[filterGroup].options[filterOption].subFilters[key].checked = !filters[filterGroup].options[filterOption].subFilters[key].checked
-        // conditional
+        filters[filterGroup].options[filterOption].subFilters[key].checked = true       
+        // conditional to add into selectedFilters array
         if(filters[filterGroup].options[filterOption].subFilters[key].checked) {
           dispatch({type: 'add_selected_filters', payload: key})
-          console.log(selectedFilterList)
+          filterListingsByTags(listings)
         } else {
           dispatch({type: 'remove_selected_filters', payload: key})
-          console.log(selectedFilterList)
+          filterListingsByTags(listings) 
         }
       })
 
@@ -155,10 +199,13 @@ export function ArticleFiltersDrawerProvider({ children }) {
         subFilters: nestedSubFilters
       }})
 
+      // conditional to add into selectedFilters array
       if(filters[filterGroup].options[filterOption].checked) {
         dispatch({type: 'remove_selected_filters', payload: filterOption})
+        filterListingsByTags(listings)
       } else {
         dispatch({type: 'add_selected_filters', payload: filterOption})
+        filterListingsByTags(listings)
       }
     }
   }
@@ -166,8 +213,9 @@ export function ArticleFiltersDrawerProvider({ children }) {
   useEffect(() => {
     if (isOpen) document.querySelector('html').classList.add('disable-scroll')
     if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
-    console.log('selectedfilterlist', selectedFilterList)
-  }, [isOpen, selectedFilterList])
+    filterListingsByTags(listings)
+    console.log(tagCount) 
+  }, [isOpen, selectedFilterList]) 
 
   useEffect(() => {
     router.beforePopState(({ as }) => {
@@ -180,7 +228,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
   }, [router])
 
   return (
-    <ArticleFiltersDrawerContext.Provider value={{isOpen, filters, openDrawer, addFilters, checkBoxHandler, dispatch, selectedFilterList, listings, addListings}}>
+    <ArticleFiltersDrawerContext.Provider value={{isOpen, addTagCount, tagCount, filters, openDrawer, addFilters, checkBoxHandler, dispatch, selectedFilterList, listings, originalListings, addListings, addOriginalListings}}>
       {isOpen &&
         <ArticleFiltersDrawer  />
       }

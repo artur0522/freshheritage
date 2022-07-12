@@ -14,18 +14,33 @@ import classes from "./RecipesListings.module.scss"
 
 const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }) => {
   const drawerContext = useArticleFiltersDrawerContext()
-  const { addFilters, openDrawer, filters, selectedFilters, addListings, listings } = drawerContext
+  const { addFilters, openDrawer, selectedFilters, selectedFilterList, addListings, addOriginalListings, listings, addTagCount } = drawerContext
 
   const { content, filterGroups } = recipeListingsSections[0].fields
   const heroSection = content?.find(section => section._type === 'hero')
   const articleRowSection = content?.find(section => section._type === 'articleRow')
 
-  const [pages] = useState(Math.ceil(recipeArticles.length / 20))
+  const [pages] = useState(Math.ceil(listings.length / 20))
   const [currentPage, setCurrentPage] = useState(1)
   const [filterDrawer, toggleFilterDrawer]= useState(true)
   
   useEffect(() => {
+    openDrawer(true)
     addListings(recipeArticles)
+    addOriginalListings(recipeArticles)
+
+    const tagCount = {} 
+    recipeArticles.forEach((article) => {
+      if(article.fields?.articleTags && !tagCount[article.fields?.articleTags[1]?.value]) {
+        tagCount[article.fields?.articleTags[1]?.value] = 1
+      }
+      if(article.fields?.articleTags && tagCount[article.fields?.articleTags[1]?.value]) {
+        tagCount[article.fields?.articleTags[1]?.value]++
+      }
+    }) 
+
+    addTagCount(tagCount)
+
     const filterGroupObj = {}
     filterGroups.map((group) => {
       filterGroupObj[group.title] = {
@@ -38,7 +53,7 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
           subFilters: {}
         }
 
-        if(option.subFilters) {
+        if(option.subFilters) { 
           option.subFilters.map((subFilter) => {
            filterGroupObj[group.title].options[option.value].subFilters[subFilter.value] = {
               checked: false
@@ -47,9 +62,10 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
         }
       })
     })
+
     addFilters(filterGroupObj)
     window.scrollTo({ behavior: 'smooth', top: '0px' })
-  }, [currentPage, selectedFilters, filterGroups])
+  }, [currentPage, selectedFilters])
 
   const goToNextPage = () => {
     setCurrentPage((page) => page + 1)
@@ -68,7 +84,7 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
     const startIndex = currentPage * 20 - 20
     const endIndex = startIndex + 20
 
-    return recipeArticles.slice(startIndex, endIndex)
+    return listings.slice(startIndex, endIndex)
   };
 
   const getPaginationGroup = () => {
@@ -105,7 +121,7 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
                         <option>Oldest</option>
                     </select>
               </div>
-            </div>
+            </div> 
           </form>
 
 
@@ -122,8 +138,8 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
 
 
           <div className={`${classes['recipes__list-wrap']} ${classes[filterDrawer ? 'filters-open' : '']}`}>
-            {recipeArticles.length > 0 && currentPage === 1 && <div className={`${classes['recipes__list']} ${classes[filterDrawer ? 'filters-open' : '']} container`}>
-              {recipeArticles.slice(0, 8).map((article, index) => {
+            {listings.length > 0 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer ? 'filters-open' : '']} container`}>
+              {listings.slice(0, 8).map((article, index) => {
                   return (
                     <div key={article.handle}>
                       <DynamicArticleCard article={article} />
@@ -132,12 +148,12 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
               })}
             </div>}
 
-            {recipeArticles.length >= 8 && currentPage === 1 &&
+            {listings.length >= 8 && currentPage === 1 && selectedFilterList.length === 0 &&
               <FullBleedHero fields={heroSection} key={heroSection._key} />
             }
 
-            {recipeArticles.length >= 8 && currentPage === 1 && <div className={`${classes['recipes__list']} ${classes[filterDrawer ? 'filters-open' : '']} container`}>
-              {recipeArticles.slice(8, 16).map((article, index) => {
+            {listings.length >= 8 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer ? 'filters-open' : '']} container`}>
+              {listings.slice(8, 16).map((article, index) => {
                   return (
                     <div key={article.handle}>
                       <DynamicArticleCard article={article} />
@@ -146,33 +162,30 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
               })}
             </div>}
 
-            {recipeArticles.length >= 17 && currentPage === 1 &&
+            {listings.length >= 17 && currentPage === 1 && selectedFilterList.length === 0 &&
               <ArticleRow fields={articleRowSection} />
             }
 
-            {recipeArticles.length >= 17 && currentPage === 1 && <div className={`${classes['recipes__list']} container`}>
-              {recipeArticles.slice(17, 21).map((article, index) => {
+            {listings.length >= 17 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} container`}>
+              {listings.slice(17, 21).map((article, index) => {
                   return (
                     <div key={article.handle}>
                       <DynamicArticleCard article={article} />
                     </div>
                   )
               })}
-          </div>}
+            </div>}
 
-          <div className={`${classes['recipes__list']} container`}>
-            {getPaginatedData().map((article) => (
-                <div key={article.handle}>
-                  <DynamicArticleCard article={article} />
-              </div>
-            ))}
-          </div>
-
-          </div>
-
-
+            <div className={`${classes['recipes__list']} container`}>
+              {getPaginatedData().map((article) => (
+                  <div key={article.handle}>
+                    <DynamicArticleCard article={article} />
+                </div>
+              ))}
+            </div>
 
           </div>
+        </div>
 
 
 
@@ -184,13 +197,13 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
             <PaginationLeft />
           </button>
 
-          {getPaginationGroup().map((item, index) => (
+            {getPaginationGroup().map((item, index) => (
               <button
                 key={index}
                 onClick={changePage}
                 className={`${classes['paginationItem']} ${classes[currentPage === item ? 'active' : null]}`}
               >
-                <span>{item}</span>
+                <span>{item}</span>  
               </button>
             ))}
 

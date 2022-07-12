@@ -104,6 +104,9 @@ export function PDPDrawerProvider({ children }) {
   }, [router.isReady])
 
   useEffect(() => {
+    if (router.query.expand) {
+      dispatch({ type: 'open_drawer', payload: router.query.expand})
+    }
     router.beforePopState(({ as }) => {
       dispatch({ type: 'close_drawer' })
       return true

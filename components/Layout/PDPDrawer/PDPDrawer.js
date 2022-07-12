@@ -35,7 +35,7 @@ const PDPDrawer = ({box = undefined}) => {
   }, [box, boxDetails, product])
 
   return (
-    <div className={classes['pdp-flyout']}>
+    <div className={`${classes['pdp-flyout']} pdp-flyout`}>
       <div onClick={() => closeDrawer()} className={classes['pdp-flyout__overlay']}></div>
       <CSSTransition in={drawerOpen} timeout={timeout} nodeRef={nodeRef} unmountOnExit classNames={{
           'enter': classes['pdp-flyout__content--enter'],

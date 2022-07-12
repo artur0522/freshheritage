@@ -19,13 +19,13 @@ function drawerReducer(state, action) {
         isOpen: false,
       }
     }
-    case 'add_filters': {
+    case 'add_listings': {
       return {
         ...state,
-        filters: action.payload
+        listings: action.payload
       }
     }
-    case 'toggle_checkbox': {
+    case 'add_filters': {
       return {
         ...state,
         filters: action.payload
@@ -34,7 +34,53 @@ function drawerReducer(state, action) {
     case 'add_selected_filters': {
       return {
         ...state,
-        selectedFilters: action.payload
+        selectedFilterList: [...state.selectedFilterList.filter(filter => filter !== action.payload), action.payload]
+      }
+    }
+    case 'remove_selected_filters': {
+      return {
+        ...state,
+        selectedFilterList: [...state.selectedFilterList.filter(filter => filter !== action.payload)]
+      }
+    }
+    case 'toggle_checkbox': {
+      if(action.payload.hasSubfilter) {
+        return {
+          ...state,
+          filters: {
+            ...state.filters,
+            [action.payload.filterGroup]: {
+              options: {
+                ...state.filters[action.payload.filterGroup].options,
+                [action.payload.option]: {
+                  checked: state.filters[action.payload.filterGroup].options[action.payload.option].checked,
+                  subFilters: {
+                    ...state.filters[action.payload.filterGroup].options[action.payload.option].subFilters,
+                    [action.payload.subFilter]: {
+                      checked: !state.filters[action.payload.filterGroup].options[action.payload.option].subFilters[action.payload.subFilter].checked,
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      } else {
+        return {
+          ...state,
+          filters: {
+            ...state.filters,
+            [action.payload.filterGroup]: {
+              options: {
+                ...state.filters[action.payload.filterGroup].options,
+                [action.payload.option]: {
+                  checked: !state.filters[action.payload.filterGroup].options[action.payload.option].checked,
+                  subFilters: action.payload.subFilters
+                },
+              }
+            }
+          }
+        }
       }
     }
     default:
@@ -44,8 +90,9 @@ function drawerReducer(state, action) {
 
 const initialState = {
   isOpen: false,
-  filters: [],
-  selectedFilters: []
+  filters: {},
+  selectedFilterList: [],
+  listings: []
 };
 
 export function useArticleFiltersDrawerContext() {
@@ -55,8 +102,7 @@ export function useArticleFiltersDrawerContext() {
 export function ArticleFiltersDrawerProvider({ children }) {
   const router = useRouter()
   const [state, dispatch] = useReducer(drawerReducer, initialState)
-  const [selectedFiltersList, setSelectedFiltersList ] = useState([])
-  const { isOpen, filters, selectedFilters } = state
+  const { isOpen, filters, selectedFilterList, listings } = state
 
   const openDrawer = () => {
     dispatch({ type: 'open_drawer'})
@@ -65,75 +111,63 @@ export function ArticleFiltersDrawerProvider({ children }) {
   const addFilters = (filters) => {
     dispatch({ type: 'add_filters', payload: filters})
   }
+
+  const addListings = (listings) => {
+    dispatch({ type: 'add_listings', payload: listings})
+  }
   
-  const checkBoxHandler = (inputId, filterGroupTitle, isFilterOption, filterOption) => {
-    let newFiltersArray = [...filters]
-    let filterIndex
-    let foundOptionIndex
-    let foundSubFilterIndex
-
-    if(isFilterOption) {
-      filterIndex = newFiltersArray.findIndex(filterGroup => filterGroup.title === filterGroupTitle)
-      foundOptionIndex = newFiltersArray[filterIndex].filterOptions.findIndex(option => option.value === inputId)
-      let foundFilterOption = newFiltersArray[filterIndex].filterOptions[foundOptionIndex]
+  const checkBoxHandler = (hasSubfilter, filterGroup, filterOption, subFilter) => {
+    if(hasSubfilter) {
+      dispatch({ type: 'toggle_checkbox', payload: {
+        hasSubfilter,
+        filterGroup,
+        option: filterOption,
+        subFilter: subFilter
+      }})
+      // conditional
+      if(filters[filterGroup].options[filterOption].subFilters[subFilter].checked) {
+        dispatch({type: 'remove_selected_filters', payload: subFilter})
+      } else {
+        dispatch({type: 'add_selected_filters', payload: subFilter})
+      }
       
-      if(foundFilterOption.isChecked) {
-        foundFilterOption.isChecked = false
-        let filteredList = selectedFiltersList.filter(item => item !== foundFilterOption.value)
-        setSelectedFiltersList(filteredList)
-      } else {
-        foundFilterOption.isChecked = true
-        setSelectedFiltersList(list => [...list, foundFilterOption.value])
-      }
-
-      if(foundFilterOption.subFilters && foundFilterOption.isChecked) {
-        foundFilterOption.subFilters.forEach((subFilter) => {
-          subFilter.isChecked = true
-          setSelectedFiltersList(list => [...list, subFilter.value])
-        })
-      } else {
-        foundFilterOption.subFilters?.forEach((subFilter) => {
-          subFilter.isChecked = false
-        })
-      }
+      console.log(selectedFilterList)
     } else {
-      filterIndex = newFiltersArray.findIndex(filterGroup => filterGroup.title === filterGroupTitle)
-      foundOptionIndex = newFiltersArray[filterIndex].filterOptions.findIndex(option => option.value === filterOption.value)
-      foundSubFilterIndex = newFiltersArray[filterIndex].filterOptions[foundOptionIndex].subFilters.findIndex(subFilter => subFilter.value === inputId)
-      let subFilter = newFiltersArray[filterIndex].filterOptions[foundOptionIndex].subFilters[foundSubFilterIndex]
+      const nestedSubFilters = filters[filterGroup].options[filterOption].subFilters
 
-      if(subFilter.isChecked) {
-       subFilter.isChecked = false
-       filterOption.isChecked = false
-       let filteredList = selectedFiltersList.filter(item => item !== foundFilterOption.value || item !== filter.option.value)
-       setSelectedFiltersList(filteredList)
+      Object.keys(nestedSubFilters).forEach((key) => {
+        console.log(key)
+        filters[filterGroup].options[filterOption].subFilters[key].checked = !filters[filterGroup].options[filterOption].subFilters[key].checked
+        // conditional
+        if(filters[filterGroup].options[filterOption].subFilters[key].checked) {
+          dispatch({type: 'add_selected_filters', payload: key})
+          console.log(selectedFilterList)
+        } else {
+          dispatch({type: 'remove_selected_filters', payload: key})
+          console.log(selectedFilterList)
+        }
+      })
+
+      dispatch({ type: 'toggle_checkbox', payload: {
+        hasSubfilter,
+        filterGroup,
+        option: filterOption,
+        subFilters: nestedSubFilters
+      }})
+
+      if(filters[filterGroup].options[filterOption].checked) {
+        dispatch({type: 'remove_selected_filters', payload: filterOption})
       } else {
-        subFilter.isChecked = true
-        setSelectedFiltersList(list => [...list, subFilter.value])
+        dispatch({type: 'add_selected_filters', payload: filterOption})
       }
     }
- 
-    dispatch({ type: 'toggle_checkbox', payload: newFiltersArray })
   }
-
-  const updateParam = () => {
-    if (router.pathname === '/pages/choose-your-plan' && router.isReady) {
-      router.replace({
-        pathname: '/pages/choose-your-plan',
-        query: (activeProductHandle ? { expand: activeProductHandle } : undefined)
-      }, undefined, { shallow: true })
-    }
-  }
-
-  useEffect(() => {
-    dispatch({ type: 'add_selected_filters', payload: selectedFiltersList })
-  }, [selectedFiltersList])
 
   useEffect(() => {
     if (isOpen) document.querySelector('html').classList.add('disable-scroll')
     if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
-    updateParam()
-  }, [isOpen])
+    console.log('selectedfilterlist', selectedFilterList)
+  }, [isOpen, selectedFilterList])
 
   useEffect(() => {
     router.beforePopState(({ as }) => {
@@ -146,7 +180,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
   }, [router])
 
   return (
-    <ArticleFiltersDrawerContext.Provider value={{isOpen, filters, openDrawer, addFilters, checkBoxHandler, dispatch, selectedFilters}}>
+    <ArticleFiltersDrawerContext.Provider value={{isOpen, filters, openDrawer, addFilters, checkBoxHandler, dispatch, selectedFilterList, listings, addListings}}>
       {isOpen &&
         <ArticleFiltersDrawer  />
       }

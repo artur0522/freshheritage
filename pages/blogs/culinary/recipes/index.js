@@ -12,9 +12,10 @@ import PaginationRight from '@/svgs/pagination-right.svg'
 
 import classes from "./RecipesListings.module.scss"
 
-const RecipeListings = ({recipeArticles, blogSettings, recipeListingsSections}) => {
+const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }) => {
   const drawerContext = useArticleFiltersDrawerContext()
-  const { addFilters, openDrawer, filters, selectedFilters } = drawerContext
+  const { addFilters, openDrawer, filters, selectedFilters, addListings, listings } = drawerContext
+
   const { content, filterGroups } = recipeListingsSections[0].fields
   const heroSection = content?.find(section => section._type === 'hero')
   const articleRowSection = content?.find(section => section._type === 'articleRow')
@@ -24,36 +25,58 @@ const RecipeListings = ({recipeArticles, blogSettings, recipeListingsSections}) 
   const [filterDrawer, toggleFilterDrawer]= useState(true)
   
   useEffect(() => {
-    addFilters(filterGroups)
-    window.scrollTo({ behavior: 'smooth', top: '0px' })
-  }, [currentPage, selectedFilters])
+    addListings(recipeArticles)
+    const filterGroupObj = {}
+    filterGroups.map((group) => {
+      filterGroupObj[group.title] = {
+        options: {}
+      }
 
-  console.log("listings", selectedFilters)
+      group.filterOptions.map((option) => {
+       filterGroupObj[group.title].options[option.value] = {
+          checked: false,
+          subFilters: {}
+        }
+
+        if(option.subFilters) {
+          option.subFilters.map((subFilter) => {
+           filterGroupObj[group.title].options[option.value].subFilters[subFilter.value] = {
+              checked: false
+            }
+          })
+        }
+      })
+    })
+    addFilters(filterGroupObj)
+    window.scrollTo({ behavior: 'smooth', top: '0px' })
+  }, [currentPage, selectedFilters, filterGroups])
 
   const goToNextPage = () => {
     setCurrentPage((page) => page + 1)
   }
 
   const goToPreviousPage = () => {
-    setCurrentPage((page) => page - 1);
+    setCurrentPage((page) => page - 1)
   }
 
   const changePage = (event) => {
-    const pageNumber = Number(event.target.textContent);
-    setCurrentPage(pageNumber);
+    const pageNumber = Number(event.target.textContent)
+    setCurrentPage(pageNumber)
   }
 
   const getPaginatedData = () => {
-      const startIndex = currentPage * 20 - 20;
-      const endIndex = startIndex + 20;
-      return recipeArticles.slice(startIndex, endIndex);
+    const startIndex = currentPage * 20 - 20
+    const endIndex = startIndex + 20
+
+    return recipeArticles.slice(startIndex, endIndex)
   };
 
   const getPaginationGroup = () => {
-    let start = Math.floor((currentPage - 1) / pages) * pages;
-    return new Array(pages).fill().map((_, idx) => start + idx + 1);
+    let start = Math.floor((currentPage - 1) / pages) * pages
+
+    return new Array(pages).fill().map((_, idx) => start + idx + 1)
   };
-  
+
   return (
     <>
       <ArticleSplitHero fields={''} renderType="blog-listing" blogType="culinary" blogSettings={blogSettings} />
@@ -109,7 +132,7 @@ const RecipeListings = ({recipeArticles, blogSettings, recipeListingsSections}) 
               })}
             </div>}
 
-            {recipeArticles.length >= 8 && currentPage === 1 && 
+            {recipeArticles.length >= 8 && currentPage === 1 &&
               <FullBleedHero fields={heroSection} key={heroSection._key} />
             }
 
@@ -123,7 +146,7 @@ const RecipeListings = ({recipeArticles, blogSettings, recipeListingsSections}) 
               })}
             </div>}
 
-            {recipeArticles.length >= 17 && currentPage === 1 &&  
+            {recipeArticles.length >= 17 && currentPage === 1 &&
               <ArticleRow fields={articleRowSection} />
             }
 
@@ -137,13 +160,13 @@ const RecipeListings = ({recipeArticles, blogSettings, recipeListingsSections}) 
               })}
           </div>}
 
-          {currentPage !== 1 && <div className={`${classes['recipes__list']} container`}>
-            {getPaginatedData().map((article, index) => (
+          <div className={`${classes['recipes__list']} container`}>
+            {getPaginatedData().map((article) => (
                 <div key={article.handle}>
-                <DynamicArticleCard article={article} />
+                  <DynamicArticleCard article={article} />
               </div>
             ))}
-          </div>}
+          </div>
 
           </div>
 

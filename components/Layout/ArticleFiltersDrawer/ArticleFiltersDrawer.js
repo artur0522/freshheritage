@@ -19,8 +19,8 @@ const ArticleFiltersDrawer = () => {
     }, timeout)
   }
 
-  const changeHandler = (event, filterGroupTitle, isFilterOption, filterOption) => {
-    checkBoxHandler(event.target.id, filterGroupTitle, isFilterOption, filterOption)
+  const changeHandler = (hasSubfilter, filterGroup, filterOption, subFilter) => {
+    checkBoxHandler(hasSubfilter, filterGroup, filterOption, subFilter)
   }
 
   useEffect(() => {
@@ -28,6 +28,8 @@ const ArticleFiltersDrawer = () => {
     setDrawerOpen(true)
     }, timeout)
   }, [])
+
+  console.log(filters)
 
   return (
     <div className={classes['pdp-flyout']}>
@@ -43,35 +45,35 @@ const ArticleFiltersDrawer = () => {
                     <button className="body" onClick={() => closeDrawer()}>Hide Filters</button>
                 </div>
                 <div className={classes['filter-list']}>
-                  {filters?.map((filterGroup) => {
-                    return (
-                        <div key={`${filterGroup.title}-${filterGroup._id}`} className={classes['filter-group']}>
-                            <button className={`${classes['filter-group__title']} h2`}>{filterGroup.title}</button>
-                                {filterGroup.filterOptions.length > 0 && <ul>
-                                    {filterGroup.filterOptions.map((filterOption) => {
-                                        return (
-                                            <li key={filterOption._key} className={classes['filter-option__wrap']}>
-                                                <div className={classes['filter-option']}>
-                                                    <label htmlFor={filterOption.value}>{filterOption.name}</label>
-                                                    <input onChange={(event) => changeHandler(event, filterGroup.title, true, filterOption.value)} value={filterOption.value} id={filterOption.value} checked={filterOption.isChecked} type="checkbox" />
-                                                </div>
-                                                <ul className={classes['filter-suboption__wrap']}>
-                                                    {filterOption.subFilters && filterOption.subFilters.length > 0 && filterOption.subFilters.map((subFilter) => {
-                                                        return (
-                                                            <li key={subFilter._key}>
-                                                                <label htmlFor={subFilter.value}>{subFilter.name}</label>
-                                                                <input onChange={(event) => changeHandler(event, filterGroup.title, false, filterOption)} value={subFilter.value} id={subFilter.value} checked={subFilter.isChecked} type="checkbox" />
-                                                            </li>
-                                                        )
-                                                    })}
-                                                </ul>
-                                            </li>
-                                        )
-                                    })}
-                                </ul>}
-                        </div>
-                    )
-                  })}
+                    {Object.keys(filters).map((filterGroup) => {
+                        return (
+                            <div key={`${filterGroup}`} className={classes['filter-group']}>
+                                <button className={`${classes['filter-group__title']} h2`}>{filterGroup}</button>
+                                    <ul>
+                                        {Object.keys(filters[filterGroup].options).map((filterOption) => {
+                                            return (
+                                                <li key={filterOption} className={classes['filter-option__wrap']}>
+                                                    <div className={classes['filter-option']}>
+                                                        <label htmlFor={filterOption}>{filterOption}</label>
+                                                        <input onChange={() => changeHandler(false, filterGroup, filterOption)} value={filterOption} id={filterOption} checked={filters[filterGroup].options[filterOption].checked} type="checkbox" />
+                                                    </div>
+                                                    <ul className={classes['filter-suboption__wrap']}>
+                                                        {filters[filterGroup].options[filterOption].subFilters && Object.keys(filters[filterGroup].options[filterOption].subFilters).map((subFilter) => {
+                                                            return (
+                                                                <li key={subFilter}>
+                                                                    <label htmlFor={subFilter}>{subFilter}</label>
+                                                                    <input onChange={() => changeHandler(true, filterGroup, filterOption, subFilter)} value={subFilter} id={subFilter} checked={filters[filterGroup].options[filterOption].subFilters[subFilter].checked} type="checkbox" />
+                                                                </li>
+                                                            )
+                                                        })}
+                                                    </ul>
+                                                </li>
+                                            )
+                                        })}
+                                    </ul>
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
         </CSSTransition>

@@ -11,7 +11,7 @@ export default function DynamicPage({ page }) {
   )
 }
 
-export async function getStaticPaths({ params }) {
+export async function getStaticPaths() {
   const pages = await nacelleClient.content({
     handles: ['page']
   })

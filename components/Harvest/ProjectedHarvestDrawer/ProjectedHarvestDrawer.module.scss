@@ -2,6 +2,15 @@
 @import '@/styles/variables/_breakpoints.scss';
 @import '@/styles/variables/_colors.scss';
 
+:global(.pdp-flyout) {
+    .harvest__tabs-swiper {
+        @include breakpoint-up('xl') {
+            margin: 0 0 60px;
+            width: 100%;
+        }
+    }
+}
+
 .harvest {
     background-color: $alabaster2;
     margin-bottom: 60px;

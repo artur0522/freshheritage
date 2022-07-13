@@ -1,5 +1,29 @@
 @import '@/styles/_shared.scss';
 
+
+.product-main {
+  :global(.input-group) {
+    margin-bottom: 20px;
+    @include breakpoint-up('sm') {
+      margin-bottom: 45px;
+    }
+    input {
+      @include breakpoint-down('sm') {
+        width: 18px;
+        flex-basis: 18px;
+        height: 18px;
+        margin-right: 15px;
+      }
+    }
+    label {
+      @include breakpoint-down('sm') {
+        font-size: 14px !important;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
 .product-title {
   margin-bottom: 20px;;
 }

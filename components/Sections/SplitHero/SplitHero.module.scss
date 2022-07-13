@@ -2,6 +2,19 @@
 @import '@/styles/variables/_breakpoints.scss';
 @import '@/styles/variables/_colors.scss';
 
+:global(.main--purchase-flow) {
+  .hero__wrap--mbl {
+    @include breakpoint-down('sm') {
+      margin: 24px 28px;
+    }
+    img {
+      @include breakpoint-down('sm') {
+        border-radius: 12px;
+      }
+    }
+  }
+}
+
 .hero {
 
   // dynamic color modifiers

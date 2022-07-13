@@ -47,7 +47,7 @@
   a {
     color: $alabaster2;
     text-decoration: none;
-    &:hover {
+    &:hover:not(.mobileMainNavBtn) {
       color: $salmon;
       text-decoration: underline;
     }

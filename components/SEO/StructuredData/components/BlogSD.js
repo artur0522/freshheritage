@@ -12,8 +12,13 @@ const BlogSD = ({data}) => {
 
   const url = `https://${process.env.NEXT_PUBLIC_MYSHOPIFY_DOMAIN}/${router.asPath}`
   const { metaTitle = '', metaDesc = '', shareGraphic = undefined } = data.fields.seo
-  const datePublished = moment.unix(data.createdAt).format('MM/DD/YYYY')
+  let datePublished = moment.unix(data.createdAt).format('MM/DD/YYYY')
   const dateModified = moment.unix(data.updatedAt).format('MM/DD/YYYY')
+
+  if (data.fields.publishedDate) {
+    datePublished = moment(data.fields.publishedDate).format('MM/DD/YYYY')
+  }
+
   const images = []
 
   if (shareGraphic) {

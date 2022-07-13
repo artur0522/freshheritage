@@ -14,9 +14,13 @@ const ArticleSD = ({data}) => {
   const { metaTitle = '', metaDesc = '', shareGraphic = undefined } = data.fields.seo
   const content = data.fields.content
   const { author = '', hosts = '' } = data.fields.sidebar
-  const datePublished = moment.unix(data.createdAt).format('MM/DD/YYYY')
+  let datePublished = moment.unix(data.createdAt).format('MM/DD/YYYY')
   const dateModified = moment.unix(data.updatedAt).format('MM/DD/YYYY')
   const images = []
+
+  if (data.fields.publishedDate) {
+    datePublished = moment(data.fields.publishedDate).format('MM/DD/YYYY')
+  }
 
   if (shareGraphic) {
     images.push(shareGraphic.asset.url)

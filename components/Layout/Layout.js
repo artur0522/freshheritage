@@ -24,7 +24,7 @@ function Layout({ children, headerSettings, footerSettings }) {
             <ModalProvider>
               <ArticleProvider>
                 <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
-                  <main>{children}</main>
+                  <main className={`main--${children.props.handle}`}>{children}</main>
                   <Footer content={footerSettings} />
                 </HeaderProvider>
               </ArticleProvider>

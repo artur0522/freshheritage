@@ -29,7 +29,7 @@ const ProductMain = ({box}) => {
       {product.content.handle === 'premium-seafood-subscription-box' &&
         <div className="input-group input-group--checkbox">
           <input className="input" id="shellfish_free" type="checkbox" ref={inputRef} />
-          <label htmlFor="shellfish_free">Shellfish free selections, please</label>
+          <label htmlFor="shellfish_free">Shellfish Free</label>
         </div>
       }
 

@@ -1,5 +1,15 @@
 @import '@/styles/_shared.scss';
 
+.hide {
+    margin-bottom: 12px;
+
+    button {
+        padding: 0;
+        color: $sitkablue;
+    }
+}
+
+
 .pdp-flyout__content--enter {
     transform: translate(100%);
 }

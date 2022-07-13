@@ -4,6 +4,8 @@ import Link from 'next/link'
 import IconBullet from '@/svgs/list-item.svg'
 import PlayIcon from '@/svgs/play.svg'
 
+import ResponsiveImage from '@/components/ResponsiveImage'
+
 import classes from "./ArticleCard.module.scss"
 
 const ArticleCard = ({ article, reverse }) => {
@@ -16,7 +18,7 @@ const ArticleCard = ({ article, reverse }) => {
             <a className={classes['article-card']}>
                 <div className={`${classes['slider__slide']} ${reverse ? classes['row'] : ''}`}>
                     {desktopBackgroundImage.asset.url && <div className={classes['image-wrap']}>
-                        <Image  layout="fill" objectFit="cover" alt={article.title} src={desktopBackgroundImage.asset.url} />
+                        <ResponsiveImage alt={article.title} src={desktopBackgroundImage.asset.url} />
                         {foundTag && <div className={classes['play']}>
                             <PlayIcon />
                         </div>}

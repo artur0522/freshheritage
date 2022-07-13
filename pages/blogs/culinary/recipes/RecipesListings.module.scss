@@ -5,12 +5,14 @@
     // recipes__filter-wrap
     &__filter-wrap {
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
         align-items: center;
 
         @include breakpoint-up('md') {
             margin-top: 99px;
             margin-bottom: 66px;
+            flex-direction: row;
         }
     }
 
@@ -22,10 +24,13 @@
         padding: 14px 0 14px 13px;
         margin-top: 49px;
         margin-bottom: 29px;
+        width: 100%;
 
         @include breakpoint-up('md') {
             margin-top: 0;
             margin-bottom: 0;
+            max-width: 229px;
+            display: flex;
         }
 
         form {
@@ -65,9 +70,16 @@
         display: flex;
         justify-content: space-between;
         margin-bottom: 20px;
+        width: 100%;
 
         @include breakpoint-up('md') {
+            justify-content: initial;
             margin-bottom: 0;
+            width: auto;
+        }
+
+        span {
+            color: $sitkablue;
         }
 
         .toggle-filters {
@@ -78,6 +90,22 @@
 
             @include breakpoint-up('md') {
                 margin-right: 21px;
+            }
+
+            &.mobile {
+                display: block;
+
+                @include breakpoint-up('md') {
+                    display: none;
+                }
+            }
+
+            &.desktop {
+                display: none;
+
+                @include breakpoint-up('md') {
+                    display: block;
+                }
             }
         }
 
@@ -116,11 +144,20 @@
 
         .filters {
             display: none;
+            // width: calc(100% - 30px);
+            max-width: 1680px;
+            margin: 0 auto;
 
             @include breakpoint-up('md') {
-                width: 25%;
                 display: block;
+                padding-left: 60px;
             }
+
+            @include breakpoint-up('lg') {
+                padding-left: 0
+            }
+
+
         }
 
         //recipes__list

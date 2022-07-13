@@ -1,18 +1,64 @@
 @import '@/styles/_shared.scss';
 
 .filter-group {
+    padding: 20px 0;
+    border-bottom: 1px solid #D5D5D4;
 
     // filter-group__title
     &__title {
         color: $sitkablue;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        .icon-wrap {
+            .minus {
+                svg {
+                    height: 16px;
+                }
+
+                svg rect {
+                    fill: $sitkablue;
+                }
+            }
+
+            .plus {
+                svg {
+                    height: 23px;
+                }
+            }
+        }
     }
 
     button {
         background: transparent;
         border: none;
+        padding: 0;
     }
 
-    ul {
+    .filter-option__wrap {
+        list-style: none;
+        margin-top: 14px;
+
+        li {
+            margin-bottom: 14px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+        }
+
+        input {
+            margin-right: 12px;
+            height: 21px;
+            width: 21px;
+        }
+    }
+
+    .filter-suboption__wrap {
+        margin-top: 14px;
+        margin-left: 32px;
         list-style: none;
     }
 }

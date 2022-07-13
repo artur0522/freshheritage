@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Image from 'next/image';
 import Link from 'next/link';
 
+import ResponsiveImage from '@/components/ResponsiveImage'
+
 import "swiper/css";
 import BookmarkIcon from '@/svgs/bookmark.svg'
 import classes from './RecipeArticleCard.module.scss';
@@ -13,10 +15,8 @@ const RecipeArticleCard = ({ article }) => {
         <Link href={`${article.handle.current}`} passHref>
             <div className={classes['article__card']}>
                 {desktopBackgroundImage.asset.url && <div className={classes['article__card-img']}>
-                    <Image
+                    <ResponsiveImage
                         src={desktopBackgroundImage.asset.url}
-                        layout="fill"
-                        objectFit="cover"
                         alt={article.title}
                     />
                     <div className={classes['bookmark']}>

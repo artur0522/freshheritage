@@ -7,22 +7,22 @@
     border-radius: 12px;
     padding: 12px;
     cursor: pointer;
-    min-height: 432px;
+    // min-height: 432px;
     border: 1px solid $fawn50-2;
 
     @include breakpoint-up('sm') {
-        min-height: 576px;
+        // min-height: 576px;
         padding: 24px;
     }
 
     // article__card-img
     &-img {
         position: relative;
-        height: 262px;
+        // height: 262px;
 
-        @include breakpoint-up('sm') {
-            height: 384px;
-        }
+        // @include breakpoint-up('sm') {
+        //     height: 384px;
+        // }
 
         img {
             border-radius: 6px;

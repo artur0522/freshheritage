@@ -45,11 +45,11 @@
 
         .image-wrap {
             position: relative;
-            height: 262px;
+            // height: 262px;
 
-            @include breakpoint-up('sm') {
-                height: 384px;
-            }
+            // @include breakpoint-up('sm') {
+            //     height: 384px;
+            // }
         }
 
         .play {

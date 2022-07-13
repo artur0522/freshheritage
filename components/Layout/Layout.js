@@ -26,7 +26,7 @@ function Layout({ children, headerSettings, footerSettings }) {
               <ArticleProvider>
                 <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
                   <StructuredData type="breadcrumb" />
-                  <main>{children}</main>
+                  <main className={`main--${children.props.handle}`}>{children}</main>
                   <Footer content={footerSettings} />
                 </HeaderProvider>
               </ArticleProvider>

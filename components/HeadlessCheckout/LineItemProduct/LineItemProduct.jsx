@@ -10,6 +10,8 @@ import Link from 'next/link';
 
 const LineItemProduct = ({ item, children, readOnly }) => {
 
+  console.log("item:", item)
+
   const handleVariants = useVariants();
   const variants = handleVariants(item.title)
 
@@ -67,7 +69,7 @@ const LineItemProduct = ({ item, children, readOnly }) => {
             </div>
           </div>
 
-          {isGiftCard || isSubscription ? (
+          {isGiftCard ? (
             <div>
               <button onClick={() => removeLineItem({line_item_key: item.line_item_key})} className="order-item__remove-btn">
                 <IconTrashCan />
@@ -83,6 +85,14 @@ const LineItemProduct = ({ item, children, readOnly }) => {
               }
             </div>
           )}
+
+          {isSubscription && !isGiftCard &&
+            <div className="order-item__detail-item">
+              <button onClick={() => removeLineItem({line_item_key: item.line_item_key})} className="order-item__remove-btn">
+                <IconTrashCan />
+              </button>
+            </div>
+          }
 
           {!isGiftCard &&
             <div className="order-item__detail-item">

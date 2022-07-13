@@ -1,5 +1,12 @@
 @import '@/styles/_shared.scss';
 
+
+.product-main {
+  :global(.input-group) {
+    margin-bottom: 45px;
+  }
+}
+
 .product-title {
   margin-bottom: 20px;;
 }

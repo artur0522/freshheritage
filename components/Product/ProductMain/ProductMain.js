@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import classes from './ProductMain.module.scss'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import { usePDPDrawerContext } from '@/context/PDPDrawerContext'
@@ -5,6 +6,8 @@ import ProductSlider from '../ProductSlider'
 import ProductReviewStars from '../ProductReviewStars'
 
 const ProductMain = ({box}) => {
+
+  const inputRef = useRef()
 
   const purchaseFlowContext = usePurchaseFlowContext()
   const PDPDrawerContext = usePDPDrawerContext()
@@ -22,9 +25,17 @@ const ProductMain = ({box}) => {
         <span>${firstVariant.price} /box</span>
         <span>{firstVariant.weight} lbs</span>
       </div>
+
+      {product.content.handle === 'premium-seafood-subscription-box' &&
+        <div className="input-group input-group--checkbox">
+          <input className="input" id="shellfish_free" type="checkbox" ref={inputRef} />
+          <label htmlFor="shellfish_free">Shellfish free selections, please</label>
+        </div>
+      }
+
       <button
         onClick={() => {
-          purchaseFlowContext.selectBox(product)
+          purchaseFlowContext.selectBox(product, inputRef.current.checked)
           PDPDrawerContext.dispatch({ type: 'close_drawer' })
         }}
         className={`${classes['product-atc-btn']} btn salmon`}>

@@ -61,11 +61,11 @@
     position: relative;
 
     // hero__wrap--dsktp
-    &--dsktp {
-      @include breakpoint-up('sm') {
-        height: 960px;
-      }
-    }
+    // &--dsktp {
+    //   @include breakpoint-up('sm') {
+    //     height: 960px;
+    //   }
+    // }
 
     img {
       object-fit: cover;
@@ -108,9 +108,9 @@
 
   // HERO CENTER STYLES
   &.hero--center {
-    .hero__wrap--mbl {
-      height: 806px;
-    }
+    // .hero__wrap--mbl {
+    //   height: 806px;
+    // }
 
     .hero__text {
       position: absolute;

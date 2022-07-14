@@ -60,5 +60,10 @@
         margin-top: 14px;
         margin-left: 32px;
         list-style: none;
+
+        li {
+            display: flex;
+            align-items: center;
+        }
     }
 }

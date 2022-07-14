@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
+import ResponsiveImage from '@/components/ResponsiveImage'
 import Link from 'next/link'
 
 import classes from './FullBleedHero.module.scss'
@@ -46,19 +47,19 @@ const FullBleedHero = ({ fields }) => {
       </div>
 
       {isMobile && mounted && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--mbl']}`}>
-          <Image
+          <ResponsiveImage
             className={classes.dsktp__img}
             src={mobileBackgroundImage.asset.url}
-            layout="fill"
+          
             alt={alt}
           />
         </div>}
 
         {isDesktop && mounted && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--dsktp']}`}>
-          <Image
+          <ResponsiveImage
             className={classes.mbl__img}
             src={desktopBackgroundImage.asset.url}
-            layout="fill"
+          
             alt={alt}
           />
         </div>}

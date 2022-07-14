@@ -128,6 +128,10 @@
                 background: url("./arrow-down.png") no-repeat right;
                 min-width: 78.65px;
                 cursor: pointer;
+
+                @include breakpoint-up('md') {
+                    min-width: 93.65px;
+                }
             }
         }
     }
@@ -144,9 +148,8 @@
 
         .filters {
             display: none;
-            // width: calc(100% - 30px);
             max-width: 1680px;
-            margin: 0 auto;
+
 
             @include breakpoint-up('md') {
                 display: block;
@@ -154,10 +157,9 @@
             }
 
             @include breakpoint-up('lg') {
-                padding-left: 0
+                padding-left: 120px;
+                width: 23%;
             }
-
-
         }
 
         //recipes__list
@@ -201,71 +203,71 @@
             }
         }
     }
+}
 
-    .pagination {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 37px;
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 37px;
 
-        @include breakpoint-up('md') {
-            margin-bottom: 107px;
-        }
+    @include breakpoint-up('md') {
+        margin-bottom: 107px;
+    }
+}
+
+.paginationItem {
+    background: $fawn50-2;
+    color: $sitkablue;
+    border: 2px solid $fawn50-2;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    position: relative;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: border 0.1s ease-in-out;
+
+    &:hover {
+        border: 2px solid $sitkablue;
+    }
+}
+
+.paginationItem span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.prev,
+.next {
+    background: transparent;
+    border: none;
+    padding: 0 20px;
+    cursor: pointer;
+
+    svg path {
+        fill: $sitkablue;
     }
 
-    .paginationItem {
-        background: $fawn50-2;
-        color: $sitkablue;
-        border: 2px solid $fawn50-2;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        position: relative;
-        margin: 0 10px;
-        cursor: pointer;
-        transition: border 0.1s ease-in-out;
-
-        &:hover {
-            border: 2px solid $sitkablue;
-        }
-    }
-
-    .paginationItem span {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .prev,
-    .next {
-        background: transparent;
-        border: none;
-        padding: 0 20px;
-        cursor: pointer;
-
+    &.disabled {
         svg path {
-            fill: $sitkablue;
-        }
-
-        &.disabled {
-            svg path {
-                fill: $fawn50-2
-            }
+            fill: $fawn50-2
         }
     }
+}
 
-    .paginationItem.active {
-        border: 1px solid $sitkablue;
-        background-color: $sitkablue;
-        color: #fff;
-        pointer-events: none;
-    }
+.paginationItem.active {
+    border: 1px solid $sitkablue;
+    background-color: $sitkablue;
+    color: #fff;
+    pointer-events: none;
+}
 
-    .prev.disabled,
-    .next.disabled {
-        pointer-events: none;
-        box-shadow: none;
-        color: #999;
-    }
+.prev.disabled,
+.next.disabled {
+    pointer-events: none;
+    box-shadow: none;
+    color: #999;
 }

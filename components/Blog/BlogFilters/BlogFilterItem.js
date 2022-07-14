@@ -30,23 +30,23 @@ const BlogFilterItem = (props) => {
             {Object.keys(filters[filterGroup].options).map((filterOption) => {
                 return (
                     <li key={filterOption}>
-                        <div className={classes['filter-option']}>
+                        {tagCount[filterOption] !== undefined && tagCount[filterOption] >= 4 && <div className={classes['filter-option']}>
                             <input onChange={() => changeHandler(false, filterGroup, filterOption)} value={filterOption} id={filterOption} checked={filters[filterGroup].options[filterOption].checked} type="checkbox" />
                             <label htmlFor={filterOption}>{filterOption}</label>
-                        </div>
+                        </div>}
                         <ul className={classes['filter-suboption__wrap']}>
                             {filters[filterGroup].options[filterOption].subFilters && Object.keys(filters[filterGroup].options[filterOption].subFilters).map((subFilter) => {
-                                // if(tagCount[subFilter] !== undefined && tagCount[subFilter] >= 4) {
+                                if(tagCount[subFilter] !== undefined && tagCount[subFilter] >= 4) {
                                     return (
                                         <li key={subFilter}>
                                             <input onChange={() => changeHandler(true, filterGroup, filterOption, subFilter)} value={subFilter} id={subFilter} checked={filters[filterGroup].options[filterOption].subFilters[subFilter].checked} type="checkbox" />
                                             <label htmlFor={subFilter}>{subFilter}</label>
                                         </li>
                                     )
-                                // }
+                                }
                             })}
                         </ul>
-                    </li>
+                    </li> 
                 )
             })}
         </ul>}

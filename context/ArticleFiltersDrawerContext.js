@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useReducer, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import ArticleFiltersDrawer from '@/components/Layout/ArticleFiltersDrawer'
-import { filter } from 'lodash-es'
+import moment from 'moment'
 
 const ArticleFiltersDrawerContext = createContext()
 
@@ -41,6 +41,12 @@ function drawerReducer(state, action) {
       return {
         ...state,
         filters: action.payload
+      }
+    }
+    case 'add_select_value': {
+      return {
+        ...state,
+        selectValue: action.payload
       }
     }
     case 'add_selected_filters': {
@@ -100,27 +106,48 @@ function drawerReducer(state, action) {
   }
 }
 
+
+
+
+
+
+
 const initialState = {
   isOpen: false,
   filters: {},
   selectedFilterList: [],
   listings: [],
   originalListings: [],
-  tagCount: {}
-};
+  tagCount: {},
+  selectValue: 'newest'
+}
+
+
+
+
+
 
 export function useArticleFiltersDrawerContext() {
   return useContext(ArticleFiltersDrawerContext)
 }
 
+
+
+
+
+
 export function ArticleFiltersDrawerProvider({ children }) {
   const router = useRouter()
   const [state, dispatch] = useReducer(drawerReducer, initialState)
   
-  const { isOpen, filters, selectedFilterList, listings, originalListings, tagCount } = state
+  const { isOpen, filters, selectedFilterList, listings, originalListings, tagCount, selectValue} = state
 
   const openDrawer = () => {
     dispatch({ type: 'open_drawer'})
+  }
+
+  const addSelectValue = (value) => {
+    dispatch({ type: 'add_select_value', payload: value})
   }
 
   const addFilters = (filters) => {
@@ -143,16 +170,50 @@ export function ArticleFiltersDrawerProvider({ children }) {
     let res = []
 
     if(selectedFilterList.length > 0) {
-      res = listings.filter((listing) => {
+      res = originalListings.filter((listing) => {
         if(listing.fields?.articleTags && selectedFilterList.includes(listing.fields?.articleTags[1]?.value)) {
           return listing
         }
       })
     } else { 
-      res = originalListings
-    }
+      res = originalListings 
+    } 
     
     dispatch({ type: 'add_listings', payload: res})
+  }
+
+  const selectChangeHandler = (value) => {
+    console.log(value)
+    addSelectValue(value)
+
+    if(selectedFilterList.length > 1 && value === 'newest') {
+      const sortedListings = listings.sort((a, b) => {
+        // let datePublished = moment.unix(listing.createdAt).format('MM/DD/YYYY')
+        // if(listing.fields.publishedDate) {
+        //   datePublished = moment(listing.fields.publishedDate).format('MM/DD/YYYY')
+        // }
+        return(
+          moment(b.fields.publishedDate).format('MM/DD/YYYY') - moment(a.fields.publishedDate).format('MM/DD/YYYY')
+        )
+      })
+      console.log("sorted", sortedListings)
+      dispatch({ type: 'add_listings', payload: sortedListings})
+    } 
+
+    if(selectedFilterList.length === 0 && value === 'newest') {
+      //  let datePublished = moment.unix(listing.createdAt).format('MM/DD/YYYY')
+      //   if(listing.fields.publishedDate) {
+      //     datePublished = moment(listing.fields.publishedDate).format('MM/DD/YYYY')
+      //   }
+      
+      const sortedOgListings = originalListings.sort((a, b) =>  {
+        return (
+          moment(b.fields.publishedDate).format('MM/DD/YYYY') - moment(a.fields.publishedDate).format('MM/DD/YYYY')
+        )
+      })
+      console.log("sortedOgListings", sortedOgListings)
+      dispatch({ type: 'add_listings', payload: sortedOgListings})
+    }
   }
 
   const checkBoxHandler = (hasSubfilter, filterGroup, filterOption, subFilter) => {
@@ -168,7 +229,6 @@ export function ArticleFiltersDrawerProvider({ children }) {
         filters[filterGroup].options[filterOption].checked = false 
       }  
 
-      // conditional to add into selectedFilters array
       if(filters[filterGroup].options[filterOption].subFilters[subFilter].checked) {
         dispatch({type: 'remove_selected_filters', payload: subFilter})
         filterListingsByTags(listings)
@@ -182,14 +242,13 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
       Object.keys(nestedSubFilters).forEach((key) => {
         filters[filterGroup].options[filterOption].subFilters[key].checked = true       
-        // conditional to add into selectedFilters array
-        if(filters[filterGroup].options[filterOption].subFilters[key].checked) {
-          dispatch({type: 'add_selected_filters', payload: key})
-          filterListingsByTags(listings)
-        } else {
-          dispatch({type: 'remove_selected_filters', payload: key})
-          filterListingsByTags(listings) 
-        }
+          if(filters[filterGroup].options[filterOption].subFilters[key].checked) {
+            dispatch({type: 'add_selected_filters', payload: key})
+            filterListingsByTags(listings)
+          } else {
+            dispatch({type: 'remove_selected_filters', payload: key})
+            filterListingsByTags(listings) 
+          }
       })
 
       dispatch({ type: 'toggle_checkbox', payload: {
@@ -199,7 +258,6 @@ export function ArticleFiltersDrawerProvider({ children }) {
         subFilters: nestedSubFilters
       }})
 
-      // conditional to add into selectedFilters array
       if(filters[filterGroup].options[filterOption].checked) {
         dispatch({type: 'remove_selected_filters', payload: filterOption})
         filterListingsByTags(listings)
@@ -213,8 +271,8 @@ export function ArticleFiltersDrawerProvider({ children }) {
   useEffect(() => {
     if (isOpen) document.querySelector('html').classList.add('disable-scroll')
     if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
+
     filterListingsByTags(listings)
-    console.log(tagCount) 
   }, [isOpen, selectedFilterList]) 
 
   useEffect(() => {
@@ -228,7 +286,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
   }, [router])
 
   return (
-    <ArticleFiltersDrawerContext.Provider value={{isOpen, addTagCount, tagCount, filters, openDrawer, addFilters, checkBoxHandler, dispatch, selectedFilterList, listings, originalListings, addListings, addOriginalListings}}>
+    <ArticleFiltersDrawerContext.Provider value={{isOpen, selectChangeHandler, addTagCount, tagCount, filters, openDrawer, addFilters, checkBoxHandler, dispatch, selectedFilterList, listings, originalListings, addListings, addOriginalListings}}>
       {isOpen &&
         <ArticleFiltersDrawer  />
       }

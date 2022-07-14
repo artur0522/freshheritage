@@ -10,8 +10,6 @@ import Link from 'next/link';
 
 const LineItemProduct = ({ item, children, readOnly }) => {
 
-  console.log("item:", item)
-
   const handleVariants = useVariants();
   const variants = handleVariants(item.title)
 

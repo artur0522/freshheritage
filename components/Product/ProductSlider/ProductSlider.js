@@ -60,7 +60,6 @@ const ProductSlider = ({product, timeout = 0}) => {
         spaceBetween={isDesktop ? 20 : 10}
         slidesPerView={5}
         watchSlidesProgress={true}
-        watchSlidesVisibility={true}
         modules={[FreeMode, Navigation, Thumbs]}
         className={classes['product-image-thumbnails']}
         threshold={2}

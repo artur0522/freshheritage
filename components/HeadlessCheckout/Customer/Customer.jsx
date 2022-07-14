@@ -1,5 +1,5 @@
-import React, { memo, useState, useEffect } from 'react';
-import { useCustomer, useOrderMetadata } from '@boldcommerce/checkout-react-components';
+import React, { memo, useState } from 'react';
+import { useOrderMetadata } from '@boldcommerce/checkout-react-components';
 import { useCustomerContext } from '@/context/CustomerContext'
 import { useModalContext } from '@/context/ModalContext'
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
@@ -13,14 +13,13 @@ import ForgotPasswordForm from '@/components/Forms/ForgotPasswordForm'
 import { GiftOrder } from '../GiftOrder';
 
 const Customer = () => {
-  const { submitCustomer } = useCustomer();
   const { customer: data, logout } = useCustomerContext()
   const { data: orderMetaData } = useOrderMetadata()
   const modalContext = useModalContext()
-  return <MemoizedCustomer customer={data} orderMetaData={orderMetaData} logout={logout} submitCustomer={submitCustomer} modalContext={modalContext} />;
+  return <MemoizedCustomer customer={data} orderMetaData={orderMetaData} logout={logout} modalContext={modalContext} />;
 };
 
-const MemoizedCustomer = memo(({ customer, orderMetaData, logout, modalContext, submitCustomer }) => {
+const MemoizedCustomer = memo(({ customer, orderMetaData, logout, modalContext }) => {
   const [email, setEmail] = useState(customer?.email);
   const [errors, setErrors] = useState(null);
   const [acceptsMarketing, setAcceptsMarketing] = useState(false);
@@ -51,21 +50,6 @@ const MemoizedCustomer = memo(({ customer, orderMetaData, logout, modalContext, 
         )
     }
   }
-
-  useEffect(() => {
-    if (customer?.email) {
-      setAccountFormType('default')
-      submitCustomer({
-        platform_id: customer.id.replace('gid://shopify/Customer/', ''),
-        first_name: customer.firstName,
-        last_name: customer.lastName,
-        email_address: customer.email,
-        accepts_marketing: customer.acceptsMarketing
-      })
-      // console.log("submitting customer")
-    }
-  }, [customer])
-
   return (
     <div className="order-info">
       <div className="order-customer">

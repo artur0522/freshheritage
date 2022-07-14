@@ -174,7 +174,8 @@ const MemoizedPaymentMethod = memo(
         var customerTags = '';
         if (
           'pre' in
-          applicationState.applicationState.order_meta_data.cart_parameters
+          applicationState.applicationState.order_meta_data.cart_parameters &&
+          applicationState.applicationState.order_meta_data.cart_parameters.pre.customer_data.tags != ''
         ) {
           customerTags =
             applicationState.applicationState.order_meta_data.cart_parameters
@@ -224,6 +225,8 @@ const MemoizedPaymentMethod = memo(
           discount = '10% King Sustainer Discount';
         } else if (hasSub && membership === 'SockeyeSustainer') {
           discount = '5% Sustainer Discount';
+        } else if (hasSub && membership === 'Adrian') {
+          discount = '10% Adrian Discount Test';
         }
 
         // AUTO DISCOUNT FOR REFERREES

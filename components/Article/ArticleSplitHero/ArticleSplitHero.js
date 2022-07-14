@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import Youtube from 'react-youtube'
+import React, { useState, useEffect, useRef, forwardRef } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,7 +8,13 @@ import IconChefHat from '@/svgs/chef-hat.svg'
 import IconCutlery from '@/svgs/cutlery.svg'
 import IconScale from '@/svgs/scale.svg'
 import IconBullet from '@/svgs/list-item.svg'
+import IconPlayButton from '@/svgs/play-button.svg'
+import IconPlayButtonTriangle from '@/svgs/play-button-triangle.svg'
 import ResponsiveImage from '@/components/ResponsiveImage'
+import { useHeaderContext } from '@/context/HeaderContext'
+import ArticleVideo from '../ArticleVideo'
+import { useRouter } from 'next/router'
+import ArticleCountdownTimer from './ArticleCountdownTimer'
 
 /*
   Split Hero can be used for Article or Blog Listing Pages
@@ -24,43 +29,83 @@ import ResponsiveImage from '@/components/ResponsiveImage'
     - blog-listing -> colored background with illustration image
     - recipe -> recipe content inside floating panel/box
     - default -> white background
-
+    - cooking-guide -> same as default, but with sticky hero image/video
+    - live-cooking-class -> same as default, but with a countdown timer
+    - cooking-class -> same as default, but adds watch now button if valid
 */
 
-const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary', blogSettings }) => {
+const getBackNavigationInfo = (router) => {
+
+  let urlPathArray = router.asPath.split('/').slice(0, -1)
+  const goBackUrl = urlPathArray.join('/')
+  const goBackTitle = urlPathArray[urlPathArray.length - 1].replace(/-/g, ' ')
+
+  return {
+    url: goBackUrl,
+    title: goBackTitle
+  }
+}
+
+const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobalSettings }, mainContentRef) => {
   const [mounted, setMounted] = useState(false)
+  const [startVideo, setStartVideo] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })
   const isDesktop = useMediaQuery(
     {query: '(min-width: 1074px)'}
   )
+  const {  headerRef } = useHeaderContext()
+  const router = useRouter()
+  const goBackNavigationSettings = getBackNavigationInfo(router)
 
-  const {prepTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, subheader, servings, tags, cookTime, youtubeVideoId } = fields
+  const {prepTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, subheader, servings, tags, cookTime, youtubeVideoId, classStartDate, classEndDate } = fields
+
+  const hasVideo = youtubeVideoId ? true : false
+  const heroImageRef = useRef()
+
+  /* Cooking Guide Articles will have a sticky hero video if available */
+  const getStickyPosition = () => {
+    if (!mainContentRef) {
+      return false;
+    }
+    const mainContentRefBottomPos = mainContentRef.current.offsetHeight + mainContentRef.current.offsetTop
+    const headerRefIsVisible = (headerRef.current.getBoundingClientRect().top >= 0 || window.pageYOffset === 0) ? true : false
+    if (renderType === 'cooking-guide' && hasVideo) {
+      if (window !== undefined && (window.scrollY + window.innerHeight) > mainContentRefBottomPos) {
+        heroImageRef.current.style.top = `${mainContentRefBottomPos - heroImageRef.current.offsetHeight}px`
+        heroImageRef.current.style.position = 'absolute'
+      } else {
+        heroImageRef.current.style.top = !headerRefIsVisible ? 0 : headerRef.current?.offsetHeight + 'px'
+        heroImageRef.current.style.position = 'fixed'
+      }
+      heroImageRef.current.style.height = `${ !headerRefIsVisible ? '100%' : 'calc(100% - ' + headerRef.current?.offsetHeight + 'px)'}`
+    }
+  }
 
   useEffect(() => {
     setMounted(true)
+    getStickyPosition()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (!blogSettings) {
+  useEffect(() => {
+    window.addEventListener('scroll', getStickyPosition)
+    return () => {
+      window.removeEventListener('scroll', getStickyPosition)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  if (!blogGlobalSettings) {
     return ''
   }
 
-  const youtubeOptions = {
-    height: '390',
-    width: '640',
-    playerVars: {
-      controls: 0,
-      // https://developers.google.com/youtube/player_parameters
-      autoplay: 1,
-      rel: 0
-    },
-  };
+  const showVideo = () => {
+    setStartVideo(true)
+  }
 
-  const backgroundColorClass = `article-hero--${blogSettings.fields[blogType].backgroundColor}-bg-color`
-  const backgroundIllustrationImage = blogSettings.fields[blogType].illustrationImage
+  const backgroundColorClass = `article-hero--${blogGlobalSettings.backgroundColor}-bg-color`
+  const backgroundIllustrationImage = blogGlobalSettings.illustrationImage
   const renderTypeClass = `article-hero--render-type-${renderType}`
-
-  // TODO for Sung: add logic to render other content if renderType is default
-  // TODO for Adrian: add navigation once all blogs and articles are added by getStaticPaths
 
   return (
     <div className={`${classes['article-hero']} ${classes[renderTypeClass]} ${classes[backgroundColorClass]}`}>
@@ -78,17 +123,32 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
 
         <div className={classes['article-hero__content-inner']}>
           <div className={classes['article-hero__navigation']}>
-            <Link href="">
-              <a><IconBullet /> <span>Back to something something</span></a>
-            </Link>
+            {goBackNavigationSettings.url && <Link href={goBackNavigationSettings.url}>
+              <a><IconBullet /> <span>Back to all {goBackNavigationSettings.title}</span></a>
+            </Link>}
           </div>
-          <h1 className={classes['article-hero__heading']}>{header}</h1>
+          {renderType === 'live-cooking-class' ? (
+            <h1 className={classes['article-hero__heading']}>Live Cooking Class</h1>
+          ):(
+            <h1 className={classes['article-hero__heading']}>{header}</h1>
+          )}
           {subheader && <h2 className={classes['article-hero__subheading']}>{subheader}</h2>}
+
+          {classStartDate && classEndDate && <ArticleCountdownTimer classStartDate={classStartDate} classEndDate={classEndDate} classes={classes} />}
+
+          {renderType === 'cooking-class' && youtubeVideoId && <div>
+            <button onClick={() => showVideo()} className={`${classes['article-hero__action-btn']} btn salmon`}>
+              <IconPlayButtonTriangle />
+              <span>Watch Now</span>
+            </button>
+          </div>}
+
           {tags && <ul className={classes['article-hero__tags']}>
             {tags.map((tag, index) => {
               return <li className={classes['article-hero__tag']} key={index}>{tag.value}</li>
             })}
           </ul>}
+
           <ul className={classes['recipe-meta-details']}>
             {prepTime &&
               <li>
@@ -123,12 +183,8 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
         </div>
       </div>
 
-      {youtubeVideoId ? (
-        <div className={classes['article-hero__video']}>
-          <Youtube videoId={youtubeVideoId} opts={youtubeOptions} />
-        </div>
-      ): (
-        <div className={classes['article-hero__image']}>
+      <div className={classes['article-hero__image-wrapper']} ref={heroImageRef}>
+        {!startVideo && <div className={classes['article-hero__image']}>
           {mobileBackgroundImage && isMobile && mounted &&
             <ResponsiveImage
               src={mobileBackgroundImage.asset.url}
@@ -142,11 +198,17 @@ const ArticleSplitHero = ({fields, renderType = 'default', blogType = 'culinary'
               alt={desktopBackgroundImage.asset.alt || ''}
             />
           }
-        </div>
-      )}
+          {youtubeVideoId &&
+            <button
+              className={classes['article-hero__play-btn']}
+              onClick={() => showVideo()}><IconPlayButton /></button>
+          }
+        </div>}
+        {youtubeVideoId && <ArticleVideo youtubeVideoId={youtubeVideoId} startVideo={startVideo} className={classes['article-hero__video']} />}
+      </div>
 
     </div>
   )
-}
+})
 
 export default ArticleSplitHero

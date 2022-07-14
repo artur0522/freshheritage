@@ -8,9 +8,9 @@ import Link from 'next/link'
 import { useArticleContext } from '@/context/ArticleContext'
 import IconCaret from '@/svgs/caret.svg'
 
-const ArticleSidebar = ({fields}) => {
+const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
 
-  const { content, author, relatedArticles } = fields
+  const { content, author, hosts, relatedArticles, classSignup } = fields
   const { isSidebarOpen, setIsSidebarOpen } = useArticleContext()
 
   return (
@@ -25,6 +25,19 @@ const ArticleSidebar = ({fields}) => {
 
         {content && <div className={`${articleContentClasses['article-section__content']} ${classes['article-sidebar__section']}`}>
           <PortableText value={content} />
+        </div>}
+
+        {classSignup && <div className={`${classes['article-class-signup']} ${classes['article-sidebar__section']}`}>
+          <EmailSignup props={{
+            title: classSignup.header,
+            ctaText: 'Sign Me Up',
+            listId: classSignup.klaviyoListId,
+            customCheckbox: {
+              label: classSignup.checkboxLabel,
+              disclaimer: classSignup.disclaimer,
+              checkboxKlaviyoProperty: classSignup.checkboxKlaviyoProperty
+            }
+          }} />
         </div>}
 
         {author && <div className={`${classes['article-author']} ${classes['article-sidebar__section']}`}>
@@ -42,12 +55,32 @@ const ArticleSidebar = ({fields}) => {
           </div>
         </div>}
 
-        <div className={`${classes['article-email-signup']} ${classes['article-sidebar__section']}`}>
+        {hosts && <div className={`${classes['article-author']} ${classes['article-sidebar__section']}`}>
+          <div className={`${articleContentClasses['article-section__content']}`}>
+            <PortableText value={hosts.description} />
+          </div>
+          <ul className={classes['article-host-list']}>
+            {hosts.hostList.map(author => {
+              return <li key={author._id}>
+                <div className={classes['article-author__image']}>
+                  <ResponsiveImage
+                    src={author.image.asset.url}
+                    alt={author.image.asset.alt || ''}
+                  />
+                </div>
+                <h2>{author.name}</h2>
+              </li>
+            })}
+          </ul>
+        </div>}
+
+        {blogGlobalSettings?.klaviyoListId && <div className={`${classes['article-email-signup']} ${classes['article-sidebar__section']}`}>
           <EmailSignup props={{
             title: 'Get Recipes & Stories Delivered To Your Inbox',
-            ctaText: 'Join The List'
+            ctaText: 'Join The List',
+            listId: blogGlobalSettings.klaviyoListId
           }} />
-        </div>
+        </div>}
 
         {relatedArticles &&
           <div className={`${classes['article-related-items']} ${classes['article-sidebar__section']}`}>

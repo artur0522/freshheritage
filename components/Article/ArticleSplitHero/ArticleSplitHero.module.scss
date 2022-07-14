@@ -2,15 +2,25 @@
 
 :global(.article-cooking-guide) {
   .article-hero__content {
-    width: 44%;
+    @include breakpoint-up('md') {
+      width: 44%;
+    }
   }
   .article-hero__content-inner {
-    max-width: 500px;
-    margin: 0;
+    @include breakpoint-up('md') {
+      max-width: 500px;
+      margin: 0;
+    }
   }
-  .article-hero__image,
-  .article-hero__video {
-    width: 56%;
+  .article-hero__image-wrapper {
+    @include breakpoint-up('md') {
+      width: 56%;
+      height: 100%;
+      transition: 0.5s ease-in-out height;
+      order: -1;
+      right: 0;
+      z-index: 2;
+    }
   }
 }
 
@@ -27,7 +37,7 @@
   @include breakpoint-down('sm') {
     background-color: $alabaster2;
   }
-  @include breakpoint-up('lg') {
+  @include breakpoint-up('md') {
     min-height: 720px;
   }
   @include breakpoint-up('xl') {
@@ -53,13 +63,19 @@
       border-bottom: 1px solid $fawn50-2;
     }
   }
-  &.article-hero--render-type-default {
+  &.article-hero--render-type-default,
+  &.article-hero--render-type-cooking-guide,
+  &.article-hero--render-type-live-cooking-class,
+  &.article-hero--render-type-cooking-class {
     .article-hero__content {
       background-color: $pureWhite;
-      padding: 20px 30px;
+      padding: 30px 30px 60px;
       border-bottom: 1px solid $fawn50-2;
       margin: 0;
       @include breakpoint-up('sm') {
+        padding: 60px 40px;
+      }
+      @include breakpoint-up('lg') {
         padding: 60px 80px;
       }
     }
@@ -70,13 +86,13 @@
       border-radius: 0;
       border: none;
       > *:not(.article-hero__navigation) {
-        @include breakpoint-up('sm') {
+        @include breakpoint-up('lg') {
           padding: 0 40px;
         }
       }
       .article-hero__navigation {
         border-bottom: 1px solid rgba(45, 43, 38, 0.2);
-        @include breakpoint-up('sm') {
+        @include breakpoint-up('lg') {
           width: calc(100% - 80px);
           margin-left: auto;
           margin-right: auto;
@@ -87,7 +103,6 @@
         padding: 0;
         @include breakpoint-up('sm') {
           font-size: 48px;
-          padding-left: 40px;
         }
         @include breakpoint-up('md') {
           font-size: 56px;
@@ -95,6 +110,7 @@
         }
         @include breakpoint-up('lg') {
           font-size: 60px;
+          padding-left: 40px;
         }
         @include breakpoint-up('xl') {
           font-size: 72px;
@@ -254,11 +270,19 @@
   margin-top: auto;
 }
 
-.article-hero__image,
-.article-hero__video {
-  width: 100%;
-  position: relative;
+.article-hero {
+  &.article-hero--render-type-cooking-guide {
+    .article-hero__image-wrapper {
+      @include breakpoint-down('sm') {
+        position: static !important;
+      }
+    }
+  }
+}
+
+.article-hero__image-wrapper {
   order: -1;
+  width: 100%;
   @include breakpoint-up('md') {
     width: 55%;
     order: 0;
@@ -266,6 +290,13 @@
   @include breakpoint-up('lg') {
     width: 63%;
   }
+}
+
+.article-hero__image,
+.article-hero__video {
+  width: 100%;
+  height: 100%;
+  position: relative;
   img {
     object-fit: cover;
   }
@@ -282,6 +313,67 @@
       left: 0;
       right: 0;
       bottom: 0;
+    }
+  }
+}
+
+.article-hero__play-btn {
+  position: absolute;
+  top: calc(50% - 53.5px);
+  left: calc(50% - 53.5px);
+  border: none;
+  background: none;
+  box-shadow: none;
+  svg {
+    width: 107px;
+    height: 107px;
+  }
+}
+
+.article-hero__action-btn {
+  min-width: none;
+  max-width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+  svg {
+    width: 17px;
+    margin-right: 10px;
+  }
+}
+
+.article-hero__countdown-timer {
+  padding-right: 0 !important;
+  h4 {
+    font-size: 21px;
+    margin-bottom: 20px;
+  }
+  ul {
+    list-style: none;
+    display: flex;
+    margin-bottom: 40px;
+    li {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      letter-spacing: 0.02em;
+      margin-right: 15px;
+      padding-right: 15px;
+      border-right: 1px solid rgba(45, 43, 38, 0.2);
+      min-height: 29px;
+      @include breakpoint-up('sm') {
+        font-size: 21px;
+      }
+      @include breakpoint-up('lg') {
+        margin-right: 20px;
+        padding-right: 20px;
+      }
+      &:last-child {
+        padding: 0;
+        margin: 0;
+        border: none;
+      }
     }
   }
 }

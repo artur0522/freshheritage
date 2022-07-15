@@ -16,7 +16,7 @@ const Modal = ({props, children}) => {
       case 'create':
         return <CreateAccountForm />
       case 'login':
-        return <LoginAccountForm />
+        return <LoginAccountForm redirect={'/account'} />
       case 'forgot_password':
         return <ForgotPasswordForm />
       case 'gated_product':

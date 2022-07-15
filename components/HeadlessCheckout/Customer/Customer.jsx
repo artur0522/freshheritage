@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import { useOrderMetadata } from '@boldcommerce/checkout-react-components';
+import { useOrderMetadata, useCustomer } from '@boldcommerce/checkout-react-components';
 import { useCustomerContext } from '@/context/CustomerContext'
 import { useModalContext } from '@/context/ModalContext'
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
@@ -15,15 +15,16 @@ import { GiftOrder } from '../GiftOrder';
 const Customer = () => {
   const { customer: data, logout } = useCustomerContext()
   const { data: orderMetaData } = useOrderMetadata()
+  const { data: customerFromOrder } = useCustomer()
   const modalContext = useModalContext()
-  return <MemoizedCustomer customer={data} orderMetaData={orderMetaData} logout={logout} modalContext={modalContext} />;
+  return <MemoizedCustomer customer={data} orderMetaData={orderMetaData} customerFromOrder={customerFromOrder} logout={logout} modalContext={modalContext} />;
 };
 
-const MemoizedCustomer = memo(({ customer, orderMetaData, logout, modalContext }) => {
+const MemoizedCustomer = memo(({ customer, orderMetaData, customerFromOrder, logout, modalContext }) => {
   const [email, setEmail] = useState(customer?.email);
   const [errors, setErrors] = useState(null);
   const [acceptsMarketing, setAcceptsMarketing] = useState(false);
-  const { updateOrderMetaData } = useHeadlessCheckoutContext()
+  const { updateOrderMetaData, addCustomerToOrder, removeCustomerFromOrder } = useHeadlessCheckoutContext()
   const [customerOpen, setCustomerOpen] = useState(true)
   const [accountFormType, setAccountFormType] = useState('default')
   const { t } = useTranslation();
@@ -36,20 +37,40 @@ const MemoizedCustomer = memo(({ customer, orderMetaData, logout, modalContext }
         return <ForgotPasswordForm isCheckout={true} />
       default:
         return (
-          <InputField
-            className="order-customer__email"
-            placeholder="Email"
-            type="email"
-            name="email"
-            autoComplete="email"
-            messageType={errors && 'alert'}
-            messageText={errors && errors[0].message}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            updateOrderMetaData({
+              cart_parameters: {
+                pre: {
+                  customer_data: {
+                    tags: ['guest customer']
+                  }
+                }
+              }
+            })
+            .then(() => {
+              addCustomerToOrder({
+                email_address: email,
+                accepts_marketing: acceptsMarketing
+              })
+            })
+          }}>
+            <InputField
+              className="order-customer__email"
+              placeholder="Email"
+              type="email"
+              name="email"
+              autoComplete="email"
+              messageType={errors && 'alert'}
+              messageText={errors && errors[0].message}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </form>
         )
     }
   }
+
   return (
     <div className="order-info">
       <div className="order-customer">
@@ -61,7 +82,25 @@ const MemoizedCustomer = memo(({ customer, orderMetaData, logout, modalContext }
                 {t('customer.not_you')}
                 <button onClick={() => logout()} className="btn-link-underline">{t('customer.logout')}</button>
               </div>
-            ): (
+            ):(orderMetaData.cart_parameters.pre.customer_data.tags.includes('guest customer')) ? (
+              <div className="order-customer__header-link">
+                {t('customer.not_you')}
+                <button onClick={() => {
+                  removeCustomerFromOrder()
+                    .then(() => {
+                      updateOrderMetaData({
+                        cart_parameters: {
+                          pre: {
+                            customer_data: {
+                              tags: ''
+                            }
+                          }
+                        }
+                      })
+                    })
+                }} className="btn-link-underline">{t('customer.logout')}</button>
+              </div>
+            ):(
               (accountFormType === 'login' ? (
                 <div className="order-customer__header-link">
                   {`Don't have an account? `}
@@ -78,14 +117,21 @@ const MemoizedCustomer = memo(({ customer, orderMetaData, logout, modalContext }
                   <button onClick={() => setAccountFormType('login')} className="btn-link-underline">{t('customer.login')}</button>
                 </div>
               ))
-
             )}
+            {accountFormType != 'default' &&
+              <div className="order-customer__header-link">
+                {`Checkout as a `}
+                <button onClick={() => setAccountFormType('default')} className="btn-link-underline">Guest</button>
+              </div>
+            }
           </div>
         </div>
         {!!customerOpen &&
           <>
             {customer?.email ? (
               <div>{customer.email}</div>
+            ):(orderMetaData.cart_parameters.pre.customer_data.tags.includes('guest customer')) && customerFromOrder ? (
+              <div>{customerFromOrder.email_address}</div>
             ):(
               <div className="order-customer-account-form">{getAccountFormContent(accountFormType)}</div>
             )}

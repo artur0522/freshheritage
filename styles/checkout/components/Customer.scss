@@ -1,9 +1,10 @@
 .order-customer__header-links {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   margin-top: 5px;
   @include breakpoint-up('sm') {
     margin-top: 0;
+    align-items: flex-end;
   }
 }
 

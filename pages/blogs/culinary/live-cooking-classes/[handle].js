@@ -1,38 +1,59 @@
+import { useEffect } from 'react'
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import ArticleMain from '@/components/Article/ArticleMain'
 import { nacelleClient } from 'services'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import ContentSections from '@/components/Sections/ContentSections'
+import { useModalContext } from '@/context/ModalContext'
+import PageSEO from '@/components/SEO/PageSEO'
+import StructuredData from '@/components/SEO/StructuredData'
 
-const RecipeArticle = ({ page, product, blogSettings }) => {
+const LiveCookingClassArticle = ({ page, product, blogSettings }) => {
 
   // console.log("page:", page)
   // console.log("blogSettings:", blogSettings)
 
+  const { setContent } = useModalContext()
+
   const { hero } = page.fields
-  const blogType = page.fields.blog?.blogType
-  hero.header = page.title
-  hero.subheader = page.subheader
+  const blogGlobalSettings = blogSettings ? blogSettings.fields['culinary'] : undefined
+  hero.classStartDate = page.fields.classStartDate
+  hero.classEndDate = page.fields.classEndDate
+
+  if (page.fields?.sidebar?.classSignup && page.fields.klaviyoListId) {
+    page.fields.sidebar.classSignup.klaviyoListId = page.fields.klaviyoListId
+  }
+
+  useEffect(() => {
+    setContent({
+      header: page.title,
+      classStartDate: page.fields.classStartDate,
+      classEndDate: page.fields.classEndDate,
+      listId: page.fields.klaviyoListId
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
-      <ArticleSplitHero fields={hero} renderType="default" blogType={blogType} blogSettings={blogSettings} />
+      <StructuredData type="article" data={page} />
+      <StructuredData type="video" data={page} />
+      <PageSEO seo={page.fields.seo} />
+      <ArticleSplitHero fields={hero} renderType="live-cooking-class" blogGlobalSettings={blogGlobalSettings} />
       <ArticleMain contentType="standard" fields={page.fields} product={product} />
       <ContentSections sections={page.fields.pageContent} />
     </>
   )
 }
 
-export default RecipeArticle
+export default LiveCookingClassArticle
 
 export async function getStaticPaths() {
-  const videoArticles = await nacelleClient.content({
-    type: 'videoArticle'
+  const liveCookingClassArticles = await nacelleClient.content({
+    type: 'liveCookingClassArticle'
   })
 
-  const validArticles = videoArticles.filter(article => article.fields.blog.handle === 'cooking-class')
-
-  const handles = validArticles.map((article) => ({ params: { handle: article.handle } }))
+  const handles = liveCookingClassArticles.map((article) => ({ params: { handle: article.handle } }))
 
   return {
     paths: handles,
@@ -44,7 +65,7 @@ export async function getStaticProps({ params }) {
 
   const pages = await nacelleClient.content({
     handles: [params.handle],
-    type: 'videoArticle'
+    type: 'liveCookingClassArticle'
   })
 
   const blogSettings = await nacelleClient.content({

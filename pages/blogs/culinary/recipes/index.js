@@ -6,10 +6,12 @@ import IconArrow from '@/svgs/arrow-down.svg'
 
 import classes from "./RecipesListings.module.scss"
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
+import PageSEO from '@/components/SEO/PageSEO'
 
 const RecipeListings = ({recipeArticles, blogSettings}) => {
   return (
     <>
+      {/* <PageSEO seo={page.fields.seo} /> */}
       <ArticleSplitHero fields={''} renderType="blog-listing" blogType="culinary" blogSettings={blogSettings} />
       <div className={classes['recipes']}>
         <div className="container">

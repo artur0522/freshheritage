@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
+import { useMediaQuery } from 'react-responsive'
 import Router from 'next/router'
 
 const ArticleContext = createContext()
@@ -10,6 +11,14 @@ export function useArticleContext() {
 export function ArticleProvider({ children }) {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+
+  const handleMediaQueryChange = (matches) => {
+    if (matches) setIsSidebarOpen(false)
+  }
+
+  const isDesktop = useMediaQuery(
+    { minWidth: 1074 }, undefined, handleMediaQueryChange
+  )
 
   useEffect(() => {
     if (isSidebarOpen) document.querySelector('html').classList.add('disable-scroll')

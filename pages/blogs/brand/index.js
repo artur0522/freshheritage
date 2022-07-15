@@ -2,13 +2,17 @@ import React from 'react'
 
 import { nacelleClient } from 'services'
 import ContentSections from '../../../components/Sections/ContentSections'
+import PageSEO from '@/components/SEO/PageSEO'
+import StructuredData from '@/components/SEO/StructuredData'
 
 export default function BrandBlog({ pages }) {
   const brandBlogPage = pages.find((page) => page.handle === 'brand-blog')
 
   return (
     <>
-       <ContentSections sections={brandBlogPage.fields.content} />
+      <StructuredData type="blog" data={brandBlogPage} />
+      <PageSEO seo={brandBlogPage.fields.seo} />
+      <ContentSections sections={brandBlogPage.fields.content} />
     </>
   )
 }

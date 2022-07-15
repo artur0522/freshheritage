@@ -3,6 +3,7 @@ import ArticleMain from '@/components/Article/ArticleMain'
 import { nacelleClient } from 'services'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import ContentSections from '@/components/Sections/ContentSections'
+import PageSEO from '@/components/SEO/PageSEO'
 
 const RecipeArticle = ({ page, product, blogSettings }) => {
 
@@ -11,13 +12,16 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
 
   const { hero } = page.fields
   const blogType = page.fields.blog?.blogType
+  const blogGlobalSettings = blogSettings ? blogSettings.fields[blogType] : undefined
   hero.header = page.title
   hero.subheader = page.subheader
 
+
   return (
     <>
-      <ArticleSplitHero fields={hero} renderType="default" blogType={blogType} blogSettings={blogSettings} />
-      <ArticleMain contentType="standard" fields={page.fields} product={product} />
+      <PageSEO seo={page.fields.seo} />
+      <ArticleSplitHero fields={hero} renderType="default" blogGlobalSettings={blogGlobalSettings} />
+      <ArticleMain contentType="standard" fields={page.fields} product={product} blogGlobalSettings={blogGlobalSettings} />
       <ContentSections sections={page.fields.pageContent} />
     </>
   )

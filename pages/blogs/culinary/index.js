@@ -2,13 +2,17 @@ import React from 'react'
 
 import { nacelleClient } from 'services'
 import ContentSections from '../../../components/Sections/ContentSections'
+import PageSEO from '@/components/SEO/PageSEO'
+import StructuredData from '@/components/SEO/StructuredData'
 
 export default function CulinaryBlog({ pages }) {
   const culinaryBlogPage = pages.find((page) => page.handle === 'culinary-blog')
 
   return (
     <>
-       <ContentSections sections={culinaryBlogPage.fields.content} />
+      <StructuredData type="blog" data={culinaryBlogPage} />
+      <PageSEO seo={culinaryBlogPage.fields.seo} />
+      <ContentSections sections={culinaryBlogPage.fields.content} />
     </>
   )
 }

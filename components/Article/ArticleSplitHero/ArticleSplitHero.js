@@ -46,8 +46,6 @@ const getBackNavigationInfo = (router) => {
 }
 
 const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobalSettings }, mainContentRef) => {
-  console.log('articlespliotherosettings', blogGlobalSettings)
-
   const [mounted, setMounted] = useState(false)
   const [startVideo, setStartVideo] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })

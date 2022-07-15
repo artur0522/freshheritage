@@ -32,7 +32,7 @@ const RecipeArticleCard = ({ article, responsiveImage = false }) => {
                 </div>}
 
                 <div className={classes['article__card-content']}>
-                    {prepTime && <span className="recipe--time">{prepTime} prep time &#8226 {cookTime} cook time</span>}
+                    {prepTime && <span className="recipe--time">{prepTime} prep time &#8226; {cookTime} cook time</span>}
                     {article.title && <h4 className='heading--article'>{article.title}</h4>}
                 </div>
             </div>

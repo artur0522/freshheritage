@@ -20,7 +20,7 @@ export async function getStaticProps({ params }) {
     })
   
     const blogSections  = await nacelleClient.content({
-      handles: ['live-cooking-class'],
+      handles: ['live-cooking-classes'],
       type: 'blog'
     })
   

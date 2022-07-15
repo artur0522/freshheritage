@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import IconSelectArrow from '@/svgs/select-arrow.svg'
 
 const ShippingAddress = ({ applicationLoading }) => {
+
   const requiredAddressFields = ['first_name', 'last_name', 'address_line_1', 'city'];
   const { data: shippingAddress, submitShippingAddress } = useShippingAddress(requiredAddressFields);
   const { data: savedAddresses } = useSavedAddresses();

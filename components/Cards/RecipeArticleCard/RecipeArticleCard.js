@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import Image from 'next/image';
-import Link from 'next/link';
+import React, { useState } from "react"
+import Image from 'next/image'
+import Link from 'next/link'
 
 import ResponsiveImage from '@/components/ResponsiveImage'
 
 import "swiper/css";
 import BookmarkIcon from '@/svgs/bookmark.svg'
-import classes from './RecipeArticleCard.module.scss';
+import classes from './RecipeArticleCard.module.scss'
 
 const RecipeArticleCard = ({ article, responsiveImage = false }) => {
     const { desktopBackgroundImage, prepTime, cookTime } = article.fields ? article.fields.hero : article.hero
@@ -32,7 +32,7 @@ const RecipeArticleCard = ({ article, responsiveImage = false }) => {
                 </div>}
 
                 <div className={classes['article__card-content']}>
-                    {prepTime && <span className="recipe--time">{prepTime} &#8226; {cookTime}</span>}
+                    {prepTime && <span className="recipe--time">{prepTime} prep time &#8226; {cookTime} cook time</span>}
                     {article.title && <h4 className='heading--article'>{article.title}</h4>}
                 </div>
             </div>
@@ -40,4 +40,4 @@ const RecipeArticleCard = ({ article, responsiveImage = false }) => {
     );
 };
 
-export default RecipeArticleCard;
+export default RecipeArticleCard

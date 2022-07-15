@@ -3,9 +3,11 @@ import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
 import { accountFormReducer, initialState } from '@/utils/account'
 import classes from './AccountForm.module.scss'
+import { useRouter } from 'next/router'
 
-const LoginAccountForm = ({ isCheckout, onForgotPasswordClick }) => {
+const LoginAccountForm = ({ redirect, isCheckout, onForgotPasswordClick }) => {
 
+  const router = useRouter()
   const modalContext = useModalContext()
   const customerContext = useCustomerContext()
   const emailRef = useRef()
@@ -33,8 +35,9 @@ const LoginAccountForm = ({ isCheckout, onForgotPasswordClick }) => {
       dispatch({ type: 'error', payload: response.errors[0].message })
     } else {
       dispatch({ type: 'success' })
-      modalContext.setIsOpen(false)
-      // TODO: redirect to account page
+      if (redirect) {
+        router.push(redirect)
+      }
     }
   }
 

@@ -39,7 +39,7 @@ const IndexPage = () => {
 
   useEffect(() => {
     // If customer is logged in with saved addresses, default the shipping address to the first one.
-    if (state.applicationState.customer.saved_addresses.length > 0) {
+    if (state.applicationState.customer.saved_addresses?.length > 0) {
       setDefaultAddress();
     }
 

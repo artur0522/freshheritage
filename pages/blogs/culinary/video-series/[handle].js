@@ -3,27 +3,32 @@ import ArticleMain from '@/components/Article/ArticleMain'
 import { nacelleClient } from 'services'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import ContentSections from '@/components/Sections/ContentSections'
+import PageSEO from '@/components/SEO/PageSEO'
+import StructuredData from '@/components/SEO/StructuredData'
 
-const RecipeArticle = ({ page, product, blogSettings }) => {
+const VideoSeriesArticle = ({ page, product, blogSettings }) => {
 
   // console.log("page:", page)
   // console.log("blogSettings:", blogSettings)
 
   const { hero } = page.fields
   const blogType = page.fields.blog?.blogType
+  const blogGlobalSettings = blogSettings ? blogSettings.fields[blogType] : undefined
   hero.header = page.title
   hero.subheader = page.subheader
 
   return (
     <>
-      <ArticleSplitHero fields={hero} renderType="default" blogType={blogType} blogSettings={blogSettings} />
-      <ArticleMain contentType="standard" fields={page.fields} product={product} />
+      <StructuredData type="article" data={page} />
+      <PageSEO seo={page.fields.seo} />
+      <ArticleSplitHero fields={hero} renderType="default" blogGlobalSettings={blogGlobalSettings} />
+      <ArticleMain contentType="standard" fields={page.fields} product={product} blogGlobalSettings={blogGlobalSettings} />
       <ContentSections sections={page.fields.pageContent} />
     </>
   )
 }
 
-export default RecipeArticle
+export default VideoSeriesArticle
 
 export async function getStaticPaths() {
   const videoArticles = await nacelleClient.content({

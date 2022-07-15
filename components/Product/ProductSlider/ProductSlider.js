@@ -47,7 +47,7 @@ const ProductSlider = ({product, timeout = 0}) => {
         autoHeight={true}
         setWrapperSize={true}
       >
-        {[...images, ...images, ...images].slice(0, 5).map((image, index) => {
+        {[...images].slice(0, 5).map((image, index) => {
           return <SwiperSlide key={`${image.id}-${index}`}>
             <div style={{position: 'relative', paddingBottom: '65%'}}>
               <Image className={classes['image']} src={image.src} layout="fill" alt={image.altText} />
@@ -62,8 +62,9 @@ const ProductSlider = ({product, timeout = 0}) => {
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
         className={classes['product-image-thumbnails']}
+        threshold={2}
       >
-        {[...images, ...images, ...images].slice(0, 5).map((image, index) => {
+        {[...images].slice(0, 5).map((image, index) => {
           return <SwiperSlide key={`${image.id}-${index}`}>
             <div style={{position: 'relative', paddingBottom: '65%'}}>
               <Image className={classes['image']} src={image.src} layout="fill" alt={image.altText} />

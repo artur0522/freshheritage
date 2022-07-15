@@ -56,6 +56,12 @@ const ArticleRow = ({ fields }) => {
                         }}
                         >
                         {articles.map((article, index) => {
+
+                            // if handle doesn't exist, you're probably on the same page of the article you are referencing
+                            if (!article.handle) {
+                                return ''
+                            }
+
                             return (
                                 <SwiperSlide className={classes['article-slide']} key={`${article._id}-${_key}-${index}`}>
                                     <DynamicArticleCard article={article} reverse={reverseCard} />

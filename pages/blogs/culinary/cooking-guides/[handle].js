@@ -1,29 +1,40 @@
+import { useRef } from 'react'
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import ArticleMain from '@/components/Article/ArticleMain'
 import { nacelleClient } from 'services'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import ContentSections from '@/components/Sections/ContentSections'
+import PageSEO from '@/components/SEO/PageSEO'
+import StructuredData from '@/components/SEO/StructuredData'
 
-const RecipeArticle = ({ page, product, blogSettings }) => {
+const CookingGuideArticle = ({ page, product, blogSettings }) => {
 
-  console.log("page:", page)
+  // console.log("page:", page)
   // console.log("blogSettings:", blogSettings)
 
   const { hero } = page.fields
   const blogType = page.fields.blog?.blogType
+  const blogGlobalSettings = blogSettings ? blogSettings.fields[blogType] : undefined
   hero.header = page.title
   hero.subheader = page.subheader
 
+  const hasVideo = hero.youtubeVideoId ? true : false
+
+  const mainContentRef = useRef()
+
   return (
-    <div className="article-cooking-guide">
-      <ArticleSplitHero fields={hero} renderType="default" blogType={blogType} blogSettings={blogSettings} />
-      <ArticleMain contentType="standard" fields={page.fields} product={product} showNav={true} />
+    <div className={`${!hasVideo ? 'article-cooking-guide--no-video' : 'article-cooking-guide'}`}>
+      <StructuredData type="article" data={page} />
+      <StructuredData type="video" data={page} />
+      <PageSEO seo={page.fields.seo} />
+      <ArticleSplitHero ref={mainContentRef} fields={hero} renderType="cooking-guide" blogGlobalSettings={blogGlobalSettings} />
+      <ArticleMain ref={mainContentRef} contentType="standard" fields={page.fields} product={product} showNav={true} blogGlobalSettings={blogGlobalSettings} />
       <ContentSections sections={page.fields.pageContent} />
     </div>
   )
 }
 
-export default RecipeArticle
+export default CookingGuideArticle
 
 export async function getStaticPaths() {
   const cookingGuideArticles = await nacelleClient.content({

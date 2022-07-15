@@ -16,6 +16,9 @@ import PaginationRight from '@/svgs/pagination-right.svg'
 
 import classes from "./RecipesListings.module.scss"
 
+import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
+import PageSEO from '@/components/SEO/PageSEO'
+
 const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }) => {
   const drawerContext = useArticleFiltersDrawerContext()
   const { addFilters, openDrawer, closeDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
@@ -114,6 +117,7 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
 
   return (
     <>
+      {/* <PageSEO seo={page.fields.seo} /> */}
       <ArticleSplitHero fields={''} renderType="blog-listing" blogType="culinary" blogSettings={blogSettings} />
       <div className={classes['recipes']}>  
         <form className={`${classes['recipes__filter-wrap']} container`}>

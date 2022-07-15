@@ -6,6 +6,7 @@ import { CustomerProvider } from '@/context/CustomerContext'
 import { PurchaseFlowProvider } from '@/context/PurchaseFlowContext'
 import { HeadlessCheckoutProvider } from '@/context/HeadlessCheckoutContext';
 import { HeaderProvider } from '@/context/HeaderContext';
+import StructuredData from '../SEO/StructuredData'
 
 import Header from '@/components/Layout/Header'
 import Footer from '@/components/Layout/Footer'
@@ -19,22 +20,23 @@ function Layout({ children, headerSettings, footerSettings }) {
 
   return (
     <CustomerProvider>
-      <HeadlessCheckoutProvider pageHandle={children.props.handle}>
-        <PurchaseFlowProvider>
-          <PDPDrawerProvider>
-            <ArticleFiltersDrawerProvider>
-            <ModalProvider>
-              <ArticleProvider>
-                <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
-                  <main>{children}</main>
-                  <Footer content={footerSettings} />
-                </HeaderProvider>
-              </ArticleProvider>
-            </ModalProvider>
-            </ArticleFiltersDrawerProvider>
-          </PDPDrawerProvider>
-        </PurchaseFlowProvider>
-      </HeadlessCheckoutProvider>
+      <ModalProvider>
+        <HeadlessCheckoutProvider pageHandle={children.props.handle}>
+          <PurchaseFlowProvider>
+            <PDPDrawerProvider>
+              <ArticleFiltersDrawerProvider>
+                <ArticleProvider>
+                  <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
+                    <StructuredData type="breadcrumb" />
+                    <main className={`main--${children.props.handle}`}>{children}</main>
+                    <Footer content={footerSettings} />
+                  </HeaderProvider>
+                </ArticleProvider>
+              </ArticleFiltersDrawerProvider>
+            </PDPDrawerProvider>
+          </PurchaseFlowProvider>
+        </HeadlessCheckoutProvider>
+      </ModalProvider>
     </CustomerProvider>
   )
 }

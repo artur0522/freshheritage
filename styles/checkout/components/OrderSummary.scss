@@ -64,3 +64,16 @@
 .order-summary__amount {
   font-size: 14px;
 }
+
+.order-summary-item__description {
+  text-align: right;
+}
+
+.order-summary-item__action {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  position: relative;
+  top: 2px;
+}

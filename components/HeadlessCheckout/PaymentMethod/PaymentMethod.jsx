@@ -5,7 +5,8 @@ import {
   usePaymentIframe,
   useShippingAddress,
   useShippingLines,
-  useErrors
+  useErrors,
+  useCustomer
 } from '@boldcommerce/checkout-react-components';
 import React, { memo, useEffect, useState } from 'react';
 import { EmptyState } from '@/components/HeadlessCheckout/EmptyState';
@@ -32,6 +33,7 @@ const PaymentMethod = ({ applicationLoading }) => {
     paymentIframeOnLoaded
   } = usePaymentIframe();
   const { data } = useShippingLines();
+  const { data: customer } = useCustomer()
   const { PIGIMediaRules } = useHeadlessCheckoutContext()
   const shippingLines = data.shippingLines;
   const orderStatus = state.orderInfo.orderStatus;
@@ -51,6 +53,7 @@ const PaymentMethod = ({ applicationLoading }) => {
       onPaymentIframeLoaded={paymentIframeOnLoaded}
       loading={loading}
       PIGIMediaRules={PIGIMediaRules}
+      customer={customer}
     />
   );
 };
@@ -66,7 +69,8 @@ const MemoizedPaymentMethod = memo(
     paymentIframeHeight,
     onPaymentIframeLoaded,
     loading,
-    PIGIMediaRules
+    PIGIMediaRules,
+    customer
   }) => {
     const [disabled, setDisabled] = useState();
     const [paymentMethodOpen, setPaymentMethodOpen] = useState(true);
@@ -131,7 +135,7 @@ const MemoizedPaymentMethod = memo(
       content = <LoadingState />;
     }
 
-    const { data, appendOrderMetadata } = useOrderMetadata();
+    const { data: orderMetaData, appendOrderMetadata } = useOrderMetadata();
     useEffect(() => {
       let GAClientID = '';
 
@@ -158,7 +162,7 @@ const MemoizedPaymentMethod = memo(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const { data2, errors, loadingStatus, applyDiscount } = useDiscount();
+    const { data: appliedDiscounts, errors, loadingStatus, applyDiscount, removeDiscount } = useDiscount();
     useEffect(() => {
       const applyMembershipDiscount = async () => {
         const hasSub =
@@ -174,7 +178,8 @@ const MemoizedPaymentMethod = memo(
         var customerTags = '';
         if (
           'pre' in
-          applicationState.applicationState.order_meta_data.cart_parameters
+          applicationState.applicationState.order_meta_data.cart_parameters &&
+          applicationState.applicationState.order_meta_data.cart_parameters.pre.customer_data.tags != ''
         ) {
           customerTags =
             applicationState.applicationState.order_meta_data.cart_parameters
@@ -248,12 +253,22 @@ const MemoizedPaymentMethod = memo(
           } catch (e) {
             //console.log(e)
           }
+        } else {
+          try {
+            console.log("removing discount")
+            if (appliedDiscounts?.discountCode) {
+              const results = await removeDiscount(appliedDiscounts.discountCode);
+              //console.log(results)
+            }
+          } catch (e) {
+            //console.log(e)
+          }
         }
       };
 
       applyMembershipDiscount();
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [orderMetaData]);
 
     return (
       <div className="order-payment-method">

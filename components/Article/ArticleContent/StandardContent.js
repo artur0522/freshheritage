@@ -6,13 +6,24 @@ import ArticleProduct from '../ArticleProduct'
 import ArticleSocialSharing from '../ArticleSocialSharing'
 import Link from 'next/link'
 import IconCaretThin from '@/svgs/caret-thin.svg'
+import IconKnife from '@/svgs/knife.svg'
+import IconPan from '@/svgs/pan.svg'
+import ArticleVideo from '../ArticleVideo'
 
 const StandardContent = forwardRef(({fields, product}, ref) => {
 
   const { content } = fields
 
-  console.log("content:", content)
-  console.log("product:", product)
+  const getIcon = (icon) => {
+    switch(icon) {
+      case 'knife':
+        return <IconKnife />
+      case 'pan':
+        return <IconPan />
+      default:
+        return ''
+    }
+  }
 
   const myPortableTextComponents = {
     block: {
@@ -26,7 +37,13 @@ const StandardContent = forwardRef(({fields, product}, ref) => {
     marks: {
       arrowLink: ({ children, value }) => (<Link href={value.href || ''}>
         <a className={classes['article-section__arrow-link']}>{children}<IconCaretThin /></a>
-      </Link>)
+      </Link>),
+      iconWithText: ({children, value}) => {
+        return (<span className={classes['article-section__cooking-tool']}>
+          <span className={classes['article-section__cooking-tool-icon']}>{getIcon(value.icon)}</span>
+          <span className={classes['article-section__cooking-tool-text']}>{children}</span>
+        </span>)
+      }
     },
     types: {
       image: ({value}) => (<div className={classes['article-section__image']}>
@@ -34,7 +51,8 @@ const StandardContent = forwardRef(({fields, product}, ref) => {
       </div>),
       productBlock: () => (
         <ArticleProduct product={product} parentClasses={classes} />
-      )
+      ),
+      youtubeVideoBlock: ({value}) => <ArticleVideo youtubeVideoId={value.youtubeVideoId} autoplay={false} startVideo="true" className={classes['article-section__video']} />
     },
     listItem: {
       bullet: ({children}) => {

@@ -11,7 +11,6 @@ const BlogFilters = () => {
   return (
     <div className={classes['filter-list']}>
         {Object.keys(filters).map((filterGroup, index) => {
-          console.log(filterGroup)
             return (
               <BlogFilterItem key={`${filterGroup}-${index}`} filterGroup={filterGroup} />
             )

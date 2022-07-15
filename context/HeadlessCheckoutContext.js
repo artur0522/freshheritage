@@ -524,8 +524,8 @@ export function HeadlessCheckoutProvider({ children }) {
           }
         })
       })
-    // if logged out and is not a guest and order has customer, remove customer from order
-    } else if (!customer && !data?.application_state?.order_meta_data?.cart_parameters?.pre?.customer_data?.tags?.includes('guest customer') && data?.application_state?.customer?.email_address) {
+    // if logged out and order has customer, remove customer from order
+    } else if (!customer && data?.application_state?.customer?.email_address) {
       removeCustomerFromOrder()
       .then(() => {
         updateOrderMetaData({

@@ -19,10 +19,10 @@ function Layout({ children, headerSettings, footerSettings }) {
 
   return (
     <CustomerProvider>
-      <HeadlessCheckoutProvider pageHandle={children.props.handle}>
-        <PurchaseFlowProvider>
-          <PDPDrawerProvider>
-            <ModalProvider>
+      <ModalProvider>
+        <HeadlessCheckoutProvider pageHandle={children.props.handle}>
+          <PurchaseFlowProvider>
+            <PDPDrawerProvider>
               <ArticleProvider>
                 <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
                   <StructuredData type="breadcrumb" />
@@ -30,10 +30,10 @@ function Layout({ children, headerSettings, footerSettings }) {
                   <Footer content={footerSettings} />
                 </HeaderProvider>
               </ArticleProvider>
-            </ModalProvider>
-          </PDPDrawerProvider>
-        </PurchaseFlowProvider>
-      </HeadlessCheckoutProvider>
+            </PDPDrawerProvider>
+          </PurchaseFlowProvider>
+        </HeadlessCheckoutProvider>
+      </ModalProvider>
     </CustomerProvider>
   )
 }

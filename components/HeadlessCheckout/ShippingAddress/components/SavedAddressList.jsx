@@ -21,7 +21,7 @@ const SavedAddressList = ({
     if (prevAddress) {
       return savedAddresses.find((address) => address.id === prevAddress);
     } else {
-      return savedAddresses[0];
+      return savedAddresses ? savedAddresses[0] : {};
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prevAddress]);

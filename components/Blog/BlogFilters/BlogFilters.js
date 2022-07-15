@@ -10,9 +10,10 @@ const BlogFilters = () => {
 
   return (
     <div className={classes['filter-list']}>
-        {Object.keys(filters).map((filterGroup) => {
+        {Object.keys(filters).map((filterGroup, index) => {
+          console.log(filterGroup)
             return (
-              <BlogFilterItem filterGroup={filterGroup} />
+              <BlogFilterItem key={`${filterGroup}-${index}`} filterGroup={filterGroup} />
             )
         })}
     </div>

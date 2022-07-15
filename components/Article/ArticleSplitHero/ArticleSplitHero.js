@@ -47,13 +47,14 @@ const getBackNavigationInfo = (router) => {
 }
 
 const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobalSettings }, mainContentRef) => {
+
   const [mounted, setMounted] = useState(false)
   const [startVideo, setStartVideo] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })
   const isDesktop = useMediaQuery(
     {query: '(min-width: 1074px)'}
   )
-  const {  headerRef } = useHeaderContext()
+  const { headerRef } = useHeaderContext()
   const router = useRouter()
   const goBackNavigationSettings = getBackNavigationInfo(router)
 

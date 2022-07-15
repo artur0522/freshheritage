@@ -8,11 +8,18 @@ import classes from "./RecipesListings.module.scss"
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import PageSEO from '@/components/SEO/PageSEO'
 
-const RecipeListings = ({recipeArticles, blogSettings}) => {
+const RecipeListings = ({page, recipeArticles, blogSettings}) => {
+
+  const { hero } = page.fields
+  const blogType = page.fields.blogType
+  const blogGlobalSettings = blogSettings ? blogSettings.fields[blogType] : undefined
+  hero.header = page.title
+  hero.subheader = page.fields.subheader
+
   return (
     <>
       {/* <PageSEO seo={page.fields.seo} /> */}
-      <ArticleSplitHero fields={''} renderType="blog-listing" blogType="culinary" blogSettings={blogSettings} />
+      <ArticleSplitHero fields={hero} renderType="blog-listing" blogType="culinary" blogGlobalSettings={blogGlobalSettings} />
       <div className={classes['recipes']}>
         <div className="container">
           <div className={classes['recipes__search']}>
@@ -48,7 +55,11 @@ const RecipeListings = ({recipeArticles, blogSettings}) => {
 
 export default RecipeListings
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps() {
+
+  const pages = await nacelleClient.content({
+    handles: ['recipes']
+  })
 
   const recipeArticles = await nacelleClient.content({
     type: 'recipeArticle'
@@ -59,6 +70,12 @@ export async function getStaticProps({ params }) {
     type: 'blogSettings'
   })
 
+  if (!pages.length) {
+    return {
+      notFound: true
+    }
+  }
+
   if (!recipeArticles.length) {
     return {
       notFound: true
@@ -67,6 +84,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
+      page: pages[0],
       recipeArticles: recipeArticles,
       blogSettings: blogSettings[0],
     }

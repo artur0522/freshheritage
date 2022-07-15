@@ -24,7 +24,6 @@ import ArticleCountdownTimer from './ArticleCountdownTimer'
     - if article recipe, render recipe style -> renderType
     - if not, render default style  -> renderType
   - if content is either brand or culinary to render unique background color & image -> blogType
-
   renderTypes:
     - blog-listing -> colored background with illustration image
     - recipe -> recipe content inside floating panel/box
@@ -47,6 +46,7 @@ const getBackNavigationInfo = (router) => {
 }
 
 const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobalSettings }, mainContentRef) => {
+  console.log('articlespliotherosettings', blogGlobalSettings)
 
   const [mounted, setMounted] = useState(false)
   const [startVideo, setStartVideo] = useState(false)

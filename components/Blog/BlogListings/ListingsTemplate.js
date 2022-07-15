@@ -17,11 +17,11 @@ import classes from "./ListingsTemplate.module.scss"
 
 import PageSEO from '@/components/SEO/PageSEO'
 
-const ListingsTemplate = ({ articles, blogSettings, blogSections }) => {
+const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const drawerContext = useArticleFiltersDrawerContext()
     const { addFilters, openDrawer, closeDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
 
-    const { content, filterGroups } = blogSections[0].fields
+    const { content, filterGroups } = page.fields
     const heroSection = content?.find(section => section._type === 'hero')
     const articleRowSection = content?.find(section => section._type === 'articleRow')
 
@@ -32,11 +32,16 @@ const ListingsTemplate = ({ articles, blogSettings, blogSections }) => {
 
     const isDesktop = useMediaQuery({query: '(min-width: 1074px)'})
 
-    const { hero } = blogSections.fields
-    const blogType = blogSections.fields.blogType
-    const blogGlobalSettings = blogSettings ? blogSettings.fields[blogType] : undefined
-    hero.header = blogSections.title
-    hero.subheader = blogSections.fields.subheader
+    console.log('page', page)
+
+    const { hero } = page.fields
+    const blogType = page.fields?.blogType
+    const blogGlobalSettings = blogSettings ? blogSettings?.fields[blogType] : undefined
+    hero.header = page.title
+    hero.subheader = page.fields?.subheader
+
+    console.log('blogtype', blogType)
+    console.log('blogsettings', blogGlobalSettings)
 
     useEffect(() => {
         setMounted(true)
@@ -121,8 +126,8 @@ const ListingsTemplate = ({ articles, blogSettings, blogSections }) => {
   return (
         <>
      {/* <PageSEO seo={page.fields.seo} /> */}
-     <ArticleSplitHero fields={hero} renderType="blog-listing" blogType="culinary" blogSettings={blogSettings} />
-     <div className={classes['recipes']}>  
+     <ArticleSplitHero fields={hero} renderType="blog-listing" blogType={blogType} blogGlobalSettings={blogGlobalSettings} />
+     <div className={classes['recipes']}>
        <form className={`${classes['recipes__filter-wrap']} container`}>
          <div className={classes['recipes__search']}>
            <button type="button">

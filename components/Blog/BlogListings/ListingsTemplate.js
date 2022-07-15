@@ -32,6 +32,12 @@ const ListingsTemplate = ({ articles, blogSettings, blogSections }) => {
 
     const isDesktop = useMediaQuery({query: '(min-width: 1074px)'})
 
+    const { hero } = blogSections.fields
+    const blogType = blogSections.fields.blogType
+    const blogGlobalSettings = blogSettings ? blogSettings.fields[blogType] : undefined
+    hero.header = blogSections.title
+    hero.subheader = blogSections.fields.subheader
+
     useEffect(() => {
         setMounted(true)
 
@@ -115,7 +121,7 @@ const ListingsTemplate = ({ articles, blogSettings, blogSections }) => {
   return (
         <>
      {/* <PageSEO seo={page.fields.seo} /> */}
-     <ArticleSplitHero fields={''} renderType="blog-listing" blogType="culinary" blogSettings={blogSettings} />
+     <ArticleSplitHero fields={hero} renderType="blog-listing" blogType="culinary" blogSettings={blogSettings} />
      <div className={classes['recipes']}>  
        <form className={`${classes['recipes__filter-wrap']} container`}>
          <div className={classes['recipes__search']}>

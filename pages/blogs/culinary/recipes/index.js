@@ -2,13 +2,7 @@ import { nacelleClient } from 'services'
 
 import ListingsTemplate from '@/components/Blog/BlogListings/ListingsTemplate'
 
-const RecipeListings = ({ articles, blogSettings, blogSections }) => {
-  const { hero } = page.fields
-  const blogType = page.fields.blogType
-  const blogGlobalSettings = blogSettings ? blogSettings.fields[blogType] : undefined
-  hero.header = page.title
-  hero.subheader = page.fields.subheader
-  
+const RecipeListings = ({ articles, blogSettings, blogSections }) => { 
   return (
     <ListingsTemplate articles={articles} blogSettings={blogSettings} blogSections={blogSections} />
   )

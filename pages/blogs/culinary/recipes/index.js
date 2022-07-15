@@ -16,7 +16,6 @@ import PaginationRight from '@/svgs/pagination-right.svg'
 
 import classes from "./RecipesListings.module.scss"
 
-import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import PageSEO from '@/components/SEO/PageSEO'
 
 const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }) => {

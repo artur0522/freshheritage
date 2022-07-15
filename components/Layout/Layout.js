@@ -1,4 +1,5 @@
 import { ArticleProvider } from '@/context/ArticleContext'
+import { ArticleFiltersDrawerProvider } from '@/context/ArticleFiltersDrawerContext'
 import { ModalProvider } from '@/context/ModalContext'
 import { PDPDrawerProvider } from '@/context/PDPDrawerContext'
 import { CustomerProvider } from '@/context/CustomerContext'
@@ -23,13 +24,15 @@ function Layout({ children, headerSettings, footerSettings }) {
         <HeadlessCheckoutProvider pageHandle={children.props.handle}>
           <PurchaseFlowProvider>
             <PDPDrawerProvider>
-              <ArticleProvider>
-                <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
-                  <StructuredData type="breadcrumb" />
-                  <main className={`main--${children.props.handle}`}>{children}</main>
-                  <Footer content={footerSettings} />
-                </HeaderProvider>
-              </ArticleProvider>
+              <ArticleFiltersDrawerProvider>
+                <ArticleProvider>
+                  <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
+                    <StructuredData type="breadcrumb" />
+                    <main className={`main--${children.props.handle}`}>{children}</main>
+                    <Footer content={footerSettings} />
+                  </HeaderProvider>
+                </ArticleProvider>
+              </ArticleFiltersDrawerProvider>
             </PDPDrawerProvider>
           </PurchaseFlowProvider>
         </HeadlessCheckoutProvider>

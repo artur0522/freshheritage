@@ -21,7 +21,7 @@ export async function getStaticProps({ params }) {
       type: 'blogSettings'
     })
   
-    const blogSections  = await nacelleClient.content({
+    const pages  = await nacelleClient.content({
       handles: ['cooking-classes'],
       type: 'blog'
     })
@@ -36,7 +36,7 @@ export async function getStaticProps({ params }) {
       props: {
         articles: validArticles,
         blogSettings: blogSettings[0],
-        blogSections: blogSections
+        page: pages[0]
       }
     }
   }

@@ -32,8 +32,8 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
 
     const isDesktop = useMediaQuery({query: '(min-width: 1074px)'})
 
-    const { hero } = page.fields
-    const blogType = page.fields?.blogType
+    const { hero } = page?.fields
+    const blogType = page?.fields?.blogType
     const blogGlobalSettings = blogSettings ? blogSettings?.fields[blogType] : undefined
     hero.header = page.title
     hero.subheader = page.fields?.subheader

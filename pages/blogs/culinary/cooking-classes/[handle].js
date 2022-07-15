@@ -16,7 +16,7 @@ const CookingClassArticle = ({ page, product, blogSettings }) => {
   const blogGlobalSettings = blogSettings ? blogSettings.fields[blogType] : undefined
 
   hero.header = page.title
-  hero.subheader = page.subheader
+  hero.subheader = page.fields.subheader
 
   return (
     <>

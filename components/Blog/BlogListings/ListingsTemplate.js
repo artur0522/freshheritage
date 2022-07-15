@@ -32,16 +32,11 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
 
     const isDesktop = useMediaQuery({query: '(min-width: 1074px)'})
 
-    console.log('page', page)
-
     const { hero } = page.fields
     const blogType = page.fields?.blogType
     const blogGlobalSettings = blogSettings ? blogSettings?.fields[blogType] : undefined
     hero.header = page.title
     hero.subheader = page.fields?.subheader
-
-    console.log('blogtype', blogType)
-    console.log('blogsettings', blogGlobalSettings)
 
     useEffect(() => {
         setMounted(true)

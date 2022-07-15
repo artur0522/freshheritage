@@ -2,7 +2,7 @@ import { nacelleClient } from 'services'
 
 import ListingsTemplate from '@/components/Blog/BlogListings/ListingsTemplate'
 
-const CookingGuidesListings = ({ articles, blogSetting, page}) => {
+const CookingGuidesListings = ({ articles, blogSettings, page}) => {
    return (
         <ListingsTemplate articles={articles} blogSettings={blogSettings} page={page} />
    )

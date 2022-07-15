@@ -15,7 +15,7 @@ const VideoSeriesArticle = ({ page, product, blogSettings }) => {
   const blogType = page.fields.blog?.blogType
   const blogGlobalSettings = blogSettings ? blogSettings.fields[blogType] : undefined
   hero.header = page.title
-  hero.subheader = page.subheader
+  hero.subheader = page.fields.subheader
 
   return (
     <>

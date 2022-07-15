@@ -9,6 +9,7 @@ import classes from "./ArticleRow.module.scss"
 import "swiper/css"
 
 const ArticleRow = ({ fields }) => {
+
   const {header, ctaText, ctaUrl, articles, _key, reverseCard, illustration, illustrationAlt, illustration2, illustration2Alt, greenBackground,  topMargin, bottomMargin} = fields
   const [mounted, setMounted] = useState(false)
     useEffect(() => {
@@ -43,7 +44,7 @@ const ArticleRow = ({ fields }) => {
                     <IconArrow />
                 </div>}
             </div>
-            {articles.length > 0 && mounted &&
+            {articles?.length > 0 && mounted &&
                 <div className={classes['slider']}>
                     <Swiper
                         loop={true}

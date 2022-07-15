@@ -7,4 +7,3 @@ Host: sitkasalmontest.myshopify.com
 
 # Sitemaps
 Sitemap: sitkasalmontest.myshopify.com/sitemap.xml
-Sitemap: sitkasalmontest.myshopify.com/sitemap-0.xml

@@ -2,29 +2,31 @@ import { nacelleClient } from 'services'
 
 import ListingsTemplate from '@/components/Blog/BlogListings/ListingsTemplate'
 
-const RecipeListings = ({ articles, blogSettings, blogSections }) => {
+const VideoSeriesListings = ({ articles, blogSettings, blogSections }) => {
   return (
     <ListingsTemplate articles={articles} blogSettings={blogSettings} blogSections={blogSections} />
   )
 }
 
-export default RecipeListings
+export default VideoSeriesListings
 
 export async function getStaticProps({ params }) {
-  const recipeArticles = await nacelleClient.content({
-    type: 'recipeArticle'
+  const articles = await nacelleClient.content({
+    type: 'videoArticle'
   })
+
+  const validArticles = articles.filter(article => article.fields.blog.handle.current === 'video-series')
 
   const blogSettings = await nacelleClient.content({
     type: 'blogSettings'
   })
 
   const blogSections  = await nacelleClient.content({
-    handles: ['recipe-listings'],
+    handles: ['video-series'],
     type: 'blog'
   })
 
-  if (!recipeArticles.length) {
+  if (!articles.length) {
     return {
       notFound: true
     }  
@@ -32,7 +34,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      articles: recipeArticles,
+      articles: validArticles,
       blogSettings: blogSettings[0],
       blogSections: blogSections
     }

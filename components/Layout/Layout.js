@@ -4,8 +4,8 @@ import { ModalProvider } from '@/context/ModalContext'
 import { PDPDrawerProvider } from '@/context/PDPDrawerContext'
 import { CustomerProvider } from '@/context/CustomerContext'
 import { PurchaseFlowProvider } from '@/context/PurchaseFlowContext'
-import { HeadlessCheckoutProvider } from '@/context/HeadlessCheckoutContext';
-import { HeaderProvider } from '@/context/HeaderContext';
+import { HeadlessCheckoutProvider } from '@/context/HeadlessCheckoutContext'
+import { HeaderProvider } from '@/context/HeaderContext'
 import StructuredData from '../SEO/StructuredData'
 
 import Header from '@/components/Layout/Header'

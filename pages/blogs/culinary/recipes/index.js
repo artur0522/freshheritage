@@ -95,12 +95,12 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
     const startIndex = currentPage * 20 - 20
     const endIndex = startIndex + 20
     return listings.slice(startIndex, endIndex)
-  };
+  }
 
   const getPaginationGroup = () => {
     let start = Math.floor((currentPage - 1) / pages) * pages
     return new Array(pages).fill().map((_, idx) => start + idx + 1)
-  };
+  }
 
   const goToNextPage = () => {
     setCurrentPage((page) => page + 1)

@@ -47,22 +47,18 @@ const FullBleedHero = ({ fields }) => {
       </div>
 
       {isMobile && mounted && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--mbl']}`}>
-          <ResponsiveImage
-            className={classes.dsktp__img}
-            src={mobileBackgroundImage.asset.url}
-          
-            alt={alt}
-          />
-        </div>}
+        {heroStyle === 'hero--center-transparent' ? 
+          <Image className={classes.mbl__img} src={mobileBackgroundImage.asset.url} layout="fill" alt={alt} /> : 
+          <ResponsiveImage className={classes.mbl__img} src={mobileBackgroundImage.asset.url} layout="fill" alt={alt} />
+        }
+      </div>}
 
-        {isDesktop && mounted && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--dsktp']}`}>
-          <ResponsiveImage
-            className={classes.mbl__img}
-            src={desktopBackgroundImage.asset.url}
-          
-            alt={alt}
-          />
-        </div>}
+      {isDesktop && mounted && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--dsktp']}`}>
+        {heroStyle === 'hero--center-transparent' ? 
+          <Image className={classes.mbl__img} src={desktopBackgroundImage.asset.url} layout="fill" alt={alt} /> : 
+          <ResponsiveImage className={classes.mbl__img} src={desktopBackgroundImage.asset.url} layout="fill" alt={alt} />
+        }
+      </div>}
     </div>
   )
 }

@@ -8,17 +8,20 @@ import ResponsiveImage from '@/components/ResponsiveImage'
 
 import classes from "./ArticleCard.module.scss"
 
-const ArticleCard = ({ article, reverse }) => {
+const ArticleCard = ({ article, reverse, responsiveImage = false }) => {
     const tags = article.fields ? article.fields?.hero?.articleTags : article.hero?.articleTags
     const foundTag = tags?.find(tag => tag.value === 'video' || tag.value === 'live cooking class')
     const { desktopBackgroundImage, ctaText } = article.fields ? article.fields.hero : article.hero
 
     return (
         <Link href={`/${article.handle.current}`}>
-            <a className={classes['article-card']}>
+            <a className={`${classes['article-card']} ${!responsiveImage ? classes['fixed'] : ''}`}>
                 <div className={`${classes['slider__slide']} ${reverse ? classes['row'] : ''}`}>
                     {desktopBackgroundImage.asset.url && <div className={classes['image-wrap']}>
-                        <ResponsiveImage alt={article.title} src={desktopBackgroundImage.asset.url} />
+                        {responsiveImage ? 
+                            <ResponsiveImage alt={article.title} src={desktopBackgroundImage.asset.url} /> :
+                            <Image src={desktopBackgroundImage.asset.url} alt={article.title} layout="fill" objectFit="cover" />
+                        }
                         {foundTag && <div className={classes['play']}>
                             <PlayIcon />
                         </div>}

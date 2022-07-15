@@ -144,6 +144,12 @@
       height: 636px;
     }
 
+    .hero__wrap--dsktp {
+      @include breakpoint-up('sm') {
+        height: 960px;
+      }
+    }
+
     .hero__text {
       padding: 57.03px 36.5px;
       box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.1);

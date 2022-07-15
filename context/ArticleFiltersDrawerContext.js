@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import ArticleFiltersDrawer from '@/components/Layout/ArticleFiltersDrawer'
 import moment from 'moment'
 
+
 const ArticleFiltersDrawerContext = createContext()
 
 function drawerReducer(state, action) {
@@ -15,7 +16,7 @@ function drawerReducer(state, action) {
     }
     case 'close_drawer': {
       return {
-        ...state,
+        ...state, 
         isOpen: false,
       }
     }
@@ -146,6 +147,10 @@ export function ArticleFiltersDrawerProvider({ children }) {
     dispatch({ type: 'open_drawer'})
   }
 
+  const closeDrawer = () => {
+    dispatch({ type: 'close_drawer'})
+  }
+
   const addSelectValue = (value) => {
     dispatch({ type: 'add_select_value', payload: value})
   }
@@ -182,37 +187,41 @@ export function ArticleFiltersDrawerProvider({ children }) {
     dispatch({ type: 'add_listings', payload: res})
   }
 
-  const selectChangeHandler = (value) => {
-    console.log(value)
-    addSelectValue(value)
-
-    if(selectedFilterList.length > 1 && value === 'newest') {
-      const sortedListings = listings.sort((a, b) => {
-        // let datePublished = moment.unix(listing.createdAt).format('MM/DD/YYYY')
-        // if(listing.fields.publishedDate) {
-        //   datePublished = moment(listing.fields.publishedDate).format('MM/DD/YYYY')
-        // }
-        return(
-          moment(b.fields.publishedDate).format('MM/DD/YYYY') - moment(a.fields.publishedDate).format('MM/DD/YYYY')
+  const sortListings = (listings, mostRecent) => {
+    if(mostRecent) {
+      const sortedOgListings = listings.sort((a, b) =>  {
+        return (
+          moment(b.fields.publishedDate).format('YYYYMMDD') - moment(a.fields.publishedDate).format('YYYYMMDD')
         )
       })
-      console.log("sorted", sortedListings)
+      dispatch({ type: 'add_listings', payload: sortedOgListings})
+    } else {
+      const sortedListings = listings.sort((a, b) => {
+        return (
+          moment(a.fields.publishedDate).format('YYYYMMDD') - moment(b.fields.publishedDate).format('YYYYMMDD')
+        )
+      })
       dispatch({ type: 'add_listings', payload: sortedListings})
+    }
+  }
+
+  const selectChangeHandler = (value) => {
+    addSelectValue(value)
+
+    if(selectedFilterList.length > 0 && value === 'newest') {
+    sortListings(listings, true)
+    } 
+
+    if(selectedFilterList.length > 0 && value === 'oldest') {
+      sortListings(listings, false)
     } 
 
     if(selectedFilterList.length === 0 && value === 'newest') {
-      //  let datePublished = moment.unix(listing.createdAt).format('MM/DD/YYYY')
-      //   if(listing.fields.publishedDate) {
-      //     datePublished = moment(listing.fields.publishedDate).format('MM/DD/YYYY')
-      //   }
-      
-      const sortedOgListings = originalListings.sort((a, b) =>  {
-        return (
-          moment(b.fields.publishedDate).format('MM/DD/YYYY') - moment(a.fields.publishedDate).format('MM/DD/YYYY')
-        )
-      })
-      console.log("sortedOgListings", sortedOgListings)
-      dispatch({ type: 'add_listings', payload: sortedOgListings})
+      sortListings(originalListings, true)
+    }
+
+    if(selectedFilterList.length === 0 && value === 'oldest') {
+      sortListings(originalListings, false)
     }
   }
 
@@ -273,7 +282,24 @@ export function ArticleFiltersDrawerProvider({ children }) {
     if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
 
     filterListingsByTags(listings)
-  }, [isOpen, selectedFilterList]) 
+
+    const handleResize = () => {
+      if (window.innerWidth >= 1074) {
+        dispatch({ type: 'close_drawer'})
+        if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
+      } 
+      if(window.innerWidth < 1074 && isOpen) {
+        dispatch({ type: 'open_drawer'})
+      }
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    }
+
+  }, [isOpen, selectedFilterList])
 
   useEffect(() => {
     router.beforePopState(({ as }) => {
@@ -286,7 +312,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
   }, [router])
 
   return (
-    <ArticleFiltersDrawerContext.Provider value={{isOpen, selectChangeHandler, addTagCount, tagCount, filters, openDrawer, addFilters, checkBoxHandler, dispatch, selectedFilterList, listings, originalListings, addListings, addOriginalListings}}>
+    <ArticleFiltersDrawerContext.Provider value={{isOpen, selectChangeHandler, addTagCount, tagCount, filters, openDrawer, closeDrawer, addFilters, checkBoxHandler, dispatch, selectedFilterList, listings, originalListings, addListings, addOriginalListings, sortListings}}>
       {isOpen &&
         <ArticleFiltersDrawer  />
       }

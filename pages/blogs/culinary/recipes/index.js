@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import { nacelleClient } from 'services'
+import { useMediaQuery } from 'react-responsive'
 
 import { useArticleFiltersDrawerContext } from '@/context/ArticleFiltersDrawerContext'
 
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import FullBleedHero from '@/components/Sections/FullBleedHero'
 import ArticleRow from '@/components/Sections/ArticleRow'
-import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
+import RecipeArticleCard from '@/components/Cards/RecipeArticleCard' 
 import BlogFilters from '@/components/Blog/BlogFilters'
 
 import IconSearch from '@/svgs/search.svg'
@@ -17,22 +18,32 @@ import classes from "./RecipesListings.module.scss"
 
 const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }) => {
   const drawerContext = useArticleFiltersDrawerContext()
-  const { addFilters, openDrawer, selectedFilters, selectChangeHandler, selectedFilterList, addListings, addOriginalListings, listings, addTagCount } = drawerContext
+  const { addFilters, openDrawer, closeDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
 
-  const { content, filterGroups } = recipeListingsSections[0].fields
+  const { content, filterGroups } = recipeListingsSections[0].fields 
   const heroSection = content?.find(section => section._type === 'hero')
   const articleRowSection = content?.find(section => section._type === 'articleRow')
 
   const [pages, setPages] = useState(Math.ceil(recipeArticles.length / 20))
   const [currentPage, setCurrentPage] = useState(1)
   const [filterDrawer, toggleFilterDrawer]= useState(true) 
+  const [mounted, setMounted]= useState(false) 
+
+  const isDesktop = useMediaQuery({query: '(min-width: 1074px)'})
 
   useEffect(() => {
-    console.log(recipeArticles)
-    // openDrawer(true) 
+    setMounted(true)
+
     addListings(recipeArticles)
     addOriginalListings(recipeArticles)
+    sortListings(recipeArticles, true)
 
+    if(!isDesktop && mounted) {
+      openDrawer()
+    } else {
+      closeDrawer()
+    }
+   
     const tagCount = {}  
     recipeArticles.forEach((article) => {
       if(article.fields?.articleTags && !tagCount[article.fields?.articleTags[1]?.value]) {
@@ -47,7 +58,7 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
 
     const filterGroupObj = {}
     filterGroups.map((group) => {
-      filterGroupObj[group.title] = {
+      filterGroupObj[group.title] = { 
         options: {}
       }
 
@@ -66,15 +77,15 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
         }
       })
     }) 
-
-    addFilters(filterGroupObj)
+ 
+    addFilters(filterGroupObj) 
     window.scrollTo({ behavior: 'smooth', top: '0px' })
 
     if(selectedFilterList.length > 0) { 
       setCurrentPage(1)
       setPages(Math.ceil(listings.length / 20))
     }
-  }, [currentPage, pages]) 
+  }, [currentPage, pages, originalListings])
 
 
   const getPaginatedData = () => { 
@@ -119,7 +130,7 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
             </button>
 
             <button onClick={() => openDrawer()} type="button" className={`${classes['toggle-filters']} ${classes['mobile']}`}>
-              {filterDrawer ? <span className="body">Hide Filters</span> : <span className="body">Show Filters</span>}
+              {isOpen ? <span className="body">Hide Filters</span> : <span className="body">Show Filters</span>}
             </button> 
 
             <div className={classes['sort-by']}>
@@ -141,8 +152,8 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
           {listings.length > 0 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer ? 'filters-open' : '']} container`}>
               {listings.slice(0, 8).map((article, index) => {
                 return (
-                  <div key={article.handle}> 
-                    <DynamicArticleCard article={article} /> 
+                  <div className={classes['grid-item']} key={article.handle}> 
+                    <RecipeArticleCard article={article} responsiveImage={true} /> 
                   </div>
                 )
               })}
@@ -155,8 +166,8 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
           {listings.length >= 8 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer ? 'filters-open' : '']} container`}>
             {listings.slice(8, 16).map((article, index) => {
                 return (
-                  <div key={article.handle}>
-                    <DynamicArticleCard article={article} />
+                  <div className={classes['grid-item']} key={article.handle}>
+                    <RecipeArticleCard article={article} responsiveImage={true} />
                   </div>
                 )
             })}
@@ -169,8 +180,8 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
           {listings.length >= 17 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer ? 'filters-open' : '']} container`}>
             {listings.slice(17, 21).map((article, index) => {
                 return (
-                  <div key={article.handle}>
-                    <DynamicArticleCard article={article} />
+                  <div className={classes['grid-item']} key={article.handle}>
+                    <RecipeArticleCard article={article} responsiveImage={true} />
                   </div>
                 )
             })}
@@ -178,29 +189,29 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
 
           {currentPage !== 1 && <div className={`${classes['recipes__list']} ${classes[filterDrawer ? 'filters-open' : '']} container`}>
             {getPaginatedData().map((article) => (
-                <div key={article.handle}>
-                  <DynamicArticleCard article={article} />
+                <div className={classes['grid-item']} key={article.handle}>
+                  <RecipeArticleCard article={article} responsiveImage={true} />
               </div>
             ))}
           </div>}
 
           {selectedFilterList.length > 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer ? 'filters-open' : '']} container`}>
             {listings.map((article) => ( 
-                <div key={article.handle}>
-                  <DynamicArticleCard article={article} />
+                <div className={classes['grid-item']} key={article.handle}>
+                  <RecipeArticleCard article={article} responsiveImage={true} />
               </div>
             ))}
           </div>}
         </div>
         </div>
 
-        {selectedFilterList.length === 0 && <div className={classes['pagination']}> 
+        {selectedFilterList.length === 0 && <div className={classes['pagination']}>  
           <button 
             onClick={goToPreviousPage}
             className={`${classes['prev']} ${classes[currentPage === 1 ? 'disabled' : '']} pagination-btn`}
           >
             <PaginationLeft /> 
-          </button>
+          </button> 
 
             {getPaginationGroup().map((item, index) => (
               <button
@@ -243,7 +254,7 @@ export async function getStaticProps({ params }) {
   if (!recipeArticles.length) {
     return {
       notFound: true
-    }
+    }  
   }
 
   return {

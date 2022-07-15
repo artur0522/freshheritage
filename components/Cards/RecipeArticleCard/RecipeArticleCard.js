@@ -8,17 +8,24 @@ import "swiper/css";
 import BookmarkIcon from '@/svgs/bookmark.svg'
 import classes from './RecipeArticleCard.module.scss';
 
-const RecipeArticleCard = ({ article }) => {
+const RecipeArticleCard = ({ article, responsiveImage = false }) => {
     const { desktopBackgroundImage, prepTime, cookTime } = article.fields ? article.fields.hero : article.hero
 
     return (
         <Link href={`${article.handle.current}`} passHref>
-            <div className={classes['article__card']}>
+            <div className={`${classes['article__card']} ${!responsiveImage ? classes['fixed'] : ''}`}>
                 {desktopBackgroundImage.asset.url && <div className={classes['article__card-img']}>
-                    <ResponsiveImage
+                    {responsiveImage ? <ResponsiveImage
                         src={desktopBackgroundImage.asset.url}
                         alt={article.title}
+                    /> : 
+                    <Image
+                        src={desktopBackgroundImage.asset.url}
+                        alt={article.title}
+                        layout="fill" 
+                        objectFit="cover"
                     />
+                    }
                     <div className={classes['bookmark']}>
                         <BookmarkIcon />
                     </div>

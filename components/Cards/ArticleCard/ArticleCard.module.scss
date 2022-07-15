@@ -5,16 +5,29 @@
     text-decoration: none;
     border-radius: 12px;
     width: 100%;
+    height: 100%;
     border: 1px solid $fawn50-2;
 
     &:not(.btn):hover {
         text-decoration: none;
     }
 
+    &.fixed {
+        .image-wrap {
+            position: relative;
+            height: 262px;
+
+            @include breakpoint-up('sm') {
+                height: 384px;
+            }
+        }
+    }
+
     .slider__slide {
         position: relative;
         padding: 17.94px 15px;
         border: 1px solid $fawn50-2;
+        height: 100%;
         border-radius: 12px;
 
         &.row {
@@ -45,11 +58,6 @@
 
         .image-wrap {
             position: relative;
-            // height: 262px;
-
-            // @include breakpoint-up('sm') {
-            //     height: 384px;
-            // }
         }
 
         .play {

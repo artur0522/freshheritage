@@ -128,6 +128,7 @@
                 background: url("./arrow-down.png") no-repeat right;
                 min-width: 78.65px;
                 cursor: pointer;
+                outline: none;
 
                 @include breakpoint-up('md') {
                     min-width: 93.65px;

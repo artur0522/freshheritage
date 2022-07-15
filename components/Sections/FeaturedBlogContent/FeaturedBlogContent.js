@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -13,8 +12,6 @@ const FeaturedBlogContent = ({ fields }) => {
   const { tabs, header, subheader, ctaUrl, ctaText, illustration, illustration2, illustrationAlt, illustration2Alt } = fields
   const [selectedSwiper, setSelectedSwiper] = useState(tabs[0])
   const [mounted, setMounted] = useState(false)
-
-  console.log(fields)
 
   useEffect(() => {
     setMounted(true)

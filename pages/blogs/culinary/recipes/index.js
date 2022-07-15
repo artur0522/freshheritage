@@ -78,7 +78,7 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
       })
     }) 
  
-    addFilters(filterGroupObj) 
+    addFilters(filterGroupObj)
     window.scrollTo({ behavior: 'smooth', top: '0px' })
 
     if(selectedFilterList.length > 0) { 
@@ -125,13 +125,13 @@ const RecipeListings = ({ recipeArticles, blogSettings, recipeListingsSections }
           </div> 
 
           <div className={classes['recipes__filter-row']}> 
-            <button onClick={() => toggleFilterDrawer(!filterDrawer)} type="button" className={`${classes['toggle-filters']} ${classes['desktop']}`}>
+            {filterGroups.length > 0 && <button onClick={() => toggleFilterDrawer(!filterDrawer)} type="button" className={`${classes['toggle-filters']} ${classes['desktop']}`}>
               {filterDrawer ? <span className="body">Hide Filters</span> : <span className="body">Show Filters</span>}
-            </button>
+            </button>}
 
-            <button onClick={() => openDrawer()} type="button" className={`${classes['toggle-filters']} ${classes['mobile']}`}>
+            {filterGroups.length > 0 && <button onClick={() => openDrawer()} type="button" className={`${classes['toggle-filters']} ${classes['mobile']}`}>
               {isOpen ? <span className="body">Hide Filters</span> : <span className="body">Show Filters</span>}
-            </button> 
+            </button>}
 
             <div className={classes['sort-by']}>
               <label className="body">Sort By</label>

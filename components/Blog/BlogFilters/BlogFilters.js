@@ -6,7 +6,7 @@ import BlogFilterItem from './BlogFilterItem'
 
 const BlogFilters = () => {
   const articleFiltersDrawerContext = useArticleFiltersDrawerContext()
-  const { filters, checkBoxHandler, tagCount } = articleFiltersDrawerContext
+  const { filters } = articleFiltersDrawerContext
 
   return (
     <div className={classes['filter-list']}>

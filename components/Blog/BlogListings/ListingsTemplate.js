@@ -69,7 +69,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             options: {}
         }
 
-        group.filterOptions.map((option) => {
+        group.filterOptions?.map((option) => {
             filterGroupObj[group.title].options[option.value] = {
             checked: false,
             subFilters: {}

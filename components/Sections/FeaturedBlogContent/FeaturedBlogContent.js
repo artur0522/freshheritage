@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'

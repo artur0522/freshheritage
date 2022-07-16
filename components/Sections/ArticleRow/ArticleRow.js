@@ -12,7 +12,6 @@ const ArticleRow = ({ fields }) => {
 
   const {header, ctaText, ctaUrl, articles, _key, reverseCard, illustration, illustrationAlt, illustration2, illustration2Alt, greenBackground,  topMargin, bottomMargin} = fields
   const [mounted, setMounted] = useState(false)
-    console.log(articles)
     useEffect(() => {
         setMounted(true)
     }, [fields])

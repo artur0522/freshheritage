@@ -7,22 +7,32 @@
     border-radius: 12px;
     padding: 12px;
     cursor: pointer;
-    min-height: 432px;
+    height: 100%;
     border: 1px solid $fawn50-2;
 
     @include breakpoint-up('sm') {
-        min-height: 576px;
         padding: 24px;
+    }
+
+    &.fixed {
+        min-height: 432px;
+
+        @include breakpoint-up('sm') {
+            min-height: 576px;
+        }
+
+        .article__card-img {
+            height: 262px;
+
+            @include breakpoint-up('sm') {
+                height: 384px;
+            }
+        }
     }
 
     // article__card-img
     &-img {
         position: relative;
-        height: 262px;
-
-        @include breakpoint-up('sm') {
-            height: 384px;
-        }
 
         img {
             border-radius: 6px;

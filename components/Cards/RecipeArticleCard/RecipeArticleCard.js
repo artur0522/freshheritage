@@ -1,24 +1,31 @@
-import React, { useState } from "react";
-import Image from 'next/image';
-import Link from 'next/link';
+import React, { useState } from "react"
+import Image from 'next/image'
+import Link from 'next/link'
 
-import "swiper/css";
+import ResponsiveImage from '@/components/ResponsiveImage'
+
+import "swiper/css"
 import BookmarkIcon from '@/svgs/bookmark.svg'
-import classes from './RecipeArticleCard.module.scss';
+import classes from './RecipeArticleCard.module.scss'
 
-const RecipeArticleCard = ({ article }) => {
+const RecipeArticleCard = ({ article, responsiveImage = false }) => {
     const { desktopBackgroundImage, prepTime, cookTime } = article.fields ? article.fields.hero : article.hero
 
     return (
         <Link href={`${article.handle.current}`} passHref>
-            <div className={classes['article__card']}>
+            <div className={`${classes['article__card']} ${!responsiveImage ? classes['fixed'] : ''}`}>
                 {desktopBackgroundImage.asset.url && <div className={classes['article__card-img']}>
+                    {responsiveImage ? <ResponsiveImage
+                        src={desktopBackgroundImage.asset.url}
+                        alt={article.title}
+                    /> : 
                     <Image
                         src={desktopBackgroundImage.asset.url}
-                        layout="fill"
-                        objectFit="cover"
                         alt={article.title}
+                        layout="fill" 
+                        objectFit="cover"
                     />
+                    }
                     <div className={classes['bookmark']}>
                         <BookmarkIcon />
                     </div>
@@ -30,7 +37,7 @@ const RecipeArticleCard = ({ article }) => {
                 </div>
             </div>
         </Link>
-    );
-};
+    )
+}
 
-export default RecipeArticleCard;
+export default RecipeArticleCard

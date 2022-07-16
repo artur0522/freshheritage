@@ -1,7 +1,9 @@
+import { useEffect } from 'react'
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import ArticleMain from '@/components/Article/ArticleMain'
 import { nacelleClient } from 'services'
 import { GET_PRODUCTS } from '@/gql/index.js'
+import { useModalContext } from '@/context/ModalContext'
 import ContentSections from '@/components/Sections/ContentSections'
 import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
@@ -11,12 +13,30 @@ const CookingClassArticle = ({ page, product, blogSettings }) => {
   // console.log("page:", page)
   // console.log("blogSettings:", blogSettings)
 
+  const { setContent } = useModalContext()
+
   const { hero } = page.fields
   const blogType = page.fields.blog?.blogType
   const blogGlobalSettings = blogSettings ? blogSettings.fields[blogType] : undefined
+  hero.classStartDate = page.fields?.classStartDate
+  hero.classEndDate = page.fields?.classEndDate
 
   hero.header = page.title
   hero.subheader = page.fields.subheader
+
+  if (page.fields?.sidebar?.classSignup && page.fields.klaviyoListId) {
+    page.fields.sidebar.classSignup.klaviyoListId = page.fields.klaviyoListId
+  }
+
+  useEffect(() => {
+    setContent({
+      header: page.title,
+      classStartDate: page.fields.classStartDate,
+      classEndDate: page.fields.classEndDate,
+      listId: page.fields.klaviyoListId
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
@@ -37,7 +57,13 @@ export async function getStaticPaths() {
     type: 'videoArticle'
   })
 
-  const validArticles = videoArticles.filter(article => article.fields.blog.handle === 'cooking-classes')
+  const liveCookingClassArticles = await nacelleClient.content({
+    type: 'liveCookingClassArticle'
+  })
+
+  const allArticles = [...videoArticles, ...liveCookingClassArticles]
+
+  const validArticles = allArticles.filter(article => article.fields.blog.handle === 'cooking-classes')
 
   const handles = validArticles.map((article) => ({ params: { handle: article.handle } }))
 
@@ -49,10 +75,18 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 
-  const pages = await nacelleClient.content({
+
+  let pages = await nacelleClient.content({
     handles: [params.handle],
     type: 'videoArticle'
   })
+
+  if (!pages.length) {
+    pages = await nacelleClient.content({
+      handles: [params.handle],
+      type: 'liveCookingClassArticle'
+    })
+  }
 
   const blogSettings = await nacelleClient.content({
     type: 'blogSettings'

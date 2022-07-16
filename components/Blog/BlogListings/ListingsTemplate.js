@@ -6,12 +6,12 @@ import { useArticleFiltersDrawerContext } from '@/context/ArticleFiltersDrawerCo
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import FullBleedHero from '@/components/Sections/FullBleedHero'
 import ArticleRow from '@/components/Sections/ArticleRow'
-import DynamicArticleCard from '@/components/Cards/DynamicArticleCard' 
+import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
 import BlogFilters from '@/components/Blog/BlogFilters'
 
 import IconSearch from '@/svgs/search.svg'
 import PaginationLeft from '@/svgs/pagination-left.svg'
-import PaginationRight from '@/svgs/pagination-right.svg' 
+import PaginationRight from '@/svgs/pagination-right.svg'
 
 import classes from "./ListingsTemplate.module.scss"
 
@@ -27,14 +27,17 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
 
     const [pages, setPages] = useState(Math.ceil(articles.length / 20))
     const [currentPage, setCurrentPage] = useState(1)
-    const [filterDrawer, toggleFilterDrawer]= useState(true) 
-    const [mounted, setMounted]= useState(false) 
+    const [filterDrawer, toggleFilterDrawer]= useState(true)
+    const [mounted, setMounted]= useState(false)
 
     const isDesktop = useMediaQuery({query: '(min-width: 1074px)'})
 
     const { hero } = page?.fields
     const blogType = page?.fields?.blogType
     const blogGlobalSettings = blogSettings ? blogSettings?.fields[blogType] : undefined
+
+  console.log("hero:", hero);
+
     hero.header = page.title
     hero.subheader = page.fields?.subheader
 
@@ -50,8 +53,8 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         } else {
             closeDrawer()
         }
-        
-        const tagCount = {}  
+
+        const tagCount = {}
         articles.forEach((article) => {
         if(article.fields?.articleTags && !tagCount[article.fields?.articleTags[1]?.value]) {
             tagCount[article.fields?.articleTags[1]?.value] = 1
@@ -65,7 +68,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
 
         const filterGroupObj = {}
         filterGroups?.map((group) => {
-        filterGroupObj[group.title] = { 
+        filterGroupObj[group.title] = {
             options: {}
         }
 
@@ -75,11 +78,11 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             subFilters: {}
             }
 
-            if(option.subFilters) { 
+            if(option.subFilters) {
             option.subFilters.map((subFilter) => {
                 filterGroupObj[group.title].options[option.value].subFilters[subFilter.value] = {
                 checked: false
-                } 
+                }
             })
             }
         })
@@ -88,14 +91,14 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         addFilters(filterGroupObj)
         window.scrollTo({ behavior: 'smooth', top: '0px' })
 
-        if(selectedFilterList.length > 0) { 
+        if(selectedFilterList.length > 0) {
         setCurrentPage(1)
         setPages(Math.ceil(listings.length / 20))
         }
     }, [currentPage, pages, originalListings])
 
 
-    const getPaginatedData = () => { 
+    const getPaginatedData = () => {
         const startIndex = currentPage * 20 - 20
         const endIndex = startIndex + 20
         return listings.slice(startIndex, endIndex)
@@ -129,9 +132,9 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
                <IconSearch />
            </button>
            <input type="text" placeholder='Search' className="body" />
-         </div> 
+         </div>
 
-         <div className={classes['recipes__filter-row']}> 
+         <div className={classes['recipes__filter-row']}>
            {filterGroups && filterGroups?.length > 0 && <button onClick={() => toggleFilterDrawer(!filterDrawer)} type="button" className={`${classes['toggle-filters']} ${classes['desktop']}`}>
              {filterDrawer ? <span className="body">Hide Filters</span> : <span className="body">Show Filters</span>}
            </button>}
@@ -144,8 +147,8 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
              <label className="body">Sort By</label>
              <select className="body" onChange={(e) => selectChangeHandler(e.target.value)}>
                <option value="newest">Newest</option>
-               <option value="oldest">Oldest</option> 
-             </select> 
+               <option value="oldest">Oldest</option>
+             </select>
            </div>
          </div>
        </form>
@@ -159,8 +162,8 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
          {listings.length > 0 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer ? 'filters-open' : '']} container`}>
              {listings.slice(0, 8).map((article) => {
                return (
-                 <div className={classes['grid-item']} key={article.handle}> 
-                   <DynamicArticleCard article={article} responsiveImage={true} /> 
+                 <div className={classes['grid-item']} key={article.handle}>
+                   <DynamicArticleCard article={article} responsiveImage={true} />
                  </div>
                )
              })}
@@ -192,7 +195,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
                  </div>
                )
            })}
-         </div>} 
+         </div>}
 
          {currentPage !== 1 && <div className={`${classes['recipes__list']} ${classes[filterDrawer ? 'filters-open' : '']} container`}>
            {getPaginatedData().map((article) => (
@@ -203,7 +206,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
          </div>}
 
          {selectedFilterList.length > 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer ? 'filters-open' : '']} container`}>
-           {listings.map((article) => ( 
+           {listings.map((article) => (
                <div className={classes['grid-item']} key={article.handle}>
                  <DynamicArticleCard article={article} responsiveImage={true} />
              </div>
@@ -212,13 +215,13 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
        </div>
        </div>
 
-       {selectedFilterList.length === 0 && <div className={classes['pagination']}>  
-         <button 
+       {selectedFilterList.length === 0 && <div className={classes['pagination']}>
+         <button
            onClick={goToPreviousPage}
            className={`${classes['prev']} ${classes[currentPage === 1 ? 'disabled' : '']} pagination-btn`}
          >
-           <PaginationLeft /> 
-         </button> 
+           <PaginationLeft />
+         </button>
 
            {getPaginationGroup().map((item, index) => (
              <button
@@ -226,15 +229,15 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
                onClick={changePage}
                className={`${classes['paginationItem']} ${classes[currentPage === item ? 'active' : null]}`}
              >
-               <span>{item}</span>  
-             </button> 
+               <span>{item}</span>
+             </button>
            ))}
 
            <button
              onClick={goToNextPage}
              className={`${classes['next']} ${classes[currentPage === pages ? 'disabled' : '']} pagination-btn`}
            >
-             <PaginationRight />  
+             <PaginationRight />
            </button>
          </div>}
        </div>

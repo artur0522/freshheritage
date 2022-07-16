@@ -2,36 +2,43 @@ import { nacelleClient } from 'services'
 
 import ListingsTemplate from '@/components/Blog/BlogListings/ListingsTemplate'
 
-const CookingClassesListings = ({ articles, blogSettings, page}) => {
+const LiveCookingClassesListings = ({ articles, blogSettings, page}) => {
    return (
-        <ListingsTemplate articles={articles} blogSettings={blogSettings} page={page} />
+      <ListingsTemplate articles={articles} blogSettings={blogSettings} page={page} />
    )
 }
 
-export default CookingClassesListings
+export default LiveCookingClassesListings
 
 export async function getStaticProps({ params }) {
-    const articles = await nacelleClient.content({
+
+    const videoArticles = await nacelleClient.content({
       type: 'videoArticle'
     })
 
-    const validArticles = articles.filter(article => article.fields.blog.handle.current === 'cooking-classes')
+    const liveCookingClassArticles = await nacelleClient.content({
+      type: 'liveCookingClassArticle'
+    })
+
+    const allArticles = [...videoArticles, ...liveCookingClassArticles]
+
+    const validArticles = allArticles.filter(article => article.fields.blog.handle === 'cooking-classes')
 
     const blogSettings = await nacelleClient.content({
       type: 'blogSettings'
     })
-  
+
     const pages  = await nacelleClient.content({
       handles: ['cooking-classes'],
       type: 'blog'
     })
-  
-    if (!articles.length) {
+
+    if (!validArticles.length) {
       return {
         notFound: true
-      }  
+      }
     }
-  
+
     return {
       props: {
         articles: validArticles,

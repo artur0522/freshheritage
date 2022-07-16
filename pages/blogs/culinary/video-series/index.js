@@ -3,6 +3,7 @@ import { nacelleClient } from 'services'
 import ListingsTemplate from '@/components/Blog/BlogListings/ListingsTemplate'
 
 const VideoSeriesListings = ({ articles, blogSettings, page }) => {
+
   return (
     <ListingsTemplate articles={articles} blogSettings={blogSettings} page={page} />
   )
@@ -29,7 +30,7 @@ export async function getStaticProps({ params }) {
   if (!articles.length) {
     return {
       notFound: true
-    }  
+    }
   }
 
   return {

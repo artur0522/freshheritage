@@ -36,8 +36,6 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const blogType = page?.fields?.blogType
     const blogGlobalSettings = blogSettings ? blogSettings?.fields[blogType] : undefined
 
-  console.log("hero:", hero);
-
     hero.header = page.title
     hero.subheader = page.fields?.subheader
 

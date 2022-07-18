@@ -120,8 +120,8 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         setCurrentPage(pageNumber)
     }
   return (
-        <>
-     {/* <PageSEO seo={page.fields.seo} /> */}
+    <>
+     <PageSEO seo={page.fields.seo} />
      <ArticleSplitHero fields={hero} renderType="blog-listing" blogType={blogType} blogGlobalSettings={blogGlobalSettings} />
      <div className={classes['recipes']}>
        <form className={`${classes['recipes__filter-wrap']} container`}>

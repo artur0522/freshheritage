@@ -183,7 +183,6 @@ export function ArticleFiltersDrawerProvider({ children }) {
       })
     } else {
       res = originalListings
-      console.log('res', res)
     } 
     
     dispatch({ type: 'add_listings', payload: res})
@@ -229,7 +228,6 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
   const checkBoxHandler = (hasSubfilter, filterGroup, filterOption, subFilter) => {
     if(hasSubfilter) {
-      console.log('hasusb')
       dispatch({ type: 'toggle_checkbox', payload: {
         hasSubfilter,
         filterGroup,
@@ -250,7 +248,6 @@ export function ArticleFiltersDrawerProvider({ children }) {
       }
 
     } else {
-      console.log('nosub')
       const nestedSubFilters = filters[filterGroup].options[filterOption].subFilters
 
       Object.keys(nestedSubFilters).forEach((key) => {
@@ -317,9 +314,6 @@ export function ArticleFiltersDrawerProvider({ children }) {
       router.beforePopState(() => true)
     }
   }, [router])
-
-  console.log('selectedfilterlist', selectedFilterList)
-  console.log('tagCount', tagCount)
 
   return (
     <ArticleFiltersDrawerContext.Provider value={{isOpen, selectChangeHandler, addTagCount, addTagArray, tagCount, filters, openDrawer, closeDrawer, addFilters, checkBoxHandler, dispatch, selectedFilterList, listings, originalListings, addListings, addOriginalListings, sortListings}}>

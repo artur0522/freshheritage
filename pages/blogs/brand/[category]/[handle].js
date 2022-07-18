@@ -30,13 +30,31 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
 export default RecipeArticle
 
 export async function getStaticPaths() {
+
   const standardArticles = await nacelleClient.content({
     type: 'standardArticle'
   })
 
-  const validArticles = standardArticles.filter(article => article.fields.blog.handle === '1-wild')
+  const validArticles = standardArticles.reduce((carry, article) => {
+    // only get brand categories
+    const blogType = article.fields.blog.blogType
+    if (blogType === 'brand') {
+      return [...carry, {
+        category: article.fields.blog.handle.current,
+        handle: article.handle
+      }]
+    }
+    return carry
+  }, [])
 
-  const handles = validArticles.map((article) => ({ params: { handle: article.handle } }))
+  const handles = validArticles.map((article) => {
+    return {
+      params: {
+        handle: article.handle,
+        category: article.category
+      }
+    }
+  })
 
   return {
     paths: handles,

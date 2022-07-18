@@ -36,7 +36,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
 
     const { hero } = page?.fields
     const blogType = page?.fields?.blogType
-    const blogGlobalSettings = blogSettings ? blogSettings?.fields[blogType] : undefined
+    const blogGlobalSettings = blogSettings ? { ...blogSettings.fields[blogType], blogType} : undefined
 
     hero.header = page.title
     hero.subheader = page.fields?.subheader
@@ -189,7 +189,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
                  <div className={classes['grid-item']} key={article.handle}>
                    <DynamicArticleCard article={article} responsiveImage={true} />
                  </div>
-               ) 
+               )
            })}
          </div>}
 

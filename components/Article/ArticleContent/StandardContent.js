@@ -65,7 +65,7 @@ const StandardContent = forwardRef(({fields, product}, ref) => {
   return (
     <div className={`${classes['article-content']}`}>
 
-      <ArticleSocialSharing />
+      <ArticleSocialSharing seo={fields.seo} />
 
       <div className={classes['article-section']}>
         <div className={classes['article-section__content']}>

@@ -59,7 +59,7 @@ const ArticleSocialSharing = ({ seo }) => {
         <div
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          onClick={() => setIsHovered(true)}
+          onClick={() => setIsHovered(!isHovered)}
           className={`${classes['article-social-sharing-btn']} ${classes['share-btn']}`}>
           <IconShare />
           <span>Share</span>

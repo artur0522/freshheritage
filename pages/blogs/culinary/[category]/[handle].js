@@ -21,7 +21,7 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
     hero.tags = page.fields.articleTags
   }
   const blogType = page.fields.blog?.blogType
-  const blogGlobalSettings = blogSettings ? blogSettings.fields[blogType] : undefined
+  const blogGlobalSettings = blogSettings ? { ...blogSettings.fields[blogType], blogType} : undefined
   hero.header = page.title
   hero.subheader = page.fields.subheader
 
@@ -185,6 +185,7 @@ export async function getStaticProps({ params }) {
 
   const props = {
     page: validPage,
+    handle: validPage.handle,
     blogSettings: blogSettings[0],
     product: null
   }

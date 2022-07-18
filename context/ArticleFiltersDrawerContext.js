@@ -172,10 +172,10 @@ export function ArticleFiltersDrawerProvider({ children }) {
     const filteredArray = tagArray.filter((tag) => {
       return selectedFilterList.includes(tag)
     })
-
+    
     if(selectedFilterList.length > 0) {
       res = originalListings.filter((listing) => {
-        return listing.fields?.articleTags?.some(tag => filteredArray.includes(tag.value) && tagCount[tag.value] >= 3)
+        return listing.fields?.articleTags?.some(tag => filteredArray.includes(tag.value.toLowerCase()) && tagCount[tag.value.toLowerCase()] >= 3)
       })
 
       selectedFilterList.filter((tag) => {

@@ -12,13 +12,71 @@
     @include breakpoint-up('md') {
       margin-right: 35px;
     }
-    button {
+    .article-social-sharing-btn {
       font-size: 14px;
       display: flex;
       align-items: center;
       padding: 0;
       border: none;
       background: none;
+      position: relative;
+      .article-social-sharing-items {
+        position: absolute;
+        display: flex;
+        z-index: 1;
+        // filter: drop-shadow(0px 0px 54px rgba(0, 0, 0, 0.25));
+        box-shadow: 4px 4px 50px rgba(0, 0, 0, 0.25);
+        background-color: $pureWhite;
+        list-style: none;
+        border-radius: 49px;
+        top: 35px;
+        left: 20px;
+        padding: 5px;
+        &:before {
+          content: '';
+          position: absolute;
+          width: 0px;
+          top: -8px;
+          left: calc(20% - 8px);
+          border-bottom: 8px solid $pureWhite;
+          border-left: 11px solid transparent;
+          border-right: 11px solid transparent;
+        }
+        li {
+          margin: 0 14px 0 0;
+          &:last-child {
+            margin: 0;
+          }
+        }
+        button {
+          display: flex;
+          align-items: center;
+          border: none;
+          background: none;
+          margin: 0;
+          padding: 0;
+          &.article-social-sharing-item__link {
+            &:hover {
+              svg {
+                circle {
+                  fill: $salmon;
+                }
+              }
+            }
+          }
+          &:hover:not(.article-social-sharing-item__link) {
+            svg {
+              * {
+                fill: $salmon;
+              }
+            }
+          }
+          svg {
+            width: auto;
+            margin: 0;
+          }
+        }
+      }
       @include breakpoint-up('md') {
         font-size: 18px;
       }
@@ -35,7 +93,7 @@
           }
         }
       }
-      &:hover:not(.more-info-btn) {
+      &:hover:not(.more-info-btn, .share-btn) {
         color: $salmon;
         svg {
           * {

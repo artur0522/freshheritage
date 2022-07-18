@@ -107,7 +107,7 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
   const renderTypeClass = `article-hero--render-type-${renderType}`
 
   return (
-    <div className={`${classes['article-hero']} ${classes[renderTypeClass]} ${classes[backgroundColorClass]}`}>
+    <div className={`${classes['article-hero']} ${classes[renderTypeClass]} ${classes[backgroundColorClass]} ${renderType === 'blog-listing' && blogGlobalSettings.blogType === 'brand' ? classes['article-hero--white-color-text'] : ''}`}>
       <div className={classes['article-hero__content']}>
 
         {backgroundIllustrationImage && renderType === 'blog-listing' && isDesktop && mounted &&

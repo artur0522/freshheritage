@@ -58,7 +58,8 @@ export async function getStaticProps({ params }) {
     props: {
       articles: articles,
       blogSettings: blogSettings[0],
-      page: pages[0]
+      page: pages[0],
+      handle: pages[0].handle
     }
   }
 }

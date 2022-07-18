@@ -1,0 +1,19 @@
+@import '@/styles/_shared.scss';
+
+.featured-text {
+    &__inner {
+        display: flex;
+    }
+
+    .text {
+        max-width: 1115px;
+
+        .top-text {
+            margin-bottom: 12px;
+        }
+
+        h4 {
+            margin-bottom: 12px;
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import { useEffect, useState} from 'react'
+import { useState} from 'react'
 import { useArticleFiltersDrawerContext } from '@/context/ArticleFiltersDrawerContext'
 
 import PlusIcon from '@/svgs/plus.svg'

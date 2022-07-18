@@ -62,13 +62,15 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         const tagArray = []
         articles.forEach((article) => {
           article.fields?.articleTags?.forEach((tag) => {
-            if(!tagCount[tag.value]) {
-              tagCount[tag.value] = 1
+            if(!tagCount[tag.value.toLowerCase()]) {
+              tagCount[tag.value.toLowerCase()] = 1
             }
-            if(tagCount[tag.value]) {
-              tagCount[tag.value]++
+
+            if(tagCount[tag.value.toLowerCase()]) {
+              tagCount[tag.value.toLowerCase()]++
             }
-              tagArray.push(tag.value)
+
+            tagArray.push(tag.value.toLowerCase())
             })
         })
 
@@ -77,24 +79,24 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
 
         const filterGroupObj = {}
         filterGroups?.map((group) => {
-        filterGroupObj[group.title] = {
-            options: {}
-        }
+          filterGroupObj[group.title.toLowerCase()] = {
+              options: {}
+          }
 
-        group.filterOptions?.map((option) => {
-            filterGroupObj[group.title].options[option.value] = {
-            checked: false,
-            subFilters: {}
-            }
+          group.filterOptions?.map((option) => {
+              filterGroupObj[group.title.toLowerCase()].options[option.value.toLowerCase()] = {
+                checked: false,
+                subFilters: {}
+              }
 
-            if(option.subFilters) {
-            option.subFilters.map((subFilter) => {
-                filterGroupObj[group.title].options[option.value].subFilters[subFilter.value] = {
-                checked: false
-                }
-            })
-            }
-        })
+              if(option.subFilters) {
+                option.subFilters.map((subFilter) => {
+                    filterGroupObj[group.title.toLowerCase()].options[option.value.toLowerCase()].subFilters[subFilter.value.toLowerCase()] = {
+                    checked: false
+                    }
+                })
+              }
+          })
         })
 
         addFilters(filterGroupObj)

@@ -40,13 +40,6 @@ const ArticleSocialSharing = ({ seo }) => {
       case 'pinterest':
         var imgURL = seo?.shareGraphic?.asset?.url || '';
         var description = seo?.metaDesc || '';
-        // if (window.location.pathname.indexOf('/blogs/') !== -1) {
-        //   imgURL = encodeURIComponent($self.closest('.article-main').find('.article-image img').attr('src'));
-        //   description = encodeURIComponent($self.closest('.article-main').find('.article-excerpt').text());
-        // } else {
-        //   imgURL = encodeURIComponent($('.js-product-image.swiper-slide-active img').attr('src'));
-        //   description = encodeURIComponent($('.js-product-description').text());
-        // }
         window.open('http://pinterest.com/pin/create/button/?url=' + encodeURIComponent(shareLink) + '&media=' + imgURL + '&description=' + description, 'Pinterest', 'width=600, height=400, scrollbars=no');
         break;
       case 'email':

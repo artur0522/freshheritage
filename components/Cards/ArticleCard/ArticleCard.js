@@ -12,14 +12,25 @@ const ArticleCard = ({ article, reverse, responsiveImage = false }) => {
     const tags = article.fields ? article.fields?.hero?.articleTags : article.hero?.articleTags
     const foundTag = tags?.find(tag => tag.value === 'video' || tag.value === 'live cooking class')
     const { desktopBackgroundImage } = article.fields ? article.fields.hero : article.hero
-    const {articleCardCtaText, articleCardCtaUrl} = article.fields ? article.fields : ''
-    
+    const {articleCardCtaText} = article.fields ? article.fields : {}
+
+    const articleHandle = article.handle?.current ? article.handle.current : article.handle;
+    const blog = article.fields ? article.fields.blog : article.blog
+
+    let url = `/${articleHandle}`
+
+    if (blog) {
+        const blogType = blog.blogType
+        const blogCategory = blog.handle?.current ? blog.handle.current : blog.handle
+        url = `/blogs/${blogType}/${blogCategory}/${articleHandle}`
+    }
+
     return (
-        <Link href={`${articleCardCtaUrl}`}>
+        <Link href={url}>
             <a className={`${classes['article-card']} ${!responsiveImage ? classes['fixed'] : ''}`}>
                 <div className={`${classes['slider__slide']} ${reverse ? classes['row'] : ''}`}>
                     {desktopBackgroundImage.asset.url && <div className={classes['image-wrap']}>
-                        {responsiveImage ? 
+                        {responsiveImage ?
                             <ResponsiveImage alt={article.title} src={desktopBackgroundImage.asset.url} /> :
                             <Image src={desktopBackgroundImage.asset.url} alt={article.title} layout="fill" objectFit="cover" />
                         }

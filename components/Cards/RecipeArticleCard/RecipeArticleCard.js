@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 import ResponsiveImage from '@/components/ResponsiveImage'
 
@@ -12,18 +11,19 @@ import classes from './RecipeArticleCard.module.scss'
 const RecipeArticleCard = ({ article, responsiveImage = false }) => {
     const { desktopBackgroundImage, prepTime, cookTime } = article.fields ? article.fields.hero : article.hero
 
-    let articleCardCtaUrl
-    if(article.fields?.articleCardCtaUrl) {
-        articleCardCtaUrl = article.fields.articleCardCtaUrl
-    } else {
-        articleCardCtaUrl === '/'
+    const articleHandle = article.handle?.current ? article.handle.current : article.handle;
+    const blog = article.fields ? article.fields.blog : article.blog
+
+    let url = `/${articleHandle}`
+
+    if (blog) {
+        const blogType = blog.blogType
+        const blogCategory = blog.handle?.current ? blog.handle.current : blog.handle
+        url = `/blogs/${blogType}/${blogCategory}/${articleHandle}`
     }
 
-    const handle = article.handle?.current ? article.handle.current : article.handle;
-    const router = useRouter()
-
     return (
-        <Link href={`${router.pathname}/${handle}`} passHref>
+        <Link href={url} passHref>
             <div className={`${classes['article__card']} ${!responsiveImage ? classes['fixed'] : ''}`}>
                 {desktopBackgroundImage.asset.url && <div className={classes['article__card-img']}>
                     {responsiveImage ? <ResponsiveImage

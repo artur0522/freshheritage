@@ -33,7 +33,6 @@
   }
   &.article-hero--blue-bg-color {
     background-color: $sitkablue;
-    color: $pureWhite;
   }
   @include breakpoint-down('sm') {
     background-color: $alabaster2;
@@ -204,6 +203,19 @@
       fill: $sitkablue;
     }
   }
+  .article-hero--white-color-text & {
+    a {
+      color: $pureWhite;
+      &:hover {
+        color: $salmon;
+      }
+    }
+    svg {
+      * {
+        fill: $pureWhite;
+      }
+    }
+  }
 }
 
 .article-hero__heading {
@@ -214,10 +226,16 @@
     font-size: 48px;
     margin-bottom: 40px;
   }
+  .article-hero--white-color-text & {
+    color: $pureWhite;
+  }
 }
 
 .article-hero__subheading {
   margin-bottom: 20px;
+  .article-hero--white-color-text & {
+    color: $pureWhite;
+  }
 }
 
 .article-hero__tags {

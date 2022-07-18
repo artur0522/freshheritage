@@ -83,6 +83,7 @@ export async function getStaticProps({ params }) {
 
   const props = {
     page,
+    handle: page.handle,
     blogSettings: blogSettings[0],
     product: null
   }

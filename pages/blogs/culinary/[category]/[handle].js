@@ -185,6 +185,7 @@ export async function getStaticProps({ params }) {
 
   const props = {
     page: validPage,
+    handle: validPage.handle,
     blogSettings: blogSettings[0],
     product: null
   }

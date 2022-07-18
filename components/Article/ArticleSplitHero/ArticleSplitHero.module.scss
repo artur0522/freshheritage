@@ -33,6 +33,7 @@
   }
   &.article-hero--blue-bg-color {
     background-color: $sitkablue;
+    color: $pureWhite;
   }
   @include breakpoint-down('sm') {
     background-color: $alabaster2;

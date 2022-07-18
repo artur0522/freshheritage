@@ -11,6 +11,14 @@ import classes from './RecipeArticleCard.module.scss'
 
 const RecipeArticleCard = ({ article, responsiveImage = false }) => {
     const { desktopBackgroundImage, prepTime, cookTime } = article.fields ? article.fields.hero : article.hero
+
+    let articleCardCtaUrl
+    if(article.fields?.articleCardCtaUrl) {
+        articleCardCtaUrl = article.fields.articleCardCtaUrl
+    } else {
+        articleCardCtaUrl === '/'
+    }
+
     const handle = article.handle?.current ? article.handle.current : article.handle;
     const router = useRouter()
 

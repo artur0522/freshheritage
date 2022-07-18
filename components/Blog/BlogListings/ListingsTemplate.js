@@ -7,6 +7,7 @@ import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import FullBleedHero from '@/components/Sections/FullBleedHero'
 import ArticleRow from '@/components/Sections/ArticleRow'
 import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
+import RecipeArticleCard from '@/components/Cards/RecipeArticleCard'
 import BlogFilters from '@/components/Blog/BlogFilters'
 
 import IconSearch from '@/svgs/search.svg'
@@ -20,7 +21,7 @@ import StructuredData from '@/components/SEO/StructuredData'
 
 const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const drawerContext = useArticleFiltersDrawerContext()
-    const { addFilters, openDrawer, closeDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
+    const { addFilters, openDrawer, closeDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
 
     const { content, filterGroups } = page.fields
     const heroSection = content?.find(section => section._type === 'hero')
@@ -53,16 +54,25 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             closeDrawer()
         }
 
+        if(isDesktop && mounted && filterGroups?.length === 0) {
+          toggleFilterDrawer(false)
+        }
+
         const tagCount = {}
+        const tagArray = []
         articles.forEach((article) => {
-        if(article.fields?.articleTags && !tagCount[article.fields?.articleTags[1]?.value]) {
-            tagCount[article.fields?.articleTags[1]?.value] = 1
-        }
-        if(article.fields?.articleTags && tagCount[article.fields?.articleTags[1]?.value]) {
-            tagCount[article.fields?.articleTags[1]?.value]++
-        }
+          article.fields?.articleTags?.forEach((tag) => {
+            if(!tagCount[tag.value]) {
+              tagCount[tag.value] = 1
+            }
+            if(tagCount[tag.value]) {
+              tagCount[tag.value]++
+            }
+              tagArray.push(tag.value)
+            })
         })
 
+        addTagArray(tagArray)
         addTagCount(tagCount)
 
         const filterGroupObj = {}
@@ -91,8 +101,8 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         window.scrollTo({ behavior: 'smooth', top: '0px' })
 
         if(selectedFilterList.length > 0) {
-        setCurrentPage(1)
-        setPages(Math.ceil(listings.length / 20))
+          setCurrentPage(1)
+          setPages(Math.ceil(listings.length / 20))
         }
     }, [currentPage, pages, originalListings])
 
@@ -125,7 +135,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
      <StructuredData type="blog" data={page} />
      <PageSEO seo={page.fields.seo} />
      <ArticleSplitHero fields={hero} renderType="blog-listing" blogType={blogType} blogGlobalSettings={blogGlobalSettings} />
-     <div className={classes['recipes']}>
+     <div className={classes["recipes"]}>
        <form className={`${classes['recipes__filter-wrap']} container`}>
          <div className={classes['recipes__search']}>
            <button type="button">
@@ -158,58 +168,60 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
              <BlogFilters />
        </div>}
 
-       <div className={`${classes['recipes__list-wrap']} ${classes[filterDrawer ? 'filters-open' : '']}`}>
-         {listings.length > 0 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer ? 'filters-open' : '']} container`}>
+       <div className={`${classes['recipes__list-wrap']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
+         {listings.length > 0 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
              {listings.slice(0, 8).map((article) => {
                return (
                  <div className={classes['grid-item']} key={article.handle}>
-                   <DynamicArticleCard article={article} responsiveImage={true} />
+                    <DynamicArticleCard article={article} responsiveImage={true} />
                  </div>
                )
              })}
          </div>}
 
-         {listings.length >= 8 && currentPage === 1 && selectedFilterList.length === 0 &&
+         {listings.length >= 8 && currentPage === 1 && selectedFilterList.length === 0 && heroSection &&
            <FullBleedHero fields={heroSection} key={heroSection._key} />
          }
 
-         {listings.length >= 8 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer ? 'filters-open' : '']} container`}>
+         {listings.length >= 8 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
            {listings.slice(8, 16).map((article) => {
                return (
                  <div className={classes['grid-item']} key={article.handle}>
                    <DynamicArticleCard article={article} responsiveImage={true} />
                  </div>
-               )
+               ) 
            })}
          </div>}
 
-         {listings.length >= 17 && currentPage === 1 && selectedFilterList.length === 0 &&
-           <ArticleRow fields={articleRowSection} />
+         {listings.length >= 17 && currentPage === 1 && selectedFilterList.length === 0 && articleRowSection &&
+          <div>
+            <ArticleRow fields={articleRowSection} />
+          </div>
          }
 
-         {listings.length >= 17 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer ? 'filters-open' : '']} container`}>
+         {listings.length >= 17 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
            {listings.slice(17, 21).map((article) => {
                return (
                  <div className={classes['grid-item']} key={article.handle}>
-                   <DynamicArticleCard article={article} responsiveImage={true} />
+                    <DynamicArticleCard article={article} responsiveImage={true} />
                  </div>
                )
            })}
          </div>}
 
-         {currentPage !== 1 && <div className={`${classes['recipes__list']} ${classes[filterDrawer ? 'filters-open' : '']} container`}>
+         {currentPage !== 1 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
            {getPaginatedData().map((article) => (
-               <div className={classes['grid-item']} key={article.handle}>
-                 <DynamicArticleCard article={article} responsiveImage={true} />
+              <div className={classes['grid-item']} key={article.handle}>
+                 <DynamicArticleCard article={article} responsiveImage={true}  />
              </div>
            ))}
          </div>}
 
-         {selectedFilterList.length > 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer ? 'filters-open' : '']} container`}>
+         {selectedFilterList.length > 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
            {listings.map((article) => (
-               <div className={classes['grid-item']} key={article.handle}>
-                 <DynamicArticleCard article={article} responsiveImage={true} />
-             </div>
+            <div className={classes['grid-item']} key={article.handle}>
+               <DynamicArticleCard article={article} responsiveImage={true} />
+            </div>
            ))}
          </div>}
        </div>

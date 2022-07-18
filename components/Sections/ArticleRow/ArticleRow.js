@@ -57,7 +57,6 @@ const ArticleRow = ({ fields }) => {
                         }}
                         >
                         {articles.map((article, index) => {
-
                             // if handle doesn't exist, you're probably on the same page of the article you are referencing
                             if (!article.handle) {
                                 return ''

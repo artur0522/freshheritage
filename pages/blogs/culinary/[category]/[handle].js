@@ -10,8 +10,11 @@ import StructuredData from '@/components/SEO/StructuredData'
 
 const RecipeArticle = ({ page, product, blogSettings }) => {
 
-  console.log("page:", page)
+  // console.log("page:", page)
   // console.log("blogSettings:", blogSettings)
+
+  const { setContent } = useModalContext()
+  const mainContentRef = useRef()
 
   const { hero } = page.fields
   if (page.fields.articleTags) {
@@ -22,6 +25,17 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
   hero.header = page.title
   hero.subheader = page.fields.subheader
 
+  useEffect(() => {
+    if (page.type === 'liveCookingClassArticle') {
+      setContent({
+        header: page.title,
+        classStartDate: page.fields.classStartDate,
+        classEndDate: page.fields.classEndDate,
+        listId: page.fields.klaviyoListId
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   if (page.type === 'recipeArticle') {
     return (
@@ -52,8 +66,6 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
 
     const hasVideo = hero.youtubeVideoId ? true : false
 
-    const mainContentRef = useRef()
-
     return (
       <div className={`${!hasVideo ? 'article-cooking-guide--no-video' : 'article-cooking-guide'}`}>
         <StructuredData type="article" data={page} />
@@ -67,7 +79,6 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
   }
 
   if (page.type === 'liveCookingClassArticle') {
-    const { setContent } = useModalContext()
 
     hero.classStartDate = page.fields?.classStartDate
     hero.classEndDate = page.fields?.classEndDate
@@ -75,16 +86,6 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
     if (page.fields?.sidebar?.classSignup && page.fields.klaviyoListId) {
       page.fields.sidebar.classSignup.klaviyoListId = page.fields.klaviyoListId
     }
-
-    useEffect(() => {
-      setContent({
-        header: page.title,
-        classStartDate: page.fields.classStartDate,
-        classEndDate: page.fields.classEndDate,
-        listId: page.fields.klaviyoListId
-      })
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
     return (
       <>

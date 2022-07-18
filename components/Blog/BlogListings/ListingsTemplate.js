@@ -167,7 +167,6 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
        </div>}
 
        <div className={`${classes['recipes__list-wrap']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
-         
          {listings.length > 0 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
              {listings.slice(0, 8).map((article) => {
                return (

@@ -17,6 +17,7 @@ import PaginationRight from '@/svgs/pagination-right.svg'
 import classes from "./ListingsTemplate.module.scss"
 
 import PageSEO from '@/components/SEO/PageSEO'
+import StructuredData from '@/components/SEO/StructuredData'
 
 const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const drawerContext = useArticleFiltersDrawerContext()
@@ -130,8 +131,9 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         setCurrentPage(pageNumber)
     }
   return (
-        <>
-     {/* <PageSEO seo={page.fields.seo} /> */}
+    <>
+     <StructuredData type="blog" data={page} />
+     <PageSEO seo={page.fields.seo} />
      <ArticleSplitHero fields={hero} renderType="blog-listing" blogType={blogType} blogGlobalSettings={blogGlobalSettings} />
      <div className={classes["recipes"]}>
        <form className={`${classes['recipes__filter-wrap']} container`}>

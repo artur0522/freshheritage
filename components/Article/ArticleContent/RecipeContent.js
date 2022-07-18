@@ -67,7 +67,7 @@ const RecipeContent = forwardRef(({fields, product}, ref) => {
         <PortableText value={description} />
       </div>
 
-      <ArticleSocialSharing />
+      <ArticleSocialSharing seo={fields.seo} />
 
       <div className={`${classes['article-section__content']}`}>
         <PortableText value={content} components={myPortableTextComponents} />

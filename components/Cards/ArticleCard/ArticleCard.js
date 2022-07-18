@@ -11,10 +11,11 @@ import classes from "./ArticleCard.module.scss"
 const ArticleCard = ({ article, reverse, responsiveImage = false }) => {
     const tags = article.fields ? article.fields?.hero?.articleTags : article.hero?.articleTags
     const foundTag = tags?.find(tag => tag.value === 'video' || tag.value === 'live cooking class')
-    const { desktopBackgroundImage, ctaText } = article.fields ? article.fields.hero : article.hero
-
+    const { desktopBackgroundImage } = article.fields ? article.fields.hero : article.hero
+    const {articleCardCtaText, articleCardCtaUrl} = article.fields ? article.fields : ''
+    
     return (
-        <Link href={`/${article.handle.current}`}>
+        <Link href={`${articleCardCtaUrl}`}>
             <a className={`${classes['article-card']} ${!responsiveImage ? classes['fixed'] : ''}`}>
                 <div className={`${classes['slider__slide']} ${reverse ? classes['row'] : ''}`}>
                     {desktopBackgroundImage.asset.url && <div className={classes['image-wrap']}>
@@ -29,9 +30,9 @@ const ArticleCard = ({ article, reverse, responsiveImage = false }) => {
 
                     <div className={classes['text']}>
                         {article.title && <h4 className='heading--article'>{article.title}</h4>}
-                        {ctaText && <p className="recipe--time">
+                        {articleCardCtaText && <p className="recipe--time">
                             <span>
-                                {ctaText}
+                                {articleCardCtaText}
                             </span>
                             <span className={classes['icon']}>
                                 <IconBullet />

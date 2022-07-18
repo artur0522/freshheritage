@@ -12,13 +12,13 @@ const DynamicArticleCard = ({ article, reverse, responsiveImage = false}) => {
   if(recipeTag) {
     return (
         <>
-            <RecipeArticleCard article={article} responsiveImage={responsiveImage} />
+          <RecipeArticleCard article={article} responsiveImage={responsiveImage} />
         </>
     )
   } else {
     return (
         <>
-            <ArticleCard article={article} reverse={reverse} responsiveImage={responsiveImage} />
+          <ArticleCard article={article} reverse={reverse} responsiveImage={responsiveImage} />
         </>
     )
   }

@@ -9,16 +9,7 @@ export function useArticleContext() {
 }
 
 export function ArticleProvider({ children }) {
-
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-
-  const handleMediaQueryChange = (matches) => {
-    if (matches) setIsSidebarOpen(false)
-  }
-
-  const isDesktop = useMediaQuery(
-    { minWidth: 1074 }, undefined, handleMediaQueryChange
-  )
 
   useEffect(() => {
     if (isSidebarOpen) document.querySelector('html').classList.add('disable-scroll')

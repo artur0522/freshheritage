@@ -10,9 +10,15 @@ import classes from './RecipeArticleCard.module.scss'
 
 const RecipeArticleCard = ({ article, responsiveImage = false }) => {
     const { desktopBackgroundImage, prepTime, cookTime } = article.fields ? article.fields.hero : article.hero
+    let articleCardCtaUrl
+    if(article.fields?.articleCardCtaUrl) {
+        articleCardCtaUrl = article.fields.articleCardCtaUrl
+    } else {
+        articleCardCtaUrl === '/'
+    }
 
     return (
-        <Link href={`${article.handle.current}`} passHref>
+        <Link href={`${articleCardCtaUrl}`} passHref>
             <div className={`${classes['article__card']} ${!responsiveImage ? classes['fixed'] : ''}`}>
                 {desktopBackgroundImage.asset.url && <div className={classes['article__card-img']}>
                     {responsiveImage ? <ResponsiveImage

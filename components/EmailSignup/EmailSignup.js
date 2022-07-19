@@ -26,7 +26,7 @@ const EmailSignup = ({ props }) => {
     const response = await fetch('/api/klaviyo/klaviyo-add-to-list', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
       },
       body: JSON.stringify({
         email: emailRef.current.value,

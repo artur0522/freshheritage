@@ -12,7 +12,7 @@ function ProductCard({ product }) {
   const [mounted, setMounted] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
   const [selectedOptions, setSelectedOptions] = useState(
-    selectedVariant.content.selectedOptions
+    selectedVariant.content?.selectedOptions
   );
   const isMobile =  useMediaQuery({ query: '(max-width: 736px)' })
   const isDesktop = useMediaQuery({query: '(min-width: 737px)'})
@@ -86,7 +86,7 @@ function ProductCard({ product }) {
                 height={350}
                 className={classes.image}
               />
-            )} 
+            )}
             {product.content.featuredMedia && isDesktop && mounted && (
               <Image
                 src={product.content.featuredMedia.src}
@@ -95,7 +95,7 @@ function ProductCard({ product }) {
                 height={278}
                 className={classes.image}
               />
-            )} 
+            )}
           </a>
         </Link>
 

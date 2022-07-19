@@ -21,7 +21,7 @@ const MembershipOption = ({option, membershipType}) => {
   const { variants } = product;
 
   const membershipText = selectedVariant.metafields.find(metafield => metafield.key === `${membershipType}_membership_text`)
-  const frequencyOptions = product.content.options.find(option => option.name === 'frequency').values
+  const frequencyOptions = product.content?.options.find(option => option.name === 'frequency').values
   const variantPrice = membershipType === 'prepaid' ? (selectedVariant.price * .97).toFixed(2) : selectedVariant.price
 
   const handleMediaQueryChange = (matches) => {

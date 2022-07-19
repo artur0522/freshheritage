@@ -25,7 +25,7 @@ const ProductSlider = ({product, timeout = 0}) => {
 
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
-  const images = product.content.media
+  const images = product.content?.media
 
   useEffect(() => {
     setTimeout(() => {

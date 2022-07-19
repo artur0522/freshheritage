@@ -41,7 +41,7 @@ export async function getStaticProps() {
   tierOptions = tierOptions.products.map(tierOption => {
     return {
       ...tierOption,
-      markAsMostPopular: step1.tiers.some(tier => tier.markAsMostPopular && tierOption.content.handle === tier.product)
+      markAsMostPopular: step1.tiers.some(tier => tier.markAsMostPopular && tierOption.content?.handle === tier.product)
     }
   })
 

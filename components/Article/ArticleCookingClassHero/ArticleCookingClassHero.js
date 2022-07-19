@@ -28,8 +28,6 @@ const ArticleCookingClassHero = ({fields}) => {
   const router = useRouter()
   const goBackNavigationSettings = getBackNavigationInfo(router)
 
-  console.log("fields:", fields)
-
   const { hero } = fields
 
   useEffect(() => {

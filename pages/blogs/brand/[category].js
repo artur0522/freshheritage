@@ -3,10 +3,6 @@ import { nacelleClient } from 'services'
 import ListingsTemplate from '@/components/Blog/BlogListings/ListingsTemplate'
 
 const BrandBlogListings = ({ articles, blogSettings, page }) => {
-
-  console.log("articles:", articles)
-
-
   return (
     <ListingsTemplate articles={articles} blogSettings={blogSettings} page={page} />
   )

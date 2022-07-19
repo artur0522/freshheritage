@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import classes from './ArticleCookingClassHero.module.scss'
-import moment from 'moment'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import Image from 'next/image'
 import CookingClassSignupForm from '@/components/Forms/CookingClassSignupForm'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import IconBullet from '@/svgs/list-item.svg'
+import { getBackNavigationInfo } from '@/utils/getBackNavigationInfo'
 
 const ArticleCookingClassHero = ({fields}) => {
 
@@ -22,6 +25,8 @@ const ArticleCookingClassHero = ({fields}) => {
   const isDesktop = useMediaQuery(
     {query: '(min-width: 1074px)'}
   )
+  const router = useRouter()
+  const goBackNavigationSettings = getBackNavigationInfo(router)
 
   console.log("fields:", fields)
 
@@ -34,6 +39,11 @@ const ArticleCookingClassHero = ({fields}) => {
 
   return (
     <div className={`article-cooking-class-hero container`}>
+      <div className={classes['article-cooking-class-hero__navigation']}>
+        {goBackNavigationSettings.url && <Link href={goBackNavigationSettings.url}>
+          <a><IconBullet /> <span>Back to all {goBackNavigationSettings.title}</span></a>
+        </Link>}
+      </div>
       <div className={classes['article-cooking-class-hero__header']}>
         <h1>{fields.title}</h1>
         <h2>{fields.subheader}</h2>

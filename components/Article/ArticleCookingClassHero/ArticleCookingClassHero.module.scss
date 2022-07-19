@@ -49,3 +49,55 @@
     padding-right: 20px;
   }
 }
+
+.article-cooking-class-hero__navigation {
+  margin: 30px 0;
+  max-width: 451px;
+  @include breakpoint-up('md') {
+    padding-bottom: 24px;
+    margin: 30px 0 50px;
+    border-bottom: 1px solid $sitkablue;
+  }
+  a {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    @include breakpoint-up('sm') {
+      font-size: 16px;
+    }
+    &:hover {
+      text-decoration: none;
+      svg {
+        * {
+          fill: $salmon;
+        }
+      }
+    }
+  }
+  svg {
+    width: 34px;
+    transform: rotate(180deg);
+    margin-right: 10px;
+    @include breakpoint-up('sm') {
+      width: 17px;
+    }
+    * {
+      fill: $sitkablue;
+    }
+  }
+  .article-cooking-class-hero--white-color-text & {
+    a {
+      color: $pureWhite;
+      &:hover {
+        color: $salmon;
+      }
+    }
+    svg {
+      * {
+        fill: $pureWhite;
+      }
+    }
+  }
+}

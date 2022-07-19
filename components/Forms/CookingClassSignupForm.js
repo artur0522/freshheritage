@@ -28,7 +28,8 @@ const CookingClassSignupForm = ({ fields }) => {
     end: `${endDateEventFormatted} -0500`,
   };
 
-  console.log("content:", content)
+  const unixNowDate = moment().unix()
+  const unixEndDate = moment(content.classEndDate).unix()
 
   const articleHandle = content.handle?.current ? content.handle.current : content.handle;
   const blog = content.fields ? content.fields.blog : content.blog
@@ -39,6 +40,17 @@ const CookingClassSignupForm = ({ fields }) => {
     const blogType = 'culinary'
     const blogCategory = 'cooking-classes'
     url = `/blogs/${blogType}/${blogCategory}/${articleHandle}`
+  }
+
+  if (unixNowDate > unixEndDate) {
+    return (
+      <div className={`${classes['cooking-class-signup-form']} container`}>
+        <h2 className="h4">{content.header || content.title}</h2>
+        <Link href={url}>
+          <a className={`btn sitkablue ${classes['cooking-class-signup-learn-more-btn']}`}>Learn More</a>
+        </Link>
+      </div>
+    )
   }
 
   return (

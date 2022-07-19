@@ -226,7 +226,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
     }
   }
 
-  const checkBoxHandler = (hasSubfilter, filterGroup, filterOption, subFilter) => {
+  const checkBoxHandler = (hasSubfilter, filterGroup, filterOption, subFilter = null) => {
     if(hasSubfilter) {
       dispatch({ type: 'toggle_checkbox', payload: {
         hasSubfilter,

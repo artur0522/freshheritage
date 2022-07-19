@@ -91,7 +91,7 @@ const MemoizedPaymentMethod = memo(
 
     const clearCart = async () => {
       //method to delete shopify cart
-      // return await fetch(`${process.env.NEXT_PUBLIC_CHECKOUT_URL}${process.env.NEXT_PUBLIC_SERVER_BASE}/clearCart`, {
+      // return await fetch(`${process.env.checkoutUrl}${process.env.NEXT_PUBLIC_SERVER_BASE}/clearCart`, {
       // commented out to stop getting an error
       // return await fetch(`https://sitkasalmontest.ngrok.io/api/checkout/clearCart`, {
       //   method: "POST",

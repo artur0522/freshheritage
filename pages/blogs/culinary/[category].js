@@ -3,6 +3,11 @@ import { nacelleClient } from 'services'
 import ListingsTemplate from '@/components/Blog/BlogListings/ListingsTemplate'
 
 const RecipeListings = ({ articles, blogSettings, page }) => {
+
+  if (page.fields.featuredClass) {
+    page.fields.hero = page.fields.featuredClass.hero
+  }
+
   return (
     <ListingsTemplate articles={articles} blogSettings={blogSettings} page={page} />
   )
@@ -12,10 +17,17 @@ export default RecipeListings
 
 export async function getStaticPaths() {
   const blogs = await nacelleClient.content({
-    handles: ['blogs']
+    type: 'blogs'
   })
 
-  const handles = blogs.map((blogs) => ({ params: { handle: blogs.handle } }))
+  const cookingClassCategoryBlogs = await nacelleClient.content({
+    handles: ['cooking-classes'],
+    type: 'cookingClassCategory'
+  })
+
+  const validBlogs = [...blogs, ...cookingClassCategoryBlogs].filter(blog => blog.fields.blogType === 'culinary')
+
+  const handles = validBlogs.map((blogs) => ({ params: { category: blogs.handle } }))
 
   return {
     paths: handles,
@@ -30,19 +42,21 @@ export async function getStaticProps({ params }) {
     type: 'blog'
   })
 
-  if (!pages.length) {
+  const cookingClassCategoryBlogs = await nacelleClient.content({
+    handles: ['cooking-classes'],
+    type: 'cookingClassCategory'
+  })
+
+
+  if (!pages.length && !cookingClassCategoryBlogs.length) {
     return {
       notFound: true
     }
   }
 
-  if (!cookingClassListingPages.length) {
-    return {
-      notFound: true
-    }
-  }
+  const page = pages.length ? pages[0] : cookingClassCategoryBlogs[0]
 
-  const { articleTypes } = pages[0].fields
+  const { articleTypes } = page.fields
 
   const articles = await nacelleClient.content({
     type: articleTypes[0]
@@ -58,14 +72,12 @@ export async function getStaticProps({ params }) {
     type: 'blogSettings'
   })
 
-
-
   return {
     props: {
       articles: articles,
       blogSettings: blogSettings[0],
-      page: pages[0],
-      handle: pages[0].handle
+      page: page,
+      handle: page.handle
     }
   }
 }

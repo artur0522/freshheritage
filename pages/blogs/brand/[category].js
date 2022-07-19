@@ -21,7 +21,7 @@ export async function getStaticPaths() {
 
     const validBlogs = blogs.filter(blog => blog.fields.blogType === 'brand')
 
-    const handles = validBlogs.map((article) => ({ params: { handle: article.handle } }))
+    const handles = validBlogs.map((article) => ({ params: { category: article.handle } }))
 
     return {
       paths: handles,

@@ -1,0 +1,103 @@
+@import '@/styles/_shared.scss';
+
+.article-cooking-class-hero__header {
+  margin: 30px 0;
+  @include breakpoint-up('md') {
+    margin: 50px 0;
+  }
+  h1 {
+    margin-bottom: 15px;
+  }
+  h2 {
+    max-width: 850px;
+  }
+}
+
+.article-cooking-class-hero__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.article-cooking-class-hero__image {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+  @include breakpoint-up('md') {
+    flex: 1;
+    min-height: 500px;
+  }
+  @include breakpoint-up('lg') {
+    min-height: 750px;
+  }
+  img {
+    border-radius: 12px;
+  }
+}
+
+.article-cooking-class-hero__content {
+  width: 100%;
+  @include breakpoint-up('md') {
+    width: 400px;
+    flex-basis: 400px;
+    padding-left: 50px;
+    padding-right: 10px;
+  }
+  @include breakpoint-up('lg') {
+    width: 530px;
+    flex-basis: 530px;
+    padding-left: 75px;
+    padding-right: 20px;
+  }
+}
+
+.article-cooking-class-hero__navigation {
+  margin: 30px 0;
+  max-width: 451px;
+  @include breakpoint-up('md') {
+    padding-bottom: 24px;
+    margin: 30px 0 50px;
+    border-bottom: 1px solid $sitkablue;
+  }
+  a {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    @include breakpoint-up('sm') {
+      font-size: 16px;
+    }
+    &:hover {
+      text-decoration: none;
+      svg {
+        * {
+          fill: $salmon;
+        }
+      }
+    }
+  }
+  svg {
+    width: 34px;
+    transform: rotate(180deg);
+    margin-right: 10px;
+    @include breakpoint-up('sm') {
+      width: 17px;
+    }
+    * {
+      fill: $sitkablue;
+    }
+  }
+  .article-cooking-class-hero--white-color-text & {
+    a {
+      color: $pureWhite;
+      &:hover {
+        color: $salmon;
+      }
+    }
+    svg {
+      * {
+        fill: $pureWhite;
+      }
+    }
+  }
+}

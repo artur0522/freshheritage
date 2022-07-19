@@ -3,10 +3,6 @@ import { nacelleClient } from 'services'
 import ListingsTemplate from '@/components/Blog/BlogListings/ListingsTemplate'
 
 const BrandBlogListings = ({ articles, blogSettings, page }) => {
-
-  console.log("articles:", articles)
-
-
   return (
     <ListingsTemplate articles={articles} blogSettings={blogSettings} page={page} />
   )
@@ -21,7 +17,7 @@ export async function getStaticPaths() {
 
     const validBlogs = blogs.filter(blog => blog.fields.blogType === 'brand')
 
-    const handles = validBlogs.map((article) => ({ params: { handle: article.handle } }))
+    const handles = validBlogs.map((article) => ({ params: { category: article.handle } }))
 
     return {
       paths: handles,

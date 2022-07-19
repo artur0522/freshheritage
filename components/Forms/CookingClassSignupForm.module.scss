@@ -1,6 +1,25 @@
 @import '@/styles/_shared.scss';
 
+:global(.article-cooking-class-hero) {
+  .cooking-class-calendar-links {
+    margin-top: 30px;
+  }
+  .cooking-class-signup-container {
+    order: 1;
+    @include breakpoint-down('sm') {
+      margin: 20px 0;
+    }
+  }
+  .cooking-class-signup-form {
+    .cooking-class-signup-learn-more-btn {
+      display: flex;
+    }
+  }
+}
+
 .cooking-class-signup-form {
+  display: flex;
+  flex-direction: column;
   width: 100% !important;
   h2 {
     margin-bottom: 30px;
@@ -11,6 +30,12 @@
   }
   h6 {
     font-weight: 400;
+  }
+  .cooking-class-signup-learn-more-btn {
+    display: none;
+    margin-top: 30px;
+    max-width: 222px;
+    min-width: auto;
   }
 }
 

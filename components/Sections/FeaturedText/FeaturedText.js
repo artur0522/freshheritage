@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react"
 import classes from './FeaturedText.module.scss'
 
 const FeaturedText = ({ fields }) => {
-    console.log('featuredtetx', fields)
     const {alignTextBlock, textAlign, smallTextTop, smallTextBottom, featuredText} = fields
     return (
         <div className={`${classes['featured-text']} container`}>

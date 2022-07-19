@@ -25,7 +25,7 @@ export async function getStaticProps() {
 
   const { fields } = page[0]
   const { step1 } = fields
-  const tiers = [...step1.tiers.map(tier => tier.product), 'intro-box'];
+  const tiers = [...step1.tiers.map(tier => tier.product), 'sitka-seafood-intro-box'];
 
   const variables = `{
     "filter": {

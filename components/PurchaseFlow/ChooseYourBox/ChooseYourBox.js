@@ -46,7 +46,7 @@ const ChooseYourBox = ({props, tierOptions}) => {
           <div className={classes['choose-your-box__tiers']}>
             <ul className={classes['choose-your-box__tier-list']}>
               {tierOptions.map(tier => {
-                if (tier.content?.handle === 'intro-box') {
+                if (tier.content?.handle === 'sitka-seafood-intro-box') {
                   return ''
                 }
 

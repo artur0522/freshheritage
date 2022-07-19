@@ -72,7 +72,7 @@ const ArticleContestForm = ({fields}) => {
           <div className={classes['contest-form__panel']}>
             <h4>Submissions Close <span>{endDateTextFormatted}</span></h4>
             <div className={classes['contest-form__description']}>
-              <PortableText value={fields.contestForm.content} />
+              <PortableText value={fields.contestForm.content || {}} />
             </div>
             <form onSubmit={(e) => onSubmit(e)}>
               <div className="input-group--wrapper">

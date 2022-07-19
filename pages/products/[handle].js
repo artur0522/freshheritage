@@ -20,10 +20,10 @@ import { split } from 'lodash-es'
 function Product({ product, page }) {
   const [checked, setChecked] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
-  const handle = product.content.handle
+  const handle = product.content?.handle
   const productAccordionHeaders = page[0].fields.content.find(block => block._type === 'productAccordionHeaders')
   const accordionDeliveryHeader = productAccordionHeaders?.details
-  const productDescription = product.content.description
+  const productDescription = product.content?.description
   const accordionDescriptionHeader = productAccordionHeaders?.description
   const deliveryDetails = product.metafields.find(metafield => metafield.key === 'delivery_details')
   const deliveryDetailsList = deliveryDetails ? JSON.parse(deliveryDetails.value) : null
@@ -94,7 +94,7 @@ function Product({ product, page }) {
               <div className={classes['main']}>
                 <ProductReviewStars productId={product.sourceEntryId.replace('gid://shopify/Product/', '')} />
 
-                {product.content.title && <h1 className={classes['product-title']}>{product.content.title}</h1>}
+                {product.content?.title && <h1 className={classes['product-title']}>{product.content.title}</h1>}
 
                 {handle !== 'digital-gift-card' && <div className={classes['prices']}>
                   <div className={classes['price-wrap']}>

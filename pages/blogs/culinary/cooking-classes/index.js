@@ -3,6 +3,11 @@ import { nacelleClient } from 'services'
 import ListingsTemplate from '@/components/Blog/BlogListings/ListingsTemplate'
 
 const RecipeListings = ({ articles, blogSettings, page }) => {
+
+  if (page.fields.featuredClass) {
+    page.fields.hero = page.fields.featuredClass.hero
+  }
+
   return (
     <ListingsTemplate articles={articles} blogSettings={blogSettings} page={page} />
   )
@@ -10,33 +15,14 @@ const RecipeListings = ({ articles, blogSettings, page }) => {
 
 export default RecipeListings
 
-export async function getStaticPaths() {
-  const blogs = await nacelleClient.content({
-    handles: ['blogs']
-  })
-
-  const handles = blogs.map((blogs) => ({ params: { handle: blogs.handle } }))
-
-  return {
-    paths: handles,
-    fallback: 'blocking'
-  }
-}
-
-export async function getStaticProps({ params }) {
+export async function getStaticProps() {
 
   const pages = await nacelleClient.content({
-    handles: [params.category],
-    type: 'blog'
+    handles: ['cooking-classes'],
+    type: 'cookingClassCategory'
   })
 
   if (!pages.length) {
-    return {
-      notFound: true
-    }
-  }
-
-  if (!cookingClassListingPages.length) {
     return {
       notFound: true
     }

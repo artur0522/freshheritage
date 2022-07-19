@@ -18,6 +18,7 @@ import classes from "./ListingsTemplate.module.scss"
 
 import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
+import ArticleCookingClassHero from '@/components/Article/ArticleCookingClassHero'
 
 const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const drawerContext = useArticleFiltersDrawerContext()
@@ -136,7 +137,11 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
     <>
      <StructuredData type="blog" data={page} />
      <PageSEO seo={page.fields.seo} />
-     <ArticleSplitHero fields={hero} renderType="blog-listing" blogType={blogType} blogGlobalSettings={blogGlobalSettings} />
+     {page.type === "cookingClassCategory" ? (
+      <ArticleCookingClassHero fields={page} />
+     ):(
+      <ArticleSplitHero fields={hero} renderType="blog-listing" blogType={blogType} blogGlobalSettings={blogGlobalSettings} />
+     )}
      <div className={classes["recipes"]}>
        <form className={`${classes['recipes__filter-wrap']} container`}>
          <div className={classes['recipes__search']}>

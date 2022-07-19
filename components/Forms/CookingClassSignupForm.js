@@ -2,11 +2,17 @@ import { useModalContext } from '@/context/ModalContext'
 import classes from "./CookingClassSignupForm.module.scss"
 import EmailSignup from '../EmailSignup'
 import moment from 'moment'
+import Link from 'next/link'
 import { ics, google } from "calendar-link";
 import IconPlusCircle from '@/svgs/plus-circle.svg'
 
-const CookingClassSignupForm = () => {
-  const { content } = useModalContext()
+const CookingClassSignupForm = ({ fields }) => {
+  const { content: modalContent } = useModalContext()
+
+  const content = {
+    ...modalContent,
+    ...fields
+  }
 
   if (!content.classStartDate || !content.classEndDate) {
     return ''
@@ -22,11 +28,29 @@ const CookingClassSignupForm = () => {
     end: `${endDateEventFormatted} -0500`,
   };
 
+  console.log("content:", content)
+
+  const articleHandle = content.handle?.current ? content.handle.current : content.handle;
+  const blog = content.fields ? content.fields.blog : content.blog
+
+  let url = `/${articleHandle}`
+
+  if (blog) {
+    const blogType = 'culinary'
+    const blogCategory = 'cooking-classes'
+    url = `/blogs/${blogType}/${blogCategory}/${articleHandle}`
+  }
+
   return (
     <div className={`${classes['cooking-class-signup-form']} container`}>
-      <h2 className="h4">{content.header}</h2>
+      <h2 className="h4">{content.header || content.title}</h2>
       <h4>Class Starts On</h4>
       <h6 className={classes['cooking-class-signup-time']}>{startDateTextFormatted}pm CT</h6>
+
+      <Link href={url}>
+        <a className={`btn sitkablue ${classes['cooking-class-signup-learn-more-btn']}`}>Learn More</a>
+      </Link>
+
       <div className={classes['cooking-class-signup-container']}>
         <EmailSignup props={{
           title: 'Email Signup',

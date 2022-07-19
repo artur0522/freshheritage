@@ -53,7 +53,6 @@ const ArticleContestForm = ({fields}) => {
           {contestForm?.heroImage && isMobile && mounted &&
             <ResponsiveImage
               src={contestForm?.heroImage.asset.url}
-              layout="fill"
               alt={contestForm?.heroImage.asset.alt || ''}
             />}
           {contestForm?.heroImage && isDesktop && mounted &&

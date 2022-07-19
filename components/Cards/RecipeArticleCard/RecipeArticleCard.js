@@ -37,9 +37,9 @@ const RecipeArticleCard = ({ article, responsiveImage = false }) => {
                         objectFit="cover"
                     />
                     }
-                    <div className={classes['bookmark']}>
+                    {/* <div className={classes['bookmark']}>
                         <BookmarkIcon />
-                    </div>
+                    </div> */}
                 </div>}
 
                 <div className={classes['article__card-content']}>

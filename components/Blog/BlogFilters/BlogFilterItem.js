@@ -5,6 +5,7 @@ import PlusIcon from '@/svgs/plus.svg'
 import MinusIcon from '@/svgs/minus.svg'
 
 import classes from './BlogFilters.module.scss'
+import { filter } from 'lodash-es'
 
 const BlogFilterItem = (props) => {
   const articleFiltersDrawerContext = useArticleFiltersDrawerContext()
@@ -31,6 +32,10 @@ const BlogFilterItem = (props) => {
                 return (
                     <li key={filterOption}>
                         {tagCount[filterOption] !== undefined && tagCount[filterOption] >= 3 && <div className={classes['filter-option']}>
+                            <input onChange={() => changeHandler(false, filterGroup, filterOption)} value={filterOption} id={filterOption} checked={filters[filterGroup].options[filterOption].checked} type="checkbox" />
+                            <label htmlFor={filterOption}>{filterOption}</label>
+                        </div>}
+                        {tagCount[Object.keys(filters[filterGroup].options[filterOption].subFilters)[0]] !== undefined && filters[filterGroup].options[filterOption].subFilters && <div className={classes['filter-option']}>
                             <input onChange={() => changeHandler(false, filterGroup, filterOption)} value={filterOption} id={filterOption} checked={filters[filterGroup].options[filterOption].checked} type="checkbox" />
                             <label htmlFor={filterOption}>{filterOption}</label>
                         </div>}

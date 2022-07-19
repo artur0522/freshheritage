@@ -226,58 +226,89 @@ export function ArticleFiltersDrawerProvider({ children }) {
     }
   }
 
-  const checkBoxHandler = (hasSubfilter, filterGroup, filterOption, subFilter) => {
+  const checkBoxHandler = (hasSubfilter, filterGroup, filterOption, subFilter = null) => {
     if(hasSubfilter) {
-      dispatch({ type: 'toggle_checkbox', payload: {
-        hasSubfilter,
-        filterGroup,
-        option: filterOption,
-        subFilter: subFilter
-      }})
+      console.log('hasSubfilter')
 
-      if(filters[filterGroup].options[filterOption].subFilters[subFilter].checked) { 
-        filters[filterGroup].options[filterOption].checked = false 
-      }  
-
-      if(filters[filterGroup].options[filterOption].subFilters[subFilter].checked) {
-        dispatch({type: 'remove_selected_filters', payload: subFilter})
-        filterListingsByTags()
-      } else {
-        dispatch({type: 'add_selected_filters', payload: subFilter})
-        filterListingsByTags()
-      }
-
+    if(filters[filterGroup].options[filterOption].subFilters[subFilter].checked) {
+      filters[filterGroup].options[filterOption].checked = false 
+      dispatch({type: 'remove_selected_filters', payload: subFilter})
+      filterListingsByTags()
     } else {
+      dispatch({type: 'add_selected_filters', payload: subFilter})
+      filterListingsByTags()
+    }
+
+    dispatch({ type: 'toggle_checkbox', payload: {
+      hasSubfilter,
+      filterGroup,
+      option: filterOption,
+      subFilter: subFilter
+    }})
+    } else {
+      console.log('noSubfilter')
+
+      console.log(hasSubfilter, filterGroup, filterOption, subFilter)
+
       const nestedSubFilters = filters[filterGroup].options[filterOption].subFilters
 
-      Object.keys(nestedSubFilters).forEach((key) => {
-        if(tagCount[key] >= 3) {
-        filters[filterGroup].options[filterOption].subFilters[key].checked = true  
-        }    
-         
-        if(filters[filterGroup].options[filterOption].subFilters[key].checked) {
-          dispatch({type: 'add_selected_filters', payload: key})
-          filterListingsByTags()
-        } else {
-          dispatch({type: 'remove_selected_filters', payload: key})
-          filterListingsByTags()
-        }
-      })
+      console.log('nested', nestedSubFilters)
 
-      dispatch({ type: 'toggle_checkbox', payload: {
-        hasSubfilter,
-        filterGroup,
-        option: filterOption,
-        subFilters: nestedSubFilters
-      }})
 
-      if(filters[filterGroup].options[filterOption].checked) {
+      if(tagCount[Object.keys(nestedSubFilters)[0]] >= 3) {
+        console.log('nested exusts')
+        Object.keys(nestedSubFilters).forEach((key) => {
+          if(tagCount[key] >= 3) {
+            filters[filterGroup].options[filterOption].subFilters[key].checked = true  
+          }    
+          
+          if(filters[filterGroup].options[filterOption].subFilters[key].checked) {
+            dispatch({type: 'add_selected_filters', payload: key})
+            filterListingsByTags()
+          } else {
+            dispatch({type: 'remove_selected_filters', payload: key})
+            filterListingsByTags()
+          }
+        })
+
+        dispatch({ type: 'toggle_checkbox', payload: {
+          hasSubfilter,
+          filterGroup,
+          option: filterOption,
+          subFilters: nestedSubFilters
+        }})
+      }
+
+      console.log(filters[filterGroup].options[filterOption])
+
+      if(!filters[filterGroup].options[filterOption].checked && !nestedSubFilters) {
+        console.log('notchecked')
         dispatch({type: 'remove_selected_filters', payload: filterOption})
         filterListingsByTags()
-      } else {
+
+        dispatch({ type: 'toggle_checkbox', payload: {
+          hasSubfilter,
+          filterGroup,
+          option: filterOption
+        }})
+      }
+
+      if(filters[filterGroup].options[filterOption].checked && !nestedSubFilters) {
+        console.log("checked")
         dispatch({type: 'add_selected_filters', payload: filterOption})
         filterListingsByTags()
+
+        dispatch({ type: 'toggle_checkbox', payload: {
+          hasSubfilter,
+          filterGroup,
+          option: filterOption,
+        }})
       }
+
+      // if(filters[filterGroup].options[filterOption].checked && tagCount[Object.keys(nestedSubFilters)[0]] !== undefined && tagCount[Object.keys(nestedSubFilters)[0]] < 3) {
+      //   dispatch({type: 'add_selected_filters', payload: filterOption})
+      //   filterListingsByTags()
+      // }
     }
   }
 

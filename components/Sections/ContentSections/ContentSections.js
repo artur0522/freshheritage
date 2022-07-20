@@ -19,6 +19,7 @@ import BrowseCategory from '@/components/Sections/BrowseCategory'
 import ArticleRow from '@/components/Sections/ArticleRow'
 import HalfVideoBlock from '@/components/Sections/HalfVideoBlock'
 import FeaturedText from '@/components/Sections/FeaturedText'
+import FiftyFiftyImage from '@/components/Sections/FiftyFiftyImage'
 
 const ContentSections = ({ sections }) => {
   if (!Array.isArray(sections)) {
@@ -69,6 +70,8 @@ const ContentSections = ({ sections }) => {
         return <HalfVideoBlock fields={section} key={section._key} />
       case 'featuredText':
         return <FeaturedText fields={section} key={section._key} />
+      case 'fiftyFiftyImageBlock':
+          return <FiftyFiftyImage fields={section} key={section._key} />
       default:
         return null
     }

@@ -1,0 +1,20 @@
+@import '@/styles/_shared.scss';
+
+.row {
+    display: flex;
+    flex-direction: column;
+    padding-top: 70px;
+
+    @include breakpoint-up('sm') {
+        flex-direction: row;
+    }
+
+    .col {
+        margin-bottom: 36px;
+
+        .img-wrap {
+            margin-bottom: 16px;
+            border-radius: 12px;
+        }
+    }
+}

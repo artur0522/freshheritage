@@ -38,7 +38,7 @@ const ValueProps = ({ fields }) => {
                         </div>
                         }
                         <div className={classes['props__col--text']}>
-                            {valueProp.propHeader && <h1 className="heading--prop">{valueProp.propHeader}</h1>}
+                            {valueProp.propHeader && <h1 className={valueProps.length > 4 ? 'heading--extra-props' : 'heading--prop'}>{valueProp.propHeader}</h1>}
                             {valueProp.propSubheader && <p className="secondary--body">{valueProp.propSubheader}</p>}
                         </div>
                     </div>

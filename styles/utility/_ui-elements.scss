@@ -184,3 +184,51 @@ a {
 .u-error {
   color: $error;
 }
+
+.fishermen-swiper {
+  &.swiper {
+    .swiper-button-prev {
+      left: 0;
+      top: 40%;
+      color: $sitkablue;
+      width: initial;
+      width: 50px;
+      height: 80px;
+      border-radius: 0px 100px 100px 0px;
+      background-color: #fff;
+
+      @include breakpoint-up('sm') {
+        height: 100px;
+        width: 80px;
+      }
+
+      &:after {
+        font-size: 34px;
+      }
+    }
+
+    .swiper-button-next {
+      right: 0;
+      top: 40%;
+      color: $sitkablue;
+      width: initial;
+      width: 50px;
+      height: 80px;
+      border-radius: 100px 0px 0px 100px;
+      background-color: #fff;
+
+      @include breakpoint-up('sm') {
+        height: 100px;
+        width: 80px;
+      }
+
+      &:after {
+        font-size: 34px;
+      }
+    }
+  }
+
+  .swiper-wrapper {
+    position: static;
+  }
+}

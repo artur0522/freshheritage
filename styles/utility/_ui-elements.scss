@@ -189,6 +189,7 @@ a {
   &.swiper {
     .swiper-button-prev {
       left: 0;
+      top: 40%;
       color: $sitkablue;
       width: initial;
       height: 100px;
@@ -203,6 +204,7 @@ a {
 
     .swiper-button-next {
       right: 0;
+      top: 40%;
       color: $sitkablue;
       width: initial;
       height: 100px;

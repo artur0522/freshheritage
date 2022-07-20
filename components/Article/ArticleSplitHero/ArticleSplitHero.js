@@ -45,7 +45,7 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
   const router = useRouter()
   const goBackNavigationSettings = getBackNavigationInfo(router)
 
-  const {prepTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, subheader, servings, tags, cookTime, youtubeVideoId, classStartDate, classEndDate } = fields
+  const {activeTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, subheader, servings, tags, cookTime, youtubeVideoId, classStartDate, classEndDate } = fields
 
   const hasVideo = youtubeVideoId ? true : false
   const heroImageRef = useRef()
@@ -138,10 +138,10 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
           </ul>}
 
           <ul className={classes['recipe-meta-details']}>
-            {prepTime &&
+            {activeTime &&
               <li>
                 <IconClock />
-                <div><b>Prep Time:</b><span>{prepTime}</span></div>
+                <div><b>Active Time:</b><span>{activeTime}</span></div>
               </li>
             }
             {cookTime &&

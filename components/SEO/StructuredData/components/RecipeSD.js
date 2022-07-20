@@ -7,7 +7,7 @@ const RecipeSD = ({ data }) => {
     return ''
   }
 
-  const {prepTime, cookTime} = data.fields.hero
+  const {activeTime, cookTime, totalTime} = data.fields.hero
   const { metaTitle = '', metaDesc = '', shareGraphic = undefined } = data.fields.seo
   const content = data.fields.content
   const { author = '' } = data.fields.sidebar
@@ -71,8 +71,9 @@ const RecipeSD = ({ data }) => {
       description={metaDesc}
       datePublished={datePublished}
       authorName={[author.name]}
-      prepTime={prepTime}
+      prepTime={activeTime}
       cookTime={cookTime}
+      totalTime={totalTime}
       keywords={keywords}
       category={category}
       cuisine={cuisine}

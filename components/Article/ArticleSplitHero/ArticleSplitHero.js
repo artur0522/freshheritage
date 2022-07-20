@@ -15,6 +15,7 @@ import { useHeaderContext } from '@/context/HeaderContext'
 import ArticleVideo from '../ArticleVideo'
 import { useRouter } from 'next/router'
 import ArticleCountdownTimer from './ArticleCountdownTimer'
+import { getBackNavigationInfo } from '@/utils/getBackNavigationInfo'
 
 /*
   Split Hero can be used for Article or Blog Listing Pages
@@ -32,18 +33,6 @@ import ArticleCountdownTimer from './ArticleCountdownTimer'
     - live-cooking-class -> same as default, but with a countdown timer
     - cooking-class -> same as default, but adds watch now button if valid
 */
-
-const getBackNavigationInfo = (router) => {
-
-  let urlPathArray = router.asPath.split('/').slice(0, -1)
-  const goBackUrl = urlPathArray.join('/')
-  const goBackTitle = urlPathArray[urlPathArray.length - 1].replace(/-/g, ' ')
-
-  return {
-    url: goBackUrl,
-    title: goBackTitle
-  }
-}
 
 const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobalSettings }, mainContentRef) => {
   const [mounted, setMounted] = useState(false)

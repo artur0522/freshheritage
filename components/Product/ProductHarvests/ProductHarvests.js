@@ -18,7 +18,7 @@ const ProductHarvests = ({product}) => {
           if (harvestContent) {
             promises.push({
               ...harvestContent[0].fields,
-              variantTitle: variant.content.title,
+              variantTitle: variant.content?.title,
             })
             return promises
           }

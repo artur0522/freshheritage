@@ -25,7 +25,7 @@ export async function getStaticProps() {
 
   const { fields } = page[0]
   const { step1 } = fields
-  const tiers = [...step1.tiers.map(tier => tier.product), 'intro-box'];
+  const tiers = [...step1.tiers.map(tier => tier.product), 'sitka-seafood-intro-box'];
 
   const variables = `{
     "filter": {
@@ -41,7 +41,7 @@ export async function getStaticProps() {
   tierOptions = tierOptions.products.map(tierOption => {
     return {
       ...tierOption,
-      markAsMostPopular: step1.tiers.some(tier => tier.markAsMostPopular && tierOption.content.handle === tier.product)
+      markAsMostPopular: step1.tiers.some(tier => tier.markAsMostPopular && tierOption.content?.handle === tier.product)
     }
   })
 

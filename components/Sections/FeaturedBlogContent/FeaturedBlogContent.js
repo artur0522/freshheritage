@@ -13,6 +13,8 @@ const FeaturedBlogContent = ({ fields }) => {
   const [selectedSwiper, setSelectedSwiper] = useState(tabs[0])
   const [mounted, setMounted] = useState(false)
 
+  console.log('featurded', fields)
+
   useEffect(() => {
     setMounted(true)
   }, [fields])

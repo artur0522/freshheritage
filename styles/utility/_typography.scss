@@ -339,6 +339,22 @@ button {
     }
   }
 
+  &--extra-props {
+    font-family: 'BebasNeue';
+    font-weight: 400;
+    font-size: fontsize(18px);
+    line-height: 100%;
+    letter-spacing: 0.02em;
+
+    @include breakpoint-up('md') {
+      font-size: fontsize(21px);
+    }
+
+    @include breakpoint-up('lg') {
+      font-size: fontsize(36px);
+    }
+  }
+
   &--article {
     font-size: fontsize(18px);
     line-height: 120%;

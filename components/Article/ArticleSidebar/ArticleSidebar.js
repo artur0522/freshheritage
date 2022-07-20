@@ -89,9 +89,19 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
               {relatedArticles.relatedArticleItems.map(item => {
 
                 const image = item.coverImage || item.hero.desktopBackgroundImage
+                const handle = item.handle?.current ? item.handle.current : item.handle;
+                const blog = item.fields ? item.fields.blog : item.blog
+
+                let url = `/${handle}`
+
+                if (item.blog) {
+                  const blogType = blog.blogType
+                  const blogCategory = blog.handle?.current ? blog.handle.current : blog.handle
+                  url = `/blogs/${blogType}/${blogCategory}/${handle}`
+                }
 
                 return <li key={item._id}>
-                  <Link href={item.handle.current}>
+                  <Link href={url}>
                     <a>
                       <div className={classes['article-related-item__image']}>
                         <Image
@@ -102,7 +112,7 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
                       </div>
                     </a>
                   </Link>
-                  <Link href={item.handle}>
+                  <Link href={url}>
                     <a>
                       <h4 className="heading--article">{item.title}</h4>
                     </a>

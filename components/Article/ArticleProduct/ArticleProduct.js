@@ -10,6 +10,10 @@ const ArticleProduct = ({product, parentClasses}) => {
   const PDPDrawerContext = usePDPDrawerContext()
   const { addItemToOrder } = useHeadlessCheckoutContext()
 
+  if (!product.content) {
+    return ''
+  }
+
   return (
     <div className={`${classes['article-product']} ${parentClasses['article-section']}`}>
       <div className={classes['article-product__card']}>

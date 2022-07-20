@@ -24,7 +24,7 @@ const PageSEO = ({ seo, images = [], product, collection }) => {
 
   if (product) {
     const { title, description } = product.content
-    const images = product.content.media.map(image => {
+    const images = product.content?.media.map(image => {
       return {
         url: image.src,
         alt: image.alt || title

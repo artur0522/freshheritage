@@ -18,7 +18,7 @@ const ProjectedHarvest = ({ fields }) => {
     useEffect(() => {
         // TABS BY MONTH
         const months = []
-        harvestList.forEach((harvest) => {
+        harvestList?.forEach((harvest) => {
             harvest.months.forEach((month) => {
                 if(month.fishArray.length > 0) {
                     months.push({...month, month: month.month.trim().toLowerCase()})

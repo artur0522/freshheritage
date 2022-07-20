@@ -46,7 +46,7 @@ const ChooseYourBox = ({props, tierOptions}) => {
           <div className={classes['choose-your-box__tiers']}>
             <ul className={classes['choose-your-box__tier-list']}>
               {tierOptions.map(tier => {
-                if (tier.content.handle === 'intro-box') {
+                if (tier.content?.handle === 'sitka-seafood-intro-box') {
                   return ''
                 }
 
@@ -57,17 +57,17 @@ const ChooseYourBox = ({props, tierOptions}) => {
                           <div className={classes['choose-your-box__tier-container']}>
                             <div className={classes['choose-your-box__tier-image']} >
                               <ResponsiveImage
-                                src={product.content.media[0].src}
-                                alt={product.content.media[0].altText || product.content.title}
+                                src={product.content?.media[0].src}
+                                alt={product.content?.media[0].altText || product.content?.title}
                                 priority={true} />
                             </div>
                             <div className={classes['choose-your-box__tier-details']}>
-                              <h2 className={`${classes['choose_your-box__tier-title']} h1`}>{product.content.title.replace('Subscription', '')}</h2>
+                              <h2 className={`${classes['choose_your-box__tier-title']} h1`}>{product.content?.title.replace('Subscription', '')}</h2>
                               <div className={`${classes['choose-your-box__tier-price-pounds']} secondary--body`}>
                                 <span>${firstVariant.price} / box</span>
                                 <span>{firstVariant.weight} lbs</span>
                               </div>
-                              {tier.content.handle === 'premium-seafood-subscription-box' &&
+                              {tier.content?.handle === 'premium-seafood-subscription-box' &&
                                 <div className={classes['input-group']}>
                                   <input id="shellfish_free" type="checkbox" ref={inputRef} />
                                   <label htmlFor="shellfish_free">Shellfish Free</label>

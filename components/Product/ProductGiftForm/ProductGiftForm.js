@@ -19,7 +19,7 @@ const ProductGiftForm = (props) => {
 
     const [, { addToCart }] = useCart()
     const [selectedOptions, setSelectedOptions] = useState(
-      selectedVariant.content.selectedOptions
+      selectedVariant.content?.selectedOptions
     )
     const [quantity, setQuantity] = useState(1)
     const { recipient_name, recipient_email, gift_message } = formFields

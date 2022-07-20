@@ -63,24 +63,25 @@ const HarvestCard = ({ fish, cardStyle }) => {
 
         {tabInfo[0]?._type === 'fishermen' &&
           <Swiper 
-            slidesPerView={1} 
-            modules={[FreeMode, Navigation, Thumbs]} 
-            thumbs={{ swiper: thumbsSwiper }} 
-            className={classes['harvest__card-swiper2']}>
-            {fish.fishermen.map((fishermen) => {
-              return (
-                <SwiperSlide key={`${fishermen._key}-${fishermen.title}`}> 
-                  <div className={classes['harvest__card-img']}>
-                    <Image
-                        src={fishermen.image.asset.url}
-                        alt={fishermen.title}
-                        width={858}
-                        height={572}
-                    />
-                  </div>
-                </SwiperSlide>
-              )
-            })}
+              navigation={true}
+              slidesPerView={1}
+              modules={[Navigation, Thumbs]} 
+              thumbs={{ swiper: thumbsSwiper }} 
+              className="fishermen-swiper">
+              {fish.fishermen.map((fishermen) => {
+                return (
+                  <SwiperSlide key={`${fishermen._key}-${fishermen.title}`}> 
+                    <div className={classes['harvest__card-img']}>
+                      <Image
+                          src={fishermen.image.asset.url}
+                          alt={fishermen.title}
+                          width={858}
+                          height={572}
+                      />
+                    </div>
+                  </SwiperSlide>
+                )
+              })}
           </Swiper>}
 
         <div className={classes['harvest__card-inner']}>
@@ -118,8 +119,10 @@ const HarvestCard = ({ fish, cardStyle }) => {
             <Swiper 
               slidesPerView={1}
               onSwiper={setThumbsSwiper} 
-              modules={[FreeMode, Navigation, Thumbs]} 
-              className={classes['harvest__card-swiper1']}>
+              freeMode={true}
+              watchSlidesProgress={true}
+              modules={[Navigation, Thumbs]} 
+              className={classes['harvest__card-swiper']}>
                 {fish.fishermen.map((fishermen) => {
                   return (
                     <SwiperSlide key={`${fishermen._key}--${fishermen.title}`}> 

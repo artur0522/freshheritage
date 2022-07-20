@@ -65,6 +65,7 @@ const HarvestCard = ({ fish, cardStyle }) => {
           <Swiper 
               navigation={true}
               slidesPerView={1}
+              onSwiper={setThumbsSwiper} 
               modules={[Navigation, Thumbs]} 
               thumbs={{ swiper: thumbsSwiper }} 
               className="fishermen-swiper">
@@ -119,8 +120,8 @@ const HarvestCard = ({ fish, cardStyle }) => {
             <Swiper 
               slidesPerView={1}
               onSwiper={setThumbsSwiper} 
-              freeMode={true}
               watchSlidesProgress={true}
+              allowTouchMove={false}
               modules={[Navigation, Thumbs]} 
               className={classes['harvest__card-swiper']}>
                 {fish.fishermen.map((fishermen) => {

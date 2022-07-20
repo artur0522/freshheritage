@@ -5,6 +5,7 @@ import classes from './ArticleContent.module.scss'
 import ArticleProduct from '../ArticleProduct'
 import ArticleSocialSharing from '../ArticleSocialSharing'
 import Link from 'next/link'
+import Image from 'next/image'
 import IconCaretThin from '@/svgs/caret-thin.svg'
 import IconKnife from '@/svgs/knife.svg'
 import IconPan from '@/svgs/pan.svg'
@@ -37,18 +38,19 @@ const StandardContent = forwardRef(({fields, product}, ref) => {
     marks: {
       arrowLink: ({ children, value }) => (<Link href={value.href || ''}>
         <a className={classes['article-section__arrow-link']}>{children}<IconCaretThin /></a>
-      </Link>),
-      iconWithText: ({children, value}) => {
-        return (<span className={classes['article-section__cooking-tool']}>
-          <span className={classes['article-section__cooking-tool-icon']}>{getIcon(value.icon)}</span>
-          <span className={classes['article-section__cooking-tool-text']}>{children}</span>
-        </span>)
-      }
+      </Link>)
     },
     types: {
       image: ({value}) => (<div className={classes['article-section__image']}>
         <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />
       </div>),
+      iconWithTextBlock: ({value}) => {
+        const iconUrl = value.icon?.image.asset.url
+        return (<p className={classes['article-section__cooking-tool']}>
+          <span className={classes['article-section__cooking-tool-icon']}><Image src={iconUrl} layout="fill" alt={value.text} /></span>
+          <span className={classes['article-section__cooking-tool-text']}>{value.text}</span>
+        </p>)
+      },
       productBlock: () => (
         <ArticleProduct product={product} parentClasses={classes} />
       ),

@@ -47,7 +47,7 @@ const ArticleCard = ({ article, reverse, responsiveImage = false }) => {
                             <PlayIcon />
                         </div>}
                     </div>}
-
+                    
                     <div className={classes['text']}>
                         {article.title && <h4 className='heading--article'>{article.title}</h4>}
                         {articleCardCtaText && <p className="recipe--time">

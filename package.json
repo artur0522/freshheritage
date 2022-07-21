@@ -18,6 +18,8 @@
     "@nacelle/shopify-checkout": "^0.0.10",
     "@nacelle/storefront-sdk": "^1.0.3",
     "@portabletext/react": "^1.0.6",
+    "@sanity/client": "^3.3.2",
+    "@sanity/image-url": "^1.0.1",
     "@svgr/webpack": "^6.2.1",
     "axios": "^0.27.2",
     "calendar-link": "^2.2.0",

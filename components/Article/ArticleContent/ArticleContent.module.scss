@@ -145,10 +145,11 @@
   }
   .article-ingredient__btn-link {
     height: 44px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     padding-left: 20px;
     padding-right: 20px;
+    width: auto;
   }
   .article-section__arrow-link {
     text-decoration: none;

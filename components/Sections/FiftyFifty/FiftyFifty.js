@@ -6,7 +6,9 @@ import classes from './FiftyFifty.module.scss'
 
 const FiftyFifty = ({ fields }) => {
   let sectionImage
-  const { alt } = fields
+  const { alt, subheaderFont } = fields
+
+  console.log('fiftfirfer', fields)
 
   // Check if image exists
   if (fields.image) {
@@ -23,12 +25,22 @@ const FiftyFifty = ({ fields }) => {
             </div>}
             <div className={classes['fifty-fifty__text']}>
                 {fields.header && <h1>{fields.header}</h1>}
-                {fields.subheader && <h2>{fields.subheader}</h2>}
-                {fields.ctaUrl && <Link href={`${fields.ctaUrl}`}>
-                    <a className={`${classes['btn']} btn salmon no-underline text-align--center`}>
-                    {fields.ctaText}
-                    </a>
-                </Link>}
+                {fields.subheader && subheaderFont === 'header-font' && <h2>{fields.subheader}</h2>}
+                {fields.subheader && subheaderFont === 'body-font' && <p>{fields.subheader}</p>}
+
+                <div className={classes['links']}>
+                  {fields.ctaUrl && <Link href={`${fields.ctaUrl}`}>
+                      <a className={`${classes['btn']} btn salmon no-underline text-align--center`}>
+                      {fields.ctaText}
+                      </a>
+                  </Link>}
+
+                  {fields.ctaUrl2 && <Link href={`${fields.ctaUrl2}`}>
+                      <a className={`${classes['btn']} btn salmon no-underline text-align--center`}>
+                      {fields.ctaText2}
+                      </a>
+                  </Link>}
+                </div>
             </div>
         </div>
     </div>

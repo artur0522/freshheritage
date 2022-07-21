@@ -57,7 +57,8 @@
             max-width: 716px;
         }
 
-        h2 {
+        h2,
+        p {
             margin-top: 12px;
             margin-bottom: 24px;
 
@@ -66,9 +67,18 @@
             }
         }
 
+
         .btn {
             width: 243px;
             min-width: 0;
+        }
+
+        .links {
+            display: flex;
+
+            & a:first-child {
+                margin-right: 36px;
+            }
         }
     }
 

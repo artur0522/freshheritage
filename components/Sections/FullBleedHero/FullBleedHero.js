@@ -46,17 +46,17 @@ const FullBleedHero = ({ fields }) => {
         </div>
       </div>
 
-      {isMobile && mounted && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--mbl']}`}>
+      {isMobile && mounted && mobileBackgroundImage && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--mbl']}`}>
         {heroStyle === 'hero--center-transparent' ? 
-          <Image className={classes.mbl__img} src={mobileBackgroundImage.asset.url} layout="fill" alt={alt} /> : 
-          <ResponsiveImage className={classes.mbl__img} src={mobileBackgroundImage.asset.url} layout="fill" alt={alt} />
+          <Image className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} layout="fill" alt={alt} /> : 
+          <ResponsiveImage className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} layout="fill" alt={alt} />
         }
       </div>}
 
-      {isDesktop && mounted && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--dsktp']}`}>
+      {isDesktop && mounted && desktopBackgroundImage && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--dsktp']}`}>
         {heroStyle === 'hero--center-transparent' ? 
-          <Image className={classes.mbl__img} src={desktopBackgroundImage.asset.url} layout="fill" alt={alt} /> : 
-          <ResponsiveImage className={classes.mbl__img} src={desktopBackgroundImage.asset.url} layout="fill" alt={alt} />
+          <Image className={classes.mbl__img} src={desktopBackgroundImage?.asset.url} layout="fill" alt={alt} /> : 
+          <ResponsiveImage className={classes.mbl__img} src={desktopBackgroundImage?.asset.url} layout="fill" alt={alt} />
         }
       </div>}
     </div>

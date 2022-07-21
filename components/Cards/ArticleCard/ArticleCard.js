@@ -40,8 +40,8 @@ const ArticleCard = ({ article, reverse, responsiveImage = false }) => {
                 <div className={`${classes['slider__slide']} ${reverse ? classes['row'] : ''}`}>
                     {desktopBackgroundImage.asset.url && <div className={classes['image-wrap']}>
                         {responsiveImage &&  !desktopBackgroundImage?.crop && <ResponsiveImage alt={article.title} src={desktopBackgroundImage.asset.url} />}
-                        {responsiveImage && desktopBackgroundImage?.crop && <ResponsiveImage alt={article.title} src={urlFor(desktopBackgroundImage.asset.url).width(100).height(300).url()} />}
-                        {!responsiveImage && <Image src={desktopBackgroundImage?.asset.url} alt={article.title} layout="fill" objectFit="cover" />}    
+                        {responsiveImage && desktopBackgroundImage?.crop && <ResponsiveImage alt={article.title} src={urlFor(desktopBackgroundImage.asset.url).width(345).height(384).focalPoint(desktopBackgroundImage.hotspot.x, desktopBackgroundImage.hotspot.y).crop('focalpoint').fit('crop').url()} />}
+                        {!responsiveImage && <Image src={desktopBackgroundImage?.asset.url} alt={article.title} layout="fill" objectFit="cover" />}
                         {foundTag && <div className={classes['play']}>
                             <PlayIcon />
                         </div>}

@@ -15,8 +15,6 @@ const ArticleCard = ({ article, reverse, responsiveImage = false }) => {
     const { desktopBackgroundImage } = article.fields ? article.fields.hero : article.hero
     const {articleCardCtaText} = article.fields ? article.fields : {}
 
-    console.log(article)
-
     const builder = imageUrlBuilder(sanityClient)
 
     function urlFor(source) {
@@ -28,7 +26,7 @@ const ArticleCard = ({ article, reverse, responsiveImage = false }) => {
 
     let url = `/${articleHandle}`
 
-    if (blog) {
+    if(blog) {
         const blogType = blog.blogType
         const blogCategory = blog.handle?.current ? blog.handle.current : blog.handle
         url = `/blogs/${blogType}/${blogCategory}/${articleHandle}`
@@ -47,7 +45,7 @@ const ArticleCard = ({ article, reverse, responsiveImage = false }) => {
                             <PlayIcon />
                         </div>}
                     </div>}
-                    
+
                     <div className={classes['text']}>
                         {article.title && <h4 className='heading--article'>{article.title}</h4>}
                         {articleCardCtaText && <p className="recipe--time">

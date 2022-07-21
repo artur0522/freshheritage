@@ -11,7 +11,7 @@ const FullBleedHero = ({ fields }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
 
-  let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage, alt, topMargin, bottomMargin } = fields
+  let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage, imageBrightness, alt, topMargin, bottomMargin } = fields
 
   useEffect(() => {
     setMounted(true)
@@ -24,7 +24,11 @@ const FullBleedHero = ({ fields }) => {
   } else {
     btnColor = 'salmon'
   }
-  
+
+  const imageInlineStyles = {
+    'filter': `brightness(${imageBrightness ? imageBrightness : 100}%)`
+  }
+
   return (
     <div className={`${classes['hero']} ${classes[heroStyle]} ${classes[textColor]} ${topMargin ? classes['top-margin'] : ''} ${bottomMargin ? classes['bottom-margin'] : ''}`}>
       <div className={`${classes['hero__text']}`}>
@@ -47,16 +51,16 @@ const FullBleedHero = ({ fields }) => {
       </div>
 
       {isMobile && mounted && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--mbl']}`}>
-        {heroStyle === 'hero--center-transparent' ? 
-          <Image className={classes.mbl__img} src={mobileBackgroundImage.asset.url} layout="fill" alt={alt} /> : 
-          <ResponsiveImage className={classes.mbl__img} src={mobileBackgroundImage.asset.url} layout="fill" alt={alt} />
+        {heroStyle === 'hero--center-transparent' ?
+          <Image className={classes.mbl__img} src={mobileBackgroundImage.asset.url} layout="fill" alt={alt} style={imageInlineStyles} /> :
+          <ResponsiveImage className={classes.mbl__img} src={mobileBackgroundImage.asset.url} layout="fill" alt={alt} style={imageInlineStyles} />
         }
       </div>}
 
       {isDesktop && mounted && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--dsktp']}`}>
-        {heroStyle === 'hero--center-transparent' ? 
-          <Image className={classes.mbl__img} src={desktopBackgroundImage.asset.url} layout="fill" alt={alt} /> : 
-          <ResponsiveImage className={classes.mbl__img} src={desktopBackgroundImage.asset.url} layout="fill" alt={alt} />
+        {heroStyle === 'hero--center-transparent' ?
+          <Image className={classes.mbl__img} src={desktopBackgroundImage.asset.url} layout="fill" alt={alt} style={imageInlineStyles} /> :
+          <ResponsiveImage className={classes.mbl__img} src={desktopBackgroundImage.asset.url} layout="fill" alt={alt} style={imageInlineStyles} />
         }
       </div>}
     </div>

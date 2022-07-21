@@ -25,6 +25,8 @@ const RecipeSD = ({ data }) => {
         images.push(image)
       }
     })
+  } else {
+    return ''
   }
 
   let currentContentSectionHeading = ''
@@ -55,7 +57,7 @@ const RecipeSD = ({ data }) => {
     const value = contentObj['directions'][key]
     return {
       name: key,
-      text: value.join('')
+      text: Array.isArray(value) > 1 ? value.join('') : value
     }
   })
 

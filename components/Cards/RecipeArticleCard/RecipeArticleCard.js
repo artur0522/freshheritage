@@ -9,7 +9,7 @@ import BookmarkIcon from '@/svgs/bookmark.svg'
 import classes from './RecipeArticleCard.module.scss'
 
 const RecipeArticleCard = ({ article, responsiveImage = false }) => {
-    const { desktopBackgroundImage, activeTime, cookTime } = article.fields ? article.fields.hero : article.hero
+    const { desktopBackgroundImage, activeTime, totalTime } = article.fields ? article.fields.hero : article.hero
 
     const articleHandle = article.handle?.current ? article.handle.current : article.handle;
     const blog = article.fields ? article.fields.blog : article.blog
@@ -37,7 +37,7 @@ const RecipeArticleCard = ({ article, responsiveImage = false }) => {
                 </div>}
 
                 <div className={classes['article__card-content']}>
-                    {activeTime && <span className="recipe--time">{activeTime} active time &#8226; {cookTime} cook time</span>}
+                    {activeTime && <span className="recipe--time">{activeTime} active time &#8226; {totalTime} total time</span>}
                     {article.title && <h4 className='heading--article'>{article.title}</h4>}
                 </div>
             </div>

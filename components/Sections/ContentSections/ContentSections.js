@@ -20,6 +20,7 @@ import ArticleRow from '@/components/Sections/ArticleRow'
 import HalfVideoBlock from '@/components/Sections/HalfVideoBlock'
 import FeaturedText from '@/components/Sections/FeaturedText'
 import FiftyFiftyImage from '@/components/Sections/FiftyFiftyImage'
+import BoldHeaderText from '@/components/Sections/BoldHeaderText'
 
 const ContentSections = ({ sections }) => {
   if (!Array.isArray(sections)) {
@@ -71,7 +72,9 @@ const ContentSections = ({ sections }) => {
       case 'featuredText':
         return <FeaturedText fields={section} key={section._key} />
       case 'fiftyFiftyImageBlock':
-          return <FiftyFiftyImage fields={section} key={section._key} />
+        return <FiftyFiftyImage fields={section} key={section._key} />
+      case 'boldHeaderText':
+        return <BoldHeaderText fields={section} key={section._key} />
       default:
         return null
     }

@@ -7,10 +7,15 @@
 
     @include breakpoint-up('sm') {
         flex-direction: row;
+        justify-content: space-between;
     }
 
     .col {
         margin-bottom: 36px;
+
+        @include breakpoint-up('sm') {
+            width: 49%;
+        }
 
         .img-wrap {
             margin-bottom: 16px;

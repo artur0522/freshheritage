@@ -18,6 +18,7 @@ import EmailSignup from '../../EmailSignup'
 import BrowseCategory from '@/components/Sections/BrowseCategory'
 import ArticleRow from '@/components/Sections/ArticleRow'
 import HalfVideoBlock from '@/components/Sections/HalfVideoBlock'
+import FeaturedFishCarousel from '../FeaturedFishCarousel'
 
 const ContentSections = ({ sections }) => {
   if (!Array.isArray(sections)) {
@@ -66,6 +67,8 @@ const ContentSections = ({ sections }) => {
         return <ArticleRow fields={section} key={section._key} />
       case 'halfVideoBlock':
         return <HalfVideoBlock fields={section} key={section._key} />
+      case 'featuredFishCarousel':
+        return <FeaturedFishCarousel fields={section} key={section._key} />
       default:
         return null
     }

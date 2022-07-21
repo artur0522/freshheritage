@@ -76,6 +76,15 @@
     }
   }
 
+  &.pureWhite {
+    background-color: $pureWhite;
+    color: $sitkablue;
+    &:hover {
+      background: $sitkablue;
+      color: $pureWhite;
+    }
+  }
+
   &--only-mobile {
     border: none;
     padding: 13px 0;

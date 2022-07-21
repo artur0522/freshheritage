@@ -7,7 +7,7 @@ const RecipeSD = ({ data }) => {
     return ''
   }
 
-  const {prepTime, cookTime} = data.fields.hero
+  const {activeTime, cookTime, totalTime} = data.fields.hero
   const { metaTitle = '', metaDesc = '', shareGraphic = undefined } = data.fields.seo
   const content = data.fields.content
   const { author = '' } = data.fields.sidebar
@@ -25,6 +25,8 @@ const RecipeSD = ({ data }) => {
         images.push(image)
       }
     })
+  } else {
+    return ''
   }
 
   let currentContentSectionHeading = ''
@@ -55,7 +57,7 @@ const RecipeSD = ({ data }) => {
     const value = contentObj['directions'][key]
     return {
       name: key,
-      text: value.join('')
+      text: Array.isArray(value) > 1 ? value.join('') : value
     }
   })
 
@@ -71,8 +73,9 @@ const RecipeSD = ({ data }) => {
       description={metaDesc}
       datePublished={datePublished}
       authorName={[author.name]}
-      prepTime={prepTime}
+      prepTime={activeTime}
       cookTime={cookTime}
+      totalTime={totalTime}
       keywords={keywords}
       category={category}
       cuisine={cuisine}

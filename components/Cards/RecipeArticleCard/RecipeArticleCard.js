@@ -25,18 +25,21 @@ const RecipeArticleCard = ({ article, responsiveImage = false }) => {
     return (
         <Link href={url} passHref>
             <div className={`${classes['article__card']} ${!responsiveImage ? classes['fixed'] : ''}`}>
-                {desktopBackgroundImage.asset.url && <div className={classes['article__card-img']}>
-                    {responsiveImage ? <ResponsiveImage
+                    {desktopBackgroundImage.asset.url && !desktopBackgroundImage?.crop && <div className={classes['article__card-img']}>
+
+                    {responsiveImage && <ResponsiveImage
                         src={desktopBackgroundImage.asset.url}
                         alt={article.title}
-                    /> :
-                    <Image
+                    />}
+
+                    {responsiveImage && desktopBackgroundImage?.crop && <ResponsiveImage alt={article.title} src={urlFor(desktopBackgroundImage.asset.url).width(345).height(384).focalPoint(desktopBackgroundImage.hotspot.x, desktopBackgroundImage.hotspot.y).crop('focalpoint').fit('crop').url()} />}
+                    
+                    {desktopBackgroundImage.asset.url && !responsive && <Image
                         src={desktopBackgroundImage.asset.url}
                         alt={article.title}
                         layout="fill"
                         objectFit="cover"
-                    />
-                    }
+                    />}
                     {/* <div className={classes['bookmark']}>
                         <BookmarkIcon />
                     </div> */}

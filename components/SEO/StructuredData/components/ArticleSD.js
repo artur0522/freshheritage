@@ -12,13 +12,14 @@ const ArticleSD = ({data}) => {
 
   const url = `https://${process.env.NEXT_PUBLIC_MYSHOPIFY_DOMAIN}/${router.asPath}`
   const { metaTitle = '', metaDesc = '', shareGraphic = undefined } = data.fields.seo
-  const content = data.fields.content
-  const { author = '', hosts = '' } = data.fields.sidebar
+  const content = data.fields?.content
+  const author = data.fields?.sidebar?.author
+  const hosts = data.fields?.sidebar?.hosts
   let datePublished = moment.unix(data.createdAt).format('MM/DD/YYYY')
   const dateModified = moment.unix(data.updatedAt).format('MM/DD/YYYY')
   const images = []
 
-  if (data.fields.publishedDate) {
+  if (data.fields?.publishedDate) {
     datePublished = moment(data.fields.publishedDate).format('MM/DD/YYYY')
   }
 
@@ -26,7 +27,7 @@ const ArticleSD = ({data}) => {
     images.push(shareGraphic.asset.url)
   }
 
-  if (data.fields.hero?.desktopBackgroundImage) {
+  if (data.fields?.hero?.desktopBackgroundImage) {
     images.push(data.fields.hero.desktopBackgroundImage.asset.url)
   }
 
@@ -39,7 +40,13 @@ const ArticleSD = ({data}) => {
     })
   }
 
-  const authors = hosts ? hosts.hostList.map(host => host.name) : [author.name]
+  let authors = []
+
+  if (hosts) {
+    authors = hosts.hostList.map(host => host.name)
+  } else if (author) {
+    authors = [author.name]
+  }
 
   return (
     <ArticleJsonLd

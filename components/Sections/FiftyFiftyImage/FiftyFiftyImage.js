@@ -1,5 +1,4 @@
 import ResponsiveImage from '@/components/ResponsiveImage'
-import Link from 'next/link'
 
 import classes from "./FiftyFiftyImage.module.scss"
 

@@ -1,0 +1,27 @@
+@import '@/styles/_shared.scss';
+
+.row {
+    .col {
+        margin-bottom: 36px;
+        width: 100%;
+
+        &.large-image {
+            @include breakpoint-up('sm') {
+                width: 65.83%;
+                max-width: 1106px;
+            }
+        }
+
+        &.small-image {
+            @include breakpoint-up('sm') {
+                width: 48.92%;
+                max-width: 822px;
+            }
+        }
+
+        .img-wrap {
+            margin-bottom: 16px;
+            border-radius: 12px;
+        }
+    }
+}

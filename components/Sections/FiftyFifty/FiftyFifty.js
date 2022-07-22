@@ -6,7 +6,7 @@ import classes from './FiftyFifty.module.scss'
 
 const FiftyFifty = ({ fields }) => {
   let sectionImage
-  const { alt, subheaderFont } = fields
+  const { alt, headerSize, subheaderSize } = fields
 
   console.log('fiftfirfer', fields)
 
@@ -24,9 +24,10 @@ const FiftyFifty = ({ fields }) => {
                 {sectionImage}
             </div>}
             <div className={classes['fifty-fifty__text']}>
-                {fields.header && <h1>{fields.header}</h1>}
-                {fields.subheader && subheaderFont === 'header-font' && <h2>{fields.subheader}</h2>}
-                {fields.subheader && subheaderFont === 'body-font' && <p>{fields.subheader}</p>}
+                {fields.header && headerSize === 'large-header' && <h1>{fields.header}</h1>}
+                {fields.header && headerSize === 'small-header' && <h4>{fields.header}</h4>}
+                {fields.subheader && subheaderSize === 'large-subheader' && <h2>{fields.subheader}</h2>}
+                {fields.subheader && subheaderSize === 'small-subheader' && <p>{fields.subheader}</p>}
 
                 <div className={classes['links']}>
                   {fields.ctaUrl && <Link href={`${fields.ctaUrl}`}>

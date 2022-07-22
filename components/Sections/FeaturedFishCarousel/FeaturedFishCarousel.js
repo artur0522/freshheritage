@@ -37,11 +37,11 @@ const FeaturedFishCarousel = ({fields}) => {
   return (
     <div className={classes['featured-fish-carousel']}>
       <div className={`${classes['featured-fish-carousel__header']} container`}>
-        <h2 className="h1">{header}</h2>
-        <p>{subheader}</p>
-        {featuredFishes.length >= 4 && <div className={classes['feature-fish-carousel__nav-btns']}>
-          <button className={classes['feature-fish-carousel__nav-btn']} onClick={handlePrev} ref={prevSlideBtnRef}><IconArrowLeft /></button>
-          <button className={classes['feature-fish-carousel__nav-btn']} onClick={handleNext} ref={nextSlideBtnRef}><IconArrowLeft /></button>
+        {header && <h2 className="h1">{header}</h2>}
+        {subheader && <p>{subheader}</p>}
+        {featuredFishes.length >= 4 && <div className={classes['featured-fish-carousel__nav-btns']}>
+          <button className={classes['featured-fish-carousel__nav-btn']} onClick={handlePrev} ref={prevSlideBtnRef}><IconArrowLeft /></button>
+          <button className={classes['featured-fish-carousel__nav-btn']} onClick={handleNext} ref={nextSlideBtnRef}><IconArrowLeft /></button>
         </div>}
       </div>
       {featuredFishes.length > 0 &&
@@ -73,21 +73,26 @@ const FeaturedFishCarousel = ({fields}) => {
             {featuredFishes.map(item => {
 
               const { header, peakSeason, image } = item
-              const cropImageUrl = urlFor(image).width(438).height(600).focalPoint(image.hotspot.x, image.hotspot.y).crop('focalpoint').fit('crop').url()
+
+              if (!image?.asset) {
+                return ''
+              }
+
+              const cropImageUrl = image ? urlFor(image).width(438).height(600).focalPoint(image.hotspot.x, image.hotspot.y).crop('focalpoint').fit('crop').url() : undefined
 
               const imageInlineStyles = {
                 'filter': `brightness(${image?.imageBrightness ? image.imageBrightness : 100}%)`
               }
 
               return <SwiperSlide className={classes['featured-fish-carousel__item']} key={item._id}>
-                <div className={classes['featured-fish-carousel__item-image']}>
-                  <ResponsiveImage src={cropImageUrl} alt={image.asset.alt || ''}  style={imageInlineStyles} />
-                </div>
-                <div className={classes['feature-fish-carousel__content']}>
-                  <h2 className="h4">{header}</h2>
-                  <h3 className="h3">{peakSeason}</h3>
+                {cropImageUrl && <div className={classes['featured-fish-carousel__item-image']}>
+                  <ResponsiveImage src={cropImageUrl} alt={image.alt || ''}  style={imageInlineStyles} />
+                </div>}
+                <div className={classes['featured-fish-carousel__content']}>
+                  {header && <h2 className="h4">{header}</h2>}
+                  {peakSeason && <h3 className="h3">{peakSeason}</h3>}
                   <button onClick={() => openDrawer({ fields: item})}
-                    className={`${classes['feature-fish-carousel__content-btn']} btn pureWhite`}>Learn More</button>
+                    className={`${classes['featured-fish-carousel__content-btn']} btn pureWhite`}>Learn More</button>
                 </div>
               </SwiperSlide>
             })}

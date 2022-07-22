@@ -14,7 +14,7 @@
   }
 }
 
-.feature-fish-carousel__nav-btns {
+.featured-fish-carousel__nav-btns {
   display: flex;
   position: absolute;
   right: 0;
@@ -82,7 +82,7 @@
   }
 }
 
-.feature-fish-carousel__content {
+.featured-fish-carousel__content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -101,7 +101,7 @@
   h3 {
     margin-bottom: 24px;
   }
-  .feature-fish-carousel__content-btn {
+  .featured-fish-carousel__content-btn {
     max-width: 144px;
     min-width: auto;
   }

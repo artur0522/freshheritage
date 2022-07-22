@@ -51,13 +51,13 @@ const ArticleCookingClassHero = ({fields}) => {
           {hero?.mobileBackgroundImage && isMobile && mounted &&
             <ResponsiveImage
               src={hero?.mobileBackgroundImage.asset.url}
-              alt={hero?.mobileBackgroundImage.asset.alt || ''}
+              alt={hero?.mobileBackgroundImage.alt || ''}
             />}
           {hero?.desktopBackgroundImage && isDesktop && mounted &&
             <Image
               src={hero?.desktopBackgroundImage.asset.url}
               layout="fill"
-              alt={hero?.desktopBackgroundImage.asset.alt || ''}
+              alt={hero?.desktopBackgroundImage.alt || ''}
             />
           }
         </div>

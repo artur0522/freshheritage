@@ -45,7 +45,7 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
             <div className={classes['article-author__image']}>
               <ResponsiveImage
                 src={author.image.asset.url}
-                alt={author.image.asset.alt || ''}
+                alt={author.image.alt || ''}
               />
             </div>
             <h2>{author.name}</h2>
@@ -65,7 +65,7 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
                 <div className={classes['article-author__image']}>
                   <ResponsiveImage
                     src={author.image.asset.url}
-                    alt={author.image.asset.alt || ''}
+                    alt={author.image.alt || ''}
                   />
                 </div>
                 <h2>{author.name}</h2>
@@ -111,7 +111,7 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
                         <Image
                           src={image.asset.url}
                           layout="fill"
-                          alt={image.asset.alt || ''}
+                          alt={image.alt || ''}
                         />
                       </div>
                     </a>

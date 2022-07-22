@@ -47,7 +47,7 @@ const KnowYourFishDrawer = ({fields}) => {
                 <IconClose />
             </button>
             <div className={classes['know-your-fish']}>
-              <h2 className="h1">{header}</h2>
+              {header && <h2 className="h1">{header}</h2>}
               {peakSeason && <div className={classes['know-your-fish__detail-item']}>
                 <h3><b>Peak Season:</b></h3>
                 <h6>{peakSeason}</h6>

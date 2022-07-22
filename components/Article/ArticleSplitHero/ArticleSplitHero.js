@@ -177,13 +177,13 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
             <ResponsiveImage
               src={mobileBackgroundImage.asset.url}
               layout="fill"
-              alt={mobileBackgroundImage.asset.alt || ''}
+              alt={mobileBackgroundImage.alt || ''}
             />}
           {desktopBackgroundImage && isDesktop && mounted &&
             <Image
               src={desktopBackgroundImage.asset.url}
               layout="fill"
-              alt={desktopBackgroundImage.asset.alt || ''}
+              alt={desktopBackgroundImage.alt || ''}
             />
           }
           {youtubeVideoId &&

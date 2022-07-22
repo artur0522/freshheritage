@@ -22,6 +22,7 @@ import FeaturedText from '@/components/Sections/FeaturedText'
 import FiftyFiftyImage from '@/components/Sections/FiftyFiftyImage'
 import BoldHeaderText from '@/components/Sections/BoldHeaderText'
 import ImageWithText from '@/components/Sections/ImageWithText'
+import ImageTextColumns from '../ImageTextColumns'
 
 const ContentSections = ({ sections }) => {
   if (!Array.isArray(sections)) {
@@ -78,6 +79,8 @@ const ContentSections = ({ sections }) => {
         return <BoldHeaderText fields={section} key={section._key} />
       case 'imageWithText':
         return <ImageWithText fields={section} key={section._key} />
+      case 'imageTextColumns':
+        return <ImageTextColumns fields={section} key={section._key} />
       default:
         return null
     }

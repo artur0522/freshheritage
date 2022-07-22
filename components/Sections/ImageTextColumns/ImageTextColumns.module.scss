@@ -1,0 +1,50 @@
+@import '@/styles/_shared.scss';
+
+.row {
+    display: flex;
+    justify-content: space-between;
+
+    .col {
+        width: 25.23%;
+    }
+
+    .text-col {
+
+        &.quarter-width {
+            @include breakpoint-up('sm') {
+                width: 25.23%;
+            }
+        }
+
+        &.half-width {
+            @include breakpoint-up('sm') {
+                width: 42.20%;
+                max-width: 709px;
+            }
+        }
+
+        h2,
+        p {
+            margin-top: 12px;
+            margin-bottom: 24px;
+
+            @include breakpoint-up('sm') {
+                margin-bottom: 48px;
+            }
+        }
+
+
+        .btn {
+            width: 243px;
+            min-width: 0;
+        }
+
+        .links {
+            display: flex;
+
+            & a:first-child {
+                margin-right: 36px;
+            }
+        }
+    }
+}

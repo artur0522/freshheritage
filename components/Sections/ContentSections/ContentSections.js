@@ -1,6 +1,7 @@
 import React from 'react'
 
 import CurrentHarvest from '../../Harvest/CurrentHarvest'
+import StaticHarvest from '@/components/Harvest/StaticHarvest'
 import ProjectedHarvestDrawer from '../../Harvest/ProjectedHarvestDrawer'
 import ProjectedHarvest from '../../Harvest/ProjectedHarvest'
 import GlobalSampler from '../../Harvest/GlobalSampler'
@@ -49,6 +50,8 @@ const ContentSections = ({ sections }) => {
         return <CurrentHarvest fields={section} key={section._key} />
       case 'currentMonthHarvest':
         return <CurrentHarvest fields={section} key={section._key} />
+      case 'staticHarvest':
+          return <StaticHarvest fields={section} key={section._key} />
       case 'projectedHarvest':
         return <ProjectedHarvest fields={section} key={section._key} />
       case 'globalSampler':

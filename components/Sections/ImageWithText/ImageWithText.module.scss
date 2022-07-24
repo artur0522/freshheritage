@@ -21,7 +21,10 @@
 
         .img-wrap {
             margin-bottom: 16px;
-            border-radius: 12px;
+
+            img {
+                border-radius: 12px;
+            }
         }
     }
 }

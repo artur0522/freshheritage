@@ -8,8 +8,8 @@ const ImageTextColumns = ({fields}) => {
     console.log('imagecols', fields)
     const {alt, columnCtaText, columnCtaText2, columnCtaUrl, columnCtaUrl2, columnText, columnText2, image, imageDescription} = fields
     return (
-        <div className={`${classes['row']} container`}>
-            {image && <div className={classes['col']}>
+        <div className={`${classes['row']} ${columnCtaText2 ? 'flex--justify-between' : ''} container`}>
+            {image && <div className={`${classes['col']} ${columnCtaText2 ? classes['quarter-width'] : ''} ${!columnCtaText2 ? classes['margin-right'] : ''}`}>
                 <div className={classes['img-wrap']}>
                     {image && <ResponsiveImage
                         src={image?.asset.url}
@@ -31,7 +31,7 @@ const ImageTextColumns = ({fields}) => {
                 </div>
             </div>}
 
-            {columnText && columnText2 && <div className={`${classes['text-col']} ${columnText2 ? classes['quarter-width'] : classes['half-width']}`}>
+            {columnText && columnText2 && <div className={`${classes['text-col']} ${columnText2 ? classes['quarter-width'] : ''}`}>
                 {columnText2 && <p>{columnText2}</p>}
 
                 <div className={classes['links']}>

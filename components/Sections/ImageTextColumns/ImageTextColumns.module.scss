@@ -2,10 +2,26 @@
 
 .row {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
 
     .col {
-        width: 25.23%;
+        width: 31.84%;
+
+        .img-wrap {
+            margin-bottom: 25px;
+        }
+
+        &.quarter-width {
+            width: 25.23%;
+        }
+
+        &.margin-right {
+            margin-right: 11%;
+        }
+
+        img {
+            border-radius: 12px;
+        }
     }
 
     .text-col {

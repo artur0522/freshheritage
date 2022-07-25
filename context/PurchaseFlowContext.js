@@ -1,7 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
 import { useHeadlessCheckoutContext } from './HeadlessCheckoutContext'
-import * as Cookies from 'es-cookie'
 import { useRouter } from 'next/router'
 import { getCartVariant } from 'utils/getCartVariant'
 import { GET_PRODUCTS } from '../gql'
@@ -129,7 +128,7 @@ export function PurchaseFlowProvider({ children }) {
   }, [options, router])
 
   useEffect(() => {
-    // console.log("options useEffect:", options)
+    console.log("options useEffect:", options)
     const saveData = {...options};
     delete saveData.product
     localStorage.setItem('purchase_flow_data', JSON.stringify(saveData))

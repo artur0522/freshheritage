@@ -5,21 +5,13 @@ import Link from 'next/link'
 import classes from './FiftyFifty.module.scss'
 
 const FiftyFifty = ({ fields }) => {
-  let sectionImage
-  const { alt, headerSize, subheaderSize, topPadding, bottomPadding } = fields
-
-  // Check if image exists
-  if (fields.image) {
-    sectionImage = <Image className={classes.mbl__img} src={fields.image.asset.url} layout="fill" alt={alt} />
-  } else {
-    return null
-  }
+  const { alt, headerSize, subheaderSize, topPadding, bottomPadding, image } = fields
 
   return (
     <div className={classes['fifty-fifty']}>
         <div className={`${classes['fifty-fifty__row']} ${classes[fields.imageAlign]} ${topPadding ? classes['top-padding'] : ''} ${bottomPadding ? classes['bottom-padding'] : ''} ${classes['container']} flex--justify-between`}>
-            {sectionImage &&  <div className={classes['fifty-fifty__image']}>
-                {sectionImage}
+            {image &&  <div className={classes['fifty-fifty__image']}>
+              <Image className={classes.mbl__img} src={image?.asset?.url} layout="fill" alt={alt} />
             </div>}
             <div className={classes['fifty-fifty__text']}>
                 {fields.header && headerSize === 'large-header' && <h1>{fields.header}</h1>}

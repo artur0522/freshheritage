@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import { useCustomerContext } from '@/context/CustomerContext'
 import { useTheCatchContext } from '@/context/TheCatchContext'
 
 import ContentSections from '@/components/Sections/ContentSections'
@@ -9,11 +8,9 @@ import { nacelleClient } from 'services'
 
 const TheCatch = (props) => {
     const { page } = props
-    const customerContext = useCustomerContext()
     const theCatchContext = useTheCatchContext()
-    const { customer } = customerContext
     const { addIssue, addFilteredIssue, monthName } = theCatchContext
-    
+
     useEffect(() => {
         const filtered = page.fields?.content?.filter(content => content._type === 'staticHarvest')
         const found = filtered.find(staticHarvest => staticHarvest.harvestMonth[0].month.toLowerCase() === monthName)

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useReducer, useEffect, useCallback } from 'react'
+import { createContext, useContext, useReducer, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import TheCatchDrawer from '@/components/Layout/TheCatchDrawer/TheCatchDrawer'
 

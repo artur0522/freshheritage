@@ -31,20 +31,15 @@
   @include breakpoint-up('sm') {
     display: block;
   }
-  svg {
-    width: 216px;
-    @include breakpoint-up('md') {
-      width: 241px;
-    }
-    @include breakpoint-up('lg') {
-      width: 170px;
-    }
-    @include breakpoint-up('xl') {
-      width: 241px;
-    }
-    * {
-      fill: $alabaster2;
-    }
+  width: 216px;
+  @include breakpoint-up('md') {
+    width: 241px;
+  }
+  @include breakpoint-up('lg') {
+    width: 170px;
+  }
+  @include breakpoint-up('xl') {
+    width: 241px;
   }
 }
 

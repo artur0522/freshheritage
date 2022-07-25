@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import IconLogo from '@/svgs/logo.svg'
+import ResponsiveImage from '@/components/ResponsiveImage'
 import IconFacebook from '@/svgs/facebook.svg'
 import IconInstagram from '@/svgs/instagram.svg'
 import IconPinterest from '@/svgs/pinterest.svg'
@@ -39,7 +39,7 @@ const socialLinkItem = (item, classes) => {
 const FooterNavigation = ({props, classes}) => {
   const { footerNavigationList } = props
   const { socialLinks } = props
-
+  const { logo } = props
 
   return (
     <div className={[classes.footerSection, classes.footerNavigation].join(' ')}>
@@ -47,7 +47,7 @@ const FooterNavigation = ({props, classes}) => {
         <div className={classes.footerLogo}>
           <Link href="/">
             <a>
-              <IconLogo />
+              <ResponsiveImage src={logo.asset.url} alt={logo.asset.alt || 'Logo'} />
             </a>
           </Link>
         </div>

@@ -1,8 +1,10 @@
-import Link from 'next/link';
+import { useRouter } from 'next/router'
 import { StateBasedCheckout } from './StateBasedCheckout';
+import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
 
 const CheckoutContent = ({data}) => {
-
+  const router = useRouter();
+  const { setFlyoutState } = useHeadlessCheckoutContext()
   if (data?.application_state?.line_items.length > 0) {
     return (
       <>
@@ -16,9 +18,15 @@ const CheckoutContent = ({data}) => {
     return (
       <header className="checkout__header-main checkout__header-main--empty-cart">
         <h4>Your Cart Is Empty</h4>
-        <Link href="/">
-          <a className="checkout__continue-shopping-btn btn sitkablue">Continue Shopping</a>
-        </Link>
+          <button
+            onClick={() => {
+              if (router.pathname === '/checkout') {
+                router.push('/')
+                return
+              }
+              setFlyoutState(false)
+            }}
+            className="checkout__continue-shopping-btn btn sitkablue">Continue Shopping</button>
       </header>
     )
   }

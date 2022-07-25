@@ -30,9 +30,14 @@ const RecipeContent = forwardRef(({fields, product}, ref) => {
       </Link>)
     },
     types: {
-      image: ({value}) => (<div className={classes['article-section__image']}>
-        <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />
-      </div>),
+      image: ({value}) => {
+        return (
+          <div className={classes['article-section__image']}>
+            <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />
+            {value.caption && <span className={classes['article-section__image-caption']}>{value.caption}</span>}
+          </div>
+        )
+      },
       productBlock: () => (
         <ArticleProduct product={product} parentClasses={classes} />
       )

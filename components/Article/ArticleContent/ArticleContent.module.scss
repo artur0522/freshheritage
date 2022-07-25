@@ -192,6 +192,16 @@
   }
 }
 
+.article-section__image-caption {
+  font-size: 14px;
+  font-style: italic;
+  display: block;
+  margin: 10px 0 0;
+  @include breakpoint-up('sm') {
+    font-size: 16px;
+  }
+}
+
 .article-rate-recipe {
   margin-bottom: 60px;
 }

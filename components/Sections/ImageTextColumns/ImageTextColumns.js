@@ -5,7 +5,6 @@ import ResponsiveImage from '@/components/ResponsiveImage'
 import classes from "./ImageTextColumns.module.scss"
 
 const ImageTextColumns = ({fields}) => {
-    console.log('imagecols', fields)
     const {alt, columnCtaText, columnCtaText2, columnCtaUrl, columnCtaUrl2, columnText, columnText2, image, imageDescription, topPadding, bottomPadding} = fields
     return (
         <div className={`${classes['row']} ${columnCtaText2 ? 'flex--justify-between' : ''} container ${topPadding ? classes['top-padding'] : ''} ${bottomPadding ? classes['bottom-padding'] : ''}`}>

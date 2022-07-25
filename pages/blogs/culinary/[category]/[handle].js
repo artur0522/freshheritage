@@ -9,10 +9,6 @@ import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
 
 const RecipeArticle = ({ page, product, blogSettings }) => {
-
-  // console.log("page:", page)
-  // console.log("blogSettings:", blogSettings)
-
   const { setContent } = useModalContext()
   const mainContentRef = useRef()
 

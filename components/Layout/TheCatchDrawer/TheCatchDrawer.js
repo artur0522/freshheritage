@@ -30,6 +30,8 @@ const TheCatchDrawer = () => {
     }, timeout)
   }
 
+  console.log(currentIssue)
+
     return (
         <div className={classes['pdp-flyout']}>
             <div onClick={() => closeDrawer()} className={classes['pdp-flyout__overlay']}></div>
@@ -51,7 +53,7 @@ const TheCatchDrawer = () => {
                     <ul className={classes['content']}>
                         {currentIssue.fields?.content?.filter(content => content._type === 'staticHarvest').map((staticHarvest) => {
                             return (
-                                <li onClick={() => findIssue(staticHarvest.harvestMonth[0].month)}>
+                                <li key={staticHarvest._key} onClick={() => findIssue(staticHarvest.harvestMonth[0].month)}>
                                     <div className={classes['item-img']}>
                                         <Image 
                                             src={staticHarvest.harvestMonth[0]?.fishArray[0]?.species?.image?.asset?.url}

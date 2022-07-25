@@ -133,7 +133,10 @@
     // articles__swiper
     &__swiper {
         padding-top: 30px;
-        border-top: 1px solid rgba(84, 84, 83, 0.25);
+
+        &.border-top {
+            border-top: 1px solid rgba(84, 84, 83, 0.25);
+        }
 
         @include breakpoint-up('sm') {
             padding-top: 47px;

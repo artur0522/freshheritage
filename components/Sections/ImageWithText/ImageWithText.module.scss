@@ -1,0 +1,46 @@
+@import '@/styles/_shared.scss';
+
+.row {
+    &.top-padding {
+        padding-top: 72px;
+
+        @include breakpoint-up('md') {
+            padding-top: 144px;
+        }
+    }
+
+    &.bottom-padding {
+        padding-bottom: 36px;
+
+        @include breakpoint-up('md') {
+            padding-bottom: 144px;
+        }
+    }
+
+    .col {
+        margin-bottom: 36px;
+        width: 100%;
+
+        &.large-image {
+            @include breakpoint-up('sm') {
+                width: 65.83%;
+                max-width: 1106px;
+            }
+        }
+
+        &.small-image {
+            @include breakpoint-up('sm') {
+                width: 48.92%;
+                max-width: 822px;
+            }
+        }
+
+        .img-wrap {
+            margin-bottom: 16px;
+
+            img {
+                border-radius: 12px;
+            }
+        }
+    }
+}

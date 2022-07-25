@@ -1,0 +1,23 @@
+@import '@/styles/_shared.scss';
+
+.text-wrap {
+    &.top-padding {
+        padding-top: 56px;
+
+        @include breakpoint-up('md') {
+            padding-top: 144px;
+        }
+    }
+
+    &.bottom-padding {
+        padding-bottom: 30px;
+
+        @include breakpoint-up('md') {
+            padding-bottom: 72px;
+        }
+    }
+
+    .text {
+        max-width: 980px;
+    }
+}

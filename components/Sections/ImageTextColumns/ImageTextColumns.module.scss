@@ -1,0 +1,102 @@
+@import '@/styles/_shared.scss';
+
+.row {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    @include breakpoint-up('sm') {
+        flex-direction: row;
+    }
+
+    &.top-padding {
+        padding-top: 72px;
+
+        @include breakpoint-up('md') {
+            padding-top: 144px;
+        }
+    }
+
+    &.bottom-padding {
+        padding-bottom: 36px;
+
+        @include breakpoint-up('md') {
+            padding-bottom: 144px;
+        }
+    }
+
+    .col {
+        width: 100%;
+        margin-bottom: 36px;
+
+        @include breakpoint-up('sm') {
+            width: 31.84%;
+            margin-bottom: 0;
+        }
+
+        .img-wrap {
+            margin-bottom: 25px;
+        }
+
+        &.quarter-width {
+            @include breakpoint-up('sm') {
+                width: 25.23%;
+            }
+        }
+
+        &.margin-right {
+            @include breakpoint-up('sm') {
+                margin-right: 11%;
+            }
+        }
+
+        img {
+            border-radius: 12px;
+        }
+    }
+
+    .text-col {
+        margin-bottom: 36px;
+
+        @include breakpoint-up('sm') {
+            margin-bottom: 0;
+        }
+
+        &.quarter-width {
+            @include breakpoint-up('sm') {
+                width: 25.23%;
+            }
+        }
+
+        &.half-width {
+            @include breakpoint-up('sm') {
+                width: 42.20%;
+                max-width: 709px;
+            }
+        }
+
+        h2,
+        p {
+            margin-top: 12px;
+            margin-bottom: 24px;
+
+            @include breakpoint-up('sm') {
+                margin-bottom: 48px;
+            }
+        }
+
+
+        .btn {
+            width: 243px;
+            min-width: 0;
+        }
+
+        .links {
+            display: flex;
+
+            & a:first-child {
+                margin-right: 36px;
+            }
+        }
+    }
+}

@@ -3,20 +3,35 @@
 .row {
     display: flex;
     align-items: center;
+    flex-direction: column;
+
+    @include breakpoint-up('sm') {
+        flex-direction: row;
+    }
 
     .col {
-        width: 31.84%;
+        width: 100%;
+        margin-bottom: 36px;
+
+        @include breakpoint-up('sm') {
+            width: 31.84%;
+            margin-bottom: 0;
+        }
 
         .img-wrap {
             margin-bottom: 25px;
         }
 
         &.quarter-width {
-            width: 25.23%;
+            @include breakpoint-up('sm') {
+                width: 25.23%;
+            }
         }
 
         &.margin-right {
-            margin-right: 11%;
+            @include breakpoint-up('sm') {
+                margin-right: 11%;
+            }
         }
 
         img {
@@ -25,6 +40,11 @@
     }
 
     .text-col {
+        margin-bottom: 36px;
+
+        @include breakpoint-up('sm') {
+            margin-bottom: 0;
+        }
 
         &.quarter-width {
             @include breakpoint-up('sm') {

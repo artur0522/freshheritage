@@ -16,8 +16,6 @@ const HarvestCard = ({ fish, cardStyle }) => {
   const [tabInfo, setTabInfo] = useState(fish['species'])
   const [mounted, setMounted] = useState(false)
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
-  console.log(fish)
   
   useEffect(() => {
     setMounted(true)

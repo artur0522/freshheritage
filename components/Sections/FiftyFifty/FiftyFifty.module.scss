@@ -52,6 +52,8 @@
 
     // fifty-fifty__text
     &__text {
+        width: 100%;
+
         @include breakpoint-up('sm') {
             width: 40.42%;
             max-width: 716px;

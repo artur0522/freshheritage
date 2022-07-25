@@ -18,7 +18,7 @@ export default function Home({ pages }) {
   })
 
   const foundTags = customer?.tags.filter((tag) => {
-    return tag === 'seafood box' || tag === 'bi monthly seafood box'  || tag === 'premium seafood box'  || tag === 'premium seafood box no shellfish' || tag === 'salmon box'
+    return tag.toLowerCase() === 'seafood box' || tag.toLowerCase() === 'bi monthly seafood box'  || tag.toLowerCase() === 'premium seafood box'  || tag.toLowerCase() === 'premium seafood box no shellfish' || tag.toLowerCase() === 'salmon box'
   })
 
   if(foundTags?.includes('premium seafood box')) {

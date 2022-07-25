@@ -13,6 +13,24 @@
         padding: 192px 0 143px 0;
     }
 
+    .btn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        border-radius: 48px;
+        border: none;
+        padding: 13px 29px;
+        background-color: $fawn50-2;
+        z-index: 1;
+        font-weight: 500;
+
+        @include breakpoint-up('sm') {
+            top: 72px;
+            right: 32px;
+        }
+    }
+
+
     // harvest--gutters
     &--gutters {
         padding: 0 28px;

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { useTheCatchContext } from '@/context/TheCatchContext'
+
 import CurrentHarvest from '../../Harvest/CurrentHarvest'
 import StaticHarvest from '@/components/Harvest/StaticHarvest'
 import ProjectedHarvestDrawer from '../../Harvest/ProjectedHarvestDrawer'
@@ -30,6 +32,9 @@ const ContentSections = ({ sections }) => {
     return null
   }
 
+  const theCatchContext = useTheCatchContext()
+  const { filteredIssue } = theCatchContext
+
   return sections.map((section) => {
     const type = section?._type
 
@@ -50,10 +55,10 @@ const ContentSections = ({ sections }) => {
         return <CurrentHarvest fields={section} key={section._key} />
       case 'currentMonthHarvest':
         return <CurrentHarvest fields={section} key={section._key} />
-      case 'staticHarvest':
-          return <StaticHarvest fields={section} key={section._key} />
       case 'projectedHarvest':
         return <ProjectedHarvest fields={section} key={section._key} />
+      case 'staticHarvest':
+          return <StaticHarvest fields={section} key={section._key} />
       case 'globalSampler':
         return <GlobalSampler fields={section} key={section._key} />
       case 'faqs':

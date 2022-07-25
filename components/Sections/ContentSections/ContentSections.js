@@ -32,9 +32,6 @@ const ContentSections = ({ sections }) => {
     return null
   }
 
-  const theCatchContext = useTheCatchContext()
-  const { filteredIssue } = theCatchContext
-
   return sections.map((section) => {
     const type = section?._type
 

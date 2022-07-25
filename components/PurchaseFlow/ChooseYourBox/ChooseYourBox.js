@@ -69,7 +69,18 @@ const ChooseYourBox = ({props, tierOptions}) => {
                               </div>
                               {tier.content?.handle === 'premium-seafood-subscription-box' &&
                                 <div className={classes['input-group']}>
-                                  <input id="shellfish_free" type="checkbox" ref={inputRef} />
+                                  <input
+                                    id="shellfish_free"
+                                    type="checkbox"
+                                    ref={inputRef}
+                                    checked={purchaseFlowContext.options.shellfish_free_selected}
+                                    onChange={() => {
+                                      purchaseFlowContext.setOptions({
+                                        ...purchaseFlowContext.options,
+                                        shellfish_free_selected: inputRef.current.checked
+                                      })
+                                    }}
+                                  />
                                   <label htmlFor="shellfish_free">Shellfish Free</label>
                                 </div>
                               }

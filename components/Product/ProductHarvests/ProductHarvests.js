@@ -25,6 +25,9 @@ const ProductHarvests = ({product}) => {
         }
         return promises
       }, Promise.resolve([]))
+
+      console.log("harvestsInfo:", harvestsInfo)
+
       setHarvests(harvestsInfo)
     }
     getHarvest()

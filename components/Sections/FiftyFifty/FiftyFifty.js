@@ -6,9 +6,7 @@ import classes from './FiftyFifty.module.scss'
 
 const FiftyFifty = ({ fields }) => {
   let sectionImage
-  const { alt, headerSize, subheaderSize } = fields
-
-  console.log('fiftfirfer', fields)
+  const { alt, headerSize, subheaderSize, topPadding, bottomPadding } = fields
 
   // Check if image exists
   if (fields.image) {
@@ -19,7 +17,7 @@ const FiftyFifty = ({ fields }) => {
 
   return (
     <div className={classes['fifty-fifty']}>
-        <div className={`${classes['fifty-fifty__row']} ${classes[fields.imageAlign]} ${classes['container']} flex--justify-between`}>
+        <div className={`${classes['fifty-fifty__row']} ${classes[fields.imageAlign]} ${topPadding ? classes['top-padding'] : ''} ${bottomPadding ? classes['bottom-padding'] : ''} ${classes['container']} flex--justify-between`}>
             {sectionImage &&  <div className={classes['fifty-fifty__image']}>
                 {sectionImage}
             </div>}

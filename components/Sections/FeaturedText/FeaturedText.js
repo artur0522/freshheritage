@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react"
 import classes from './FeaturedText.module.scss'
 
 const FeaturedText = ({ fields }) => {
-    const {alignTextBlock, textAlign, smallTextTop, smallTextBottom, featuredText} = fields
+    const { alignTextBlock, textAlign, smallTextTop, smallTextBottom, featuredText, topPadding, bottomPadding } = fields
     return (
-        <div className={`${classes['featured-text']} container`}>
+        <div className={`${classes['featured-text']} container ${topPadding ? classes['top-padding'] : ''} ${bottomPadding ? classes['bottom-padding'] : ''}`}>
             <div className={`${classes['featured-text__inner']} ${alignTextBlock}`}>
                 <div className={`${classes['text']} ${textAlign}`}>
                     {smallTextTop && <p className={`${classes['top-text']} secondary--body`}>{smallTextTop}</p>}

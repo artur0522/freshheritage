@@ -10,6 +10,22 @@
         justify-content: space-between;
     }
 
+    &.top-padding {
+        padding-top: 74px;
+
+        @include breakpoint-up('md') {
+            padding-top: 144px;
+        }
+    }
+
+    &.bottom-padding {
+        padding-bottom: 36px;
+
+        @include breakpoint-up('md') {
+            padding-bottom: 144px;
+        }
+    }
+
     .col {
         margin-bottom: 36px;
 

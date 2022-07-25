@@ -6,9 +6,9 @@ import classes from "./ImageTextColumns.module.scss"
 
 const ImageTextColumns = ({fields}) => {
     console.log('imagecols', fields)
-    const {alt, columnCtaText, columnCtaText2, columnCtaUrl, columnCtaUrl2, columnText, columnText2, image, imageDescription} = fields
+    const {alt, columnCtaText, columnCtaText2, columnCtaUrl, columnCtaUrl2, columnText, columnText2, image, imageDescription, topPadding, bottomPadding} = fields
     return (
-        <div className={`${classes['row']} ${columnCtaText2 ? 'flex--justify-between' : ''} container`}>
+        <div className={`${classes['row']} ${columnCtaText2 ? 'flex--justify-between' : ''} container ${topPadding ? classes['top-padding'] : ''} ${bottomPadding ? classes['bottom-padding'] : ''}`}>
             {image && <div className={`${classes['col']} ${columnCtaText2 ? classes['quarter-width'] : ''} ${!columnCtaText2 ? classes['margin-right'] : ''}`}>
                 <div className={classes['img-wrap']}>
                     {image && <ResponsiveImage

@@ -9,6 +9,22 @@
         flex-direction: row;
     }
 
+    &.top-padding {
+        padding-top: 72px;
+
+        @include breakpoint-up('md') {
+            padding-top: 144px;
+        }
+    }
+
+    &.bottom-padding {
+        padding-bottom: 36px;
+
+        @include breakpoint-up('md') {
+            padding-bottom: 144px;
+        }
+    }
+
     .col {
         width: 100%;
         margin-bottom: 36px;

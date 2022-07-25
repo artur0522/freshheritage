@@ -1,0 +1,44 @@
+@import '@/styles/_shared.scss';
+
+.row {
+    display: flex;
+    flex-direction: column;
+    padding-top: 70px;
+
+    @include breakpoint-up('sm') {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    &.top-padding {
+        padding-top: 74px;
+
+        @include breakpoint-up('md') {
+            padding-top: 144px;
+        }
+    }
+
+    &.bottom-padding {
+        padding-bottom: 36px;
+
+        @include breakpoint-up('md') {
+            padding-bottom: 144px;
+        }
+    }
+
+    .col {
+        margin-bottom: 36px;
+
+        @include breakpoint-up('sm') {
+            width: 49%;
+        }
+
+        .img-wrap {
+            margin-bottom: 16px;
+        }
+
+        img {
+            border-radius: 12px;
+        }
+    }
+}

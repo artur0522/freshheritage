@@ -21,10 +21,21 @@
         display: flex;
         align-items: center;
         flex-direction: column;
-        padding-top: 60px;
 
-        @include breakpoint-up('sm') {
-            padding: 7.5% 0;
+        &.top-padding {
+            padding-top: 55px;
+
+            @include breakpoint-up('md') {
+                padding-top: 130px;
+            }
+        }
+
+        &.bottom-padding {
+            padding-bottom: 55px;
+
+            @include breakpoint-up('md') {
+                padding-bottom: 130px;
+            }
         }
 
         &.container {
@@ -52,12 +63,15 @@
 
     // fifty-fifty__text
     &__text {
+        width: 100%;
+
         @include breakpoint-up('sm') {
             width: 40.42%;
             max-width: 716px;
         }
 
-        h2 {
+        h2,
+        p {
             margin-top: 12px;
             margin-bottom: 24px;
 
@@ -66,9 +80,18 @@
             }
         }
 
+
         .btn {
             width: 243px;
             min-width: 0;
+        }
+
+        .links {
+            display: flex;
+
+            & a:first-child {
+                margin-right: 36px;
+            }
         }
     }
 

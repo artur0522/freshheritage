@@ -106,6 +106,26 @@
     }
   }
 
+  // HERO BOTTOM ALIGNED STYLES
+  &.hero--bottom {
+    h1 {
+      margin-bottom: 0;
+    }
+
+    .hero__text {
+      position: absolute;
+      bottom: -15px;
+      left: 28px;
+      max-width: 319px;
+
+      @include breakpoint-up('md') {
+        bottom: -41px;
+        left: 7.34%;
+        max-width: 735px;
+      }
+    }
+  }
+
   // HERO CENTER STYLES
   &.hero--center {
     // .hero__wrap--mbl {

@@ -13,8 +13,6 @@ const FeaturedBlogContent = ({ fields }) => {
   const [selectedSwiper, setSelectedSwiper] = useState(tabs[0])
   const [mounted, setMounted] = useState(false)
 
-  console.log('featurded', fields)
-
   useEffect(() => {
     setMounted(true)
   }, [fields])
@@ -50,7 +48,7 @@ const FeaturedBlogContent = ({ fields }) => {
                 {subheader && <h2>{subheader}</h2>}
             </div>
 
-            <div className={`${classes['articles__tabs-swiper']} ${classes['swiper-none']}`}>
+            {tabs.length > 1 && <div className={`${classes['articles__tabs-swiper']} ${classes['swiper-none']}`}>
                 {tabs.map((tab) => {
                     return (
                         <div className={classes['tab-slide']} key={tab._key}>
@@ -60,9 +58,9 @@ const FeaturedBlogContent = ({ fields }) => {
                         </div>
                     )
                 })}
-            </div>
+            </div>}
 
-            <Swiper
+            {tabs.length > 1 &&<Swiper
                 loop={true}
                 slidesPerView={"auto"}
                 spaceBetween={40}
@@ -77,14 +75,14 @@ const FeaturedBlogContent = ({ fields }) => {
                         </SwiperSlide>
                     )
                 })}
-            </Swiper>
+            </Swiper>}
 
             {mounted && <Swiper
                 loop={true}
                 slidesPerView={"auto"}
                 spaceBetween={18}
                 navigation={true}
-                className={classes['articles__swiper']}
+                className={`${classes['articles__swiper']} ${classes[tabs.length > 1 ? 'border-top' : '']}`}
                 breakpoints={{
                     1920: {
                         slidesPerView: 4
@@ -101,9 +99,9 @@ const FeaturedBlogContent = ({ fields }) => {
             </Swiper>}
 
             {ctaUrl && <Link href={`${ctaUrl}`}>
-                    <a className={`${classes['articles__btn']} btn text-align--center no-underline`}>
-                        {ctaText}
-                    </a>
+                <a className={`${classes['articles__btn']} btn text-align--center no-underline`}>
+                    {ctaText}
+                </a>
             </Link>}
         </div>
     </div>

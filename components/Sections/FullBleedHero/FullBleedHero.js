@@ -29,10 +29,10 @@ const FullBleedHero = ({ fields }) => {
     <div className={`${classes['hero']} ${classes[heroStyle]} ${classes[textColor]} ${topMargin ? classes['top-margin'] : ''} ${bottomMargin ? classes['bottom-margin'] : ''}`}>
       <div className={`${classes['hero__text']}`}>
         <div className={classes['hero__text-inner']}>
-          {fields.header && <h1>{fields.header}</h1>}
+          {fields.header && <h1 className={`${heroStyle === 'hero--bottom' ? 'heading--catch' : ''}`}>{fields.header}</h1>}
           {fields.subheader && <h2>{fields.subheader}</h2>}
 
-          <div className={classes['btn-wrap']}>
+          {heroStyle !== 'hero--bottom' && <div className={classes['btn-wrap']}>
             {fields.primaryCtaUrl && <Link href={`${fields.primaryCtaUrl}`}>
               <a className={`${classes['btn']} btn ${btnColor} no-underline`}>
               {fields.primaryCtaText}
@@ -42,7 +42,7 @@ const FullBleedHero = ({ fields }) => {
             {fields.secondaryCtaUrl && <Link href={`${fields.secondaryCtaUrl}`}>
               <a>{fields.secondaryCtaText}</a>
             </Link>}
-          </div>
+          </div>}
         </div>
       </div>
 

@@ -1,6 +1,9 @@
 import React from 'react'
 
+import { useTheCatchContext } from '@/context/TheCatchContext'
+
 import CurrentHarvest from '../../Harvest/CurrentHarvest'
+import StaticHarvest from '@/components/Harvest/StaticHarvest'
 import ProjectedHarvestDrawer from '../../Harvest/ProjectedHarvestDrawer'
 import ProjectedHarvest from '../../Harvest/ProjectedHarvest'
 import GlobalSampler from '../../Harvest/GlobalSampler'
@@ -18,6 +21,11 @@ import EmailSignup from '../../EmailSignup'
 import BrowseCategory from '@/components/Sections/BrowseCategory'
 import ArticleRow from '@/components/Sections/ArticleRow'
 import HalfVideoBlock from '@/components/Sections/HalfVideoBlock'
+import FeaturedText from '@/components/Sections/FeaturedText'
+import FiftyFiftyImage from '@/components/Sections/FiftyFiftyImage'
+import BoldHeaderText from '@/components/Sections/BoldHeaderText'
+import ImageWithText from '@/components/Sections/ImageWithText'
+import ImageTextColumns from '../ImageTextColumns'
 
 const ContentSections = ({ sections }) => {
   if (!Array.isArray(sections)) {
@@ -46,6 +54,8 @@ const ContentSections = ({ sections }) => {
         return <CurrentHarvest fields={section} key={section._key} />
       case 'projectedHarvest':
         return <ProjectedHarvest fields={section} key={section._key} />
+      case 'staticHarvest':
+          return <StaticHarvest fields={section} key={section._key} />
       case 'globalSampler':
         return <GlobalSampler fields={section} key={section._key} />
       case 'faqs':
@@ -66,6 +76,16 @@ const ContentSections = ({ sections }) => {
         return <ArticleRow fields={section} key={section._key} />
       case 'halfVideoBlock':
         return <HalfVideoBlock fields={section} key={section._key} />
+      case 'featuredText':
+        return <FeaturedText fields={section} key={section._key} />
+      case 'fiftyFiftyImageBlock':
+        return <FiftyFiftyImage fields={section} key={section._key} />
+      case 'boldHeaderText':
+        return <BoldHeaderText fields={section} key={section._key} />
+      case 'imageWithText':
+        return <ImageWithText fields={section} key={section._key} />
+      case 'imageTextColumns':
+        return <ImageTextColumns fields={section} key={section._key} />
       default:
         return null
     }

@@ -6,16 +6,11 @@ import ContentSections from '@/components/Sections/ContentSections'
 import PageSEO from '@/components/SEO/PageSEO'
 
 const RecipeArticle = ({ page, product, blogSettings }) => {
-
-  // console.log("page:", page)
-  // console.log("blogSettings:", blogSettings)
-
   const { hero } = page.fields
   const blogType = page.fields.blog?.blogType
   const blogGlobalSettings = blogSettings ? { ...blogSettings.fields[blogType], blogType} : undefined
   hero.header = page.title
   hero.subheader = page.fields.subheader
-
 
   return (
     <>

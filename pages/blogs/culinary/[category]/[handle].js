@@ -163,11 +163,8 @@ export async function getStaticProps({ params }) {
   }
 
   const validPage = pages.find(page => {
-    console.log("page.fields.blog:", page.fields?.blog);
     return page.fields?.blog?.handle.current === category
   })
-
-  console.log("validPage:", validPage)
 
   if (!validPage) {
     return {

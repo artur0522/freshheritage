@@ -88,9 +88,13 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
             <ul className={classes['article-related-item-list']}>
               {relatedArticles.relatedArticleItems.map(item => {
 
-                const image = item.coverImage || item.hero.desktopBackgroundImage
+                const image = item.hero?.desktopBackgroundImage
                 const handle = item.handle?.current ? item.handle.current : item.handle;
                 const blog = item.fields ? item.fields.blog : item.blog
+
+                if (!image) {
+                  return ''
+                }
 
                 let url = `/${handle}`
 

@@ -10,7 +10,7 @@ const ArticleProduct = ({product, parentClasses}) => {
   const PDPDrawerContext = usePDPDrawerContext()
   const { addItemToOrder } = useHeadlessCheckoutContext()
 
-  if (!product.content) {
+  if (!product || !product.content) {
     return ''
   }
 

@@ -8,7 +8,6 @@ import ProductReviewStars from '../ProductReviewStars'
 const ProductMain = ({box}) => {
 
   const inputRef = useRef()
-
   const purchaseFlowContext = usePurchaseFlowContext()
   const PDPDrawerContext = usePDPDrawerContext()
 
@@ -28,7 +27,19 @@ const ProductMain = ({box}) => {
 
       {product.content?.handle === 'premium-seafood-subscription-box' &&
         <div className="input-group input-group--checkbox">
-          <input className="input" id="shellfish_free" type="checkbox" ref={inputRef} />
+          <input
+            className="input"
+            id="shellfish_free"
+            type="checkbox"
+            ref={inputRef}
+            checked={purchaseFlowContext.options.shellfish_free_selected}
+            onChange={() => {
+              purchaseFlowContext.setOptions({
+                ...purchaseFlowContext.options,
+                shellfish_free_selected: inputRef.current.checked
+              })
+            }}
+          />
           <label htmlFor="shellfish_free">Shellfish Free</label>
         </div>
       }

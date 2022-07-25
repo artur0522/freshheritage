@@ -85,16 +85,19 @@ export async function getStaticProps({ params }) {
 
   if (page.fields?.content) {
     const handles = page.fields.content.filter(item => item._type === 'productBlock').map(item => item.product)
-    let { products } = await nacelleClient.query({
-      query: GET_PRODUCTS,
-      variables: {
-        "filter": {
-          "handles": [...handles]
+    if (handles.length) {
+      let data = await nacelleClient.query({
+        query: GET_PRODUCTS,
+        variables: {
+          "filter": {
+            "handles": [...handles]
+          }
         }
+      })
+      if (data.products && data.products.length) {
+        const products = data.products
+        props.product = products[0]
       }
-    })
-    if (products) {
-      props.product = products[0]
     }
   }
 

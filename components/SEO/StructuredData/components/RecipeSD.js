@@ -63,7 +63,7 @@ const RecipeSD = ({ data }) => {
 
   let datePublished = moment.unix(data.createdAt).format('MM/DD/YYYY')
 
-  if (data.fields.publishedDate) {
+  if (data.fields?.publishedDate) {
     datePublished = moment(data.fields.publishedDate).format('MM/DD/YYYY')
   }
 

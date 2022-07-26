@@ -161,6 +161,23 @@
   }
 }
 
+.checkout__header-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.checkout__header-subtotal {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+  margin-left: 10px;
+  &.hide-on-desktop {
+    @include breakpoint-up('sm') {
+      display: none;
+    }
+  }
+}
+
 .checkout__navigation {
   margin-top: 48px;
 }

@@ -77,7 +77,8 @@ export function HeadlessCheckoutProvider({ children }) {
       quantity,
       properties: {
         ...properties,
-        product_handle: variant.productHandle // because Bold doesn't provide product handle
+        product_handle: variant.productHandle, // because Bold doesn't provide product handle
+        product_weight: (variant.weight) ? variant.weight.toString() : '' // Bold doesn't provide correct weight
       }
     }
 

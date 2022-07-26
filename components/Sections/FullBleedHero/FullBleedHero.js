@@ -16,8 +16,6 @@ const FullBleedHero = ({ fields }) => {
 
   let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage, alt, youtubeVideoId, topMargin, bottomMargin } = fields
 
-  console.log("fields:", fields)
-
   const showVideo = () => {
     setStartVideo(true)
   }
@@ -33,8 +31,6 @@ const FullBleedHero = ({ fields }) => {
   } else {
     btnColor = 'salmon'
   }
-
-  console.log("youtubeVideoId:", youtubeVideoId)
 
   return (
     <div className={`${classes['hero']} ${classes[heroStyle]} ${classes[textColor]} ${topMargin ? classes['top-margin'] : ''} ${bottomMargin ? classes['bottom-margin'] : ''} ${startVideo ? classes['hero--video-enabled'] : ''}`}>

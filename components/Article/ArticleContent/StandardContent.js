@@ -9,7 +9,7 @@ import Image from 'next/image'
 import IconCaretThin from '@/svgs/caret-thin.svg'
 import IconKnife from '@/svgs/knife.svg'
 import IconPan from '@/svgs/pan.svg'
-import ArticleVideo from '@/components/Video'
+import Video from '@/components/Video'
 
 const StandardContent = forwardRef(({fields, product}, ref) => {
 

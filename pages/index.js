@@ -49,6 +49,7 @@ export default function Home({ pages }) {
 
   return (
     <>
+      <div id="stamped-reviews-widget" data-widget-type="carousel" ></div>
       <PageSEO seo={homePage.fields.seo} />
       {!context.customerLoading && <DynamicHero fields={foundDynamicHero} />}
       <ContentSections sections={homePage.fields.content} />

@@ -12,7 +12,7 @@ import IconPlayButton from '@/svgs/play-button.svg'
 import IconPlayButtonTriangle from '@/svgs/play-button-triangle.svg'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { useHeaderContext } from '@/context/HeaderContext'
-import ArticleVideo from '../ArticleVideo'
+import ArticleVideo from '@/components/Video'
 import { useRouter } from 'next/router'
 import ArticleCountdownTimer from './ArticleCountdownTimer'
 import { getBackNavigationInfo } from '@/utils/getBackNavigationInfo'
@@ -192,7 +192,7 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
               onClick={() => showVideo()}><IconPlayButton /></button>
           }
         </div>}
-        {youtubeVideoId && <ArticleVideo youtubeVideoId={youtubeVideoId} startVideo={startVideo} className={classes['article-hero__video']} />}
+        {youtubeVideoId && <Video youtubeVideoId={youtubeVideoId} startVideo={startVideo} className={classes['article-hero__video']} />}
       </div>
 
     </div>

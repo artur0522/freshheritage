@@ -9,7 +9,7 @@ import Image from 'next/image'
 import IconCaretThin from '@/svgs/caret-thin.svg'
 import IconKnife from '@/svgs/knife.svg'
 import IconPan from '@/svgs/pan.svg'
-import ArticleVideo from '../ArticleVideo'
+import ArticleVideo from '@/components/Video'
 
 const StandardContent = forwardRef(({fields, product}, ref) => {
 
@@ -54,7 +54,7 @@ const StandardContent = forwardRef(({fields, product}, ref) => {
       productBlock: () => (
         <ArticleProduct product={product} parentClasses={classes} />
       ),
-      youtubeVideoBlock: ({value}) => <ArticleVideo youtubeVideoId={value.youtubeVideoId} autoplay={false} startVideo="true" className={classes['article-section__video']} />
+      youtubeVideoBlock: ({value}) => <Video youtubeVideoId={value.youtubeVideoId} autoplay={false} startVideo="true" className={classes['article-section__video']} />
     },
     listItem: {
       bullet: ({children}) => {

@@ -3,15 +3,24 @@ import { useMediaQuery } from 'react-responsive'
 import Image from 'next/image'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import Link from 'next/link'
+import IconPlayButtonTriangle from '@/svgs/play-button-triangle.svg'
+import Video from '@/components/Video'
 
 import classes from './FullBleedHero.module.scss'
 
 const FullBleedHero = ({ fields }) => {
   const [mounted, setMounted] = useState(false)
+  const [startVideo, setStartVideo] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
 
-  let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage, alt, topMargin, bottomMargin } = fields
+  let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage, alt, youtubeVideoId, topMargin, bottomMargin } = fields
+
+  console.log("fields:", fields)
+
+  const showVideo = () => {
+    setStartVideo(true)
+  }
 
   useEffect(() => {
     setMounted(true)
@@ -24,22 +33,29 @@ const FullBleedHero = ({ fields }) => {
   } else {
     btnColor = 'salmon'
   }
-  
+
+  console.log("youtubeVideoId:", youtubeVideoId)
+
   return (
-    <div className={`${classes['hero']} ${classes[heroStyle]} ${classes[textColor]} ${topMargin ? classes['top-margin'] : ''} ${bottomMargin ? classes['bottom-margin'] : ''}`}>
+    <div className={`${classes['hero']} ${classes[heroStyle]} ${classes[textColor]} ${topMargin ? classes['top-margin'] : ''} ${bottomMargin ? classes['bottom-margin'] : ''} ${startVideo ? classes['hero--video-enabled'] : ''}`}>
       <div className={`${classes['hero__text']}`}>
         <div className={classes['hero__text-inner']}>
           {fields.header && <h1 className={`${heroStyle === 'hero--bottom' ? 'heading--catch' : ''}`}>{fields.header}</h1>}
           {fields.subheader && <h2>{fields.subheader}</h2>}
 
           {heroStyle !== 'hero--bottom' && <div className={classes['btn-wrap']}>
-            {fields.primaryCtaUrl && <Link href={`${fields.primaryCtaUrl}`}>
+            {youtubeVideoId && <button onClick={() => showVideo()} className={`${classes['hero-video__action-btn']} btn salmon`}>
+              <IconPlayButtonTriangle />
+              <span>Play Video</span>
+            </button>}
+
+            {fields.primaryCtaUrl && !youtubeVideoId && <Link href={`${fields.primaryCtaUrl}`}>
               <a className={`${classes['btn']} btn ${btnColor} no-underline`}>
               {fields.primaryCtaText}
               </a>
             </Link>}
 
-            {fields.secondaryCtaUrl && <Link href={`${fields.secondaryCtaUrl}`}>
+            {fields.secondaryCtaUrl && !youtubeVideoId && <Link href={`${fields.secondaryCtaUrl}`}>
               <a>{fields.secondaryCtaText}</a>
             </Link>}
           </div>}
@@ -47,18 +63,21 @@ const FullBleedHero = ({ fields }) => {
       </div>
 
       {isMobile && mounted && mobileBackgroundImage && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--mbl']}`}>
-        {heroStyle === 'hero--center-transparent' ? 
-          <Image className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} layout="fill" alt={alt} /> : 
+        {heroStyle === 'hero--center-transparent' ?
+          <Image className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} layout="fill" alt={alt} /> :
           <ResponsiveImage className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} layout="fill" alt={alt} />
         }
       </div>}
 
       {isDesktop && mounted && desktopBackgroundImage && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--dsktp']}`}>
-        {heroStyle === 'hero--center-transparent' ? 
-          <Image className={classes.mbl__img} src={desktopBackgroundImage?.asset.url} layout="fill" alt={alt} /> : 
+        {heroStyle === 'hero--center-transparent' ?
+          <Image className={classes.mbl__img} src={desktopBackgroundImage?.asset.url} layout="fill" alt={alt} /> :
           <ResponsiveImage className={classes.mbl__img} src={desktopBackgroundImage?.asset.url} layout="fill" alt={alt} />
         }
       </div>}
+
+      {youtubeVideoId && <Video youtubeVideoId={youtubeVideoId} startVideo={startVideo} className={classes['hero-video__wrap']} />}
+
     </div>
   )
 }

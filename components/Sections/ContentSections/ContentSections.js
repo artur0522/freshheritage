@@ -26,6 +26,7 @@ import FiftyFiftyImage from '@/components/Sections/FiftyFiftyImage'
 import BoldHeaderText from '@/components/Sections/BoldHeaderText'
 import ImageWithText from '@/components/Sections/ImageWithText'
 import ImageTextColumns from '../ImageTextColumns'
+import WYSIWYG from '@/components/Sections/WYSIWYG'
 
 const ContentSections = ({ sections }) => {
   if (!Array.isArray(sections)) {
@@ -86,6 +87,8 @@ const ContentSections = ({ sections }) => {
         return <ImageWithText fields={section} key={section._key} />
       case 'imageTextColumns':
         return <ImageTextColumns fields={section} key={section._key} />
+      case 'wysiwyg':
+        return <WYSIWYG fields={section} key={section._key} />
       default:
         return null
     }

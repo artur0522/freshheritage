@@ -1,0 +1,17 @@
+@import '@/styles/_shared.scss';
+
+.info-page {
+  display: flex;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.info-page__left {
+  flex-basis: 500px;
+  width: 500px;
+}
+
+.info-page__right {
+  padding-left: 170px;
+  flex: 1;
+}

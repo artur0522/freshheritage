@@ -8,7 +8,7 @@ import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import IconMinus from '@/svgs/minus.svg'
 import IconPlus from '@/svgs/plus.svg'
 import { getVariantByOptions } from '@/utils/getVariantByOptions'
-
+import LoadingState from '@/components/LoadingState'
 
 const MembershipOption = ({option, membershipType}) => {
   const purchaseFlowContext = usePurchaseFlowContext()
@@ -85,7 +85,7 @@ const MembershipOption = ({option, membershipType}) => {
             }}
             disabled={isLoading}
             className="btn salmon">
-              {isLoading ? 'Adding to Cart...' : option.ctaText}
+              {isLoading ? <LoadingState /> : option.ctaText}
           </button>
           {!isDesktop &&
             <button onClick={() => toggleExpand()} className={`${classes['membership-option__toggle-btn']} btn-link-underline`}>

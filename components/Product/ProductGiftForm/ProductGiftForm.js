@@ -3,6 +3,7 @@ import { useCart } from '@nacelle/react-hooks'
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
 import { getCartVariant } from 'utils/getCartVariant'
+import LoadingState from '@/components/LoadingState'
 
 import classes from './ProductGiftForm.module.scss'
 
@@ -21,6 +22,7 @@ const ProductGiftForm = (props) => {
     const [selectedOptions, setSelectedOptions] = useState(
       selectedVariant.content?.selectedOptions
     )
+    const [isLoading, setIsLoading] = useState(false)
     const [quantity, setQuantity] = useState(1)
     const { recipient_name, recipient_email, gift_message } = formFields
 
@@ -66,7 +68,7 @@ const ProductGiftForm = (props) => {
 
     const handleAddItem = (event) => {
         event.preventDefault()
-
+        setIsLoading(true)
         const variant = getCartVariant({
             product,
             variant: selectedVariant
@@ -88,6 +90,8 @@ const ProductGiftForm = (props) => {
             variant,
             quantity,
             properties: formFieldsWithGiftOption
+        }).then(() => {
+            setIsLoading(false)
         })
 
         setFormFields(defaultFormFields)
@@ -151,7 +155,9 @@ const ProductGiftForm = (props) => {
                     <p className="disclaimer">*Digital giftcard will be delivered to recipient via email one day after purchase and will include your gift message! </p>
                 </div>}
             </div>}
-            <button type="submit" className="btn salmon">{buttonText}</button>
+            <button type="submit" className="btn salmon" disabled={isLoading}>
+                {isLoading ? <LoadingState /> : buttonText}
+            </button>
         </form>
     )
 }

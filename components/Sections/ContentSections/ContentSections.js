@@ -28,6 +28,7 @@ import ImageWithText from '@/components/Sections/ImageWithText'
 import ImageTextColumns from '../ImageTextColumns'
 import WYSIWYG from '@/components/Sections/WYSIWYG'
 import ContactUs from '@/components/Sections/ContactUs'
+import Accordion from '../Accordion'
 
 const ContentSections = ({ sections }) => {
   if (!Array.isArray(sections)) {
@@ -92,6 +93,8 @@ const ContentSections = ({ sections }) => {
         return <WYSIWYG fields={section} key={section._key} />
       case 'contactUs':
         return <ContactUs fields={section} key={section._key} />
+      case 'accordion':
+        return <Accordion fields={section} key={section._key} />
       default:
         return null
     }

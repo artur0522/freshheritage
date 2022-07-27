@@ -75,12 +75,12 @@ const ContactUs = ({fields}) => {
 
         <div className="input-group">
           <label className="label label--block secondary--body">Subject</label>
-          <input className="input" type="text" placeholder="Recipe Name" ref={formRef.current.subject} required />
+          <input className="input" type="text" placeholder="Subject Name" ref={formRef.current.subject} required />
         </div>
 
         <div className="input-group">
           <label className="label label--block secondary--body">Your Message</label>
-          <textarea className="textarea" type="text" placeholder="Include your recipe, ingredients and steps." ref={formRef.current.message} required />
+          <textarea className="textarea" type="text" placeholder="Your questions or comments" ref={formRef.current.message} required />
         </div>
 
         <div className={classes['contact-us__submit']}>

@@ -230,15 +230,11 @@ p,
 a {
   font-family: 'FrankRuhl';
   font-weight: 400;
-  font-size: fontsize(16px);
+  font-size: inherit;
   line-height: 120%;
   cursor: pointer;
   display: inline-block;
   color: $sitkablue;
-
-  @include breakpoint-up('lg') {
-    font-size: fontsize(18px);
-  }
 }
 
 .link {

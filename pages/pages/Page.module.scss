@@ -2,16 +2,64 @@
 
 .info-page {
   display: flex;
-  margin-top: 60px;
+  flex-direction: column;
+  margin-top: 30px;
   margin-bottom: 60px;
+  @include breakpoint-up('md') {
+    flex-direction: row;
+    margin-top: 60px;
+    margin-bottom: 140px;
+  }
+}
+
+.info-page__header {
+  margin-bottom: 15px;
 }
 
 .info-page__left {
-  flex-basis: 500px;
-  width: 500px;
+  margin-bottom: 50px;
+  position: relative;
+  @include breakpoint-up('md') {
+    margin-bottom: 0;
+    flex-basis: 400px;
+    width: 400px;
+  }
+  @include breakpoint-up('lg') {
+    margin-bottom: 0;
+    flex-basis: 500px;
+    width: 500px;
+  }
 }
 
 .info-page__right {
-  padding-left: 170px;
   flex: 1;
+  width: 100%;
+  @include breakpoint-up('md') {
+    padding-left: 85px;
+  }
+  @include breakpoint-up('lg') {
+    padding-left: 170px;
+  }
+}
+
+.info-page__illustration-image {
+  position: absolute;
+  right: -30px;
+  top: -60px;
+  max-width: 240px;
+  @include breakpoint-up('sm') {
+    right: -50px;
+  }
+  @include breakpoint-up('md') {
+    right: auto;
+    left: -60px;
+    top: 300px;
+    max-width: 570px;
+  }
+  @include breakpoint-up('lg') {
+    left: -85px;
+  }
+  @include breakpoint-up('xl') {
+    left: -120px;
+  }
 }

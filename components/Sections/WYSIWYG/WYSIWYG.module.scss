@@ -25,7 +25,8 @@
       margin-top: 0;
     }
   }
-  h2, h3, h4 {
+  h2, h3, h4,
+  h2 a, h3 a, h4 a {
     font-family: $frank-ruhl;
     font-weight: 500;
     font-size: 21px;
@@ -63,4 +64,8 @@
       font-size: 28px;
     }
   }
+}
+
+.wysiwyg__video {
+  width: 100%;
 }

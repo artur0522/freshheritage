@@ -26,7 +26,7 @@ const MemoizedDiscountForm = memo(
     const [discount, setDiscount] = useState(discountCode);
     const [errors, setErrors] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [formOpen, setFormOpen] = useState(true);
+    const [formOpen, setFormOpen] = useState(false);
     const { t } = useTranslation();
 
     const handleApply = useCallback(async () => {

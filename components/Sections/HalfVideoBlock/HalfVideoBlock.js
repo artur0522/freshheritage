@@ -7,7 +7,7 @@ import classes from "./HalfVideoBlock.module.scss"
 
 const HalfVideoBlock = ({fields}) => {
   const {header, subheader, ctaText, ctaUrl, recipeArticle, reverse} = fields
-    console.log('halfvideo', recipeArticle)
+
   return (
     <div className={classes['wrapper']}>
         <div className="container">

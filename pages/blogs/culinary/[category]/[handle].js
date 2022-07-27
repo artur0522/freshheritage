@@ -9,10 +9,6 @@ import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
 
 const RecipeArticle = ({ page, product, blogSettings }) => {
-
-  // console.log("page:", page)
-  // console.log("blogSettings:", blogSettings)
-
   const { setContent } = useModalContext()
   const mainContentRef = useRef()
 
@@ -167,11 +163,8 @@ export async function getStaticProps({ params }) {
   }
 
   const validPage = pages.find(page => {
-    console.log("page.fields.blog:", page.fields?.blog);
     return page.fields?.blog?.handle.current === category
   })
-
-  console.log("validPage:", validPage)
 
   if (!validPage) {
     return {
@@ -192,16 +185,19 @@ export async function getStaticProps({ params }) {
 
   if (validPage.fields?.content) {
     const handles = validPage.fields.content.filter(item => item._type === 'productBlock').map(item => item.product)
-    let { products } = await nacelleClient.query({
-      query: GET_PRODUCTS,
-      variables: {
-        "filter": {
-          "handles": [...handles]
+    if (handles.length) {
+      let data = await nacelleClient.query({
+        query: GET_PRODUCTS,
+        variables: {
+          "filter": {
+            "handles": [...handles]
+          }
         }
+      })
+      if (data.products && data.products.length) {
+        const products = data.products
+        props.product = products[0]
       }
-    })
-    if (products) {
-      props.product = products[0]
     }
   }
 

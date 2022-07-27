@@ -4,6 +4,7 @@ import Image from 'next/image'
 import PrimaryNavigation from './PrimaryNavigation'
 import NavigationUtilities from './NavigationUtilities'
 import PurchaseFlowNavigation from './PurchaseFlowNavigation'
+import ResponsiveImage from '@/components/ResponsiveImage'
 
 const MainNavigation = ({props, pageHandle}) => {
 
@@ -20,13 +21,11 @@ const MainNavigation = ({props, pageHandle}) => {
           <PrimaryNavigation props={props} classes={classes} />
         }
         <div className={classes.navLogo}>
-          <div className={classes.navLogoContainer}>
-            <Link href="/">
-              <a>
-                <Image src={props.logo.asset.url} width={136} height={84} alt={props.logo.asset.alt || 'Logo'} />
-              </a>
-            </Link>
-          </div>
+          <Link href="/">
+            <a>
+              <ResponsiveImage src={props.logo.asset.url} alt={props.logo.asset.alt || 'Logo'} />
+            </a>
+          </Link>
         </div>
         {pageHandle === 'purchase-flow' &&
           <PurchaseFlowNavigation />

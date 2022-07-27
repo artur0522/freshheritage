@@ -1,5 +1,6 @@
 import { ArticleProvider } from '@/context/ArticleContext'
 import { ArticleFiltersDrawerProvider } from '@/context/ArticleFiltersDrawerContext'
+import { TheCatchProvider } from '@/context/TheCatchContext'
 import { ModalProvider } from '@/context/ModalContext'
 import { PDPDrawerProvider } from '@/context/PDPDrawerContext'
 import { CustomerProvider } from '@/context/CustomerContext'
@@ -28,11 +29,13 @@ function Layout({ children, headerSettings, footerSettings }) {
               <KnowYourFishDrawerProvider>
                 <ArticleFiltersDrawerProvider>
                   <ArticleProvider>
-                    <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
-                      <StructuredData type="breadcrumb" />
-                      <main className={`main--${children.props.handle}`}>{children}</main>
-                      <Footer content={footerSettings} />
-                    </HeaderProvider>
+                    <TheCatchProvider>
+                      <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
+                        <StructuredData type="breadcrumb" />
+                        <main className={`main--${children.props.handle}`}>{children}</main>
+                        <Footer content={footerSettings} />
+                      </HeaderProvider>
+                    </TheCatchProvider>
                   </ArticleProvider>
                 </ArticleFiltersDrawerProvider>
               </KnowYourFishDrawerProvider>

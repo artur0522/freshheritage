@@ -230,15 +230,11 @@ p,
 a {
   font-family: 'FrankRuhl';
   font-weight: 400;
-  font-size: fontsize(16px);
+  font-size: inherit;
   line-height: 120%;
   cursor: pointer;
   display: inline-block;
   color: $sitkablue;
-
-  @include breakpoint-up('lg') {
-    font-size: fontsize(18px);
-  }
 }
 
 .link {
@@ -305,6 +301,16 @@ button {
 
   &--xs {
     @extend h6;
+  }
+
+  &--catch {
+    font-size: fontsize(72px);
+    line-height: 100%;
+    letter-spacing: 0.02em;
+
+    @include breakpoint-up('md') {
+      font-size: fontsize(204px);
+    }
   }
 
   &--prop {

@@ -131,24 +131,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: $sitkablue;
-    width: 130px;
-    height: 60px;
     position: absolute;
     top: 0;
     z-index: 1001;
-    @include breakpoint-up('sm') {
-      width: 204px;
-      height: 120px;
-    }
   }
   a {
     display: flex;
+    align-items: center;
     width: 71px;
-    height: 45px;
     @include breakpoint-up('sm') {
-      width: 130px;
-      height: 84px;
+      width: 120px;
+    }
+    @include breakpoint-up('lg') {
+      width: 140px;
     }
   }
 }

@@ -41,6 +41,8 @@ const LineItemProduct = ({ item, children, readOnly }) => {
     }
   }
 
+  console.log("item:", item)
+
   return (
     <div className="order-item checkout__row">
       <div className="order-item__main">
@@ -76,7 +78,7 @@ const LineItemProduct = ({ item, children, readOnly }) => {
           ):(
             <div className="order-item__detail-item">
               <div className="order-item__preference">{item.properties.preference}</div>
-              {item.tags.includes('Subscription Box') &&
+              {item.properties.product_weight && item.properties.product_weight != '' &&
                 <div className="order-item__weight">
                   <span className="weight-per-unit">4.5lbs / box</span>
                 </div>

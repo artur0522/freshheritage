@@ -9,6 +9,7 @@ import { useHeaderContext } from '@/context/HeaderContext'
 const PrimaryNavigation = ({props, classes}) => {
 
   const customerContext = useCustomerContext()
+  const { customer } = customerContext
   const { setMobileMenuIsOpen } = useHeaderContext()
   const {menuItems} = (customerContext.customer?.is_member) ? props.memberPrimaryNavigation : props.nonMemberPrimaryNavigation
 
@@ -16,6 +17,21 @@ const PrimaryNavigation = ({props, classes}) => {
   const isDesktop = useMediaQuery(
     { minWidth: 1074 }
   )
+  
+  const foundTags = customer?.tags.filter((tag) => {
+    return tag.toLowerCase() === 'seafood box' || tag.toLowerCase() === 'bi monthly seafood box'  || tag.toLowerCase() === 'premium seafood box'  || tag.toLowerCase() === 'premium seafood box no shellfish' || tag.toLowerCase() === 'salmon box'
+  })
+
+  let theCatchUrl
+  if(foundTags?.includes('premium seafood box')) {
+   theCatchUrl = '/the-catch/premium-seafood-box'
+  } else if(foundTags?.includes('seafood box')) {
+    theCatchUrl = '/the-catch/premium-seafood-box'
+  } else if(foundTags?.includes('salmon box')) {
+    theCatchUrl = '/the-catch/salmon-box'
+  } else {
+    theCatchUrl = '/the-catch/premium-seafood-box'
+  }
 
   useEffect(() => {
     setMounted(true);
@@ -25,13 +41,23 @@ const PrimaryNavigation = ({props, classes}) => {
     <ul className={classes.navItems}>
       {mounted && isDesktop ? (
         menuItems.map(item => {
-          return (
-            <li className={classes.navItem} key={item._key}>
-              <Link href={item.linkUrl ? item.linkUrl : '/'}>
-                <a>{item.linkText}</a>
-              </Link>
-            </li>
-          )
+          if(item.linkText === 'The Catch') {
+            return (
+              <li className={classes.navItem} key={item._key}>
+                <Link href={theCatchUrl || '/'}>
+                  <a>{item.linkText}</a>
+                </Link>
+              </li>
+            )
+          } else {
+            return (
+              <li className={classes.navItem} key={item._key}>
+                <Link href={item.linkUrl ? item.linkUrl : '/'}>
+                  <a>{item.linkText}</a>
+                </Link>
+              </li>
+            )
+          }
         })
       ): (
         <>

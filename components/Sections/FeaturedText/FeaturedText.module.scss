@@ -1,0 +1,35 @@
+@import '@/styles/_shared.scss';
+
+.featured-text {
+    &.top-padding {
+        padding-top: 74px;
+
+        @include breakpoint-up('md') {
+            padding-top: 144px;
+        }
+    }
+
+    &.bottom-padding {
+        padding-bottom: 30px;
+
+        @include breakpoint-up('md') {
+            padding-bottom: 144px;
+        }
+    }
+
+    &__inner {
+        display: flex;
+    }
+
+    .text {
+        max-width: 1115px;
+
+        .top-text {
+            margin-bottom: 12px;
+        }
+
+        h4 {
+            margin-bottom: 12px;
+        }
+    }
+}

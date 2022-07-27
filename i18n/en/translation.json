@@ -20,7 +20,7 @@
     "phone_number": "Phone",
     "phone_number_optional": "Phone",
     "phone_number_hint": "Enter a phone number",
-    "postal_code": "Postal code",
+    "postal_code": "Zip code",
     "province_hint": "Select a province",
     "state_hint": "Select a state",
     "zip_code": "ZIP code"

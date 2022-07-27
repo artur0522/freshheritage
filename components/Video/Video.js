@@ -1,7 +1,7 @@
 import React from 'react'
 import Youtube from 'react-youtube'
 
-const ArticleVideo = ({youtubeVideoId, startVideo, autoplay = true, className}) => {
+const Video = ({youtubeVideoId, startVideo, autoplay = true, className}) => {
 
   const onReady = (event) => {
     if (!autoplay) {
@@ -33,4 +33,4 @@ const ArticleVideo = ({youtubeVideoId, startVideo, autoplay = true, className}) 
   )
 }
 
-export default ArticleVideo
+export default Video

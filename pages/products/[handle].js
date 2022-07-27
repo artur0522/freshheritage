@@ -17,7 +17,7 @@ import StructuredData from '@/components/SEO/StructuredData'
 import classes from './Product.module.scss'
 import { split } from 'lodash-es'
 
-function Product({ product, page }) {
+function Product({ product, page, modals }) {
   const [checked, setChecked] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
   const handle = product.content?.handle
@@ -30,18 +30,21 @@ function Product({ product, page }) {
   const stampSection = page[0].fields.content.find(field => field._type === 'stamps')
 
   const modalContext = useModalContext()
+  const [mounted, setMounted] = useState(false)
   const customerContext = useCustomerContext()
   const { customer } = customerContext
 
   useEffect(() =>  {
+    setMounted(true)
+
     if(product.content.handle === 'digital-gift-card') {
       setChecked(true)
     }
 
-    const foundVisibleTags = product.tags.filter(tag => tag.includes('Visible'));
+    const foundVisibleTags = product.tags.filter(tag => tag.includes('Visible' || 'visible'));
     const splitTag = foundVisibleTags[0]?.split(':')[1]
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
-    const foundCustomerTag = customer?.tags.find(tag => tag.includes('member') || tag.includes('sustainer'))
+    const foundCustomerTag = customer?.tags.find(tag => tag.includes('member' || 'Member') || tag.includes('sustainer' || 'sustainer'))
 
     const productHasCustomerTag = foundVisibleTags?.find((tag) => {
       let splitTag = tag.split(':')[1] === foundCustomerTag
@@ -52,25 +55,30 @@ function Product({ product, page }) {
       }
     })
 
-    const fetchModalData = async () => {
-      const foundCustomerTag = customer?.tags.find(tag => tag.includes('member') || tag.includes('sustainer'))
-      const modal = await nacelleClient.content({
-        handles: [foundCustomerTag ? foundCustomerTag?.replace(/\s/g, '-') : 'non-member']
-      })
-      if(!customer && foundVisibleTags.length > 0) {
-        modalContext.setContent(modal[0]?.fields)
-        modalContext.setModalType('gated_product')
-        modalContext.setIsOpen(true)
+    const foundModal = modals.find(modal => modal.handle === splitTagWithDash)
+    const defaultModal = modals.find(modal => modal.handle === 'non-member')
+    
+    // if product tags exist but none of the product tags match customer tag
+    if(foundVisibleTags.length > 0 && !productHasCustomerTag) {
+      if(foundModal) {
+        modalContext.setContent(foundModal?.fields)
+      } else {
+        modalContext.setContent(defaultModal?.fields)
       }
-      if(foundVisibleTags.length > 0 && !productHasCustomerTag) {
-        modalContext.setContent(modal[0]?.fields)
-        modalContext.setModalType('gated_product')
-        modalContext.setIsOpen(true)
-      }
-    };
+      modalContext.setModalType('gated_product')
+      modalContext.setIsOpen(true)
+    }
 
-    fetchModalData()
-  }, [customer])
+    // if one of the product tags contains customer tag
+    if(foundVisibleTags.length > 0 && productHasCustomerTag) {
+      modalContext.setIsOpen(false)
+    }
+
+    // if visible tags dont exist
+    if(foundVisibleTags.length === 0) {
+      modalContext.setIsOpen(false)
+    }
+  }, [customer, modalContext.content])
 
   const isDesktop = useMediaQuery(
     { minWidth: 1074 }
@@ -191,10 +199,15 @@ export async function getStaticProps({ params }) {
     }
   }
 
+  const modals = await nacelleClient.content({
+    type: 'gatedProductModal'
+  })
+
   return {
     props: {
       product: products[0],
-      page
+      page,
+      modals
     }
   }
 }

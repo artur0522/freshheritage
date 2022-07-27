@@ -27,6 +27,7 @@ import BoldHeaderText from '@/components/Sections/BoldHeaderText'
 import ImageWithText from '@/components/Sections/ImageWithText'
 import ImageTextColumns from '../ImageTextColumns'
 import WYSIWYG from '@/components/Sections/WYSIWYG'
+import ContactUs from '@/components/Sections/ContactUs'
 
 const ContentSections = ({ sections }) => {
   if (!Array.isArray(sections)) {
@@ -89,6 +90,8 @@ const ContentSections = ({ sections }) => {
         return <ImageTextColumns fields={section} key={section._key} />
       case 'wysiwyg':
         return <WYSIWYG fields={section} key={section._key} />
+      case 'contactUs':
+        return <ContactUs fields={section} key={section._key} />
       default:
         return null
     }

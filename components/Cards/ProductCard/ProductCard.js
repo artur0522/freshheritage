@@ -146,7 +146,7 @@ function ProductCard({ product }) {
         </div>
         </div>
 
-        <Link href={`products/${product.content?.handle}`}>
+        <Link href={`/products/${encodeURIComponent(product.content.handle)}`}>
           <a className="btn salmon">View Details</a>
         </Link>
       </div>

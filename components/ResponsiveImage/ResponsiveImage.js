@@ -9,7 +9,7 @@ import classes from './ResponsiveImage.module.scss'
 
 const ResponsiveImage = ({src, alt, priority = false}) => {
   return (
-    <div className={classes['image-container']}>
+    <div className={`${classes['image-container']} responsve-image-container`}>
       <Image className={classes['image']} src={src} layout="fill" alt={alt} priority={priority} />
     </div>
   )

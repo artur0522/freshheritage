@@ -10,13 +10,12 @@ const WYSIWYG = ({fields}) => {
   const myPortableTextComponents = {
     marks: {
       link: ({children, value}) => {
-        const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined
         if (value.href.includes('mailto')) {
-          return <a href={value.href} target="_blank">{children}</a>
+          return <a rel="noreferrer noopener" href={value.href} target="_blank">{children}</a>
         }
         return (
           <Link href={value.href}>
-            <a rel={rel}>{children}</a>
+            <a>{children}</a>
           </Link>
         )
       }

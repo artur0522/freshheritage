@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useMediaQuery } from 'react-responsive'
 import Link from "next/link";
+import ResponsiveImage from '@/components/ResponsiveImage'
 import Image from "next/image";
 import { useCart } from "@nacelle/react-hooks";
 import { getSelectedVariant } from "utils/getSelectedVariant";
@@ -14,8 +15,8 @@ function ProductCard({ product }) {
   const [selectedOptions, setSelectedOptions] = useState(
     selectedVariant.content?.selectedOptions
   );
-  const isMobile =  useMediaQuery({ query: '(max-width: 736px)' })
-  const isDesktop = useMediaQuery({query: '(min-width: 737px)'})
+  const isMobile =  useMediaQuery({ query: '(max-width: 430px)' })
+  const isDesktop = useMediaQuery({query: '(min-width: 430px)'})
 
   useEffect(() => {
     setMounted(true)
@@ -80,21 +81,21 @@ function ProductCard({ product }) {
           <a className={classes["media"]}>
             {product.content.featuredMedia && isMobile && mounted && (
               <Image
-                src={product.content.featuredMedia.src}
-                alt={product.content.featuredMedia.altText}
-                width={650}
-                height={350}
-                className={classes.image}
-              />
+              src={product.content.featuredMedia.src}
+              alt={product.content.featuredMedia.altText}
+              width={430}
+              height={278}
+              className={classes.image}
+            />
             )}
             {product.content.featuredMedia && isDesktop && mounted && (
-              <Image
-                src={product.content.featuredMedia.src}
-                alt={product.content.featuredMedia.altText}
-                width={430}
-                height={278}
-                className={classes.image}
-              />
+               <Image
+               src={product.content.featuredMedia.src}
+               alt={product.content.featuredMedia.altText}
+               width={650}
+               height={350}
+               className={classes.image}
+             />
             )}
           </a>
         </Link>

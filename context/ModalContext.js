@@ -17,7 +17,8 @@ export function ModalProvider({ children }) {
   useEffect(() => {
     if (isOpen) document.querySelector('html').classList.add('disable-scroll')
     if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
-  }, [isOpen])
+    console.log(isOpen)
+  }, [isOpen, content])
 
   useEffect(() => {
     const onRountChangeComplete = () => {

@@ -43,7 +43,6 @@ function Product({ product, page, modals }) {
 
     const foundVisibleTags = product.tags.filter(tag => tag.includes('Visible' || 'visible'));
     const splitTag = foundVisibleTags[0]?.split(':')[1]
-    console.log('ftv', foundVisibleTags)
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
     const foundCustomerTag = customer?.tags.find(tag => tag.includes('member' || 'Member') || tag.includes('sustainer' || 'sustainer'))
 
@@ -79,7 +78,7 @@ function Product({ product, page, modals }) {
     if(foundVisibleTags.length === 0) {
       modalContext.setIsOpen(false)
     }
-  }, [customer, modalContext.content])
+  })
 
   const isDesktop = useMediaQuery(
     { minWidth: 1074 }

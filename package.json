@@ -16,7 +16,7 @@
     "@nacelle/react-components": "^8.0.0",
     "@nacelle/react-hooks": "^6.1.0",
     "@nacelle/shopify-checkout": "^0.0.10",
-    "@nacelle/storefront-sdk": "^1.0.3",
+    "@nacelle/storefront-sdk": "^1.7.5",
     "@portabletext/react": "^1.0.6",
     "@sanity/client": "^3.3.2",
     "@sanity/image-url": "^1.0.1",

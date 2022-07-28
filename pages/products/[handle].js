@@ -55,14 +55,18 @@ function Product({ product, page, modals }) {
       }
     })
 
+    modalContext.setProductCustomerTag(productHasCustomerTag)
+
     const foundModal = modals.find(modal => modal.handle === splitTagWithDash)
     const defaultModal = modals.find(modal => modal.handle === 'non-member')
     
     // if product tags exist but none of the product tags match customer tag
     if(foundVisibleTags.length > 0 && !productHasCustomerTag) {
       if(foundModal) {
+        modalContext.setPrevContent(foundModal?.fields)
         modalContext.setContent(foundModal?.fields)
       } else {
+        modalContext.setPrevContent(defaultModal?.fields)
         modalContext.setContent(defaultModal?.fields)
       }
       modalContext.setModalType('gated_product')
@@ -78,7 +82,7 @@ function Product({ product, page, modals }) {
     if(foundVisibleTags.length === 0) {
       modalContext.setIsOpen(false)
     }
-  })
+  }, [customer])
 
   const isDesktop = useMediaQuery(
     { minWidth: 1074 }

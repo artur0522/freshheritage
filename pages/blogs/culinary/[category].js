@@ -58,11 +58,17 @@ export async function getStaticProps({ params }) {
 
   const { articleTypes } = page.fields
 
-  const articles = await nacelleClient.content({
-    type: articleTypes[0]
-  })
+  let allArticles = await articleTypes.reduce(async (carry, type) => {
+    let promises = await carry;
+    const articles = await nacelleClient.content({
+      type: type
+    })
+    if (articles) {
+      return [...promises, ...articles]
+    }
+  }, Promise.resolve([]))
 
-  if (!articles.length) {
+  if (!allArticles.length) {
     return {
       notFound: true
     }
@@ -74,7 +80,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      articles: articles,
+      articles: allArticles,
       blogSettings: blogSettings[0],
       page: page,
       handle: page.handle

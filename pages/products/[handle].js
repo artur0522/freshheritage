@@ -10,6 +10,7 @@ import ProductReviewStars from '../../components/Product/ProductReviewStars'
 import ProductSlider from '../../components/Product/ProductSlider'
 import ProductAccordion from '../../components/Product/ProductAccordion'
 import ProductGiftForm from '@/components/Product/ProductGiftForm'
+import ProductHarvests from '@/components/Product/ProductHarvests'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
@@ -57,7 +58,7 @@ function Product({ product, page, modals }) {
 
     const foundModal = modals.find(modal => modal.handle === splitTagWithDash)
     const defaultModal = modals.find(modal => modal.handle === 'non-member')
-    
+
     // if product tags exist but none of the product tags match customer tag
     if(foundVisibleTags.length > 0 && !productHasCustomerTag) {
       if(foundModal) {
@@ -95,9 +96,11 @@ function Product({ product, page, modals }) {
         <PageSEO product={product} />
         <div className={classes['product__inner']}>
             <div className={`${classes['product__row']} container`}>
-            <div className={classes['slider']}>
-              <ProductSlider product={product} />
-            </div>
+
+              <div className={classes['slider']}>
+                <ProductSlider product={product} />
+                {/* <ProductHarvests product={product} /> */}
+              </div>
 
               <div className={classes['main']}>
                 <ProductReviewStars productId={product.sourceEntryId.replace('gid://shopify/Product/', '')} />

@@ -27,8 +27,11 @@ function Product({ product, page, modals }) {
   const productDescription = product.content?.description
   const accordionDescriptionHeader = productAccordionHeaders?.description
   const deliveryDetails = product.metafields.find(metafield => metafield.key === 'delivery_details')
+  const harvestMetafield = product.metafields.find(metafield => metafield.key === 'harvest_handle')
   const deliveryDetailsList = deliveryDetails ? JSON.parse(deliveryDetails.value) : null
   const stampSection = page[0].fields.content.find(field => field._type === 'stamps')
+
+  console.log('harvestmeta', harvestMetafield)
 
   const modalContext = useModalContext()
   const [mounted, setMounted] = useState(false)
@@ -158,7 +161,7 @@ function Product({ product, page, modals }) {
               </div>
             </div>
           {/* SECTIONS */}
-          <ContentSections sections={page[0].fields.content} />
+          <ContentSections sections={page[0].fields.content} harvestMetafield={harvestMetafield} />
         </div>
       </div>
     )

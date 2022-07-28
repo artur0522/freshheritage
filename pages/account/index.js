@@ -1,29 +1,35 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useCustomerContext } from '@/context/CustomerContext'
 import classes from './AccountMainPage.module.scss'
+import AccountHeader from '@/components/Account/AccountHeader'
 
 export default function AccountMainPage() {
   const customerContext = useCustomerContext()
   console.log(`customerContext: `, customerContext)
 
+  const [subsData, setSubsData] = useState(null)
+  const [membershipData, setMembershipData] = useState(null)
+
   useEffect(() => {
     console.log('running effect with customer ', customerContext.customer)
     if (customerContext.customer?.id) {
-      const idArr = customerContext.customer.id.split('/');
-      const id = idArr[idArr.length - 1];
-      fetch('/api/account/get-subs?cID=' + id, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          // TODO:
-          // 'Authorization': `Bearer test`,
-        },
-      })
+      const idArr = customerContext.customer.id.split('/')
+      const id = idArr[idArr.length - 1]
+      fetch('/api/account/get-subs?cID=' + id)
         .then((res) => res.json())
         .then((res) => {
           if (res.message === 'success') {
-            const results = res.data
-            console.log('get-subs', results)
+            setSubsData(res.data)
+            console.log('get-subs', res.data)
+          }
+        })
+
+      fetch('/api/account/get-membership?cID=' + id)
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.message === 'success') {
+            setMembershipData(res.data)
+            console.log('membership', res.data)
           }
         })
     }
@@ -36,10 +42,17 @@ export default function AccountMainPage() {
 
   return (
     <div className={`${classes['main']}`}>
-      <div className={`${classes['greeting']}`}>
+      {customerContext.customer && subsData && membershipData ? (
+        <AccountHeader
+          firstName={customerContext.customer?.firstName}
+        ></AccountHeader>
+      ) : (
+        <div>LOADING</div>
+      )}
+      {/* <div className={`${classes['greeting']}`}>
         Welcome to the account page,{' '}
         {customerContext.customer?.displayName ?? 'LOADING...'}
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -47,6 +47,7 @@ export function HeadlessCheckoutProvider({ children }) {
   async function addItemToOrder({variant, quantity = 1, properties = {}, open_flyout = true, product}) {
 
     console.log("variant:", variant)
+    console.log("properties:", properties)
 
     if (!data) {
       return false;
@@ -67,7 +68,8 @@ export function HeadlessCheckoutProvider({ children }) {
         shipments,  // optional for gift subscriptions -> '1', '3', '6', '12' -> !String
         recipient_email // optional, but required for digital gift cards
         recipient_name, // optional
-        recipient_message // optional
+        recipient_message // optional,
+        _prepaid_duration_id, // optional
       }
     */
 
@@ -77,6 +79,10 @@ export function HeadlessCheckoutProvider({ children }) {
       quantity,
       properties: {
         ...properties,
+        _prepaid_duration_id: "20470",
+        Prepaid: "true",
+        "Order frequency": "Monthly",
+        _interval_id: "51911",
         product_handle: variant.productHandle, // because Bold doesn't provide product handle
         product_weight: (variant.weight) ? variant.weight.toString() : '' // Bold doesn't provide correct weight
       }

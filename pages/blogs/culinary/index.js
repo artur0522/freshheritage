@@ -6,6 +6,9 @@ import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
 
 export default function CulinaryBlog({ pages }) {
+
+  console.log("pages:", pages)
+
   const culinaryBlogPage = pages.find((page) => page.handle === 'culinary-blog')
 
   return (

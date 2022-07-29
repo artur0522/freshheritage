@@ -2,9 +2,19 @@ import { nacelleClient } from 'services'
 import traverse from 'traverse'
 import { uniq } from 'lodash-es';
 
+// not sure if this is a good number
+const nodeLevels = 20
+
 export const getNacelleReferences = async (page) => {
   // traverse the dom and look for nacelle references
-  const nacelleEntryIds = traverse(page).reduce((carry, x) => {
+  // do not get any entryIds that are more than {nodeLevels} levels deep
+  const nacelleEntryIds = traverse(page).reduce(function(carry, x) {
+    const _this = this
+    const level = _this.level
+    if (level > nodeLevels) {
+      return carry
+    }
+
     if (x && typeof x === 'object' && x.type === 'NacelleReference') {
       carry.push(x)
     }
@@ -49,7 +59,10 @@ export const getNacelleReferences = async (page) => {
     const _this = this
     if (x && typeof x === 'object' && x.type === 'NacelleReference') {
       const reference = objectReferences[x.nacelleEntryId]
-      _this.update(reference.fields)
+      console.log("reference:", reference)
+      if (reference) {
+        _this.update(reference.fields)
+      }
     }
   })
 

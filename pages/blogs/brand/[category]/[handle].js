@@ -3,6 +3,7 @@ import ArticleMain from '@/components/Article/ArticleMain'
 import { nacelleClient } from 'services'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import ContentSections from '@/components/Sections/ContentSections'
+import StructuredData from '@/components/SEO/StructuredData'
 import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
@@ -15,6 +16,7 @@ const BrandArticle = ({ page, product, blogSettings }) => {
 
   return (
     <>
+      <StructuredData type="article" data={page} />
       <PageSEO seo={page.fields.seo} />
       <ArticleSplitHero fields={hero} renderType="default" blogGlobalSettings={blogGlobalSettings} />
       <ArticleMain contentType="standard" fields={page.fields} product={product} blogGlobalSettings={blogGlobalSettings} />

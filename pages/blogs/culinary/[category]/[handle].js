@@ -9,7 +9,11 @@ import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
+
 const RecipeArticle = ({ page, product, blogSettings }) => {
+
+  console.log("page:", page)
+
   const { setContent } = useModalContext()
   const mainContentRef = useRef()
 
@@ -96,6 +100,17 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
     )
   }
 
+  // else return standard article
+  return (
+    <>
+      <StructuredData type="article" data={page} />
+      <PageSEO seo={page.fields.seo} />
+      <ArticleSplitHero fields={hero} renderType="default" blogGlobalSettings={blogGlobalSettings} />
+      <ArticleMain contentType="standard" fields={page.fields} product={product} blogGlobalSettings={blogGlobalSettings} />
+      <ContentSections sections={page.fields.pageContent} />
+    </>
+  )
+
 }
 
 export default RecipeArticle
@@ -169,7 +184,9 @@ export async function getStaticProps({ params }) {
     }
   }
 
-  const validPage = pages.find(page => {
+  const fullRefPages = await getNacelleReferences(pages)
+
+  const validPage = fullRefPages.find((page) => {
     return page.fields?.blog?.handle.current === category
   })
 
@@ -179,21 +196,19 @@ export async function getStaticProps({ params }) {
     }
   }
 
-  const fullRefValidPage = await getNacelleReferences(validPage)
-
   const blogSettings = await nacelleClient.content({
     type: 'blogSettings'
   })
 
   const props = {
-    page: fullRefValidPage,
-    handle: fullRefValidPage.handle,
+    page: validPage,
+    handle: validPage.handle,
     blogSettings: blogSettings[0],
     product: null
   }
 
-  if (fullRefValidPage.fields?.content) {
-    const handles = fullRefValidPage.fields.content.filter(item => item._type === 'productBlock').map(item => item.product)
+  if (validPage.fields?.content) {
+    const handles = validPage.fields.content.filter(item => item._type === 'productBlock').map(item => item.product)
     if (handles.length) {
       let data = await nacelleClient.query({
         query: GET_PRODUCTS,

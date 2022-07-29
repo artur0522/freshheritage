@@ -76,6 +76,8 @@ const ProductGiftForm = (props) => {
 
         console.log("product:", product)
 
+        let subscriptionGroup = product.metafields.find(metafield => metafield.key === 'subscription_group')
+
         const formFieldsWithGiftOption = {
             ...formFields,
             is_gift_order: checked.toString()
@@ -84,6 +86,15 @@ const ProductGiftForm = (props) => {
         if (product.tags.includes('Subscription Box')) {
             // add some logic here to determine if regular or prepaid
             formFieldsWithGiftOption.membership_type = 'regular'
+            if (subscriptionGroup && formFieldsWithGiftOption.membership_type === 'regular') {
+                // this should not be hardcoded - will make dynamic when we build gift subscription PDP
+                // reference PurchaseFlowContext.js to get subscription properties
+                subscriptionGroup = JSON.parse(subscriptionGroup.value)
+                formFieldsWithGiftOption.sub_group_id = '19362'
+                formFieldsWithGiftOption.interval_id = '51911'
+                formFieldsWithGiftOption.interval_text = 'Monthly'
+            }
+
         }
 
         addItemToOrder({

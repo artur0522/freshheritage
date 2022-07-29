@@ -41,7 +41,7 @@ const LineItemProduct = ({ item, children, readOnly }) => {
     }
   }
 
-  console.log("item:", item)
+  // console.log("item:", item)
 
   return (
     <div className="order-item checkout__row">
@@ -64,7 +64,13 @@ const LineItemProduct = ({ item, children, readOnly }) => {
             <div className="order-item__price">
               <span className="price">${formatPrice(item.total_price)}</span>
               {item.tags.includes('Subscription Box') &&
-                <span className="price-per-unit">{` ($${formatPrice(item.price)}/box)`}</span>
+                <>
+                  {item.properties.membership_type === 'prepaid' ?
+                    <span className="price-per-unit">{` ($${formatPrice(item.price / item.properties.shipments)}/box)`}</span>
+                  :
+                    <span className="price-per-unit">{` ($${formatPrice(item.price)}/box)`}</span>
+                  }
+                </>
               }
             </div>
           </div>
@@ -125,7 +131,7 @@ const LineItemProduct = ({ item, children, readOnly }) => {
                   {item.properties.membership_type === 'regular' && item.properties.shipments &&
                     <li>{item.properties.shipments} {item.properties.shipments === 1 ? 'box' : 'boxes'}</li>
                   }
-                  <li>Ships {item.properties.frequency}</li>
+                  <li>Ships {item.properties.interval_text}</li>
                 </ul>
               }
             </div>
@@ -165,7 +171,7 @@ const LineItemProduct = ({ item, children, readOnly }) => {
             <div className="order-item__details">
               <div className="order-item__detail-item">
                 <div>Delivery Schedule</div>
-                <div>Ships {item.properties.frequency}</div>
+                <div>Ships {item.properties.interval_text}</div>
               </div>
             </div>
           </div>

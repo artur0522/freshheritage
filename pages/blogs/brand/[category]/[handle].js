@@ -28,7 +28,8 @@ export default BrandArticle
 export async function getStaticPaths() {
 
   const standardArticles = await nacelleClient.content({
-    type: 'standardArticle'
+    type: 'standardArticle',
+    entryDepth: 2
   })
 
   const validArticles = standardArticles.reduce((carry, article) => {

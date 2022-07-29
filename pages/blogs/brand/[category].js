@@ -12,7 +12,8 @@ export default BrandBlogListings
 
 export async function getStaticPaths() {
     const blogs = await nacelleClient.content({
-      type: 'blogs'
+      type: 'blogs',
+      entryDepth: 2
     })
 
     const validBlogs = blogs.filter(blog => blog.fields.blogType === 'brand')

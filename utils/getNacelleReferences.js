@@ -5,8 +5,7 @@ import { uniq } from 'lodash-es';
 export const getNacelleReferences = async (page) => {
   // traverse the dom and look for nacelle references
   const nacelleEntryIds = traverse(page).reduce((carry, x) => {
-    if (typeof x === 'object' && x.type === 'NacelleReference') {
-      console.log("x:", x)
+    if (x && typeof x === 'object' && x.type === 'NacelleReference') {
       carry.push(x)
     }
     return carry
@@ -14,13 +13,9 @@ export const getNacelleReferences = async (page) => {
     return ref.nacelleEntryId
   }).map(item => item)
 
-  console.log("nacelleEntryIds:", nacelleEntryIds)
-
   if (!nacelleEntryIds || nacelleEntryIds.length <= 0) {
     return page
   }
-
-  console.log(" keep going")
 
   // remove duplicate entry ids
   const uniqNacelleEntryIds = uniq(nacelleEntryIds)

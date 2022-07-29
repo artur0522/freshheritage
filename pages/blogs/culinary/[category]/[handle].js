@@ -103,23 +103,28 @@ export default RecipeArticle
 export async function getStaticPaths() {
 
   const standardArticles = await nacelleClient.content({
-    type: 'standardArticle'
+    type: 'standardArticle',
+    entryDepth: 2
   })
 
   const recipeArticles = await nacelleClient.content({
-    type: 'recipeArticle'
+    type: 'recipeArticle',
+    entryDepth: 2
   })
 
   const cookingGuideArticles = await nacelleClient.content({
-    type: 'cookingGuideArticle'
+    type: 'cookingGuideArticle',
+    entryDepth: 2
   })
 
   const liveCookingClassArticles = await nacelleClient.content({
-    type: 'liveCookingClassArticle'
+    type: 'liveCookingClassArticle',
+    entryDepth: 2
   })
 
   const videoArticles = await nacelleClient.content({
-    type: 'videoArticle'
+    type: 'videoArticle',
+    entryDepth: 2
   })
 
   const validArticles = [...standardArticles, ...recipeArticles, ...cookingGuideArticles, ...liveCookingClassArticles, ...videoArticles].reduce((carry, article) => {

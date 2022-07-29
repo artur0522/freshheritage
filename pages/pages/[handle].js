@@ -5,6 +5,7 @@ import ContentSections from '@/components/Sections/ContentSections'
 import classes from './Page.module.scss'
 import { useMediaQuery } from 'react-responsive'
 import ResponsiveImage from '@/components/ResponsiveImage'
+import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 export default function DynamicPage({ page }) {
   console.log("page:", page)
@@ -72,11 +73,13 @@ export default function DynamicPage({ page }) {
 
 export async function getStaticPaths() {
   const basicPages = await nacelleClient.content({
-    type: 'page'
+    type: 'page',
+    entryDepth: 2,
   })
 
   const infoPages = await nacelleClient.content({
-    type: 'infoPage'
+    type: 'infoPage',
+    entryDepth: 2
   })
 
   const handles = [...basicPages, ...infoPages].map((page) => ({ params: { handle: page.handle } }))
@@ -91,7 +94,7 @@ export async function getStaticProps({ params }) {
 
   const pages = await nacelleClient.content({
     handles: [params.handle],
-    type: 'page'
+    entryDepth: 2
   })
 
   if (!pages.length) {
@@ -100,9 +103,11 @@ export async function getStaticProps({ params }) {
     }
   }
 
+  const fullRefPage = await getNacelleReferences(pages[0])
+
   return {
     props: {
-      page: pages[0]
+      page: fullRefPage
     }
   }
 

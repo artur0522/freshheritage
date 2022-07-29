@@ -7,6 +7,7 @@ import { GET_PRODUCTS } from '@/gql/index.js'
 import ContentSections from '@/components/Sections/ContentSections'
 import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
+import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 const RecipeArticle = ({ page, product, blogSettings }) => {
   const { setContent } = useModalContext()
@@ -153,7 +154,8 @@ export async function getStaticProps({ params }) {
   const { category, handle } = params
 
   const pages = await nacelleClient.content({
-    handles: [handle]
+    handles: [handle],
+    entryDepth: 2
   })
 
   if (!pages.length) {
@@ -172,19 +174,21 @@ export async function getStaticProps({ params }) {
     }
   }
 
+  const fullRefValidPage = await getNacelleReferences(validPage)
+
   const blogSettings = await nacelleClient.content({
     type: 'blogSettings'
   })
 
   const props = {
-    page: validPage,
-    handle: validPage.handle,
+    page: fullRefValidPage,
+    handle: fullRefValidPage.handle,
     blogSettings: blogSettings[0],
     product: null
   }
 
-  if (validPage.fields?.content) {
-    const handles = validPage.fields.content.filter(item => item._type === 'productBlock').map(item => item.product)
+  if (fullRefValidPage.fields?.content) {
+    const handles = fullRefValidPage.fields.content.filter(item => item._type === 'productBlock').map(item => item.product)
     if (handles.length) {
       let data = await nacelleClient.query({
         query: GET_PRODUCTS,

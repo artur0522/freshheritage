@@ -1,5 +1,5 @@
 import { nacelleClient } from 'services'
-
+import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import ListingsTemplate from '@/components/Blog/BlogListings/ListingsTemplate'
 
 const BrandBlogListings = ({ articles, blogSettings, page }) => {
@@ -28,19 +28,25 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
 
   const articles = await nacelleClient.content({
-    type: 'standardArticle'
+    type: 'standardArticle',
+    entryDepth: 2
   })
 
   const validArticles = articles.filter(article => article.fields.blog.handle.current === params.category)
+
+  const fullValidArticles = await getNacelleReferences(validArticles)
 
   const blogSettings = await nacelleClient.content({
     type: 'blogSettings'
   })
 
-  const pages  = await nacelleClient.content({
+  const pages = await nacelleClient.content({
     handles: [params.category],
-    type: 'blog'
+    type: 'blog',
+    entryDepth: 2
   })
+
+  const fullRefPage = await getNacelleReferences(pages[0])
 
   if (!articles.length) {
     return {
@@ -50,10 +56,10 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      articles: validArticles,
+      articles: fullValidArticles,
       blogSettings: blogSettings[0],
-      page: pages[0],
-      handle: pages[0].handle
+      page: fullRefPage,
+      handle: fullRefPage.handle
     }
   }
 }

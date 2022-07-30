@@ -3,7 +3,7 @@ import traverse from 'traverse'
 import { uniq } from 'lodash-es';
 
 // not sure if this is a good number
-const nodeLevels = 20
+const nodeLevels = 10
 
 export const getNacelleReferences = async (page) => {
   // traverse the dom and look for nacelle references
@@ -57,9 +57,17 @@ export const getNacelleReferences = async (page) => {
   // and update all nacelle references
   traverse(page).forEach(function(x) {
     const _this = this
+    const parent = _this.parent
+
+    if (_this.circular) {
+      return false;
+    }
+
+    // console.log("parent:", parent)
+
     if (x && typeof x === 'object' && x.type === 'NacelleReference') {
       const reference = objectReferences[x.nacelleEntryId]
-      console.log("reference:", reference)
+      // console.log("reference:", reference)
       if (reference) {
         _this.update(reference.fields)
       }

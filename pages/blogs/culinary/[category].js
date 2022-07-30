@@ -1,8 +1,11 @@
 import { nacelleClient } from 'services'
 
 import ListingsTemplate from '@/components/Blog/BlogListings/ListingsTemplate'
+import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 const RecipeListings = ({ articles, blogSettings, page }) => {
+
+  console.log("articles:", articles)
 
   if (page.fields.featuredClass) {
     page.fields.hero = page.fields.featuredClass.hero
@@ -66,10 +69,11 @@ export async function getStaticProps({ params }) {
     let promises = await carry;
     const articles = await nacelleClient.content({
       type: type,
-      entryDepth: 1
+      entryDepth: 0
     })
     if (articles) {
-      return [...promises, ...articles]
+      const fullRefArticles = await getNacelleReferences(articles)
+      return [...promises, ...fullRefArticles]
     }
   }, Promise.resolve([]))
 

@@ -156,6 +156,8 @@ export async function getStaticProps({ params }) {
     handles: [handle]
   })
 
+  console.log(pages)
+
   if (!pages.length) {
     return {
       notFound: true

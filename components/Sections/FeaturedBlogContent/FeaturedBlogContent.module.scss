@@ -67,7 +67,7 @@
             margin: auto;
             min-height: 61px;
             display: flex;
-            justify-content: space-between;
+            // justify-content: space-between;
         }
 
         &.swiper-none {
@@ -92,11 +92,13 @@
             display: flex;
             align-items: center;
             width: auto;
+            margin-right: 75px;
 
             @include breakpoint-up('sm') {
                 min-height: 61px;
                 width: initial;
                 justify-content: center;
+                margin-right: 75px;
             }
         }
 

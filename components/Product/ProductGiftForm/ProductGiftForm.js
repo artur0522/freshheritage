@@ -40,6 +40,8 @@ const ProductGiftForm = (props) => {
       : 'Sold Out'
     : 'Select Option'
 
+    console.log("selectedvariant", selectedVariant)
+
     const handleOptionChange = (event, option) => {
         const newOption = { name: option.name, value: event.target.value }
         const optionIndex = selectedOptions.findIndex((selectedOption) => {
@@ -151,7 +153,8 @@ const ProductGiftForm = (props) => {
                     <p className="disclaimer">*Digital giftcard will be delivered to recipient via email one day after purchase and will include your gift message! </p>
                 </div>}
             </div>}
-            <button type="submit" className="btn salmon">{buttonText}</button>
+
+            <button type="submit" disabled={!selectedVariant.availableForSale || selectedVariant.quantity === 0} className="btn salmon">{buttonText}</button>
         </form>
     )
 }

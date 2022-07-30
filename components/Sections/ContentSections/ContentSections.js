@@ -32,7 +32,7 @@ import Accordion from '../Accordion'
 
 const ContentSections = ({ sections, harvestMetafield}) => {
   if (harvestMetafield === undefined) {
-    harvestMetafield === null
+    harvestMetafield = null
   } else if(!harvestMetafield) {
     harvestMetafield = {}
   } else {

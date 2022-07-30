@@ -64,7 +64,7 @@ export async function getStaticProps({ previewData }) {
   const pages = await nacelleClient.content({
     handles: ['homepage'],
     type: 'page',
-    entryDepth: 2
+    entryDepth: 1
   })
 
   const fullPage = await getNacelleReferences(pages[0])

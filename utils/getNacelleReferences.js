@@ -69,7 +69,10 @@ export const getNacelleReferences = async (page) => {
       const reference = objectReferences[x.nacelleEntryId]
       // console.log("reference:", reference)
       if (reference) {
-        _this.update(reference.fields)
+        _this.update({
+          ...reference,
+          ...reference.fields
+        })
       }
     }
   })

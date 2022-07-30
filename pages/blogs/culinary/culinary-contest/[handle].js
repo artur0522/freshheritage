@@ -28,7 +28,7 @@ export default CulinaryContestArticle
 export async function getStaticPaths() {
   const culinaryContestArticles = await nacelleClient.content({
     type: 'culinaryContestArticle',
-    entryDepth: 2
+    entryDepth: 1
   })
 
   const handles = culinaryContestArticles.map((article) => ({ params: { handle: article.handle } }))

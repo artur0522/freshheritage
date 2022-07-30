@@ -119,27 +119,27 @@ export async function getStaticPaths() {
 
   const standardArticles = await nacelleClient.content({
     type: 'standardArticle',
-    entryDepth: 2
+    entryDepth: 1
   })
 
   const recipeArticles = await nacelleClient.content({
     type: 'recipeArticle',
-    entryDepth: 2
+    entryDepth: 1
   })
 
   const cookingGuideArticles = await nacelleClient.content({
     type: 'cookingGuideArticle',
-    entryDepth: 2
+    entryDepth: 1
   })
 
   const liveCookingClassArticles = await nacelleClient.content({
     type: 'liveCookingClassArticle',
-    entryDepth: 2
+    entryDepth: 1
   })
 
   const videoArticles = await nacelleClient.content({
     type: 'videoArticle',
-    entryDepth: 2
+    entryDepth: 1
   })
 
   const validArticles = [...standardArticles, ...recipeArticles, ...cookingGuideArticles, ...liveCookingClassArticles, ...videoArticles].reduce((carry, article) => {
@@ -175,7 +175,7 @@ export async function getStaticProps({ params }) {
 
   const pages = await nacelleClient.content({
     handles: [handle],
-    entryDepth: 2
+    entryDepth: 1
   })
 
   if (!pages.length) {

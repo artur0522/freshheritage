@@ -32,7 +32,7 @@ export default TheCatch
 export async function getStaticPaths() {
     const theCatchPages = await nacelleClient.content({
         type: 'theCatch',
-        entryDepth: 2
+        entryDepth: 1
     })
 
     const handles = theCatchPages.map((page) => ({ params: { handle: page.handle }}))

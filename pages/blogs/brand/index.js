@@ -20,7 +20,7 @@ export async function getStaticProps({ previewData }) {
 
   const pages = await nacelleClient.content({
     handles: ['brand-blog'],
-    entryDepth: 2
+    entryDepth: 1
   })
 
   const fullRefPage = await getNacelleReferences(pages[0])

@@ -13,7 +13,7 @@ export default BrandBlogListings
 export async function getStaticPaths() {
     const blogs = await nacelleClient.content({
       type: 'blogs',
-      entryDepth: 2
+      entryDepth: 1
     })
 
     const validBlogs = blogs.filter(blog => blog.fields.blogType === 'brand')
@@ -30,7 +30,7 @@ export async function getStaticProps({ params }) {
 
   const articles = await nacelleClient.content({
     type: 'standardArticle',
-    entryDepth: 2
+    entryDepth: 1
   })
 
   const validArticles = articles.filter(article => article.fields.blog.handle.current === params.category)
@@ -44,7 +44,7 @@ export async function getStaticProps({ params }) {
   const pages = await nacelleClient.content({
     handles: [params.category],
     type: 'blog',
-    entryDepth: 2
+    entryDepth: 1
   })
 
   const fullRefPage = await getNacelleReferences(pages[0])

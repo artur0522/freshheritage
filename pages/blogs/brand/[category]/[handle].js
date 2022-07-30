@@ -31,7 +31,7 @@ export async function getStaticPaths() {
 
   const standardArticles = await nacelleClient.content({
     type: 'standardArticle',
-    entryDepth: 2
+    entryDepth: 1
   })
 
   const validArticles = standardArticles.reduce((carry, article) => {
@@ -66,7 +66,7 @@ export async function getStaticProps({ params }) {
   const pages = await nacelleClient.content({
     handles: [params.handle],
     type: 'standardArticle',
-    entryDepth: 2
+    entryDepth: 1
   })
 
   const blogSettings = await nacelleClient.content({

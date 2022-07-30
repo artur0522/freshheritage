@@ -1,6 +1,7 @@
 import { nacelleClient } from 'services'
 
 import ListingsTemplate from '@/components/Blog/BlogListings/ListingsTemplate'
+import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 const RecipeListings = ({ articles, blogSettings, page }) => {
 
@@ -18,13 +19,13 @@ export default RecipeListings
 export async function getStaticPaths() {
   const blogs = await nacelleClient.content({
     type: 'blogs',
-    entryDepth: 2
+    entryDepth: 1
   })
 
   const cookingClassCategoryBlogs = await nacelleClient.content({
     handles: ['cooking-classes'],
     type: 'cookingClassCategory',
-    entryDepth: 2
+    entryDepth: 1
   })
 
   const validBlogs = [...blogs, ...cookingClassCategoryBlogs].filter(blog => blog.fields.blogType === 'culinary')
@@ -41,12 +42,14 @@ export async function getStaticProps({ params }) {
 
   const pages = await nacelleClient.content({
     handles: [params.category],
-    type: 'blog'
+    type: 'blog',
+    entryDepth: 1
   })
 
   const cookingClassCategoryBlogs = await nacelleClient.content({
     handles: ['cooking-classes'],
-    type: 'cookingClassCategory'
+    type: 'cookingClassCategory',
+    entryDepth: 1
   })
 
 
@@ -58,15 +61,20 @@ export async function getStaticProps({ params }) {
 
   const page = pages.length ? pages[0] : cookingClassCategoryBlogs[0]
 
-  const { articleTypes } = page.fields
+  const fullPage = await getNacelleReferences(page)
+
+  const { articleTypes } = fullPage.fields
 
   let allArticles = await articleTypes.reduce(async (carry, type) => {
     let promises = await carry;
     const articles = await nacelleClient.content({
-      type: type
+      type: type,
+      entryDepth: 1
     })
+
     if (articles) {
-      return [...promises, ...articles]
+      const fullArticles = await getNacelleReferences(articles)
+      return [...promises, ...fullArticles]
     }
   }, Promise.resolve([]))
 

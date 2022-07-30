@@ -104,10 +104,16 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
 
         if(selectedFilterList.length > 0) {
           setCurrentPage(1)
-          window.scrollTo({ behavior: 'smooth', top: '0px' })
         }
+
         setPages(Math.ceil(listings.length / 20))
-    }, [currentPage, articles, pages, originalListings])
+    }, [articles, pages, originalListings])
+
+    useEffect(() => {
+      window.scrollTo({ behavior: 'smooth', top: '0px' })
+    }, [currentPage])
+
+
 
 
     const getPaginatedData = () => {

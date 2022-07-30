@@ -1,8 +1,38 @@
+import { useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import ListingsTemplate from '@/components/Blog/BlogListings/ListingsTemplate'
 
-const BrandBlogListings = ({ articles, blogSettings, page }) => {
+const BrandBlogListings = ({ articles: initialArticles, blogSettings, page }) => {
+
+  const [articles, setArticles] = useState(initialArticles)
+
+  useEffect(() => {
+    const getArticles = async () => {
+      const { articleTypes } = page.fields
+
+      let allArticles = await articleTypes.reduce(async (carry, type) => {
+        let promises = await carry;
+        const articles = await nacelleClient.content({
+          type: type,
+          entryDepth: 0
+        })
+
+        if (articles) {
+          const fullRefArticles = await getNacelleReferences(articles)
+          return [...promises, ...fullRefArticles]
+        }
+      }, Promise.resolve([]))
+
+      return allArticles
+    }
+
+    getArticles()
+      .then((res) => {
+        setArticles(res)
+      })
+  }, [])
+
   return (
     <ListingsTemplate articles={articles} blogSettings={blogSettings} page={page} />
   )
@@ -30,7 +60,8 @@ export async function getStaticProps({ params }) {
 
   const articles = await nacelleClient.content({
     type: 'standardArticle',
-    entryDepth: 1
+    entryDepth: 1,
+    maxReturnedEntries: 20
   })
 
   const validArticles = articles.filter(article => article.fields.blog.handle.current === params.category)

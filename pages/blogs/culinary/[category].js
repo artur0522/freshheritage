@@ -5,11 +5,13 @@ import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 const RecipeListings = ({ articles, blogSettings, page }) => {
 
-  console.log("articles:", articles)
+  // console.log("articles:", articles)
 
   if (page.fields.featuredClass) {
     page.fields.hero = page.fields.featuredClass.hero
   }
+
+  return <></>
 
   return (
     <ListingsTemplate articles={articles} blogSettings={blogSettings} page={page} />
@@ -65,23 +67,23 @@ export async function getStaticProps({ params }) {
 
   const { articleTypes } = page.fields
 
-  let allArticles = await articleTypes.reduce(async (carry, type) => {
-    let promises = await carry;
-    const articles = await nacelleClient.content({
-      type: type,
-      entryDepth: 0
-    })
-    if (articles) {
-      const fullRefArticles = await getNacelleReferences(articles)
-      return [...promises, ...fullRefArticles]
-    }
-  }, Promise.resolve([]))
+  // let allArticles = await articleTypes.reduce(async (carry, type) => {
+  //   let promises = await carry;
+  //   const articles = await nacelleClient.content({
+  //     type: type,
+  //     entryDepth: 0
+  //   })
+  //   if (articles) {
+  //     const fullRefArticles = await getNacelleReferences(articles)
+  //     return [...promises, ...articles]
+  //   }
+  // }, Promise.resolve([]))
 
-  if (!allArticles.length) {
-    return {
-      notFound: true
-    }
-  }
+  // if (!allArticles.length) {
+  //   return {
+  //     notFound: true
+  //   }
+  // }
 
   const blogSettings = await nacelleClient.content({
     type: 'blogSettings'
@@ -89,7 +91,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      articles: allArticles,
+      // articles: allArticles,
       blogSettings: blogSettings[0],
       page: page,
       handle: page.handle

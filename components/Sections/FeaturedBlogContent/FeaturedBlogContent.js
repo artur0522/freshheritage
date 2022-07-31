@@ -10,52 +10,32 @@ import "swiper/css"
 import classes from './FeaturedBlogContent.module.scss'
 
 const FeaturedBlogContent = ({ fields }) => {
-  const { tabs, header, subheader, ctaUrl, ctaText, illustration, illustration2, illustrationAlt, illustration2Alt, method, blog, tag} = fields
-  const [validArticles, setValidArticles] = useState([])
+  const { tabs, header, subheader, ctaUrl, ctaText, illustration, illustration2, illustrationAlt, illustration2Alt, method, blog, tag, articleType} = fields
   const [selectedSwiper, setSelectedSwiper] = useState(tabs[0])
   const [mounted, setMounted] = useState(false)
+  const [validArticles, setValidArticles] = useState([])
 
   useEffect(() => {
     setMounted(true)
 
+    const fieldTag = tag
+
     const getArticles = async () => {
-        const standardArticles = await nacelleClient.content({
-            type: 'standardArticle'
-          })
-        
-        const recipeArticles = await nacelleClient.content({
-            type: 'recipeArticle'
-        })
-    
-        const cookingGuideArticles = await nacelleClient.content({
-            type: 'cookingGuideArticle'
-        })
-    
-        const liveCookingClassArticles = await nacelleClient.content({
-            type: 'liveCookingClassArticle'
-        })
-    
-        const videoArticles = await nacelleClient.content({
-            type: 'videoArticle'
+        const articles = await nacelleClient.content({
+            type: `${articleType}`
         })
 
-        console.log('standardarticles', standardArticles)
-    
-        const validArticles = [...standardArticles, ...recipeArticles, ...cookingGuideArticles, ...liveCookingClassArticles, ...videoArticles].reduce((carry, article) => {
-            // only get culinary categories
-            const blogType = article.fields.blog.blogType
-            if (blogType === blog.blogType) {
-                return [...carry.slice(0, 4)]
-            }
-            return carry
-        }, [])
+        const filteredArr = articles.filter((article) => {
+            return (
+                article.fields?.blog?.blogType === blog?.blogType && article.fields?.articleTags?.find(tag => tag.value === fieldTag)
+            )
+        }).slice(0, 4)
 
-        setValidArticles(validArticles)
-        console.log('valid', validArticles)
+        setValidArticles(filteredArr)
     }
 
     getArticles()
-  }, [validArticles])
+  }, [])
 
   const filterArticles = (tabName) => {
     const foundTab = tabs.find((tab) => {
@@ -63,12 +43,6 @@ const FeaturedBlogContent = ({ fields }) => {
     })
     setSelectedSwiper(foundTab)
   }
-
-  console.log('selectedtabs', selectedSwiper)
-  console.log('method', method)
-  console.log('blog', blog)
-  console.log('tag', tag)
-
   return (
     <div className={`${classes['articles']}`}>
         {illustration && <div className={classes['illustration-1']}>
@@ -122,14 +96,25 @@ const FeaturedBlogContent = ({ fields }) => {
                 })}
             </Swiper>}
 
-
-
-
-
-
-
-
-
+            {mounted && method === 'tagBased' && <Swiper
+                slidesPerView={"auto"}
+                spaceBetween={18}
+                navigation={false}
+                className={`${classes['articles__swiper']} ${classes[tabs.length > 1 ? 'border-top' : '']}`}
+                breakpoints={{
+                    1920: {
+                        slidesPerView: 4
+                    }
+                }}
+            >
+                {validArticles.map((article) => {
+                    return (
+                        <SwiperSlide className={classes['article-slide']} key={`${article._type}-${article._id}`}>
+                            <DynamicArticleCard article={article} />
+                        </SwiperSlide>
+                    )
+                })}
+            </Swiper>}
 
 
             {mounted && method === 'manual' && <Swiper
@@ -144,27 +129,6 @@ const FeaturedBlogContent = ({ fields }) => {
                 }}
             >
                 {selectedSwiper.tabList.map((article) => {
-                    return (
-                        <SwiperSlide className={classes['article-slide']} key={`${article._type}-${article._id}`}>
-                            <DynamicArticleCard article={article} />
-                        </SwiperSlide>
-                    )
-                })}
-            </Swiper>}
-
-
-            {mounted && method === 'tagBased' && <Swiper
-                slidesPerView={"auto"}
-                spaceBetween={18}
-                navigation={false}
-                className={`${classes['articles__swiper']} ${classes[tabs.length > 1 ? 'border-top' : '']}`}
-                breakpoints={{
-                    1920: {
-                        slidesPerView: 4
-                    }
-                }}
-            >
-                {validArticles.map((article) => {
                     return (
                         <SwiperSlide className={classes['article-slide']} key={`${article._type}-${article._id}`}>
                             <DynamicArticleCard article={article} />

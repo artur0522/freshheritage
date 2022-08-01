@@ -30,7 +30,15 @@ import WYSIWYG from '@/components/Sections/WYSIWYG'
 import ContactUs from '@/components/Sections/ContactUs'
 import Accordion from '../Accordion'
 
-const ContentSections = ({ sections }) => {
+const ContentSections = ({ sections, harvestMetafield}) => {
+  if (harvestMetafield === undefined) {
+    harvestMetafield = null
+  } else if(!harvestMetafield) {
+    harvestMetafield = {}
+  } else {
+    harvestMetafield = harvestMetafield
+  }
+
   if (!Array.isArray(sections)) {
     return null
   }
@@ -52,15 +60,35 @@ const ContentSections = ({ sections }) => {
       case 'featuredBlogContent':
         return <FeaturedBlogContent fields={section} key={section._key} />
       case 'currentSellingHarvest':
-        return <CurrentHarvest fields={section} key={section._key} />
+        if(harvestMetafield) {
+          return <CurrentHarvest fields={section} key={section._key} harvestMetafield />
+        } else {
+          return null
+        }
       case 'currentMonthHarvest':
-        return <CurrentHarvest fields={section} key={section._key} />
+        if(harvestMetafield) {
+          return <CurrentHarvest fields={section} key={section._key} harvestMetafield />
+        } else {
+          return null
+        }
       case 'projectedHarvest':
-        return <ProjectedHarvest fields={section} key={section._key} />
+        if(harvestMetafield) {
+          return <ProjectedHarvest fields={section} key={section._key} harvestMetafield />
+        } else {
+          return null
+        }
       case 'staticHarvest':
-          return <StaticHarvest fields={section} key={section._key} />
+        if(harvestMetafield) {
+          return <StaticHarvest fields={section} key={section._key} harvestMetafield />
+        } else {
+          return null
+        }
       case 'globalSampler':
-        return <GlobalSampler fields={section} key={section._key} />
+        if(harvestMetafield) {
+          return <CurrentHarvest fields={section} key={section._key} harvestMetafield />
+        } else {
+          return null
+        }
       case 'faqs':
         return <FAQs fields={section} key={section._key} />
       case 'blogHero':

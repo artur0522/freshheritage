@@ -303,6 +303,28 @@ button {
     @extend h6;
   }
 
+  &__pdp-label {
+    font-size: fontsize(24px);
+    font-weight: 400;
+    font-family: $bebas;
+
+    @include breakpoint-up('sm') {
+      font-size: fontsize(38px);
+    }
+
+    @include breakpoint-up('md') {
+      font-size: fontsize(38px);
+    }
+
+    @include breakpoint-up('lg') {
+      font-size: fontsize(38px);
+    }
+
+    @include breakpoint-up('xl') {
+      font-size: fontsize(38px);
+    }
+  }
+
   &--catch {
     font-size: fontsize(72px);
     line-height: 100%;

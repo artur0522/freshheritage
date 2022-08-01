@@ -100,7 +100,7 @@ const FeaturedBlogContent = ({ fields }) => {
                 slidesPerView={"auto"}
                 spaceBetween={18}
                 navigation={false}
-                className={`${classes['articles__swiper']} ${classes[tabs.length > 1 ? 'border-top' : '']}`}
+                className={`${classes['articles__swiper']}`}
                 breakpoints={{
                     1920: {
                         slidesPerView: 4

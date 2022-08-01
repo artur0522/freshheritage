@@ -162,11 +162,7 @@ function Product({ product, page, modals }) {
               </div>
             </div>
           {/* SECTIONS */}
-<<<<<<< HEAD
-          <ContentSections sections={page[0].fields.content} harvestMetafield={harvestMetafield} />
-=======
-          <ContentSections sections={page.fields.content} />
->>>>>>> origin/main
+          <ContentSections sections={page.fields.content} harvestMetafield={harvestMetafield} />
         </div>
       </div>
     )

@@ -10,24 +10,26 @@ import ProductReviewStars from '../../components/Product/ProductReviewStars'
 import ProductSlider from '../../components/Product/ProductSlider'
 import ProductAccordion from '../../components/Product/ProductAccordion'
 import ProductGiftForm from '@/components/Product/ProductGiftForm'
+import ProductHarvests from '@/components/Product/ProductHarvests'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
 
 import classes from './Product.module.scss'
 import { split } from 'lodash-es'
+import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 function Product({ product, page, modals }) {
   const [checked, setChecked] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
   const handle = product.content?.handle
-  const productAccordionHeaders = page[0].fields.content.find(block => block._type === 'productAccordionHeaders')
+  const productAccordionHeaders = page.fields.content.find(block => block._type === 'productAccordionHeaders')
   const accordionDeliveryHeader = productAccordionHeaders?.details
   const productDescription = product.content?.description
   const accordionDescriptionHeader = productAccordionHeaders?.description
   const deliveryDetails = product.metafields.find(metafield => metafield.key === 'delivery_details')
   const deliveryDetailsList = deliveryDetails ? JSON.parse(deliveryDetails.value) : null
-  const stampSection = page[0].fields.content.find(field => field._type === 'stamps')
+  const stampSection = page.fields.content.find(field => field._type === 'stamps')
 
   const modalContext = useModalContext()
   const [mounted, setMounted] = useState(false)
@@ -57,7 +59,7 @@ function Product({ product, page, modals }) {
 
     const foundModal = modals.find(modal => modal.handle === splitTagWithDash)
     const defaultModal = modals.find(modal => modal.handle === 'non-member')
-    
+
     // if product tags exist but none of the product tags match customer tag
     if(foundVisibleTags.length > 0 && !productHasCustomerTag) {
       if(foundModal) {
@@ -95,9 +97,11 @@ function Product({ product, page, modals }) {
         <PageSEO product={product} />
         <div className={classes['product__inner']}>
             <div className={`${classes['product__row']} container`}>
-            <div className={classes['slider']}>
-              <ProductSlider product={product} />
-            </div>
+
+              <div className={classes['slider']}>
+                <ProductSlider product={product} />
+                {/* <ProductHarvests product={product} /> */}
+              </div>
 
               <div className={classes['main']}>
                 <ProductReviewStars productId={product.sourceEntryId.replace('gid://shopify/Product/', '')} />
@@ -151,7 +155,7 @@ function Product({ product, page, modals }) {
               </div>
             </div>
           {/* SECTIONS */}
-          <ContentSections sections={page[0].fields.content} />
+          <ContentSections sections={page.fields.content} />
         </div>
       </div>
     )
@@ -190,8 +194,11 @@ export async function getStaticProps({ params }) {
   })
 
   const page = await nacelleClient.content({
-    handles: ['product']
+    handles: ['product'],
+    entryDepth: 1
   })
+
+  const fullRefPage = await getNacelleReferences(page[0])
 
   if (!products.length) {
     return {
@@ -206,7 +213,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       product: products[0],
-      page,
+      page: fullRefPage,
       modals
     }
   }

@@ -54,7 +54,9 @@
     "sass-migrator": "^1.5.4",
     "string-strip-html": "^9.1.12",
     "swiper": "^8.1.5",
+    "traverse": "^0.6.6",
     "universal-cookie": "^4.0.4",
+    "util": "^0.12.4",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

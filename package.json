@@ -16,7 +16,7 @@
     "@nacelle/react-components": "^8.0.0",
     "@nacelle/react-hooks": "^6.1.0",
     "@nacelle/shopify-checkout": "^0.0.10",
-    "@nacelle/storefront-sdk": "^1.0.3",
+    "@nacelle/storefront-sdk": "^1.7.5",
     "@portabletext/react": "^1.0.6",
     "@sanity/client": "^3.3.2",
     "@sanity/image-url": "^1.0.1",
@@ -54,6 +54,7 @@
     "sass-migrator": "^1.5.4",
     "string-strip-html": "^9.1.12",
     "swiper": "^8.1.5",
+    "traverse": "^0.6.6",
     "universal-cookie": "^4.0.4",
     "util": "^0.12.4",
     "uuid": "^8.3.2"

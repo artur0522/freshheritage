@@ -1,12 +1,42 @@
+import { useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
 
 import ListingsTemplate from '@/components/Blog/BlogListings/ListingsTemplate'
+import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
-const RecipeListings = ({ articles, blogSettings, page }) => {
+const RecipeListings = ({ articles: initialArticles, blogSettings, page }) => {
+
+  const [articles, setArticles] = useState(initialArticles)
 
   if (page.fields.featuredClass) {
     page.fields.hero = page.fields.featuredClass.hero
   }
+
+  useEffect(() => {
+    const getArticles = async () => {
+      const { articleTypes } = page.fields
+
+      let allArticles = await articleTypes.reduce(async (carry, type) => {
+        let promises = await carry;
+        const articles = await nacelleClient.content({
+          type: type,
+          entryDepth: 0
+        })
+
+        if (articles) {
+          const fullRefArticles = await getNacelleReferences(articles)
+          return [...promises, ...fullRefArticles]
+        }
+      }, Promise.resolve([]))
+
+      return allArticles
+    }
+
+    getArticles()
+      .then((res) => {
+        setArticles(res)
+      })
+  }, [])
 
   return (
     <ListingsTemplate articles={articles} blogSettings={blogSettings} page={page} />
@@ -17,12 +47,14 @@ export default RecipeListings
 
 export async function getStaticPaths() {
   const blogs = await nacelleClient.content({
-    type: 'blogs'
+    type: 'blogs',
+    entryDepth: 1
   })
 
   const cookingClassCategoryBlogs = await nacelleClient.content({
     handles: ['cooking-classes'],
-    type: 'cookingClassCategory'
+    type: 'cookingClassCategory',
+    entryDepth: 1
   })
 
   const validBlogs = [...blogs, ...cookingClassCategoryBlogs].filter(blog => blog.fields.blogType === 'culinary')
@@ -39,12 +71,14 @@ export async function getStaticProps({ params }) {
 
   const pages = await nacelleClient.content({
     handles: [params.category],
-    type: 'blog'
+    type: 'blog',
+    entryDepth: 1
   })
 
   const cookingClassCategoryBlogs = await nacelleClient.content({
     handles: ['cooking-classes'],
-    type: 'cookingClassCategory'
+    type: 'cookingClassCategory',
+    entryDepth: 1
   })
 
 
@@ -61,10 +95,13 @@ export async function getStaticProps({ params }) {
   let allArticles = await articleTypes.reduce(async (carry, type) => {
     let promises = await carry;
     const articles = await nacelleClient.content({
-      type: type
+      type: type,
+      entryDepth: 0,
+      maxReturnedEntries: 20
     })
     if (articles) {
-      return [...promises, ...articles]
+      const fullRefArticles = await getNacelleReferences(articles)
+      return [...promises, ...fullRefArticles]
     }
   }, Promise.resolve([]))
 

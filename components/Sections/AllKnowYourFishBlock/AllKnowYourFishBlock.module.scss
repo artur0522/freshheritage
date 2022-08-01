@@ -2,9 +2,69 @@
 
 .all-know-your-fish-block {
   padding: 60px 0 120px;
-  background-color: $alabaster;
+  background-color: $fawn50-2;
 }
 
 .all-know-your-fish-block__header {
   margin-bottom: 60px;
+}
+
+.all-know-your-fish-block__list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 -20px;
+}
+
+.all-know-your-fish-block__item {
+  width: 25%;
+  padding: 0 20px;
+  margin-bottom: 115px;
+}
+
+.all-know-your-fish-block__item-container {
+  background-color: $pureWhite;
+  padding: 20px;
+  border-radius: 12px;
+  .all-know-your-fish-block__item-header {
+    font-family: $bebas;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  h3 {
+    font-family: $bebas;
+    font-size: 21px;
+    margin-right: 8px;
+  }
+  p {
+    font-size: 18px;
+    line-height: 120%;
+  }
+  .all-know-your-fish-block__detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+}
+
+.all-know-your-fish-block__item-image {
+  margin-bottom: 18px;
+  position: relative;
+  img {
+    border-radius: 12px;
+  }
+}
+
+.all-know-your-fish-block__more-info-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 11px;
+  right: 14px;
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 100%;
+  border: none;
 }

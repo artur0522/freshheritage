@@ -6,6 +6,8 @@ import { useKnowYourFishDrawerContext } from '@/context/KnowYourFishDrawerContex
 
 const AllKnowYourFishblock = ({fields}) => {
 
+  const { openDrawer } = useKnowYourFishDrawerContext()
+
   const { header, subheader, knowYourFishList } = fields
 
   if (!knowYourFishList) {
@@ -45,16 +47,17 @@ const AllKnowYourFishblock = ({fields}) => {
                 <div className={classes['all-know-your-fish-block__item-container']}>
                   {cropImageUrl && <div className={classes['all-know-your-fish-block__item-image']}>
                     <ResponsiveImage src={cropImageUrl} alt={image.asset.alt || ''}  style={imageInlineStyles} />
+                    <button className={classes['all-know-your-fish-block__more-info-btn']} onClick={() => openDrawer({ fields: item})}></button>
                   </div>}
-                  <div className={classes['all-know-your-fish-block__content']}>
-                    {header && <h2>{header}</h2>}
-                    {peakSeason && <div className={classes['know-your-fish__detail-item']}>
-                      <h3><b>Peak Season:</b></h3>
-                      <h4>{peakSeason}</h4>
+                  <div className={classes['all-know-your-fish-block__item-content']}>
+                    {header && <h2 className={classes['all-know-your-fish-block__item-header']}>{header}</h2>}
+                    {peakSeason && <div className={classes['all-know-your-fish-block__detail-item']}>
+                      <h3>Peak Season:</h3>
+                      <p>{peakSeason}</p>
                     </div>}
-                    {nutritionalInfo && <div className={classes['know-your-fish__detail-item']}>
-                      <h3><b>Nutritional info:</b></h3>
-                      <h4>{nutritionalInfo}</h4>
+                    {nutritionalInfo && <div className={classes['all-know-your-fish-block__detail-item']}>
+                      <h3>Nutritional info:</h3>
+                      <p>{nutritionalInfo}</p>
                     </div>}
                   </div>
                 </div>

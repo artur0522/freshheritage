@@ -6,8 +6,11 @@ import IconClose from '@/svgs/close.svg'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import ContentSections from '@/components/Sections/ContentSections'
 import { PortableText } from '@portabletext/react'
+import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 const KnowYourFishDrawer = ({fields}) => {
+
+  console.log("fields:", fields)
 
   const { dispatch } = useKnowYourFishDrawerContext()
   const nodeRef = useRef(null)
@@ -15,6 +18,8 @@ const KnowYourFishDrawer = ({fields}) => {
   const timeout = 200
 
   const { header, peakSeason, nutritionalInfo, image, description, content } = fields
+
+  const [contentSections, setContentSections] = useState(content)
 
   const closeDrawer = () => {
     setDrawerOpen(false)
@@ -30,6 +35,17 @@ const KnowYourFishDrawer = ({fields}) => {
       }, timeout)
     }
   }, [fields])
+
+  useEffect(() => {
+    const getUpdatedContent = async () => {
+      const fullRefContent = await getNacelleReferences(content)
+      return fullRefContent
+    }
+    getUpdatedContent()
+      .then((res) => {
+        setContentSections([...res])
+      })
+  }, [])
 
   return (
     <div className={`${classes['know-your-fish-drawer']} know-your-fish-drawer`}>
@@ -63,7 +79,7 @@ const KnowYourFishDrawer = ({fields}) => {
                 <PortableText value={description} />
               </div>}
               {content && <div className={classes['know-your-fish__content']}>
-                <ContentSections sections={content} />
+                <ContentSections sections={contentSections} />
               </div>}
             </div>
           </div>

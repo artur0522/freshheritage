@@ -4,6 +4,7 @@ import { useHeadlessCheckoutContext } from './HeadlessCheckoutContext'
 import { useRouter } from 'next/router'
 import { getCartVariant } from 'utils/getCartVariant'
 import { GET_PRODUCTS } from '../gql'
+import { getSubscriptionInfo } from '@/utils/getSubscriptionInfo'
 
 const PurchaseFlowContext = createContext()
 
@@ -41,6 +42,7 @@ export function PurchaseFlowProvider({ children }) {
 
   // step 2 - selecting membership and frequency variant option
   const selectMembershipPlan = async (variantSelected, membershipType) => {
+    console.log("variantSelected:", variantSelected)
     setOptions({
       ...options,
       step: 3,
@@ -52,9 +54,27 @@ export function PurchaseFlowProvider({ children }) {
       product: options.product,
       variant: variantSelected
     });
+
+    let subscriptionProperties = {}
+    let subscriptionGroup = options.product.metafields.find(metafield => metafield.key === 'subscription_group')
+    const frequency = variantSelected.content.selectedOptions.find(option => option.name === 'frequency')
+
+
+    if (subscriptionGroup) {
+      subscriptionGroup = JSON.parse(subscriptionGroup.value)
+      // console.log("subscriptionGroup:", subscriptionGroup)
+      subscriptionProperties = getSubscriptionInfo({
+        subscriptionGroup,
+        frequencyName: frequency.value,
+        membershipType,
+        duration: 12
+      })
+    }
+
     await addItemToOrder({
       variant: variant,
       properties: {
+        ...subscriptionProperties,
         membership_type: membershipType,
         shipments: '12'
       },
@@ -128,7 +148,7 @@ export function PurchaseFlowProvider({ children }) {
   }, [options, router])
 
   useEffect(() => {
-    // console.log("options useEffect:", options)
+    console.log("options useEffect:", options)
     const saveData = {...options};
     delete saveData.product
     localStorage.setItem('purchase_flow_data', JSON.stringify(saveData))

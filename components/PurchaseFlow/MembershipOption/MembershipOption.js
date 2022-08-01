@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Expand from 'react-expand-animated'
 import Dropdown from 'react-dropdown'
 import IconSelectArrow from '@/svgs/select-arrow.svg'
@@ -8,14 +8,13 @@ import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import IconMinus from '@/svgs/minus.svg'
 import IconPlus from '@/svgs/plus.svg'
 import { getVariantByOptions } from '@/utils/getVariantByOptions'
-
+import LoadingState from '@/components/LoadingState'
 
 const MembershipOption = ({option, membershipType}) => {
   const purchaseFlowContext = usePurchaseFlowContext()
 
-  console.log("purchaseFlowContext:", purchaseFlowContext)
-
   const [selectedVariant, setSelectedVariant] = useState(purchaseFlowContext.options.product.variants[0])
+  const [isLoading, setIsLoading] = useState(false)
 
   const { product } = purchaseFlowContext.options
   const { variants } = product;
@@ -50,15 +49,6 @@ const MembershipOption = ({option, membershipType}) => {
     setSelectedVariant(variant)
   }
 
-  useEffect(() => {
-    const variant = getVariantByOptions({
-      variants,
-      matchOptionValue: frequencyOptions[0],
-      purchaseFlowOptions: purchaseFlowContext.options
-    })
-    setSelectedVariant(variant)
-  }, [frequencyOptions, purchaseFlowContext.options, variants])
-
   return (
     <li className={classes['membership-option']}>
       <div className={classes['membership-option__container']}>
@@ -88,11 +78,14 @@ const MembershipOption = ({option, membershipType}) => {
               arrowOpen={<IconSelectArrow className="dropdown-selector__arrow-open" />}
             />
           }
-          {/* should add a loading state when this function is called */}
           <button
-            onClick={() => purchaseFlowContext.selectMembershipPlan(selectedVariant, membershipType)}
+            onClick={() => {
+              setIsLoading(true)
+              purchaseFlowContext.selectMembershipPlan(selectedVariant, membershipType)
+            }}
+            disabled={isLoading}
             className="btn salmon">
-              {option.ctaText}
+              {isLoading ? <LoadingState /> : option.ctaText}
           </button>
           {!isDesktop &&
             <button onClick={() => toggleExpand()} className={`${classes['membership-option__toggle-btn']} btn-link-underline`}>

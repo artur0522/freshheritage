@@ -1,6 +1,4 @@
-@import '@/styles/mixins/_breakpoints.scss';
-@import '@/styles/variables/_breakpoints.scss';
-@import '@/styles/variables/_colors.scss';
+@import '@/styles/_shared.scss';
 
 .harvest {
     background-color: $alabaster;
@@ -29,12 +27,18 @@
             height: 48px;
             display: flex;
             align-items: center;
+            max-width: 715px;
 
             @include breakpoint-up('sm') {
                 display: block;
                 height: initial;
                 margin-bottom: 36px;
             }
+        }
+
+        h5 {
+            margin-bottom: 36px;
+            max-width: 715px;
         }
     }
 
@@ -76,6 +80,58 @@
                 @include breakpoint-up('sm') {
                     margin-bottom: 36px;
                     max-width: 822px;
+                }
+            }
+        }
+    }
+
+    .active-harvest__swiper {
+        margin-left: 28px;
+        margin-bottom: 29px;
+        position: relative;
+
+        @include breakpoint-up('sm') {
+            margin-left: 50px;
+            margin-bottom: 57px;
+        }
+
+        @include breakpoint-up('md') {
+            margin-left: 60px;
+        }
+
+        @include breakpoint-up('lg') {
+            margin-left: 85px;
+        }
+
+        @include breakpoint-up('xl') {
+            width: calc(100% - 240px);
+            max-width: 1680px;
+            margin: 0 auto 57px auto;
+        }
+
+        .harvest__tab {
+            min-height: 37px;
+            display: flex;
+            align-items: center;
+            color: $sitkablue;
+            width: auto;
+
+            @include breakpoint-up('sm') {
+                min-height: 61px;
+                width: initial;
+                justify-content: center;
+            }
+
+            button {
+                background-color: #fff;
+                border: 1px solid $fawn50-2;
+                border-radius: 12px;
+                padding: 20.5px 31px;
+                font-family: $bebas;
+
+                &.active {
+                    background-color: $sitkablue;
+                    color: #fff;
                 }
             }
         }

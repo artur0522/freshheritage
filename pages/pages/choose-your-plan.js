@@ -3,6 +3,7 @@ import ChooseYourBox from '@/components/PurchaseFlow/ChooseYourBox'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import PageSEO from '@/components/SEO/PageSEO'
+import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 const PurchaseFlow = ({page, tierOptions}) => {
   const purchaseFlowContext = usePurchaseFlowContext()
@@ -23,7 +24,8 @@ export async function getStaticProps() {
     type: 'purchaseFlow'
   })
 
-  const { fields } = page[0]
+  const fullRefPage = await getNacelleReferences(page[0])
+  const { fields } = fullRefPage
   const { step1 } = fields
   const tiers = [...step1.tiers.map(tier => tier.product), 'sitka-seafood-intro-box'];
 

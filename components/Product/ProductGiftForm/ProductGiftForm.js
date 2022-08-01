@@ -168,14 +168,10 @@ const ProductGiftForm = (props) => {
                     <p className="disclaimer">*Digital giftcard will be delivered to recipient via email one day after purchase and will include your gift message! </p>
                 </div>}
             </div>}
-<<<<<<< HEAD
 
-            <button type="submit" disabled={!selectedVariant.availableForSale || selectedVariant.quantity === 0} className="btn salmon">{buttonText}</button>
-=======
-            <button type="submit" className="btn salmon" disabled={isLoading}>
-                {isLoading ? <LoadingState /> : buttonText}
+            <button type="submit" disabled={!selectedVariant.availableForSale || selectedVariant.quantity === 0 || isLoading} className="btn salmon">
+                 {isLoading ? <LoadingState /> : buttonText}
             </button>
->>>>>>> origin/main
         </form>
     )
 }

@@ -4,59 +4,29 @@ import { nacelleClient } from 'services'
 import ContentSections from '../../../components/Sections/ContentSections'
 import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
+import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
-export default function BrandBlog({ pages }) {
-  const brandBlogPage = pages.find((page) => page.handle === 'brand-blog')
-
+export default function BrandBlog({ page }) {
   return (
     <>
-      <StructuredData type="blog" data={brandBlogPage} />
-      <PageSEO seo={brandBlogPage.fields.seo} />
-      <ContentSections sections={brandBlogPage.fields.content} />
+      <StructuredData type="blog" data={page} />
+      <PageSEO seo={page.fields.seo} />
+      <ContentSections sections={page.fields.content} />
     </>
   )
 }
 
 export async function getStaticProps({ previewData }) {
-  try {
-    const pages = await nacelleClient.content({
-      handles: ['brand-blog']
-    })
 
-    return {
-      props: { pages }
-    }
-  } catch {
-    const page = {
-      sections: [
-        {
-          sys: {
-            id: 'testid',
-            contentType: {
-              sys: {
-                id: 'heroBanner'
-              }
-            }
-          },
-          fields: {
-            title: 'Sitka Salmon Shares',
-            featuredMedia: {
-              fields: {
-                file: {
-                  url: 'https://i.picsum.photos/id/11/1400/500.jpg?hmac=V3wFB6qaKu4yf-50Fix6CL0D4eyOBLfSpJYcyNB2Uyw'
-                }
-              }
-            },
-            backgroundAltTag: 'Sitka Alt Tag'
-          }
-        }
-      ]
-    }
+  const pages = await nacelleClient.content({
+    handles: ['brand-blog'],
+    entryDepth: 1
+  })
 
-    return {
-      props: {
-        page
-      }
-    }
+  const fullRefPage = await getNacelleReferences(pages[0])
+
+  return {
+    props: { page: fullRefPage }
   }
+
 }

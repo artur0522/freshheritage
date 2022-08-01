@@ -2,6 +2,7 @@ import { nacelleClient } from 'services'
 import CustomizeYourPlan from '@/components/PurchaseFlow/CustomizeYourPlan'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import PageSEO from '@/components/SEO/PageSEO'
+import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 const PurchaseFlow = ({page}) => {
   const purchaseFlowContext = usePurchaseFlowContext()
@@ -21,7 +22,8 @@ export async function getStaticProps() {
     type: 'purchaseFlow'
   })
 
-  const { fields } = page[0]
+  const fullRefPage = await getNacelleReferences(page[0])
+  const { fields } = fullRefPage
   const { step2 } = fields
 
   return {

@@ -1,5 +1,6 @@
 // const bodyParser = require('body-parser')
 const crypto = require('crypto')
+const util = require('util')
 
 // body parser enabled by default in nextjs?
 // https://nextjs.org/docs/api-routes/api-middlewares
@@ -44,24 +45,58 @@ export default async function handler(req, res) {
 
   const bodyParsed = JSON.parse(req.body)
 
-  const { products, customer } = bodyParsed
+  const { products, customer, order_meta_data } = bodyParsed
 
   const body = {
-    cart_items: []
+    cart_items: [],
+    // cart_items: [
+    //   {
+    //     "platform_id": "41593002361018",
+    //     "quantity": 1,
+    //     "line_item_key": "ae317f5e-755b-472c-9050-936870fe06f7"
+    //   }
+    // ],
+    // order_meta_data: {
+    //   "cart_parameters": {
+    //       "bold_subscriptions": {
+    //           "line_items_subscription_info": [
+    //               {
+    //                   "line_item_id": "ae317f5e-755b-472c-9050-936870fe06f7",
+    //                   "variant_id": 41593002361018,
+    //                   "quantity": 1,
+    //                   "subscription_group_id": 19362,
+    //                   "interval_id": 51911,
+    //                   "interval_text": "Monthly",
+    //                   "prepaid_selected": true,
+    //                   "prepaid_duration_id": 20470
+    //               }
+    //           ]
+    //       }
+    //   },
+    // }
   }
+
   if (customer) {
     body.customer = customer
   }
 
+  if (order_meta_data) {
+    body.order_meta_data = order_meta_data
+  }
+
   if (products) {
     products.forEach((product) => {
+      console.log("product:", product)
       body.cart_items.push({
-        platform_id: product.id,
+        platform_id: product.platform_id,
         quantity: product.quantity,
-        line_item_key: crypto.randomUUID()
+        line_item_key: product.line_item_key,
+        line_item_properties: product.line_item_properties
       })
     })
   }
+
+  console.log('body:', util.inspect(body, false, null));
 
   try {
     // Initialize checkout

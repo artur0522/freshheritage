@@ -17,19 +17,20 @@ import StructuredData from '@/components/SEO/StructuredData'
 
 import classes from './Product.module.scss'
 import { split } from 'lodash-es'
+import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 function Product({ product, page, modals }) {
   const [checked, setChecked] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
   const handle = product.content?.handle
-  const productAccordionHeaders = page[0].fields.content.find(block => block._type === 'productAccordionHeaders')
+  const productAccordionHeaders = page.fields.content.find(block => block._type === 'productAccordionHeaders')
   const accordionDeliveryHeader = productAccordionHeaders?.details
   const productDescription = product.content?.description
   const accordionDescriptionHeader = productAccordionHeaders?.description
   const deliveryDetails = product.metafields.find(metafield => metafield.key === 'delivery_details')
   const harvestMetafield = product.metafields.find(metafield => metafield.key === 'harvest_handle')
   const deliveryDetailsList = deliveryDetails ? JSON.parse(deliveryDetails.value) : null
-  const stampSection = page[0].fields.content.find(field => field._type === 'stamps')
+  const stampSection = page.fields.content.find(field => field._type === 'stamps')
 
   console.log('harvestmeta', harvestMetafield)
 
@@ -161,7 +162,11 @@ function Product({ product, page, modals }) {
               </div>
             </div>
           {/* SECTIONS */}
+<<<<<<< HEAD
           <ContentSections sections={page[0].fields.content} harvestMetafield={harvestMetafield} />
+=======
+          <ContentSections sections={page.fields.content} />
+>>>>>>> origin/main
         </div>
       </div>
     )
@@ -200,8 +205,11 @@ export async function getStaticProps({ params }) {
   })
 
   const page = await nacelleClient.content({
-    handles: ['product']
+    handles: ['product'],
+    entryDepth: 1
   })
+
+  const fullRefPage = await getNacelleReferences(page[0])
 
   if (!products.length) {
     return {
@@ -216,7 +224,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       product: products[0],
-      page,
+      page: fullRefPage,
       modals
     }
   }

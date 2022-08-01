@@ -7,8 +7,13 @@ import { GET_PRODUCTS } from '@/gql/index.js'
 import ContentSections from '@/components/Sections/ContentSections'
 import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
+import { getNacelleReferences } from '@/utils/getNacelleReferences'
+
 
 const RecipeArticle = ({ page, product, blogSettings }) => {
+
+  console.log("page:", page)
+
   const { setContent } = useModalContext()
   const mainContentRef = useRef()
 
@@ -95,6 +100,17 @@ const RecipeArticle = ({ page, product, blogSettings }) => {
     )
   }
 
+  // else return standard article
+  return (
+    <>
+      <StructuredData type="article" data={page} />
+      <PageSEO seo={page.fields.seo} />
+      <ArticleSplitHero fields={hero} renderType="default" blogGlobalSettings={blogGlobalSettings} />
+      <ArticleMain contentType="standard" fields={page.fields} product={product} blogGlobalSettings={blogGlobalSettings} />
+      <ContentSections sections={page.fields.pageContent} />
+    </>
+  )
+
 }
 
 export default RecipeArticle
@@ -102,23 +118,28 @@ export default RecipeArticle
 export async function getStaticPaths() {
 
   const standardArticles = await nacelleClient.content({
-    type: 'standardArticle'
+    type: 'standardArticle',
+    entryDepth: 1
   })
 
   const recipeArticles = await nacelleClient.content({
-    type: 'recipeArticle'
+    type: 'recipeArticle',
+    entryDepth: 1
   })
 
   const cookingGuideArticles = await nacelleClient.content({
-    type: 'cookingGuideArticle'
+    type: 'cookingGuideArticle',
+    entryDepth: 1
   })
 
   const liveCookingClassArticles = await nacelleClient.content({
-    type: 'liveCookingClassArticle'
+    type: 'liveCookingClassArticle',
+    entryDepth: 1
   })
 
   const videoArticles = await nacelleClient.content({
-    type: 'videoArticle'
+    type: 'videoArticle',
+    entryDepth: 1
   })
 
   const validArticles = [...standardArticles, ...recipeArticles, ...cookingGuideArticles, ...liveCookingClassArticles, ...videoArticles].reduce((carry, article) => {
@@ -153,7 +174,8 @@ export async function getStaticProps({ params }) {
   const { category, handle } = params
 
   const pages = await nacelleClient.content({
-    handles: [handle]
+    handles: [handle],
+    entryDepth: 1
   })
 
   console.log(pages)
@@ -164,7 +186,9 @@ export async function getStaticProps({ params }) {
     }
   }
 
-  const validPage = pages.find(page => {
+  const fullRefPages = await getNacelleReferences(pages)
+
+  const validPage = fullRefPages.find((page) => {
     return page.fields?.blog?.handle.current === category
   })
 

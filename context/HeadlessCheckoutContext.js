@@ -36,38 +36,23 @@ export function HeadlessCheckoutProvider({ children }) {
     }
   }
 
-  async function addNewSubscription(curr_subscription, new_subscription) {
-    const removedCurrSubscriptionResponse = await removeLineItem({
-      line_item_key: curr_subscription.product_data.line_item_key
-    })
-    const addedNewSubscriptionResponse = await addLineItem(new_subscription)
-    console.log("replaced current subscription with new subscription")
-  }
-
   async function addItemToOrder({variant, quantity = 1, properties = {}, open_flyout = true, product}) {
-
-    console.log("variant:", variant)
 
     if (!data) {
       return false;
     }
 
-    // if (!variant && !product) {
-    //   return false
-    // }
-
-    // if (!variant && product) {
-
-    // }
-
     /* sample data for properties
       properties {
         is_gift_order, // optional -> to determine if email, name and message should be added as order metadata instead of line item properties // !String
         membership_type: // required for any subscriptions -> 'regular' or 'prepaid'
-        shipments,  // optional for gift subscriptions -> '1', '3', '6', '12' -> !String
         recipient_email // optional, but required for digital gift cards
         recipient_name, // optional
-        recipient_message // optional
+        recipient_message // optional,
+        sub_group_id // optional,
+        interval_id // optional,
+        interval_text // optional
+        prepaid_duration_id // optional
       }
     */
 
@@ -84,26 +69,63 @@ export function HeadlessCheckoutProvider({ children }) {
 
     // variant names need to be line item properties to render correctly in checkout
     newItem.variant.selectedOptions.forEach(option => {
-      if (option.name === 'frequency') newItem.properties.frequency = option.value
       if (option.name === 'preference') newItem.properties.preference = option.value
     })
 
     const { line_items } = data.application_state
     const foundLineItem = line_items.find(item => item.product_data.id.includes(newItem.variantId))
-    const foundSubscriptionItem = line_items.find(item => item.product_data.properties.membership_type)
     const isGiftOrder = newItem.properties.is_gift_order && newItem.properties.productHandle !== 'digital-gift-card'
 
+    if (newItem.properties.membership_type) {
+      // if new item is a subscription initializing a new checkout but removing the existing subscription and adding the new item
+      // note: need to initialize a new checkout for subscriptions, more specifically for prepaid subscription
+      // in order for Bold to apply new order total and line item total.
 
-    if (newItem.properties.membership_type && foundSubscriptionItem) {
-      // if new item is a subscription and if there's a line item that is a subscription, replace it by removing it and then adding the new item
-      const response = await addNewSubscription(foundSubscriptionItem, {
-        platform_id: newItem.variantId,
-        quantity: newItem.quantity,
-        line_item_key: uuidv4(),
-        line_item_properties: {
-          ...newItem.properties,
+      // if there's a line item that is a subscription, remove it before initializing a new checkout
+
+      const foundSubscriptionItem = line_items.find(item => item.product_data.properties.membership_type)
+
+      let lineItems = data.application_state.line_items.filter(item => item.product_data.variant_id !== foundSubscriptionItem?.product_data?.variant_id).map(item => {
+        const line_item = item.product_data
+        return {
+          platform_id: line_item.variant_id,
+          quantity: line_item.quantity,
+          line_item_key: line_item.line_item_key,
+          line_item_properties: line_item.properties
         }
       })
+
+      const uniqueKey = uuidv4()
+
+      console.log("adding new subscription.. initializing new checkout")
+
+      const response = await initializeCheckout({
+        products: [...lineItems, {
+          platform_id: newItem.variantId,
+          quantity: newItem.quantity,
+          line_item_key: uniqueKey,
+          line_item_properties: newItem.properties
+        }],
+        order_meta_data: {
+          "cart_parameters": {
+            "bold_subscriptions": {
+              "line_items_subscription_info": [
+                {
+                  "line_item_id": uniqueKey,
+                  "variant_id": Number(newItem.variantId),
+                  "quantity": 1,
+                  "subscription_group_id": Number(newItem.properties.sub_group_id),
+                  "interval_id": Number(newItem.properties.interval_id),
+                  "interval_text": newItem.properties.interval_text,
+                  "prepaid_selected": newItem.properties.prepaid_duration_id ? true : false,
+                  "prepaid_duration_id": newItem.properties.prepaid_duration_id ? Number(newItem.properties.prepaid_duration_id) : ''
+                }
+              ]
+            }
+          },
+        }
+      })
+
     } else if (foundLineItem && isEqual(foundLineItem.product_data.properties, newItem.properties) && newItem.properties.product_handle != 'digital-gift-card') {
       // if item exists, updatelineitem instead by incrementing quantity
       const response = await updateLineItem({
@@ -235,6 +257,7 @@ export function HeadlessCheckoutProvider({ children }) {
     if (customer) {
       payload.customer = transformCustomerData(customer)
     }
+
     const res = await fetch(
       `${process.env.checkoutUrl}/api/checkout/initialize-otp`,
       {
@@ -421,7 +444,33 @@ export function HeadlessCheckoutProvider({ children }) {
     //   line_item_key: '977a6d10-43c5-414a-a60f-f1b551cbc3cf',
     //   platform_id: '39396153295034'
     // }
-    console.log(payload)
+
+    const { line_item_key, platform_id, quantity, line_item_properties } = payload
+
+    const waitfirst = await updateOrderMetaData({
+      "cart_parameters": {
+        "bold_subscriptions": {
+          "line_items_subscription_info": [
+            {
+              "line_item_id": `${platform_id}-${line_item_key}`,
+              "variant_id": Number(platform_id),
+              "quantity": quantity,
+              "subscription_group_id": Number(line_item_properties.sub_group_id),
+              "interval_id": Number(line_item_properties.interval_id),
+              "interval_text": "Monthly",
+              "prepaid_selected": true,
+              "prepaid_duration_id": 20470,
+              "full_price": 15900
+            }
+          ]
+        }
+      },
+      "note_attributes": {
+        "staff_notes": "SUBSCRIPTION"
+      },
+      "tags": ['bold-subscription', 'prepaid-subscription']
+    })
+
     const { jwt, public_order_id } = JSON.parse(
       localStorage.getItem('checkout_data'),
     )
@@ -442,6 +491,12 @@ export function HeadlessCheckoutProvider({ children }) {
       ...data,
       application_state: updatedData.data.application_state
     })
+
+
+    // if (payload.line_item_properties?.membership_type === 'prepaid') {
+      //this might remove other cart params
+    // }
+
     return updatedData
   }
 
@@ -503,43 +558,43 @@ export function HeadlessCheckoutProvider({ children }) {
   }, [])
 
   useEffect(() => {
-    if (!data) return false;
+    // if (!data) return false;
 
-    // if logged in and order does not have customer, add customer to order
-    if (customer?.email && !data?.application_state?.customer?.email_address) {
-      addCustomerToOrder({
-        platform_id: customer.id.replace('gid://shopify/Customer/', ''),
-        first_name: customer.firstName,
-        last_name: customer.lastName,
-        email_address: customer.email,
-        accepts_marketing: customer.acceptsMarketing
-      })
-      .then(() => {
-        updateOrderMetaData({
-          cart_parameters: {
-            pre: {
-              customer_data: {
-                tags: customer.tags
-              }
-            }
-          }
-        })
-      })
-    // if logged out and order has customer, remove customer from order
-    } else if (!customer && data?.application_state?.customer?.email_address) {
-      removeCustomerFromOrder()
-      .then(() => {
-        updateOrderMetaData({
-          cart_parameters: {
-            pre: {
-              customer_data: {
-                tags: ''
-              }
-            }
-          }
-        })
-      })
-    }
+    // // if logged in and order does not have customer, add customer to order
+    // if (customer?.email && !data?.application_state?.customer?.email_address) {
+    //   addCustomerToOrder({
+    //     platform_id: customer.id.replace('gid://shopify/Customer/', ''),
+    //     first_name: customer.firstName,
+    //     last_name: customer.lastName,
+    //     email_address: customer.email,
+    //     accepts_marketing: customer.acceptsMarketing
+    //   })
+    //   .then(() => {
+    //     updateOrderMetaData({
+    //       cart_parameters: {
+    //         pre: {
+    //           customer_data: {
+    //             tags: customer.tags
+    //           }
+    //         }
+    //       }
+    //     })
+    //   })
+    // // if logged out and order has customer, remove customer from order
+    // } else if (!customer && data?.application_state?.customer?.email_address) {
+    //   removeCustomerFromOrder()
+    //   .then(() => {
+    //     updateOrderMetaData({
+    //       cart_parameters: {
+    //         pre: {
+    //           customer_data: {
+    //             tags: ''
+    //           }
+    //         }
+    //       }
+    //     })
+    //   })
+    // }
   }, [customer, data])
 
   useEffect(() => {

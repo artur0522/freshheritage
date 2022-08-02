@@ -5,6 +5,7 @@ import DynamicHero from "@/components/Sections/DynamicHero"
 import { useCustomerContext } from '@/context/CustomerContext'
 import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
+import ReviewsCarousel from '@/components/Sections/ReviewsCarousel'
 
 export default function Home({ page }) {
 
@@ -52,7 +53,6 @@ export default function Home({ page }) {
 
   return (
     <>
-      <div id="stamped-reviews-widget" data-widget-type="carousel" ></div>
       <PageSEO seo={page.fields.seo} />
       {!context.customerLoading && <DynamicHero fields={foundDynamicHero} />}
       <ContentSections sections={page.fields.content} />

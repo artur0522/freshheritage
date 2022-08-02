@@ -45,7 +45,7 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
   const router = useRouter()
   const goBackNavigationSettings = getBackNavigationInfo(router)
 
-  const {activeTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, difficulty, header, subheader, servings, tags, totalTime, youtubeVideoId, classStartDate, classEndDate } = fields
+  const {activeTime, ctaText, ctaUrl, desktopBackgroundImage, mobileBackgroundImage, imageCaption, difficulty, header, subheader, servings, tags, totalTime, youtubeVideoId, classStartDate, classEndDate } = fields
 
   const hasVideo = youtubeVideoId ? true : false
   const heroImageRef = useRef()
@@ -163,11 +163,16 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
               </li>
             }
           </ul>
-          {ctaText && ctaUrl &&
-            <Link href={ctaUrl}>
-              <a className={`${classes['article-hero__cta']} btn-link-underline`}>{ctaText}</a>
-            </Link>
-          }
+          <div className={classes['article-hero__footer']}>
+            {ctaText && ctaUrl &&
+              <Link href={ctaUrl}>
+                <a className={`btn-link-underline`}>{ctaText}</a>
+              </Link>
+            }
+            {imageCaption &&
+              <span className={classes['article-hero__image-caption']}>{imageCaption}</span>
+            }
+          </div>
         </div>
       </div>
 

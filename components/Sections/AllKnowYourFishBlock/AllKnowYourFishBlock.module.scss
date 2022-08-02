@@ -6,7 +6,44 @@
 }
 
 .all-know-your-fish-block__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
   margin-bottom: 60px;
+  h2 {
+    line-height: 1;
+  }
+  p {
+    margin: 5px 0 0;
+  }
+}
+
+.sort-by {
+  margin-bottom: 5px;
+  label {
+    opacity: 0.6;
+    margin-right: 5px;
+  }
+
+  .select-wrap {
+    position: relative;
+  }
+
+  select {
+    border: none;
+    color: $sitkablue;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0px;
+    background: url("./arrow-down.png") no-repeat right;
+    min-width: 78.65px;
+    cursor: pointer;
+    outline: none;
+
+    @include breakpoint-up('md') {
+      min-width: 93.65px;
+    }
+  }
 }
 
 .all-know-your-fish-block__list {

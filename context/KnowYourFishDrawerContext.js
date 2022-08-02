@@ -56,13 +56,7 @@ export function KnowYourFishDrawerProvider({ children }) {
   }, [isOpen])
 
   useEffect(() => {
-    router.beforePopState(({ as }) => {
-      dispatch({ type: 'close_drawer' })
-      return true
-    })
-    return () => {
-      router.beforePopState(() => true);
-    }
+    dispatch({ type: 'close_drawer' })
   }, [router])
 
   return (

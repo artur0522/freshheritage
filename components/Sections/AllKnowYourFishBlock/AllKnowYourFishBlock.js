@@ -1,8 +1,11 @@
+import { useState } from 'react'
 import classes from './AllKnowYourFishBlock.module.scss'
 import imageUrlBuilder from '@sanity/image-url'
 import { sanityClient } from 'services'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { useKnowYourFishDrawerContext } from '@/context/KnowYourFishDrawerContext'
+import InfoCircle from '@/svgs/info-circle.svg'
+import moment from 'moment'
 
 const AllKnowYourFishblock = ({fields}) => {
 
@@ -10,8 +13,25 @@ const AllKnowYourFishblock = ({fields}) => {
 
   const { header, subheader, knowYourFishList } = fields
 
+  const [fishList, setFishList] = useState(knowYourFishList)
+
   if (!knowYourFishList) {
     return ''
+  }
+
+  const sortListings = (value) => {
+    const sorted = fishList.sort((a, b) => {
+      let aPublishedDate = moment(a._createdAt).unix()
+      let bPublishedDate = moment(b._createdAt).unix()
+      if (a.fields?.publishedDate) {
+        aPublishedDate = moment(a.fields.publishedDate).unix()
+      }
+      if (b.fields?.publishedDate) {
+        bPublishedDate = moment(b.fields.publishedDate).unix()
+      }
+      return (value === 'newest') ? aPublishedDate - bPublishedDate : bPublishedDate - aPublishedDate
+    })
+    setFishList([...sorted])
   }
 
   const builder = imageUrlBuilder(sanityClient)
@@ -24,11 +44,20 @@ const AllKnowYourFishblock = ({fields}) => {
     <div className={classes['all-know-your-fish-block']}>
       <div className="container">
         <div className={classes['all-know-your-fish-block__header']}>
-          {header && <h2 className="h1">{header}</h2>}
-          {subheader && <p>{subheader}</p>}
+          <div>
+            {header && <h2 className="h1">{header}</h2>}
+            {subheader && <p>{subheader}</p>}
+          </div>
+          <div className={classes['sort-by']}>
+             <label className="body">Sort By</label>
+             <select className="body" onChange={(e) => sortListings(e.target.value)}>
+               <option value="newest">Newest</option>
+               <option value="oldest">Oldest</option>
+             </select>
+           </div>
         </div>
         <ul className={classes['all-know-your-fish-block__list']}>
-          {knowYourFishList.map(item => {
+          {fishList.map(item => {
 
             const { header, peakSeason, nutritionalInfo, image } = item
 
@@ -47,7 +76,11 @@ const AllKnowYourFishblock = ({fields}) => {
                 <div className={classes['all-know-your-fish-block__item-container']}>
                   {cropImageUrl && <div className={classes['all-know-your-fish-block__item-image']}>
                     <ResponsiveImage src={cropImageUrl} alt={image.asset.alt || ''}  style={imageInlineStyles} />
-                    <button className={classes['all-know-your-fish-block__more-info-btn']} onClick={() => openDrawer({ fields: item})}></button>
+                    <button
+                      className={classes['all-know-your-fish-block__more-info-btn']}
+                      onClick={() => openDrawer({ fields: item})}>
+                        <InfoCircle />
+                    </button>
                   </div>}
                   <div className={classes['all-know-your-fish-block__item-content']}>
                     {header && <h2 className={classes['all-know-your-fish-block__item-header']}>{header}</h2>}

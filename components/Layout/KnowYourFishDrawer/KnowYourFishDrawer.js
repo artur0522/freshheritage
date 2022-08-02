@@ -4,15 +4,13 @@ import classes from './KnowYourFishDrawer.module.scss'
 import { useKnowYourFishDrawerContext } from '@/context/KnowYourFishDrawerContext'
 import IconClose from '@/svgs/close.svg'
 import ResponsiveImage from '@/components/ResponsiveImage'
-import ContentSections from '@/components/Sections/ContentSections'
+import ArticleRow from '@/components/Sections/ArticleRow'
 import { PortableText } from '@portabletext/react'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 const KnowYourFishDrawer = ({fields}) => {
 
-  console.log("fields:", fields)
-
-  const { dispatch } = useKnowYourFishDrawerContext()
+  const { dispatch, isOpen } = useKnowYourFishDrawerContext()
   const nodeRef = useRef(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const timeout = 200
@@ -35,6 +33,12 @@ const KnowYourFishDrawer = ({fields}) => {
       }, timeout)
     }
   }, [fields])
+
+  useEffect(() => {
+    if (!isOpen) {
+      closeDrawer()
+    }
+  }, [isOpen])
 
   useEffect(() => {
     const getUpdatedContent = async () => {
@@ -63,23 +67,27 @@ const KnowYourFishDrawer = ({fields}) => {
                 <IconClose />
             </button>
             <div className={classes['know-your-fish']}>
-              {header && <h2 className="h1">{header}</h2>}
-              {peakSeason && <div className={classes['know-your-fish__detail-item']}>
-                <h3><b>Peak Season:</b></h3>
-                <h6>{peakSeason}</h6>
-              </div>}
-              {nutritionalInfo && <div className={classes['know-your-fish__detail-item']}>
-                <h3><b>Nutritional info:</b></h3>
-                <h6>{nutritionalInfo}</h6>
-              </div>}
+              <div className={classes['know-your-fisher__header']}>
+                {header && <h2 className="h1">{header}</h2>}
+                {peakSeason && <div className={classes['know-your-fish__detail-item']}>
+                  <h3>Peak Season:</h3>
+                  <p>{peakSeason}</p>
+                </div>}
+                {nutritionalInfo && <div className={classes['know-your-fish__detail-item']}>
+                  <h3>Nutritional info:</h3>
+                  <p>{nutritionalInfo}</p>
+                </div>}
+              </div>
               {image && <div className={classes['know-your-fish__image']}>
                 <ResponsiveImage src={image.asset.url} alt={image.asset.alt || header} />
               </div>}
               {description && <div className={classes['know-your-fish__description']}>
                 <PortableText value={description} />
               </div>}
-              {content && <div className={classes['know-your-fish__content']}>
-                <ContentSections sections={contentSections} />
+              {contentSections && <div className={classes['know-your-fish__content']}>
+                {contentSections.map(section => {
+                  return <ArticleRow fields={section} enableSlider={false} key={section._key} />
+                })}
               </div>}
             </div>
           </div>

@@ -53,6 +53,56 @@
   cursor: pointer;
 }
 
+.know-your-fisher__header {
+  margin-bottom: 30px;
+  @include breakpoint-up('sm') {
+    margin-bottom: 40px;
+  }
+  h2 {
+    margin-bottom: 10px;
+  }
+}
+
+.know-your-fish__detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  h3 {
+    font-family: $bebas;
+    font-size: 20px;
+    margin-right: 8px;
+    line-height: 120%;
+    @include breakpoint-up('sm') {
+      font-size: 24px;
+    }
+  }
+  p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 120%;
+    @include breakpoint-up('sm') {
+      font-size: 21px;
+    }
+  }
+}
+
+.know-your-fish__image {
+  margin-bottom: 30px;
+  @include breakpoint-up('sm') {
+    margin-bottom: 40px;
+  }
+  img {
+    border-radius: 12px;
+  }
+}
+
+.know-your-fish__description {
+  margin-bottom: 30px;
+  @include breakpoint-up('sm') {
+    margin-bottom: 40px;
+  }
+}
+
 .know-your-fish-drawer__content {
   width: 100%;
   max-width: 980px;
@@ -69,5 +119,18 @@
   }
   @include breakpoint-up('md') {
     padding: 80px;
+  }
+  :global(.container) {
+    width: 100%;
+  }
+  :global(.article-row) {
+    @include breakpoint-down('sm') {
+      padding-bottom: 20px;
+    }
+  }
+  :global(.heading--article) {
+    @include breakpoint-down('sm') {
+      font-size: 24px;
+    }
   }
 }

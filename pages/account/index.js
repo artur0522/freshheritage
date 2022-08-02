@@ -18,24 +18,24 @@ export default function AccountMainPage() {
   const [membershipData, setMembershipData] = useState(null)
   const getTabKey = (tabValue) =>
     Object.keys(tabs).find((key) => tabs[key] === tabValue)
+
   const tabs = useMemo(
     () => ({
-      'Your Subscriptions': 'subscriptions',
-      'Account Details': 'account-details',
-      'Order History': 'order-history',
-      'Refer a Friend': 'referrals',
-    }),
-    [],
+      'subscriptions': 'Your Subscriptions',
+      'account-details': 'Account Details',
+      'order-history': 'Order History',
+      'referrals': 'Refer a Friend',
+    }), []
   )
-  const [selectedTab, setSelectedTab] = useState(getTabKey(router.query.tab))
+  const [selectedTab, setSelectedTab] = useState(router.query.tab)
 
   useEffect(() => {
     // check params
-    if (!router.query.tab) {
+    if (!router.query.tab || !tabs[router.query.tab]) {
       router.push(
         {
           pathname: '/account',
-          query: { tab: tabs[Object.values(tabs)[0]] },
+          query: { tab: Object.keys(tabs)[0] },
         },
         undefined,
         { shallow: true },
@@ -70,11 +70,13 @@ export default function AccountMainPage() {
   }, [customerContext.customer])
 
   const onTabSelected = (tab) => {
-    setSelectedTab(tab)
+    const tabKey = getTabKey(tab)
+    setSelectedTab(tabKey)
+
     router.push(
       {
         pathname: '/account',
-        query: { tab: tabs[tab] },
+        query: { tab: tabKey },
       },
       undefined,
       { shallow: true },
@@ -102,8 +104,8 @@ export default function AccountMainPage() {
           ></AccountHeader>
           <div className={classes['tabs-container']}>
             <Tabs
-              tabs={Object.keys(tabs)}
-              selected={selectedTab}
+              tabs={Object.values(tabs)}
+              selected={tabs[selectedTab]}
               onSelected={onTabSelected}
             ></Tabs>
           </div>

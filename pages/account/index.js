@@ -16,25 +16,34 @@ export default function AccountMainPage() {
 
   const [subsData, setSubsData] = useState(null)
   const [membershipData, setMembershipData] = useState(null)
-  const getTabKey = (tabValue) => Object.keys(tabs).find(key => tabs[key] === tabValue);
-  const tabs = useMemo(() => ({
-    'Your Subscriptions': 'subscriptions',
-    'Account Details': 'account-details',
-    'Order History': 'order-history',
-    'Refer a Friend': 'referrals',
-  }), []);
-  const [selectedTab, setSelectedTab] = useState(getTabKey(router.query.tab));
-
+  const getTabKey = (tabValue) =>
+    Object.keys(tabs).find((key) => tabs[key] === tabValue)
+  const tabs = useMemo(
+    () => ({
+      'Your Subscriptions': 'subscriptions',
+      'Account Details': 'account-details',
+      'Order History': 'order-history',
+      'Refer a Friend': 'referrals',
+    }),
+    [],
+  )
+  const [selectedTab, setSelectedTab] = useState(getTabKey(router.query.tab))
 
   useEffect(() => {
     // check params
     if (!router.query.tab) {
-      router.push({
-        pathname: '/account',
-        query: { tab: tabs[Object.values(tabs)[0]] },
-      }, undefined, {shallow: true});
+      router.push(
+        {
+          pathname: '/account',
+          query: { tab: tabs[Object.values(tabs)[0]] },
+        },
+        undefined,
+        { shallow: true },
+      )
     }
+  }, [router, tabs])
 
+  useEffect(() => {
     // Getting customer info
     console.log('running effect with customer ', customerContext.customer)
     if (customerContext.customer?.id) {
@@ -58,39 +67,51 @@ export default function AccountMainPage() {
           }
         })
     }
-  }, [customerContext.customer, router, tabs])
+  }, [customerContext.customer])
 
   const onTabSelected = (tab) => {
     setSelectedTab(tab)
-    router.push({
-      pathname: '/account',
-      query: { tab: tabs[tab] },
-    }, undefined, {shallow: true});
+    router.push(
+      {
+        pathname: '/account',
+        query: { tab: tabs[tab] },
+      },
+      undefined,
+      { shallow: true },
+    )
   }
 
   const renderTab = () => {
     const tabs = {
-      'subscriptions': SubscriptionsPage,
+      subscriptions: SubscriptionsPage,
       'account-details': AccountDetailsPage,
       'order-history': OrderHistoryPage,
-      'referrals': ReferralsPage,
+      referrals: ReferralsPage,
     }
-    return !!tabs[router.query.tab] ? tabs[router.query.tab]() : SubscriptionsPage()
+    return !!tabs[router.query.tab]
+      ? tabs[router.query.tab]()
+      : SubscriptionsPage()
   }
 
   return (
     <div className={`${classes['main']}`}>
       {customerContext.customer && subsData && membershipData ? (
-        <AccountHeader
-          firstName={customerContext.customer?.firstName}
-        ></AccountHeader>
+        <div>
+          <AccountHeader
+            firstName={customerContext.customer?.firstName}
+          ></AccountHeader>
+          <div className={classes['tabs-container']}>
+            <Tabs
+              tabs={Object.keys(tabs)}
+              selected={selectedTab}
+              onSelected={onTabSelected}
+            ></Tabs>
+          </div>
+          <div>{renderTab()}</div>
+        </div>
       ) : (
         <div>LOADING</div>
       )}
-      <div className={classes['tabs-container']}>
-        <Tabs tabs={Object.keys(tabs)} selected={selectedTab} onSelected={onTabSelected}></Tabs>
-      </div>
-      <div>{ renderTab() }</div>
     </div>
   )
 }

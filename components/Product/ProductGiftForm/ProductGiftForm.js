@@ -42,6 +42,8 @@ const ProductGiftForm = (props) => {
       : 'Sold Out'
     : 'Select Option'
 
+    console.log("selectedvariant", selectedVariant)
+
     const handleOptionChange = (event, option) => {
         const newOption = { name: option.name, value: event.target.value }
         const optionIndex = selectedOptions.findIndex((selectedOption) => {
@@ -125,7 +127,7 @@ const ProductGiftForm = (props) => {
 
             {handle === 'digital-gift-card' && <div className={classes['gift-card']}>
                 <div className={classes['gift-card__amount']}>
-                    <h4><span className={classes['number']}>1</span>Amount</h4>
+                    <h4 className="heading__pdp-label"><span className={classes['number']}>1</span>Amount</h4>
                 </div>
 
                 <div className={classes['gift-card__buttons']}>
@@ -135,7 +137,7 @@ const ProductGiftForm = (props) => {
                             option.values.map((value, vIndex) => (
                             <div key={vIndex} className={classes['btn']}>
                                 <input type="radio" id={value} name="giftCardButtons" onChange={($event) => handleOptionChange($event, option)} value={value} />
-                                <label htmlFor={value}>${value}</label>
+                                <label className="h5" htmlFor={value}>${value}</label>
                             </div>))
                         ))
                     }
@@ -143,7 +145,7 @@ const ProductGiftForm = (props) => {
             </div>}
 
             {checked && <div className={classes['gift__info-header']}>
-                <h4>
+                <h4 className="heading__pdp-label">
                 {handle === 'digital-gift-card' && <span className={classes['number']}>2</span>}
                 {"Recipient's"} Information
                 </h4>
@@ -154,20 +156,21 @@ const ProductGiftForm = (props) => {
             {checked && <div className={classes['form__inner']}>
                 <div className={classes['form__col']}>
                     <label className="secondary--body" htmlFor="email">Email Address</label>
-                    <input type="email" id="email" name="recipient_email" className="secondary--body" onChange={handleGiftInfo} value={recipient_email} required />
+                    <input placeholder='recipient@email.com' type="email" id="email" name="recipient_email" className="secondary--body" onChange={handleGiftInfo} value={recipient_email} required />
                 </div>
                 <div className={classes['form__col']}>
                     <label className="secondary--body" htmlFor="name">{"Recipient's"} Name</label>
-                    <input type="text" id="name" name="recipient_name" className="secondary--body" onChange={handleGiftInfo} value={recipient_name} required />
+                    <input placeholder='Recipient Name' type="text" id="name" name="recipient_name" className="secondary--body" onChange={handleGiftInfo} value={recipient_name} required />
                 </div>
                 {handle === 'digital-gift-card' && <div className={`${classes['form__col']} ${classes['textarea']}`}>
                     <label className="secondary--body" htmlFor="message">Message</label>
-                    <textarea type="text" id="message" name="gift_message" maxLength="250" className="secondary--body" onChange={handleGiftInfo} value={gift_message} />
+                    <textarea placeholder="250 character limit" type="text" id="message" name="gift_message" maxLength="250" className="secondary--body" onChange={handleGiftInfo} value={gift_message} />
                     <p className="disclaimer">*Digital giftcard will be delivered to recipient via email one day after purchase and will include your gift message! </p>
                 </div>}
             </div>}
-            <button type="submit" className="btn salmon" disabled={isLoading}>
-                {isLoading ? <LoadingState /> : buttonText}
+
+            <button type="submit" disabled={!selectedVariant.availableForSale || selectedVariant.quantity === 0 || isLoading} className="btn salmon">
+                 {isLoading ? <LoadingState /> : buttonText}
             </button>
         </form>
     )

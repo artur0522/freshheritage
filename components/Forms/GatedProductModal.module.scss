@@ -7,6 +7,13 @@
     .reminder {
         margin-bottom: 25px;
 
+        button {
+            background: transparent;
+            border: none;
+            color: $salmon;
+            text-decoration: underline;
+        }
+
         p {
             font-weight: 500;
         }

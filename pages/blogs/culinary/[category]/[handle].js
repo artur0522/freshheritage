@@ -178,6 +178,8 @@ export async function getStaticProps({ params }) {
     entryDepth: 1
   })
 
+  console.log(pages)
+
   if (!pages.length) {
     return {
       notFound: true

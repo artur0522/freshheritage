@@ -49,11 +49,11 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         addOriginalListings(articles)
         sortListings(articles, true)
 
-        if(!isDesktop && filterGroups?.length > 0 && mounted) {
-            openDrawer()
-        } else {
-            closeDrawer()
-        }
+        // if(!isDesktop && filterGroups?.length > 0 && mounted) {
+        //     openDrawer()
+        // } else {
+        //     closeDrawer()
+        // }
 
         if(isDesktop && mounted && filterGroups?.length === 0) {
           toggleFilterDrawer(false)

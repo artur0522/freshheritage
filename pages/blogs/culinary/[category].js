@@ -97,7 +97,7 @@ export async function getStaticProps({ params }) {
     const articles = await nacelleClient.content({
       type: type,
       entryDepth: 0,
-      maxReturnedEntries: 20
+      maxReturnedEntries: 5
     })
     if (articles) {
       const fullRefArticles = await getNacelleReferences(articles)

@@ -285,8 +285,18 @@
   }
 }
 
-.article-hero__cta {
+.article-hero__footer {
   margin-top: auto;
+}
+
+.article-hero__image-caption {
+  font-size: 14px;
+  font-style: italic;
+  display: block;
+  margin: 10px 0 -20px;
+  @include breakpoint-up('sm') {
+    font-size: 16px;
+  }
 }
 
 .article-hero {

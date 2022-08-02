@@ -139,133 +139,143 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         const pageNumber = Number(event.target.textContent)
         setCurrentPage(pageNumber)
     }
+
+
   return (
     <>
-     <StructuredData type="blog" data={page} />
-     <PageSEO seo={page.fields.seo} />
-     {page.type === "cookingClassCategory" ? (
-      <ArticleCookingClassHero fields={page} />
-     ):(
-      <ArticleSplitHero fields={hero} renderType="blog-listing" blogType={blogType} blogGlobalSettings={blogGlobalSettings} />
-     )}
-     <div className={classes["recipes"]}>
-       <form className={`${classes['recipes__filter-wrap']} container`}>
-         <div className={classes['recipes__search']}>
-           <button type="button">
-               <IconSearch />
-           </button>
-           <input type="text" placeholder='Search' className="body" />
-         </div>
-
-         <div className={classes['recipes__filter-row']}>
-           {filterGroups && filterGroups?.length > 0 && <button onClick={() => toggleFilterDrawer(!filterDrawer)} type="button" className={`${classes['toggle-filters']} ${classes['desktop']}`}>
-             {filterDrawer ? <span className="body">Hide Filters</span> : <span className="body">Show Filters</span>}
-           </button>}
-
-           {filterGroups && filterGroups?.length > 0 && <button onClick={() => openDrawer()} type="button" className={`${classes['toggle-filters']} ${classes['mobile']}`}>
-             {isOpen ? <span className="body">Hide Filters</span> : <span className="body">Show Filters</span>}
-           </button>}
-
-           <div className={classes['sort-by']}>
-             <label className="body">Sort By</label>
-             <select className="body" onChange={(e) => selectChangeHandler(e.target.value)}>
-               <option value="newest">Newest</option>
-               <option value="oldest">Oldest</option>
-             </select>
-           </div>
-         </div>
-       </form>
-
-       <div className={`${classes['filters-list__wrap']} ${filterDrawer ? 'open' : 'close'}`}>
-             {filterDrawer && filterGroups?.length > 0 && <div className={`${classes['filters']}`}>
-             <BlogFilters />
-       </div>}
-
-       <div className={`${classes['recipes__list-wrap']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
-         {listings.length > 0 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
-             {listings.slice(0, 8).map((article) => {
-               return (
-                 <div className={classes['grid-item']} key={article.handle}>
-                    <DynamicArticleCard article={article} responsiveImage={true} />
-                 </div>
-               )
-             })}
-         </div>}
-
-         {listings.length >= 8 && currentPage === 1 && selectedFilterList.length === 0 && heroSection &&
-           <FullBleedHero fields={heroSection} key={heroSection._key} />
-         }
-
-         {listings.length >= 8 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
-           {listings.slice(8, 16).map((article) => {
-               return (
-                 <div className={classes['grid-item']} key={article.handle}>
-                   <DynamicArticleCard article={article} responsiveImage={true} />
-                 </div>
-               )
-           })}
-         </div>}
-
-         {listings.length >= 17 && currentPage === 1 && selectedFilterList.length === 0 && articleRowSection &&
-          <div>
-            <ArticleRow fields={articleRowSection} />
+      <StructuredData type="blog" data={page} />
+      <PageSEO seo={page.fields.seo} />
+      {page.type === "cookingClassCategory" ? (
+        <ArticleCookingClassHero fields={page} />
+      ):(
+        <ArticleSplitHero fields={hero} renderType="blog-listing" blogType={blogType} blogGlobalSettings={blogGlobalSettings} />
+      )}
+      <div className={classes["recipes"]}>
+        <form className={`${classes['recipes__filter-wrap']} container`}>
+          <div className={classes['recipes__search']}>
+            <button type="button">
+                <IconSearch />
+            </button>
+            <input type="text" placeholder='Search' className="body" />
           </div>
-         }
 
-         {listings.length >= 17 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
-           {listings.slice(17, 21).map((article) => {
-               return (
-                 <div className={classes['grid-item']} key={article.handle}>
-                    <DynamicArticleCard article={article} responsiveImage={true} />
-                 </div>
-               )
-           })}
-         </div>}
+          <div className={classes['recipes__filter-row']}>
+            {filterGroups && filterGroups?.length > 0 && <button onClick={() => toggleFilterDrawer(!filterDrawer)} type="button" className={`${classes['toggle-filters']} ${classes['desktop']}`}>
+              {filterDrawer ? <span className="body">Hide Filters</span> : <span className="body">Show Filters</span>}
+            </button>}
 
-         {currentPage !== 1 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
-           {getPaginatedData().map((article) => (
-              <div className={classes['grid-item']} key={article.handle}>
-                 <DynamicArticleCard article={article} responsiveImage={true}  />
-             </div>
-           ))}
-         </div>}
+            {filterGroups && filterGroups?.length > 0 && <button onClick={() => openDrawer()} type="button" className={`${classes['toggle-filters']} ${classes['mobile']}`}>
+              {isOpen ? <span className="body">Hide Filters</span> : <span className="body">Show Filters</span>}
+            </button>}
 
-         {selectedFilterList.length > 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
-           {listings.map((article) => (
-            <div className={classes['grid-item']} key={article.handle}>
-               <DynamicArticleCard article={article} responsiveImage={true} />
+            <div className={classes['sort-by']}>
+              <label className="body">Sort By</label>
+              <select className="body" onChange={(e) => selectChangeHandler(e.target.value)}>
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+              </select>
             </div>
-           ))}
-         </div>}
-       </div>
-       </div>
+          </div>
+        </form>
 
-       {selectedFilterList.length === 0 && <div className={classes['pagination']}>
-         <button
-           onClick={goToPreviousPage}
-           className={`${classes['prev']} ${classes[currentPage === 1 ? 'disabled' : '']} pagination-btn`}
-         >
-           <PaginationLeft />
-         </button>
+        <div className={`${classes['filters-list__wrap']} ${filterDrawer ? 'open' : 'close'}`}>
+          {filterDrawer && filterGroups?.length > 0 && <div className={`${classes['filters']}`}>
+          <BlogFilters />
+        </div>}
 
-           {getPaginationGroup().map((item, index) => (
-             <button
-               key={index}
-               onClick={changePage}
-               className={`${classes['paginationItem']} ${classes[currentPage === item ? 'active' : null]}`}
-             >
-               <span>{item}</span>
-             </button>
-           ))}
 
-           <button
-             onClick={goToNextPage}
-             className={`${classes['next']} ${classes[currentPage === pages ? 'disabled' : '']} pagination-btn`}
-           >
-             <PaginationRight />
-           </button>
-         </div>}
-       </div>
+        {!articles.length ? (
+          <div className={`${classes['recipes__list-loading']}`}>
+            <h2>Loading Articles...</h2>
+          </div>
+        ):(
+          <div className={`${classes['recipes__list-wrap']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
+            {listings.length > 0 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
+                {listings.slice(0, 8).map((article) => {
+                  return (
+                    <div className={classes['grid-item']} key={article.handle}>
+                        <DynamicArticleCard article={article} responsiveImage={true} />
+                    </div>
+                  )
+                })}
+            </div>}
+
+            {listings.length >= 8 && currentPage === 1 && selectedFilterList.length === 0 && heroSection &&
+              <FullBleedHero fields={heroSection} key={heroSection._key} />
+            }
+
+            {listings.length >= 8 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
+              {listings.slice(8, 16).map((article) => {
+                  return (
+                    <div className={classes['grid-item']} key={article.handle}>
+                      <DynamicArticleCard article={article} responsiveImage={true} />
+                    </div>
+                  )
+              })}
+            </div>}
+
+            {listings.length >= 17 && currentPage === 1 && selectedFilterList.length === 0 && articleRowSection &&
+              <div>
+                <ArticleRow fields={articleRowSection} />
+              </div>
+            }
+
+            {listings.length >= 17 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
+              {listings.slice(17, 21).map((article) => {
+                  return (
+                    <div className={classes['grid-item']} key={article.handle}>
+                        <DynamicArticleCard article={article} responsiveImage={true} />
+                    </div>
+                  )
+              })}
+            </div>}
+
+            {currentPage !== 1 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
+              {getPaginatedData().map((article) => (
+                  <div className={classes['grid-item']} key={article.handle}>
+                    <DynamicArticleCard article={article} responsiveImage={true}  />
+                </div>
+              ))}
+            </div>}
+
+            {selectedFilterList.length > 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
+              {listings.map((article) => (
+                <div className={classes['grid-item']} key={article.handle}>
+                  <DynamicArticleCard article={article} responsiveImage={true} />
+                </div>
+              ))}
+            </div>}
+          </div>
+        )}
+
+      </div>
+
+        {selectedFilterList.length === 0 && <div className={classes['pagination']}>
+          <button
+            onClick={goToPreviousPage}
+            className={`${classes['prev']} ${classes[currentPage === 1 ? 'disabled' : '']} pagination-btn`}
+          >
+            <PaginationLeft />
+          </button>
+
+            {getPaginationGroup().map((item, index) => (
+              <button
+                key={index}
+                onClick={changePage}
+                className={`${classes['paginationItem']} ${classes[currentPage === item ? 'active' : null]}`}
+              >
+                <span>{item}</span>
+              </button>
+            ))}
+
+            <button
+              onClick={goToNextPage}
+              className={`${classes['next']} ${classes[currentPage === pages ? 'disabled' : '']} pagination-btn`}
+            >
+              <PaginationRight />
+            </button>
+          </div>}
+        </div>
     </>
   )
 }

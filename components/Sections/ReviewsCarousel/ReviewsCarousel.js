@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { processNodes } from 'react-html-parser'
 import classes from './ReviewsCarousel.module.scss'
 
 const ReviewsCarousel = ({fields}) => {
@@ -7,7 +8,7 @@ const ReviewsCarousel = ({fields}) => {
 
   useEffect(() => {
     if (StampedFn) {
-      StampedFn.init({ apiKey: 'pubkey-rCuPl7qXFI5WD689Ee3LO4Mtu461N4', storeUrl: '252897' });
+      StampedFn.init({ apiKey: process.env.NEXT_PUBLIC_STAMPEDIO_KEY_PUBLIC, storeUrl: processNodes.env.NEXT_PUBLIC_STAMPEDIO_STORE_HASH });
     }
   }, [])
 

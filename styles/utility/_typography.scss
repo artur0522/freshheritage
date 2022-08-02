@@ -230,15 +230,11 @@ p,
 a {
   font-family: 'FrankRuhl';
   font-weight: 400;
-  font-size: fontsize(16px);
+  font-size: inherit;
   line-height: 120%;
   cursor: pointer;
   display: inline-block;
   color: $sitkablue;
-
-  @include breakpoint-up('lg') {
-    font-size: fontsize(18px);
-  }
 }
 
 .link {
@@ -305,6 +301,28 @@ button {
 
   &--xs {
     @extend h6;
+  }
+
+  &__pdp-label {
+    font-size: fontsize(24px);
+    font-weight: 400;
+    font-family: $bebas;
+
+    @include breakpoint-up('sm') {
+      font-size: fontsize(38px);
+    }
+
+    @include breakpoint-up('md') {
+      font-size: fontsize(38px);
+    }
+
+    @include breakpoint-up('lg') {
+      font-size: fontsize(38px);
+    }
+
+    @include breakpoint-up('xl') {
+      font-size: fontsize(38px);
+    }
   }
 
   &--catch {

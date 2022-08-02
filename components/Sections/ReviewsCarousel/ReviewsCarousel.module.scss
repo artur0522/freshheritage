@@ -1,0 +1,93 @@
+@import '@/styles/_shared.scss';
+
+.reviews-carousel {
+  padding: 60px 0 0;
+  @include breakpoint-up('md') {
+    padding: 120px 0;
+  }
+
+  .reviews-carousel__header {
+    max-width: 1200px;
+    margin: 0 auto;
+    h2 {
+      @include breakpoint-up(900px) {
+        margin: 0 0 -30px;
+      }
+      @include breakpoint-up(1200px) {
+        margin: 0 auto -30px;
+      }
+    }
+  }
+
+  :global(#stamped-reviews-widget[data-widget-type=carousel]) {
+    width: 100% !important;
+    :global(.stamped-carousel-title) {
+      display: none;
+    }
+
+    :global(.stamped-reviews-link),
+    :global(.stamped-reviews-product-title) a,
+    :global(.stamped-reviews-title) a {
+      pointer-events: none;
+    }
+
+    :global(.stamped-reviews-title),
+    :global(.stamped-reviews-title) a {
+      font-family: 'FrankRuhl';
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 120%;
+      color: $sitkablue;
+
+      @include breakpoint-up('sm') {
+        font-size: 21px;
+      }
+
+      @include breakpoint-up('md') {
+        font-size: 24px;
+      }
+
+      @include breakpoint-up('xl') {
+        font-size: 28px;
+      }
+
+      a {
+        pointer-events: none;
+      }
+    }
+    :global(.stamped-reviews-author) {
+      font-family: 'FrankRuhl';
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 150%;
+      color: $sitkablue;
+
+      @include breakpoint-up('lg') {
+        font-size: 16px;
+      }
+
+      @include breakpoint-up('xl') {
+        font-size: 18px;
+      }
+    }
+    :global(.stamped-reviews-message) {
+      :global(.stamped-reviews-message-block) {
+        font-family: 'FrankRuhl';
+        font-weight: 400;
+        font-style: normal;
+        font-size: 16px;
+        line-height: 150%;
+        color: $sitkablue;
+
+        @include breakpoint-up('md') {
+          font-size: 18px;
+        }
+
+        @include breakpoint-up('xl') {
+          font-size: 21px;
+        }
+      }
+    }
+  }
+
+}

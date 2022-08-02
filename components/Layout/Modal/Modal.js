@@ -10,6 +10,7 @@ import CookingClassSignupForm from '@/components/Forms/CookingClassSignupForm'
 const Modal = ({props, children}) => {
 
   const modalContext = useModalContext()
+  const { prevContent } = modalContext
 
   const getContent = (type, children) => {
     switch(type) {
@@ -28,16 +29,26 @@ const Modal = ({props, children}) => {
     }
   }
 
+  const closeModal = () => {
+    modalContext.setIsOpen(false)
+
+    if(prevContent) {
+      modalContext.setContent(prevContent)
+      modalContext.setModalType('gated_product')
+      modalContext.setIsOpen(true)
+    }
+  }
+
   return (
     <div className={`${classes['modal']} ${modalContext.modalType === 'gated_product' ? classes['gated-zindex'] : ''}`}>
       <div
-        onClick={modalContext.modalType !== 'gated_product' ? () => modalContext.setIsOpen(false) : undefined}
+        onClick={modalContext.modalType !== 'gated_product' ? () => closeModal() : undefined}
         className={`${classes['modal__overlay']} ${modalContext.modalType !== 'gated_product' && modalContext.modalType !== 'cooking_class_signup' ? classes['blur'] : ''}`}>
       </div>
       <div className={`${classes['modal__content']} ${modalContext.modalType === 'gated_product' ? classes['gated-content'] : ''}`}>
         <div className={`${classes['modal__content-container']} ${modalContext.modalType === 'gated_product' ? classes['gated-container'] : ''}`}>
           {modalContext.modalType !== 'gated_product' && <button
-            onClick={() => modalContext.setIsOpen(false)}
+            onClick={() => closeModal()}
             className={classes['modal__close-btn']}>
             <IconClose />
           </button>}

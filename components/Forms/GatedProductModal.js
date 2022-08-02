@@ -1,23 +1,31 @@
-import {useState} from 'react'
 import { useModalContext } from '@/context/ModalContext'
 import { PortableText } from '@portabletext/react'
 import Link from 'next/link'
-import { useEffect } from 'react'
 
 import classes from "./GatedProductModal.module.scss"
 
 const GatedProductModal = () => {
   const modalContext = useModalContext()
-  const { content } = modalContext
+  const { content, setPrevContent, prevContent, setIsOpen, modalType } = modalContext
   const {header, signInText, signInUrl, ctaText, ctaUrl, description, reminder} = content
+
+  const openAccountModal = (e) => {
+    e.preventDefault()
+
+    setPrevContent(content)
+
+    modalContext.setIsOpen(false)
+    setIsOpen(true)
+    modalContext.setModalType('create')
+  }
 
   return (
     <div className={`${classes['gated-modal']} container`}>
       <div className={`${classes['reminder']} flex flex--justify-center flex--align-center`}>
         {reminder && <PortableText value={reminder} />}
-        {signInText && <Link href={signInUrl}>
-          <a className="salmon">{signInText}</a>
-        </Link>}
+        {signInText && <button onClick={(e) => openAccountModal(e)} className="salmon">
+          {signInText}
+        </button>}
       </div>
       <div className={classes['header']}>
         {header && <h4>{header}</h4>}

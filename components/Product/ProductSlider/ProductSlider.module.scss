@@ -2,13 +2,20 @@
 
 .product-slider {
   margin-bottom: 25px;
+
   @include breakpoint-up('sm') {
     margin-bottom: 30px;
+  }
+
+  .image {
+    border-radius: 12px;
   }
 }
 
 .product-image {
   margin-bottom: 10px;
+  border-radius: 6px;
+
   @include breakpoint-up('sm') {
     margin-bottom: 20px;
   }

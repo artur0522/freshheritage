@@ -66,6 +66,7 @@
             color: $sitkablue;
             width: 72px;
             text-align: center;
+            font-family: $bebas;
 
             @include breakpoint-up('md') {
                 padding: 18.5px 0;

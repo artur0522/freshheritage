@@ -8,10 +8,12 @@ import HarvestCard from "../HarvestCard"
 
 const ProjectedHarvest = ({ fields }) => {
     // SANITY FIELDS
-    const { title, harvestList, currentSelling } = fields
+    const { title, harvestList, currentSelling, description } = fields
     // STATE
+    const [harvests, setHarvests] = useState(harvestList)
     const [harvestListMonths, setHarvestListMonths] = useState([])
     const [activeTab, setActiveTab] = useState({})
+    const [activeHarvest, setActiveHarvest] = useState(harvestList[0])
     const [currentDate, setCurrentDate] = useState(null)
     const [currentMonth, setCurrentMonth] = useState(null)
 
@@ -44,6 +46,9 @@ const ProjectedHarvest = ({ fields }) => {
         setCurrentMonth(monthName)
         setActiveTab(splicedMonths[0])
         setHarvestListMonths(splicedMonths)
+
+        const refinedArr = harvestList.filter(harvest => harvest.handle.current === harvestList[0].handle.current)
+        setHarvests(refinedArr)
     }, [harvestList])
 
     // METHODS
@@ -54,6 +59,13 @@ const ProjectedHarvest = ({ fields }) => {
         setActiveTab(foundMonth)
     }
 
+    const filterHarvests = (harvestHandle) => {
+        const filteredArr = harvestList.filter(harvest => harvest.handle.current === harvestHandle)
+        const foundHarvest = harvestList.find(harvest => harvest.handle.current === harvestHandle)
+        setActiveHarvest(foundHarvest)
+        setHarvests(filteredArr)
+    }
+
     // RENDER
     return (
         <div className={`${classes['harvest']}`}>
@@ -61,7 +73,30 @@ const ProjectedHarvest = ({ fields }) => {
                 <div className={`${classes['harvest__content']}`}>
                     <div className={`${classes['harvest__header']} container`}>
                         {title && <h4>{title}</h4>}
+                        {description && <h5>{description}</h5>}
                     </div>
+
+                    {harvestList.length > 1 && <Swiper
+                        slidesPerView={"auto"}
+                        spaceBetween={18}
+                        breakpoints={{
+                            768: {
+                                spaceBetween: 23
+                            }
+                        }}
+                        className={`${classes['active-harvest__swiper']}`}
+                    >
+                    {harvestList.map((harvest) => {
+                        return (
+                            <SwiperSlide className={classes['harvest__tab']} key={`${harvest.title}--${harvest.id}`}>
+                                <button onClick={() => filterHarvests(harvest.handle.current)} className={`${classes['harvest__tab']} ${activeHarvest.handle.current === harvest.handle.current ? classes['active'] : ""} heading--tab capitalize`}>
+                                   {harvest.title}
+                                </button>
+                            </SwiperSlide>
+                        )
+                    })}
+                    </Swiper>}
+
                     <Swiper
                         slidesPerView={"auto"}
                         spaceBetween={18}
@@ -83,7 +118,7 @@ const ProjectedHarvest = ({ fields }) => {
                     })}
                     </Swiper>
 
-                    {!currentSelling && harvestList && harvestList.map((harvest) => {
+                    {!currentSelling && harvests && harvests.map((harvest) => {
                         return (
                             <div className={`${classes['harvest__list']}`} key={harvest._id}>
                                 <div className="container">
@@ -102,7 +137,7 @@ const ProjectedHarvest = ({ fields }) => {
                         )
                     })}
                 
-                    {currentSelling && harvestList && harvestList.map((harvest) => {
+                    {currentSelling && harvests && harvests.map((harvest) => {
                         return (
                             <div className={`${classes['harvest__list']}`} key={harvest._id}>
                                 <div className="container">

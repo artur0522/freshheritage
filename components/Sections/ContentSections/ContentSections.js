@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { useRouter } from 'next/router'
 import { useTheCatchContext } from '@/context/TheCatchContext'
 
 import CurrentHarvest from '../../Harvest/CurrentHarvest'
@@ -26,8 +27,24 @@ import FiftyFiftyImage from '@/components/Sections/FiftyFiftyImage'
 import BoldHeaderText from '@/components/Sections/BoldHeaderText'
 import ImageWithText from '@/components/Sections/ImageWithText'
 import ImageTextColumns from '../ImageTextColumns'
+import WYSIWYG from '@/components/Sections/WYSIWYG'
+import ContactUs from '@/components/Sections/ContactUs'
+import Accordion from '../Accordion'
+import ReviewsCarousel from '@/components/Sections/ReviewsCarousel'
 
-const ContentSections = ({ sections }) => {
+const ContentSections = ({ sections, harvestMetafield}) => {
+  const router = useRouter()
+
+  if (harvestMetafield === undefined && router.pathname.includes('/products')) {
+    harvestMetafield = null
+  } else if (harvestMetafield === undefined && !router.pathname.includes('/products')) {
+    harvestMetafield = {}
+  } else if(!harvestMetafield) {
+    harvestMetafield = {}
+  } else {
+    harvestMetafield = harvestMetafield
+  }
+
   if (!Array.isArray(sections)) {
     return null
   }
@@ -49,15 +66,35 @@ const ContentSections = ({ sections }) => {
       case 'featuredBlogContent':
         return <FeaturedBlogContent fields={section} key={section._key} />
       case 'currentSellingHarvest':
-        return <CurrentHarvest fields={section} key={section._key} />
+        if(harvestMetafield) {
+          return <CurrentHarvest fields={section} key={section._key} />
+        } else {
+          return null
+        }
       case 'currentMonthHarvest':
-        return <CurrentHarvest fields={section} key={section._key} />
+        if(harvestMetafield) {
+          return <CurrentHarvest fields={section} key={section._key} />
+        } else {
+          return null
+        }
       case 'projectedHarvest':
-        return <ProjectedHarvest fields={section} key={section._key} />
+        if(harvestMetafield) {
+          return <ProjectedHarvest fields={section} key={section._key} />
+        } else {
+          return null
+        }
       case 'staticHarvest':
+        if(harvestMetafield) {
           return <StaticHarvest fields={section} key={section._key} />
+        } else {
+          return null
+        }
       case 'globalSampler':
-        return <GlobalSampler fields={section} key={section._key} />
+        if(harvestMetafield) {
+          return <CurrentHarvest fields={section} key={section._key} />
+        } else {
+          return null
+        }
       case 'faqs':
         return <FAQs fields={section} key={section._key} />
       case 'blogHero':
@@ -86,6 +123,14 @@ const ContentSections = ({ sections }) => {
         return <ImageWithText fields={section} key={section._key} />
       case 'imageTextColumns':
         return <ImageTextColumns fields={section} key={section._key} />
+      case 'wysiwyg':
+        return <WYSIWYG fields={section} key={section._key} />
+      case 'contactUs':
+        return <ContactUs fields={section} key={section._key} />
+      case 'accordion':
+        return <Accordion fields={section} key={section._key} />
+      case 'reviewsCarousel':
+        return <ReviewsCarousel fields={section} key={section._key} />
       default:
         return null
     }

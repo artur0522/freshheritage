@@ -4,16 +4,20 @@ import ContentSections from '../components/Sections/ContentSections'
 import DynamicHero from "@/components/Sections/DynamicHero"
 import { useCustomerContext } from '@/context/CustomerContext'
 import PageSEO from '@/components/SEO/PageSEO'
+import { getNacelleReferences } from '@/utils/getNacelleReferences'
+import ReviewsCarousel from '@/components/Sections/ReviewsCarousel'
 
-export default function Home({ pages }) {
-  const homePage = pages.find((page) => page.handle === 'homepage')
+export default function Home({ page }) {
+
+  console.log("page:", page)
+
   const context = useCustomerContext()
 
   let foundDynamicHero
 
   const { customer } = context
 
-  const dynamicHeroSections = homePage.fields.content.filter((section) => {
+  const dynamicHeroSections = page.fields.content.filter((section) => {
     return section._type === 'dynamicHero'
   })
 
@@ -49,54 +53,27 @@ export default function Home({ pages }) {
 
   return (
     <>
-      <PageSEO seo={homePage.fields.seo} />
+      <PageSEO seo={page.fields.seo} />
       {!context.customerLoading && <DynamicHero fields={foundDynamicHero} />}
-      <ContentSections sections={homePage.fields.content} />
+      <ContentSections sections={page.fields.content} />
     </>
   )
 }
 
 export async function getStaticProps({ previewData }) {
-  try {
-    const pages = await nacelleClient.content({
-      handles: ['homepage']
-    })
 
-    return {
-      props: { pages }
-    }
-  } catch {
-    // fake hero image section until Sanity is hooked up
-    const page = {
-      sections: [
-        {
-          sys: {
-            id: 'testid',
-            contentType: {
-              sys: {
-                id: 'heroBanner'
-              }
-            }
-          },
-          fields: {
-            title: 'Sitka Salmon Shares',
-            featuredMedia: {
-              fields: {
-                file: {
-                  url: 'https://i.picsum.photos/id/11/1400/500.jpg?hmac=V3wFB6qaKu4yf-50Fix6CL0D4eyOBLfSpJYcyNB2Uyw'
-                }
-              }
-            },
-            backgroundAltTag: 'Sitka Alt Tag'
-          }
-        }
-      ]
-    }
+  const pages = await nacelleClient.content({
+    handles: ['homepage'],
+    type: 'page',
+    entryDepth: 1
+  })
 
-    return {
-      props: {
-        page
-      }
+  const fullPage = await getNacelleReferences(pages[0])
+
+  return {
+    props: {
+      page: fullPage
     }
   }
+
 }

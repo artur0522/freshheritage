@@ -5,6 +5,7 @@ import { useTheCatchContext } from '@/context/TheCatchContext'
 import ContentSections from '@/components/Sections/ContentSections'
 
 import { nacelleClient } from 'services'
+import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 const TheCatch = (props) => {
     const { page } = props
@@ -20,7 +21,7 @@ const TheCatch = (props) => {
     }, [])
 
     return (
-        <> 
+        <>
             <ContentSections sections={page.fields.content} />
         </>
     )
@@ -30,24 +31,23 @@ export default TheCatch
 
 export async function getStaticPaths() {
     const theCatchPages = await nacelleClient.content({
-        type: 'theCatch'
+        type: 'theCatch',
+        entryDepth: 1
     })
-  
+
     const handles = theCatchPages.map((page) => ({ params: { handle: page.handle }}))
-  
+
     return {
       paths: handles,
       fallback: 'blocking'
     }
 }
-  
+
 export async function getStaticProps({ params }) {
     const pages = await nacelleClient.content({
       handles: [params.handle],
       type: 'theCatch'
     })
-
-    const foundPage = pages.find(page => page.handle === params.handle)
 
     if (!pages.length) {
       return {
@@ -55,12 +55,15 @@ export async function getStaticProps({ params }) {
       }
     }
 
+    const foundPage = pages.find(page => page.handle === params.handle)
+
+    const fullRefPage = await getNacelleReferences(foundPage)
+
     return {
       props: {
-        page: foundPage,
+        page: fullRefPage,
         extraPages: pages,
         handle: params.handle
       }
     }
 }
-  

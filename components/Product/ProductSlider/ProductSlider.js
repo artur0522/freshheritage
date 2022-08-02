@@ -40,7 +40,7 @@ const ProductSlider = ({product, timeout = 0}) => {
   return (
     <div className={classes['product-slider']}>
       <Swiper
-        navigation={true}
+        navigation={false}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
         className={classes['product-image']}

@@ -10,38 +10,46 @@ import ProductReviewStars from '../../components/Product/ProductReviewStars'
 import ProductSlider from '../../components/Product/ProductSlider'
 import ProductAccordion from '../../components/Product/ProductAccordion'
 import ProductGiftForm from '@/components/Product/ProductGiftForm'
+import ProductHarvests from '@/components/Product/ProductHarvests'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
 
 import classes from './Product.module.scss'
 import { split } from 'lodash-es'
+import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
-function Product({ product, page }) {
+function Product({ product, page, modals }) {
   const [checked, setChecked] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
   const handle = product.content?.handle
-  const productAccordionHeaders = page[0].fields.content.find(block => block._type === 'productAccordionHeaders')
+  const productAccordionHeaders = page.fields.content.find(block => block._type === 'productAccordionHeaders')
   const accordionDeliveryHeader = productAccordionHeaders?.details
   const productDescription = product.content?.description
   const accordionDescriptionHeader = productAccordionHeaders?.description
   const deliveryDetails = product.metafields.find(metafield => metafield.key === 'delivery_details')
+  const harvestMetafield = product.metafields.find(metafield => metafield.key === 'harvest_handle')
   const deliveryDetailsList = deliveryDetails ? JSON.parse(deliveryDetails.value) : null
-  const stampSection = page[0].fields.content.find(field => field._type === 'stamps')
+  const stampSection = page.fields.content.find(field => field._type === 'stamps')
+
+  console.log('harvestmeta', harvestMetafield)
 
   const modalContext = useModalContext()
+  const [mounted, setMounted] = useState(false)
   const customerContext = useCustomerContext()
   const { customer } = customerContext
 
   useEffect(() =>  {
+    setMounted(true)
+
     if(product.content.handle === 'digital-gift-card') {
       setChecked(true)
     }
 
-    const foundVisibleTags = product.tags.filter(tag => tag.includes('Visible'));
+    const foundVisibleTags = product.tags.filter(tag => tag.includes('Visible' || 'visible'));
     const splitTag = foundVisibleTags[0]?.split(':')[1]
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
-    const foundCustomerTag = customer?.tags.find(tag => tag.includes('member') || tag.includes('sustainer'))
+    const foundCustomerTag = customer?.tags.find(tag => tag.includes('member' || 'Member') || tag.includes('sustainer' || 'sustainer'))
 
     const productHasCustomerTag = foundVisibleTags?.find((tag) => {
       let splitTag = tag.split(':')[1] === foundCustomerTag
@@ -52,24 +60,33 @@ function Product({ product, page }) {
       }
     })
 
-    const fetchModalData = async () => {
-      const foundCustomerTag = customer?.tags.find(tag => tag.includes('member') || tag.includes('sustainer'))
-      const modal = await nacelleClient.content({
-        handles: [foundCustomerTag ? foundCustomerTag?.replace(/\s/g, '-') : 'non-member']
-      })
-      if(!customer && foundVisibleTags.length > 0) {
-        modalContext.setContent(modal[0]?.fields)
-        modalContext.setModalType('gated_product')
-        modalContext.setIsOpen(true)
-      }
-      if(foundVisibleTags.length > 0 && !productHasCustomerTag) {
-        modalContext.setContent(modal[0]?.fields)
-        modalContext.setModalType('gated_product')
-        modalContext.setIsOpen(true)
-      }
-    };
+    modalContext.setProductCustomerTag(productHasCustomerTag)
 
-    fetchModalData()
+    const foundModal = modals.find(modal => modal.handle === splitTagWithDash)
+    const defaultModal = modals.find(modal => modal.handle === 'non-member')
+
+    // if product tags exist but none of the product tags match customer tag
+    if(foundVisibleTags.length > 0 && !productHasCustomerTag) {
+      if(foundModal) {
+        modalContext.setPrevContent(foundModal?.fields)
+        modalContext.setContent(foundModal?.fields)
+      } else {
+        modalContext.setPrevContent(defaultModal?.fields)
+        modalContext.setContent(defaultModal?.fields)
+      }
+      modalContext.setModalType('gated_product')
+      modalContext.setIsOpen(true)
+    }
+
+    // if one of the product tags contains customer tag
+    if(foundVisibleTags.length > 0 && productHasCustomerTag) {
+      modalContext.setIsOpen(false)
+    }
+
+    // if visible tags dont exist
+    if(foundVisibleTags.length === 0) {
+      modalContext.setIsOpen(false)
+    }
   }, [customer])
 
   const isDesktop = useMediaQuery(
@@ -87,9 +104,11 @@ function Product({ product, page }) {
         <PageSEO product={product} />
         <div className={classes['product__inner']}>
             <div className={`${classes['product__row']} container`}>
-            <div className={classes['slider']}>
-              <ProductSlider product={product} />
-            </div>
+
+              <div className={classes['slider']}>
+                <ProductSlider product={product} />
+                {/* <ProductHarvests product={product} /> */}
+              </div>
 
               <div className={classes['main']}>
                 <ProductReviewStars productId={product.sourceEntryId.replace('gid://shopify/Product/', '')} />
@@ -143,7 +162,7 @@ function Product({ product, page }) {
               </div>
             </div>
           {/* SECTIONS */}
-          <ContentSections sections={page[0].fields.content} />
+          <ContentSections sections={page.fields.content} harvestMetafield={harvestMetafield} />
         </div>
       </div>
     )
@@ -182,8 +201,11 @@ export async function getStaticProps({ params }) {
   })
 
   const page = await nacelleClient.content({
-    handles: ['product']
+    handles: ['product'],
+    entryDepth: 1
   })
+
+  const fullRefPage = await getNacelleReferences(page[0])
 
   if (!products.length) {
     return {
@@ -191,10 +213,15 @@ export async function getStaticProps({ params }) {
     }
   }
 
+  const modals = await nacelleClient.content({
+    type: 'gatedProductModal'
+  })
+
   return {
     props: {
       product: products[0],
-      page
+      page: fullRefPage,
+      modals
     }
   }
 }

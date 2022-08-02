@@ -16,6 +16,7 @@ const ProjectedHarvest = ({ fields }) => {
     const [activeHarvest, setActiveHarvest] = useState(harvestList[0])
     const [currentDate, setCurrentDate] = useState(null)
     const [currentMonth, setCurrentMonth] = useState(null)
+    const [filtered, setFiltered] = useState(false)
 
     useEffect(() => {
         // TABS BY MONTH
@@ -49,7 +50,7 @@ const ProjectedHarvest = ({ fields }) => {
 
         const refinedArr = harvestList.filter(harvest => harvest.handle.current === harvestList[0].handle.current)
         setHarvests(refinedArr)
-    }, [harvestList])
+    }, [harvestList, filtered])
 
     // METHODS
     const findFilteredFish = (harvestMonth) => {
@@ -57,6 +58,7 @@ const ProjectedHarvest = ({ fields }) => {
             return month.month.trim().toLowerCase() === harvestMonth
         })
         setActiveTab(foundMonth)
+        setFiltered(true)
     }
 
     const filterHarvests = (harvestHandle) => {
@@ -64,6 +66,7 @@ const ProjectedHarvest = ({ fields }) => {
         const foundHarvest = harvestList.find(harvest => harvest.handle.current === harvestHandle)
         setActiveHarvest(foundHarvest)
         setHarvests(filteredArr)
+        setFiltered(true)
     }
 
     // RENDER
@@ -88,9 +91,9 @@ const ProjectedHarvest = ({ fields }) => {
                     >
                     {harvestList.map((harvest) => {
                         return (
-                            <SwiperSlide className={classes['harvest__tab']} key={`${harvest.title}--${harvest.id}`}>
+                            <SwiperSlide className={classes['harvest__tab']} key={`${harvest.title}-${harvest._id}`}>
                                 <button onClick={() => filterHarvests(harvest.handle.current)} className={`${classes['harvest__tab']} ${activeHarvest.handle.current === harvest.handle.current ? classes['active'] : ""} heading--tab capitalize`}>
-                                   {harvest.title}
+                                    {harvest.title}
                                 </button>
                             </SwiperSlide>
                         )
@@ -127,7 +130,7 @@ const ProjectedHarvest = ({ fields }) => {
                                         {harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.map((fish) => {
                                             return (
                                                 <div className={`${classes['harvest__card']}`} key={fish._key}>
-                                                    <HarvestCard fish={fish} />
+                                                    <HarvestCard fish={fish} filtered />
                                                 </div>
                                             )
                                         })}
@@ -147,14 +150,14 @@ const ProjectedHarvest = ({ fields }) => {
                                         {activeTab.month === currentMonth && harvest.months.filter(month => currentDate >= month.sellStart && currentDate <= month.sellEnd)[0]?.fishArray.map((fish) => {
                                             return (
                                                 <div className={`${classes['harvest__card']}`} key={fish._key}>
-                                                    <HarvestCard fish={fish} />
+                                                    <HarvestCard fish={fish} filtered />
                                                 </div>
                                             )
                                         })}
                                         {activeTab.month !== currentMonth && harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.map((fish) => {
                                             return (
                                                 <div className={`${classes['harvest__card']}`} key={fish._key}>
-                                                    <HarvestCard fish={fish} />
+                                                    <HarvestCard fish={fish} filtered />
                                                 </div>
                                             )
                                         })}

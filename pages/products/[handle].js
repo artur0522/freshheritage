@@ -153,10 +153,10 @@ function Product({ product, page, modals }) {
                 {/* STAMPS */}
                 <div className={classes['product-stamps']}>
                   {isDesktop &&
-                    <ResponsiveImage src={stampSection.stamps.desktopImage.asset.url} alt={stampSection.stamps.desktopImage.asset.alt || product.content?.title} />
+                    <ResponsiveImage src={stampSection.stamps.desktopImage.asset.url} alt={stampSection.stamps.desktopImage.alt || product.content?.title} />
                   }
                   {!isDesktop &&
-                    <ResponsiveImage src={stampSection.stamps.mobileImage.asset.url} alt={stampSection.stamps.mobileImage.asset.alt || product.content?.title} />
+                    <ResponsiveImage src={stampSection.stamps.mobileImage.asset.url} alt={stampSection.stamps.mobileImage.alt || product.content?.title} />
                   }
                 </div>
               </div>

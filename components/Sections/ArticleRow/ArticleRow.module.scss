@@ -82,7 +82,7 @@
 
         h1 {
             margin-bottom: 13px;
-
+            line-height: 1;
             @include breakpoint-up('md') {
                 margin-bottom: 0;
             }
@@ -92,7 +92,7 @@
         &-link {
             display: flex;
             align-items: center;
-
+            margin-bottom: 10px;
             a {
                 margin-right: 7.77px;
                 font-weight: 500;
@@ -137,6 +137,25 @@
                     font-weight: 500;
                 }
             }
+        }
+    }
+}
+
+
+.article-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    @include breakpoint-up('sm') {
+        flex-direction: row;
+    }
+    .article-slide {
+        width: 100%;
+        list-style: none;
+        margin-bottom: 20px;
+        @include breakpoint-up('sm') {
+            width: calc(50% - 20px);
+            margin-bottom: 0;
         }
     }
 }

@@ -11,10 +11,10 @@ const ProductStamps = ({fields, product}) => {
   return (
     <div className={classes['product-stamps']}>
       {isDesktop &&
-        <ResponsiveImage src={fields.desktopImage.asset.url} alt={fields.desktopImage.asset.alt || product.content?.title} />
+        <ResponsiveImage src={fields.desktopImage.asset.url} alt={fields.desktopImage.alt || product.content?.title} />
       }
       {!isDesktop &&
-        <ResponsiveImage src={fields.mobileImage.asset.url} alt={fields.mobileImage.asset.alt || product.content?.title} />
+        <ResponsiveImage src={fields.mobileImage.asset.url} alt={fields.mobileImage.alt || product.content?.title} />
       }
     </div>
   )

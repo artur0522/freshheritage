@@ -22,6 +22,8 @@ import EmailSignup from '../../EmailSignup'
 import BrowseCategory from '@/components/Sections/BrowseCategory'
 import ArticleRow from '@/components/Sections/ArticleRow'
 import HalfVideoBlock from '@/components/Sections/HalfVideoBlock'
+import FeaturedFishCarousel from '@/components/Sections/FeaturedFishCarousel'
+import AllKnowYourFishblock from '@/components/Sections/AllKnowYourFishBlock'
 import FeaturedText from '@/components/Sections/FeaturedText'
 import FiftyFiftyImage from '@/components/Sections/FiftyFiftyImage'
 import BoldHeaderText from '@/components/Sections/BoldHeaderText'
@@ -129,6 +131,10 @@ const ContentSections = ({ sections, harvestMetafield}) => {
         return <ContactUs fields={section} key={section._key} />
       case 'accordion':
         return <Accordion fields={section} key={section._key} />
+      case 'featuredFishCarousel':
+        return <FeaturedFishCarousel fields={section} key={section._key} />
+      case 'allKnowYourFishBlock':
+        return <AllKnowYourFishblock fields={section} key={section._key} />
       case 'reviewsCarousel':
         return <ReviewsCarousel fields={section} key={section._key} />
       default:

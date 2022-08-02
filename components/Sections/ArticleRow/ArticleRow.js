@@ -8,7 +8,7 @@ import IconArrow from '@/svgs/arrow-right.svg'
 import classes from "./ArticleRow.module.scss"
 import "swiper/css"
 
-const ArticleRow = ({ fields }) => {
+const ArticleRow = ({ fields, enableSlider = true }) => {
 
   const {header, ctaText, ctaUrl, articles, _key, reverseCard, illustration, illustrationAlt, illustration2, illustration2Alt, greenBackground,  topMargin, bottomMargin} = fields
   const [mounted, setMounted] = useState(false)
@@ -17,7 +17,7 @@ const ArticleRow = ({ fields }) => {
     }, [fields])
 
   return (
-    <div className={`${classes['articles']} ${reverseCard ? classes['reverse'] : ''} ${greenBackground ? classes['green-bg'] : ""} ${topMargin ? classes['top-margin'] : ''} ${bottomMargin ? classes['bottom-margin'] : ''}`}>
+    <div className={`article-row ${classes['articles']} ${reverseCard ? classes['reverse'] : ''} ${greenBackground ? classes['green-bg'] : ""} ${topMargin ? classes['top-margin'] : ''} ${bottomMargin ? classes['bottom-margin'] : ''}`}>
         {illustration && <div className={classes['illustration-1']}>
             <Image
                 src={illustration.asset.url}
@@ -44,7 +44,7 @@ const ArticleRow = ({ fields }) => {
                     <IconArrow />
                 </div>}
             </div>
-            {articles?.length > 0 && mounted &&
+            {articles?.length > 0 && mounted && enableSlider &&
                 <div className={classes['slider']}>
                     <Swiper
                         loop={true}
@@ -69,6 +69,22 @@ const ArticleRow = ({ fields }) => {
                             )
                         })}
                     </Swiper>
+                </div>
+            }
+            {articles?.length > 0 && mounted && !enableSlider &&
+                <div className={classes['article-list']}>
+                    {articles.map((article, index) => {
+                        // if handle doesn't exist, you're probably on the same page of the article you are referencing
+                        if (!article.handle) {
+                            return ''
+                        }
+
+                        return (
+                            <li className={classes['article-slide']} key={`${article._id}-${_key}-${index}`}>
+                                <DynamicArticleCard article={article} reverse={reverseCard} />
+                            </li>
+                        )
+                    })}
                 </div>
             }
         </div>

@@ -5,13 +5,13 @@ export default async function handler(req, res) {
 
   const config = {
     method: 'GET',
-    url: `https://stamped.io/api/v2/${process.env.STAMPEDIO_STORE_HASH}/dashboard/products`,
+    url: `https://stamped.io/api/v2/${process.env.NEXT_PUBLIC_STAMPEDIO_STORE_HASH}/dashboard/products`,
     headers: {
       'Content-Type': 'application/json',
     },
     auth: {
-      username: process.env.STAMPEDIO_KEY_PUBLIC,
-      password: process.env.STAMPEDIO_API_KEY
+      username: process.env.NEXT_PUBLIC_STAMPEDIO_KEY_PUBLIC,
+      password: process.env.NEXT_PUBLIC_STAMPEDIO_API_KEY
     }
   };
 

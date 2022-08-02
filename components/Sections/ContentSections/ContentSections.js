@@ -29,6 +29,7 @@ import ImageTextColumns from '../ImageTextColumns'
 import WYSIWYG from '@/components/Sections/WYSIWYG'
 import ContactUs from '@/components/Sections/ContactUs'
 import Accordion from '../Accordion'
+import ReviewsCarousel from '@/components/Sections/ReviewsCarousel'
 
 const ContentSections = ({ sections, harvestMetafield}) => {
   if (harvestMetafield === undefined) {
@@ -123,6 +124,8 @@ const ContentSections = ({ sections, harvestMetafield}) => {
         return <ContactUs fields={section} key={section._key} />
       case 'accordion':
         return <Accordion fields={section} key={section._key} />
+      case 'reviewsCarousel':
+        return <ReviewsCarousel fields={section} key={section._key} />
       default:
         return null
     }

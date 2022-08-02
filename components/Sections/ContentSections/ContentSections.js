@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { useRouter } from 'next/router'
 import { useTheCatchContext } from '@/context/TheCatchContext'
 
 import CurrentHarvest from '../../Harvest/CurrentHarvest'
@@ -32,8 +33,12 @@ import Accordion from '../Accordion'
 import ReviewsCarousel from '@/components/Sections/ReviewsCarousel'
 
 const ContentSections = ({ sections, harvestMetafield}) => {
-  if (harvestMetafield === undefined) {
+  const router = useRouter()
+
+  if (harvestMetafield === undefined && router.pathname.includes('/products')) {
     harvestMetafield = null
+  } else if (harvestMetafield === undefined && !router.pathname.includes('/products')) {
+    harvestMetafield = {}
   } else if(!harvestMetafield) {
     harvestMetafield = {}
   } else {
@@ -62,31 +67,31 @@ const ContentSections = ({ sections, harvestMetafield}) => {
         return <FeaturedBlogContent fields={section} key={section._key} />
       case 'currentSellingHarvest':
         if(harvestMetafield) {
-          return <CurrentHarvest fields={section} key={section._key} harvestMetafield />
+          return <CurrentHarvest fields={section} key={section._key} />
         } else {
           return null
         }
       case 'currentMonthHarvest':
         if(harvestMetafield) {
-          return <CurrentHarvest fields={section} key={section._key} harvestMetafield />
+          return <CurrentHarvest fields={section} key={section._key} />
         } else {
           return null
         }
       case 'projectedHarvest':
         if(harvestMetafield) {
-          return <ProjectedHarvest fields={section} key={section._key} harvestMetafield />
+          return <ProjectedHarvest fields={section} key={section._key} />
         } else {
           return null
         }
       case 'staticHarvest':
         if(harvestMetafield) {
-          return <StaticHarvest fields={section} key={section._key} harvestMetafield />
+          return <StaticHarvest fields={section} key={section._key} />
         } else {
           return null
         }
       case 'globalSampler':
         if(harvestMetafield) {
-          return <CurrentHarvest fields={section} key={section._key} harvestMetafield />
+          return <CurrentHarvest fields={section} key={section._key} />
         } else {
           return null
         }

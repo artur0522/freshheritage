@@ -7,12 +7,14 @@ import { useKnowYourFishDrawerContext } from '@/context/KnowYourFishDrawerContex
 import { Swiper, SwiperSlide } from 'swiper/react'
 import IconArrowLeft from '@/svgs/arrow-left.svg'
 import "swiper/css"
+import { useMediaQuery } from 'react-responsive'
 
 const FeaturedFishCarousel = ({fields}) => {
 
   const builder = imageUrlBuilder(sanityClient)
   const { openDrawer } = useKnowYourFishDrawerContext()
   const [swiper, setSwiper] = useState()
+  const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
 
   const sliderRef = useRef(null);
   const prevSlideBtnRef = useRef()
@@ -48,7 +50,7 @@ const FeaturedFishCarousel = ({fields}) => {
         <Swiper
           ref={sliderRef}
           slidesPerView={'auto'}
-          spaceBetween={40}
+          spaceBetween={isMobile ? 20 : 40}
           threshold={2}
           onSwiper={setSwiper}
           onProgress={({progress}) => {

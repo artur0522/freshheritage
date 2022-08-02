@@ -1,17 +1,29 @@
 @import '@/styles/_shared.scss';
 
 .all-know-your-fish-block {
-  padding: 60px 0 120px;
+  padding: 40px 0 80px;
   background-color: $fawn50-2;
+  @include breakpoint-up('xl') {
+    padding: 60px 0 120px;
+  }
 }
 
 .all-know-your-fish-block__header {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 60px;
+  flex-direction: column;
+  margin-bottom: 30px;
+  @include breakpoint-up('sm') {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 60px;
+  }
   h2 {
     line-height: 1;
+    margin-bottom: 20px;
+    @include breakpoint-up('sm') {
+      margin-bottom: 0;
+    }
   }
   p {
     margin: 5px 0 0;
@@ -54,15 +66,27 @@
 }
 
 .all-know-your-fish-block__item {
-  width: 25%;
+  display: flex;
+  width: 100%;
   padding: 0 20px;
-  margin-bottom: 115px;
+  margin-bottom: 40px;
+  @include breakpoint-up('sm') {
+    width: 50%;
+  }
+  @include breakpoint-up('lg') {
+    width: 25%;
+    margin-bottom: 80px;
+  }
+  @include breakpoint-up('xl') {
+    margin-bottom: 115px;
+  }
 }
 
 .all-know-your-fish-block__item-container {
   background-color: $pureWhite;
   padding: 20px;
   border-radius: 12px;
+  width: 100%;
   .all-know-your-fish-block__item-header {
     font-family: $bebas;
     font-size: 24px;
@@ -79,6 +103,7 @@
   }
   .all-know-your-fish-block__detail-item {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     margin-bottom: 8px;
   }

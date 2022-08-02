@@ -16,10 +16,13 @@
 }
 
 .featured-fish-carousel__nav-btns {
-  display: flex;
+  display: none;
   position: absolute;
   right: 0;
   bottom: 10px;
+  @include breakpoint-up('md') {
+    display: flex;
+  }
   > button {
     margin: 0 10px;
   }
@@ -60,9 +63,13 @@
 }
 
 .featured-fish-carousel__item {
-  width: 438px;
+  width: 280px;
   position: relative;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+  @include breakpoint-up('sm') {
+    width: 438px;
+    margin-bottom: 40px;
+  }
   img {
     border-radius: 12px;
   }

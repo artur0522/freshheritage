@@ -6,6 +6,7 @@ import ResponsiveImage from '@/components/ResponsiveImage'
 import { useKnowYourFishDrawerContext } from '@/context/KnowYourFishDrawerContext'
 import InfoCircle from '@/svgs/info-circle.svg'
 import moment from 'moment'
+import { useMediaQuery } from 'react-responsive'
 
 const AllKnowYourFishblock = ({fields}) => {
 
@@ -14,6 +15,7 @@ const AllKnowYourFishblock = ({fields}) => {
   const { header, subheader, knowYourFishList } = fields
 
   const [fishList, setFishList] = useState(knowYourFishList)
+  const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
 
   if (!knowYourFishList) {
     return ''
@@ -65,7 +67,7 @@ const AllKnowYourFishblock = ({fields}) => {
               return ''
             }
 
-            const cropImageUrl = image ? urlFor(image).width(438).height(600).focalPoint(image.hotspot.x, image.hotspot.y).crop('focalpoint').fit('crop').url() : undefined
+            const cropImageUrl = image ? urlFor(image).width(isMobile ? 600 : 350).height(isMobile ? 570 : 385).focalPoint(image.hotspot.x, image.hotspot.y).crop('focalpoint').fit('crop').url() : undefined
 
             const imageInlineStyles = {
               'filter': `brightness(${image?.imageBrightness ? image.imageBrightness : 100}%)`

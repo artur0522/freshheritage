@@ -25,29 +25,29 @@ export function ModalProvider({ children }) {
 
   useEffect(() => {
     const onRountChangeComplete = () => {
-      if(router.pathname !== '/products/[handle]') {
+      if(router.pathname !== '/products/[handle]' && router.pathname !== 'blogs/brand/[category]/[handle]' && router.pathname !== 'blogs/culinary/[category]/[handle]') {
         setIsOpen(false)
       }
      
       if(router.pathname === '/products/[handle]' && prevContent && !productCustomerTag) {
-        setIsOpen(true)
+        // setIsOpen(true)
         document.querySelector('html').classList.add('disable-scroll')
       }
 
-      if(router.pathname !== 'blogs/brand/[category]/[handle]' && prevContent && !articleCustomerTag) {
-        setIsOpen(false)
-      }
+      // if(router.pathname !== 'blogs/brand/[category]/[handle]' && router.pathname !== '/products/[handle]' && prevContent && !articleCustomerTag) {
+      //   setIsOpen(false)
+      // }
 
       if(router.pathname === 'blogs/brand/[category]/[handle]' && prevContent && !articleCustomerTag) {
         setIsOpen(true)
         document.querySelector('html').classList.add('disable-scroll')
       }
 
-      if(router.pathname !== 'blogs/culinary/[category]/[handle]' && prevContent && !articleCustomerTag) {
-        setIsOpen(false)
-      }
+      // if(router.pathname !== 'blogs/culinary/[category]/[handle]' && router.pathname !== '/products/[handle]' && prevContent && !articleCustomerTag) {
+      //   setIsOpen(false)
+      // }
 
-      if(router.pathname === 'blogs/culinary/[category]/[handle]' && prevContent && !articleCustomerTag) {
+      if(router.pathname === 'blogs/culinary/[category]/[handle]' && router.pathname !== '/products/[handle]' && prevContent && !articleCustomerTag) {
         setIsOpen(true)
         document.querySelector('html').classList.add('disable-scroll')
       }

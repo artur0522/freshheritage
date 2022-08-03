@@ -130,7 +130,7 @@ const ProjectedHarvest = ({ fields }) => {
                                         {harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.map((fish) => {
                                             return (
                                                 <div className={`${classes['harvest__card']}`} key={fish._key}>
-                                                    <HarvestCard fish={fish} filtered />
+                                                    <HarvestCard fish={fish} filtered={filtered} />
                                                 </div>
                                             )
                                         })}
@@ -150,14 +150,14 @@ const ProjectedHarvest = ({ fields }) => {
                                         {activeTab.month === currentMonth && harvest.months.filter(month => currentDate >= month.sellStart && currentDate <= month.sellEnd)[0]?.fishArray.map((fish) => {
                                             return (
                                                 <div className={`${classes['harvest__card']}`} key={fish._key}>
-                                                    <HarvestCard fish={fish} filtered />
+                                                    <HarvestCard fish={fish} filtered={filtered} />
                                                 </div>
                                             )
                                         })}
                                         {activeTab.month !== currentMonth && harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.map((fish) => {
                                             return (
                                                 <div className={`${classes['harvest__card']}`} key={fish._key}>
-                                                    <HarvestCard fish={fish} filtered />
+                                                    <HarvestCard fish={fish} filtered={filtered} />
                                                 </div>
                                             )
                                         })}

@@ -25,9 +25,9 @@ const HarvestCard = ({ fish, cardStyle, filtered }) => {
       setTabInfo(refinedFish)
     }
 
-    setMounted(true)
     setThumbsSwiper()
     getFish()
+    setMounted(true)
   }, [thumbsSwiper, filtered])
 
   const isMobile =  useMediaQuery({ query: '(max-width: 767px)' })
@@ -42,7 +42,7 @@ const HarvestCard = ({ fish, cardStyle, filtered }) => {
 
   return (
     <div className={`${classes['harvest__card']} ${cardStyle === 'projected-card' ? classes['projected-card'] : ""}`}>
-       {cardStyle === 'projected-card' && isMobile && mounted && tabInfo?.image?.asset?.url && tabInfo[0]?._type !== 'fishermen' &&
+       {cardStyle === 'projected-card' && isMobile && mounted && tabInfo?.image?.asset?.url && tabButtonTitle !== 'fishermen' &&
         <div className={classes['harvest__card-img']}>
           <Image
               src={tabInfo.image.asset.url}
@@ -52,7 +52,7 @@ const HarvestCard = ({ fish, cardStyle, filtered }) => {
           />
         </div>}
 
-        {cardStyle === 'projected-card' && isDesktop && mounted && tabInfo?.image?.asset?.url && tabInfo[0]?._type !== 'fishermen' &&
+        {cardStyle === 'projected-card' && isDesktop && mounted && tabInfo?.image?.asset?.url && tabButtonTitle !== 'fishermen' &&
         <div className={classes['harvest__card-img']}>
           <Image
             src={tabInfo.image.asset.url}
@@ -72,7 +72,7 @@ const HarvestCard = ({ fish, cardStyle, filtered }) => {
           />
         </div>}
 
-        {tabButtonTitle === 'fishermen' &&
+        {tabButtonTitle === 'fishermen' && mounted &&
           <Swiper 
               navigation={true}
               slidesPerView={1}
@@ -82,7 +82,7 @@ const HarvestCard = ({ fish, cardStyle, filtered }) => {
               className="fishermen-swiper">
               {fish.fishermen.map((fishermen) => {
                 return (
-                  <SwiperSlide key={`${fishermen.type}--${fish._key}`}> 
+                  <SwiperSlide key={`${fishermen.type}--${fishermen.title}`}> 
                     <div className={classes['harvest__card-img']}>
                       <Image
                           src={fishermen.image?.asset.url}
@@ -110,7 +110,7 @@ const HarvestCard = ({ fish, cardStyle, filtered }) => {
               >
                 {Object.keys(fish).filter((key) => key === "species" || key === "locations" || key === "fishermen" || key === "culinary").reverse().map((fishCategory) => {
                   return (
-                    <SwiperSlide key={`${fish._key}--${fishCategory}`} className={`${tabButtonTitle === fishCategory ? classes['active'] : ""} ${classes['harvest__card-tab']}`}> 
+                    <SwiperSlide key={`${fishCategory}`} className={`${tabButtonTitle === fishCategory ? classes['active'] : ""} ${classes['harvest__card-tab']}`}> 
                       <button className={`${cardStyle === 'projected-card' ? 'heading--projected-tab' : 'heading--tab'}`} onClick={() => findTabInfo(fishCategory.toString())}>
                         {fishCategory === 'fishermen' ? 'Caught By' : fishCategory}
                       </button>
@@ -127,7 +127,7 @@ const HarvestCard = ({ fish, cardStyle, filtered }) => {
               {tabInfo.content && <div className={classes['content-block']}><PortableText value={tabInfo.content} /></div>}
           </div>}
 
-          {tabButtonTitle === 'fishermen' &&
+          {tabButtonTitle === 'fishermen' && mounted &&
             <Swiper 
               slidesPerView={1}
               onSwiper={setThumbsSwiper} 
@@ -137,7 +137,7 @@ const HarvestCard = ({ fish, cardStyle, filtered }) => {
               className={classes['harvest__card-swiper']}>
                 {fish.fishermen.map((fishermen) => {
                   return (
-                    <SwiperSlide key={`${fish._key}--${fishermen.title}`}> 
+                    <SwiperSlide key={`${fishermen.title}--${fishermen.type}`}> 
                       <div className={classes['harvest__card-content']}>
                           {fishermen.header && <h4 className={`${cardStyle === 'projected-card' ? 'heading--projected-title' : ""}`}>{fishermen.header}</h4>}
                           {fishermen.subheader && <h5>{fishermen.subheader}</h5>}

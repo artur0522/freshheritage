@@ -131,7 +131,7 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
           </div>
         }
 
-        {articles.length &&
+        {articles.length > 0 &&
           <div className={`${classes['article-related-items']} ${classes['article-sidebar__section']}`}>
             <h2>{relatedArticles.header}</h2>
             <ul className={classes['article-related-item-list']}>

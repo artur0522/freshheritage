@@ -90,7 +90,7 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
             <ul className={classes['article-related-item-list']}>
               {knowYourFishList.knowYourFishes.map(item => {
                 const { header, peakSeason, nutritionalInfo, image } = item
-                return <li className={classes['know-your-fish__item']} onClick={() => openDrawer({ fields: item })}>
+                return <li key={item._id} className={classes['know-your-fish__item']} onClick={() => openDrawer({ fields: item })}>
                   <div className={classes['article-related-item__image']}>
                     <Image
                       src={image.asset.url}

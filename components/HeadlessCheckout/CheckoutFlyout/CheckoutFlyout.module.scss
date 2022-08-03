@@ -1,16 +1,18 @@
 @import '@/styles/_shared.scss';
 
-.checkout-flyout__content--enter {
-  transform: translate(100%);
-}
-.checkout-flyout__content--enter-active {
-  transform: translate(0);
-}
-.checkout-flyout__content--enter-done {
-  transform: translate(0);
-}
-.checkout-flyout__content--exit {
-  transform: translate(100%);
+.checkout-flyout {
+  .checkout-flyout__content--enter {
+    transform: translate(100%);
+  }
+  .checkout-flyout__content--enter-active {
+    transform: translate(0);
+  }
+  .checkout-flyout__content--enter-done {
+    transform: translate(0);
+  }
+  .checkout-flyout__content--exit {
+    transform: translate(100%);
+  }
 }
 
 .checkout-flyout {
@@ -75,6 +77,7 @@
   padding: 50px 30px;
   box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.1);
   transition: 0.2s ease-in-out transform;
+  transform: translate(100%);
   overflow-y: auto;
   z-index: 1001;
   @include breakpoint-up('sm') {

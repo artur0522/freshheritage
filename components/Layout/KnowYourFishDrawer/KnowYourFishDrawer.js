@@ -27,12 +27,16 @@ const KnowYourFishDrawer = ({fields}) => {
   }
 
   useEffect(() => {
+
+    console.log("isOpen:", isOpen)
+
     if (fields) {
       setTimeout(() => {
+        console.log("open@!")
         setDrawerOpen(true)
-      }, timeout)
+      }, 500)
     }
-  }, [fields])
+  }, [fields, isOpen])
 
   // useEffect(() => {
   //   if (!isOpen) {

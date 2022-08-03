@@ -25,6 +25,10 @@ const BrandArticle = ({ page, product, blogSettings, modals }) => {
   useEffect(() => {
     setMounted(true)
 
+    if (!articleTags) {
+      return
+    }
+
     const foundVisibleTags = articleTags.filter(tag => tag.value.includes('Visible' || 'visible'))
     const splitTag = foundVisibleTags[0]?.value?.split(':')[1]
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()

@@ -59,7 +59,7 @@ const AllKnowYourFishblock = ({fields}) => {
            </div>
         </div>
         <ul className={classes['all-know-your-fish-block__list']}>
-          {fishList.map(item => {
+          {fishList.map((item, index) => {
 
             const { header, peakSeason, nutritionalInfo, image } = item
 
@@ -74,7 +74,7 @@ const AllKnowYourFishblock = ({fields}) => {
             }
 
             return (
-              <li className={classes['all-know-your-fish-block__item']} key={item._id}>
+              <li className={classes['all-know-your-fish-block__item']} key={index}>
                 <div className={classes['all-know-your-fish-block__item-container']}>
                   {cropImageUrl && <div className={classes['all-know-your-fish-block__item-image']}>
                     <ResponsiveImage src={cropImageUrl} alt={image.asset.alt || ''}  style={imageInlineStyles} />

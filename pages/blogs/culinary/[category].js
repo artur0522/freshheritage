@@ -27,6 +27,7 @@ async function getArticles(page, numOfEntries) {
 
 const RecipeListings = ({ blogSettings, page }) => {
 
+
   const [articles, setArticles] = useState([])
   const [allArticlesLoaded, setAllArticlesLoaded] = useState(false)
 

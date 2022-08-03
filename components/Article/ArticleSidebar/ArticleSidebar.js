@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import classes from './ArticleSidebar.module.scss'
 import articleContentClasses from '../ArticleContent/ArticleContent.module.scss'
 import ResponsiveImage from '@/components/ResponsiveImage'
@@ -8,12 +9,29 @@ import Link from 'next/link'
 import { useArticleContext } from '@/context/ArticleContext'
 import { useKnowYourFishDrawerContext } from '@/context/KnowYourFishDrawerContext'
 import IconCaret from '@/svgs/caret.svg'
+import { nacelleClient } from 'services'
 
 const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
 
   const { content, author, hosts, relatedArticles, knowYourFishList, classSignup } = fields
   const { isSidebarOpen, setIsSidebarOpen } = useArticleContext()
   const { openDrawer } = useKnowYourFishDrawerContext()
+  const [articles, setArticles] = useState([])
+
+  useEffect(() => {
+    const getArticles = async () => {
+      const articles = await nacelleClient.content({
+        handles: relatedArticles.relatedArticleItems
+      })
+      return articles
+    }
+
+    getArticles()
+      .then(res => {
+        setArticles(res)
+      })
+
+  }, [])
 
   return (
     <div className={`${classes['article-sidebar']} ${isSidebarOpen ? classes['is-open'] : ''}`}>
@@ -113,13 +131,13 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
           </div>
         }
 
-        {relatedArticles &&
+        {articles.length &&
           <div className={`${classes['article-related-items']} ${classes['article-sidebar__section']}`}>
             <h2>{relatedArticles.header}</h2>
             <ul className={classes['article-related-item-list']}>
-              {relatedArticles.relatedArticleItems.map(item => {
+              {articles.map(item => {
 
-                const image = item.hero?.desktopBackgroundImage
+                const image = item.fields.hero?.desktopBackgroundImage
                 const handle = item.handle?.current ? item.handle.current : item.handle;
                 const blog = item.fields ? item.fields.blog : item.blog
 

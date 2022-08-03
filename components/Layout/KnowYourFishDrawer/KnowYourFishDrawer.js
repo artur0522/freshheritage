@@ -10,7 +10,7 @@ import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 const KnowYourFishDrawer = ({fields}) => {
 
-  const { dispatch, isOpen } = useKnowYourFishDrawerContext()
+  const { dispatch } = useKnowYourFishDrawerContext()
   const nodeRef = useRef(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const timeout = 200
@@ -27,22 +27,12 @@ const KnowYourFishDrawer = ({fields}) => {
   }
 
   useEffect(() => {
-
-    console.log("isOpen:", isOpen)
-
     if (fields) {
       setTimeout(() => {
-        console.log("open@!")
         setDrawerOpen(true)
       }, 500)
     }
-  }, [fields, isOpen])
-
-  // useEffect(() => {
-  //   if (!isOpen) {
-  //     closeDrawer()
-  //   }
-  // }, [isOpen])
+  }, [fields])
 
   useEffect(() => {
     const getUpdatedContent = async () => {

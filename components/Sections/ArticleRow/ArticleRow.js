@@ -4,17 +4,40 @@ import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
 import IconArrow from '@/svgs/arrow-right.svg'
+import { nacelleClient } from 'services'
 
 import classes from "./ArticleRow.module.scss"
 import "swiper/css"
 
 const ArticleRow = ({ fields, enableSlider = true }) => {
 
-  const {header, ctaText, ctaUrl, articles, _key, reverseCard, illustration, illustrationAlt, illustration2, illustration2Alt, greenBackground,  topMargin, bottomMargin} = fields
+  const {header, ctaText, ctaUrl, articles: articleHandles, _key, reverseCard, illustration, illustrationAlt, illustration2, illustration2Alt, greenBackground,  topMargin, bottomMargin} = fields
   const [mounted, setMounted] = useState(false)
+  const [articles, setArticles] = useState([])
     useEffect(() => {
         setMounted(true)
     }, [fields])
+
+    useEffect(() => {
+
+        const getArticles = async () => {
+            const articles = await nacelleClient.content({
+                handles: articleHandles
+            })
+            return articles
+        }
+
+        getArticles()
+            .then(res => {
+                setArticles(res)
+            })
+
+    }, [])
+
+    if (!articles.length) {
+        return ''
+    }
+
 
   return (
     <div className={`article-row ${classes['articles']} ${reverseCard ? classes['reverse'] : ''} ${greenBackground ? classes['green-bg'] : ""} ${topMargin ? classes['top-margin'] : ''} ${bottomMargin ? classes['bottom-margin'] : ''}`}>

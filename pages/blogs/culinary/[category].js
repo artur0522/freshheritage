@@ -27,6 +27,7 @@ async function getArticles(page, numOfEntries) {
 
 const RecipeListings = ({ blogSettings, page }) => {
 
+
   const [articles, setArticles] = useState([])
   const [allArticlesLoaded, setAllArticlesLoaded] = useState(false)
 
@@ -51,6 +52,8 @@ const RecipeListings = ({ blogSettings, page }) => {
         setArticles(res)
       })
   }, [articles])
+
+  console.log("articles:", articles)
 
   return (
     <ListingsTemplate articles={articles} blogSettings={blogSettings} page={page} />

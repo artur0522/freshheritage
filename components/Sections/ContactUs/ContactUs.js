@@ -1,9 +1,10 @@
-import { useRef, createRef } from 'react'
+import { useState, useRef, createRef } from 'react'
 import classes from './ContactUs.module.scss'
-import axios from 'axios';
 
 const ContactUs = ({fields}) => {
   const { header } = fields
+  const [formSubmitted, setFormSubmitted] = useState(false)
+  const [showErrorMessage, setShowErrorMessage] = useState(true)
   const refs = ['first_name', 'last_name', 'email', 'phone', 'subject', 'message']
 
   const formRef = useRef(refs.reduce((carry, ref) => {
@@ -13,28 +14,38 @@ const ContactUs = ({fields}) => {
     }
   }, {}))
 
-  const onSubmit = () => {
-    // e.preventDefault()
+  const onSubmit = async (e) => {
+    e.preventDefault()
 
-    // const formData = new FormData();
+    const data = {};
 
-    // for (const file of files) {
-    //   formData.append(file.name, file);
-    // }
+    for (const keyName of Object.keys(formRef.current)) {
+      const value = formRef.current[keyName].current.value
+      data[keyName] = value
+    }
 
-    // for (const keyName of Object.keys(formRef.current)) {
-    //   const value = formRef.current[keyName].current.value
-    //   formData.append(keyName, value)
-    // }
+    const response = await fetch('/api/zendesk/create-ticket', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      body: JSON.stringify(data)
+    })
 
-    // axios.post('/api/culinary-contest/submit-form', formData, {
-    //   'content-type': 'multipart/form-data'
-    // })
-    // .then(({data}) => {
-    //   if (data.message === 'success') {
-    //     setFormSubmitted(true)
-    //   }
-    // })
+    if (response && response.statusText === 'Created') {
+      setFormSubmitted(true)
+      setShowErrorMessage(false)
+    } else {
+      setShowErrorMessage(true)
+    }
+  }
+
+  if (formSubmitted) {
+    return (
+      <div className={classes['contact-us']}>
+        <h1 className="text-align--center">Thank you!<br />We'll get back to you as soon as possible.</h1>
+      </div>
+    )
   }
 
   return (
@@ -86,6 +97,10 @@ const ContactUs = ({fields}) => {
         <div className={classes['contact-us__submit']}>
           <button className="btn sitkablue">Submit</button>
         </div>
+
+        {showErrorMessage &&
+          <p className={classes['contact-us__error']}>Sorry, an error has occurred. Please try again or email salmonsupport@sitkasalmonshares.com for assistance</p>
+        }
 
       </form>
     </div>

@@ -1,31 +1,43 @@
 /* /api/zendesk */
-import zendesk from 'node-zendesk'
 
-const client = zendesk.createClient({
-  username:  '',
-  token:     process.env.NEXT_PUBLIC_ZENDESK_TOKEN,
-  remoteUri: 'https://add subdomain here.zendesk.com/api/v2'
-});
+import axios from 'axios'
 
 export default async function handler(req, res) {
 
-  const { subject, message, email } = req.body
+  const { subject, message, email, first_name, last_name, phone_number } = JSON.parse(req.body)
 
-  const ticket = {
-    "subject": subject,
-    "comment": {
-      "body": message
-    },
-    "recipient": email
+  const body = {
+    "ticket": {
+      "subject": subject,
+      "comment": {
+        "body": message
+      },
+      "recipient": email,
+      "custom_fields" : [
+        {
+          "first_name": first_name,
+          "last_name": last_name,
+          "phone_number": phone_number
+        }
+      ]
+    }
   }
 
-  client.ticket.create(ticket)
-    .then((response) => {
-      console.log(response);
-      res.status(201).json({ message: 'success' });
-    })
-    .catch((err) => {
-      // console.log(error);
-      res.status(400).json({ message: 'error', data: err });
-    });
+  axios.post('https://sitkasalmonshareshelp.zendesk.com/api/v2/tickets.json', JSON.stringify(body), {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    auth: {
+      'username': 'joe@sitkasalmonshares.com/token',
+      'password': process.env.NEXT_PUBLIC_ZENDESK_TOKEN
+    }
+  })
+  .then((response) => {
+    res.status(201).json({ message: 'success', data: response.data });
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(400).json({ message: 'error', data: err });
+  });
+
 }

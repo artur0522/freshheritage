@@ -10,6 +10,7 @@ export function useModalContext() {
 
 export function ModalProvider({ children }) {
   const [productCustomerTag, setProductCustomerTag] = useState(false)
+  const [articleCustomerTag, setArticleCustomerTag] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [content, setContent] = useState('')
   const [prevContent, setPrevContent] = useState('')

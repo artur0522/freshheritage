@@ -53,8 +53,6 @@ const RecipeListings = ({ blogSettings, page }) => {
       })
   }, [articles])
 
-  console.log("articles:", articles)
-
   return (
     <ListingsTemplate articles={articles} blogSettings={blogSettings} page={page} />
   )

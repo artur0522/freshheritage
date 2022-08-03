@@ -12,8 +12,6 @@ import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 const RecipeArticle = ({ page, product, blogSettings }) => {
 
-  console.log("page:", page)
-
   const { setContent } = useModalContext()
   const mainContentRef = useRef()
 

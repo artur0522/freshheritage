@@ -28,7 +28,6 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
 
     getArticles()
       .then(res => {
-        console.log("res:", res)
         setArticles(res)
       })
 

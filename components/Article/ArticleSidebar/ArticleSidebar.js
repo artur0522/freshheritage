@@ -106,9 +106,9 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
           <div className={`${classes['article-related-items']} ${classes['article-sidebar__section']}`}>
             <h2>{knowYourFishList.header}</h2>
             <ul className={classes['article-related-item-list']}>
-              {knowYourFishList.knowYourFishes.map(item => {
+              {knowYourFishList.knowYourFishes.map((item, index) => {
                 const { header, peakSeason, nutritionalInfo, image } = item
-                return <li key={item._id} className={classes['know-your-fish__item']} onClick={() => openDrawer({ fields: item })}>
+                return <li key={index} className={classes['know-your-fish__item']} onClick={() => openDrawer({ fields: item })}>
                   <div className={classes['article-related-item__image']}>
                     <Image
                       src={image.asset.url}
@@ -135,7 +135,7 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
           <div className={`${classes['article-related-items']} ${classes['article-sidebar__section']}`}>
             <h2>{relatedArticles.header}</h2>
             <ul className={classes['article-related-item-list']}>
-              {articles.map(item => {
+              {articles.map((item, index) => {
 
                 const image = item.fields.hero?.desktopBackgroundImage
                 const handle = item.handle?.current ? item.handle.current : item.handle;
@@ -153,7 +153,7 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
                   url = `/blogs/${blogType}/${blogCategory}/${handle}`
                 }
 
-                return <li key={item._id}>
+                return <li key={index}>
                   <Link href={url}>
                     <a>
                       <div className={classes['article-related-item__image']}>

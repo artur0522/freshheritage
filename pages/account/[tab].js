@@ -9,39 +9,28 @@ import AccountDetailsPage from '@/components/Account/AccountDetails/AccountDetai
 import OrderHistoryPage from '@/components/Account/OrderHistory/OrderHistory'
 import SubscriptionsPage from '@/components/Account/Subscriptions/Subscriptions'
 
-export default function AccountMainPage() {
+const AccountMainPage = () => {
   const router = useRouter()
+  const { tab } = router.query
   const customerContext = useCustomerContext()
   console.log(`customerContext: `, customerContext)
 
   const [subsData, setSubsData] = useState(null)
   const [membershipData, setMembershipData] = useState(null)
+
   const getTabKey = (tabValue) =>
     Object.keys(tabs).find((key) => tabs[key] === tabValue)
 
   const tabs = useMemo(
     () => ({
-      'subscriptions': 'Your Subscriptions',
+      subscriptions: 'Your Subscriptions',
       'account-details': 'Account Details',
       'order-history': 'Order History',
-      'referrals': 'Refer a Friend',
-    }), []
+      referrals: 'Refer a Friend',
+    }),
+    [],
   )
-  const [selectedTab, setSelectedTab] = useState(router.query.tab)
-
-  useEffect(() => {
-    // check params
-    if (!router.query.tab || !tabs[router.query.tab]) {
-      router.push(
-        {
-          pathname: '/account',
-          query: { tab: Object.keys(tabs)[0] },
-        },
-        undefined,
-        { shallow: true },
-      )
-    }
-  }, [router, tabs])
+  const [selectedTab, setSelectedTab] = useState(tab)
 
   useEffect(() => {
     // Getting customer info
@@ -75,24 +64,24 @@ export default function AccountMainPage() {
 
     router.push(
       {
-        pathname: '/account',
-        query: { tab: tabKey },
+        pathname: `/account/${tabKey}`,
       },
       undefined,
       { shallow: true },
     )
   }
 
-  const renderTab = () => {
-    const tabs = {
-      subscriptions: SubscriptionsPage,
-      'account-details': AccountDetailsPage,
-      'order-history': OrderHistoryPage,
-      referrals: ReferralsPage,
+  const renderBody = (pickedTab) => {
+    switch(pickedTab) {
+      case 'subscriptions':
+        return (<SubscriptionsPage/>);
+      case 'account-details':
+        return (<AccountDetailsPage/>)
+      case 'order-history':
+        return (<OrderHistoryPage/>)
+      case 'referrals':
+        return (<ReferralsPage/>)
     }
-    return !!tabs[router.query.tab]
-      ? tabs[router.query.tab]()
-      : SubscriptionsPage()
   }
 
   return (
@@ -109,7 +98,8 @@ export default function AccountMainPage() {
               onSelected={onTabSelected}
             ></Tabs>
           </div>
-          <div>{renderTab()}</div>
+          {/* Body Content */}
+          <div>{renderBody(tab)}</div>
         </div>
       ) : (
         <div>LOADING</div>
@@ -117,3 +107,5 @@ export default function AccountMainPage() {
     </div>
   )
 }
+
+export default AccountMainPage

@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import classes from './Referrals.module.scss'
 
 import banner from './referral-dinner.png'
 
 export default function ReferralsPage() {
+  const [name, setName] = useState()
 
   const submitForm = (e) => {
     e.preventDefault()

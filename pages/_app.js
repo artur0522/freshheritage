@@ -17,13 +17,24 @@ import 'react-dropdown/style.css'
 // (https://github.com/getnacelle/nacelle-js/tree/main/packages/shopify-checkout)
 
 const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) => {
-  return (
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout || ((page) => page)
+
+  return getLayout(
     <CartProvider>
       <Layout headerSettings={headerSettings} footerSettings={footerSettings}>
         <Component {...pageProps} />
       </Layout>
     </CartProvider>
-  );
+  )
+
+  // return (
+  //   <CartProvider>
+  //     <Layout headerSettings={headerSettings} footerSettings={footerSettings}>
+  //       <Component {...pageProps} />
+  //     </Layout>
+  //   </CartProvider>
+  // );
 }
 
 AppContainer.getInitialProps = async (appContext) => {

@@ -6,7 +6,6 @@ import "swiper/css"
 import classes from './CurrentHarvest.module.scss'
 
 import HarvestCard from "../HarvestCard"
-import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 // Used for both CURRENT SELLING HARVEST AND CURRENT MONTH HARVEST: _type inside of fields will dicate this
 const CurrentHarvest = ({ fields }) => {
@@ -16,7 +15,6 @@ const CurrentHarvest = ({ fields }) => {
   const [currentMonth, setCurrentMonth] = useState(null)
   const [currentYear, setCurrentYear] = useState(null)
   const [currentDate, setCurrentDate] = useState(null)
-  const [filtered, setFiltered] = useState(false)
   
   useEffect(() => {
     // make reusable
@@ -29,14 +27,12 @@ const CurrentHarvest = ({ fields }) => {
     setCurrentDate(date.toISOString().split('T')[0])
     setCurrentMonth(monthName)
     setCurrentYear(year)
-    
-  }, [filtered])
+  }, [])
 
   // Methods
   // make reusable
   const findFilteredFish = (harvestTitle) => {
     const foundHarvest = harvestList.find((harvest) => harvest.title === harvestTitle)
-    setFiltered(true)
     setHarvestListMonths(foundHarvest.months)
     setActiveTab(foundHarvest)
   }
@@ -92,7 +88,7 @@ const CurrentHarvest = ({ fields }) => {
                             harvest.fishArray.map((fish) => {
                                 return (
                                     <div className={classes['harvest__card']} key={fish._key}>
-                                        <HarvestCard fish={fish} filtered={filtered} />
+                                        <HarvestCard fish={fish} />
                                     </div>
                                 )
                             })
@@ -104,7 +100,7 @@ const CurrentHarvest = ({ fields }) => {
                     {harvestListMonths && harvestListMonths.filter((harvestList) => harvestList.month.trim().toLowerCase() === currentMonth)[0]?.fishArray.map((fish) => {
                         return (
                             <div className={classes['harvest__card']} key={fish._key}>
-                                <HarvestCard fish={fish} filtered={filtered} />
+                                <HarvestCard fish={fish} />
                             </div>
                         )
                     })}

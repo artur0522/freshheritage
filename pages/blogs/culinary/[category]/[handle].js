@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import { useModalContext } from '@/context/ModalContext'
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import ArticleMain from '@/components/Article/ArticleMain'
@@ -7,23 +7,15 @@ import { GET_PRODUCTS } from '@/gql/index.js'
 import ContentSections from '@/components/Sections/ContentSections'
 import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
-import { useCustomerContext } from '@/context/CustomerContext'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 
-const RecipeArticle = ({ page, product, blogSettings, modals }) => {
+const RecipeArticle = ({ page, product, blogSettings }) => {
 
-  console.log("page:", page)
-
-  const modalContext = useModalContext()
-  const [mounted, setMounted] = useState(false)
-  const customerContext = useCustomerContext()
-  const { customer } = customerContext
-
-  const { setContent } = modalContext
+  const { setContent } = useModalContext()
   const mainContentRef = useRef()
 
-  const { hero, articleTags } = page.fields
+  const { hero } = page.fields
   if (page.fields.articleTags) {
     hero.tags = page.fields.articleTags
   }
@@ -87,7 +79,7 @@ const RecipeArticle = ({ page, product, blogSettings, modals }) => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [customer])
+  }, [])
 
   if (page.type === 'recipeArticle') {
     return (
@@ -253,16 +245,11 @@ export async function getStaticProps({ params }) {
     type: 'blogSettings'
   })
 
-  const modals = await nacelleClient.content({
-    type: 'gatedArticleModal'
-  })
-
   const props = {
     page: validPage,
     handle: validPage.handle,
     blogSettings: blogSettings[0],
-    product: null,
-    modals: modals
+    product: null
   }
 
   if (validPage.fields?.content) {

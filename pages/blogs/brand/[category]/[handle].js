@@ -1,23 +1,14 @@
-import { useState, useEffect } from 'react'
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import ArticleMain from '@/components/Article/ArticleMain'
 import { nacelleClient } from 'services'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import ContentSections from '@/components/Sections/ContentSections'
 import StructuredData from '@/components/SEO/StructuredData'
-import { useModalContext } from '@/context/ModalContext'
-import { useCustomerContext } from '@/context/CustomerContext'
 import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
-
-const BrandArticle = ({ page, product, blogSettings, modals }) => {
-  const modalContext = useModalContext()
-  const [mounted, setMounted] = useState(false)
-  const customerContext = useCustomerContext()
-  const { customer } = customerContext
-
-  const { hero, articleTags } = page.fields
+const BrandArticle = ({ page, product, blogSettings }) => {
+  const { hero } = page.fields
   const blogType = page.fields.blog?.blogType
   const blogGlobalSettings = blogSettings ? { ...blogSettings.fields[blogType], blogType} : undefined
   hero.header = page.title
@@ -128,10 +119,6 @@ export async function getStaticProps({ params }) {
     type: 'blogSettings'
   })
 
-  const modals = await nacelleClient.content({
-    type: 'gatedArticleModal'
-  })
-
   if (!pages.length) {
     return {
       notFound: true
@@ -144,8 +131,7 @@ export async function getStaticProps({ params }) {
     page: fullRefPage,
     handle: fullRefPage.handle,
     blogSettings: blogSettings[0],
-    product: null,
-    modals: modals
+    product: null
   }
 
   if (fullRefPage.fields?.content) {

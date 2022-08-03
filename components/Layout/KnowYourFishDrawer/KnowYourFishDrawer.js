@@ -34,11 +34,11 @@ const KnowYourFishDrawer = ({fields}) => {
     }
   }, [fields])
 
-  useEffect(() => {
-    if (!isOpen) {
-      closeDrawer()
-    }
-  }, [isOpen])
+  // useEffect(() => {
+  //   if (!isOpen) {
+  //     closeDrawer()
+  //   }
+  // }, [isOpen])
 
   useEffect(() => {
     const getUpdatedContent = async () => {

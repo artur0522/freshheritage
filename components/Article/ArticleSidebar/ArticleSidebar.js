@@ -6,12 +6,14 @@ import EmailSignup from '@/components/EmailSignup'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useArticleContext } from '@/context/ArticleContext'
+import { useKnowYourFishDrawerContext } from '@/context/KnowYourFishDrawerContext'
 import IconCaret from '@/svgs/caret.svg'
 
 const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
 
-  const { content, author, hosts, relatedArticles, classSignup } = fields
+  const { content, author, hosts, relatedArticles, knowYourFishList, classSignup } = fields
   const { isSidebarOpen, setIsSidebarOpen } = useArticleContext()
+  const { openDrawer } = useKnowYourFishDrawerContext()
 
   return (
     <div className={`${classes['article-sidebar']} ${isSidebarOpen ? classes['is-open'] : ''}`}>
@@ -81,6 +83,35 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
             listId: blogGlobalSettings.klaviyoListId
           }} />
         </div>}
+
+        {knowYourFishList &&
+          <div className={`${classes['article-related-items']} ${classes['article-sidebar__section']}`}>
+            <h2>{knowYourFishList.header}</h2>
+            <ul className={classes['article-related-item-list']}>
+              {knowYourFishList.knowYourFishes.map(item => {
+                const { header, peakSeason, nutritionalInfo, image } = item
+                return <li className={classes['know-your-fish__item']} onClick={() => openDrawer({ fields: item })}>
+                  <div className={classes['article-related-item__image']}>
+                    <Image
+                      src={image.asset.url}
+                      layout="fill"
+                      alt={image.alt || ''}
+                    />
+                  </div>
+                  {header && <h2 className={classes['know-your-fish__title']}>{header}</h2>}
+                  {peakSeason && <div className={classes['know-your-fish__detail-item']}>
+                    <h3>Peak Season:</h3>
+                    <p>{peakSeason}</p>
+                  </div>}
+                  {nutritionalInfo && <div className={classes['know-your-fish__detail-item']}>
+                    <h3>Nutritional info:</h3>
+                    <p>{nutritionalInfo}</p>
+                  </div>}
+                </li>
+              })}
+            </ul>
+          </div>
+        }
 
         {relatedArticles &&
           <div className={`${classes['article-related-items']} ${classes['article-sidebar__section']}`}>

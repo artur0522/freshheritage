@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useCallback } from 'react'
+import { useRef, useState, useCallback } from 'react'
 import classes from './FeaturedFishCarousel.module.scss'
 import imageUrlBuilder from '@sanity/image-url'
 import { sanityClient } from 'services'

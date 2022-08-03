@@ -49,7 +49,7 @@ export function ModalProvider({ children }) {
   }, [router.pathname])
 
   return (
-    <ModalContext.Provider value={{ setArticleCustomerTag, setProductCustomerTag, prevContent, setPrevContent, isOpen, setIsOpen, content, setContent, modalType, setModalType }}>
+    <ModalContext.Provider value={{ setArticleCustomerTag, articleCustomerTag, setProductCustomerTag, prevContent, setPrevContent, isOpen, setIsOpen, content, setContent, modalType, setModalType }}>
       {isOpen &&
         <Modal children={content} />
       }

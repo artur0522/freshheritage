@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import ArticleContestForm from '@/components/Article/ArticleContestForm'
 import ArticleMain from '@/components/Article/ArticleMain'
 import { nacelleClient } from 'services'
@@ -5,10 +6,18 @@ import { GET_PRODUCTS } from '@/gql/index.js'
 import ContentSections from '@/components/Sections/ContentSections'
 import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
+import { useModalContext } from '@/context/ModalContext'
+import { useCustomerContext } from '@/context/CustomerContext'
 
-const CulinaryContestArticle = ({ page, product, blogSettings }) => {
+const CulinaryContestArticle = ({ page, product, blogSettings, modals }) => {
 
   const blogGlobalSettings = blogSettings ? blogSettings.fields['culinary'] : undefined
+
+  const modalContext = useModalContext()
+  const [mounted, setMounted] = useState(false)
+  const customerContext = useCustomerContext()
+  const { customer } = customerContext
+  const {articleTags} = page.fields
 
   useEffect(() => {
     setMounted(true)
@@ -96,6 +105,10 @@ export async function getStaticProps({ params }) {
     type: 'blogSettings'
   })
 
+  const modals = await nacelleClient.content({
+    type: 'gatedArticleModal'
+  })
+
   if (!pages.length) {
     return {
       notFound: true
@@ -107,7 +120,8 @@ export async function getStaticProps({ params }) {
   const props = {
     page,
     blogSettings: blogSettings[0],
-    product: null
+    product: null,
+    modals: modals
   }
 
   if (page.fields?.content) {

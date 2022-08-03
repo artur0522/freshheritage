@@ -23,7 +23,7 @@ async function getArticles(page, numOfEntries) {
   return allArticles
 }
 
-const BrandBlogListings = ({ blogSettings, page }) => {
+const BrandBlogListings = ({ blogSettings, page, category }) => {
 
   const [articles, setArticles] = useState([])
   const [allArticlesLoaded, setAllArticlesLoaded] = useState(false)
@@ -31,7 +31,8 @@ const BrandBlogListings = ({ blogSettings, page }) => {
   useEffect(() => {
     getArticles(page, 20)
       .then((res) => {
-        setArticles(res)
+        const validArticles = res.filter(article => article.fields.blog.handle.current === category)
+        setArticles([...validArticles])
       })
   }, [])
 
@@ -42,7 +43,8 @@ const BrandBlogListings = ({ blogSettings, page }) => {
     setAllArticlesLoaded(true)
     getArticles(page)
       .then((res) => {
-        setArticles(res)
+        const validArticles = res.filter(article => article.fields.blog.handle.current === category)
+        setArticles([...validArticles])
       })
   }, [articles])
 
@@ -87,6 +89,7 @@ export async function getStaticProps({ params }) {
     props: {
       blogSettings: blogSettings[0],
       page: fullRefPage,
+      category: params.category,
       handle: fullRefPage.handle
     }
   }

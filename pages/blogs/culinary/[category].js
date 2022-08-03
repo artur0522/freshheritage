@@ -25,7 +25,7 @@ async function getArticles(page, numOfEntries) {
   return allArticles
 }
 
-const RecipeListings = ({ blogSettings, page }) => {
+const RecipeListings = ({ blogSettings, page, category }) => {
 
 
   const [articles, setArticles] = useState([])
@@ -38,7 +38,8 @@ const RecipeListings = ({ blogSettings, page }) => {
   useEffect(() => {
     getArticles(page, 20)
       .then((res) => {
-        setArticles(res)
+        const validArticles = res.filter(article => article.fields.blog.handle.current === category)
+        setArticles([...validArticles])
       })
   }, [])
 
@@ -49,7 +50,8 @@ const RecipeListings = ({ blogSettings, page }) => {
     setAllArticlesLoaded(true)
     getArticles(page)
       .then((res) => {
-        setArticles(res)
+        const validArticles = res.filter(article => article.fields.blog.handle.current === category)
+        setArticles([...validArticles])
       })
   }, [articles])
 
@@ -113,6 +115,7 @@ export async function getStaticProps({ params }) {
     props: {
       blogSettings: blogSettings[0],
       page: page,
+      category: params.category,
       handle: page.handle
     }
   }

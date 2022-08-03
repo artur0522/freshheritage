@@ -25,38 +25,31 @@ export function ModalProvider({ children }) {
 
   useEffect(() => {
     const onRountChangeComplete = () => {
-      if(router.pathname !== '/products/[handle]' && router.pathname !== 'blogs/brand/[category]/[handle]' && router.pathname !== 'blogs/culinary/[category]/[handle]') {
+      if(router.pathname !== '/products/[handle]' || router.pathname !== '/blogs/brand/[category]/[handle]' || router.pathname !== '/blogs/culinary/[category]/[handle]' || router.pathname !== '/blogs/culinary/culinary-contest/[handle]') {
         setIsOpen(false)
       }
      
       if(router.pathname === '/products/[handle]' && prevContent && !productCustomerTag) {
-        // setIsOpen(true)
-        document.querySelector('html').classList.add('disable-scroll')
+        setIsOpen(true)
       }
 
-      // if(router.pathname !== 'blogs/brand/[category]/[handle]' && router.pathname !== '/products/[handle]' && prevContent && !articleCustomerTag) {
-      //   setIsOpen(false)
-      // }
-
-      if(router.pathname === 'blogs/brand/[category]/[handle]' && prevContent && !articleCustomerTag) {
+      if(router.pathname === '/blogs/brand/[category]/[handle]' && prevContent && !articleCustomerTag) {
         setIsOpen(true)
-        document.querySelector('html').classList.add('disable-scroll')
       }
 
-      // if(router.pathname !== 'blogs/culinary/[category]/[handle]' && router.pathname !== '/products/[handle]' && prevContent && !articleCustomerTag) {
-      //   setIsOpen(false)
-      // }
-
-      if(router.pathname === 'blogs/culinary/[category]/[handle]' && router.pathname !== '/products/[handle]' && prevContent && !articleCustomerTag) {
+      if(router.pathname === '/blogs/culinary/[category]/[handle]' && prevContent && !articleCustomerTag) {
         setIsOpen(true)
-        document.querySelector('html').classList.add('disable-scroll')
+      }
+
+      if(router.pathname === '/blogs/culinary/culinary-contest/[handle]' && prevContent && !articleCustomerTag) {
+        setIsOpen(true)
       }
     }
     Router.events.on('routeChangeComplete', onRountChangeComplete)
   }, [router.pathname])
 
   return (
-    <ModalContext.Provider value={{setArticleCustomerTag, setProductCustomerTag, prevContent, setPrevContent, isOpen, setIsOpen, content, setContent, modalType, setModalType}}>
+    <ModalContext.Provider value={{ setArticleCustomerTag, setProductCustomerTag, prevContent, setPrevContent, isOpen, setIsOpen, content, setContent, modalType, setModalType }}>
       {isOpen &&
         <Modal children={content} />
       }

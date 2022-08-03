@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import ArticleMain from '@/components/Article/ArticleMain'
 import { nacelleClient } from 'services'
@@ -6,13 +7,66 @@ import ContentSections from '@/components/Sections/ContentSections'
 import StructuredData from '@/components/SEO/StructuredData'
 import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
+import { useModalContext } from '@/context/ModalContext'
+import { useCustomerContext } from '@/context/CustomerContext'
 
-const BrandArticle = ({ page, product, blogSettings }) => {
-  const { hero } = page.fields
+const BrandArticle = ({ page, product, blogSettings, modals }) => {
+  const { hero, articleTags } = page.fields
   const blogType = page.fields.blog?.blogType
   const blogGlobalSettings = blogSettings ? { ...blogSettings.fields[blogType], blogType} : undefined
   hero.header = page.title
   hero.subheader = page.fields.subheader
+
+  const modalContext = useModalContext()
+  const [mounted, setMounted] = useState(false)
+  const customerContext = useCustomerContext()
+  const { customer } = customerContext
+
+  useEffect(() => {
+    setMounted(true)
+
+    const foundVisibleTags = articleTags.filter(tag => tag.value.includes('Visible' || 'visible'))
+    const splitTag = foundVisibleTags[0]?.value?.split(':')[1]
+    const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
+    const foundCustomerTag = customer?.tags.find(tag => tag.includes('member' || 'Member') || tag.includes('sustainer' || 'sustainer'))
+
+    const articleHasCustomerTag = foundVisibleTags?.find((tag) => {
+      let splitTag = tag.value.split(':')[1] === foundCustomerTag
+      if(splitTag) {
+        return splitTag
+      } else {
+        return null
+      }
+    })
+
+    modalContext.setArticleCustomerTag(articleHasCustomerTag)
+
+    const foundModal = modals.find(modal => modal.handle === splitTagWithDash)
+    const defaultModal = modals.find(modal => modal.handle === 'non-member')
+
+    // if product tags exist but none of the product tags match customer tag
+    if(foundVisibleTags.length > 0 && !articleHasCustomerTag) {
+      if(foundModal) {
+        modalContext.setPrevContent(foundModal?.fields)
+        modalContext.setContent(foundModal?.fields)
+      } else {
+        modalContext.setPrevContent(defaultModal?.fields)
+        modalContext.setContent(defaultModal?.fields)
+      }
+      modalContext.setModalType('gated_product')
+      modalContext.setIsOpen(true)
+    }
+
+    // if one of the product tags contains customer tag
+    if(foundVisibleTags.length > 0 && articleHasCustomerTag) {
+      modalContext.setIsOpen(false)
+    }
+
+    // if visible tags dont exist
+    if(foundVisibleTags.length === 0) {
+      modalContext.setIsOpen(false)
+    }
+  }, [customer])
 
   return (
     <>
@@ -81,11 +135,16 @@ export async function getStaticProps({ params }) {
 
   const fullRefPage = await getNacelleReferences(pages[0])
 
+  const modals = await nacelleClient.content({
+    type: 'gatedArticleModal'
+  })
+
   const props = {
     page: fullRefPage,
     handle: fullRefPage.handle,
     blogSettings: blogSettings[0],
-    product: null
+    product: null,
+    modals: modals
   }
 
   if (fullRefPage.fields?.content) {

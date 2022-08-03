@@ -32,8 +32,6 @@ function Product({ product, page, modals }) {
   const deliveryDetailsList = deliveryDetails ? JSON.parse(deliveryDetails.value) : null
   const stampSection = page.fields.content.find(field => field._type === 'stamps')
 
-  console.log('harvestmeta', harvestMetafield)
-
   const modalContext = useModalContext()
   const [mounted, setMounted] = useState(false)
   const customerContext = useCustomerContext()

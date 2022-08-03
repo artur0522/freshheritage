@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import classes from './ArticleSidebar.module.scss'
 import articleContentClasses from '../ArticleContent/ArticleContent.module.scss'
 import ResponsiveImage from '@/components/ResponsiveImage'
@@ -6,12 +7,31 @@ import EmailSignup from '@/components/EmailSignup'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useArticleContext } from '@/context/ArticleContext'
+import { useKnowYourFishDrawerContext } from '@/context/KnowYourFishDrawerContext'
 import IconCaret from '@/svgs/caret.svg'
+import { nacelleClient } from 'services'
 
 const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
 
-  const { content, author, hosts, relatedArticles, classSignup } = fields
+  const { content, author, hosts, relatedArticles, knowYourFishList, classSignup } = fields
   const { isSidebarOpen, setIsSidebarOpen } = useArticleContext()
+  const { openDrawer } = useKnowYourFishDrawerContext()
+  const [articles, setArticles] = useState([])
+
+  useEffect(() => {
+    const getArticles = async () => {
+      const articles = await nacelleClient.content({
+        handles: relatedArticles.relatedArticleItems
+      })
+      return articles
+    }
+
+    getArticles()
+      .then(res => {
+        setArticles(res)
+      })
+
+  }, [])
 
   return (
     <div className={`${classes['article-sidebar']} ${isSidebarOpen ? classes['is-open'] : ''}`}>
@@ -45,7 +65,7 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
             <div className={classes['article-author__image']}>
               <ResponsiveImage
                 src={author.image.asset.url}
-                alt={author.image.asset.alt || ''}
+                alt={author.image.alt || ''}
               />
             </div>
             <h2>{author.name}</h2>
@@ -65,7 +85,7 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
                 <div className={classes['article-author__image']}>
                   <ResponsiveImage
                     src={author.image.asset.url}
-                    alt={author.image.asset.alt || ''}
+                    alt={author.image.alt || ''}
                   />
                 </div>
                 <h2>{author.name}</h2>
@@ -82,13 +102,42 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
           }} />
         </div>}
 
-        {relatedArticles &&
+        {knowYourFishList &&
+          <div className={`${classes['article-related-items']} ${classes['article-sidebar__section']}`}>
+            <h2>{knowYourFishList.header}</h2>
+            <ul className={classes['article-related-item-list']}>
+              {knowYourFishList.knowYourFishes.map(item => {
+                const { header, peakSeason, nutritionalInfo, image } = item
+                return <li key={item._id} className={classes['know-your-fish__item']} onClick={() => openDrawer({ fields: item })}>
+                  <div className={classes['article-related-item__image']}>
+                    <Image
+                      src={image.asset.url}
+                      layout="fill"
+                      alt={image.alt || ''}
+                    />
+                  </div>
+                  {header && <h2 className={classes['know-your-fish__title']}>{header}</h2>}
+                  {peakSeason && <div className={classes['know-your-fish__detail-item']}>
+                    <h3>Peak Season:</h3>
+                    <p>{peakSeason}</p>
+                  </div>}
+                  {nutritionalInfo && <div className={classes['know-your-fish__detail-item']}>
+                    <h3>Nutritional info:</h3>
+                    <p>{nutritionalInfo}</p>
+                  </div>}
+                </li>
+              })}
+            </ul>
+          </div>
+        }
+
+        {articles.length > 0 &&
           <div className={`${classes['article-related-items']} ${classes['article-sidebar__section']}`}>
             <h2>{relatedArticles.header}</h2>
             <ul className={classes['article-related-item-list']}>
-              {relatedArticles.relatedArticleItems.map(item => {
+              {articles.map(item => {
 
-                const image = item.hero?.desktopBackgroundImage
+                const image = item.fields.hero?.desktopBackgroundImage
                 const handle = item.handle?.current ? item.handle.current : item.handle;
                 const blog = item.fields ? item.fields.blog : item.blog
 
@@ -111,7 +160,7 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
                         <Image
                           src={image.asset.url}
                           layout="fill"
-                          alt={image.asset.alt || ''}
+                          alt={image.alt || ''}
                         />
                       </div>
                     </a>

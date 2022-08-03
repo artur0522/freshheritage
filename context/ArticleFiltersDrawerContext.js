@@ -16,7 +16,7 @@ function drawerReducer(state, action) {
     }
     case 'close_drawer': {
       return {
-        ...state, 
+        ...state,
         isOpen: false,
       }
     }
@@ -131,7 +131,7 @@ export function useArticleFiltersDrawerContext() {
 export function ArticleFiltersDrawerProvider({ children }) {
   const router = useRouter()
   const [state, dispatch] = useReducer(drawerReducer, initialState)
-  
+
   const { isOpen, filters, selectedFilterList, listings, originalListings, tagCount, tagArray, selectValue} = state
 
   const openDrawer = () => {
@@ -172,7 +172,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
     const filteredArray = tagArray.filter((tag) => {
       return selectedFilterList.includes(tag)
     })
-    
+
     if(selectedFilterList.length > 0) {
       res = originalListings.filter((listing) => {
         return listing.fields?.articleTags?.some(tag => filteredArray.includes(tag.value.toLowerCase()) && tagCount[tag.value.toLowerCase()] >= 3)
@@ -183,27 +183,24 @@ export function ArticleFiltersDrawerProvider({ children }) {
       })
     } else {
       res = originalListings
-    } 
-    
+    }
+
     dispatch({ type: 'add_listings', payload: res})
   }
 
   const sortListings = (listings, mostRecent) => {
-    if(mostRecent) {
-      const sortedOgListings = listings.sort((a, b) =>  {
-        return (
-          moment(b.fields.publishedDate).format('YYYYMMDD') - moment(a.fields.publishedDate).format('YYYYMMDD')
-        )
-      })
-      dispatch({ type: 'add_listings', payload: sortedOgListings})
-    } else {
-      const sortedListings = listings.sort((a, b) => {
-        return (
-          moment(a.fields.publishedDate).format('YYYYMMDD') - moment(b.fields.publishedDate).format('YYYYMMDD')
-        )
-      })
-      dispatch({ type: 'add_listings', payload: sortedListings})
-    }
+    const sortedListings = listings.sort((a, b) => {
+      let aPublishedDate = moment(a.fields.createdAt).unix()
+      let bPublishedDate = moment(b.fields.createdAt).unix()
+      if (a.fields?.publishedDate) {
+        aPublishedDate = moment(a.fields.publishedDate).unix()
+      }
+      if (b.fields?.publishedDate) {
+        bPublishedDate = moment(b.fields.publishedDate).unix()
+      }
+      return (mostRecent) ?  bPublishedDate - aPublishedDate : aPublishedDate - bPublishedDate
+    })
+    dispatch({ type: 'add_listings', payload: sortedListings})
   }
 
   const selectChangeHandler = (value) => {
@@ -211,11 +208,11 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
     if(selectedFilterList.length > 0 && value === 'newest') {
     sortListings(listings, true)
-    } 
+    }
 
     if(selectedFilterList.length > 0 && value === 'oldest') {
       sortListings(listings, false)
-    } 
+    }
 
     if(selectedFilterList.length === 0 && value === 'newest') {
       sortListings(originalListings, true)
@@ -236,9 +233,9 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
         Object.keys(nestedSubFilters).forEach((key) => {
           if(tagCount[key] >= 3) {
-          filters[filterGroup].options[filterOption].subFilters[key].checked = true  
-          }    
-          
+          filters[filterGroup].options[filterOption].subFilters[key].checked = true
+          }
+
           if(filters[filterGroup].options[filterOption].subFilters[key].checked) {
             dispatch({type: 'add_selected_filters', payload: key})
             filterListingsByTags()
@@ -248,7 +245,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
           }
         })
       }
-      
+
       if(subFilter) {
         filters[filterGroup].options[filterOption].checked = false
 
@@ -272,9 +269,9 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
       Object.keys(nestedSubFilters).forEach((key) => {
         if(tagCount[key] >= 3) {
-        filters[filterGroup].options[filterOption].subFilters[key].checked = true  
-        }    
-         
+        filters[filterGroup].options[filterOption].subFilters[key].checked = true
+        }
+
         if(filters[filterGroup].options[filterOption].subFilters[key].checked) {
           dispatch({type: 'add_selected_filters', payload: key})
           filterListingsByTags()
@@ -311,7 +308,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
       if (window.innerWidth >= 1074) {
         dispatch({ type: 'close_drawer'})
         if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
-      } 
+      }
       if(window.innerWidth < 1074 && isOpen) {
         dispatch({ type: 'open_drawer'})
       }

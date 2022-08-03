@@ -43,7 +43,7 @@ const ContactUs = ({fields}) => {
   if (formSubmitted) {
     return (
       <div className={classes['contact-us']}>
-        <h1 className="text-align--center">Thank you!<br />We'll get back to you as soon as possible.</h1>
+        <h1 className="text-align--center">Thank you!<br />{`We'll get back to you as soon as possible`}.</h1>
       </div>
     )
   }

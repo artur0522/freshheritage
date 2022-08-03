@@ -10,6 +10,7 @@ export function useModalContext() {
 
 export function ModalProvider({ children }) {
   const [productCustomerTag, setProductCustomerTag] = useState(false)
+  const [articleCustomerTag, setArticleCustomerTag] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [content, setContent] = useState('')
   const [prevContent, setPrevContent] = useState('')
@@ -30,13 +31,32 @@ export function ModalProvider({ children }) {
      
       if(router.pathname === '/products/[handle]' && prevContent && !productCustomerTag) {
         setIsOpen(true)
+        document.querySelector('html').classList.add('disable-scroll')
+      }
+
+      if(router.pathname !== 'blogs/brand/[category]/[handle]' && prevContent && !articleCustomerTag) {
+        setIsOpen(false)
+      }
+
+      if(router.pathname === 'blogs/brand/[category]/[handle]' && prevContent && !articleCustomerTag) {
+        setIsOpen(true)
+        document.querySelector('html').classList.add('disable-scroll')
+      }
+
+      if(router.pathname !== 'blogs/culinary/[category]/[handle]' && prevContent && !articleCustomerTag) {
+        setIsOpen(false)
+      }
+
+      if(router.pathname === 'blogs/culinary/[category]/[handle]' && prevContent && !articleCustomerTag) {
+        setIsOpen(true)
+        document.querySelector('html').classList.add('disable-scroll')
       }
     }
     Router.events.on('routeChangeComplete', onRountChangeComplete)
   }, [router.pathname])
 
   return (
-    <ModalContext.Provider value={{setProductCustomerTag, prevContent, setPrevContent, isOpen, setIsOpen, content, setContent, modalType, setModalType}}>
+    <ModalContext.Provider value={{setArticleCustomerTag, setProductCustomerTag, prevContent, setPrevContent, isOpen, setIsOpen, content, setContent, modalType, setModalType}}>
       {isOpen &&
         <Modal children={content} />
       }

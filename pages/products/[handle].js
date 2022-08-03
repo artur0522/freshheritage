@@ -32,8 +32,6 @@ function Product({ product, page, modals }) {
   const deliveryDetailsList = deliveryDetails ? JSON.parse(deliveryDetails.value) : null
   const stampSection = page.fields.content.find(field => field._type === 'stamps')
 
-  console.log('harvestmeta', harvestMetafield)
-
   const modalContext = useModalContext()
   const [mounted, setMounted] = useState(false)
   const customerContext = useCustomerContext()
@@ -46,7 +44,7 @@ function Product({ product, page, modals }) {
       setChecked(true)
     }
 
-    const foundVisibleTags = product.tags.filter(tag => tag.includes('Visible' || 'visible'));
+    const foundVisibleTags = product.tags.filter(tag => tag.includes('Visible' || 'visible'))
     const splitTag = foundVisibleTags[0]?.split(':')[1]
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
     const foundCustomerTag = customer?.tags.find(tag => tag.includes('member' || 'Member') || tag.includes('sustainer' || 'sustainer'))

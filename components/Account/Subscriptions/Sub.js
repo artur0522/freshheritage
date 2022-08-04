@@ -3,9 +3,31 @@ import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import SubDetail from './SubDetail'
 import classes from './Sub.module.scss'
 
-export default function Sub({ subscription }) {
+const getVariant = (variantId, allProducts) => {
+  // TODO: Remove this when the data matches up
+  variantId = '41593002361018'; // Premium Seafood Box
+  // variantId = '41593002393786'; // Premium Seafood Box w/ Shellfish
+  // END TODO
+  const p = allProducts.find(p => p.variants.some(v => v.sourceEntryId.includes(variantId)));
+  return p ? p.variants.find(v => v.sourceEntryId.includes(variantId)) : undefined;
+}
+
+const getProductFromVariantId = (variantId, allProducts) => {
+  // TODO: Remove this when the data matches up
+  variantId = '41593002361018'; // Premium Seafood Box
+  // variantId = '41593002393786'; // Premium Seafood Box w/ Shellfish
+  // END TODO
+
+  const p = allProducts.find(p => p.variants.some(v => v.sourceEntryId.includes(variantId)));
+  console.log('found product', p);
+  return p;
+}
+
+export default function Sub({ subscription, products }) {
+
   const currentFulfillmentStartDate = new Date(subscription.fulfill_start)
   const currentFulfillmentStartDateString =
     currentFulfillmentStartDate.toLocaleDateString(undefined, {
@@ -19,8 +41,12 @@ export default function Sub({ subscription }) {
       month: 'short',
       day: 'numeric',
     })
-  return (
-    <Accordion className="baz-baz-baz-baz">
+
+    const p = getProductFromVariantId(subscription.subscription_product0id, products);
+    const v = getVariant(subscription.subscription_product0id, products);
+
+    return (
+    <Accordion>
       <AccordionSummary
         sx={{
           background: '#163144',
@@ -40,7 +66,9 @@ export default function Sub({ subscription }) {
           </h1>
         </div>
       </AccordionSummary>
-      <AccordionDetails>This is where all the details go</AccordionDetails>
+      <AccordionDetails>
+        <SubDetail key={subscription.subscription_id} subscription={subscription} product={p} variant={v}></SubDetail>
+      </AccordionDetails>
     </Accordion>
   )
 }

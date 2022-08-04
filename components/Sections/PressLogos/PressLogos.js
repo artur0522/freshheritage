@@ -11,7 +11,7 @@ const PressLogos = ({ fields }) => {
         <div className={`${classes['logos__row']}`}>
            {pressLogos.map((logo) => {
               return (
-                <div className={classes['logos__img']} key={logo.logo.asset._id}>
+                <div className={classes['logos__img']} key={logo.logo.asset.assetId}>
                     <Image
                         src={logo.logo.asset.url}
                         layout="fill"

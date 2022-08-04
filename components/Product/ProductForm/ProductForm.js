@@ -5,7 +5,7 @@ import { getSelectedVariant } from 'utils/getSelectedVariant'
 import { getCartVariant } from 'utils/getCartVariant'
 import LoadingState from '@/components/LoadingState'
 
-import classes from './ProductGiftForm.module.scss'
+import classes from './ProductForm.module.scss'
 
 const defaultFormFields = {
     recipient_name: '',
@@ -13,7 +13,7 @@ const defaultFormFields = {
     gift_message: ''
 }
 
-const ProductGiftForm = (props) => {
+const ProductForm = (props) => {
     const { addItemToOrder } = useHeadlessCheckoutContext()
     const { checked, handle, product, selectedVariant, setSelectedVariant } = props
     const [formFields, setFormFields] = useState(defaultFormFields)
@@ -176,4 +176,4 @@ const ProductGiftForm = (props) => {
     )
 }
 
-export default ProductGiftForm
+export default ProductForm

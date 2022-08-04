@@ -9,29 +9,30 @@ import ContentSections from '@/components/Sections/ContentSections'
 import ProductReviewStars from '../../components/Product/ProductReviewStars'
 import ProductSlider from '../../components/Product/ProductSlider'
 import ProductAccordion from '../../components/Product/ProductAccordion'
-import ProductGiftForm from '@/components/Product/ProductGiftForm'
-import ProductHarvests from '@/components/Product/ProductHarvests'
+import ProductForm from '@/components/Product/ProductForm'
+import ProductSubscriptionSelector from '@/components/Product/ProductSubscriptionSelector'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
+import ProductHarvests from '@/components/Product/ProductHarvests'
 
 import classes from './Product.module.scss'
-import { split } from 'lodash-es'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 function GiftSubscriptionBoxPDP({ page, modals, products }) {
 
   const [product, setProduct] = useState(products[0])
 
+  console.log("product:", product)
+
   const [checked, setChecked] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
-  const handle = product.content?.handle
+  const [harvest, setHarvests] = useState()
   const productAccordionHeaders = page.fields.content.find(block => block._type === 'productAccordionHeaders')
   const accordionDeliveryHeader = productAccordionHeaders?.details
   const productDescription = product.content?.description
   const accordionDescriptionHeader = productAccordionHeaders?.description
   const deliveryDetails = product.metafields.find(metafield => metafield.key === 'delivery_details')
-  const harvestMetafield = product.metafields.find(metafield => metafield.key === 'harvest_handle')
   const deliveryDetailsList = deliveryDetails ? JSON.parse(deliveryDetails.value) : null
   const stampSection = page.fields.content.find(field => field._type === 'stamps')
 
@@ -39,6 +40,16 @@ function GiftSubscriptionBoxPDP({ page, modals, products }) {
   const [mounted, setMounted] = useState(false)
   const customerContext = useCustomerContext()
   const { customer } = customerContext
+
+  const onSelectProduct = (e) => {
+    const product = products.find(product => product.content.handle === e.value)
+    setProduct(product)
+  }
+
+  useEffect(() => {
+    console.log("change variant")
+    setSelectedVariant(product.variants[0])
+  }, [product])
 
   useEffect(() =>  {
     setMounted(true)
@@ -116,7 +127,7 @@ function GiftSubscriptionBoxPDP({ page, modals, products }) {
 
                 {product.content?.title && <h1 className={classes['product-title']}>{product.content.title}</h1>}
 
-                {handle !== 'digital-gift-card' && <div className={classes['prices']}>
+                {product.content.handle !== 'digital-gift-card' && <div className={classes['prices']}>
                   <div className={classes['price-wrap']}>
                     {selectedVariant.compareAtPrice && (
                       <h3 className={classes.compare}>
@@ -128,22 +139,10 @@ function GiftSubscriptionBoxPDP({ page, modals, products }) {
                   <h3 className={classes['weight']}>{selectedVariant.weight} lbs</h3>
                 </div>}
 
-                <div className={classes['gift']}>
-                    {handle !== 'digital-gift-card' && <div className={classes['gift__check']}>
-                      <input
-                        id="giftCheck"
-                        type="checkbox"
-                        checked={checked}
-                        onChange={handleCheckbox}
-                      />
-                      <label htmlFor="giftCheck" className="heading--label">
-                        This is a Gift
-                      </label>
-                    </div>}
-                </div>
+                <ProductSubscriptionSelector selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} allProducts={products} product={product} onSelectProduct={onSelectProduct} />
 
                 {/* GIFT FORM */}
-                <ProductGiftForm checked={checked} handle={handle} product={product} setSelectedVariant={setSelectedVariant} selectedVariant={selectedVariant} />
+                {/* <ProductForm checked={checked} handle={product.content.handle} product={product} setSelectedVariant={setSelectedVariant} selectedVariant={selectedVariant} /> */}
 
                 {/* ACCORDION */}
                 {deliveryDetailsList && <div className={classes['accordion']}>
@@ -162,8 +161,9 @@ function GiftSubscriptionBoxPDP({ page, modals, products }) {
                 </div>
               </div>
             </div>
+          <ProductHarvests title="Projected Harvests" product={product} />
           {/* SECTIONS */}
-          <ContentSections sections={page.fields.content} harvestMetafield={harvestMetafield} />
+          <ContentSections sections={page.fields.content} />
         </div>
       </div>
     )

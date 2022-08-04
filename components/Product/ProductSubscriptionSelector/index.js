@@ -1,0 +1,3 @@
+import ProductSubscriptionSelector from './ProductSubscriptionSelector'
+
+export default ProductSubscriptionSelector

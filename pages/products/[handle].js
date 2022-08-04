@@ -9,7 +9,7 @@ import ContentSections from '@/components/Sections/ContentSections'
 import ProductReviewStars from '../../components/Product/ProductReviewStars'
 import ProductSlider from '../../components/Product/ProductSlider'
 import ProductAccordion from '../../components/Product/ProductAccordion'
-import ProductGiftForm from '@/components/Product/ProductGiftForm'
+import ProductForm from '@/components/Product/ProductForm'
 import ProductHarvests from '@/components/Product/ProductHarvests'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import PageSEO from '@/components/SEO/PageSEO'
@@ -140,7 +140,7 @@ function Product({ product, page, modals }) {
                 </div>
 
                 {/* GIFT FORM */}
-                <ProductGiftForm checked={checked} handle={handle} product={product} setSelectedVariant={setSelectedVariant} selectedVariant={selectedVariant} />
+                <ProductForm checked={checked} handle={handle} product={product} setSelectedVariant={setSelectedVariant} selectedVariant={selectedVariant} />
 
                 {/* ACCORDION */}
                 {deliveryDetailsList && <div className={classes['accordion']}>

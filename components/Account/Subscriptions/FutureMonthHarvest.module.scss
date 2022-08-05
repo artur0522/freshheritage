@@ -1,0 +1,15 @@
+@import '@/styles/variables/_colors.scss';
+
+.future-harvest-header, .future-harvest-left {
+  display: flex;
+}
+
+.future-harvest-header {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.future-harvest-month {
+  padding-left: 10px;
+  padding-right: 100px;
+}

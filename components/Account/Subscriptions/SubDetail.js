@@ -1,6 +1,7 @@
 import HarvestCard from '@/components/Harvest/HarvestCard'
 import React, { useEffect, useState } from 'react'
 import { nacelleClient } from 'services'
+import FutureMonthHarvest from './FutureMonthHarvet'
 import classes from './SubDetail.module.scss'
 
 const getHarvetHandle = (variant, product) => {
@@ -39,18 +40,15 @@ export default function SubDetail({ subscription, product, variant }) {
 }
 
 const renderMonths = (subscription, harvest) => {
-  return subscription.group_schedule.map((g) => {
+  return <div>
+    <div>Current month details here</div>
+    {subscription.group_schedule.map((g) => {
     // Get the harvest details for the month
     const month = harvest.fields.months.find((m) => m.month.includes(g.month))
     return month ? (
-      <div>
-        MONTH OF {month.month}
-      {
-        month.fishArray.map((fish) => <HarvestCard key={`sub-detail-${fish._key}`} fish={fish}/>)
-      }
-      </div>
+      <FutureMonthHarvest subscriptionGroupSchedule={g} month={month}/>
     ) : (
       <div>No harvest data for {g.month}</div>
     )
-  })
+  })}</div>
 }

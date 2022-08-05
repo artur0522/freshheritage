@@ -1,19 +1,18 @@
 import {useState, useEffect} from 'react'
 
+import { useArticleFiltersDrawerContext } from '@/context/ArticleFiltersDrawerContext'
+import FishermenFilters from './FishermenFilters'
+import FishermenCard from '@/components/Cards/FishermenCard/FishermenCard'
 import ResponsiveImage from "@/components/ResponsiveImage"
 
 import classes from "./FishermenPartners.module.scss"
-
-import IconSearch from '@/svgs/search.svg'
-
-import { useArticleFiltersDrawerContext } from '@/context/ArticleFiltersDrawerContext'
 
 const FishermenPartners = ({ fields }) => {
   const [filterDrawer, toggleFilterDrawer]= useState(true)
   const { filterGroups, illustration, header, fishermen, calloutHeader, calloutSubheader } = fields
   const drawerContext = useArticleFiltersDrawerContext()
   const { addFilters, setIsFishermen, openDrawer, closeDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
-  
+
   useEffect(() => {
     setIsFishermen()
 
@@ -104,26 +103,32 @@ const FishermenPartners = ({ fields }) => {
                 </div>
             </form>
 
-            <div className={`${classes['recipes__list-wrap']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
-                {listings.length > 0 && selectedFilterList.length > 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
-                    {listings.map((article) => {
-                        return (
-                        <div className={classes['grid-item']} key={article.handle}>
-                            {article.title}
-                        </div>
-                        )
-                    })}
+            <div className={`${classes['filters-list__wrap']} ${filterDrawer ? 'open' : 'close'}`}>
+                {filterDrawer && filterGroups?.length > 0 && <div className={`${classes['filters']}`}>
+                    <FishermenFilters />
                 </div>}
 
-                {fishermen.length > 0 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
-                    {fishermen.map((article) => {
-                        return (
-                        <div className={classes['grid-item']} key={article.handle}>
-                            {article.title}
-                        </div>
-                        )
-                    })}
-                </div>}
+                <div className={`${classes['recipes__list-wrap']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
+                    {listings.length > 0 && selectedFilterList.length > 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
+                        {listings.map((article) => {
+                            return (
+                                <div className={classes['grid-item']} key={article.handle}>
+                                    <FishermenCard article={article} />
+                                </div>
+                            )
+                        })}
+                    </div>}
+
+                    {fishermen.length > 0 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
+                        {fishermen.map((article) => {
+                            return (
+                            <div className={classes['grid-item']} key={article.handle}>
+                                 <FishermenCard article={article} />
+                            </div>
+                            )
+                        })}
+                    </div>}
+                </div>
             </div>
         </div>
     </div>

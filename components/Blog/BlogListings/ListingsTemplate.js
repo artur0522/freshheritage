@@ -113,9 +113,6 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
       window.scrollTo({ behavior: 'smooth', top: '0px' })
     }, [currentPage])
 
-
-
-
     const getPaginatedData = () => {
         const startIndex = currentPage * 20 - 20
         const endIndex = startIndex + 20
@@ -191,13 +188,13 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         ):(
           <div className={`${classes['recipes__list-wrap']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
             {listings.length > 0 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
-                {listings.slice(0, 8).map((article) => {
-                  return (
-                    <div className={classes['grid-item']} key={article.handle}>
-                        <DynamicArticleCard article={article} responsiveImage={true} />
-                    </div>
-                  )
-                })}
+                  {listings.slice(0, 8).map((article) => {
+                    return (
+                      <div className={classes['grid-item']} key={article.handle}>
+                          <DynamicArticleCard article={article} responsiveImage={true} />
+                      </div>
+                    )
+              })}
             </div>}
 
             {listings.length >= 8 && currentPage === 1 && selectedFilterList.length === 0 && heroSection &&

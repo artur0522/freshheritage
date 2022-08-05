@@ -8,6 +8,12 @@ const ArticleFiltersDrawerContext = createContext()
 
 function drawerReducer(state, action) {
   switch (action.type) {
+    case 'is_fishermen': {
+      return {
+        ...state,
+        isFishermen: true,
+      }
+    }
     case 'open_drawer': {
       return {
         ...state,
@@ -115,6 +121,7 @@ function drawerReducer(state, action) {
 
 const initialState = {
   isOpen: false,
+  isFishermen: false,
   filters: {},
   selectedFilterList: [],
   listings: [],
@@ -132,7 +139,11 @@ export function ArticleFiltersDrawerProvider({ children }) {
   const router = useRouter()
   const [state, dispatch] = useReducer(drawerReducer, initialState)
 
-  const { isOpen, filters, selectedFilterList, listings, originalListings, tagCount, tagArray, selectValue} = state
+  const { isOpen, filters, selectedFilterList, listings, originalListings, tagCount, tagArray, selectValue, isFishermen} = state
+
+  const setIsFishermen = () => {
+    dispatch({type: 'is_fishermen'})
+  }
 
   const openDrawer = () => {
     dispatch({ type: 'open_drawer'})
@@ -174,9 +185,17 @@ export function ArticleFiltersDrawerProvider({ children }) {
     })
 
     if(selectedFilterList.length > 0) {
-      res = originalListings.filter((listing) => {
-        return listing.fields?.articleTags?.some(tag => filteredArray.includes(tag.value.toLowerCase()) && tagCount[tag.value.toLowerCase()] >= 3)
-      })
+      if(isFishermen) {
+        console.log('og', originalListings)
+        res = originalListings.filter((listing) => {
+          return listing.species?.some(tag => filteredArray.includes(tag.header.toLowerCase()) && tagCount[tag.header.toLowerCase()] >= 3)
+        })
+      } else {
+        res = originalListings.filter((listing) => {
+          return listing.fields?.articleTags?.some(tag => filteredArray.includes(tag.value.toLowerCase()) && tagCount[tag.value.toLowerCase()] >= 3)
+        })
+      }
+     
 
       selectedFilterList.filter((tag) => {
         return tagCount[tag] >= 3
@@ -184,6 +203,8 @@ export function ArticleFiltersDrawerProvider({ children }) {
     } else {
       res = originalListings
     }
+
+    console.log('selectedfilterlist', selectedFilterList)
 
     dispatch({ type: 'add_listings', payload: res})
   }
@@ -231,19 +252,21 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
         const nestedSubFilters = filters[filterGroup].options[filterOption].subFilters
 
-        Object.keys(nestedSubFilters).forEach((key) => {
-          if(tagCount[key] >= 3) {
-          filters[filterGroup].options[filterOption].subFilters[key].checked = true
-          }
-
-          if(filters[filterGroup].options[filterOption].subFilters[key].checked) {
-            dispatch({type: 'add_selected_filters', payload: key})
-            filterListingsByTags()
-          } else {
-            dispatch({type: 'remove_selected_filters', payload: key})
-            filterListingsByTags()
-          }
-        })
+        if(nestedSubFilters) {
+          Object.keys(nestedSubFilters).forEach((key) => {
+            if(tagCount[key] >= 3) {
+            filters[filterGroup].options[filterOption].subFilters[key].checked = true
+            }
+  
+            if(filters[filterGroup].options[filterOption].subFilters[key].checked) {
+              dispatch({type: 'add_selected_filters', payload: key})
+              filterListingsByTags()
+            } else {
+              dispatch({type: 'remove_selected_filters', payload: key})
+              filterListingsByTags()
+            }
+          })
+        }
       }
 
       if(subFilter) {
@@ -265,21 +288,24 @@ export function ArticleFiltersDrawerProvider({ children }) {
         }
       }
     } else {
+      console.log('running', filterOption)
       const nestedSubFilters = filters[filterGroup].options[filterOption].subFilters
 
+      if(nestedSubFilters) {
       Object.keys(nestedSubFilters).forEach((key) => {
-        if(tagCount[key] >= 3) {
-        filters[filterGroup].options[filterOption].subFilters[key].checked = true
-        }
+          if(tagCount[key] >= 3) {
+          filters[filterGroup].options[filterOption].subFilters[key].checked = true
+          }
 
-        if(filters[filterGroup].options[filterOption].subFilters[key].checked) {
-          dispatch({type: 'add_selected_filters', payload: key})
-          filterListingsByTags()
-        } else {
-          dispatch({type: 'remove_selected_filters', payload: key})
-          filterListingsByTags()
-        }
-      })
+          if(filters[filterGroup].options[filterOption].subFilters[key].checked) {
+            dispatch({type: 'add_selected_filters', payload: key})
+            filterListingsByTags()
+          } else {
+            dispatch({type: 'remove_selected_filters', payload: key})
+            filterListingsByTags()
+          }
+        })
+      }
 
       dispatch({ type: 'toggle_checkbox', payload: {
         hasSubfilter,
@@ -333,7 +359,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
   }, [router])
 
   return (
-    <ArticleFiltersDrawerContext.Provider value={{isOpen, selectChangeHandler, addTagCount, addTagArray, tagCount, filters, filterListingsByTags, openDrawer, closeDrawer, addFilters, checkBoxHandler, dispatch, selectedFilterList, listings, originalListings, addListings, addOriginalListings, sortListings}}>
+    <ArticleFiltersDrawerContext.Provider value={{isOpen, setIsFishermen, isFishermen, selectChangeHandler, addTagCount, addTagArray, tagCount, filters, filterListingsByTags, openDrawer, closeDrawer, addFilters, checkBoxHandler, dispatch, selectedFilterList, listings, originalListings, addListings, addOriginalListings, sortListings}}>
       {isOpen &&
         <ArticleFiltersDrawer  />
       }

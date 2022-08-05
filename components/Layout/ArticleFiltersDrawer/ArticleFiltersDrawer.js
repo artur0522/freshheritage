@@ -4,12 +4,13 @@ import classes from './ArticleFiltersDrawer.module.scss'
 
 import { useArticleFiltersDrawerContext } from '@/context/ArticleFiltersDrawerContext'
 import BlogFilters from '@/components/Blog/BlogFilters'
+import FishermenFilters from '@/components/Sections/FishermenPartners/FishermenFilters'
 
 import { useMediaQuery } from 'react-responsive'
 
 const ArticleFiltersDrawer = () => {
   const articleFiltersDrawerContext = useArticleFiltersDrawerContext()
-  const { isOpen } = articleFiltersDrawerContext
+  const { isOpen, isFishermen } = articleFiltersDrawerContext
   const [mounted, setMounted]= useState(false) 
   const [drawerOpen, setDrawerOpen] = useState(false)
   const nodeRef = useRef(null)
@@ -46,7 +47,7 @@ const ArticleFiltersDrawer = () => {
                   <div className={classes['hide']}>
                       <button className="body" onClick={() => closeDrawer()}>Hide Filters</button>
                   </div>
-                  <BlogFilters />
+                  {isFishermen ? <FishermenFilters /> : <BlogFilters />}
               </div>
           </CSSTransition>
       </div>

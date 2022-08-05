@@ -18,8 +18,8 @@ export default function SubscriptionsPage({ subsData, membershipData }) {
   }, [])
 
   const renderSubscriptions = () => {
-    return subsData.map((sub) => {
-      return <Sub key={sub.subscription_id} subscription={sub} products={products}></Sub>
+    return subsData.map((sub, index) => {
+      return <Sub key={sub.subscription_id} defaultOpen={index === 0} subscription={sub} products={products}></Sub>
     })
   }
   return !!products ? <div className={classes['subscriptions']}>{renderSubscriptions()}</div> : null;

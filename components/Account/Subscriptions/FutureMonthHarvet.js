@@ -23,40 +23,42 @@ export default function FutureMonthHarvest({
   })
 
   return (
-    <Accordion>
-      <AccordionSummary
-        sx={{
-          background: '#FFFDFC',
-          color: '#163144',
-          borderRadius: '12px',
-        }}
-        expandIcon={<ExpandMoreIcon sx={{ color: '#163144' }} />}
-        id="sub-panel-header"
-      >
-        <div className={classes['future-harvest-header']}>
-          <div className={classes['future-harvest-left']}>
-            <div className={classes['future-harvest-month']}>
-              {month.month} box
+    <div className={classes['future-harvest']}>
+      <Accordion>
+        <AccordionSummary
+          sx={{
+            background: '#FFFDFC',
+            color: '#163144',
+            borderRadius: '12px',
+          }}
+          expandIcon={<ExpandMoreIcon sx={{ color: '#163144' }} />}
+          id="sub-panel-header"
+        >
+          <div className={classes['future-harvest-header']}>
+            <div className={classes['future-harvest-left']}>
+              <div className={classes['future-harvest-month']}>
+                <h4>{month.month} box</h4>
+              </div>
+              <div className={classes['estimated-delivery']}>
+                <span>Estimated Delivery{' '}</span>
+                <span className={classes['date-string']}>
+                  {startDateString} - {endDateString}
+                </span>
+              </div>
             </div>
-            <div>
-              Estimated Delivery{' '}
-              <span>
-                {startDateString} - {endDateString}
-              </span>
-            </div>
+            <div className={classes['view-projected-harvest']}><h4>View Projected Harvest</h4></div>
           </div>
-          <div>View Projected Harvest</div>
-        </div>
-      </AccordionSummary>
-      <AccordionDetails>
-        {month.fishArray.map((fish) => (
-          <HarvestCard
-            key={`sub-detail-${fish._key}`}
-            fish={fish}
-            cardStyle={'projected-card'}
-          />
-        ))}
-      </AccordionDetails>
-    </Accordion>
+        </AccordionSummary>
+        <AccordionDetails>
+          {month.fishArray.map((fish) => (
+            <HarvestCard
+              key={`sub-detail-${fish._key}`}
+              fish={fish}
+              cardStyle={'projected-card'}
+            />
+          ))}
+        </AccordionDetails>
+      </Accordion>
+    </div>
   )
 }

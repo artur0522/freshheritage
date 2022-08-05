@@ -26,7 +26,7 @@ const getProductFromVariantId = (variantId, allProducts) => {
   return p;
 }
 
-export default function Sub({ subscription, products }) {
+export default function Sub({ defaultOpen, subscription, products }) {
 
   const currentFulfillmentStartDate = new Date(subscription.fulfill_start)
   const currentFulfillmentStartDateString =
@@ -46,7 +46,7 @@ export default function Sub({ subscription, products }) {
     const v = getVariant(subscription.subscription_product0id, products);
 
     return (
-    <Accordion>
+    <Accordion defaultExpanded={defaultOpen}>
       <AccordionSummary
         sx={{
           background: '#163144',

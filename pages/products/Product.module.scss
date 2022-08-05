@@ -1,5 +1,12 @@
 @import '@/styles/_shared.scss';
 
+.product.gift-subscription-product {
+    .prices {
+        margin-bottom: 25px;
+    }
+}
+
+
 .product {
     width: 100%;
     gap: 40px;

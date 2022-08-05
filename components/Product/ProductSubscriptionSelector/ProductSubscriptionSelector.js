@@ -48,7 +48,7 @@ const ProductSubscriptionSelector = ({selectedVariant, setSelectedVariant, allPr
   return (
     <ul className={classes['product-subscription-selector']}>
       {/* Box Option */}
-      <li className={classes['product-subscription-selector__item']}>
+      <li className={`${classes['product-subscription-selector__item']} ${classes['flex-column']}`}>
         <h2 className="heading__pdp-label"><span>1</span> Box Option</h2>
         <Dropdown
           className={`dropdown-selector`}

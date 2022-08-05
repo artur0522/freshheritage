@@ -15,6 +15,40 @@
 }
 
 .product-subscription-selector__item {
+  display: flex;
+  align-items: center;
+  :global(.dropdown-selector) {
+    margin: 0;
+    width: 100%;
+    :global(.Dropdown-control) > div:first-child {
+      background-color: $pureWhite !important;
+    }
+    :global(.Dropdown-placeholder),
+    :global(.Dropdown-option:not(.is-selected)) {
+      background-color: $pureWhite !important;
+    }
+    :global(.Dropdown-placeholder),
+    :global(.Dropdown-option) {
+      font-size: 24px !important;
+      font-family: $bebas;
+      letter-spacing: 0.02em;
+    }
+
+  }
+  &.flex-column {
+    flex-direction: column;
+    align-items: flex-start;
+    > h2 {
+      margin-bottom: 10px;
+    }
+  }
+  > h2 {
+    margin-right: 25px;
+    letter-spacing: 0.02em;
+    span {
+      color: $salmon;
+    }
+  }
   > ul {
     display: flex;
     flex-wrap: wrap;

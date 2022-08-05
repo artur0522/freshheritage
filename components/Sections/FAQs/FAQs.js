@@ -1,4 +1,5 @@
 
+import { useState, useEffect } from 'react'
 import FAQItem from './FAQItem'
 import classes from './FAQs.module.scss'
 import ResponsiveImage from '@/components/ResponsiveImage'
@@ -6,20 +7,26 @@ import { useMediaQuery } from 'react-responsive'
 
 const FAQs = ({ fields, parentClasses }) => {
 
+  const [mounted, setMounted] = useState(false)
+
   const isDesktop = useMediaQuery(
     { minWidth: 1440 }
   )
+
+  useEffect(() =>  {
+    setMounted(true)
+  }, [])
 
   return (
     <div className={`${classes['faq']} ${classes[parentClasses]} `}>
       {!!fields.desktopIllustration && !!fields.mobileIllustration &&
         <>
-         {isDesktop &&
+         {isDesktop && mounted && fields.desktopIllustration?.asset?.url &&
           <div className={classes['faq__image']}>
             <ResponsiveImage src={fields.desktopIllustration.asset.url} alt={fields.desktopIllustration.asset.alt || 'FAQ Image'} />
           </div>
          }
-         {!isDesktop &&
+         {!isDesktop && mounted && fields.mobileIllustration?.asset?.url &&
           <div className={classes['faq__image']}>
             <ResponsiveImage src={fields.mobileIllustration.asset.url} alt={fields.mobileIllustration.asset.alt || 'FAQ Image'} />
           </div>

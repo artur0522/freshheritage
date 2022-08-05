@@ -18,6 +18,7 @@ export async function getHarvests({product, returnHarvestHandle}) {
         if (harvestContent) {
           promises.push({
             ...harvestContent[0].fields,
+            handle: harvestHandle,
             variantTitle: variant.content?.title,
           })
           return promises

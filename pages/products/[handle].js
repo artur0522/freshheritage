@@ -116,13 +116,13 @@ function Product({ product, page, modals }) {
                 {handle !== 'digital-gift-card' && <div className={classes['prices']}>
                   <div className={classes['price-wrap']}>
                     {selectedVariant.compareAtPrice && (
-                      <h3 className={classes.compare}>
+                      <h2 className={classes.compare}>
                         ${selectedVariant.compareAtPrice}
-                      </h3>
+                      </h2>
                     )}
-                    <h3>${selectedVariant.price}</h3>
+                    <h2>${selectedVariant.price}</h2>
                   </div>
-                  <h3 className={classes['weight']}>{selectedVariant.weight} lbs</h3>
+                  <h2 className={classes['weight']}>{selectedVariant.weight} lbs</h2>
                 </div>}
 
                 <div className={classes['gift']}>

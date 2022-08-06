@@ -5,6 +5,7 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import classes from './FutureMonthHarvest.module.scss'
 import HarvestCard from '@/components/Harvest/HarvestCard'
+import { BorderColor } from '@mui/icons-material'
 
 export default function FutureMonthHarvest({
   subscriptionGroupSchedule,
@@ -24,7 +25,11 @@ export default function FutureMonthHarvest({
 
   return (
     <div className={classes['future-harvest']}>
-      <Accordion>
+      {/* for some reason I can't override the border radius here... */}
+      <Accordion sx={{
+        boxShadow: 'none',
+        border: '1px solid #f6f3ed',
+      }}>
         <AccordionSummary
           sx={{
             background: '#FFFDFC',

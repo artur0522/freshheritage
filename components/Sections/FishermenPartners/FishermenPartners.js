@@ -18,8 +18,6 @@ const FishermenPartners = ({ fields }) => {
     addListings(fishermen)
     addOriginalListings(fishermen)
 
-    console.log('fishermen', fishermen)
-
     const tagCount = {}
     const tagArray = []
     fishermen?.forEach((fisherman) => {
@@ -35,9 +33,6 @@ const FishermenPartners = ({ fields }) => {
         tagArray.push(tag.title.toLowerCase())
         })
     })
-
-    console.log('tagArray', tagArray)
-    console.log('tagCount', tagCount)
     
     addTagArray(tagArray)
     addTagCount(tagCount)

@@ -50,7 +50,7 @@ const FishermenInfoDrawer = () => {
                     {title && <h1>{title}</h1>}
                     {subheader && <h2>{subheader}</h2>}
                     {species?.length > 0 && <div className={classes['species-wrap']}>
-                      {species.map((singleSpecies, index) => <span className="species--title">{index !== 0 && ','} {singleSpecies.header}</span>)}
+                      {species.map((singleSpecies, index) => <span key={singleSpecies.header} className="species--title">{index !== 0 && ','} {singleSpecies.header}</span>)}
                     </div>}
                     {flyoutDescription && <p><PortableText value={flyoutDescription} /></p>}
                   </div>

@@ -28,7 +28,7 @@ const FishermenCard = ({ article }) => {
                 <div className={classes['text']}>
                     {title && <h4 className='heading--article'>{title}</h4>}
                     {subheader && <p className='secondary--body'>{subheader}</p>}
-                    {species?.length > 0 && species.map((singleSpecies, index) => <span className="species--title">{index !== 0 && ','} {singleSpecies.header}</span>)}
+                    {species?.length > 0 && species.map((singleSpecies, index) => <span key={singleSpecies.header} className="species--title">{index !== 0 && ','} {singleSpecies.header}</span>)}
                 </div>
             </div>
         </div>

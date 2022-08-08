@@ -27,10 +27,13 @@ const ArticleRow = ({ fields, enableSlider = true }) => {
             return articles
         }
 
-        getArticles()
-            .then(res => {
-                setArticles(res)
-            })
+        if (articleHandles?.length > 0) {
+            getArticles()
+                .then(res => {
+                    console.log("res:", res)
+                    setArticles(res)
+                })
+        }
 
     }, [])
 

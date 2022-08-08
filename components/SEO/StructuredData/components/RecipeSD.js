@@ -45,7 +45,7 @@ const RecipeSD = ({ data }) => {
       if (text !== '') {
         if (currentContentSectionSubheading !== '') {
           carry[currentContentSectionHeading][currentContentSectionSubheading] = [...carry[currentContentSectionHeading][currentContentSectionSubheading], text]
-        } else {
+        } else if (carry[currentContentSectionHeading]) {
           carry[currentContentSectionHeading] = [...carry[currentContentSectionHeading], text]
         }
       }

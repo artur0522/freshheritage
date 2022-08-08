@@ -33,6 +33,7 @@ import WYSIWYG from '@/components/Sections/WYSIWYG'
 import ContactUs from '@/components/Sections/ContactUs'
 import Accordion from '../Accordion'
 import ReviewsCarousel from '@/components/Sections/ReviewsCarousel'
+import FishermenPartners from '../FishermenPartners'
 
 const ContentSections = ({ sections, harvestMetafield}) => {
   const router = useRouter()
@@ -137,6 +138,8 @@ const ContentSections = ({ sections, harvestMetafield}) => {
         return <AllKnowYourFishblock fields={section} key={section._key} />
       case 'reviewsCarousel':
         return <ReviewsCarousel fields={section} key={section._key} />
+      case 'fishermenPartners':
+        return <FishermenPartners fields={section} key={section._key} />
       default:
         return null
     }

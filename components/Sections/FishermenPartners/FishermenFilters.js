@@ -12,7 +12,7 @@ const FishermenFilters = () => {
   const changeHandler = (hasSubfilter, filterGroup, filterOption, subFilter) => {
     checkBoxHandler(hasSubfilter, filterGroup, filterOption, subFilter)
   }
-  
+
   return (
     <div>
         {Object.keys(filters).map((filterGroup) => {
@@ -25,10 +25,22 @@ const FishermenFilters = () => {
                     {Object.keys(filters[filterGroup].options).map((filterOption) => {
                         return (
                             <li key={filterOption}>
-                                {tagCount[filterOption] !== undefined && tagCount[filterOption] >= 2 && <div className={classes['filter-option']}>
+                                <div className={classes['filter-option']}>
                                     <input onChange={() => changeHandler(false, filterGroup, filterOption)} value={filterOption} id={filterOption} checked={filters[filterGroup].options[filterOption].checked} type="checkbox" />
                                     <label htmlFor={filterOption}>{filterOption}</label>
-                                </div>}
+                                </div>
+                                <ul className={classes['filter-suboption__wrap']}>
+                                    {filters[filterGroup].options[filterOption].subFilters && Object.keys(filters[filterGroup].options[filterOption].subFilters).map((subFilter) => {
+                                        if(tagCount[subFilter] !== undefined && tagCount[subFilter] >= 3) {
+                                            return (
+                                                <li key={subFilter}>
+                                                    <input onChange={() => changeHandler(true, filterGroup, filterOption, subFilter)} value={subFilter} id={subFilter} checked={filters[filterGroup].options[filterOption].subFilters[subFilter].checked} type="checkbox" />
+                                                    <label htmlFor={subFilter}>{subFilter}</label>
+                                                </li>
+                                            )
+                                        }
+                                    })}
+                                </ul>
                             </li> 
                         )
                     })}

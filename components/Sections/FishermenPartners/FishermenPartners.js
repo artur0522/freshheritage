@@ -50,7 +50,16 @@ const FishermenPartners = ({ fields }) => {
 
       group.filterOptions?.map((option) => {
           filterGroupObj[group.title.toLowerCase()].options[option.value.toLowerCase()] = {
-            checked: false
+            checked: false,
+            subFilters: {}
+          }
+
+          if(option.subFilters) {
+            option.subFilters.map((subFilter) => {
+                filterGroupObj[group.title.toLowerCase()].options[option.value.toLowerCase()].subFilters[subFilter.value.toLowerCase()] = {
+                checked: false
+                }
+            })
           }
       })
     })

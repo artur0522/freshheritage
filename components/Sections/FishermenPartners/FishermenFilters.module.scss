@@ -40,13 +40,11 @@
         margin-top: 14px;
         text-transform: capitalize;
 
-        li {
-            margin-bottom: 14px;
-        }
-
         .filter-option {
             display: flex;
             align-items: center;
+            border-bottom: 1px solid $black20;
+            padding: 14px 0;
         }
 
         input {
@@ -57,13 +55,13 @@
     }
 
     .filter-suboption__wrap {
-        margin-top: 14px;
-        margin-left: 32px;
         list-style: none;
 
         li {
             display: flex;
             align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid $black20;
         }
     }
 }

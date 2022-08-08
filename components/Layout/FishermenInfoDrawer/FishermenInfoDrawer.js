@@ -1,23 +1,20 @@
 import {useEffect, useState, useRef} from 'react'
 import { CSSTransition } from 'react-transition-group'
-import classes from './ArticleFiltersDrawer.module.scss'
+import classes from './FishermenInfoDrawer.module.scss'
+import { PortableText } from '@portabletext/react'
 
 import { useArticleFiltersDrawerContext } from '@/context/ArticleFiltersDrawerContext'
-import BlogFilters from '@/components/Blog/BlogFilters'
-import FishermenFilters from '@/components/Sections/FishermenPartners/FishermenFilters'
+import IconClose from '@/svgs/close.svg'
 
-import { useMediaQuery } from 'react-responsive'
-
-const ArticleFiltersDrawer = () => {
+const FishermenInfoDrawer = () => {
   const articleFiltersDrawerContext = useArticleFiltersDrawerContext()
-  const { isOpen, isFishermen } = articleFiltersDrawerContext
+  const { isFishInfoOpen, infoCardFields } = articleFiltersDrawerContext
+  const { title, subheader, species, flyoutDescription } = infoCardFields
+  console.log(infoCardFields)
   const [mounted, setMounted]= useState(false) 
   const [drawerOpen, setDrawerOpen] = useState(false)
   const nodeRef = useRef(null)
   const timeout = 200
-  const isDesktop = useMediaQuery(
-    {query: '(min-width: 1074px)'}
-  )
 
   useEffect(() => {
     setMounted(true)
@@ -29,11 +26,11 @@ const ArticleFiltersDrawer = () => {
   const closeDrawer = () => {
     setDrawerOpen(false)
     setTimeout(() => {
-      articleFiltersDrawerContext.dispatch({ type: 'close_drawer' })
+      articleFiltersDrawerContext.dispatch({ type: 'close_fish_info' })
     }, timeout)
   }
 
-  if(isOpen && mounted && !isDesktop) {
+  if(isFishInfoOpen && mounted) {
     return (
       <div className={classes['pdp-flyout']}>
       <div onClick={() => closeDrawer()} className={classes['pdp-flyout__overlay']}></div>
@@ -45,9 +42,18 @@ const ArticleFiltersDrawer = () => {
               }}>
               <div ref={nodeRef} className={classes['pdp-flyout__content']}>
                   <div className={classes['hide']}>
-                      <button className="body" onClick={() => closeDrawer()}>Hide Filters</button>
+                      <button className="body" onClick={() => closeDrawer()}>
+                        <IconClose />
+                      </button>
                   </div>
-                  {isFishermen ? <FishermenFilters /> : <BlogFilters />}
+                  <div className={classes['info']}>
+                    {title && <h1>{title}</h1>}
+                    {subheader && <h2>{subheader}</h2>}
+                    {species?.length > 0 && <div className={classes['species-wrap']}>
+                      {species.map((singleSpecies, index) => <span key={singleSpecies.header} className="species--title">{index !== 0 && ','} {singleSpecies.header}</span>)}
+                    </div>}
+                    {flyoutDescription && <p><PortableText value={flyoutDescription} /></p>}
+                  </div>
               </div>
           </CSSTransition>
       </div>
@@ -57,4 +63,4 @@ const ArticleFiltersDrawer = () => {
   } 
 }
 
-export default ArticleFiltersDrawer
+export default FishermenInfoDrawer

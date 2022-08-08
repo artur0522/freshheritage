@@ -1,0 +1,67 @@
+@import '@/styles/_shared.scss';
+
+.filter-group {
+
+    // filter-group__title
+    &__title {
+        color: $sitkablue;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        text-transform: capitalize;
+
+        .icon-wrap {
+            .minus {
+                svg {
+                    height: 16px;
+                }
+
+                svg rect {
+                    fill: $sitkablue;
+                }
+            }
+
+            .plus {
+                svg {
+                    height: 23px;
+                }
+            }
+        }
+    }
+
+    button {
+        background: transparent;
+        border: none;
+        padding: 0;
+    }
+
+    .filter-option__wrap {
+        list-style: none;
+        margin-top: 14px;
+        text-transform: capitalize;
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid $black20;
+            padding: 14px 0;
+        }
+
+        input {
+            margin-right: 12px;
+            height: 21px;
+            width: 21px;
+        }
+    }
+
+    .filter-suboption__wrap {
+        list-style: none;
+
+        li {
+            display: flex;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid $black20;
+        }
+    }
+}

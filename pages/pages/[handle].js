@@ -67,7 +67,7 @@ export default function DynamicPage({ page }) {
         {bottomContent &&
           <ContentSections sections={bottomContent} />
         }
-        <Script type="text/javascript" id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=7926bf41-0910-4145-b2f7-44517d2707b0" strategy="lazyOnload" />
+        <Script type="text/javascript" id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=7926bf41-0910-4145-b2f7-44517d2707b0" />
       </>
     )
   }

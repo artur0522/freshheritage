@@ -1,6 +1,22 @@
 @import '@/styles/_shared.scss';
 
 .fishermen {
+    &.top-padding {
+        padding-top: 25px;
+
+        @include breakpoint-up('md') {
+            padding-top: 69.42px;
+        }
+    }
+
+    &.bottom-padding {
+        padding-bottom: 84px;
+
+        @include breakpoint-up('md') {
+            padding-bottom: 91.42px;
+        }
+    }
+
     .row {
         @include breakpoint-up('md') {
             display: flex;

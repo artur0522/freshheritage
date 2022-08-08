@@ -9,7 +9,7 @@ import classes from "./FishermenPartners.module.scss"
 
 const FishermenPartners = ({ fields }) => {
   const [filterDrawer, toggleFilterDrawer]= useState(true)
-  const { filterGroups, illustration, header, fishermen, calloutHeader, calloutSubheader } = fields
+  const { filterGroups, illustration, header, fishermen, calloutHeader, calloutSubheader, topPadding, bottomPadding } = fields
   const drawerContext = useArticleFiltersDrawerContext()
   const { addFilters, setIsFishermen, openDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, addOriginalListings, listings, addTagCount} = drawerContext
 
@@ -68,7 +68,7 @@ const FishermenPartners = ({ fields }) => {
   }
 
   return (
-    <div className={`${classes['fishermen']}`}>
+    <div className={`${classes['fishermen']} ${topPadding ? classes['top-padding'] : ''} ${bottomPadding ? classes['bottom-padding'] : ''}`}>
          {calloutHeader && <div className={`${classes['row']} container`}>
             <div className={classes['col']}>
             </div>

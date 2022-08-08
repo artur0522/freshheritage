@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Script from 'next/script'
 import PageSEO from '@/components/SEO/PageSEO'
 import { nacelleClient } from 'services'
 import ContentSections from '@/components/Sections/ContentSections'
@@ -18,6 +19,13 @@ export default function DynamicPage({ page }) {
 
   useEffect(() => {
     setMounted(true)
+    // document.createElement("script");script.type="text/javascript",script.id="ze-snippet",script.src="https://static.zdassets.com/ekr/snippet.js?key=7926bf41-0910-4145-b2f7-44517d2707b0",document.getElementsByTagName("head")[0].appendChild(script)
+   
+    // <script type="text/javascript">
+    //   window.zESettings = {
+    //       analytics: false
+    //   };
+    // </script>
   }, [])
 
   if (page.type === 'infoPage') {
@@ -59,6 +67,7 @@ export default function DynamicPage({ page }) {
         {bottomContent &&
           <ContentSections sections={bottomContent} />
         }
+        <Script type="text/javascript" id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=7926bf41-0910-4145-b2f7-44517d2707b0" strategy="lazyOnload" />
       </>
     )
   }

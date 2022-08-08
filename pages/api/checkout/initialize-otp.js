@@ -98,6 +98,19 @@ export default async function handler(req, res) {
 
   console.log('body:', util.inspect(body, false, null));
 
+  // don't await result
+  fetch(
+    `${process.env.SITKA_GOOGLE_FUNCTION_BASE_URL}/checkout/keepAlive`,
+    {
+      headers: {
+        'x-api-key': process.env.SITKA_GOOGLE_FUNCTION_KEY,
+        'origin': 'pwa'
+      },
+      method: 'POST'
+    }
+  ).then(res => console.log('ship option cache response', res.statusText))
+  .catch(e => console.log(e))
+
   try {
     // Initialize checkout
     const response = await fetch(

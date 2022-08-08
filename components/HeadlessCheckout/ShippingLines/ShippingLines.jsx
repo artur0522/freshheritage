@@ -58,6 +58,7 @@ const MemoizedShippingLines = memo(
     const [shippingMethodOpen, setShippingMethodOpen] = useState(true);
     const { t } = useTranslation();
 
+    // Only ever called on checkout page load - not called each time shipping lines are updated
     const refreshShippingLines = useCallback(async () => {
       if (showShippingLines) {
         try {

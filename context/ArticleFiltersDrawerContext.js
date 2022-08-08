@@ -1,29 +1,47 @@
 import { createContext, useContext, useState, useReducer, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import ArticleFiltersDrawer from '@/components/Layout/ArticleFiltersDrawer'
+import FishermenInfoDrawer from '@/components/Layout/FishermenInfoDrawer/FishermenInfoDrawer'
 import moment from 'moment'
-
 
 const ArticleFiltersDrawerContext = createContext()
 
 function drawerReducer(state, action) {
   switch (action.type) {
+    case 'set_info_card': {
+      return {
+        ...state,
+        infoCardFields: action.payload
+      }
+    }
     case 'is_fishermen': {
       return {
         ...state,
         isFishermen: true,
       }
     }
+    case 'open_fish_info': {
+      return {
+        ...state,
+        isFishInfoOpen: true
+      }
+    }
+    case 'close_fish_info': {
+      return {
+        ...state,
+        isFishInfoOpen: false
+      }
+    }
     case 'open_drawer': {
       return {
         ...state,
-        isOpen: true,
+        isOpen: true
       }
     }
     case 'close_drawer': {
       return {
         ...state,
-        isOpen: false,
+        isOpen: false
       }
     }
     case 'add_tag_count': {
@@ -128,7 +146,9 @@ const initialState = {
   originalListings: [],
   tagCount: {},
   tagArray: [],
-  selectValue: 'newest'
+  selectValue: 'newest',
+  infoCardFields: {},
+  isFishInfoOpen: false
 }
 
 export function useArticleFiltersDrawerContext() {
@@ -139,7 +159,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
   const router = useRouter()
   const [state, dispatch] = useReducer(drawerReducer, initialState)
 
-  const { isOpen, filters, selectedFilterList, listings, originalListings, tagCount, tagArray, selectValue, isFishermen} = state
+  const { isOpen, infoCardFields, isFishInfoOpen, filters, selectedFilterList, listings, originalListings, tagCount, tagArray, selectValue, isFishermen} = state
 
   const setIsFishermen = () => {
     dispatch({type: 'is_fishermen'})
@@ -147,6 +167,10 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
   const openDrawer = () => {
     dispatch({ type: 'open_drawer'})
+  }
+
+  const openFishInfo = () => {
+    dispatch({ type: 'open_fish_info'})
   }
 
   const closeDrawer = () => {
@@ -176,6 +200,10 @@ export function ArticleFiltersDrawerProvider({ children }) {
   const addOriginalListings = (listings) => {
     dispatch({ type: 'add_original_listings', payload: listings})
   }
+  
+  const setInfoCard = (info) => {
+    dispatch({ type: 'set_info_card', payload: info})
+  }
 
   const filterListingsByTags = () => {
     let res = []
@@ -186,9 +214,8 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
     if(selectedFilterList.length > 0) {
       if(isFishermen) {
-        console.log('og', originalListings)
         res = originalListings.filter((listing) => {
-          return listing.species?.some(tag => filteredArray.includes(tag.header.toLowerCase()) && tagCount[tag.header.toLowerCase()] >= 3)
+          return listing.species?.some(tag => filteredArray.includes(tag.header.toLowerCase()) && tagCount[tag.header.toLowerCase()] >= 2)
         })
       } else {
         res = originalListings.filter((listing) => {
@@ -196,7 +223,6 @@ export function ArticleFiltersDrawerProvider({ children }) {
         })
       }
      
-
       selectedFilterList.filter((tag) => {
         return tagCount[tag] >= 3
       })
@@ -204,20 +230,24 @@ export function ArticleFiltersDrawerProvider({ children }) {
       res = originalListings
     }
 
-    console.log('selectedfilterlist', selectedFilterList)
-
     dispatch({ type: 'add_listings', payload: res})
   }
 
   const sortListings = (listings, mostRecent) => {
     const sortedListings = listings.sort((a, b) => {
-      let aPublishedDate = moment(a.fields.createdAt).unix()
-      let bPublishedDate = moment(b.fields.createdAt).unix()
+      let aPublishedDate = a.fields ? moment(a.fields.createdAt).unix() : moment(a.createdAt).unix()
+      let bPublishedDate = b.fields ? moment(b.fields.createdAt).unix() : moment(b.createdAt).unix()
       if (a.fields?.publishedDate) {
         aPublishedDate = moment(a.fields.publishedDate).unix()
       }
+      if (a.publishedDate) {
+        aPublishedDate = moment(a.publishedDate).unix()
+      }
       if (b.fields?.publishedDate) {
         bPublishedDate = moment(b.fields.publishedDate).unix()
+      }
+      if (b.publishedDate) {
+        bPublishedDate = moment(b.publishedDate).unix()
       }
       return (mostRecent) ?  bPublishedDate - aPublishedDate : aPublishedDate - bPublishedDate
     })
@@ -328,6 +358,9 @@ export function ArticleFiltersDrawerProvider({ children }) {
     if (isOpen) document.querySelector('html').classList.add('disable-scroll')
     if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
 
+    if (isFishInfoOpen) document.querySelector('html').classList.add('disable-scroll')
+    if (!isFishInfoOpen) document.querySelector('html').classList.remove('disable-scroll')
+
     filterListingsByTags(listings)
 
     const handleResize = () => {
@@ -345,8 +378,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-
-  }, [isOpen, selectedFilterList])
+  }, [isOpen, selectedFilterList, isFishInfoOpen])
 
   useEffect(() => {
     router.beforePopState(({ as }) => {
@@ -359,9 +391,12 @@ export function ArticleFiltersDrawerProvider({ children }) {
   }, [router])
 
   return (
-    <ArticleFiltersDrawerContext.Provider value={{isOpen, setIsFishermen, isFishermen, selectChangeHandler, addTagCount, addTagArray, tagCount, filters, filterListingsByTags, openDrawer, closeDrawer, addFilters, checkBoxHandler, dispatch, selectedFilterList, listings, originalListings, addListings, addOriginalListings, sortListings}}>
+    <ArticleFiltersDrawerContext.Provider value={{isOpen, openFishInfo, isFishInfoOpen, setInfoCard, infoCardFields, setIsFishermen, isFishermen, selectChangeHandler, addTagCount, addTagArray, tagCount, filters, filterListingsByTags, openDrawer, closeDrawer, addFilters, checkBoxHandler, dispatch, selectedFilterList, listings, originalListings, addListings, addOriginalListings, sortListings}}>
       {isOpen &&
-        <ArticleFiltersDrawer  />
+        <ArticleFiltersDrawer />
+      }
+      {isFishInfoOpen &&
+        <FishermenInfoDrawer />
       }
       {children}
     </ArticleFiltersDrawerContext.Provider>

@@ -1,7 +1,24 @@
 @import '@/styles/_shared.scss';
 
 .fishermen {
+    .row {
+        @include breakpoint-up('md') {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .col {
+            @include breakpoint-up('md') {
+                width: 48%;
+            }
+        }
+    }
+
     .callout {
+        @include breakpoint-up('md') {
+            max-width: 691px;
+        }
+
         h4 {
             margin-bottom: 30px;
         }
@@ -22,13 +39,11 @@
 
     .fishermen-wrap {
         position: relative;
-        background-color: $fawn50-2;
-        padding: 32px 0 84px 0;
     }
 
     .illustration-wrap {
         position: relative;
-        min-height: 157px;
+        min-height: 137px;
     }
 
     .illustration {

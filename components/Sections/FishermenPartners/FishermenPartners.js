@@ -11,14 +11,14 @@ const FishermenPartners = ({ fields }) => {
   const [filterDrawer, toggleFilterDrawer]= useState(true)
   const { filterGroups, illustration, header, fishermen, calloutHeader, calloutSubheader } = fields
   const drawerContext = useArticleFiltersDrawerContext()
-  const { addFilters, setIsFishermen, openDrawer, closeDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
+  const { addFilters, setIsFishermen, openDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, addOriginalListings, listings, addTagCount} = drawerContext
 
   useEffect(() => {
     setIsFishermen()
-
     addListings(fishermen)
     addOriginalListings(fishermen)
-    // sortListings(fishermen, true)
+
+    console.log('fishermen', fishermen)
 
     const tagCount = {}
     const tagArray = []
@@ -35,15 +35,12 @@ const FishermenPartners = ({ fields }) => {
         tagArray.push(tag.title.toLowerCase())
         })
     })
+
+    console.log('tagArray', tagArray)
+    console.log('tagCount', tagCount)
     
-    console.log(tagCount)
-    console.log(tagArray)
-
-    console.log('tags', tagCount)
-
     addTagArray(tagArray)
     addTagCount(tagCount)
-    console.log("fishermen", fishermen)
 
     const filterGroupObj = {}
     filterGroups?.map((group) => {
@@ -52,22 +49,31 @@ const FishermenPartners = ({ fields }) => {
       }
 
       group.filterOptions?.map((option) => {
-        console.log('option', option)
           filterGroupObj[group.title.toLowerCase()].options[option.value.toLowerCase()] = {
             checked: false
           }
       })
     })
 
-    console.log('fgobj', filterGroupObj)
     addFilters(filterGroupObj)
   }, [])
 
+  const openFiltersDrawer = () => {
+    setIsFishermen()
+    openDrawer()
+  }
+
   return (
     <div className={`${classes['fishermen']}`}>
-         {calloutHeader && <div className={`${classes['callout']} container`}>
-            {calloutHeader && <h4>{calloutHeader}</h4>}
-            {calloutSubheader && <p>{calloutSubheader}</p>}
+         {calloutHeader && <div className={`${classes['row']} container`}>
+            <div className={classes['col']}>
+            </div>
+            <div className={classes['col']}>
+                <div className={classes['callout']}>
+                    {calloutHeader && <h4>{calloutHeader}</h4>}
+                    {calloutSubheader && <p>{calloutSubheader}</p>}
+                </div>
+            </div>
         </div>}
 
         <div className={classes['illustration-wrap']}>
@@ -80,7 +86,6 @@ const FishermenPartners = ({ fields }) => {
             </div>}
         </div>
 
-
         <div className={classes['fishermen-wrap']}>
             <form className={`${classes['filter-wrap']} container`}>
                 {header && <h1>{header}</h1>}
@@ -89,7 +94,7 @@ const FishermenPartners = ({ fields }) => {
                     {filterDrawer ? <span className="body">Hide Filters</span> : <span className="body">Show Filters</span>}
                     </button>}
 
-                    {filterGroups && filterGroups?.length > 0 && <button onClick={() => openDrawer()} type="button" className={`${classes['toggle-filters']} ${classes['mobile']}`}>
+                    {filterGroups && filterGroups?.length > 0 && <button onClick={() => openFiltersDrawer()} type="button" className={`${classes['toggle-filters']} ${classes['mobile']}`}>
                     {isOpen ? <span className="body">Hide Filters</span> : <span className="body">Show Filters</span>}
                     </button>}
 

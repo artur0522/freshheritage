@@ -137,7 +137,6 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         setCurrentPage(pageNumber)
     }
 
-
   return (
     <>
       <StructuredData type="blog" data={page} />

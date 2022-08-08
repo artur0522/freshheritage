@@ -12,7 +12,7 @@ const FishermenFilters = () => {
   const changeHandler = (hasSubfilter, filterGroup, filterOption, subFilter) => {
     checkBoxHandler(hasSubfilter, filterGroup, filterOption, subFilter)
   }
-
+  
   return (
     <div>
         {Object.keys(filters).map((filterGroup) => {
@@ -25,10 +25,10 @@ const FishermenFilters = () => {
                     {Object.keys(filters[filterGroup].options).map((filterOption) => {
                         return (
                             <li key={filterOption}>
-                                <div className={classes['filter-option']}>
+                                {tagCount[filterOption] !== undefined && tagCount[filterOption] >= 2 && <div className={classes['filter-option']}>
                                     <input onChange={() => changeHandler(false, filterGroup, filterOption)} value={filterOption} id={filterOption} checked={filters[filterGroup].options[filterOption].checked} type="checkbox" />
                                     <label htmlFor={filterOption}>{filterOption}</label>
-                                </div>
+                                </div>}
                             </li> 
                         )
                     })}

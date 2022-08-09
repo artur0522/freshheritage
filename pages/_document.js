@@ -10,6 +10,7 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <script async type="text/javascript" src={`https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=${process.env.NEXT_PUBLIC_KLAVIYO_COMPANY_ID}`}></script>
         </body>
       </Html>
     );

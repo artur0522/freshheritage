@@ -52,7 +52,7 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) 
 
       {mounted && router.asPath === '/pages/how-it-works' || router.asPath === '/pages/choose-your-plan' || router.asPath === '/pages/customize-your-plan' || router.asPath === '/pages/intro-box' || router.asPath === '/collections/one-time-boxes' || router.asPath === '/collections/gifts' || router.pathname === '/products/[handle]' || router.asPath === '/checkout' || router.asPath === '/pages/contact' ? <Script
         id="ze-snippet" 
-        src="https://static.zdassets.com/ekr/snippet.js?key=7926bf41-0910-4145-b2f7-44517d2707b0"
+        src={`https://static.zdassets.com/ekr/snippet.js?key=${process.env.NEXT_PUBLIC_ZENDESK_KEY}`}
         strategy="lazyOnload"
       ></Script> : null}
     </CartProvider>

@@ -26,10 +26,14 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
       return articles
     }
 
-    getArticles()
-      .then(res => {
-        setArticles(res)
-      })
+
+    if (relatedArticles?.relatedArticleItems?.length > 0) {
+      getArticles()
+        .then(res => {
+          setArticles(res)
+        })
+    }
+
 
   }, [])
 

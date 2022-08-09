@@ -8,18 +8,12 @@ import ResponsiveImage from '@/components/ResponsiveImage'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 export default function DynamicPage({ page }) {
-  console.log("page:", page)
-
   const [mounted, setMounted] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })
   const isDesktop = useMediaQuery(
     {query: '(min-width: 1074px)'}
   )
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
+  
   if (page.type === 'infoPage') {
     const { header, leftContent , rightContent, bottomContent, desktopIllustration, mobileIllustration } = page.fields
     return (

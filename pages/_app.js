@@ -43,7 +43,7 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) 
         <Component {...pageProps} />
       </Layout>
 
-      {mounted && <Script strategy="lazyOnload">
+      {mounted && <Script id="ze-settings" strategy="lazyOnload">
         {`
         window.zESettings = {
           analytics: false

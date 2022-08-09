@@ -15,17 +15,6 @@ const StandardContent = forwardRef(({fields, product}, ref) => {
 
   const { content } = fields
 
-  const getIcon = (icon) => {
-    switch(icon) {
-      case 'knife':
-        return <IconKnife />
-      case 'pan':
-        return <IconPan />
-      default:
-        return ''
-    }
-  }
-
   const myPortableTextComponents = {
     block: {
       h1: ({children}) => {

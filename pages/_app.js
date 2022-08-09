@@ -22,28 +22,20 @@ import { set } from 'es-cookie'
 
 const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) => {
   const router = useRouter()
-  // const [mounted, setMounted] = useState(false)
-
-  // useEffect(() => {
-  //   if (mounted) document.getElementById('launcher').style.display = 'none'
-  //   if (mounted) document.getElementById('launcher').style.display = 'none'
-
-  // }, [mounted])
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    const onRountChangeComplete = () => {
-      // if(router.asPath === '/') {
-      //   document.getElementById('launcher').style.display = 'none'
-      // }
+    setMounted(true)
 
-      if(router.asPath !== '/pages/how-it-works') {
-        document.getElementById('launcher').style.display = 'none'
+    const onRountChangeComplete = () => {     
+      if(router.asPath === '/pages/how-it-works' || router.asPath === '/pages/choose-your-plan' || router.asPath === '/pages/customize-your-plan' || router.asPath === '/pages/intro-box' || router.asPath === '/collections/one-time-boxes' || router.asPath === '/collections/gifts' || router.pathname === '/products/[handle]' || router.asPath === '/checkout' || router.asPath === '/pages/contact' && mounted) {
+        document.getElementById('launcher').style.display = 'block'
       } else {
-        document.getElementById('launcher').style.display = 'initial'
+        document.getElementById('launcher').style.display = 'none'
       }
     }
     Router.events.on('routeChangeComplete', onRountChangeComplete)
-  }, [router.asPath])
+  }, [router.asPath, mounted])
 
   return (
     <CartProvider>
@@ -51,28 +43,20 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) 
         <Component {...pageProps} />
       </Layout>
 
-
-      
-      {router.asPath !== '/' && <Script strategy="lazyOnload">
+      {mounted && <Script strategy="lazyOnload">
         {`
         window.zESettings = {
           analytics: false
         }`}
       </Script>}
 
-
-
-
-      {router.asPath !== '/' && <Script
+      {mounted && router.asPath === '/pages/how-it-works' || router.asPath === '/pages/choose-your-plan' || router.asPath === '/pages/customize-your-plan' || router.asPath === '/pages/intro-box' || router.asPath === '/collections/one-time-boxes' || router.asPath === '/collections/gifts' || router.pathname === '/products/[handle]' || router.asPath === '/checkout' || router.asPath === '/pages/contact' ? <Script
         id="ze-snippet" 
         src="https://static.zdassets.com/ekr/snippet.js?key=7926bf41-0910-4145-b2f7-44517d2707b0"
         strategy="lazyOnload"
-      ></Script>}
-
-
-
+      ></Script> : null}
     </CartProvider>
-  );
+  )
 }
 
 AppContainer.getInitialProps = async (appContext) => {

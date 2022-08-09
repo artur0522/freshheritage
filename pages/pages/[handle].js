@@ -8,26 +8,12 @@ import ResponsiveImage from '@/components/ResponsiveImage'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 export default function DynamicPage({ page }) {
-  console.log("page:", page)
-
   const [mounted, setMounted] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })
   const isDesktop = useMediaQuery(
     {query: '(min-width: 1074px)'}
   )
-
-  useEffect(() => {
-    setMounted(true)
-    // document.createElement("script");script.type="text/javascript",script.id="ze-snippet",script.src="https://static.zdassets.com/ekr/snippet.js?key=7926bf41-0910-4145-b2f7-44517d2707b0",document.getElementsByTagName("head")[0].appendChild(script)
-   
-    // <script type="text/javascript">
-    //   window.zESettings = {
-    //       analytics: false
-    //   };
-    // </script>
-    
-  }, [])
-
+  
   if (page.type === 'infoPage') {
     const { header, leftContent , rightContent, bottomContent, desktopIllustration, mobileIllustration } = page.fields
     return (

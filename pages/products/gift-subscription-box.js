@@ -3,8 +3,7 @@ import { nacelleClient } from 'services'
 import ContentSections from '@/components/Sections/ContentSections'
 import ProductReviewStars from '../../components/Product/ProductReviewStars'
 import ProductSlider from '../../components/Product/ProductSlider'
-import ProductForm from '@/components/Product/ProductForm'
-import ProductSubscriptionSelector from '@/components/Product/ProductSubscriptionSelector'
+import ProductGiftSubForm from '@/components/Product/ProductGiftSubForm'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
@@ -17,10 +16,8 @@ import { getHarvests } from '@/utils/getHarvests'
 function GiftSubscriptionBoxPDP({ page, products }) {
 
   const [product, setProduct] = useState(products[0])
-  const [checked, setChecked] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
   const [harvests, setHarvests] = useState(null)
-  const [mounted, setMounted] = useState(false)
 
   const onSelectProduct = (e) => {
     const product = products.find(product => product.content.handle === e.value)
@@ -37,17 +34,9 @@ function GiftSubscriptionBoxPDP({ page, products }) {
     })
   }, [product])
 
-  useEffect(() =>  {
-    setMounted(true)
-  }, [])
-
-  const handleCheckbox = () => {
-    setChecked(!checked);
-  };
-
   return (
     product && (
-      <div className={`${classes['product']} ${classes['gift-subscription-product']}`}>
+      <div className={`${classes['product']} ${classes['gift-subscription-product']} product gift-subscription-product`}>
         <StructuredData type="product" data={product} />
         <PageSEO product={product} />
         <div className={classes['product__inner']}>
@@ -74,13 +63,17 @@ function GiftSubscriptionBoxPDP({ page, products }) {
                   <h2 className={classes['weight']}>{selectedVariant.weight} lbs</h2>
                 </div>
 
-                <ProductSubscriptionSelector selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} allProducts={products} product={product} onSelectProduct={onSelectProduct} />
-
-                {/* GIFT FORM */}
-                {/* <ProductForm checked={checked} handle={product.content.handle} product={product} setSelectedVariant={setSelectedVariant} selectedVariant={selectedVariant} /> */}
+                {/* PRODUCT FORM */}
+                <ProductGiftSubForm selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} allProducts={products} product={product} onSelectProduct={onSelectProduct} />
 
                 {!!product.boxDetails.fields.details &&
-                  <ProductDetailsList fields={product.boxDetails.fields.details} />
+                  <ProductDetailsList enableToggle={true} expandOnLoad={true} fields={{
+                    ...product.boxDetails.fields.details,
+                    detailsItems: product.boxDetails.fields.details.detailsItems.filter(item => {
+                      if (item.text && item.text[0].children[0].text.includes('money-back')) return false
+                      return true
+                    })
+                  }} />
                 }
 
                 {!!product.boxDetails.fields.stamps &&
@@ -104,7 +97,7 @@ export async function getStaticProps({ params }) {
   // using the handle of the current page.
   // (https://nacelle.com/docs/querying-data/storefront-sdk)
 
-  const productHandles = ['salmon-subscription-box', 'premium-seafood-subscription-box', 'seafood-subscription-box', 'sitka-seafood-intro-box']
+  const productHandles = ['salmon-subscription-box', 'premium-seafood-subscription-box', 'seafood-subscription-box']
 
   const { products } = await nacelleClient.query({
     query: GET_PRODUCTS,

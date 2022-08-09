@@ -49,7 +49,7 @@ export function PurchaseFlowProvider({ children }) {
       membership_type: membershipType,
       variantIdSelected: variantSelected.sourceEntryId
     })
-    // add to cart
+
     const variant = getCartVariant({
       product: options.product,
       variant: variantSelected

@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { useCart } from '@nacelle/react-hooks'
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext'
 import { getSelectedVariant } from 'utils/getSelectedVariant'
 import { getCartVariant } from 'utils/getCartVariant'
+import { getSubscriptionInfo } from '@/utils/getSubscriptionInfo'
 import LoadingState from '@/components/LoadingState'
 
 import classes from './ProductForm.module.scss'
@@ -18,7 +18,6 @@ const ProductForm = (props) => {
     const { checked, handle, product, selectedVariant, setSelectedVariant } = props
     const [formFields, setFormFields] = useState(defaultFormFields)
 
-    const [, { addToCart }] = useCart()
     const [selectedOptions, setSelectedOptions] = useState(
       selectedVariant.content?.selectedOptions
     )
@@ -41,8 +40,6 @@ const ProductForm = (props) => {
       ? 'Add To Cart'
       : 'Sold Out'
     : 'Select Option'
-
-    console.log("selectedvariant", selectedVariant)
 
     const handleOptionChange = (event, option) => {
         const newOption = { name: option.name, value: event.target.value }
@@ -76,14 +73,16 @@ const ProductForm = (props) => {
             variant: selectedVariant
         })
 
-        console.log("product:", product)
-
         let subscriptionGroup = product.metafields.find(metafield => metafield.key === 'subscription_group')
+        const frequency = selectedVariant.content.selectedOptions.find(option => option.name === 'frequency')
 
         const formFieldsWithGiftOption = {
             ...formFields,
             is_gift_order: checked.toString()
         }
+
+
+        let subscriptionProperties = {}
 
         if (product.tags.includes('Subscription Box')) {
             // add some logic here to determine if regular or prepaid
@@ -92,9 +91,12 @@ const ProductForm = (props) => {
                 // this should not be hardcoded - will make dynamic when we build gift subscription PDP
                 // reference PurchaseFlowContext.js to get subscription properties
                 subscriptionGroup = JSON.parse(subscriptionGroup.value)
-                formFieldsWithGiftOption.sub_group_id = '19362'
-                formFieldsWithGiftOption.interval_id = '51911'
-                formFieldsWithGiftOption.interval_text = 'Monthly'
+                subscriptionProperties = getSubscriptionInfo({
+                    subscriptionGroup,
+                    frequencyName: frequency.value,
+                    membershipType: 'regular',
+                    duration: '12'
+                  })
             }
 
         }
@@ -102,7 +104,10 @@ const ProductForm = (props) => {
         addItemToOrder({
             variant,
             quantity,
-            properties: formFieldsWithGiftOption
+            properties: {
+                ...formFieldsWithGiftOption,
+                ...subscriptionProperties
+            }
         }).then(() => {
             setIsLoading(false)
         })
@@ -149,7 +154,7 @@ const ProductForm = (props) => {
                 {handle === 'digital-gift-card' && <span className={classes['number']}>2</span>}
                 {"Recipient's"} Information
                 </h4>
-                <span className={`delivery--time ${classes['delivery']}`}>Delivered via email one day after purchase.</span>
+                <span className={`delivery--time ${classes['delivery']}`}>{handle === 'digital-gift-card' ? 'Delivered via email one day after purchase.' : 'You can also add this at Checkout'}</span>
             </div>}
 
 

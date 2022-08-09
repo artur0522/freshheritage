@@ -1,34 +1,60 @@
 @import '@/styles/_shared.scss';
 
+:global(.product-accordions) {
+  .product-details {
+    margin: 0;
+  }
+}
+
+:global(.product.gift-subscription-product) {
+  .product-details {
+    margin: 30px 0;
+  }
+}
+
 .product-details {
-  margin: 60px 0;
-  position: relative;
-  @include breakpoint-up('md') {
-    margin: 100px 0;
-  }
+  margin: 30px 0;
+  border-bottom: 1px solid $black20;
+  padding: 20px 0;
   @include breakpoint-up('lg') {
-    margin: 140px 0;
+    margin: 60px 0;
   }
-  &.pdp-drawer__product-details {
+  &.disable-toggle {
+    h4 {
+      cursor: auto;
+      svg {
+        display: none;
+      }
+    }
+  }
+  h4 {
+    cursor: pointer;
+    position: relative;
+  }
+  svg {
+    width: 17px;
+    height: 17px;
+    position: absolute;
+    top: 3px;
+    right: 0;
     @include breakpoint-up('md') {
-      margin: 60px 0;
+      width: 23px;
+      height: 23px;
+      top: 5px;
     }
-    .faq__container {
-      width: 100%;
-      @include breakpoint-up('lg') {
-        flex-wrap: wrap;
-        flex-direction: column;
+    @include breakpoint-up('xl') {
+      top: 11.5px;
+    }
+    * {
+      fill: $sitkablue;
+    }
+    &.minus {
+      top: 3.5px;
+      @include breakpoint-up('md') {
+        top: 5.5px;
       }
-    }
-    .faq__header {
-      @include breakpoint-up('lg') {
-        margin-bottom: 40px;
-      }
-    }
-    .faq__content {
-      @include breakpoint-up('lg') {
-        max-width: none;
-        padding-left: 0;
+      @include breakpoint-up('xl') {
+        top: 12px;
       }
     }
   }

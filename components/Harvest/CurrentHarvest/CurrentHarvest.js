@@ -9,13 +9,16 @@ import HarvestCard from "../HarvestCard"
 
 // Used for both CURRENT SELLING HARVEST AND CURRENT MONTH HARVEST: _type inside of fields will dicate this
 const CurrentHarvest = ({ fields }) => {
+
+    console.log("fields:", fields)
+
   const { header, description, harvestList, illustration, _type, alt } = fields
   const [harvestListMonths, setHarvestListMonths] = useState(harvestList[0].months)
   const [activeTab, setActiveTab] = useState(harvestList[0])
   const [currentMonth, setCurrentMonth] = useState(null)
   const [currentYear, setCurrentYear] = useState(null)
   const [currentDate, setCurrentDate] = useState(null)
-  
+
   useEffect(() => {
     // make reusable
     const month = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]

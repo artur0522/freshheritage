@@ -35,7 +35,7 @@ import Accordion from '../Accordion'
 import ReviewsCarousel from '@/components/Sections/ReviewsCarousel'
 import FishermenPartners from '../FishermenPartners'
 
-const ContentSections = ({ sections, harvestMetafield}) => {
+const ContentSections = ({ sections, harvestMetafield, harvests, disableHarvestFilters}) => {
   const router = useRouter()
 
   if (harvestMetafield === undefined && router.pathname.includes('/products')) {
@@ -83,6 +83,12 @@ const ContentSections = ({ sections, harvestMetafield}) => {
       case 'projectedHarvest':
         if(harvestMetafield) {
           return <ProjectedHarvest fields={section} key={section._key} />
+        } else if (harvests) {
+          section = {
+            ...section,
+            harvestList: harvests
+          }
+          return <ProjectedHarvest fields={section} disableHarvestFilters={disableHarvestFilters} key={section._key} />
         } else {
           return null
         }

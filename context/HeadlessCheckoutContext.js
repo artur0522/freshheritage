@@ -445,31 +445,31 @@ export function HeadlessCheckoutProvider({ children }) {
     //   platform_id: '39396153295034'
     // }
 
-    const { line_item_key, platform_id, quantity, line_item_properties } = payload
+    // const { line_item_key, platform_id, quantity, line_item_properties } = payload
 
-    const waitfirst = await updateOrderMetaData({
-      "cart_parameters": {
-        "bold_subscriptions": {
-          "line_items_subscription_info": [
-            {
-              "line_item_id": `${platform_id}-${line_item_key}`,
-              "variant_id": Number(platform_id),
-              "quantity": quantity,
-              "subscription_group_id": Number(line_item_properties.sub_group_id),
-              "interval_id": Number(line_item_properties.interval_id),
-              "interval_text": "Monthly",
-              "prepaid_selected": true,
-              "prepaid_duration_id": 20470,
-              "full_price": 15900
-            }
-          ]
-        }
-      },
-      "note_attributes": {
-        "staff_notes": "SUBSCRIPTION"
-      },
-      "tags": ['bold-subscription', 'prepaid-subscription']
-    })
+    // const waitfirst = await updateOrderMetaData({
+    //   "cart_parameters": {
+    //     "bold_subscriptions": {
+    //       "line_items_subscription_info": [
+    //         {
+    //           "line_item_id": `${platform_id}-${line_item_key}`,
+    //           "variant_id": Number(platform_id),
+    //           "quantity": quantity,
+    //           "subscription_group_id": Number(line_item_properties.sub_group_id),
+    //           "interval_id": Number(line_item_properties.interval_id),
+    //           "interval_text": "Monthly",
+    //           "prepaid_selected": true,
+    //           "prepaid_duration_id": 20470,
+    //           "full_price": 15900
+    //         }
+    //       ]
+    //     }
+    //   },
+    //   "note_attributes": {
+    //     "staff_notes": "SUBSCRIPTION"
+    //   },
+    //   "tags": ['bold-subscription', 'prepaid-subscription']
+    // })
 
     const { jwt, public_order_id } = JSON.parse(
       localStorage.getItem('checkout_data'),

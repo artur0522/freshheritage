@@ -85,4 +85,8 @@
 
 .faq__items {
   list-style: none;
+  cursor: pointer;
+  @include breakpoint-up('md') {
+    margin-top: -35px;
+  }
 }

@@ -77,6 +77,7 @@ const StandardContent = forwardRef(({fields, products}, ref) => {
         </p>)
       },
       productBlock: ({value}) => {
+        if (!products || products.length < 1) return <></>
         const product = products.find(product => product.content.handle === value.product)
         return <ArticleProduct product={product} parentClasses={classes} />
       },

@@ -45,16 +45,26 @@
     }
   }
   .article-related-item-list {
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
+    @include breakpoint-up('md') {
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      margin: 20px 0 0;
+      justify-content: space-between;
+    }
     li {
       display: flex;
-      margin-bottom: 0;
+      @include breakpoint-up('md') {
+        margin: 0 0 30px;
+        width: 100%;
+        max-width: 370px;
+        &:last-child {
+          margin: 0 0 30px;
+        }
+      }
       @include breakpoint-up('xl') {
-        max-width: 50%;
-        margin-right: 30px;
+        width: calc(50% - 15px);
+        max-width: none;
       }
     }
   }

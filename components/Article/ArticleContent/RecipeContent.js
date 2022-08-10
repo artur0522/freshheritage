@@ -19,24 +19,65 @@ const RecipeContent = forwardRef(({fields, products}, ref) => {
           return <h1 ref={ref.current[children[0]]}>{children}</h1>
         }
         return <h1>{children}</h1>
+      },
+      blockquote: ({children}) => {
+        return <div className={classes['article-blockquote']}>
+          <div className={classes['article-blockquote__bracket-outer']}></div>
+          <div className={classes['article-blockquote__bracket-upper']}></div>
+          <div className={classes['article-blockquote__bracket-lower']}></div>
+          <blockquote>{children}</blockquote>
+        </div>
       }
     },
     marks: {
       arrowLink: ({ children, value }) => (<Link href={value.href || ''}>
         <a className={classes['article-section__arrow-link']}>{children}<IconCaretThin /></a>
       </Link>),
-      buttonLink: ({ children, value }) => (<Link href={value.href}>
-        <a className={`${classes['article-ingredient__btn-link']} btn salmon`}>{children}</a>
-      </Link>)
+      buttonLink: ({ children, value }) => {
+        return <Link href={value.href}>
+          <a className={`${classes['article-ingredient__btn-link']} btn salmon`}>{children}</a>
+        </Link>
+      },
+      color: ({ children, value}) => {
+        return <span style={{'color': value.hex }}>{children}</span>
+      },
+      link: ({children, value}) => {
+        if (value.href.includes('mailto')) {
+          return <a rel="noreferrer noopener" href={value.href} target="_blank">{children}</a>
+        }
+        return (
+          <Link href={value.href}>
+            <a>{children}</a>
+          </Link>
+        )
+      }
     },
     types: {
       image: ({value}) => {
+        if (value.link) {
+          return <div className={classes['article-section__image']}>
+            <Link href={value.link}>
+              <a>
+                <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />
+              </a>
+            </Link>
+            {value.caption && <span className={classes['article-section__image-caption']}>{value.caption}</span>}
+          </div>
+        }
+
         return (
           <div className={classes['article-section__image']}>
             <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />
             {value.caption && <span className={classes['article-section__image-caption']}>{value.caption}</span>}
           </div>
         )
+      },
+      iconWithTextBlock: ({value}) => {
+        const iconUrl = value.icon?.image.asset.url
+        return (<p className={classes['article-section__cooking-tool']}>
+          <span className={classes['article-section__cooking-tool-icon']}><Image src={iconUrl} layout="fill" alt={value.text} /></span>
+          <span className={classes['article-section__cooking-tool-text']}>{value.text}</span>
+        </p>)
       },
       productBlock: ({value}) => {
         const product = products.find(product => product.content.handle === value.product)
@@ -48,14 +89,6 @@ const RecipeContent = forwardRef(({fields, products}, ref) => {
     },
     listItem: {
       bullet: ({children}) => {
-        const button = children[2]
-        if (button) {
-          return (
-            <li className={classes['article-ingredient--with-btn']}>
-              <span><p>{children.slice(0, 2)}</p></span><div>{button}</div>
-            </li>
-          )
-        }
         return (
           <li>
             <p>{children}</p>

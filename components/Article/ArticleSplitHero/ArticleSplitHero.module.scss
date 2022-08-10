@@ -3,7 +3,7 @@
 :global(.article-cooking-guide) {
   .article-hero__content {
     @include breakpoint-up('md') {
-      width: 44%;
+      width: 45.5%;
     }
   }
   .article-hero__content-inner {
@@ -14,7 +14,7 @@
   }
   .article-hero__image-wrapper {
     @include breakpoint-up('md') {
-      width: 56%;
+      width: 54.5%;
       height: 100%;
       transition: 0.5s ease-in-out height;
       order: -1;

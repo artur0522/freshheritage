@@ -10,6 +10,13 @@
   }
 }
 
+:global(.article-sidebar) {
+  .email-signup__text-success {
+    display: block;
+    text-align: left;
+  }
+}
+
 .email-signup {
   width: 100%;
   height: 100%;
@@ -34,6 +41,7 @@
   }
   button {
     height: 48px;
+    min-width: auto;
     @include breakpoint-up('md') {
       max-width: 220px;
     }

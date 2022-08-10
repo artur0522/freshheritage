@@ -8,7 +8,7 @@ import IconCaretThin from '@/svgs/caret-thin.svg'
 import ArticleProduct from '../ArticleProduct'
 import ArticleSocialSharing from '../ArticleSocialSharing'
 
-const RecipeContent = forwardRef(({fields, product}, ref) => {
+const RecipeContent = forwardRef(({fields, products}, ref) => {
 
   const { description, content } = fields
 
@@ -38,9 +38,10 @@ const RecipeContent = forwardRef(({fields, product}, ref) => {
           </div>
         )
       },
-      productBlock: () => (
-        <ArticleProduct product={product} parentClasses={classes} />
-      )
+      productBlock: ({value}) => {
+        const product = products.find(product => product.content.handle === value.product)
+        return <ArticleProduct product={product} parentClasses={classes} />
+      }
     },
     list: {
       bullet: ({children}) => (<ul className={classes['article-ingredients']}>{children}</ul>)

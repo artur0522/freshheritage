@@ -11,7 +11,7 @@ import IconKnife from '@/svgs/knife.svg'
 import IconPan from '@/svgs/pan.svg'
 import Video from '@/components/Video'
 
-const StandardContent = forwardRef(({fields, product}, ref) => {
+const StandardContent = forwardRef(({fields, products}, ref) => {
 
   const { content } = fields
 
@@ -40,9 +40,10 @@ const StandardContent = forwardRef(({fields, product}, ref) => {
           <span className={classes['article-section__cooking-tool-text']}>{value.text}</span>
         </p>)
       },
-      productBlock: () => (
-        <ArticleProduct product={product} parentClasses={classes} />
-      ),
+      productBlock: ({value}) => {
+        const product = products.find(product => product.content.handle === value.product)
+        return <ArticleProduct product={product} parentClasses={classes} />
+      },
       youtubeVideoBlock: ({value}) => <Video youtubeVideoId={value.youtubeVideoId} autoplay={false} startVideo="true" className={classes['article-section__video']} />
     },
     listItem: {

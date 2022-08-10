@@ -8,6 +8,7 @@ import IconStar from '@/svgs/empty-star.svg'
 import IconCaretThin from '@/svgs/caret-thin.svg'
 import ArticleProduct from '../ArticleProduct'
 import ArticleSocialSharing from '../ArticleSocialSharing'
+import Video from '@/components/Video'
 
 const RecipeContent = forwardRef(({fields, products}, ref) => {
 
@@ -16,8 +17,9 @@ const RecipeContent = forwardRef(({fields, products}, ref) => {
   const myPortableTextComponents = {
     block: {
       h1: ({children}) => {
-        if (ref.current[children[0]]) {
-          return <h1 ref={ref.current[children[0]]}>{children}</h1>
+        const h1Text = (typeof children[0] !== 'object') ? children[0] : children[0].props.text
+        if (h1Text && ref.current[h1Text]) {
+          return <h1 ref={ref.current[h1Text]}>{children}</h1>
         }
         return <h1>{children}</h1>
       },
@@ -84,7 +86,8 @@ const RecipeContent = forwardRef(({fields, products}, ref) => {
         if (!products || products.length < 1) return <></>
         const product = products.find(product => product.content.handle === value.product)
         return <ArticleProduct product={product} parentClasses={classes} />
-      }
+      },
+      youtubeVideoBlock: ({value}) => <Video youtubeVideoId={value.youtubeVideoId} autoplay={false} startVideo="true" className={classes['article-section__video']} />
     },
     list: {
       bullet: ({children}) => (<ul className={classes['article-ingredients']}>{children}</ul>)

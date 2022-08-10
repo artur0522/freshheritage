@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react'
 import ResponsiveImage from '@/components/ResponsiveImage'
+import Image from 'next/image'
 import { PortableText } from '@portabletext/react'
 import classes from './ArticleContent.module.scss'
 import Link from 'next/link'

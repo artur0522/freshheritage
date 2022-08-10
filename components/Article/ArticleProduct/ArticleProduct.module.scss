@@ -21,10 +21,18 @@
   .article-product__image {
     width: 100%;
     margin-bottom: 10px;
+    position: relative;
+    height: 100%;
+    padding-bottom: 52%;
     @include breakpoint-up('md') {
       flex-basis: 215px;
       width: 215px;
       margin: 0;
+      height: auto;
+    }
+    img {
+      border-radius: 12px;
+      object-fit: cover;
     }
   }
 

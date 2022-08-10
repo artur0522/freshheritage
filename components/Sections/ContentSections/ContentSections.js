@@ -146,6 +146,8 @@ const ContentSections = ({ sections, harvestMetafield, harvests, disableHarvestF
         return <Accordion fields={section} key={section._key} />
       case 'featuredFishCarousel':
         return <FeaturedFishCarousel fields={section} key={section._key} />
+      case 'featuredFishermenCarousel':
+        return <FeaturedFishCarousel fields={section} key={section._key} />
       case 'allKnowYourFishBlock':
         return <AllKnowYourFishblock fields={section} key={section._key} />
       case 'reviewsCarousel':

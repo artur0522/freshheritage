@@ -1,4 +1,5 @@
 import { useRef, useState, useCallback } from 'react'
+import FishermenCard from '@/components/Cards/FishermenCard/FishermenCard'
 import classes from './FeaturedFishCarousel.module.scss'
 import imageUrlBuilder from '@sanity/image-url'
 import { sanityClient } from 'services'
@@ -34,19 +35,19 @@ const FeaturedFishCarousel = ({fields}) => {
     return builder.image(source)
   }
 
-  const { header, subheader, featuredFishes } = fields
+  const { header, subheader, featuredFishes, featuredFishermen } = fields
 
   return (
     <div className={classes['featured-fish-carousel']}>
       <div className={`${classes['featured-fish-carousel__header']} container`}>
         {header && <h2 className="h1">{header}</h2>}
         {subheader && <p>{subheader}</p>}
-        {featuredFishes.length >= 4 && <div className={classes['featured-fish-carousel__nav-btns']}>
+        {featuredFishes?.length >= 4 || featuredFishermen?.length >= 4 ? <div className={classes['featured-fish-carousel__nav-btns']}>
           <button className={classes['featured-fish-carousel__nav-btn']} onClick={handlePrev} ref={prevSlideBtnRef}><IconArrowLeft /></button>
           <button className={classes['featured-fish-carousel__nav-btn']} onClick={handleNext} ref={nextSlideBtnRef}><IconArrowLeft /></button>
-        </div>}
+        </div> : null} 
       </div>
-      {featuredFishes.length > 0 &&
+      {featuredFishes?.length > 0 || featuredFishermen?.length > 0 ?
         <Swiper
           ref={sliderRef}
           slidesPerView={'auto'}
@@ -72,7 +73,7 @@ const FeaturedFishCarousel = ({fields}) => {
             }
           }}
           className={classes['featured-fish-carousel__item-list']}>
-            {featuredFishes.map(item => {
+            {featuredFishes?.map(item => {
 
               const { header, peakSeason, image } = item
 
@@ -98,10 +99,14 @@ const FeaturedFishCarousel = ({fields}) => {
                 </div>
               </SwiperSlide>
             })}
-        </Swiper>
 
+            {featuredFishermen?.map(item => {
+              return <SwiperSlide className={classes['featured-fish-carousel__item']} key={item._id}>
+                <FishermenCard article={item}/>
+              </SwiperSlide>
+            })}
 
-      }
+        </Swiper> : null}
     </div>
   )
 }

@@ -1,7 +1,8 @@
 import React from 'react'
 import EmailSignup from '@/components/EmailSignup'
+import classes from '@/components/Layout/Footer/Footer.module.scss'
 
-const FooterTop = ({props, classes}) => {
+const EmailSignupBlock = ({props}) => {
 
   const { header, description } = props.emailSignup
 
@@ -21,4 +22,4 @@ const FooterTop = ({props, classes}) => {
   )
 }
 
-export default FooterTop
+export default EmailSignupBlock

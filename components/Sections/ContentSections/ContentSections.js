@@ -18,7 +18,7 @@ import FAQs from '@/components/Sections/FAQs'
 import BlogHero from "@/components/Sections/BlogHero"
 import RecipeCategoriesList from '@/components/Sections/RecipeCategoriesList'
 import HalfHeroHalfSlider from '@/components/Sections/HalfHeroHalfSlider'
-import EmailSignup from '../../EmailSignup'
+import EmailSignupBlock from '@/components/Sections/EmailSignupBlock'
 import BrowseCategory from '@/components/Sections/BrowseCategory'
 import ArticleRow from '@/components/Sections/ArticleRow'
 import HalfVideoBlock from '@/components/Sections/HalfVideoBlock'
@@ -113,7 +113,13 @@ const ContentSections = ({ sections, harvestMetafield, harvests, disableHarvestF
       case 'halfHeroHalfSlider':
         return <HalfHeroHalfSlider fields={section} key={section._key} />
       case 'emailSignup':
-        return <EmailSignup props={section} key={section._key} />
+        return <div className="bg-color--fawn">
+          <div className="container">
+            <EmailSignupBlock props={{
+              emailSignup: section
+            }} key={section._key} />
+          </div>
+        </div>
       case 'browseCategory':
         return <BrowseCategory fields={section} key={section._key} />
       case 'articleRow':

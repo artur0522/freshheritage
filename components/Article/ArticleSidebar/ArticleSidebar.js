@@ -38,7 +38,7 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
   }, [])
 
   return (
-    <div className={`${classes['article-sidebar']} ${isSidebarOpen ? classes['is-open'] : ''}`}>
+    <div className={`article-sidebar ${classes['article-sidebar']} ${isSidebarOpen ? classes['is-open'] : ''}`}>
 
       <div className={classes['article-sidebar__header']}>
         <button onClick={() => setIsSidebarOpen()}><IconCaret /><span>Back</span></button>

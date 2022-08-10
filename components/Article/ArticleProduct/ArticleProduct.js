@@ -17,13 +17,13 @@ const ArticleProduct = ({product, parentClasses}) => {
     {query: '(min-width: 1074px)'}
   )
 
-  if (!product || !product.content) {
-    return ''
-  }
-
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  if (!product || !product.content) {
+    return ''
+  }
 
   return (
     <div className={`${classes['article-product']} ${parentClasses['article-section']}`}>

@@ -27,11 +27,13 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) 
   useEffect(() => {
     setMounted(true)
 
-    const onRountChangeComplete = () => {     
-      if(router.asPath === '/pages/how-it-works' || router.asPath === '/pages/choose-your-plan' || router.asPath === '/pages/customize-your-plan' || router.asPath === '/pages/intro-box' || router.asPath === '/collections/one-time-boxes' || router.asPath === '/collections/gifts' || router.pathname === '/products/[handle]' || router.asPath === '/checkout' || router.asPath === '/pages/contact' && mounted) {
-        document.getElementById('launcher').style.display = 'block'
-      } else {
-        document.getElementById('launcher').style.display = 'none'
+    const onRountChangeComplete = () => {
+      if (document.getElementById('launcher')) {
+        if(router.asPath === '/pages/how-it-works' || router.asPath === '/pages/choose-your-plan' || router.asPath === '/pages/customize-your-plan' || router.asPath === '/pages/intro-box' || router.asPath === '/collections/one-time-boxes' || router.asPath === '/collections/gifts' || router.pathname === '/products/[handle]' || router.asPath === '/checkout' || router.asPath === '/pages/contact' && mounted) {
+          document.getElementById('launcher').style.display = 'block'
+        } else {
+          document.getElementById('launcher').style.display = 'none'
+        }
       }
     }
     Router.events.on('routeChangeComplete', onRountChangeComplete)
@@ -51,7 +53,7 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) 
       </Script>}
 
       {mounted && router.asPath === '/pages/how-it-works' || router.asPath === '/pages/choose-your-plan' || router.asPath === '/pages/customize-your-plan' || router.asPath === '/pages/intro-box' || router.asPath === '/collections/one-time-boxes' || router.asPath === '/collections/gifts' || router.pathname === '/products/[handle]' || router.asPath === '/checkout' || router.asPath === '/pages/contact' ? <Script
-        id="ze-snippet" 
+        id="ze-snippet"
         src={`https://static.zdassets.com/ekr/snippet.js?key=${process.env.NEXT_PUBLIC_ZENDESK_KEY}`}
         strategy="lazyOnload"
       ></Script> : null}

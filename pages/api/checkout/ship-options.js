@@ -26,11 +26,11 @@ export default async function handler(req, res) {
       res.status(500);
     }
   } catch (e) {
-    console.log(e)
+    console.log(e);
     res.json({
       message: 'something went wrong',
       error: e
-    })
+    });
   }
   res.send();
 }

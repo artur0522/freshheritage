@@ -4,18 +4,19 @@ import { useCustomerContext } from './CustomerContext'
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router'
 import { isEqual } from 'lodash-es';
-const HeadlessCheckoutContext = createContext()
+const HeadlessCheckoutContext = createContext();
 
 export function useHeadlessCheckoutContext() {
-  return useContext(HeadlessCheckoutContext)
+  return useContext(HeadlessCheckoutContext);
 }
 
 export function HeadlessCheckoutProvider({ children }) {
-  const router = useRouter()
-  const [data, setData] = useState(null)
+  const router = useRouter();
+  const [data, setData] = useState(null);
   const [PIGIMediaRules, setPIGIMediaRules] = useState([]);
-  const [flyoutState, setFlyoutState] = useState(false)
-  const { customer } = useCustomerContext()
+  const [flyoutState, setFlyoutState] = useState(false);
+  const { customer } = useCustomerContext();
+  const [shipOptionMetadata, setShipOptionMetadata] = useState(undefined);
 
   function saveDataInLocalStorage(data) {
     const checkoutData = {
@@ -259,7 +260,7 @@ export function HeadlessCheckoutProvider({ children }) {
     }
 
     const res = await fetch(
-      `${process.env.checkoutUrl}/api/checkout/initialize-otp`,
+      `${process.env.NEXT_PUBLIC_CHECKOUT_URL}/api/checkout/initialize-otp`,
       {
         method: 'POST',
         body: JSON.stringify(payload),
@@ -602,6 +603,24 @@ export function HeadlessCheckoutProvider({ children }) {
     if (!flyoutState) document.querySelector('html').classList.remove('disable-scroll')
   }, [flyoutState]);
 
+  async function refreshShipOptionData(zip) {
+    console.log('refresh ship options', zip)
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_CHECKOUT_URL}/api/checkout/ship-options`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({zip}),
+      },
+    )
+
+    const shipOptions = await response.json();
+    setShipOptionMetadata(shipOptions);
+    console.log('shipOptionMetadata: ', shipOptions)
+  }
+
   return (
     <HeadlessCheckoutContext.Provider
       value={{
@@ -618,7 +637,9 @@ export function HeadlessCheckoutProvider({ children }) {
         updateOrderMetaData,
         addCustomerToOrder,
         removeCustomerFromOrder,
-        PIGIMediaRules
+        PIGIMediaRules,
+        shipOptionMetadata,
+        refreshShipOptionData,
       }}
     >
       <CheckoutFlyout />

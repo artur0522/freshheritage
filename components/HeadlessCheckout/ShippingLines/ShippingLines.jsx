@@ -9,7 +9,9 @@ import { LoadingState } from '../LoadingState';
 import { ShippingLineList, EmptyShippingLines } from './components';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';
-import IconSelectArrow from '@/svgs/select-arrow.svg'
+import IconSelectArrow from '@/svgs/select-arrow.svg';
+import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
+import { useCustomerContext } from '@/context/CustomerContext';
 
 const ShippingLines = ({ applicationLoading }) => {
   const { data, updateShippingLine, getShippingLines } = useShippingLines();
@@ -19,10 +21,12 @@ const ShippingLines = ({ applicationLoading }) => {
   const shippingAddressErrors = errors.shippingAddress;
   const selectedCountryCode = shippingAddress?.country_code;
   const shippingAddressLoadingStatus = loadingStatus.shippingAddress;
+  const { shipOptionMetadata } = useHeadlessCheckoutContext();
   const showShippingLines =
     selectedCountryCode &&
     !shippingAddressErrors &&
-    shippingAddressLoadingStatus !== 'incomplete';
+    shippingAddressLoadingStatus !== 'incomplete' &&
+    !!shipOptionMetadata;
   const loading =
     loadingStatus.shippingAddress === 'setting' ||
     loadingStatus.shippingLines === 'fetching' ||
@@ -53,10 +57,13 @@ const MemoizedShippingLines = memo(
     const logError = useErrorLogging();
     const [shippingLineIndex, setShippingLineIndex] =
       useState(selectedShippingLine);
+    const [shipWeekPreference, setShipWeekPreference] = useState('');
     const [errors, setErrors] = useState(null);
     const [loading, setLoading] = useState(false);
     const [shippingMethodOpen, setShippingMethodOpen] = useState(true);
     const { t } = useTranslation();
+    const { shipOptionMetadata } = useHeadlessCheckoutContext();
+    const { customer } = useCustomerContext();
 
     // Only ever called on checkout page load - not called each time shipping lines are updated
     const refreshShippingLines = useCallback(async () => {
@@ -84,6 +91,7 @@ const MemoizedShippingLines = memo(
 
     // Keep local state for selected shipping line in sync with server app state
     useEffect(() => {
+      // TODO: make sure this does not select an option that is not visible
       setShippingLineIndex(selectedShippingLine);
     }, [selectedShippingLine]);
 
@@ -102,6 +110,11 @@ const MemoizedShippingLines = memo(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const handleShipWeekChange = useCallback(async (shipWeek) => {
+      console.log('updating preference to: ', shipWeek);
+      setShipWeekPreference(shipWeek);
+    }, []);
+
     let content = null;
 
     if (appLoading) {
@@ -117,10 +130,33 @@ const MemoizedShippingLines = memo(
     } else {
       content = (
         <ShippingLineList
-          shippingLines={shippingLines}
+          shippingLines={shippingLines
+            .map(line => {
+              switch(line.description) {
+                case 'Bundle with Next Order':
+                  if (!!shipOptionMetadata.bundled && !!customer) {
+                    line.showOption = true;
+                    line.estimatedDeliveryDate = shipOptionMetadata.bundled.estimatedDeliveryDate;
+                  }
+                  else line.showOption = false;
+                  break;
+                case 'Standard':
+                  line.showOption = true;
+                  line.options = shipOptionMetadata.standard;
+                  break;
+                case 'Expedited':
+                  line.showOption = true;
+                  line.estimatedDeliveryDate = shipOptionMetadata.expedited.estimatedDeliveryDate;
+                  break;
+              }
+              return line;
+            })
+          }
           selectedShippingLine={shippingLineIndex}
           onChange={handleChange}
           disabled={loading}
+          selectedStandardShipWeek={shipWeekPreference}
+          onStandardShipWeekChange={handleShipWeekChange}
         />
       );
     }

@@ -2,7 +2,8 @@ import {
   useBillingAddress,
   useCheckoutStore,
   useLineItems,
-  usePaymentIframe
+  usePaymentIframe,
+  useCustomer
 } from '@boldcommerce/checkout-react-components';
 // import { useNavigate } from 'react-router-dom';
 import { useRouter } from 'next/router';
@@ -16,6 +17,7 @@ const CheckoutButton = () => {
   const { state } = useCheckoutStore();
   const { data: lineItems } = useLineItems();
   const { data: billingAddress } = useBillingAddress();
+  const { data: customer } = useCustomer()
   const { orderStatus } = state.orderInfo;
   const processing =
     orderStatus === 'processing' || orderStatus === 'authorizing';
@@ -26,6 +28,7 @@ const CheckoutButton = () => {
       processing={processing}
       hasBillingAddress={!!billingAddress.country_code}
       lineItems={lineItems}
+      customer={customer}
       appLoading={state.loadingStatus.isLoading}
     />
   );
@@ -33,7 +36,7 @@ const CheckoutButton = () => {
 
 // eslint-disable-next-line react/display-name
 const MemoizedCheckoutButton = memo(
-  ({ processOrder, processing, hasBillingAddress, lineItems, appLoading }) => {
+  ({ processOrder, processing, hasBillingAddress, lineItems, customer, appLoading }) => {
     const trackEvent = useAnalytics();
     const logError = useErrorLogging();
     const navigate = useRouter();
@@ -97,7 +100,7 @@ const MemoizedCheckoutButton = memo(
         className="checkout__cta-btn btn salmon"
         onClick={handleProcessPayment}
         loading={loading.toString() || processing.toString()}
-        disabled={!hasBillingAddress || processing || appLoading}
+        disabled={!hasBillingAddress || !customer?.email_address || processing || appLoading}
       >
         {t('complete_order')}
       </button>

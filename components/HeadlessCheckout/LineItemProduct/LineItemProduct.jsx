@@ -107,9 +107,11 @@ const LineItemProduct = ({ item, children, readOnly }) => {
             <div className="order-item__detail-item">
               {item.properties.preference ? (
                 <div className="order-item__preference">{item.properties.preference}</div>
-              ):(
+              ):(!isSubscription ? (
                 buildQtySelector(item)
-              )}
+              ):(
+                <div></div>
+              ))}
               {item.properties.product_weight && item.properties.product_weight != '' &&
                 <div className="order-item__weight">
                   <span className="weight-per-unit">4.5lbs / box</span>

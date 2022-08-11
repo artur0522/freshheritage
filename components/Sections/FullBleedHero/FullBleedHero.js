@@ -14,7 +14,7 @@ const FullBleedHero = ({ fields }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
 
-  let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage, imageBrightness, alt, youtubeVideoId, topMargin, bottomMargin } = fields
+  let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage, imageBrightness, alt, youtubeVideoId, topMargin, bottomMargin, fixedImage } = fields
 
   const showVideo = () => {
     setStartVideo(true)
@@ -62,8 +62,8 @@ const FullBleedHero = ({ fields }) => {
         </div>
       </div>
 
-      {isMobile && mounted && mobileBackgroundImage && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--mbl']}`}>
-        {heroStyle === 'hero--center-transparent' ?
+      {isMobile && mounted && mobileBackgroundImage && <div className={`${classes['hero__wrap']} ${fixedImage ? classes['hero__wrap--mbl'] : ''}`}>
+        {fixedImage ?
           <Image className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} /> :
           <ResponsiveImage className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} />
         }

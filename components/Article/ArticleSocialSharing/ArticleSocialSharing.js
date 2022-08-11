@@ -17,13 +17,14 @@ const ArticleSocialSharing = ({ seo }) => {
 
   const [mounted, setMounted] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
+  const [showSharingItems, setShowSharingItems] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })
   const isDesktop = useMediaQuery(
     {query: '(min-width: 1074px)'}
   )
   const { setIsSidebarOpen } = useArticleContext()
   const router = useRouter()
-  const url = `https://${process.env.NEXT_PUBLIC_MYSHOPIFY_DOMAIN}${router.asPath}`
+  const url = `${process.env.NEXT_PUBLIC_CHECKOUT_URL}${router.asPath}`
 
   useEffect(() => {
     setMounted(true)
@@ -57,13 +58,24 @@ const ArticleSocialSharing = ({ seo }) => {
       </li> */}
       <li>
         <div
-          onMouseEnter={() => setIsHovered(true)}
+          onMouseEnter={() => {
+            setIsHovered(true)
+            setShowSharingItems(true)
+          }}
           onMouseLeave={() => setIsHovered(false)}
           onClick={() => setIsHovered(!isHovered)}
           className={`${classes['article-social-sharing-btn']} ${classes['share-btn']}`}>
           <IconShare />
           <span>Share</span>
-          {isHovered && <ul className={classes['article-social-sharing-items']}>
+          {(isHovered || showSharingItems) && <ul
+            onMouseEnter={() => {
+              setIsHovered(true)
+              setShowSharingItems(true)
+            }}
+            onMouseLeave={() => {
+              setShowSharingItems(false)
+            }}
+            className={classes['article-social-sharing-items']}>
             <li>
               <button onClick={() => shareNetwork('facebook', url)}>
                 <IconShareFacebook />

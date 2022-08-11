@@ -5,7 +5,7 @@ import StandardContent from '../ArticleContent/StandardContent'
 import RecipeContent from '../ArticleContent/RecipeContent'
 import ArticleSidebar from '../ArticleSidebar'
 
-const ArticleMain = forwardRef(({contentType, fields, product, showNav = false, showSidebar = false, blogGlobalSettings}, ref) => {
+const ArticleMain = forwardRef(({contentType, fields, products, showNav = false, showSidebar = false, blogGlobalSettings}, ref) => {
 
   const h1blocks = fields.content?.filter(item => item.style === 'h1')
 
@@ -21,9 +21,9 @@ const ArticleMain = forwardRef(({contentType, fields, product, showNav = false, 
   const getContent = (type) => {
     switch(type) {
       case 'recipe':
-        return <RecipeContent ref={refs} fields={fields} product={product} />
+        return <RecipeContent ref={refs} fields={fields} products={products} />
       case 'standard':
-        return <StandardContent ref={refs} fields={fields} product={product} />
+        return <StandardContent ref={refs} fields={fields} products={products} />
       default:
         return ''
     }

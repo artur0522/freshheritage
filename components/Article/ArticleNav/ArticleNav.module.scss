@@ -12,9 +12,14 @@
   .article-nav-list {
     @include breakpoint-up('md') {
       width: calc(100% - 40px);
+      max-width: calc(45.5% - 40px);
+      margin-left: 40px;
+      overflow: scroll;
     }
     @include breakpoint-up('lg') {
       width: calc(100% - 120px);
+      max-width: calc(45.5% - 120px);
+      margin-left: 120px;
     }
     li {
       margin-right: 30px;
@@ -27,7 +32,12 @@
         margin-right: 50px;
       }
       &:last-child {
-        margin: 0;
+        @include breakpoint-up('md') {
+          margin-right: 30px;
+        }
+        @include breakpoint-up('lg') {
+          margin-right: 50px;
+        }
       }
       button {
         font-size: 14px;

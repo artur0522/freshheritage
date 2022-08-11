@@ -15,7 +15,7 @@ const Breadcrumb = () => {
 
   let itemListElements = urlPathArray.map((item, index) => {
     const path = urlPathArray.filter((_, itemIndex) => itemIndex <= index).join('/')
-    const url = `https://${process.env.NEXT_PUBLIC_MYSHOPIFY_DOMAIN}/${path}`
+    const url = `${process.env.NEXT_PUBLIC_CHECKOUT_URL}/${path}`
     return {
       position: index + 1,
       name: item,

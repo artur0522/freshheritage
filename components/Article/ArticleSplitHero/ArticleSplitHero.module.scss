@@ -3,7 +3,7 @@
 :global(.article-cooking-guide) {
   .article-hero__content {
     @include breakpoint-up('md') {
-      width: 44%;
+      width: 45.5%;
     }
   }
   .article-hero__content-inner {
@@ -14,7 +14,7 @@
   }
   .article-hero__image-wrapper {
     @include breakpoint-up('md') {
-      width: 56%;
+      width: 54.5%;
       height: 100%;
       transition: 0.5s ease-in-out height;
       order: -1;
@@ -43,7 +43,8 @@
   @include breakpoint-up('xl') {
     min-height: 960px;
   }
-  &.article-hero--render-type-recipe {
+  &.article-hero--render-type-recipe,
+  &.article-hero--render-type-cooking-guide {
     .recipe-meta-details {
       display: flex;
     }
@@ -177,7 +178,7 @@
   margin-bottom: 30px;
   @include breakpoint-up('md') {
     padding-bottom: 24px;
-    margin-bottom: 80px;
+    margin-bottom: 40px;
   }
   a {
     font-size: 14px;

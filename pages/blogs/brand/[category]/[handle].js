@@ -10,7 +10,7 @@ import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
 
-const BrandArticle = ({ page, product, blogSettings, modals }) => {
+const BrandArticle = ({ page, products, blogSettings, modals }) => {
   const { hero, articleTags } = page.fields
   const blogType = page.fields.blog?.blogType
   const blogGlobalSettings = blogSettings ? { ...blogSettings.fields[blogType], blogType} : undefined
@@ -77,7 +77,7 @@ const BrandArticle = ({ page, product, blogSettings, modals }) => {
       <StructuredData type="article" data={page} />
       <PageSEO seo={page.fields.seo} />
       <ArticleSplitHero fields={hero} renderType="default" blogGlobalSettings={blogGlobalSettings} />
-      <ArticleMain contentType="standard" fields={page.fields} product={product} blogGlobalSettings={blogGlobalSettings} />
+      <ArticleMain contentType="standard" fields={page.fields} products={products} blogGlobalSettings={blogGlobalSettings} />
       <ContentSections sections={page.fields.pageContent} />
     </>
   )
@@ -164,7 +164,7 @@ export async function getStaticProps({ params }) {
       })
       if (data.products && data.products.length) {
         const products = data.products
-        props.product = products[0]
+        props.products = products.filter(product => product.tags.includes('Subscription Box'))
       }
     }
   }

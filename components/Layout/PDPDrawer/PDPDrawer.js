@@ -52,7 +52,7 @@ const PDPDrawer = ({box = undefined}) => {
                 <ProductMain box={box} timeout={timeout} />
               }
               {!!boxDetails.details &&
-                <ProductDetailsList fields={boxDetails.details} />
+                <ProductDetailsList fields={boxDetails.details} expandOnLoad={true} />
               }
               {!!boxDetails.stamps &&
                 <ProductStamps fields={boxDetails.stamps} product={product} />

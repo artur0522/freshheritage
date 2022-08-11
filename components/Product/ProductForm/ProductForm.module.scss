@@ -126,6 +126,7 @@
 
         @include breakpoint-up('md') {
             margin-top: 32px;
+            height: 60px;
         }
     }
 }

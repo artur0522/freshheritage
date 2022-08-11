@@ -11,7 +11,7 @@ import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import { useCustomerContext } from '@/context/CustomerContext'
 
 
-const RecipeArticle = ({ page, product, blogSettings, modals }) => {
+const RecipeArticle = ({ page, products, blogSettings, modals }) => {
 
   const { setContent } = useModalContext()
   const mainContentRef = useRef()
@@ -98,7 +98,7 @@ const RecipeArticle = ({ page, product, blogSettings, modals }) => {
         <StructuredData type="recipe" data={page} />
         <PageSEO seo={page.fields.seo} />
         <ArticleSplitHero fields={hero} renderType="recipe" blogGlobalSettings={blogGlobalSettings} />
-        <ArticleMain contentType="recipe" showNav={true} fields={page.fields} product={product} blogGlobalSettings={blogGlobalSettings} />
+        <ArticleMain contentType="recipe" showNav={true} fields={page.fields} products={products} blogGlobalSettings={blogGlobalSettings} />
         <ContentSections sections={page.fields.pageContent} />
       </>
     )
@@ -110,7 +110,7 @@ const RecipeArticle = ({ page, product, blogSettings, modals }) => {
         <StructuredData type="article" data={page} />
         <PageSEO seo={page.fields.seo} />
         <ArticleSplitHero fields={hero} renderType="default" blogGlobalSettings={blogGlobalSettings} />
-        <ArticleMain contentType="standard" fields={page.fields} product={product} blogGlobalSettings={blogGlobalSettings} />
+        <ArticleMain contentType="standard" fields={page.fields} products={products} blogGlobalSettings={blogGlobalSettings} />
         <ContentSections sections={page.fields.pageContent} />
       </>
     )
@@ -126,7 +126,7 @@ const RecipeArticle = ({ page, product, blogSettings, modals }) => {
         <StructuredData type="video" data={page} />
         <PageSEO seo={page.fields.seo} />
         <ArticleSplitHero ref={mainContentRef} fields={hero} renderType="cooking-guide" blogGlobalSettings={blogGlobalSettings} />
-        <ArticleMain ref={mainContentRef} contentType="standard" fields={page.fields} product={product} showNav={true} blogGlobalSettings={blogGlobalSettings} />
+        <ArticleMain ref={mainContentRef} contentType="standard" fields={page.fields} products={products} showNav={true} blogGlobalSettings={blogGlobalSettings} />
         <ContentSections sections={page.fields.pageContent} />
       </div>
     )
@@ -147,7 +147,7 @@ const RecipeArticle = ({ page, product, blogSettings, modals }) => {
         <StructuredData type="video" data={page} />
         <PageSEO seo={page.fields.seo} />
         <ArticleSplitHero fields={hero} renderType="cooking-class" blogGlobalSettings={blogGlobalSettings} />
-        <ArticleMain contentType="standard" fields={page.fields} product={product} blogGlobalSettings={blogGlobalSettings} />
+        <ArticleMain contentType="standard" fields={page.fields} products={products} blogGlobalSettings={blogGlobalSettings} />
         <ContentSections sections={page.fields.pageContent} />
       </>
     )
@@ -159,7 +159,7 @@ const RecipeArticle = ({ page, product, blogSettings, modals }) => {
       <StructuredData type="article" data={page} />
       <PageSEO seo={page.fields.seo} />
       <ArticleSplitHero fields={hero} renderType="default" blogGlobalSettings={blogGlobalSettings} />
-      <ArticleMain contentType="standard" fields={page.fields} product={product} blogGlobalSettings={blogGlobalSettings} />
+      <ArticleMain contentType="standard" fields={page.fields} products={products} blogGlobalSettings={blogGlobalSettings} />
       <ContentSections sections={page.fields.pageContent} />
     </>
   )
@@ -280,7 +280,7 @@ export async function getStaticProps({ params }) {
       })
       if (data.products && data.products.length) {
         const products = data.products
-        props.product = products[0]
+        props.products = products.filter(product => product.tags.includes('Subscription Box'))
       }
     }
   }

@@ -38,7 +38,7 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
   }, [])
 
   return (
-    <div className={`${classes['article-sidebar']} ${isSidebarOpen ? classes['is-open'] : ''}`}>
+    <div className={`article-sidebar ${classes['article-sidebar']} ${isSidebarOpen ? classes['is-open'] : ''}`}>
 
       <div className={classes['article-sidebar__header']}>
         <button onClick={() => setIsSidebarOpen()}><IconCaret /><span>Back</span></button>
@@ -98,7 +98,7 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
           </ul>
         </div>}
 
-        {blogGlobalSettings?.klaviyoListId && <div className={`${classes['article-email-signup']} ${classes['article-sidebar__section']}`}>
+        {blogGlobalSettings?.klaviyoListId && !classSignup && <div className={`${classes['article-email-signup']} ${classes['article-sidebar__section']}`}>
           <EmailSignup props={{
             title: 'Get Recipes & Stories Delivered To Your Inbox',
             ctaText: 'Join The List',

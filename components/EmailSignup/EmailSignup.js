@@ -9,7 +9,7 @@ const EmailSignup = ({ props }) => {
   const emailRef = useRef()
   const customCheckBoxRef = useRef()
 
-  const { title, ctaText, listId, customCheckbox, checkboxKlaviyoProperty } = props
+  const { title, ctaText, listId, customCheckbox } = props
 
   const responseHandler = (data) => {
     if (data.message === 'success') {
@@ -23,6 +23,7 @@ const EmailSignup = ({ props }) => {
 
   const submitForm = async (e) => {
     e.preventDefault()
+
     const response = await fetch('/api/klaviyo/klaviyo-add-to-list', {
       method: 'POST',
       headers: {
@@ -35,13 +36,13 @@ const EmailSignup = ({ props }) => {
     })
     .then(res => res.json())
     .then((data) => {
-      if (data.message === 'success' && customCheckBoxRef?.current.checked) {
+      if (data.message === 'success' && customCheckBoxRef?.current?.checked) {
         return true
       }
       responseHandler(data)
     })
 
-    if (customCheckBoxRef?.current.checked && response) {
+    if (customCheckBoxRef?.current?.checked && response) {
       fetch('/api/klaviyo/klaviyo-update-profile', {
         method: 'POST',
         headers: {

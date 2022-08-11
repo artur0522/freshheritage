@@ -292,6 +292,27 @@ export function HeadlessCheckoutProvider({ children }) {
     setData(data)
   }
 
+  async function refreshApplicationState(payload) {
+    console.log(payload)
+    const { jwt, public_order_id } = JSON.parse(
+      localStorage.getItem('checkout_data'),
+    )
+    const response = await fetch(
+      `https://api.boldcommerce.com/checkout/storefront/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/${public_order_id}/refresh`,
+      {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json',
+        },
+        method: 'GET',
+        body: JSON.stringify(payload),
+      },
+    )
+    const updatedData = await response.json()
+    console.log('received refreshed application state', updatedData)
+    return updatedData.data.application_state
+  }
+
   async function processBoldOrder() {
     const { public_order_id, jwt } = JSON.parse(
       localStorage.getItem('checkout_data'),
@@ -429,9 +450,11 @@ export function HeadlessCheckoutProvider({ children }) {
     )
     const updatedData = await response.json()
     console.log('response update line item', updatedData)
+    const applicationState = await refreshApplicationState()
+
     setData({
       ...data,
-      application_state: updatedData.data.application_state
+      application_state: applicationState
     })
 
     return updatedData
@@ -558,43 +581,44 @@ export function HeadlessCheckoutProvider({ children }) {
   }, [])
 
   useEffect(() => {
-    // if (!data) return false;
+    if (!data) return false;
 
-    // // if logged in and order does not have customer, add customer to order
-    // if (customer?.email && !data?.application_state?.customer?.email_address) {
-    //   addCustomerToOrder({
-    //     platform_id: customer.id.replace('gid://shopify/Customer/', ''),
-    //     first_name: customer.firstName,
-    //     last_name: customer.lastName,
-    //     email_address: customer.email,
-    //     accepts_marketing: customer.acceptsMarketing
-    //   })
-    //   .then(() => {
-    //     updateOrderMetaData({
-    //       cart_parameters: {
-    //         pre: {
-    //           customer_data: {
-    //             tags: customer.tags
-    //           }
-    //         }
-    //       }
-    //     })
-    //   })
-    // // if logged out and order has customer, remove customer from order
-    // } else if (!customer && data?.application_state?.customer?.email_address) {
-    //   removeCustomerFromOrder()
-    //   .then(() => {
-    //     updateOrderMetaData({
-    //       cart_parameters: {
-    //         pre: {
-    //           customer_data: {
-    //             tags: ''
-    //           }
-    //         }
-    //       }
-    //     })
-    //   })
-    // }
+    // if logged in and order does not have customer, add customer to order
+    if (customer?.email && !data?.application_state?.customer?.email_address) {
+      addCustomerToOrder({
+        platform_id: customer.id.replace('gid://shopify/Customer/', ''),
+        first_name: customer.firstName,
+        last_name: customer.lastName,
+        email_address: customer.email,
+        accepts_marketing: customer.acceptsMarketing
+      })
+      .then(() => {
+        updateOrderMetaData({
+          cart_parameters: {
+            pre: {
+              customer_data: {
+                tags: customer.tags
+              }
+            }
+          }
+        })
+      })
+    // if logged out and order has customer, remove customer from order
+    } else if (!customer && data?.application_state?.customer?.email_address) {
+      removeCustomerFromOrder()
+      .then(() => {
+        updateOrderMetaData({
+          cart_parameters: {
+            pre: {
+              customer_data: {
+                tags: ''
+              }
+            }
+          }
+        })
+      })
+    }
+    console.log("data from useeffect:", data)
   }, [customer, data])
 
   useEffect(() => {

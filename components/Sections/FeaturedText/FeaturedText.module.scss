@@ -30,6 +30,11 @@
 
         h4 {
             margin-bottom: 12px;
+
+            &.small-text {
+                font-family: 'FrankRuhl';
+                font-weight: 400;
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import IconSelectArrow from '@/svgs/select-arrow.svg';
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
 import { useCustomerContext } from '@/context/CustomerContext';
+import { useOrderMetadata } from '@boldcommerce/checkout-react-components';
 
 const ShippingLines = ({ applicationLoading }) => {
   const { data, updateShippingLine, getShippingLines } = useShippingLines();
@@ -64,6 +65,7 @@ const MemoizedShippingLines = memo(
     const { t } = useTranslation();
     const { shipOptionMetadata } = useHeadlessCheckoutContext();
     const { customer } = useCustomerContext();
+    const { appendOrderMetadata } = useOrderMetadata();
 
     // Only ever called on checkout page load - not called each time shipping lines are updated
     const refreshShippingLines = useCallback(async () => {
@@ -96,6 +98,7 @@ const MemoizedShippingLines = memo(
     }, [selectedShippingLine]);
 
     const handleChange = useCallback(async (index) => {
+      console.log('index: ', index);
       setShippingLineIndex(index);
       setLoading(true);
       try {
@@ -111,9 +114,13 @@ const MemoizedShippingLines = memo(
     }, []);
 
     const handleShipWeekChange = useCallback(async (shipWeek) => {
-      console.log('updating preference to: ', shipWeek);
       setShipWeekPreference(shipWeek);
-    }, []);
+      await appendOrderMetadata({
+        "note_attributes": {
+          "ship_week_preference": shipWeek
+        }
+      });
+    }, [appendOrderMetadata]);
 
     let content = null;
 
@@ -133,7 +140,7 @@ const MemoizedShippingLines = memo(
           shippingLines={shippingLines
             .map(line => {
               switch(line.description) {
-                case 'Bundle with Next Order':
+                case 'c':
                   if (!!shipOptionMetadata.bundled && !!customer) {
                     line.showOption = true;
                     line.estimatedDeliveryDate = shipOptionMetadata.bundled.estimatedDeliveryDate;
@@ -156,7 +163,7 @@ const MemoizedShippingLines = memo(
           onChange={handleChange}
           disabled={loading}
           selectedStandardShipWeek={shipWeekPreference}
-          onStandardShipWeekChange={handleShipWeekChange}
+          onShipWeekChange={handleShipWeekChange}
         />
       );
     }

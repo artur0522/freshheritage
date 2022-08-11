@@ -6,7 +6,7 @@ const ShippingLineList = ({
   onChange,
   disabled,
   selectedStandardShipWeek,
-  onStandardShipWeekChange
+  onShipWeekChange
 }) => {
   return (
     <div className="shipping-method-selector">
@@ -26,13 +26,13 @@ const ShippingLineList = ({
                       return (
                           <Checkbox
                             key={i}
-                            class="checkout__radio"
+                            className="checkout__radio"
                             icon={<div className="radio--checked"></div>}
                             label={o.estimatedDeliveryDate}
                             name="standard-shipping-option"
                             checked={selectedStandardShipWeek === o.shipWeekPreference}
                             disabled={disabled || selectedStandardShipWeek === o.shipWeekPreference}
-                            onChange={() => onStandardShipWeekChange(o.shipWeekPreference)}
+                            onChange={() => onShipWeekChange(o.shipWeekPreference)}
                           />
                       );
                     })
@@ -56,7 +56,14 @@ const ShippingLineList = ({
               name="shipping-method"
               checked={selectedShippingLine === parseInt(method.id, 10)}
               disabled={disabled || selectedShippingLine === parseInt(method.id, 10)}
-              onChange={() => onChange(index)}
+              onChange={() => {
+                if (method.name === 'Bundle with Next Order') {
+                  onShipWeekChange(method.shipWeekPreference)
+                } else {
+                  onShipWeekChange(null)
+                }
+                onChange(index)
+              }}
             />
           </div>);
         } else {

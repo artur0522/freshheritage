@@ -66,12 +66,12 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
 
         {author && <div className={`${classes['article-author']} ${classes['article-sidebar__section']}`}>
           <div className={classes['article-author__header']}>
-            <div className={classes['article-author__image']}>
+            {author.image?.asset && <div className={classes['article-author__image']}>
               <ResponsiveImage
                 src={author.image.asset.url}
                 alt={author.image.alt || ''}
               />
-            </div>
+            </div>}
             <h2>{author.name}</h2>
           </div>
           <div className={classes['article-author__description']}>
@@ -86,12 +86,12 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
           <ul className={classes['article-host-list']}>
             {hosts.hostList.map(author => {
               return <li key={author._id}>
-                <div className={classes['article-author__image']}>
+                {author.image?.asset && <div className={classes['article-author__image']}>
                   <ResponsiveImage
                     src={author.image.asset.url}
                     alt={author.image.alt || ''}
                   />
-                </div>
+                </div>}
                 <h2>{author.name}</h2>
               </li>
             })}

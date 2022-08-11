@@ -615,7 +615,11 @@ export function HeadlessCheckoutProvider({ children }) {
   }
 
   useEffect(() => {
-    const handleRouteChange = (e) => {
+    const handleRouteChange = async (e) => {
+      const localStorageCheckoutData = JSON.parse(localStorage.getItem('checkout_data'));
+      if (!Object.keys(localStorageCheckoutData).length) {
+        await initializeCheckout()
+      }
       setFlyoutState(false)
     }
     router.events.on('routeChangeComplete', handleRouteChange)

@@ -24,7 +24,11 @@ const CheckoutFlyout = () => {
     }, timeout)
   }
 
-  const openDrawer = () => {
+  const openDrawer = async () => {
+    const localStorageCheckoutData = JSON.parse(localStorage.getItem('checkout_data'));
+    if (!Object.keys(localStorageCheckoutData).length) {
+      await initializeCheckout()
+    }
     setOverLayOpen(true)
     setTimeout(() => {
       setFlyoutOpen(true)

@@ -63,7 +63,7 @@ const LineItemProduct = ({ item, children, readOnly }) => {
     </div>
   }
 
-  console.log("item:", item)
+  // console.log("item:", item)
 
   return (
     <div className="order-item checkout__row">

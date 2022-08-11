@@ -183,7 +183,7 @@ const MemoizedPaymentMethod = memo(
         ) {
           customerTags =
             applicationState.applicationState.order_meta_data.cart_parameters
-              .pre.customer_data.tags[0];
+              .pre.customer_data.tags;
         }
 
         console.log('customer tags', customerTags);

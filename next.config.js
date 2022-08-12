@@ -15,4 +15,13 @@ module.exports = {
   env: {
     checkoutUrl: process.env.NEXT_PUBLIC_CHECKOUT_URL || 'https://sitka-staging.vercel.app',
   },
+  async redirects() {
+    return [
+      {
+        source: '/account',
+        destination: '/account/subscriptions',
+        permanent: true,
+      },
+    ]
+  },
 }

@@ -98,7 +98,6 @@ const MemoizedShippingLines = memo(
     }, [selectedShippingLine]);
 
     const handleChange = useCallback(async (index) => {
-      console.log('index: ', index);
       setShippingLineIndex(index);
       setLoading(true);
       try {

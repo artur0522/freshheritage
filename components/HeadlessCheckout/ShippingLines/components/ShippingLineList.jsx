@@ -48,24 +48,27 @@ const ShippingLineList = ({
             );
           }
 
-          return (<div className={`checkout__radio-wrapper ${selectedShippingLine === parseInt(method.id, 10) ? 'is-selected' : ''}`} key={index}>
-            <Checkbox
-              className="checkout__radio"
-              icon={<div className="radio--checked"></div>}
-              label={label}
-              name="shipping-method"
-              checked={selectedShippingLine === parseInt(method.id, 10)}
-              disabled={disabled || selectedShippingLine === parseInt(method.id, 10)}
-              onChange={() => {
-                if (method.name === 'Bundle with Next Order') {
-                  onShipWeekChange(method.shipWeekPreference)
-                } else {
-                  onShipWeekChange(null)
-                }
-                onChange(index)
-              }}
-            />
-          </div>);
+          return 
+          (
+            <div className={`checkout__radio-wrapper ${selectedShippingLine === parseInt(method.id, 10) ? 'is-selected' : ''}`} key={index}>
+              <Checkbox
+                className="checkout__radio"
+                icon={<div className="radio--checked"></div>}
+                label={label}
+                name="shipping-method"
+                checked={selectedShippingLine === parseInt(method.id, 10)}
+                disabled={disabled || selectedShippingLine === parseInt(method.id, 10)}
+                onChange={() => {
+                  onChange(index);
+                  if (method.name === 'Bundle with Next Order') {
+                    onShipWeekChange(method.shipWeekPreference);
+                  } else {
+                    onShipWeekChange(null);
+                  }
+                }}
+              />
+            </div>
+          );
         } else {
           return undefined;
         }

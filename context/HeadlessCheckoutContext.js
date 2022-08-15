@@ -4,6 +4,7 @@ import { useCustomerContext } from './CustomerContext'
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router'
 import { isEqual } from 'lodash-es';
+import moment from 'moment';
 const HeadlessCheckoutContext = createContext();
 
 export function useHeadlessCheckoutContext() {
@@ -17,6 +18,7 @@ export function HeadlessCheckoutProvider({ children }) {
   const [flyoutState, setFlyoutState] = useState(false);
   const { customer } = useCustomerContext();
   const [shipOptionMetadata, setShipOptionMetadata] = useState(undefined);
+  const { subsData } = useCustomerContext();
 
   function saveDataInLocalStorage(data) {
     const checkoutData = {
@@ -692,6 +694,12 @@ export function HeadlessCheckoutProvider({ children }) {
 
   async function refreshShipOptionData(zip) {
     console.log('refresh ship options', zip)
+
+    const body = {zip};
+    if (subsData && subsData.length > 0) {
+      body.bundledShipWeek = `${moment(Math.max(subsData.map(d => d.fulfill_start))).week()}`;
+    }
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_CHECKOUT_URL}/api/checkout/ship-options`,
       {
@@ -699,7 +707,7 @@ export function HeadlessCheckoutProvider({ children }) {
           'Content-Type': 'application/json',
         },
         method: 'POST',
-        body: JSON.stringify({zip}),
+        body: JSON.stringify(body),
       },
     )
 

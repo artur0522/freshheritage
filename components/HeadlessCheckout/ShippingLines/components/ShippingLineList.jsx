@@ -21,35 +21,38 @@ const ShippingLineList = ({
                   <span>{method.description}</span>
                   <span>{`$${formatPrice(method.amount, true)}`}</span>
                 </div>
-                <div className="checkout__radio-label">
+                <div className="checkout__radio-label-secondary">
                   {method.options.map((o, i) => {
                       return (
                           <Checkbox
                             key={i}
                             className="checkout__radio"
                             icon={<div className="radio--checked"></div>}
-                            label={o.estimatedDeliveryDate}
+                            label={o.shipWeekDisplay}
                             name="standard-shipping-option"
                             checked={selectedStandardShipWeek === o.shipWeekPreference}
                             disabled={disabled || selectedStandardShipWeek === o.shipWeekPreference}
                             onChange={() => onShipWeekChange(o.shipWeekPreference)}
                           />
                       );
-                    })
-                  }
+                    })}
                 </div>
               </div>
             );
           } else {
             label = (
-              <div className="checkout__radio-label">
-                <span>{method.description}</span><span>{method.estimatedDeliveryDate}</span><span>{`$${formatPrice(method.amount, true)}`}</span>
+              <div>
+                <div className="checkout__radio-label">
+                  <span>{method.description}</span><span>{`$${formatPrice(method.amount, true)}`}</span>
+                </div>
+                <div className="checkout__radio-label-secondary">
+                  <span>{method.display}</span>
+                </div>
               </div>
             );
           }
 
-          return 
-          (
+          return (
             <div className={`checkout__radio-wrapper ${selectedShippingLine === parseInt(method.id, 10) ? 'is-selected' : ''}`} key={index}>
               <Checkbox
                 className="checkout__radio"
@@ -59,12 +62,12 @@ const ShippingLineList = ({
                 checked={selectedShippingLine === parseInt(method.id, 10)}
                 disabled={disabled || selectedShippingLine === parseInt(method.id, 10)}
                 onChange={() => {
-                  onChange(index);
-                  if (method.name === 'Bundle with Next Order') {
+                  if (method.description === 'Bundle with Next Order') {
                     onShipWeekChange(method.shipWeekPreference);
                   } else {
                     onShipWeekChange(null);
                   }
+                  onChange(index);
                 }}
               />
             </div>

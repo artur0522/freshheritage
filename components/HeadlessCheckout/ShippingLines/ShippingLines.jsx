@@ -13,6 +13,8 @@ import IconSelectArrow from '@/svgs/select-arrow.svg';
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
 import { useCustomerContext } from '@/context/CustomerContext';
 import { useOrderMetadata } from '@boldcommerce/checkout-react-components';
+import moment from 'moment';
+import { map } from 'traverse';
 
 const ShippingLines = ({ applicationLoading }) => {
   const { data, updateShippingLine, getShippingLines } = useShippingLines();
@@ -64,7 +66,7 @@ const MemoizedShippingLines = memo(
     const [shippingMethodOpen, setShippingMethodOpen] = useState(true);
     const { t } = useTranslation();
     const { shipOptionMetadata } = useHeadlessCheckoutContext();
-    const { customer } = useCustomerContext();
+    const { customer, subsData } = useCustomerContext();
     const { appendOrderMetadata } = useOrderMetadata();
 
     // Only ever called on checkout page load - not called each time shipping lines are updated
@@ -139,10 +141,11 @@ const MemoizedShippingLines = memo(
           shippingLines={shippingLines
             .map(line => {
               switch(line.description) {
-                case 'c':
-                  if (!!shipOptionMetadata.bundled && !!customer) {
+                case 'Bundle with Next Order':
+                  if (!!shipOptionMetadata.bundled && !!customer && (!!subsData || subsData.length < 1)) {
                     line.showOption = true;
-                    line.estimatedDeliveryDate = shipOptionMetadata.bundled.estimatedDeliveryDate;
+                    line.display = shipOptionMetadata.bundled.shipWeekDisplay;
+                    line.shipWeekPreference = shipOptionMetadata.bundled.shipWeekPreference;
                   }
                   else line.showOption = false;
                   break;
@@ -152,12 +155,11 @@ const MemoizedShippingLines = memo(
                   break;
                 case 'Expedited':
                   line.showOption = true;
-                  line.estimatedDeliveryDate = shipOptionMetadata.expedited.estimatedDeliveryDate;
+                  line.display = shipOptionMetadata.expedited.estimatedDeliveryDateDisplay;
                   break;
               }
               return line;
-            })
-          }
+            })}
           selectedShippingLine={shippingLineIndex}
           onChange={handleChange}
           disabled={loading}

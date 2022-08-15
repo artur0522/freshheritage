@@ -21,8 +21,25 @@ import { set } from 'es-cookie'
 // (https://github.com/getnacelle/nacelle-js/tree/main/packages/shopify-checkout)
 
 const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) => {
+  const router = useRouter()
+  const [mounted, setMounted] = useState(false)
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page)
+
+  useEffect(() => {
+    setMounted(true)
+
+    const onRountChangeComplete = () => {
+      if (document.getElementById('launcher')) {
+        if(router.asPath === '/pages/how-it-works' || router.asPath === '/pages/choose-your-plan' || router.asPath === '/pages/customize-your-plan' || router.asPath === '/pages/intro-box' || router.asPath === '/collections/one-time-boxes' || router.asPath === '/collections/gifts' || router.pathname === '/products/[handle]' || router.asPath === '/checkout' || router.asPath === '/pages/contact' && mounted) {
+          document.getElementById('launcher').style.display = 'block'
+        } else {
+          document.getElementById('launcher').style.display = 'none'
+        }
+      }
+    }
+    Router.events.on('routeChangeComplete', onRountChangeComplete)
+  }, [router.asPath, router.pathname, mounted])
 
   return getLayout(
     <CartProvider>

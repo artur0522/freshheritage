@@ -60,15 +60,15 @@ export function CustomerProvider({ children }) {
     const { customer } = data
 
     // TODO: might need to turn this into a useReducer instead of using useState above
-    if (data.customer.tags.length) {
-      if (data.customer.tags.some(tag => ['member monthly', 'member prepaid'].includes(tag))) {
+    if (data?.customer?.tags?.length) {
+      if (data.customer.tags.some(tag => ['member', 'premium member', 'prepaid'].includes(tag))) {
         customer.is_member = true
       } else {
         customer.is_member = false
       }
     }
 
-    if (customer.addresses?.edges.length > 0) {
+    if (customer?.addresses?.edges.length > 0) {
       customer.addresses = transformEdges(customer.addresses)
     }
 

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import classes from './ArticleSidebar.module.scss'
 import articleContentClasses from '../ArticleContent/ArticleContent.module.scss'
 import ResponsiveImage from '@/components/ResponsiveImage'
@@ -6,15 +7,38 @@ import EmailSignup from '@/components/EmailSignup'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useArticleContext } from '@/context/ArticleContext'
+import { useKnowYourFishDrawerContext } from '@/context/KnowYourFishDrawerContext'
 import IconCaret from '@/svgs/caret.svg'
+import { nacelleClient } from 'services'
 
 const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
 
-  const { content, author, hosts, relatedArticles, classSignup } = fields
+  const { content, author, hosts, relatedArticles, knowYourFishList, classSignup } = fields
   const { isSidebarOpen, setIsSidebarOpen } = useArticleContext()
+  const { openDrawer } = useKnowYourFishDrawerContext()
+  const [articles, setArticles] = useState([])
+
+  useEffect(() => {
+    const getArticles = async () => {
+      const articles = await nacelleClient.content({
+        handles: relatedArticles.relatedArticleItems
+      })
+      return articles
+    }
+
+
+    if (relatedArticles?.relatedArticleItems?.length > 0) {
+      getArticles()
+        .then(res => {
+          setArticles(res)
+        })
+    }
+
+
+  }, [])
 
   return (
-    <div className={`${classes['article-sidebar']} ${isSidebarOpen ? classes['is-open'] : ''}`}>
+    <div className={`article-sidebar ${classes['article-sidebar']} ${isSidebarOpen ? classes['is-open'] : ''}`}>
 
       <div className={classes['article-sidebar__header']}>
         <button onClick={() => setIsSidebarOpen()}><IconCaret /><span>Back</span></button>
@@ -42,12 +66,12 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
 
         {author && <div className={`${classes['article-author']} ${classes['article-sidebar__section']}`}>
           <div className={classes['article-author__header']}>
-            <div className={classes['article-author__image']}>
+            {author.image?.asset && <div className={classes['article-author__image']}>
               <ResponsiveImage
                 src={author.image.asset.url}
-                alt={author.image.asset.alt || ''}
+                alt={author.image.alt || ''}
               />
-            </div>
+            </div>}
             <h2>{author.name}</h2>
           </div>
           <div className={classes['article-author__description']}>
@@ -62,19 +86,19 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
           <ul className={classes['article-host-list']}>
             {hosts.hostList.map(author => {
               return <li key={author._id}>
-                <div className={classes['article-author__image']}>
+                {author.image?.asset && <div className={classes['article-author__image']}>
                   <ResponsiveImage
                     src={author.image.asset.url}
-                    alt={author.image.asset.alt || ''}
+                    alt={author.image.alt || ''}
                   />
-                </div>
+                </div>}
                 <h2>{author.name}</h2>
               </li>
             })}
           </ul>
         </div>}
 
-        {blogGlobalSettings?.klaviyoListId && <div className={`${classes['article-email-signup']} ${classes['article-sidebar__section']}`}>
+        {blogGlobalSettings?.klaviyoListId && !classSignup && <div className={`${classes['article-email-signup']} ${classes['article-sidebar__section']}`}>
           <EmailSignup props={{
             title: 'Get Recipes & Stories Delivered To Your Inbox',
             ctaText: 'Join The List',
@@ -82,13 +106,42 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
           }} />
         </div>}
 
-        {relatedArticles &&
+        {knowYourFishList &&
+          <div className={`${classes['article-related-items']} ${classes['article-sidebar__section']}`}>
+            <h2>{knowYourFishList.header}</h2>
+            <ul className={classes['article-related-item-list']}>
+              {knowYourFishList.knowYourFishes.map((item, index) => {
+                const { header, peakSeason, nutritionalInfo, image } = item
+                return <li key={index} className={classes['know-your-fish__item']} onClick={() => openDrawer({ fields: item })}>
+                  <div className={classes['article-related-item__image']}>
+                    <Image
+                      src={image.asset.url}
+                      layout="fill"
+                      alt={image.alt || ''}
+                    />
+                  </div>
+                  {header && <h2 className={classes['know-your-fish__title']}>{header}</h2>}
+                  {peakSeason && <div className={classes['know-your-fish__detail-item']}>
+                    <h3>Peak Season:</h3>
+                    <p>{peakSeason}</p>
+                  </div>}
+                  {nutritionalInfo && <div className={classes['know-your-fish__detail-item']}>
+                    <h3>Nutritional info:</h3>
+                    <p>{nutritionalInfo}</p>
+                  </div>}
+                </li>
+              })}
+            </ul>
+          </div>
+        }
+
+        {articles.length > 0 &&
           <div className={`${classes['article-related-items']} ${classes['article-sidebar__section']}`}>
             <h2>{relatedArticles.header}</h2>
             <ul className={classes['article-related-item-list']}>
-              {relatedArticles.relatedArticleItems.map(item => {
+              {articles.map((item, index) => {
 
-                const image = item.hero?.desktopBackgroundImage
+                const image = item.fields.hero?.desktopBackgroundImage
                 const handle = item.handle?.current ? item.handle.current : item.handle;
                 const blog = item.fields ? item.fields.blog : item.blog
 
@@ -104,14 +157,14 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
                   url = `/blogs/${blogType}/${blogCategory}/${handle}`
                 }
 
-                return <li key={item._id}>
+                return <li key={index}>
                   <Link href={url}>
                     <a>
                       <div className={classes['article-related-item__image']}>
                         <Image
                           src={image.asset.url}
                           layout="fill"
-                          alt={image.asset.alt || ''}
+                          alt={image.alt || ''}
                         />
                       </div>
                     </a>

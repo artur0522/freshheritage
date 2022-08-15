@@ -6,7 +6,8 @@ import classes from './ProjectedHarvest.module.scss'
 
 import HarvestCard from "../HarvestCard"
 
-const ProjectedHarvest = ({ fields }) => {
+const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
+
     // SANITY FIELDS
     const { title, harvestList, currentSelling, description } = fields
     // STATE
@@ -41,7 +42,7 @@ const ProjectedHarvest = ({ fields }) => {
         const monthName = monthNames[date.getMonth()]
         const currentMonthIndex = refinedMonths.findIndex(refinedMonth => refinedMonth.month === monthName)
         const splicedMonths = refinedMonths.splice(currentMonthIndex, 4)
-        
+
         setCurrentDate(date.toISOString().split('T')[0])
         setCurrentMonth(monthName)
         setActiveTab(splicedMonths[0])
@@ -76,7 +77,7 @@ const ProjectedHarvest = ({ fields }) => {
                         {description && <h5>{description}</h5>}
                     </div>
 
-                    {harvestList.length > 1 && <Swiper
+                    {harvestList.length > 1 && !disableHarvestFilters && <Swiper
                         slidesPerView={"auto"}
                         spaceBetween={18}
                         breakpoints={{
@@ -136,7 +137,7 @@ const ProjectedHarvest = ({ fields }) => {
                             </div>
                         )
                     })}
-                
+
                     {currentSelling && harvests && harvests.map((harvest) => {
                         return (
                             <div className={`${classes['harvest__list']}`} key={harvest._id}>

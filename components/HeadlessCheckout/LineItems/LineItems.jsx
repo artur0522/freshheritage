@@ -1,22 +1,11 @@
-import React, { memo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useLineItems } from '@boldcommerce/checkout-react-components';
 import { LineItemProduct } from '../';
 
 const LineItems = ({readOnly}) => {
   const { data: lineItems } = useLineItems();
-  return (
-    <MemoizedLineItems
-      lineItems={lineItems}
-      readOnly={readOnly}
-    />
-  );
-};
 
-const MemoizedLineItems = memo(({
-  lineItems,
-  readOnly
-}) => {
   return (
     <div className="order-item-list">
       {lineItems.map(item => (
@@ -31,8 +20,8 @@ const MemoizedLineItems = memo(({
           </LineItemProduct>
       ))}
     </div>
-  );
-});
+  )
+};
 
 LineItems.propTypes = {
   lineItems: PropTypes.array,

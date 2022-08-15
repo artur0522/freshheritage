@@ -18,10 +18,12 @@ import FAQs from '@/components/Sections/FAQs'
 import BlogHero from "@/components/Sections/BlogHero"
 import RecipeCategoriesList from '@/components/Sections/RecipeCategoriesList'
 import HalfHeroHalfSlider from '@/components/Sections/HalfHeroHalfSlider'
-import EmailSignup from '../../EmailSignup'
+import EmailSignupBlock from '@/components/Sections/EmailSignupBlock'
 import BrowseCategory from '@/components/Sections/BrowseCategory'
 import ArticleRow from '@/components/Sections/ArticleRow'
 import HalfVideoBlock from '@/components/Sections/HalfVideoBlock'
+import FeaturedFishCarousel from '@/components/Sections/FeaturedFishCarousel'
+import AllKnowYourFishblock from '@/components/Sections/AllKnowYourFishBlock'
 import FeaturedText from '@/components/Sections/FeaturedText'
 import FiftyFiftyImage from '@/components/Sections/FiftyFiftyImage'
 import BoldHeaderText from '@/components/Sections/BoldHeaderText'
@@ -31,8 +33,9 @@ import WYSIWYG from '@/components/Sections/WYSIWYG'
 import ContactUs from '@/components/Sections/ContactUs'
 import Accordion from '../Accordion'
 import ReviewsCarousel from '@/components/Sections/ReviewsCarousel'
+import FishermenPartners from '../FishermenPartners'
 
-const ContentSections = ({ sections, harvestMetafield}) => {
+const ContentSections = ({ sections, harvestMetafield, harvests, disableHarvestFilters}) => {
   const router = useRouter()
 
   if (harvestMetafield === undefined && router.pathname.includes('/products')) {
@@ -80,6 +83,12 @@ const ContentSections = ({ sections, harvestMetafield}) => {
       case 'projectedHarvest':
         if(harvestMetafield) {
           return <ProjectedHarvest fields={section} key={section._key} />
+        } else if (harvests) {
+          section = {
+            ...section,
+            harvestList: harvests
+          }
+          return <ProjectedHarvest fields={section} disableHarvestFilters={disableHarvestFilters} key={section._key} />
         } else {
           return null
         }
@@ -104,7 +113,13 @@ const ContentSections = ({ sections, harvestMetafield}) => {
       case 'halfHeroHalfSlider':
         return <HalfHeroHalfSlider fields={section} key={section._key} />
       case 'emailSignup':
-        return <EmailSignup props={section} key={section._key} />
+        return <div className="bg-color--fawn">
+          <div className="container">
+            <EmailSignupBlock props={{
+              emailSignup: section
+            }} key={section._key} />
+          </div>
+        </div>
       case 'browseCategory':
         return <BrowseCategory fields={section} key={section._key} />
       case 'articleRow':
@@ -129,8 +144,16 @@ const ContentSections = ({ sections, harvestMetafield}) => {
         return <ContactUs fields={section} key={section._key} />
       case 'accordion':
         return <Accordion fields={section} key={section._key} />
+      case 'featuredFishCarousel':
+        return <FeaturedFishCarousel fields={section} key={section._key} />
+      case 'featuredFishermenCarousel':
+        return <FeaturedFishCarousel fields={section} key={section._key} />
+      case 'allKnowYourFishBlock':
+        return <AllKnowYourFishblock fields={section} key={section._key} />
       case 'reviewsCarousel':
         return <ReviewsCarousel fields={section} key={section._key} />
+      case 'fishermenPartners':
+        return <FishermenPartners fields={section} key={section._key} />
       default:
         return null
     }

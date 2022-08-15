@@ -4,39 +4,56 @@ import { nacelleClient } from 'services'
 import ListingsTemplate from '@/components/Blog/BlogListings/ListingsTemplate'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
-const RecipeListings = ({ articles: initialArticles, blogSettings, page }) => {
 
-  const [articles, setArticles] = useState(initialArticles)
+async function getArticles(page, numOfEntries) {
+  const { articleTypes } = page.fields
+
+  let allArticles = await articleTypes.reduce(async (carry, type) => {
+    let promises = await carry;
+    const articles = await nacelleClient.content({
+      type: type,
+      entryDepth: 0,
+      maxReturnedEntries: numOfEntries
+    })
+
+    if (articles) {
+      const fullRefArticles = await getNacelleReferences(articles)
+      return [...promises, ...fullRefArticles]
+    }
+  }, Promise.resolve([]))
+
+  return allArticles
+}
+
+const RecipeListings = ({ blogSettings, page, category }) => {
+
+
+  const [articles, setArticles] = useState([])
+  const [allArticlesLoaded, setAllArticlesLoaded] = useState(false)
 
   if (page.fields.featuredClass) {
     page.fields.hero = page.fields.featuredClass.hero
   }
 
   useEffect(() => {
-    const getArticles = async () => {
-      const { articleTypes } = page.fields
-
-      let allArticles = await articleTypes.reduce(async (carry, type) => {
-        let promises = await carry;
-        const articles = await nacelleClient.content({
-          type: type,
-          entryDepth: 0
-        })
-
-        if (articles) {
-          const fullRefArticles = await getNacelleReferences(articles)
-          return [...promises, ...fullRefArticles]
-        }
-      }, Promise.resolve([]))
-
-      return allArticles
-    }
-
-    getArticles()
+    getArticles(page, 20)
       .then((res) => {
-        setArticles(res)
+        const validArticles = res.filter(article => article.fields.blog.handle.current === category)
+        setArticles([...validArticles])
       })
   }, [])
+
+  useEffect(() => {
+    if (allArticlesLoaded) {
+      return
+    }
+    setAllArticlesLoaded(true)
+    getArticles(page)
+      .then((res) => {
+        const validArticles = res.filter(article => article.fields.blog.handle.current === category)
+        setArticles([...validArticles])
+      })
+  }, [articles])
 
   return (
     <ListingsTemplate articles={articles} blogSettings={blogSettings} page={page} />
@@ -90,36 +107,15 @@ export async function getStaticProps({ params }) {
 
   const page = pages.length ? pages[0] : cookingClassCategoryBlogs[0]
 
-  const { articleTypes } = page.fields
-
-  let allArticles = await articleTypes.reduce(async (carry, type) => {
-    let promises = await carry;
-    const articles = await nacelleClient.content({
-      type: type,
-      entryDepth: 0,
-      maxReturnedEntries: 20
-    })
-    if (articles) {
-      const fullRefArticles = await getNacelleReferences(articles)
-      return [...promises, ...fullRefArticles]
-    }
-  }, Promise.resolve([]))
-
-  if (!allArticles.length) {
-    return {
-      notFound: true
-    }
-  }
-
   const blogSettings = await nacelleClient.content({
     type: 'blogSettings'
   })
 
   return {
     props: {
-      articles: allArticles,
       blogSettings: blogSettings[0],
       page: page,
+      category: params.category,
       handle: page.handle
     }
   }

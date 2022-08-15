@@ -97,13 +97,13 @@ const ArticleContestForm = ({fields}) => {
             {contestForm?.heroImage && isMobile && mounted &&
               <ResponsiveImage
                 src={contestForm?.heroImage.asset.url}
-                alt={contestForm?.heroImage.asset.alt || ''}
+                alt={contestForm?.heroImage.alt || ''}
               />}
             {contestForm?.heroImage && isDesktop && mounted &&
               <Image
                 src={contestForm?.heroImage.asset.url}
                 layout="fill"
-                alt={contestForm?.heroImage.asset.alt || ''}
+                alt={contestForm?.heroImage.alt || ''}
               />
             }
           </div>

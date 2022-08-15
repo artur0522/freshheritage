@@ -1,3 +1,12 @@
+.order-discount-form {
+  p {
+    font-size: 12px;
+    @include breakpoint-up('sm') {
+      font-size: 14px;
+    }
+  }
+}
+
 .order-discount-form__header {
   display: flex;
   justify-content: space-between;
@@ -8,7 +17,7 @@
     color: $sitkablue;
     @include breakpoint-up('sm') {
       font-size: 16px;
-      color: $salmon;
+      color: $sitkablue;
     }
   }
   svg {
@@ -21,7 +30,7 @@
     * {
       fill: $sitkablue;
       @include breakpoint-up('sm') {
-        fill: $salmon;
+        fill: $sitkablue;
       }
     }
   }

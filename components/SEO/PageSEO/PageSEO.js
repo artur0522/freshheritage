@@ -9,7 +9,7 @@ import { stripHtml } from "string-strip-html"
 const PageSEO = ({ seo, images = [], product, collection }) => {
 
   const router = useRouter()
-  const url = `https://${process.env.NEXT_PUBLIC_MYSHOPIFY_DOMAIN}${router.asPath}`
+  const url = `${process.env.NEXT_PUBLIC_CHECKOUT_URL}${router.asPath}`
 
   if (!seo && !product && !collection) {
     return ''

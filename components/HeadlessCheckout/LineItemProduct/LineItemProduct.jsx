@@ -41,6 +41,28 @@ const LineItemProduct = ({ item, children, readOnly }) => {
     }
   }
 
+  const buildQtySelector = (item) => {
+    if (readOnly) {
+      return <div className="order-item__quantity-wrapper order-item__quantity-wrapper--quantity-only">
+        <div className="order-item__quantity" aria-label="product quantity">
+          {item.quantity}
+        </div>
+      </div>
+    }
+
+    return <div className="order-item__quantity-wrapper">
+      <button onClick={() => decrement()} className="order-item__decrement-btn">
+        <IconMinus />
+      </button>
+      <div className="order-item__quantity" aria-label="product quantity">
+        {item.quantity}
+      </div>
+      <button onClick={() => increment()} className="order-item__increment-btn">
+        <IconPlus />
+      </button>
+    </div>
+  }
+
   // console.log("item:", item)
 
   return (
@@ -62,7 +84,7 @@ const LineItemProduct = ({ item, children, readOnly }) => {
               </a>
             </Link>
             <div className="order-item__price">
-              <span className="price">${formatPrice(item.total_price)}</span>
+              <span className="price">${formatPrice(item.price)}</span>
               {item.tags.includes('Subscription Box') &&
                 <>
                   {item.properties.membership_type === 'prepaid' ?
@@ -83,7 +105,13 @@ const LineItemProduct = ({ item, children, readOnly }) => {
             </div>
           ):(
             <div className="order-item__detail-item">
-              <div className="order-item__preference">{item.properties.preference}</div>
+              {item.properties.preference ? (
+                <div className="order-item__preference">{item.properties.preference}</div>
+              ):(!isSubscription ? (
+                buildQtySelector(item)
+              ):(
+                <div></div>
+              ))}
               {item.properties.product_weight && item.properties.product_weight != '' &&
                 <div className="order-item__weight">
                   <span className="weight-per-unit">4.5lbs / box</span>
@@ -97,32 +125,6 @@ const LineItemProduct = ({ item, children, readOnly }) => {
               <button onClick={() => removeLineItem({line_item_key: item.line_item_key})} className="order-item__remove-btn">
                 <IconTrashCan />
               </button>
-            </div>
-          }
-
-          {!isGiftCard &&
-            <div className="order-item__detail-item">
-              { isSubscription ? (
-                <div></div>
-              ):(readOnly ? (
-                <div className="order-item__quantity-wrapper order-item__quantity-wrapper--quantity-only">
-                  <div className="order-item__quantity" aria-label="product quantity">
-                    {item.quantity}
-                  </div>
-                </div>
-              ):(
-                <div className="order-item__quantity-wrapper">
-                  <button onClick={() => decrement()} className="order-item__decrement-btn">
-                    <IconMinus />
-                  </button>
-                  <div className="order-item__quantity" aria-label="product quantity">
-                    {item.quantity}
-                  </div>
-                  <button onClick={() => increment()} className="order-item__increment-btn">
-                    <IconPlus />
-                  </button>
-                </div>
-              ))}
               {item.properties.membership_type &&
                 <ul className="order-item__delivery hide-on-mobile">
                   {item.properties.membership_type === 'prepaid' && item.properties.shipments &&
@@ -134,6 +136,20 @@ const LineItemProduct = ({ item, children, readOnly }) => {
                   <li>Ships {item.properties.interval_text}</li>
                 </ul>
               }
+            </div>
+          }
+
+          {!isGiftCard &&
+            <div className="order-item__detail-item">
+              { isSubscription ? (
+                <div></div>
+              ):(item.properties.preference ? (
+                buildQtySelector(item)
+              ):(
+                <button onClick={() => removeLineItem({line_item_key: item.line_item_key})} className="order-item__remove-btn">
+                  <IconTrashCan />
+                </button>
+              ))}
             </div>
           }
        </div>

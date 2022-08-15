@@ -1,0 +1,12 @@
+@import '@/styles/_shared';
+
+.footer-props {
+    background-color: $sitkabluelight;
+    padding: 42px 0;
+
+    .inner {
+        width: 90%;
+        max-width: 940px;
+        margin: auto;
+    }
+}

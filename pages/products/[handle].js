@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { nacelleClient } from 'services'
 import { useMediaQuery } from 'react-responsive'
 import ResponsiveImage from '@/components/ResponsiveImage'
@@ -8,10 +8,10 @@ import { useCustomerContext } from '@/context/CustomerContext'
 import ContentSections from '@/components/Sections/ContentSections'
 import ProductReviewStars from '../../components/Product/ProductReviewStars'
 import ProductSlider from '../../components/Product/ProductSlider'
-import ProductAccordion from '../../components/Product/ProductAccordion'
-import ProductGiftForm from '@/components/Product/ProductGiftForm'
-import ProductHarvests from '@/components/Product/ProductHarvests'
+import ProductForm from '@/components/Product/ProductForm'
+import ProductDetailsList from '@/components/Product/ProductDetailsList'
 import { GET_PRODUCTS } from '@/gql/index.js'
+import { getVariantByOptions } from '@/utils/getVariantByOptions'
 import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
 
@@ -32,12 +32,11 @@ function Product({ product, page, modals }) {
   const deliveryDetailsList = deliveryDetails ? JSON.parse(deliveryDetails.value) : null
   const stampSection = page.fields.content.find(field => field._type === 'stamps')
 
-  console.log('harvestmeta', harvestMetafield)
-
   const modalContext = useModalContext()
   const [mounted, setMounted] = useState(false)
   const customerContext = useCustomerContext()
   const { customer } = customerContext
+  const shellfishFreeInputRef = useRef()
 
   useEffect(() =>  {
     setMounted(true)
@@ -118,14 +117,40 @@ function Product({ product, page, modals }) {
                 {handle !== 'digital-gift-card' && <div className={classes['prices']}>
                   <div className={classes['price-wrap']}>
                     {selectedVariant.compareAtPrice && (
-                      <h3 className={classes.compare}>
+                      <h2 className={classes.compare}>
                         ${selectedVariant.compareAtPrice}
-                      </h3>
+                      </h2>
                     )}
-                    <h3>${selectedVariant.price}</h3>
+                    <h2>${selectedVariant.price} {product.tags.includes('Subscription Box') ? '/ box' : ''}</h2>
                   </div>
-                  <h3 className={classes['weight']}>{selectedVariant.weight} lbs</h3>
+                  <h2 className={classes['weight']}>{selectedVariant.weight} lbs</h2>
                 </div>}
+
+                {product.content?.handle === 'premium-seafood-subscription-box' &&
+                  <div className={classes['shellfish-free-input']}>
+                    <div className="input-group input-group--checkbox">
+                      <input
+                        className="input"
+                        id="shellfish_free"
+                        type="checkbox"
+                        ref={shellfishFreeInputRef}
+                        onChange={() => {
+                          const frequency = selectedVariant.content.selectedOptions.find(option => option.name === 'frequency')
+                          const variant = getVariantByOptions({
+                            variants: product.variants,
+                            matchOptionValue: frequency.value,
+                            purchaseFlowOptions: {
+                              productHandle: selectedVariant.productHandle,
+                              shellfish_free_selected: (shellfishFreeInputRef.current) ? shellfishFreeInputRef.current.checked : undefined
+                            }
+                          })
+                          setSelectedVariant(variant)
+                        }}
+                      />
+                      <label htmlFor="shellfish_free">Shellfish Free</label>
+                    </div>
+                  </div>
+                }
 
                 <div className={classes['gift']}>
                     {handle !== 'digital-gift-card' && <div className={classes['gift__check']}>
@@ -141,22 +166,28 @@ function Product({ product, page, modals }) {
                     </div>}
                 </div>
 
-                {/* GIFT FORM */}
-                <ProductGiftForm checked={checked} handle={handle} product={product} setSelectedVariant={setSelectedVariant} selectedVariant={selectedVariant} />
+                {/* PRODUCT FORM  */}
+                <ProductForm checked={checked} handle={handle} product={product} setSelectedVariant={setSelectedVariant} selectedVariant={selectedVariant} />
 
                 {/* ACCORDION */}
-                {deliveryDetailsList && <div className={classes['accordion']}>
-                  <ProductAccordion header={accordionDescriptionHeader}  description={productDescription} />
-                  <ProductAccordion header={accordionDeliveryHeader}  contentList={deliveryDetailsList} />
+                {deliveryDetailsList && <div className={`product-accordions ${classes['accordion']}`}>
+                  <ProductDetailsList fields={{
+                    detailsTitle: accordionDescriptionHeader,
+                    description: (productDescription) ? productDescription : ''
+                  }} enableToggle={true} />
+                  <ProductDetailsList fields={{
+                    detailsTitle: accordionDeliveryHeader,
+                    detailsItems: deliveryDetailsList
+                  }} enableToggle={true} />
                 </div>}
 
                 {/* STAMPS */}
                 <div className={classes['product-stamps']}>
                   {isDesktop &&
-                    <ResponsiveImage src={stampSection.stamps.desktopImage.asset.url} alt={stampSection.stamps.desktopImage.asset.alt || product.content?.title} />
+                    <ResponsiveImage src={stampSection.stamps.desktopImage.asset.url} alt={stampSection.stamps.desktopImage.alt || product.content?.title} />
                   }
                   {!isDesktop &&
-                    <ResponsiveImage src={stampSection.stamps.mobileImage.asset.url} alt={stampSection.stamps.mobileImage.asset.alt || product.content?.title} />
+                    <ResponsiveImage src={stampSection.stamps.mobileImage.asset.url} alt={stampSection.stamps.mobileImage.alt || product.content?.title} />
                   }
                 </div>
               </div>

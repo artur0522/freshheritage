@@ -10,7 +10,7 @@ const ArticleSD = ({data}) => {
     return ''
   }
 
-  const url = `https://${process.env.NEXT_PUBLIC_MYSHOPIFY_DOMAIN}/${router.asPath}`
+  const url = `${process.env.NEXT_PUBLIC_CHECKOUT_URL}/${router.asPath}`
   const { metaTitle = '', metaDesc = '', shareGraphic = undefined } = data.fields.seo
   const content = data.fields?.content
   const author = data.fields?.sidebar?.author

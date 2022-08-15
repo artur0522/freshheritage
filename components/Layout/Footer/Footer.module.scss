@@ -9,16 +9,19 @@
   width: 100%;
   flex-basis: 100%;
   order: 1;
+
   @include breakpoint-up('sm') {
     display: block;
     width: 50%;
     flex-basis: 50%;
     order: 0;
   }
+
   @include breakpoint-up('md') {
     width: 40%;
     flex-basis: 40%;
   }
+
   @include breakpoint-up('lg') {
     width: 25%;
     flex-basis: 25%;
@@ -28,16 +31,21 @@
 .footerLogo {
   display: none;
   margin-bottom: 25px;
+
   @include breakpoint-up('sm') {
     display: block;
   }
+
   width: 216px;
+
   @include breakpoint-up('md') {
     width: 241px;
   }
+
   @include breakpoint-up('lg') {
     width: 170px;
   }
+
   @include breakpoint-up('xl') {
     width: 241px;
   }
@@ -48,6 +56,7 @@
   list-style: none;
   margin: 0;
   padding-top: 40px;
+
   @include breakpoint-up('sm') {
     padding-top: 0;
   }
@@ -56,18 +65,23 @@
 .socialLinkItem {
   width: 20%;
   text-align: center;
+
   @include breakpoint-up('sm') {
     width: auto;
   }
+
   svg {
     width: 21px;
     height: 21px;
+
     @include breakpoint-up('sm') {
       margin-right: 20px;
     }
+
     @include breakpoint-up('xl') {
       margin-right: 30px;
     }
+
     * {
       fill: $alabaster2;
     }
@@ -79,7 +93,8 @@
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 20px 0;
-  border-bottom: 2px solid rgba(255,253,252, 0.25);
+  border-bottom: 2px solid rgba(255, 253, 252, 0.25);
+
   &:last-child {
     border: none;
   }
@@ -87,27 +102,33 @@
 
 .footerBlock {
   width: 100%;
+
   @include breakpoint-up('md') {
     width: 50%;
   }
+
   h2 {
     margin-bottom: 25px;
   }
+
   &.footerEmailContent {
     @include breakpoint-up('md') {
       width: 60%;
       padding-right: 25px;
     }
+
     @include breakpoint-up('lg') {
       width: 50%;
       padding: 0;
     }
   }
+
   &.footerEmailSignup {
     @include breakpoint-up('md') {
       width: 40%;
       padding: 0;
     }
+
     @include breakpoint-up('lg') {
       padding-left: 20px;
       max-width: 700px;
@@ -115,10 +136,12 @@
       width: 50%;
     }
   }
+
   &.footerEmailFormContainer {
     @include breakpoint-up('md') {
       width: 40%;
     }
+
     @include breakpoint-up('lg') {
       width: 50%;
     }
@@ -128,9 +151,11 @@
 .footerEmailSignup {
   text-align: center;
   padding: 35px 0;
+
   @include breakpoint-up('sm') {
     padding: 50px 0;
   }
+
   @include breakpoint-up('md') {
     padding: 60px 0;
     text-align: left;
@@ -140,6 +165,7 @@
 .footerEmailHeading {
   max-width: 520px;
   margin: 0 auto;
+
   @include breakpoint-up('sm') {
     max-width: 815px;
     margin: 0 auto 0 0;
@@ -150,10 +176,12 @@
   font-size: 14px;
   margin-bottom: 25px;
   display: none;
+
   @include breakpoint-up('sm') {
     display: block;
     max-width: 750px;
   }
+
   @include breakpoint-up('md') {
     font-size: 16px;
     margin: 0;
@@ -163,9 +191,11 @@
 
 .footerNavigation {
   padding: 50px 0 40px;
+
   @include breakpoint-up('sm') {
     padding: 60px 0;
   }
+
   @include breakpoint-up('lg') {
     padding: 100px 0;
   }
@@ -176,6 +206,7 @@
   flex-wrap: wrap;
   list-style: none;
   flex: 1;
+
   h2 {
     font-family: $bebas;
     letter-spacing: 0.02em;
@@ -184,14 +215,17 @@
 
 .footerNavigationListItem {
   width: 100%;
-  border-bottom: 2px solid rgba(255,253,252, 0.25);
+  border-bottom: 2px solid rgba(255, 253, 252, 0.25);
+
   @include breakpoint-up('lg') {
     width: 20%;
     padding: 0 20px 0 0;
     border: none;
   }
+
   &:last-child {
     padding-right: 0;
+
     @include breakpoint-up('md') {
       border: none;
     }
@@ -206,12 +240,15 @@
   border: none;
   color: $alabaster2;
   position: relative;
+
   @include breakpoint-up('lg') {
     cursor: auto;
   }
+
   &:focus {
     outline: none;
   }
+
   svg {
     position: absolute;
     width: 18px;
@@ -223,20 +260,25 @@
 
 .footerMenuItems {
   list-style: none;
+
   li {
     font-size: 14px;
     line-height: 20px;
     margin-bottom: 12px;
+
     &:last-child {
       margin-bottom: 30px;
     }
+
     a {
       font-size: 14px;
       color: $alabaster2;
       text-decoration: none;
+
       @include breakpoint-up('lg') {
         font-size: 16px;
       }
+
       &:hover {
         color: $salmon;
         text-decoration: underline;
@@ -247,12 +289,15 @@
 
 .footerBottom {
   padding: 25px 0 35px;
+
   @include breakpoint-up('sm') {
     padding: 20px 0;
   }
+
   @include breakpoint-up('md') {
     padding: 25px 0;
   }
+
   @include breakpoint-up('lg') {
     padding: 40px 0;
   }
@@ -262,12 +307,14 @@
   text-align: center;
   width: 100%;
   margin-bottom: 15px;
+
   @include breakpoint-up('md') {
     text-align: left;
     width: auto;
     flex: 1;
     margin: 0;
   }
+
   @include breakpoint-down('md') {
     font-size: 12px;
     line-height: 140%;
@@ -278,6 +325,7 @@
   display: flex;
   align-items: center;
   width: 100%;
+
   @include breakpoint-up('md') {
     width: auto;
   }
@@ -288,27 +336,33 @@
   justify-content: center;
   width: 100%;
   list-style: none;
+
   li {
     border-right: 1px solid $alabaster2;
     padding-right: 20px;
     margin-right: 20px;
+
     @include breakpoint-down('md') {
       font-size: 12px;
       line-height: 1;
     }
+
     &:last-child {
       padding-right: 0;
       margin-right: 0;
       border-right: none;
     }
   }
+
   a {
     font-size: 12px;
     color: $alabaster2;
     text-decoration: none;
+
     @include breakpoint-up('lg') {
       font-size: 16px;
     }
+
     &:hover {
       color: $salmon;
       text-decoration: underline;

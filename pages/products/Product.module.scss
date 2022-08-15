@@ -1,5 +1,14 @@
 @import '@/styles/_shared.scss';
 
+.product.gift-subscription-product {
+    .prices {
+        margin-bottom: 5px;
+        @include breakpoint-up('md') {
+            margin-bottom: 25px;
+        }
+    }
+}
+
 .product {
     width: 100%;
     gap: 40px;
@@ -110,4 +119,19 @@
 
 .image {
     width: 100%;
+}
+
+.shellfish-free-input {
+    :global(.input-group) {
+      input {
+        flex-basis: 28px;
+        width: 28px;
+        height: 28px;
+        margin-right: 0;
+      }
+      label {
+        font-weight: 500;
+        margin-left: 14.16px;
+      }
+    }
 }

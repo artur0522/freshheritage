@@ -1,16 +1,18 @@
 @import '@/styles/_shared.scss';
 
-.pdp-flyout__content--enter {
-  transform: translate(100%);
-}
-.pdp-flyout__content--enter-active {
-  transform: translate(0);
-}
-.pdp-flyout__content--enter-done {
-  transform: translate(0);
-}
-.pdp-flyout__content--exit {
-  transform: translate(100%);
+.pdp-flyout {
+  .pdp-flyout__content--enter {
+    transform: translate(100%);
+  }
+  .pdp-flyout__content--enter-active {
+    transform: translate(0);
+  }
+  .pdp-flyout__content--enter-done {
+    transform: translate(0);
+  }
+  .pdp-flyout__content--exit {
+    transform: translate(100%);
+  }
 }
 
 .pdp-flyout {
@@ -62,6 +64,7 @@
   background-color: $alabaster2;
   padding: 30px;
   box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.1);
+  transform: translate(100%);
   transition: 0.2s ease-in-out transform;
   overflow-y: auto;
   @include breakpoint-up('sm') {

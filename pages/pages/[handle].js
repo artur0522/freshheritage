@@ -8,18 +8,12 @@ import ResponsiveImage from '@/components/ResponsiveImage'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 export default function DynamicPage({ page }) {
-  console.log("page:", page)
-
   const [mounted, setMounted] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })
   const isDesktop = useMediaQuery(
     {query: '(min-width: 1074px)'}
   )
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
+  
   if (page.type === 'infoPage') {
     const { header, leftContent , rightContent, bottomContent, desktopIllustration, mobileIllustration } = page.fields
     return (
@@ -74,12 +68,12 @@ export default function DynamicPage({ page }) {
 export async function getStaticPaths() {
   const basicPages = await nacelleClient.content({
     type: 'page',
-    entryDepth: 1,
+    entryDepth: 0,
   })
 
   const infoPages = await nacelleClient.content({
     type: 'infoPage',
-    entryDepth: 1
+    entryDepth: 0
   })
 
   const handles = [...basicPages, ...infoPages].map((page) => ({ params: { handle: page.handle } }))

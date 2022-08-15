@@ -145,10 +145,11 @@
   }
   .article-ingredient__btn-link {
     height: 44px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     padding-left: 20px;
     padding-right: 20px;
+    width: auto;
   }
   .article-section__arrow-link {
     text-decoration: none;
@@ -170,20 +171,111 @@
       }
     }
   }
-}
-
-.article-ingredients {
-  list-style: none;
-  li {
-    margin-bottom: 10px;
-    @include breakpoint-up('md') {
-      margin-bottom: 20px;
-    }
-    p {
-      margin: 0;
+  .article-ingredients {
+    list-style: none;
+    margin: 0 0 20px 0;
+    li {
+      margin-bottom: 10px;
+      @include breakpoint-up('md') {
+        margin-bottom: 20px;
+      }
+      p {
+        margin: 0;
+      }
     }
   }
 }
+
+.article-blockquote {
+  position: relative;
+  margin: 40px 0;
+  blockquote {
+    padding: 10px 20px 15px;
+    @include breakpoint-up('md') {
+      padding: 30px 40px 35px;
+    }
+  }
+
+  .article-blockquote__bracket-upper,
+  .article-blockquote__bracket-lower,
+  .article-blockquote__bracket-outer {
+    &:before,
+    &:after {
+      content: '';
+      height: 100%;
+      width: 20px;
+      border: 1px solid $salmon;
+      position: absolute;
+      @include breakpoint-up('md') {
+        width: 39px;
+      }
+    }
+  }
+
+  .article-blockquote__bracket-upper {
+    &:before,
+    &:after {
+      bottom: 7.5px;
+      left: -10px;
+      @include breakpoint-up('md') {
+        bottom: 10px;
+        left: 0px;
+      }
+    }
+    &:before {
+      border-right: 0;
+    }
+    &:after {
+      border-left: 0;
+      right: 0;
+      left: auto;
+    }
+  }
+
+  .article-blockquote__bracket-lower {
+    &:before,
+    &:after {
+      top: 7.5px;
+      left: -10px;
+      @include breakpoint-up('md') {
+        top: 10px;
+        left: 0px;
+      }
+    }
+    &:before {
+      border-right: 0;
+    }
+    &:after {
+      border-left: 0;
+      right: 0;
+      left: auto;
+    }
+  }
+
+  .article-blockquote__bracket-outer {
+    &:before,
+    &:after {
+      top: -1px;
+      left: -15px;
+      @include breakpoint-up('md') {
+        top: 0;
+        left: -10px;
+      }
+    }
+    &:before {
+      border-right: 0;
+    }
+    &:after {
+      border-left: 0;
+      right: 5px;
+      left: auto;
+      @include breakpoint-up('md') {
+        right: 10px;
+      }
+    }
+  }
+}
+
 
 .article-section__image {
   margin: 30px 0 50px;

@@ -88,6 +88,10 @@
   background-color: $pureWhite;
   border: none;
   margin-top: 5px;
+  .checkout__layout.checkout__confirmation & {
+    opacity: 0;
+    pointer-events: none;
+  }
   svg {
     width: 10px;
     height: 10px;

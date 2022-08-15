@@ -63,7 +63,8 @@
   }
 }
 
-.checkout__layout {
+.checkout__layout,
+.checkout__layout--flex {
   display: flex;
   flex-wrap: wrap;
 }

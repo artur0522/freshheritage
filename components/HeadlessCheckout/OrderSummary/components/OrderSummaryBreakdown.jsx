@@ -4,11 +4,13 @@ import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { RedactedCreditCard } from '../../RedactedCreditCard';
 import OrderSummaryItem from './OrderSummaryItem';
 import OrderSummaryItemLine from './OrderSummaryItemLine';
+import { useCustomerContext } from '@/context/CustomerContext'
 import { useTranslation } from 'react-i18next';
 
 const OrderSummaryBreakdown = () => {
   const { data } = useBreakdown();
   const { data: { discountTotal, discountCode }, removeDiscount } = useDiscount();
+  const { customer: customerData } = useCustomerContext()
   const {
     subTotal,
     shippingTotal,
@@ -27,6 +29,7 @@ const OrderSummaryBreakdown = () => {
       discountCode={discountCode}
       payments={payments}
       onRemoveDiscount={removeDiscount}
+      customer={customerData}
     />
   );
 };
@@ -40,6 +43,7 @@ const MemoizedOrderSummaryBreakdown = memo(({
   discountCode,
   payments,
   onRemoveDiscount,
+  customer
 }) => {
   const trackEvent = useAnalytics();
   const logError = useErrorLogging();
@@ -58,7 +62,8 @@ const MemoizedOrderSummaryBreakdown = memo(({
     <OrderSummaryItemLine
       description={`${t('discount.code')}: ${discountCode}`}
       amount={-discountTotal}
-      onRemove={handleRemoveDiscount}
+      onRemove={customer?.is_member ? null : handleRemoveDiscount}
+      type={'discount'}
     />
   );
 

@@ -14,12 +14,13 @@ const sanity = sanityClient({
 })
 
 const QUERY = `*[
-    _type in ['recipeArticle']
+    _type in ['recipeArticle', 'standardArticle', 'videoArticle', 'culinaryContestArticle', 'liveCookingClassArticle']
   ] {
     _type,
     _rev,
     "objectID": _id,
     _createdAt,
+    title,
   }`
 
 export default async function handler(res) {

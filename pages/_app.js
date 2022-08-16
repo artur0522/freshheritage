@@ -23,8 +23,6 @@ import { set } from 'es-cookie'
 const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) => {
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
-  // Use the layout defined at the page level, if available
-  const getLayout = Component.getLayout || ((page) => page)
 
   useEffect(() => {
     setMounted(true)
@@ -39,9 +37,9 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) 
       }
     }
     Router.events.on('routeChangeComplete', onRountChangeComplete)
-  }, [router.asPath, router.pathname, mounted])
+  }, [router.asPath, mounted])
 
-  return getLayout(
+  return (
     <CartProvider>
       <Layout headerSettings={headerSettings} footerSettings={footerSettings}>
         <Component {...pageProps} />

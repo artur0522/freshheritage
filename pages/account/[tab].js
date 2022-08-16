@@ -74,7 +74,7 @@ const AccountMainPage = () => {
   const renderBody = (pickedTab) => {
     switch(pickedTab) {
       case 'subscriptions':
-        return (<SubscriptionsPage/>);
+        return (<SubscriptionsPage subsData={subsData} membershipData={membershipData}/>);
       case 'account-details':
         return (<AccountDetailsPage/>)
       case 'order-history':

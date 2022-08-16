@@ -1,4 +1,5 @@
 import HarvestCard from '@/components/Harvest/HarvestCard'
+import MiniDetails from './MiniDetails'
 import React, { useState } from 'react'
 import classes from './CurrentMonthHarvestDetail.module.scss'
 
@@ -55,7 +56,7 @@ export default function CurrentMonthHarvestDetail({ subscription, month }) {
       </div>
       <div className={classes['detail-body']}>
         {activeTab === 'left' ? (
-          <div>Mini details</div>
+          <MiniDetails subscription={subscription} month={month}/>
         ) : (
           month.fishArray.map((fish) => (
             <HarvestCard

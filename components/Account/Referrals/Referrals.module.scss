@@ -2,74 +2,44 @@
 
 .referrals {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   flex-direction: row;
   width: 100%;
   height: 100%;
-  max-width: 800px;
+  max-width: 1200px;
   margin: auto;
   padding: 82px 0;
 
-  @include breakpoint-up('sm') {
-    // max-width: 540px;
+  @include breakpoint-down(1300px) {
+    padding: 82px 16px;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .col {
-    flex: 0 1 50%;
-  }
+  .col-left {
+    flex: 0 1 33%;
 
-  h4 {
-    font-size: 1.5rem;
-    font-family: $frank-ruhl;
-    margin-bottom: 16px;
-    font-weight: 400;
-  }
-
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 16px;
-
-  }
-
-  .highlight {
-    color: $salmon;
-  }
-
-  .banner {
-    max-height: 294px;
-    margin-bottom: 16px;
-  }
-
-  .text {
-    margin-bottom: 36px;
-  }
-
-  form {
-    .input-container {
-      &:not(:last-child) {
-        margin-bottom: 16px;
-      }
-
-      input {
-        background-color: $fawn;
-        border: none;
-        padding: 16px 18px;
-        border-radius: 6px;
-        width: 100%;
-        color: $sitkablue;
-      }
+    @include breakpoint-down(1300px) {
+      flex: 1 1 0;
     }
+  }
 
-    button {
-      margin-top: 36px;
-      background-color: $salmon;
-      padding: 13px 114px;
-      border-radius: 48px;
-      color: $fawn50-2;
-      border: none;
-      &:hover {
-        background-color: $yeller;
-      }
+  .divider {
+    flex: 0 0 1px;
+    margin: 0 64px;
+    background-color: $black20;
+
+    @include breakpoint-down(1300px) {
+      margin: 64px 32px;
+      width: 100%;
+    }
+  }
+
+  .col-right {
+    flex: 1 1 65%;
+
+    @include breakpoint-down(1300px) {
+      flex: 1 1 0;
     }
   }
 }

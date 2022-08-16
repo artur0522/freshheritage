@@ -144,7 +144,7 @@ const MemoizedShippingLines = memo(
                 case 'Bundle with Next Order':
                   if (!!shipOptionMetadata.bundled && !!customer && (!!subsData || subsData.length < 1)) {
                     line.showOption = true;
-                    line.display = shipOptionMetadata.bundled.shipWeekDisplay;
+                    line.display = `Shipping between ${shipOptionMetadata.bundled.shipWeekDisplay}`;
                     line.shipWeekPreference = shipOptionMetadata.bundled.shipWeekPreference;
                   }
                   else line.showOption = false;
@@ -155,7 +155,7 @@ const MemoizedShippingLines = memo(
                   break;
                 case 'Expedited':
                   line.showOption = true;
-                  line.display = shipOptionMetadata.expedited.estimatedDeliveryDateDisplay;
+                  line.display = `Estimated delivery on ${shipOptionMetadata.expedited.estimatedDeliveryDateDisplay}`;
                   break;
               }
               return line;

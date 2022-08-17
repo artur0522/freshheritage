@@ -26,7 +26,7 @@ const CheckoutFlyout = () => {
 
   const openDrawer = async () => {
     const localStorageCheckoutData = JSON.parse(localStorage.getItem('checkout_data'));
-    if (!Object.keys(localStorageCheckoutData).length) {
+    if (!localStorageCheckoutData) {
       await initializeCheckout()
     }
     setOverLayOpen(true)
@@ -37,7 +37,7 @@ const CheckoutFlyout = () => {
 
   const onOverlayClose = async () => {
     const localStorageCheckoutData = JSON.parse(localStorage.getItem('checkout_data'));
-    if (!Object.keys(localStorageCheckoutData).length) {
+    if (!localStorageCheckoutData) {
       await initializeCheckout()
     }
     setFlyoutState(false)

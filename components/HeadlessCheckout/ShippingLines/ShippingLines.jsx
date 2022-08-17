@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState, componentDidMount } from 'react';
 import {
   useShippingLines,
   useLoadingStatus,
@@ -14,7 +14,6 @@ import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
 import { useCustomerContext } from '@/context/CustomerContext';
 import { useOrderMetadata } from '@boldcommerce/checkout-react-components';
 import moment from 'moment';
-import { map } from 'traverse';
 
 const ShippingLines = ({ applicationLoading }) => {
   const { data, updateShippingLine, getShippingLines } = useShippingLines();
@@ -38,7 +37,7 @@ const ShippingLines = ({ applicationLoading }) => {
   return (
     <MemoizedShippingLines
       shippingLines={data.shippingLines}
-      selectedShippingLine={data.selectedShippingLineIndex}
+      selectedShippingLineIndex={data.selectedShippingLineIndex}
       updateShippingLine={updateShippingLine}
       getShippingLines={getShippingLines}
       showShippingLines={showShippingLines}
@@ -50,7 +49,7 @@ const ShippingLines = ({ applicationLoading }) => {
 const MemoizedShippingLines = memo(
   ({
     shippingLines,
-    selectedShippingLine,
+    selectedShippingLineIndex,
     updateShippingLine,
     getShippingLines,
     showShippingLines,
@@ -59,7 +58,7 @@ const MemoizedShippingLines = memo(
     const trackEvent = useAnalytics();
     const logError = useErrorLogging();
     const [shippingLineIndex, setShippingLineIndex] =
-      useState(selectedShippingLine);
+      useState(selectedShippingLineIndex);
     const [shipWeekPreference, setShipWeekPreference] = useState('');
     const [errors, setErrors] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -68,6 +67,7 @@ const MemoizedShippingLines = memo(
     const { shipOptionMetadata } = useHeadlessCheckoutContext();
     const { customer, subsData } = useCustomerContext();
     const { appendOrderMetadata } = useOrderMetadata();
+    const { displayedShippingLines, setDisplayedShippingLines } = useState(shippingLines);
 
     // Only ever called on checkout page load - not called each time shipping lines are updated
     const refreshShippingLines = useCallback(async () => {
@@ -95,9 +95,8 @@ const MemoizedShippingLines = memo(
 
     // Keep local state for selected shipping line in sync with server app state
     useEffect(() => {
-      // TODO: make sure this does not select an option that is not visible
-      setShippingLineIndex(selectedShippingLine);
-    }, [selectedShippingLine]);
+      setShippingLineIndex(selectedShippingLineIndex);
+    }, [selectedShippingLineIndex]);
 
     const handleChange = useCallback(async (index) => {
       setShippingLineIndex(index);
@@ -107,7 +106,7 @@ const MemoizedShippingLines = memo(
         setErrors(null);
       } catch (e) {
         // If there was an error, reset the selected shipping line to the previous selected shipping line.
-        setShippingLineIndex(selectedShippingLine);
+        setShippingLineIndex(selectedShippingLineIndex);
         setErrors(e.body.errors);
       }
       setLoading(false);
@@ -136,31 +135,40 @@ const MemoizedShippingLines = memo(
         <EmptyShippingLines title={t('shipping.no_options_description')} icon={'box'} />
       );
     } else {
+      const displayedShippingLines = shippingLines
+      .map(line => {
+        switch(line.description) {
+          case 'Bundle with Next Order':
+            if (!!shipOptionMetadata.bundled && !!customer && (!!subsData || subsData.length < 1)) {
+              line.showOption = true;
+              line.display = `Shipping between ${shipOptionMetadata.bundled.shipWeekDisplay}`;
+              line.shipWeekPreference = shipOptionMetadata.bundled.shipWeekPreference;
+            }
+            else line.showOption = false;
+            break;
+          case 'Standard':
+            line.showOption = true;
+            line.options = shipOptionMetadata.standard;
+            break;
+          case 'Expedited':
+            line.showOption = true;
+            line.display = `Estimated delivery on ${shipOptionMetadata.expedited.estimatedDeliveryDateDisplay}`;
+            break;
+        }
+        return line;
+      });
+
+      // Don't select a shipping line that is not visible
+      if (!displayedShippingLines[shippingLineIndex].showOption) {
+        // Currently defaults to automatically select the first option (which is the lowest price)
+        // should only be hiding the bundled ship line, so for now we can just move to the next one
+        setShippingLineIndex(shippingLineIndex++);
+      }
+
       content = (
         <ShippingLineList
-          shippingLines={shippingLines
-            .map(line => {
-              switch(line.description) {
-                case 'Bundle with Next Order':
-                  if (!!shipOptionMetadata.bundled && !!customer && (!!subsData || subsData.length < 1)) {
-                    line.showOption = true;
-                    line.display = `Shipping between ${shipOptionMetadata.bundled.shipWeekDisplay}`;
-                    line.shipWeekPreference = shipOptionMetadata.bundled.shipWeekPreference;
-                  }
-                  else line.showOption = false;
-                  break;
-                case 'Standard':
-                  line.showOption = true;
-                  line.options = shipOptionMetadata.standard;
-                  break;
-                case 'Expedited':
-                  line.showOption = true;
-                  line.display = `Estimated delivery on ${shipOptionMetadata.expedited.estimatedDeliveryDateDisplay}`;
-                  break;
-              }
-              return line;
-            })}
-          selectedShippingLine={shippingLineIndex}
+          shippingLines={displayedShippingLines}
+          selectedShippingLineIndex={shippingLineIndex}
           onChange={handleChange}
           disabled={loading}
           selectedStandardShipWeek={shipWeekPreference}

@@ -3,7 +3,7 @@ import { formatPrice } from '@/utils/formatPrice';
 import { useEffect } from "react";
 const ShippingLineList = ({
   shippingLines,
-  selectedShippingLine,
+  selectedShippingLineIndex,
   onChange,
   disabled,
   selectedStandardShipWeek,
@@ -13,7 +13,7 @@ const ShippingLineList = ({
     <div className="shipping-method-selector">
       {shippingLines && shippingLines.map((method, index) => {
         if (method.showOption) {
-          const lineSelected = selectedShippingLine === parseInt(method.id, 10);
+          const lineSelected = selectedShippingLineIndex === parseInt(method.id, 10);
           let label;
           let extraOptions;
           let href;
@@ -58,14 +58,18 @@ const ShippingLineList = ({
 
             href = '#standard-ship-options';
           } else {
+            const secondaryLabel = method.display ? 
+              (<div className="checkout__secondary-radio-label">
+                <span>{method.display}</span>
+              </div>)
+              : undefined;
+
             label = (
               <div>
                 <div className="checkout__radio-label">
                   <span>{method.description}</span><span>{`$${formatPrice(method.amount, true)}`}</span>
                 </div>
-                <div className="checkout__secondary-radio-label">
-                  <span>{method.display}</span>
-                </div>
+                {secondaryLabel}
               </div>
             );
           }
@@ -78,7 +82,7 @@ const ShippingLineList = ({
                   icon={<div className="radio--checked"></div>}
                   label={label}
                   name="shipping-method"
-                  checked={selectedShippingLine === parseInt(method.id, 10)}
+                  checked={selectedShippingLineIndex === parseInt(method.id, 10)}
                   disabled={disabled || lineSelected}
                   onChange={() => {
                     if (method.description === 'Bundle with Next Order') {

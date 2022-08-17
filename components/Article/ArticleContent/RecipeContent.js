@@ -70,7 +70,9 @@ const RecipeContent = forwardRef(({fields, products}, ref) => {
 
         return (
           <div className={classes['article-section__image']}>
-            <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />
+            {value?.asset &&
+              <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />
+            }
             {value.caption && <span className={classes['article-section__image-caption']}>{value.caption}</span>}
           </div>
         )

@@ -12,6 +12,10 @@ const ProductReviews = ({product, fields}) => {
     }
   }, [])
 
+  if (!media?.length) {
+    return ''
+  }
+
   return (
     <div className={classes['product-reviews']}>
       <div className="container">

@@ -1,30 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classes from './Referrals.module.scss';
 import ReferralForm from './ReferralForm/ReferralForm';
 import ReferralActivity from './ReferralActivity/ReferralActivity';
 
-export default function ReferralsPage() {
-  const [name, setName] = useState()
-
-  const submitForm = (e) => {
-    e.preventDefault()
-    const name = e.target.name.value;
-    const email = e.target.email.value;
-    console.log(`${name} ${email}`)
-  }
-
+export default function ReferralsPage({customer}) {
   return (
     <div className={classes['referrals']}>
       {/* Left col */}
       <div className={classes['col-left']}>
-        <ReferralForm />
+        <ReferralForm customer={customer}/>
       </div>
 
       <div className={classes['divider']}></div>
 
       {/* Right col */}
       <div className={classes['col-right']}>
-        <ReferralActivity />
+        <ReferralActivity customer={customer}/>
       </div>
     </div>
   )

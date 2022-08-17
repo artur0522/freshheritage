@@ -3,9 +3,23 @@ import classes from './ReferralActivity.module.scss'
 import { uniqueId } from 'lodash-es'
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
+import { getReferrals } from 'services/referralClient'
 
-export default function ReferralActivity() {
+export default function ReferralActivity({customer}) {
   const numberOfActiveReferrees = 1;
+
+
+
+  const load = async () => {
+    const idArr = customer.id.split('/')
+    const id = idArr[idArr.length - 1]
+
+    // TODO - Swap this out with the actual id
+    const test = await getReferrals(3141920227412);
+    console.log(test);
+  }
+
+  load();
 
   const referrals = [
     {

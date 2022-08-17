@@ -80,7 +80,7 @@ const AccountMainPage = () => {
       case 'order-history':
         return (<OrderHistoryPage/>)
       case 'referrals':
-        return (<ReferralsPage/>)
+        return (<ReferralsPage customer={customerContext.customer} />)
     }
   }
 

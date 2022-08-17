@@ -1,16 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import classes from './ReferralForm.module.scss'
+import { submitReferral } from 'services/referralClient'
 
 import banner from './referral-dinner.png'
 
-export default function ReferralForm() {
+export default function ReferralForm({ customer }) {
+  const [submittingForm, setSubmittingForm] = useState(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault()
-    const name = e.target.name.value
-    const email = e.target.email.value
-    console.log(`${name} ${email}`)
+
+    setSubmittingForm(true)
+    const idArr = customer.id.split('/')
+    const id = idArr[idArr.length - 1]
+    const successful = await submitReferral(id, name, email)
+    if (!successful) {
+      alert('Your referral did not work. Please try again')
+    }
+    setSubmittingForm(false)
   }
 
   return (
@@ -42,17 +52,25 @@ export default function ReferralForm() {
       </p>
       <form onSubmit={submitForm}>
         <div className={classes['input-container']}>
-          <input type="text" name="name" placeholder="Friend's name" />
+          <input
+            type="text"
+            name="name"
+            placeholder="Friend's name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
         <div className={classes['input-container']}>
           <input
             type="text"
             name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Friend's Email Address"
           />
         </div>
-        <button type="submit" value="Submit">
-          Submit
+        <button type="submit" value="Submit" disabled={submittingForm || !email || !name}>
+          {submittingForm ? 'Submitting...' : 'Submit'}
         </button>
       </form>
     </div>

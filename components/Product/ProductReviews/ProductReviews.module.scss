@@ -1,0 +1,147 @@
+@import '@/styles/_shared.scss';
+
+.product-reviews {
+  padding: 60px 0 0;
+  @include breakpoint-up('md') {
+    padding: 120px 0;
+  }
+
+  .product-reviews__header {
+    max-width: 1200px;
+    margin: 0 auto;
+    h2 {
+      @include breakpoint-up(900px) {
+        margin: 0 0 -30px;
+      }
+      @include breakpoint-up(1200px) {
+        margin: 0 auto -10px;
+      }
+    }
+  }
+
+  :global(#stamped-main-widget) {
+    margin: 0;
+    :global(.stamped-carousel-title),
+    :global(.stamped-tabs) li,
+    :global(.stamped-rating-holder),
+    :global(.stamped-review-avatar) {
+      display: none
+    }
+
+    :global(.stamped-reviews-link),
+    :global(.stamped-reviews-product-title) a,
+    :global(.stamped-reviews-title) a {
+      pointer-events: none;
+    }
+
+    :global(.stamped-review-header-title),
+    :global(.stamped-review-header-title) a {
+      font-family: 'FrankRuhl';
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 120%;
+      color: $sitkablue;
+
+      @include breakpoint-up('sm') {
+        font-size: 21px;
+      }
+
+      @include breakpoint-up('md') {
+        font-size: 24px;
+      }
+
+      @include breakpoint-up('xl') {
+        font-size: 28px;
+      }
+
+      a {
+        pointer-events: none;
+      }
+    }
+    :global(.review-location) {
+      font-family: 'FrankRuhl';
+    }
+    :global(.author),
+    :global(.created),
+    :global(.stamped-form-label) {
+      font-family: 'FrankRuhl';
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 150%;
+      color: $sitkablue;
+
+      @include breakpoint-up('lg') {
+        font-size: 16px;
+      }
+
+      @include breakpoint-up('xl') {
+        font-size: 18px;
+      }
+    }
+
+    :global(.stamped-form-label) {
+      display: block;
+    }
+
+    :global(.stamped-form-input:not(.stamped-starrating)) {
+      font-family: 'FrankRuhl';
+      font-size: 14px;
+      width: 100%;
+      border-radius: 6px;
+      margin: 5px 0 20px;
+    }
+
+    :global(.stamped-form-input-textarea) {
+      margin: 0;
+    }
+
+    :global(.stamped-button-primary) {
+      font-family: 'FrankRuhl';
+      font-weight: 500;
+      color: $alabaster2;
+      border: none;
+      padding: 13px 0;
+      border-radius: 48px;
+      min-width: 250px;
+      height: 48px;
+      text-decoration: none;
+      display: block;
+      transition: 0.2s ease-in-out background;
+      background: $salmon;
+      &:hover {
+        background-color: $copper;
+      }
+    }
+
+    :global(.stamped-review-product),
+    :global(.stamped-review-product) a {
+      font-family: 'FrankRuhl';
+      font-weight: 400;
+      font-size: 14px;
+    }
+
+    :global(.stamped-review-content-body) {
+      font-family: 'FrankRuhl';
+      font-weight: 400;
+      font-style: normal;
+      font-size: 16px;
+      line-height: 150%;
+      color: $sitkablue;
+
+      @include breakpoint-up('md') {
+        font-size: 18px;
+      }
+
+      @include breakpoint-up('xl') {
+        font-size: 21px;
+      }
+    }
+
+    :global(.new-review-form) {
+      border: none !important;
+
+    }
+
+  }
+
+}

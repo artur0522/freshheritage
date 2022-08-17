@@ -1,0 +1,36 @@
+
+@import '@/styles/variables/_colors.scss';
+
+.upcoming-deliveries-bar {
+  padding-top: 12px;
+  padding-bottom: 20px;
+  color: $sitkablue;
+  display: flex;
+  align-items: center;
+
+  :last-child {
+    border-left: solid 1px $black20;
+  }
+
+  h4 {
+    font-size: 21px;
+  }
+}
+
+.section-text {
+  flex: 3 1;
+}
+
+.shipping-link {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.schedule-link {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

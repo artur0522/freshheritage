@@ -8,9 +8,7 @@ export default function MiniDetails({ subscription, month }) {
     .map((fish) => fish.species)
 
   const currentChargeDate = new Date(
-    subscription.fulfillment_options.find(
-      (opt) => opt.group === subscription.fulfill_group,
-    ).new_chargedate,
+    subscription.subscription_next_orderdate,
   );
 
   return (

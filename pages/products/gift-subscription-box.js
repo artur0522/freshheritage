@@ -83,7 +83,7 @@ function GiftSubscriptionBoxPDP({ page, products }) {
               </div>
             </div>
           {/* SECTIONS */}
-          <ContentSections sections={page.fields.content} harvests={harvests} disableHarvestFilters={true} />
+          <ContentSections product={product} sections={page.fields.content} harvests={harvests} disableHarvestFilters={true} />
         </div>
       </div>
     )

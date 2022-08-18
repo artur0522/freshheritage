@@ -5,7 +5,6 @@ import DynamicHero from "@/components/Sections/DynamicHero"
 import { useCustomerContext } from '@/context/CustomerContext'
 import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
-import ReviewsCarousel from '@/components/Sections/ReviewsCarousel'
 
 export default function Home({ page }) {
 
@@ -13,42 +12,40 @@ export default function Home({ page }) {
 
   const context = useCustomerContext()
 
-  let foundDynamicHero
-
   const { customer } = context
 
   const dynamicHeroSections = page.fields.content.filter((section) => {
     return section._type === 'dynamicHero'
   })
 
-  const foundTags = customer?.tags.filter((tag) => {
-    return tag.toLowerCase() === 'seafood box' || tag.toLowerCase() === 'bi monthly seafood box'  || tag.toLowerCase() === 'premium seafood box'  || tag.toLowerCase() === 'premium seafood box no shellfish' || tag.toLowerCase() === 'salmon box'
+  let foundDynamicHero
+
+  foundDynamicHero = dynamicHeroSections.find((section) => {
+    return section.memberType === 'non subscribers'
   })
 
-  if(foundTags?.includes('premium seafood box')) {
-    foundDynamicHero = dynamicHeroSections.find((section) => {
-      return section.memberType === 'premium seafood box'
-    })
-  } else if(foundTags?.includes('premium seafood box no shellfish')) {
-    foundDynamicHero = dynamicHeroSections.find((section) => {
-      return section.memberType === 'premium seafood box no shellfish'
-    })
-  } else if(foundTags?.includes('seafood box')) {
-    foundDynamicHero = dynamicHeroSections.find((section) => {
-      return section.memberType === 'seafood box'
-    })
-  } else if (foundTags?.includes('bi monthly seafood box')) {
-    foundDynamicHero = dynamicHeroSections.find((section) => {
-      return section.memberType === 'bi monthly seafood box'
-    })
-  } else if(foundTags?.includes('salmon box')) {
-    foundDynamicHero = dynamicHeroSections.find((section) => {
-      return section.memberType === 'salmon box'
-    })
-  } else {
-    foundDynamicHero = dynamicHeroSections.find((section) => {
-      return section.memberType === 'non subscribers'
-    })
+  if (customer) {
+    if(customer.tags.includes('PS')) {
+      foundDynamicHero = dynamicHeroSections.find((section) => {
+        return section.memberType === 'premium seafood box'
+      })
+    } else if(customer.tags.includes('PSWS')) {
+      foundDynamicHero = dynamicHeroSections.find((section) => {
+        return section.memberType === 'premium seafood box no shellfish'
+      })
+    } else if(customer.tags.includes('SF')) {
+      foundDynamicHero = dynamicHeroSections.find((section) => {
+        return section.memberType === 'seafood box'
+      })
+    } else if (customer.tags.includes('SF-BI')) {
+      foundDynamicHero = dynamicHeroSections.find((section) => {
+        return section.memberType === 'bi monthly seafood box'
+      })
+    } else if(customer.tags.includes('S')) {
+      foundDynamicHero = dynamicHeroSections.find((section) => {
+        return section.memberType === 'salmon box'
+      })
+    }
   }
 
   return (

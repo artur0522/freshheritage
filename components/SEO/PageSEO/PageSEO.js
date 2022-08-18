@@ -30,12 +30,14 @@ const PageSEO = ({ seo, images = [], product, collection }) => {
         alt: image.alt || title
       }
     })
-    seo = {
-      metaTitle: title,
-      metaDesc: description ? stripHtml(description).result : null,
-      shareTitle: title,
-      shareDesc: description ? stripHtml(description).result : null,
-      images
+    if (!router.asPath.includes('gift-subscription-box')) {
+      seo = {
+        metaTitle: title,
+        metaDesc: description ? stripHtml(description).result : null,
+        shareTitle: title,
+        shareDesc: description ? stripHtml(description).result : null,
+        images
+      }
     }
   }
 

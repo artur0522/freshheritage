@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router'
 import { isEqual } from 'lodash-es';
 import moment from 'moment';
-const HeadlessCheckoutContext = createContext();
+export const HeadlessCheckoutContext = createContext();
 
 export function useHeadlessCheckoutContext() {
   return useContext(HeadlessCheckoutContext);

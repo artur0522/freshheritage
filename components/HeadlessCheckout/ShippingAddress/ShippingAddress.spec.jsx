@@ -1,4 +1,9 @@
-import { render, screen } from "@testing-library/react";
+import { render, act } from "@testing-library/react";
+import { randomUUID } from "crypto";
+import userEvent from '@testing-library/user-event'
+
+let postal_code = randomUUID();
+const submitShippingAddress = jest.fn(() => {});
 
 jest.mock('@/components/HeadlessCheckout/CheckoutFlyout/index.js', () => {
   return {
@@ -20,18 +25,36 @@ jest.mock('@/context/CustomerContext', () => {
   }
 });
 
+jest.mock('@/components/HeadlessCheckout/Address', () => {
+  return {
+    __esModule: true,
+    Address: ({submit, address}) => {
+      return <div>
+        <button
+          onClick={() => {
+            submit()
+          }}
+        >
+          Address Component
+        </button>
+        <p>{JSON.stringify(address)}</p>
+      </div>;
+    }
+  }
+});
+
 jest.mock('@boldcommerce/checkout-react-components', () => {
   return {
     __esModule: true,
+    useShippingAddress: () => {
+      return {
+        data: {postal_code},
+        submitShippingAddress
+      }
+    },
     useSavedAddresses: () => {
       return {
         data: []
-      }
-    },
-    useShippingAddress: () => {
-      return {
-        data: {},
-        submitShippingAddress: () => {},
       }
     },
     useLoadingStatus: () => {
@@ -53,24 +76,39 @@ jest.mock('@boldcommerce/checkout-react-components', () => {
   }
 });
 
-import { HeadlessCheckoutProvider } from "@/context/HeadlessCheckoutContext";
+import { HeadlessCheckoutContext } from "@/context/HeadlessCheckoutContext";
 import ShippingAddress from "./ShippingAddress";
 
 describe('ShippingAddress', () => {
+  const refreshShipOptionData = jest.fn(() => {});
+
   describe('updateSelectedShippingAddress', () => {
-    it('should set address for ShippingAddress component', () => {
-      render(
-        // <HeadlessCheckoutProvider>
+    it('should submit updated address to bold handler', async () => {
+      const wrapper = render(
+        <HeadlessCheckoutContext.Provider value={{
+          refreshShipOptionData
+        }}>
           <ShippingAddress
             applicationLoading={false}
           />
-        // </HeadlessCheckoutProvider>
+        </HeadlessCheckoutContext.Provider>
       );
-      screen.debug();
+      await userEvent.click(wrapper.getByText('Address Component'));
+      expect(submitShippingAddress).toHaveBeenCalledWith({postal_code});
     });
     
-    it('should submit updated address to bold handler', () => {});
-    
-    it('should refresh ship option data', () => {});
+    it('should refresh ship option data', async () => {
+      const wrapper = render(
+        <HeadlessCheckoutContext.Provider value={{
+          refreshShipOptionData
+        }}>
+          <ShippingAddress
+            applicationLoading={false}
+          />
+        </HeadlessCheckoutContext.Provider>
+      );
+      await userEvent.click(wrapper.getByText('Address Component'));
+      expect(refreshShipOptionData).toHaveBeenCalledWith(postal_code);
+    });
   });
 });

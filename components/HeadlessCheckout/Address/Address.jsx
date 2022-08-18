@@ -6,7 +6,7 @@ import { SelectField } from '../SelectField';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
-const Address = ({
+export const Address = ({
   address,
   onChange,
   errors,
@@ -208,5 +208,3 @@ Address.propTypes = {
   submit: PropTypes.func,
   requiredAddressFields: PropTypes.array,
 };
-
-export default Address;

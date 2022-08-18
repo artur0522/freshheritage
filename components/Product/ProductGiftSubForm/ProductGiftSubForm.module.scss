@@ -36,9 +36,6 @@
   align-items: center;
   white-space: nowrap;
   overflow: hidden;
-  span:first-child {
-    // white-space: nowrap;
-  }
   span:last-child {
     display: none;
     margin-left: 5px;
@@ -154,9 +151,13 @@
           min-width: 140px;
         }
         p {
-          font-size: 14px;
+          font-size: 12px;
+          line-height: 1;
           color: $green2;
           letter-spacing: 0;
+          @include breakpoint-up('sm') {
+            font-size: 14px;
+          }
         }
       }
     }

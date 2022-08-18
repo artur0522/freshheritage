@@ -31,6 +31,28 @@
   }
 }
 
+.subscription-selector__product-selector-details {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  span:first-child {
+    // white-space: nowrap;
+  }
+  span:last-child {
+    display: none;
+    margin-left: 5px;
+    font-family: $frank-ruhl;
+    font-weight: 400 !important;
+    font-size: 18px;
+    letter-spacing: 0;
+    flex: 1;
+    @include breakpoint-up('lg') {
+      display: inline;
+    }
+  }
+}
+
 .product-subscription-selector__item {
   display: flex;
   flex-direction: column;
@@ -60,11 +82,12 @@
       font-size: 16px !important;
       font-family: $bebas;
       letter-spacing: 0.02em;
+      overflow: hidden;
+      padding-right: 65px;
       @include breakpoint-up('md') {
         font-size: 24px !important;
       }
     }
-
   }
   &.flex-column {
     flex-direction: column;
@@ -121,11 +144,19 @@
         }
       }
       .subscription-selector__shipment-item-btn {
+        display: flex;
+        flex-direction: column;
         height: 42px;
         min-width: 70px;
+        transition: 0.2s ease-in-out background-color, 0.2s ease-in-out color;
         @include breakpoint-up('md') {
           height: 62px;
           min-width: 140px;
+        }
+        p {
+          font-size: 14px;
+          color: $green2;
+          letter-spacing: 0;
         }
       }
     }

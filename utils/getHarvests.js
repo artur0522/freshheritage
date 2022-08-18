@@ -1,6 +1,6 @@
 import { nacelleClient } from 'services'
 
-export async function getHarvests({product, returnHarvestHandle}) {
+export async function getHarvests({product, selectedVariant, returnHarvestHandle}) {
   const harvestsInfo = await product.variants.reduce(async (carry, variant) => {
     let promises = await carry;
 
@@ -36,6 +36,10 @@ export async function getHarvests({product, returnHarvestHandle}) {
 
     return promises
   }, Promise.resolve([]))
+
+  if (selectedVariant && harvestsInfo.some(harvest => harvest.variantTitle === selectedVariant.content.title)) {
+    return harvestsInfo.filter(harvest => harvest.variantTitle === selectedVariant.content.title)
+  }
 
   console.log("harvestsInfo:", harvestsInfo)
 

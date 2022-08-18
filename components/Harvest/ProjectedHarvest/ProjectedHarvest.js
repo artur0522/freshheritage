@@ -73,7 +73,7 @@ const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
             <div className={classes['harvest__inner']}>
                 <div className={`${classes['harvest__content']}`}>
                     <div className={`${classes['harvest__header']} container`}>
-                        {title && <h4>{title}</h4>}
+                        {title && <h4 className="h1">{title}</h4>}
                         {description && <h5>{description}</h5>}
                     </div>
 
@@ -123,7 +123,7 @@ const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
                         return (
                             <div className={`${classes['harvest__list']}`} key={harvest._id}>
                                 <div className="container">
-                                    {harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
+                                    {harvestList.length > 1 && harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
                                     <div className={`${classes['harvest__fish-list']}`}>
                                         {harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.map((fish) => {
                                             return (
@@ -142,8 +142,8 @@ const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
                         return (
                             <div className={`${classes['harvest__list']}`} key={harvest._id}>
                                 <div className="container">
-                                    {activeTab.month === currentMonth && harvest.months.filter(month => currentDate >= month.sellStart && currentDate <= month.sellEnd)[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
-                                    {activeTab.month !== currentMonth && harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
+                                    {arvestList.length > 1 && activeTab.month === currentMonth && harvest.months.filter(month => currentDate >= month.sellStart && currentDate <= month.sellEnd)[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
+                                    {arvestList.length > 1 && activeTab.month !== currentMonth && harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
                                     <div className={`${classes['harvest__fish-list']}`}>
                                         {activeTab.month === currentMonth && harvest.months.filter(month => currentDate >= month.sellStart && currentDate <= month.sellEnd)[0]?.fishArray.map((fish) => {
                                             return (

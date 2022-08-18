@@ -30,7 +30,7 @@ const PageSEO = ({ seo, images = [], product, collection }) => {
         alt: image.alt || title
       }
     })
-    if (!router.asPath === 'gift-subscription-box') {
+    if (!router.asPath.includes('gift-subscription-box')) {
       seo = {
         metaTitle: title,
         metaDesc: description ? stripHtml(description).result : null,

@@ -21,9 +21,9 @@ const RecipeArticle = ({ page, products, blogSettings, modals }) => {
   const customerContext = useCustomerContext()
   const { customer } = customerContext
 
-  const { hero, articleTags } = page.fields
-  if (page.fields.articleTags) {
-    hero.tags = page.fields.articleTags
+  const { hero, articleTags, displayTags } = page.fields
+  if (displayTags) {
+    hero.tags = displayTags
   }
   const blogType = page.fields.blog?.blogType
   const blogGlobalSettings = blogSettings ? { ...blogSettings.fields[blogType], blogType} : undefined

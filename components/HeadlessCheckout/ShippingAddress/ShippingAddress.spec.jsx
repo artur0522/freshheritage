@@ -1,6 +1,6 @@
-import { render, act } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { randomUUID } from "crypto";
-import userEvent from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event';
 
 let postal_code = randomUUID();
 const submitShippingAddress = jest.fn(() => {});

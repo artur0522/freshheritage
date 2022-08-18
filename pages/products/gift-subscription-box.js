@@ -40,7 +40,7 @@ function GiftSubscriptionBoxPDP({ page, products }) {
     product && (
       <div className={`${classes['product']} ${classes['gift-subscription-product']} product gift-subscription-product`}>
         <StructuredData type="product" data={product} />
-        <PageSEO product={product} />
+        <PageSEO product={product} seo={page.fields.seo} />
         <div className={classes['product__inner']}>
             <div className={`${classes['product__row']} container`}>
 

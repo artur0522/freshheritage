@@ -1,5 +1,11 @@
 @import '@/styles/_shared.scss';
 
+:global(.gift-subscription-product) {
+    .harvest {
+        margin: 0;
+    }
+}
+
 .harvest {
     background-color: $alabaster;
     margin-bottom: 60px;

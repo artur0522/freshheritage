@@ -1,0 +1,29 @@
+@import '@/styles/_shared.scss';
+
+.card {
+  width: 100%;
+  height: 160px;
+  padding: 20px 32px;
+  border-radius: 12px;
+  background-color: #E3EBF4;
+  color: $sitkablue;
+  align-items: center;
+  text-align: center;
+
+  h5 {
+    color: $sitkablue;
+    font-size: 32px;
+    font-family: $bebas;
+    margin-bottom: 4px;
+  }
+
+  .salmon {
+    color: $salmon;
+  }
+
+  button {
+    max-width: 120px;
+    background-color: $sitkablue;
+    margin: auto;
+  }
+}

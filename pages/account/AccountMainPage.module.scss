@@ -1,9 +1,17 @@
+@import '@/styles/_shared.scss';
+
 .main {
   display: flex;
   flex-direction: column;
-  background-color: #f6f3ed;
+  background-color: #f5f5f5;
 
   .tabs-container {
     padding-left: 125px;
+    background-color: $fawn50-2;
+  }
+
+  .cards {
+    width: 100%;
+    max-width: 100%;
   }
 }

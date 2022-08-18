@@ -7,6 +7,7 @@ import 'react-dropdown/style.css'
 import { useEffect, useState } from 'react'
 import { Router, useRouter } from 'next/router'
 import Script from 'next/script'
+import { TrackingHeadScript } from "@phntms/next-gtm"
 import { set } from 'es-cookie'
 
 // The `AppContainer` overrides Next's default `App` component.
@@ -41,6 +42,7 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) 
 
   return (
     <CartProvider>
+      <TrackingHeadScript id={process.env.NEXT_PUBLIC_GA_TRACKING_ID} />
       <Layout headerSettings={headerSettings} footerSettings={footerSettings}>
         <Component {...pageProps} />
       </Layout>

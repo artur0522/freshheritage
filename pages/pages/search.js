@@ -51,7 +51,7 @@ const Search = () => {
     <div className={`${classes['search']} container`}>
       <InstantSearch 
         searchClient={searchClient} 
-        indexName="sandbox_articles" 
+        indexName="culinary_articles" 
         routing={routing}
       >
         <div className={classes['header']}>
@@ -63,11 +63,21 @@ const Search = () => {
           <div className={classes['hits']}>
             <div>
               <button onClick={() => setCurrentIndex("prod_shopify_products")}>Products</button>
-              <button onClick={() => setCurrentIndex("sandbox_articles")}>Articles</button>
+              <button onClick={() => setCurrentIndex("culinary_articles")}>Articles</button>
+              <button onClick={() => setCurrentIndex("brand_articles")}>Articles</button>
             </div>
 
-          {currentIndex === "sandbox_articles" && <div className={classes['hits-group']}>
-              <Index indexName="sandbox_articles">
+          {currentIndex === "culinary_articles" && <div className={classes['hits-group']}>
+              <Index indexName="culinary_articles">
+                <CustomRefinementList attribute='_type' />
+                <div className={classes['hits-row']}>
+                  <Hits hitComponent={Hit} />
+                </div>
+              </Index>
+          </div>}
+
+          {currentIndex === "brand_articles" && <div className={classes['hits-group']}>
+              <Index indexName="brand_articles">
                 <CustomRefinementList attribute='_type' />
                 <div className={classes['hits-row']}>
                   <Hits hitComponent={Hit} />

@@ -14,20 +14,23 @@ export const sanity = sanityClient({
 })
 
 const QUERY = `
-  *[
-    _type in ['recipeArticle', 'standardArticle', 'videoArticle', 'culinaryContestArticle', 'liveCookingClassArticle']
-  ] {
-    "objectID": _id,
-    _type,
-    _rev,
-    _createdAt,
-    title,
-  }
+    *[_type == "standardArticle" && blog._ref in *[_type=="blog" && blogType == "culinary"]._id || 
+    _type == "recipeArticle" && blog._ref in *[_type=="blog" && blogType == "culinary"]._id ||
+    _type == "videoArticle" && blog._ref in *[_type=="blog" && blogType == "culinary"]._id ||
+    _type == "liveCookingClassArticle" && blog._ref in *[_type=="blog" && blogType == "culinary"]._id]
+    {
+        _type,
+        _rev,
+        "objectID": _id,
+        _createdAt,
+        title,
+        blog
+    }
 `
 export default async function handler(res) {
     const documents = await sanity.fetch(QUERY)
 
-    const index = algolia.initIndex('sandbox_articles')
+    const index = algolia.initIndex('culinary_articles')
 
     try {
         console.log(`Saving ${documents.length} documents to index:`)

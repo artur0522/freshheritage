@@ -10,8 +10,9 @@ import { useArticleContext } from '@/context/ArticleContext'
 import { useKnowYourFishDrawerContext } from '@/context/KnowYourFishDrawerContext'
 import IconCaret from '@/svgs/caret.svg'
 import { nacelleClient } from 'services'
+import moment from 'moment'
 
-const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
+const ArticleSidebar = ({fields = {}, datePublished, blogGlobalSettings}) => {
 
   const { content, author, hosts, relatedArticles, knowYourFishList, classSignup } = fields
   const { isSidebarOpen, setIsSidebarOpen } = useArticleContext()
@@ -26,16 +27,15 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
       return articles
     }
 
-
     if (relatedArticles?.relatedArticleItems?.length > 0) {
       getArticles()
         .then(res => {
           setArticles(res)
         })
     }
-
-
   }, [])
+
+  console.log("blogGlobalSettings:", blogGlobalSettings)
 
   return (
     <div className={`article-sidebar ${classes['article-sidebar']} ${isSidebarOpen ? classes['is-open'] : ''}`}>
@@ -46,6 +46,8 @@ const ArticleSidebar = ({fields = {}, blogGlobalSettings}) => {
       </div>
 
       <div className={classes['article-sidebar__main']}>
+
+        {blogGlobalSettings?.blogType === 'stories' && <div className={classes['article-side__data-published']}>Published {datePublished}</div>}
 
         {content && <div className={`${articleContentClasses['article-section__content']} ${classes['article-sidebar__section']}`}>
           <PortableText value={content} />

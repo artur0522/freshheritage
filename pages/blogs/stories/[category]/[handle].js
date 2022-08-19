@@ -9,6 +9,7 @@ import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
+import moment from 'moment'
 
 const BrandArticle = ({ page, products, blogSettings, modals }) => {
   const { hero, articleTags } = page.fields
@@ -21,6 +22,11 @@ const BrandArticle = ({ page, products, blogSettings, modals }) => {
   const [mounted, setMounted] = useState(false)
   const customerContext = useCustomerContext()
   const { customer } = customerContext
+
+  let datePublished = moment.unix(page.createdAt).format('MMMM DD, YYYY')
+  if (page.fields?.publishedDate) {
+    datePublished = moment(page.fields.publishedDate).format('MMMM DD, YYYY')
+  }
 
   useEffect(() => {
     setMounted(true)
@@ -77,7 +83,7 @@ const BrandArticle = ({ page, products, blogSettings, modals }) => {
       <StructuredData type="article" data={page} />
       <PageSEO seo={page.fields.seo} />
       <ArticleSplitHero fields={hero} renderType="default" blogGlobalSettings={blogGlobalSettings} />
-      <ArticleMain contentType="standard" fields={page.fields} products={products} blogGlobalSettings={blogGlobalSettings} />
+      <ArticleMain contentType="standard" datePublished={datePublished} fields={page.fields} products={products} blogGlobalSettings={blogGlobalSettings} />
       <ContentSections sections={page.fields.pageContent} />
     </>
   )

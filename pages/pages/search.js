@@ -3,12 +3,20 @@ import {
   Hits,
   Index,
   InstantSearch,
-  SearchBox,
-  RefinementList
-} from 'react-instantsearch-hooks-web';
-import { history } from 'instantsearch.js/es/lib/routers';
-import { simple } from 'instantsearch.js/es/lib/stateMappings';
-import algoliasearch from 'algoliasearch/lite';
+  SearchBox
+} from 'react-instantsearch-hooks-web'
+import { history } from 'instantsearch.js/es/lib/routers'
+import { simple } from 'instantsearch.js/es/lib/stateMappings'
+import algoliasearch from 'algoliasearch/lite'
+import { useState, useEffect, useCallback } from 'react'
+import CustomRefinementList from '@/components/Search/CustomRefinementList'
+
+import classes from './Search.module.scss'
+// Include only the reset
+import 'instantsearch.css/themes/reset.css';
+// or include the full Satellite theme
+import 'instantsearch.css/themes/satellite.css';
+
 
 const searchClient = algoliasearch('9RTKNI42PN', '4876c2b9c59451c3b189e5bd892dfc9f')
 
@@ -17,39 +25,70 @@ function Hit({ hit }) {
       <article>
         <Highlight attribute="title" hit={hit} />
       </article>
-    );
+    )
 }
 
 const routing = {
-    router: history(),
-    stateMapping: simple(),
-};
+  router: history({
+    getLocation() {
+      if (typeof window !== 'undefined') {
+        return window.location
+      }
+      return new URL(serverUrl)
+    },
+  }),
+  stateMapping: simple(),
+}
 
-function Search() {
+const Search = () => {
+  const [currentIndex, setCurrentIndex] = useState("prod_shopify_products")
+
+  useEffect(() => {
+    console.log(currentIndex)
+  }, [currentIndex])
+
   return (
-    <InstantSearch 
+    <div className={`${classes['search']} container`}>
+      <InstantSearch 
         searchClient={searchClient} 
-        indexName="sandbox_culinary" 
+        indexName="sandbox_articles" 
         routing={routing}
-    >
+      >
+        <div className={classes['header']}>
+          <h1>Search Results</h1>
+          <SearchBox />
+        </div>
 
-      <SearchBox />
+        <div className={classes['results-wrap']}>
+          <div className={classes['hits']}>
+            <div>
+              <button onClick={() => setCurrentIndex("prod_shopify_products")}>Products</button>
+              <button onClick={() => setCurrentIndex("sandbox_articles")}>Articles</button>
+            </div>
 
-      <RefinementList attribute="title" />
+          {currentIndex === "sandbox_articles" && <div className={classes['hits-group']}>
+              <Index indexName="sandbox_articles">
+                <CustomRefinementList attribute='_type' />
+                <div className={classes['hits-row']}>
+                  <Hits hitComponent={Hit} />
+                </div>
+              </Index>
+          </div>}
+            
+          {currentIndex === "prod_shopify_products" && <div className={classes['hits-group']}>
+            <Index indexName="prod_shopify_products">
+              <CustomRefinementList attribute='product_type' />
+              <div className={classes['hits-row']}>
+                <Hits hitComponent={Hit} />
+              </div>
+            </Index>
+          </div>}
 
-      <Index indexName="sandbox_culinary">
-        <Hits hitComponent={Hit} />
-      </Index>
-
-      <Index indexName="sandbox_brand">
-        <Hits hitComponent={Hit} />
-      </Index>
-
-      <Index indexName="prod_shopify_products">
-        <Hits hitComponent={Hit} />
-      </Index>
-    </InstantSearch>
-  );
+          </div>
+        </div>
+      </InstantSearch>
+    </div>
+  )
 }
 
 export default Search

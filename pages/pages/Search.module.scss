@@ -1,0 +1,18 @@
+@import '@/styles/_shared.scss';
+
+.search {
+    .header {
+        border-bottom: 1px solid $black20;
+        padding-bottom: 24px;
+        margin-bottom: 41px;
+    }
+
+    .results-wrap {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .hits-group {
+        display: flex;
+    }
+}

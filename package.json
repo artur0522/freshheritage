@@ -21,6 +21,7 @@
     "@sanity/client": "^3.3.2",
     "@sanity/image-url": "^1.0.1",
     "@svgr/webpack": "^6.2.1",
+    "@vercel/node": "^2.5.8",
     "algoliasearch": "^4.14.2",
     "axios": "^0.27.2",
     "calendar-link": "^2.2.0",
@@ -29,6 +30,7 @@
     "graphql": "^16.5.0",
     "i18n": "^0.14.2",
     "i18next": "^21.6.14",
+    "instantsearch.css": "^7.4.5",
     "instantsearch.js": "^4.44.0",
     "js-base64": "^3.7.2",
     "lodash-es": "^4.17.21",
@@ -65,7 +67,9 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "css-loader": "^6.7.1",
     "eslint": "^8.4.1",
-    "eslint-config-next": "12.0.7"
+    "eslint-config-next": "12.0.7",
+    "style-loader": "^3.3.1"
   }
 }

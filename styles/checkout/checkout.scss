@@ -39,6 +39,13 @@
       }
     }
   }
+  .checkout__panel-wrapper:last-child {
+    @include breakpoint-up('lg') {
+      order: -1;
+      flex: 1;
+      padding-right: 35px;
+    }
+  }
   .order-item__title {
     font-size: 16px;
     @include breakpoint-up('sm') {

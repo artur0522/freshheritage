@@ -26,8 +26,7 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) 
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    console.log("boom")
-    TagManager.initialize({ gtmId: process.env.NEXT_PUBLIC_GA_TRACKING_ID })
+    TagManager.initialize({ })
   }, [])
 
   useEffect(() => {

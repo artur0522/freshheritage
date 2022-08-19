@@ -7,7 +7,7 @@ import 'react-dropdown/style.css'
 import { useEffect, useState } from 'react'
 import { Router, useRouter } from 'next/router'
 import Script from 'next/script'
-import { TrackingHeadScript } from "@phntms/next-gtm"
+import TagManager from 'react-gtm-module'
 import { set } from 'es-cookie'
 
 // The `AppContainer` overrides Next's default `App` component.
@@ -24,6 +24,11 @@ import { set } from 'es-cookie'
 const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) => {
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    console.log("boom")
+    TagManager.initialize({ gtmId: process.env.NEXT_PUBLIC_GA_TRACKING_ID })
+  }, [])
 
   useEffect(() => {
     setMounted(true)
@@ -45,7 +50,6 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) 
 
   return (
     <CartProvider>
-      <TrackingHeadScript id={process.env.NEXT_PUBLIC_GA_TRACKING_ID} />
       <Layout headerSettings={headerSettings} footerSettings={footerSettings}>
         <Component {...pageProps} />
       </Layout>

@@ -1,3 +1,11 @@
+.checkout__confirmation {
+  .checkout__panel-wrapper:last-child {
+    order: -1;
+    flex: 1;
+    padding-right: 35px;
+  }
+}
+
 .checkout-page {
   display: flex;
   align-items: center;
@@ -29,13 +37,6 @@
       @include breakpoint-up('sm') {
         padding: 10px 35px;
       }
-    }
-  }
-  .checkout__panel-wrapper:last-child {
-    @include breakpoint-up('lg') {
-      order: -1;
-      flex: 1;
-      padding-right: 35px;
     }
   }
   .order-item__title {

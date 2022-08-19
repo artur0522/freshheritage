@@ -4,6 +4,11 @@ const ProductReviews = ({product, fields}) => {
 
   const { media } = product.content
   const { header } = fields
+  const ignoreProductHandles = ['digital-gift-card']
+
+  if (ignoreProductHandles.includes(product.content.handle)) {
+    return '';
+  }
 
   if (!media?.length) {
     return ''

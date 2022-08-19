@@ -83,6 +83,12 @@ export async function getStaticProps({ params }) {
     entryDepth: 1
   })
 
+  if (!pages.length) {
+    return {
+      notFound: true
+    }
+  }
+
   const fullRefPage = await getNacelleReferences(pages[0])
 
   return {

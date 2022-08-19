@@ -93,11 +93,10 @@ export async function getStaticProps({ params }) {
   })
 
   const cookingClassCategoryBlogs = await nacelleClient.content({
-    handles: ['cooking-classes'],
+    handles: [params.category],
     type: 'cookingClassCategory',
     entryDepth: 1
   })
-
 
   if (!pages.length && !cookingClassCategoryBlogs.length) {
     return {

@@ -50,6 +50,7 @@ const ProductGiftSubForm = ({selectedVariant, setSelectedVariant, allProducts, p
   const handleAddItem = async (event) => {
     event.preventDefault()
     setIsLoading(true)
+
     const variant = getCartVariant({
       product: product,
       variant: selectedVariant

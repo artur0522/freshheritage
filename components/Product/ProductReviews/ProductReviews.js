@@ -1,16 +1,9 @@
-import { useEffect } from 'react'
 import classes from './ProductReviews.module.scss'
 
 const ProductReviews = ({product, fields}) => {
 
   const { media } = product.content
   const { header } = fields
-
-  useEffect(() => {
-    if (StampedFn) {
-      StampedFn.init({ apiKey: process.env.NEXT_PUBLIC_STAMPEDIO_KEY_PUBLIC, storeUrl: process.env.NEXT_PUBLIC_STAMPEDIO_STORE_HASH })
-    }
-  }, [])
 
   if (!media?.length) {
     return ''

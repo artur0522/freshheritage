@@ -1,15 +1,8 @@
-import { useEffect } from 'react'
 import classes from './ReviewsCarousel.module.scss'
 
 const ReviewsCarousel = ({fields}) => {
 
   const { header } = fields
-
-  useEffect(() => {
-    if (StampedFn) {
-      StampedFn.init({ apiKey: process.env.NEXT_PUBLIC_STAMPEDIO_KEY_PUBLIC, storeUrl: process.env.NEXT_PUBLIC_STAMPEDIO_STORE_HASH })
-    }
-  }, [])
 
   return (
     <div className={classes['reviews-carousel']}>

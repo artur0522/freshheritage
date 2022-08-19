@@ -6,7 +6,8 @@ import ResponsiveImage from '@/components/ResponsiveImage'
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
 import ContentSections from '@/components/Sections/ContentSections'
-import ProductReviewStars from '../../components/Product/ProductReviewStars'
+import ProductReviewStars from '@/components/Product/ProductReviewStars'
+import ProductReviews from '@/components/Product/ProductReviews'
 import ProductSlider from '../../components/Product/ProductSlider'
 import ProductForm from '@/components/Product/ProductForm'
 import ProductDetailsList from '@/components/Product/ProductDetailsList'
@@ -193,7 +194,7 @@ function Product({ product, page, modals }) {
               </div>
             </div>
           {/* SECTIONS */}
-          <ContentSections sections={page.fields.content} harvestMetafield={harvestMetafield} />
+          <ContentSections product={product} sections={page.fields.content} harvestMetafield={harvestMetafield} />
         </div>
       </div>
     )

@@ -31,7 +31,7 @@ const ArticleMain = forwardRef(({contentType, fields, products, showNav = false,
 
   return (
     <div ref={ref} className={classes['article-main']}>
-      {showNav && refs.current && Object.keys(refs.current).length && <ArticleNav ref={refs} />}
+      {showNav && refs.current && !!Object.keys(refs.current).length && <ArticleNav ref={refs} />}
       <div className={classes['article-main__wrapper']}>
         {getContent(contentType)}
         {(sidebar || showSidebar) && <ArticleSidebar fields={sidebar} blogGlobalSettings={blogGlobalSettings} />}

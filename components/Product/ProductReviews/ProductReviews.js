@@ -1,0 +1,36 @@
+import { useEffect } from 'react'
+import classes from './ProductReviews.module.scss'
+
+const ProductReviews = ({product, fields}) => {
+
+  const { media } = product.content
+  const { header } = fields
+
+  useEffect(() => {
+    if (StampedFn) {
+      StampedFn.init({ apiKey: process.env.NEXT_PUBLIC_STAMPEDIO_KEY_PUBLIC, storeUrl: process.env.NEXT_PUBLIC_STAMPEDIO_STORE_HASH })
+    }
+  }, [])
+
+  if (!media?.length) {
+    return ''
+  }
+
+  return (
+    <div className={classes['product-reviews']}>
+      <div className="container">
+        <div className={classes['product-reviews__header']}>
+          <h2 className="h1">{header}</h2>
+        </div>
+        <div
+          id="stamped-main-widget"
+          data-product-id={product.sourceEntryId.replace('gid://shopify/Product/', '')}
+          data-name={product.content.title}
+          data-image-url={media[0].src}
+          data-product-title={product.content.title} />
+      </div>
+    </div>
+  )
+}
+
+export default ProductReviews

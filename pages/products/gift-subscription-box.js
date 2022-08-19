@@ -12,12 +12,14 @@ import ProductStamps from '@/components/Product/ProductStamps'
 import classes from './Product.module.scss'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import { getHarvests } from '@/utils/getHarvests'
+import { getMetafield } from '@/utils/getMetafield'
 
 function GiftSubscriptionBoxPDP({ page, products }) {
 
   const [product, setProduct] = useState(products[0])
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
   const [harvests, setHarvests] = useState(null)
+  const servingsMetafield = getMetafield({product, selectedVariant, key: 'servings'})
 
   const onSelectProduct = (e) => {
     const product = products.find(product => product.content.handle === e.value)
@@ -26,19 +28,19 @@ function GiftSubscriptionBoxPDP({ page, products }) {
 
   useEffect(() => {
     setSelectedVariant(product.variants[0])
-    getHarvests({product})
+    getHarvests({product, selectedVariant})
     .then(res => {
       if (res) {
         setHarvests(res)
       }
     })
-  }, [product])
+  }, [product, selectedVariant])
 
   return (
     product && (
       <div className={`${classes['product']} ${classes['gift-subscription-product']} product gift-subscription-product`}>
         <StructuredData type="product" data={product} />
-        <PageSEO product={product} />
+        <PageSEO product={product} seo={page.fields.seo} />
         <div className={classes['product__inner']}>
             <div className={`${classes['product__row']} container`}>
 
@@ -60,7 +62,10 @@ function GiftSubscriptionBoxPDP({ page, products }) {
                     )}
                     <h2>${selectedVariant.price} / box</h2>
                   </div>
-                  <h2 className={classes['weight']}>{selectedVariant.weight} lbs</h2>
+                  <h2 className={classes['weight']}>
+                    {selectedVariant.weight} lbs
+                    {servingsMetafield && <> / {servingsMetafield.value} servings</> }
+                  </h2>
                 </div>
 
                 {/* PRODUCT FORM */}
@@ -71,6 +76,7 @@ function GiftSubscriptionBoxPDP({ page, products }) {
                     ...product.boxDetails.fields.details,
                     detailsItems: product.boxDetails.fields.details.detailsItems.filter(item => {
                       if (item.text && item.text[0].children[0].text.includes('money-back')) return false
+                      if (item.text && item.text[0].children[0].text.includes('money back')) return false
                       return true
                     })
                   }} />
@@ -83,7 +89,16 @@ function GiftSubscriptionBoxPDP({ page, products }) {
               </div>
             </div>
           {/* SECTIONS */}
-          <ContentSections sections={page.fields.content} harvests={harvests} disableHarvestFilters={true} />
+          <ContentSections
+            product={product}
+            sections={page.fields.content}
+            harvests={harvests && harvests.map(harvest => {
+              return {
+                ...harvest,
+                header: harvest.variantTitle
+              }
+            })}
+            disableHarvestFilters={true} />
         </div>
       </div>
     )

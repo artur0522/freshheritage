@@ -79,7 +79,7 @@ jest.mock('@boldcommerce/checkout-react-components', () => {
 import { HeadlessCheckoutContext } from "@/context/HeadlessCheckoutContext";
 import ShippingAddress from "./ShippingAddress";
 
-describe('ShippingAddress', () => {
+describe('<ShippingAddress />', () => {
   const refreshShipOptionData = jest.fn(() => {});
 
   describe('updateSelectedShippingAddress', () => {

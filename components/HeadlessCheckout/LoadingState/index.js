@@ -1,1 +1,1 @@
-export { default as LoadingState } from './LoadingState';
+export { LoadingState } from './LoadingState';

@@ -4,7 +4,6 @@ import { Address } from '@/components/HeadlessCheckout/Address';
 import { SavedAddressList } from './components';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';
-import IconSelectArrow from '@/svgs/select-arrow.svg'
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
 
 const ShippingAddress = ({ applicationLoading }) => {

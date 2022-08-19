@@ -11,3 +11,7 @@ jest.mock('react-i18next', () => ({
     };
   },
 }));
+
+afterAll(() => {
+  jest.clearAllMocks();
+});

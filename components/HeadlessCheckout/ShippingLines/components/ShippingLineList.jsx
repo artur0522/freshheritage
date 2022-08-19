@@ -1,27 +1,56 @@
 import Checkbox from "react-custom-checkbox";
 import { formatPrice } from '@/utils/formatPrice';
-import { useEffect } from "react";
-const ShippingLineList = ({
+
+export const ShippingLineList = ({
   shippingLines,
   selectedShippingLineIndex,
   onChange,
   disabled,
   selectedStandardShipWeek,
-  onShipWeekChange
+  onShipWeekChange,
+  shipOptionMetadata
 }) => {
+  const displayedShippingLines = shippingLines
+    .map(line => {
+      switch(line.description) {
+        case 'Bundle with Next Order':
+          if (!!shipOptionMetadata.bundled) {
+            line.showOption = true;
+            line.display = `Shipping between ${shipOptionMetadata.bundled.shipWeekDisplay}`;
+            line.shipWeekPreference = shipOptionMetadata.bundled.shipWeekPreference;
+          }
+          else line.showOption = false;
+          break;
+        case 'Standard':
+          line.showOption = true;
+          line.options = shipOptionMetadata.standard;
+          break;
+        case 'Expedited':
+          line.showOption = true;
+          line.display = `Estimated delivery on ${shipOptionMetadata.expedited.estimatedDeliveryDateDisplay}`;
+          break;
+      }
+      return line;
+    });
+
+  // Don't select a shipping line that is not visible
+  if (selectedShippingLineIndex !== -1 && !displayedShippingLines[selectedShippingLineIndex].showOption) {
+    // Currently defaults to automatically select the first option (which is the lowest price)
+    // should only be hiding the bundled ship line, so for now we can just move to the next one
+    onChange(displayedShippingLines.findIndex(line => line.showOption));
+  }
+
   return (
     <div className="shipping-method-selector">
-      {shippingLines && shippingLines.map((method, index) => {
+      {displayedShippingLines && displayedShippingLines.map((method, index) => {
         if (method.showOption) {
           const lineSelected = selectedShippingLineIndex === parseInt(method.id, 10);
           let label;
           let extraOptions;
-          let href;
 
           if (method.description === 'Standard') {
-            
             extraOptions = (
-              <div id='standard-ship-options' className={`secondary-shipping-method-selector ${lineSelected ? 'is-visible' : ''}`}>
+              <div className={`secondary-shipping-method-selector ${lineSelected ? 'is-visible' : ''}`}>
                 {method.options.map((o, i) => {
                   const shipWeekOptionSelected = selectedStandardShipWeek === o.shipWeekPreference
                   return (
@@ -55,8 +84,6 @@ const ShippingLineList = ({
                 </div>
               </div>
             );
-
-            href = '#standard-ship-options';
           } else {
             const secondaryLabel = method.display ? 
               (<div className="checkout__secondary-radio-label">
@@ -76,7 +103,7 @@ const ShippingLineList = ({
 
           return (
             <div key={index}>
-              <div className={`checkout__radio-wrapper ${lineSelected ? 'is-selected' : ''}`} href={href}>
+              <div className={`checkout__radio-wrapper ${lineSelected ? 'is-selected' : ''}`}>
                 <Checkbox
                   className="checkout__radio"
                   icon={<div className="radio--checked"></div>}
@@ -104,5 +131,3 @@ const ShippingLineList = ({
     </div>
   );
 };
-
-export default ShippingLineList;

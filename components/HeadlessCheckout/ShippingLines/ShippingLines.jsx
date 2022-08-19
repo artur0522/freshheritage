@@ -1,19 +1,16 @@
-import React, { memo, useCallback, useEffect, useState, componentDidMount } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import {
   useShippingLines,
   useLoadingStatus,
   useErrors,
-  useShippingAddress
+  useShippingAddress,
+  useOrderMetadata
 } from '@boldcommerce/checkout-react-components';
 import { LoadingState } from '../LoadingState';
 import { ShippingLineList, EmptyShippingLines } from './components';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';
-import IconSelectArrow from '@/svgs/select-arrow.svg';
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
-import { useCustomerContext } from '@/context/CustomerContext';
-import { useOrderMetadata } from '@boldcommerce/checkout-react-components';
-import moment from 'moment';
 
 const ShippingLines = ({ applicationLoading }) => {
   const { data, updateShippingLine, getShippingLines } = useShippingLines();
@@ -32,7 +29,8 @@ const ShippingLines = ({ applicationLoading }) => {
   const loading =
     loadingStatus.shippingAddress === 'setting' ||
     loadingStatus.shippingLines === 'fetching' ||
-    applicationLoading;
+    applicationLoading ||
+    !shipOptionMetadata;
 
   return (
     <MemoizedShippingLines
@@ -62,14 +60,11 @@ const MemoizedShippingLines = memo(
     const [shipWeekPreference, setShipWeekPreference] = useState('');
     const [errors, setErrors] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [shippingMethodOpen, setShippingMethodOpen] = useState(true);
+    const [shippingMethodOpen] = useState(true);
     const { t } = useTranslation();
     const { shipOptionMetadata } = useHeadlessCheckoutContext();
-    const { customer, subsData } = useCustomerContext();
     const { appendOrderMetadata } = useOrderMetadata();
-    const { displayedShippingLines, setDisplayedShippingLines } = useState(shippingLines);
 
-    // Only ever called on checkout page load - not called each time shipping lines are updated
     const refreshShippingLines = useCallback(async () => {
       if (showShippingLines) {
         try {
@@ -135,44 +130,15 @@ const MemoizedShippingLines = memo(
         <EmptyShippingLines title={t('shipping.no_options_description')} icon={'box'} />
       );
     } else {
-      const displayedShippingLines = shippingLines
-      .map(line => {
-        switch(line.description) {
-          case 'Bundle with Next Order':
-            if (!!shipOptionMetadata.bundled && !!customer && (!!subsData || subsData.length < 1)) {
-              line.showOption = true;
-              line.display = `Shipping between ${shipOptionMetadata.bundled.shipWeekDisplay}`;
-              line.shipWeekPreference = shipOptionMetadata.bundled.shipWeekPreference;
-            }
-            else line.showOption = false;
-            break;
-          case 'Standard':
-            line.showOption = true;
-            line.options = shipOptionMetadata.standard;
-            break;
-          case 'Expedited':
-            line.showOption = true;
-            line.display = `Estimated delivery on ${shipOptionMetadata.expedited.estimatedDeliveryDateDisplay}`;
-            break;
-        }
-        return line;
-      });
-
-      // Don't select a shipping line that is not visible
-      if (!displayedShippingLines[shippingLineIndex].showOption) {
-        // Currently defaults to automatically select the first option (which is the lowest price)
-        // should only be hiding the bundled ship line, so for now we can just move to the next one
-        setShippingLineIndex(shippingLineIndex++);
-      }
-
       content = (
         <ShippingLineList
-          shippingLines={displayedShippingLines}
+          shippingLines={shippingLines}
           selectedShippingLineIndex={shippingLineIndex}
           onChange={handleChange}
           disabled={loading}
           selectedStandardShipWeek={shipWeekPreference}
           onShipWeekChange={handleShipWeekChange}
+          shipOptionMetadata={shipOptionMetadata}
         />
       );
     }

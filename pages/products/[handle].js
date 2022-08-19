@@ -245,6 +245,14 @@ export async function getStaticProps({ params }) {
     }
   }
 
+  if (products[0].tags.includes('Subscription Box')) {
+    return {
+      redirect: {
+        destination: '/pages/choose-your-plan',
+      }
+    }
+  }
+
   const modals = await nacelleClient.content({
     type: 'gatedProductModal'
   })

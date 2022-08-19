@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Expand from 'react-expand-animated'
 import Dropdown from 'react-dropdown'
 import IconSelectArrow from '@/svgs/select-arrow.svg'
@@ -13,14 +13,18 @@ import LoadingState from '@/components/LoadingState'
 const MembershipOption = ({option, membershipType}) => {
   const purchaseFlowContext = usePurchaseFlowContext()
 
-  const [selectedVariant, setSelectedVariant] = useState(purchaseFlowContext.options.product.variants[0])
-  const [isLoading, setIsLoading] = useState(false)
-
   const { product } = purchaseFlowContext.options
   const { variants } = product;
+  const frequencyOptions = product.content?.options.find(option => option.name === 'frequency').values
+
+  const [isLoading, setIsLoading] = useState(false)
+  const [selectedVariant, setSelectedVariant] = useState(getVariantByOptions({
+    variants,
+    matchOptionValue: frequencyOptions[0],
+    purchaseFlowOptions: purchaseFlowContext.options
+  }))
 
   const membershipText = selectedVariant.metafields.find(metafield => metafield.key === `${membershipType}_membership_text`)
-  const frequencyOptions = product.content?.options.find(option => option.name === 'frequency').values
   const variantPrice = membershipType === 'prepaid' ? (selectedVariant.price * .97).toFixed(2) : selectedVariant.price
 
   const handleMediaQueryChange = (matches) => {
@@ -48,6 +52,7 @@ const MembershipOption = ({option, membershipType}) => {
     })
     setSelectedVariant(variant)
   }
+
 
   return (
     <li className={classes['membership-option']}>

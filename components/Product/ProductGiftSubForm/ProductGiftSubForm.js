@@ -50,6 +50,7 @@ const ProductGiftSubForm = ({selectedVariant, setSelectedVariant, allProducts, p
   const handleAddItem = async (event) => {
     event.preventDefault()
     setIsLoading(true)
+
     const variant = getCartVariant({
       product: product,
       variant: selectedVariant
@@ -103,6 +104,7 @@ const ProductGiftSubForm = ({selectedVariant, setSelectedVariant, allProducts, p
         shellfish_free_selected: (shellfishFreeInputRef.current) ? shellfishFreeInputRef.current.checked : undefined
       }
     })
+    console.log("variant:", variant)
     setSelectedVariant(variant)
   }
 

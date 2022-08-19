@@ -37,7 +37,16 @@ function GiftSubscriptionBoxPDP({ page, products }) {
     if (window && window.StampedFn) {
       StampedFn.init()
     }
-  }, [product, selectedVariant])
+  }, [product])
+
+  useEffect(() => {
+    getHarvests({product, selectedVariant})
+    .then(res => {
+      if (res) {
+        setHarvests(res)
+      }
+    })
+  }, [selectedVariant])
 
   return (
     product && (

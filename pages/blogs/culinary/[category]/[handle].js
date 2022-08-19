@@ -279,8 +279,7 @@ export async function getStaticProps({ params }) {
         }
       })
       if (data.products && data.products.length) {
-        const products = data.products
-        props.products = products.filter(product => product.tags.includes('Subscription Box'))
+        props.products = data.products
       }
     }
   }

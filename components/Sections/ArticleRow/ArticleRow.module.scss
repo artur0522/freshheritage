@@ -1,5 +1,12 @@
 @import '@/styles/_shared.scss';
 
+@media print {
+    .articles {
+      display: none !important;
+    }
+}
+
+
 .articles {
     padding-bottom: 12px;
     position: relative;

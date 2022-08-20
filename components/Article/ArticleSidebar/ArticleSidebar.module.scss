@@ -1,5 +1,11 @@
 @import '@/styles/_shared.scss';
 
+@media print {
+  .article-sidebar {
+    display: none !important;
+  }
+}
+
 
 :global(.article-culinary-contest) {
   .article-sidebar {
@@ -62,9 +68,17 @@
           margin: 0 0 30px;
         }
       }
-      @include breakpoint-up('xl') {
+      @include breakpoint-up('lg') {
         width: calc(50% - 15px);
         max-width: none;
+      }
+      .article-related-item__image {
+        @include breakpoint-up('lg') {
+          height: 250px;
+        }
+        @include breakpoint-up('xl') {
+          height: 385px;
+        }
       }
     }
   }

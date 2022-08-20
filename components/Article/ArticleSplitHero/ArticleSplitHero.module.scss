@@ -1,5 +1,11 @@
 @import '@/styles/_shared.scss';
 
+@media print {
+  .article-hero {
+    display: none !important;
+  }
+}
+
 :global(.article-cooking-guide) {
   .article-hero__content {
     @include breakpoint-up('md') {

@@ -18,7 +18,10 @@ const WYSIWYG = ({fields}) => {
             <a>{children}</a>
           </Link>
         )
-      }
+      },
+      color: ({ children, value}) => {
+        return <span style={{'color': value.hex }}>{children}</span>
+      },
     },
     listItem: {
       bullet: ({children}) => {
@@ -33,6 +36,26 @@ const WYSIWYG = ({fields}) => {
       }
     },
     types: {
+      image: ({value}) => {
+        if (value.link) {
+          return <div className={classes['wysiwyg__image']}>
+            <Link href={value.link}>
+              <a>
+                <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />
+              </a>
+            </Link>
+            {value.caption && <span className={classes['wysiwyg__image-caption']}>{value.caption}</span>}
+          </div>
+        }
+        return (
+          <div className={classes['wysiwyg__image']}>
+            {value?.asset &&
+              <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />
+            }
+            {value.caption && <span className={classes['wysiwyg__image-caption']}>{value.caption}</span>}
+          </div>
+        )
+      },
       youtubeVideoBlock: ({value}) => <Video youtubeVideoId={value.youtubeVideoId} autoplay={false} startVideo="true" className={classes['wysiwyg__video']} />,
       valuePropsBlock:({value}) => {
         let valuePropsKeys = Object.keys(value).filter(key => key.includes('valueProp'))

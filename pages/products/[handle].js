@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, createRef, useRef } from 'react'
 import { nacelleClient } from 'services'
 import { useMediaQuery } from 'react-responsive'
 import ResponsiveImage from '@/components/ResponsiveImage'
@@ -38,6 +38,13 @@ function Product({ product, page, modals }) {
   const customerContext = useCustomerContext()
   const { customer } = customerContext
   const shellfishFreeInputRef = useRef()
+
+  const refs = useRef(['reviewsStars', 'productReviews'].reduce((carry, ref) => {
+    return {
+      ...carry,
+      [ref]: createRef()
+    }
+  }, {}))
 
   useEffect(() =>  {
     setMounted(true)
@@ -111,7 +118,7 @@ function Product({ product, page, modals }) {
               </div>
 
               <div className={classes['main']}>
-                <ProductReviewStars productId={product.sourceEntryId.replace('gid://shopify/Product/', '')} />
+                <ProductReviewStars refs={refs} productId={product.sourceEntryId.replace('gid://shopify/Product/', '')} />
 
                 {product.content?.title && <h1 className={classes['product-title']}>{product.content.title}</h1>}
 
@@ -194,7 +201,7 @@ function Product({ product, page, modals }) {
               </div>
             </div>
           {/* SECTIONS */}
-          <ContentSections product={product} sections={page.fields.content} harvestMetafield={harvestMetafield} />
+          <ContentSections ref={refs} product={product} sections={page.fields.content} harvestMetafield={harvestMetafield} />
         </div>
       </div>
     )

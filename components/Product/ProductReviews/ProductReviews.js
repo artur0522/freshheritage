@@ -1,6 +1,7 @@
+import { forwardRef } from 'react'
 import classes from './ProductReviews.module.scss'
 
-const ProductReviews = ({product, fields}) => {
+const ProductReviews = forwardRef(({product, fields}, ref) => {
 
   const { media } = product.content
   const { header } = fields
@@ -15,7 +16,7 @@ const ProductReviews = ({product, fields}) => {
   }
 
   return (
-    <div className={classes['product-reviews']}>
+    <div ref={ref?.current?.productReviews} className={classes['product-reviews']}>
       <div className="container">
         <div className={classes['product-reviews__header']}>
           <h2 className="h1">{header}</h2>
@@ -29,6 +30,6 @@ const ProductReviews = ({product, fields}) => {
       </div>
     </div>
   )
-}
+})
 
 export default ProductReviews

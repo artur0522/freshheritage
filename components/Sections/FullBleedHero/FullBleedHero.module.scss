@@ -2,6 +2,12 @@
 @import '@/styles/variables/_breakpoints.scss';
 @import '@/styles/variables/_colors.scss';
 
+@media print {
+  .hero {
+    display: none !important;
+  }
+}
+
 .hero {
   position: relative;
 

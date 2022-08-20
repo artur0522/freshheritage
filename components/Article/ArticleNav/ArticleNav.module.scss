@@ -1,5 +1,11 @@
 @import '@/styles/_shared.scss';
 
+@media print {
+  .article-nav {
+    display: none !important;
+  }
+}
+
 .article-nav {
   position: sticky;
   top: 0;

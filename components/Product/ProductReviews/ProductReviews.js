@@ -16,7 +16,7 @@ const ProductReviews = forwardRef(({product, fields}, ref) => {
   }
 
   return (
-    <div ref={ref.current.productReviews} className={classes['product-reviews']}>
+    <div ref={ref?.current?.productReviews} className={classes['product-reviews']}>
       <div className="container">
         <div className={classes['product-reviews__header']}>
           <h2 className="h1">{header}</h2>

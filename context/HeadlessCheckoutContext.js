@@ -140,6 +140,8 @@ export function HeadlessCheckoutProvider({ children }) {
         order_meta_data.cart_parameters.pre = {...data?.application_state?.order_meta_data?.cart_parameters?.pre}
       }
 
+      console.log("order_meta_data before init:", order_meta_data)
+
       const response = await initializeCheckout({
         products: [...lineItems, {
           platform_id: newItem.variantId,
@@ -277,13 +279,22 @@ export function HeadlessCheckoutProvider({ children }) {
     //   ]
     // }
     // if the user is logged in add the attribute customer to the payload
+
     if (customer) {
       payload.customer = transformCustomerData(customer)
-      payload.order_meta_data = {
-        cart_parameters: {
-          pre: {
-            customer_data: {
-              tags: customer.tags
+      if (payload.order_meta_data?.cart_parameters) {
+        payload.order_meta_data.cart_parameters.pre = {
+          customer_data: {
+            tags: customer.tags
+          }
+        }
+      } else {
+        payload.order_meta_data = {
+          cart_parameters: {
+            pre: {
+              customer_data: {
+                tags: customer.tags
+              }
             }
           }
         }

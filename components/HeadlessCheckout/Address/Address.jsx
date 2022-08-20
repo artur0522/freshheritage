@@ -29,7 +29,7 @@ const Address = ({
 
   const handleSubmit = useCallback(() => {
     if (address && address.country_code) {
-      submit();
+      submit(address);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, submit]);
@@ -158,6 +158,7 @@ const Address = ({
           messageType={errors && errorMap?.province && 'alert' || ''}
           messageText={errors && errorMap?.province && provincePlaceholder || ''}
           onChange={(e) => onChange({
+            province: e.label,
             province_code: e.value,
           })}
         >

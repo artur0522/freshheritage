@@ -80,7 +80,7 @@ const ProductReviewStars = forwardRef(({productId}, ref) => {
   }
 
   return (
-    <div onClick={() => onClick()} ref={ref.current.reviewsStars} className={classes['product-review-stars']}>
+    <div onClick={() => onClick()} ref={ref?.current?.reviewsStars} className={classes['product-review-stars']}>
       <ul className={classes['review-stars__wrap']}>
         {buildStars(reviews.average).map((star, index) => <li key={index}>{star}</li>)}
       </ul>

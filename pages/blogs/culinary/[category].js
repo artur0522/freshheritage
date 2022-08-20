@@ -18,7 +18,7 @@ async function getArticles(page, numOfEntries) {
 
     if (articles) {
       const fullRefArticles = await getNacelleReferences(articles)
-      return [...promises, ...fullRefArticles]
+      return [...promises, ...fullRefArticles].filter(article => article.fields.published)
     }
   }, Promise.resolve([]))
 

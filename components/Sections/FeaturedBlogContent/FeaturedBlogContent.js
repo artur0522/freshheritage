@@ -20,7 +20,7 @@ const FeaturedBlogContent = ({ fields }) => {
       const articles = await nacelleClient.content({
         type: `${articleType}`,
       })
-      const filteredArr = articles
+      const filteredArr = articles.filter(article => article.fields.published)
         .filter((article) => {
           return (
             article.fields?.blog?.blogType === blog?.blogType &&
@@ -34,7 +34,7 @@ const FeaturedBlogContent = ({ fields }) => {
       const articles = await nacelleClient.content({
         handles: articleHandles
       })
-      return articles
+      return articles.filter(article => article.fields.published)
     }
   }
 

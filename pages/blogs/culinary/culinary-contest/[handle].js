@@ -113,7 +113,7 @@ export async function getStaticProps({ params }) {
     type: 'gatedArticleModal'
   })
 
-  if (!pages.length) {
+  if (!pages.length && !pages[0].fields.published) {
     return {
       notFound: true
     }

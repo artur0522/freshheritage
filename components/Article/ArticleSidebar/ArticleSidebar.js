@@ -24,7 +24,7 @@ const ArticleSidebar = ({fields = {}, datePublished, blogGlobalSettings}) => {
       const articles = await nacelleClient.content({
         handles: relatedArticles.relatedArticleItems
       })
-      return articles
+      return articles.filter(article => article.fields.published)
     }
 
     if (relatedArticles?.relatedArticleItems?.length > 0) {
@@ -34,8 +34,6 @@ const ArticleSidebar = ({fields = {}, datePublished, blogGlobalSettings}) => {
         })
     }
   }, [])
-
-  console.log("blogGlobalSettings:", blogGlobalSettings)
 
   return (
     <div className={`article-sidebar ${classes['article-sidebar']} ${isSidebarOpen ? classes['is-open'] : ''}`}>

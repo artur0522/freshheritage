@@ -24,13 +24,12 @@ const ArticleRow = ({ fields, enableSlider = true }) => {
             const articles = await nacelleClient.content({
                 handles: articleHandles
             })
-            return articles
+            return articles.filter(article => article.fields.published)
         }
 
         if (articleHandles?.length > 0) {
             getArticles()
                 .then(res => {
-                    console.log("res:", res)
                     setArticles(res)
                 })
         }

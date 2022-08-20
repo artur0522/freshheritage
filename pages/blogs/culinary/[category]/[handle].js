@@ -238,7 +238,7 @@ export async function getStaticProps({ params }) {
 
   console.log(pages)
 
-  if (!pages.length) {
+  if (!pages.length || !pages[0].fields.published) {
     return {
       notFound: true
     }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, createRef, useRef } from 'react'
 import { nacelleClient } from 'services'
 import ContentSections from '@/components/Sections/ContentSections'
 import ProductReviewStars from '../../components/Product/ProductReviewStars'
@@ -20,6 +20,13 @@ function GiftSubscriptionBoxPDP({ page, products }) {
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
   const [harvests, setHarvests] = useState(null)
   const servingsMetafield = getMetafield({product, selectedVariant, key: 'servings'})
+
+  const refs = useRef(['reviewsStars', 'productReviews'].reduce((carry, ref) => {
+    return {
+      ...carry,
+      [ref]: createRef()
+    }
+  }, {}))
 
   const onSelectProduct = (e) => {
     const product = products.find(product => product.content.handle === e.value)
@@ -61,7 +68,7 @@ function GiftSubscriptionBoxPDP({ page, products }) {
               </div>
 
               <div className={classes['main']}>
-                <ProductReviewStars productId={product.sourceEntryId.replace('gid://shopify/Product/', '')} />
+                <ProductReviewStars ref={refs} productId={product.sourceEntryId.replace('gid://shopify/Product/', '')} />
 
                 {product.content?.title && <h1 className={classes['product-title']}>{product.content.title}</h1>}
 
@@ -102,6 +109,7 @@ function GiftSubscriptionBoxPDP({ page, products }) {
             </div>
           {/* SECTIONS */}
           <ContentSections
+            ref={refs}
             product={product}
             sections={page.fields.content}
             harvests={harvests && harvests.map(harvest => {

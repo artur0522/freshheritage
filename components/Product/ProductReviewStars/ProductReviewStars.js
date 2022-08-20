@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, forwardRef } from 'react'
 import classes from './ProductReviewStars.module.scss'
 import FullStarIcon from '@/svgs/full-star.svg'
 import HalfStarIcon from '@/svgs/half-star.svg'
 import EmptyStarIcon from '@/svgs/empty-star.svg'
+import { animateScroll as scroll } from 'react-scroll'
 
-const ProductReviewStars = ({productId}) => {
+const ProductReviewStars = forwardRef(({productId}, ref) => {
 
   const [reviews, setReviews] = useState(null)
 
@@ -32,6 +33,23 @@ const ProductReviewStars = ({productId}) => {
       stars.push(<EmptyStarIcon className={classes['review-star review-star-empty']} />)
     }
     return stars
+  }
+
+  const getScrollPosition = (el) => {
+    return el.getBoundingClientRect().top + window.scrollY
+  }
+
+  const onClick = () => {
+    if (!ref.current['productReviews'].current) return
+    const sectionEl = ref.current['productReviews'].current
+    const sectionElTopPosition = getScrollPosition(sectionEl)
+    scrollToEl(sectionElTopPosition)
+  }
+
+  const scrollToEl = (value) => {
+    scroll.scrollTo(value, {
+      duration: 300,
+    })
   }
 
   useEffect(() => {
@@ -62,7 +80,7 @@ const ProductReviewStars = ({productId}) => {
   }
 
   return (
-    <div className={classes['product-review-stars']}>
+    <div onClick={() => onClick()} ref={ref.current.reviewsStars} className={classes['product-review-stars']}>
       <ul className={classes['review-stars__wrap']}>
         {buildStars(reviews.average).map((star, index) => <li key={index}>{star}</li>)}
       </ul>
@@ -71,6 +89,6 @@ const ProductReviewStars = ({productId}) => {
       </span>
     </div>
   )
-}
+})
 
 export default ProductReviewStars

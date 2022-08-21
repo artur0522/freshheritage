@@ -8,7 +8,7 @@
 
 
 .articles {
-    padding-bottom: 12px;
+    padding: 12px 0;
     position: relative;
 
     @include breakpoint-up('md') {
@@ -49,6 +49,23 @@
 
     &.green-bg {
         background-color: #B7CD96;
+        &.top-margin {
+            margin: 0;
+            padding-top: 60px;
+
+            @include breakpoint-up('md') {
+                padding-top: 132px;
+            }
+        }
+
+        &.bottom-margin {
+            margin: 0;
+            padding-bottom: 60px;
+
+            @include breakpoint-up('md') {
+                padding-bottom: 132px;
+            }
+        }
     }
 
     .illustration-1 {

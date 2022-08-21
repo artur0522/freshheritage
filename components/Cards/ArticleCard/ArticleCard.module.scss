@@ -73,6 +73,11 @@
             align-items: center;
             justify-content: center;
 
+            svg {
+                width: 23px;
+                height: 27px;
+            }
+
             svg path {
                 fill: $sitkablue;
             }

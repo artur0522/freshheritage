@@ -45,14 +45,14 @@ const FeaturedFishCarousel = ({fields}) => {
         {featuredFishes?.length >= 4 || featuredFishermen?.length >= 4 ? <div className={classes['featured-fish-carousel__nav-btns']}>
           <button className={classes['featured-fish-carousel__nav-btn']} onClick={handlePrev} ref={prevSlideBtnRef}><IconArrowLeft /></button>
           <button className={classes['featured-fish-carousel__nav-btn']} onClick={handleNext} ref={nextSlideBtnRef}><IconArrowLeft /></button>
-        </div> : null} 
+        </div> : null}
       </div>
       {featuredFishes?.length > 0 || featuredFishermen?.length > 0 ?
         <Swiper
           ref={sliderRef}
           slidesPerView={'auto'}
           spaceBetween={isMobile ? 20 : 40}
-          threshold={2}
+          threshold={15}
           onSwiper={setSwiper}
           onProgress={({progress}) => {
             if (progress <= 0) {

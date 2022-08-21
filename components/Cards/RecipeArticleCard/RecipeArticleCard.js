@@ -23,7 +23,7 @@ const RecipeArticleCard = ({ article, responsiveImage = false }) => {
     }
 
     return (
-        <Link href={url} passHref>
+        <Link href={url}>
             <div className={`${classes['article__card']} ${!responsiveImage ? classes['fixed'] : ''}`}>
                     {desktopBackgroundImage.asset.url && !desktopBackgroundImage?.crop && <div className={classes['article__card-img']}>
 

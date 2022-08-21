@@ -75,6 +75,7 @@ const ArticleRow = ({ fields, enableSlider = true }) => {
                         loop={true}
                         slidesPerView={'auto'}
                         spaceBetween={15}
+                        threshold={15}
                         breakpoints={{
                             1074: {
                                 spaceBetween: 40

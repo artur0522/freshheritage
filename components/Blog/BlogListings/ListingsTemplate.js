@@ -138,7 +138,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
     }
 
   return (
-    <>
+    <div className="category-listing-page">
       <StructuredData type="blog" data={page} />
       <PageSEO seo={page.fields.seo} />
       {page.type === "cookingClassCategory" ? (
@@ -185,7 +185,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             <h2>Loading Articles...</h2>
           </div>
         ):(
-          <div className={`${classes['recipes__list-wrap']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
+          <div className={`${classes['recipes__list-wrap']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} ${filterDrawer && filterGroups ? 'listing-pages--filters-open' : ''}`}>
             {listings.length > 0 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
                   {listings.slice(0, 8).map((article) => {
                     return (
@@ -272,7 +272,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             </button>
           </div>}
         </div>
-    </>
+    </div>
   )
 }
 

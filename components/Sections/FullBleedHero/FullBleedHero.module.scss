@@ -94,6 +94,7 @@
       align-items: center;
 
       h1 {
+        font-size: 72px;
         margin-bottom: 12px;
 
         @include breakpoint-up('sm') {
@@ -102,8 +103,10 @@
       }
 
       h2 {
-        margin-top: 12px;
         margin-bottom: 30px;
+        @include breakpoint-up('sm') {
+          margin-bottom: 60px;
+        }
       }
 
       .btn {
@@ -157,8 +160,9 @@
         text-align: center;
 
         h1 {
-          font-size: 4.5rem;
-          margin-bottom: 48px;
+          @include breakpoint-up('sm') {
+            margin-bottom: 10px;
+          }
         }
 
         a {
@@ -269,6 +273,14 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 40px;
+
+  &:global(.alabaster) {
+    svg {
+      * {
+        fill: $sitkablue;
+      }
+    }
+  }
 
   svg {
     width: 17px;

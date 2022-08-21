@@ -44,7 +44,7 @@ const FullBleedHero = ({ fields }) => {
           {fields.subheader && <h2>{fields.subheader}</h2>}
 
           {heroStyle !== 'hero--bottom' && <div className={classes['btn-wrap']}>
-            {youtubeVideoId && <button onClick={() => showVideo()} className={`${classes['hero-video__action-btn']} btn salmon`}>
+            {youtubeVideoId && <button onClick={() => showVideo()} className={`${classes['hero-video__action-btn']} btn ${btnColor}`}>
               <IconPlayButtonTriangle />
               <span>Play Video</span>
             </button>}

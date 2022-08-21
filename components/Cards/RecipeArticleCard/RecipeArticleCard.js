@@ -16,12 +16,6 @@ const RecipeArticleCard = ({ article, responsiveImage = false }) => {
 
     let url = `/${articleHandle}`
 
-    if (!article.title) {
-        console.log("article:", article)
-    }
-
-    // console.log("")
-
     if (blog) {
         const blogType = blog.blogType
         const blogCategory = blog.handle?.current ? blog.handle.current : blog.handle

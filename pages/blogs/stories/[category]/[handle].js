@@ -101,7 +101,7 @@ export async function getStaticPaths() {
   const validArticles = standardArticles.reduce((carry, article) => {
     // only get brand categories
     const blogType = article.fields.blog.blogType
-    if (blogType === 'brand') {
+    if (blogType === 'stories') {
       return [...carry, {
         category: article.fields.blog.handle.current,
         handle: article.handle

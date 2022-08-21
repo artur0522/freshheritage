@@ -128,6 +128,7 @@ const FeaturedBlogContent = ({ fields }) => {
             loop={true}
             slidesPerView={'auto'}
             spaceBetween={40}
+            threshold={15}
             className={`${classes['articles__tabs-swiper']} ${classes['has-swiper']}`}
           >
             {tabs.map((tab) => {
@@ -153,6 +154,7 @@ const FeaturedBlogContent = ({ fields }) => {
           <Swiper
             slidesPerView={'auto'}
             spaceBetween={18}
+            threshold={15}
             navigation={false}
             className={`${classes['articles__swiper']}`}
             breakpoints={{
@@ -178,6 +180,7 @@ const FeaturedBlogContent = ({ fields }) => {
           <Swiper
             slidesPerView={'auto'}
             spaceBetween={18}
+            threshold={15}
             navigation={false}
             className={`${classes['articles__swiper']} ${
               classes[tabs.length > 1 ? 'border-top' : '']

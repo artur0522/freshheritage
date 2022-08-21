@@ -30,6 +30,14 @@
   }
 }
 
+:global(.category-listing-page) {
+  .article-hero__heading {
+    @include breakpoint-up('lg') {
+      font-size: 72px;
+    }
+  }
+}
+
 
 .article-hero {
   display: flex;
@@ -158,6 +166,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
   background-color: $pureWhite;
   padding: 25px 17px 35px;
   box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.05);

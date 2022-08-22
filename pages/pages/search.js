@@ -98,8 +98,7 @@ const Search = () => {
                       </button>
                     </div>
                     <div className={classes['refinement-wrap']}>
-                      <h5>Culinary Filters</h5>
-                      <CustomRefinementList attribute='_type' />
+                      <CustomRefinementList attribute='_type' header="Culinary Filters"/>
                     </div>
                   </div>
                  
@@ -129,8 +128,7 @@ const Search = () => {
                       </button>
                     </div>
                     <div className={classes['refinement-wrap']}>
-                      <h5>Brand Filters</h5>
-                      <CustomRefinementList attribute='_type' />
+                      <CustomRefinementList attribute='_type' header="Brand Filters" />
                     </div>
                   </div>
                   <div className={classes['hits-row']}>
@@ -141,7 +139,6 @@ const Search = () => {
             
             {currentIndex === "prod_shopify_products" && <div className={classes['hits-group']}>
               <Index className={classes['index']} indexName="prod_shopify_products">
-             
                 <div className={classes['filters-wrap']}>
                   <div className={classes['tab-btns']}>
                       <button className={`${currentIndex === 'prod_shopify_products' ? classes['active'] : ''} h5`} onClick={() => setCurrentIndex("prod_shopify_products")}>
@@ -158,8 +155,7 @@ const Search = () => {
                       </button>
                   </div>
                   <div className={classes['refinement-wrap']}>
-                    <h5>Product Filters</h5>
-                    <CustomRefinementList attribute='product_type' />
+                    <CustomRefinementList attribute='product_type' header="Product Filters" />
                   </div>
                 </div>
                 <div className={classes['hits-row']}>

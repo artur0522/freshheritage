@@ -7,6 +7,8 @@ const CustomRefinementList = (props) => {
     refine
   } = useRefinementList(props)
 
+  const { header } = props
+
 //   const { handleArticleIndex } = props
 
 //   const [isRefined, setIsRefined] = useState(false)
@@ -48,6 +50,7 @@ const CustomRefinementList = (props) => {
 
   return (
     <div className={classes['refinement']}>
+        {items.length > 0 && <h5>{header}</h5>}
         {items.map((item) => {
             return (
                 <div className={classes['checkbox']} key={item.value}>

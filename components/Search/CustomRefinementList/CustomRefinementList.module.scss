@@ -1,6 +1,11 @@
 @import '@/styles/_shared.scss';
 
 .refinement {
+    h5 {
+        border-top: 1px solid $black20;
+        padding-top: 16px;
+    }
+
     .checkbox {
         display: flex;
         align-items: center;

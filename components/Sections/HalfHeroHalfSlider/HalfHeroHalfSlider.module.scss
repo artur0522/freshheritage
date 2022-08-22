@@ -86,7 +86,8 @@
             width: 70.5%;
 
             @include breakpoint-up('md') {
-                width: 49%;
+                width: calc(50% - 13px);
+                margin-bottom: 40px;
             }
         }
     }
@@ -103,7 +104,8 @@
             margin-bottom: 37px;
 
             @include breakpoint-up('md') {
-                height: 1134.72px;
+                min-height: 1134.72px;
+                height: 100%;
             }
 
             &::before {

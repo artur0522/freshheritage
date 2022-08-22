@@ -105,7 +105,8 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      page: fullRefPage
+      page: fullRefPage,
+      handle: params.handle
     }
   }
 

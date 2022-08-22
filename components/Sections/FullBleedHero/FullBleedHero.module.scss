@@ -24,6 +24,25 @@
   }
 }
 
+:global(.main--the-catch) {
+  .hero {
+    &.hero--bottom {
+      h1 {
+        font-size: 72px;
+        @include breakpoint-up('md') {
+          font-size: 204px;
+        }
+      }
+      .hero__text {
+        bottom: -15px;
+        @include breakpoint-up('md') {
+          bottom: -41px;
+        }
+      }
+    }
+  }
+}
+
 .hero {
   position: relative;
 
@@ -140,21 +159,30 @@
   }
 
   // HERO BOTTOM ALIGNED STYLES
+  // for the catch page
   &.hero--bottom {
     h1 {
+      font-size: 72px;
       margin-bottom: 0;
+      @include breakpoint-up('md') {
+        font-size: 204px;
+      }
     }
 
     .hero__text {
       position: absolute;
-      bottom: -15px;
+      bottom: 0;
       left: 28px;
       max-width: 319px;
 
       @include breakpoint-up('md') {
-        bottom: -41px;
         left: 7.34%;
         max-width: 735px;
+      }
+
+      &-inner {
+        text-align: left;
+        align-items: flex-start;
       }
     }
   }

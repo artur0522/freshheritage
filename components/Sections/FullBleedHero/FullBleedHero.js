@@ -43,7 +43,7 @@ const FullBleedHero = ({ fields }) => {
           {fields.header && <h1 className={`${heroStyle === 'hero--bottom' ? 'heading--catch' : ''}`}>{fields.header}</h1>}
           {fields.subheader && <h2>{fields.subheader}</h2>}
 
-          {heroStyle !== 'hero--bottom' && <div className={classes['btn-wrap']}>
+          <div className={classes['btn-wrap']}>
             {youtubeVideoId && <button onClick={() => showVideo()} className={`${classes['hero-video__action-btn']} btn ${btnColor}`}>
               <IconPlayButtonTriangle />
               <span>Play Video</span>
@@ -58,7 +58,7 @@ const FullBleedHero = ({ fields }) => {
             {fields.secondaryCtaUrl && !youtubeVideoId && <Link href={`${fields.secondaryCtaUrl}`}>
               <a>{fields.secondaryCtaText}</a>
             </Link>}
-          </div>}
+          </div>
         </div>
       </div>
 

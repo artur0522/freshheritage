@@ -37,7 +37,9 @@ export const ShippingLineList = ({
   if (selectedShippingLineIndex !== -1 && !displayedShippingLines[selectedShippingLineIndex].showOption) {
     // Currently defaults to automatically select the first option (which is the lowest price)
     // should only be hiding the bundled ship line, so for now we can just move to the next one
-    onChange(displayedShippingLines.findIndex(line => line.showOption));
+    const newIndex = displayedShippingLines.findIndex(line => line.showOption);
+    onChange(newIndex);
+    selectedShippingLineIndex = newIndex;
   }
 
   return (

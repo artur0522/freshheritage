@@ -67,7 +67,11 @@ const AllKnowYourFishblock = ({fields}) => {
               return ''
             }
 
-            const cropImageUrl = image ? urlFor(image).width(isMobile ? 600 : 350).height(isMobile ? 570 : 385).focalPoint(image.hotspot.x, image.hotspot.y).crop('focalpoint').fit('crop').url() : undefined
+            let cropImageUrl = image.asset.url
+
+            if (image.hotspot) {
+              cropImageUrl = image ? urlFor(image).width(isMobile ? 600 : 350).height(isMobile ? 570 : 385).focalPoint(image.hotspot.x, image.hotspot.y).crop('focalpoint').fit('crop').url() : undefined
+            }
 
             const imageInlineStyles = {
               'filter': `brightness(${image?.imageBrightness ? image.imageBrightness : 100}%)`

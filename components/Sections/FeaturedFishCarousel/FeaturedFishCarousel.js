@@ -52,7 +52,7 @@ const FeaturedFishCarousel = ({fields}) => {
           ref={sliderRef}
           slidesPerView={'auto'}
           spaceBetween={isMobile ? 20 : 40}
-          threshold={15}
+          threshold={2}
           onSwiper={setSwiper}
           onProgress={({progress}) => {
             if (progress <= 0) {
@@ -81,7 +81,11 @@ const FeaturedFishCarousel = ({fields}) => {
                 return ''
               }
 
-              const cropImageUrl = image ? urlFor(image).width(438).height(600).focalPoint(image.hotspot.x, image.hotspot.y).crop('focalpoint').fit('crop').url() : undefined
+              let cropImageUrl = image.asset.url
+
+              if (image.hotspot) {
+                cropImageUrl = image ? urlFor(image).width(438).height(600).focalPoint(image.hotspot.x, image.hotspot.y).crop('focalpoint').fit('crop').url() : undefined
+              }
 
               const imageInlineStyles = {
                 'filter': `brightness(${image?.imageBrightness ? image.imageBrightness : 100}%)`

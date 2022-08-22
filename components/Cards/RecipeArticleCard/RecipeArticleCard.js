@@ -20,7 +20,7 @@ const RecipeArticleCard = ({ article, responsiveImage = false }) => {
         console.log("article:", article)
     }
 
-    // console.log("")
+    console.log(desktopBackgroundImage)
 
     if (blog) {
         const blogType = blog.blogType

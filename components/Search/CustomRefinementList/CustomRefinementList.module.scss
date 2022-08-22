@@ -1,1 +1,14 @@
 @import '@/styles/_shared.scss';
+
+.refinement {
+    .checkbox {
+        display: flex;
+        align-items: center;
+        margin-bottom: 13px;
+
+        label {
+            margin-left: 8px;
+            cursor: pointer;
+        }
+    }
+}

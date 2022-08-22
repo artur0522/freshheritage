@@ -14,18 +14,34 @@ export const sanity = sanityClient({
 })
 
 const QUERY = `
-    *[_type == "standardArticle" && blog._ref in *[_type=="blog" && blogType == "culinary"]._id || 
-    _type == "recipeArticle" && blog._ref in *[_type=="blog" && blogType == "culinary"]._id ||
-    _type == "videoArticle" && blog._ref in *[_type=="blog" && blogType == "culinary"]._id ||
-    _type == "liveCookingClassArticle" && blog._ref in *[_type=="blog" && blogType == "culinary"]._id]
-    {
-        _type,
-        _rev,
-        "objectID": _id,
-        _createdAt,
-        title,
-        blog
+*[_type == "standardArticle" && blog._ref in *[_type=="blog" && blogType == "culinary"]._id || 
+_type == "recipeArticle" && blog._ref in *[_type=="blog" && blogType == "culinary"]._id ||
+_type == "videoArticle" && blog._ref in *[_type=="blog" && blogType == "culinary"]._id ||
+_type == "liveCookingClassArticle" && blog._ref in *[_type=="blog" && blogType == "culinary"]._id]
+{
+    _type,
+    _rev,
+    "objectID": _id,
+    _createdAt,
+    title,
+    blog,
+    articleTags,
+    hero {
+       desktopBackgroundImage {
+         crop,
+         hotspot {
+           x,
+           y,
+         },
+         asset->{url}
+       },
+       activeTime,
+       cookTime,
+       totalTime,
+       ctaText,
+       ctaUrl
     }
+}
 `
 export default async function handler(res) {
     const documents = await sanity.fetch(QUERY)

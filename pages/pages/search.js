@@ -1,26 +1,26 @@
 import {
   Highlight,
-  Hits,
   Index,
   InstantSearch,
-  SearchBox
+  useInstantSearch,
 } from 'react-instantsearch-hooks-web'
 import { history } from 'instantsearch.js/es/lib/routers'
 import { simple } from 'instantsearch.js/es/lib/stateMappings'
 import algoliasearch from 'algoliasearch/lite'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
+
+import ArticleHits from '@/components/Search/ArticleHits'
+import ProductHits from '@/components/Search/ProductHits'
+import CustomSearchBox from '@/components/Search/CustomSearchBox'
 import CustomRefinementList from '@/components/Search/CustomRefinementList'
 
 import classes from './Search.module.scss'
-// Include only the reset
-import 'instantsearch.css/themes/reset.css';
-// or include the full Satellite theme
-import 'instantsearch.css/themes/satellite.css';
-
+import 'instantsearch.css/themes/reset.css'
+import 'instantsearch.css/themes/satellite.css'
 
 const searchClient = algoliasearch('9RTKNI42PN', '4876c2b9c59451c3b189e5bd892dfc9f')
 
-function Hit({ hit }) {
+const Hit = ({ hit }) => {
     return (
       <article>
         <Highlight attribute="title" hit={hit} />
@@ -40,6 +40,18 @@ const routing = {
   stateMapping: simple(),
 }
 
+const IndexResultsLength = (props) => {
+  const { indexId, hide } = props
+  const { scopedResults } = useInstantSearch(props)
+  const foundScoped = scopedResults?.find(index => index.indexId === indexId)
+
+  return (
+    <span style={{ marginLeft: '4px' }} className={hide ? 'display--none' : ''}>
+      ({foundScoped?.results?.nbHits})
+    </span>
+  )
+}
+
 const Search = () => {
   const [currentIndex, setCurrentIndex] = useState("prod_shopify_products")
 
@@ -50,50 +62,111 @@ const Search = () => {
   return (
     <div className={`${classes['search']} container`}>
       <InstantSearch 
-        searchClient={searchClient} 
-        indexName="culinary_articles" 
+        searchClient={searchClient}
+        indexName="brand_articles" 
         routing={routing}
       >
+
+        <IndexResultsLength indexId={'culinary_articles'} hide={true} />
+        <Index className={classes['index']} indexName="culinary_articles"></Index>
+        <Index className={classes['index']} indexName="brand_articles"></Index>
+        <Index className={classes['index']} indexName="prod_shopify_products"></Index>
+
         <div className={classes['header']}>
           <h1>Search Results</h1>
-          <SearchBox />
+          <CustomSearchBox />
         </div>
 
         <div className={classes['results-wrap']}>
           <div className={classes['hits']}>
-            <div>
-              <button onClick={() => setCurrentIndex("prod_shopify_products")}>Products</button>
-              <button onClick={() => setCurrentIndex("culinary_articles")}>Articles</button>
-              <button onClick={() => setCurrentIndex("brand_articles")}>Articles</button>
-            </div>
+            {currentIndex === "culinary_articles" && <div className={classes['hits-group']}>
+                <Index className={classes['index']} indexName="culinary_articles">
 
-          {currentIndex === "culinary_articles" && <div className={classes['hits-group']}>
-              <Index indexName="culinary_articles">
-                <CustomRefinementList attribute='_type' />
-                <div className={classes['hits-row']}>
-                  <Hits hitComponent={Hit} />
-                </div>
-              </Index>
-          </div>}
+                  <div className={classes['filters-wrap']}>
+                    <div className={classes['tab-btns']}>
+                      <button className={`${currentIndex === 'prod_shopify_products' ? classes['active'] : ''} h5`} onClick={() => setCurrentIndex("prod_shopify_products")}>
+                        Products
+                        <IndexResultsLength indexId={'prod_shopify_products'} hide={false} />
+                      </button>
+                      <button className={`${currentIndex === 'culinary_articles' ? classes['active'] : ''} h5`} onClick={() => setCurrentIndex("culinary_articles")}>
+                        Culinary Resources
+                        <IndexResultsLength indexId={'culinary_articles'} hide={false} />
+                      </button>
+                      <button className={`${currentIndex === 'brand_articles' ? classes['active'] : ''} h5`} onClick={() => setCurrentIndex("brand_articles")}>
+                        Articles
+                        <IndexResultsLength indexId={'brand_articles'} hide={false} />
+                      </button>
+                    </div>
+                    <div className={classes['refinement-wrap']}>
+                      <h5>Culinary Filters</h5>
+                      <CustomRefinementList attribute='_type' />
+                    </div>
+                  </div>
+                 
+                  <div className={classes['hits-row']}>
+                    <ArticleHits hitComponent={Hit} />
+                  </div>
+                </Index>
 
-          {currentIndex === "brand_articles" && <div className={classes['hits-group']}>
-              <Index indexName="brand_articles">
-                <CustomRefinementList attribute='_type' />
-                <div className={classes['hits-row']}>
-                  <Hits hitComponent={Hit} />
-                </div>
-              </Index>
-          </div>}
+            </div>}
+
+            {currentIndex === "brand_articles" && <div className={classes['hits-group']}>
+                <Index className={classes['index']} indexName="brand_articles">
+
+                  <div className={classes['filters-wrap']}>
+                    <div className={classes['tab-btns']}>
+                      <button className={`${currentIndex === 'prod_shopify_products' ? classes['active'] : ''} h5`} onClick={() => setCurrentIndex("prod_shopify_products")}>
+                        Products
+                        <IndexResultsLength indexId={'prod_shopify_products'} hide={false} />
+                      </button>
+                      <button className={`${currentIndex === 'culinary_articles' ? classes['active'] : ''} h5`} onClick={() => setCurrentIndex("culinary_articles")}>
+                        Culinary Resources
+                        <IndexResultsLength indexId={'culinary_articles'} hide={false} />
+                      </button>
+                      <button className={`${currentIndex === 'brand_articles' ? classes['active'] : ''} h5`} onClick={() => setCurrentIndex("brand_articles")}>
+                        Articles
+                        <IndexResultsLength indexId={'brand_articles'} hide={false} />
+                      </button>
+                    </div>
+                    <div className={classes['refinement-wrap']}>
+                      <h5>Brand Filters</h5>
+                      <CustomRefinementList attribute='_type' />
+                    </div>
+                  </div>
+                  <div className={classes['hits-row']}>
+                    <ArticleHits hitComponent={Hit} />
+                  </div>
+                </Index>
+            </div>}
             
-          {currentIndex === "prod_shopify_products" && <div className={classes['hits-group']}>
-            <Index indexName="prod_shopify_products">
-              <CustomRefinementList attribute='product_type' />
-              <div className={classes['hits-row']}>
-                <Hits hitComponent={Hit} />
-              </div>
-            </Index>
-          </div>}
-
+            {currentIndex === "prod_shopify_products" && <div className={classes['hits-group']}>
+              <Index className={classes['index']} indexName="prod_shopify_products">
+             
+                <div className={classes['filters-wrap']}>
+                  <div className={classes['tab-btns']}>
+                      <button className={`${currentIndex === 'prod_shopify_products' ? classes['active'] : ''} h5`} onClick={() => setCurrentIndex("prod_shopify_products")}>
+                        Products
+                        <IndexResultsLength indexId={'prod_shopify_products'} hide={false} />
+                      </button>
+                      <button className={`${currentIndex === 'culinary_articles' ? classes['active'] : ''} h5`} onClick={() => setCurrentIndex("culinary_articles")}>
+                        Culinary Resources
+                        <IndexResultsLength indexId={'culinary_articles'} hide={false} />
+                      </button>
+                      <button className={`${currentIndex === 'brand_articles' ? classes['active'] : ''} h5`} onClick={() => setCurrentIndex("brand_articles")}>
+                        Articles
+                        <IndexResultsLength indexId={'brand_articles'} hide={false} />
+                      </button>
+                  </div>
+                  <div className={classes['refinement-wrap']}>
+                    <h5>Product Filters</h5>
+                    <CustomRefinementList attribute='product_type' />
+                  </div>
+                </div>
+                <div className={classes['hits-row']}>
+                  <ProductHits hitComponent={Hit} />
+                </div>
+              </Index>
+            </div>}
           </div>
         </div>
       </InstantSearch>

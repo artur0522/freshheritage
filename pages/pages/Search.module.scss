@@ -10,9 +10,45 @@
     .results-wrap {
         display: flex;
         justify-content: space-between;
+        width: 100%;
+    }
+
+    .hits-row {
+        width: 75%;
     }
 
     .hits-group {
         display: flex;
+        justify-content: space-between;
+    }
+
+    .filters-wrap {
+        width: 18%;
+        min-width: 285px;
+    }
+
+    .refinement-wrap {
+        padding-top: 16px;
+
+        h5 {
+            margin-bottom: 13px;
+        }
+    }
+
+    .tab-btns {
+        padding-bottom: 3px;
+        border-bottom: 1px solid $black20;
+
+        button {
+            border: none;
+            background: none;
+            display: block;
+            padding: 0;
+            margin-bottom: 13px;
+
+            &.active {
+                color: $salmon;
+            }
+        }
     }
 }

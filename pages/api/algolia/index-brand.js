@@ -19,13 +19,26 @@ const QUERY = `
     _type == "videoArticle" && blog._ref in *[_type=="blog" && blogType == "brand"]._id ||
     _type == "liveCookingClassArticle" && blog._ref in *[_type=="blog" && blogType == "brand"]._id]
     {
-        _type,
-        _rev,
-        "objectID": _id,
-        _createdAt,
-        title,
-        blog
-    }
+      _type,
+      _rev,
+      "objectID": _id,
+      _createdAt,
+      title,
+      blog,
+      articleTags,
+      hero {
+         desktopBackgroundImage {
+           crop,
+           hotspot {
+             x,
+             y,
+           },
+           asset->{url}
+         },
+         ctaText,
+         ctaUrl
+      }
+  }
 `
 export default async function handler(res) {
     const documents = await sanity.fetch(QUERY)

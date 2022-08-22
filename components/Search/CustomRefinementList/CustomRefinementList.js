@@ -1,7 +1,5 @@
 import { useRefinementList } from 'react-instantsearch-hooks-web'
-import { useState, useEffect } from 'react'
-import { filter } from 'lodash-es'
-import { useRouter } from 'next/router'
+import classes from "./CustomRefinementList.module.scss"
 
 const CustomRefinementList = (props) => {
   const {
@@ -49,16 +47,18 @@ const CustomRefinementList = (props) => {
   }
 
   return (
-    <div>
+    <div className={classes['refinement']}>
         {items.map((item) => {
             return (
-                <div key={item.value}>
-                    <label>
-                        <input 
-                            type="checkbox" 
-                            onChange={() => refine(item.value)} 
-                        />
-                        {item.label}
+                <div className={classes['checkbox']} key={item.value}>
+                    <input 
+                      type="checkbox" 
+                      onChange={() => refine(item.value)} 
+                      name={item.value}
+                      id={item.value}
+                    />
+                    <label htmlFor={item.value}>
+                      {item.label}
                     </label>
                 </div>
             )

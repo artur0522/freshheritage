@@ -4,7 +4,7 @@ import classes from './ContactUs.module.scss'
 const ContactUs = ({fields}) => {
   const { header } = fields
   const [formSubmitted, setFormSubmitted] = useState(false)
-  const [showErrorMessage, setShowErrorMessage] = useState(true)
+  const [showErrorMessage, setShowErrorMessage] = useState(false)
   const refs = ['first_name', 'last_name', 'email', 'phone', 'subject', 'message']
 
   const formRef = useRef(refs.reduce((carry, ref) => {

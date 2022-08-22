@@ -13,8 +13,13 @@ const LineItemProduct = ({ item, children, readOnly }) => {
   const handleVariants = useVariants();
   const variants = handleVariants(item.title)
 
+  let url = `/products/${item.properties.product_handle}`
   const isSubscription = item.tags.includes("Subscription Box")
   const isGiftCard = item.properties.product_handle === 'digital-gift-card'
+
+  if (item.properties.membership_type && isSubscription) {
+    url = `/products/gift-subscription-box`
+  }
 
   const {
     updateLineItem,
@@ -67,7 +72,7 @@ const LineItemProduct = ({ item, children, readOnly }) => {
     <div className="order-item checkout__row">
       <div className="order-item__main">
         <div className="order-item__image">
-        <Link href={`/products/${item.properties.product_handle}` || ''}>
+        <Link href={url}>
             <a>
               <ResponsiveImage src={item.image_url} alt={item.product_title} />
             </a>
@@ -76,7 +81,7 @@ const LineItemProduct = ({ item, children, readOnly }) => {
 
         <div className="order-item__details">
           <div className="order-item__detail-item">
-            <Link href={`/products/${item.properties.product_handle}` || ''}>
+            <Link href={url}>
               <a className="order-item__title-link">
                 <h3 className="order-item__title">{item.product_title}</h3>
               </a>
@@ -112,7 +117,7 @@ const LineItemProduct = ({ item, children, readOnly }) => {
               ))}
               {item.properties.product_weight && item.properties.product_weight != '' &&
                 <div className="order-item__weight">
-                  <span className="weight-per-unit">4.5lbs / box</span>
+                  <span className="weight-per-unit">4.5lbs {isSubscription && <>/ box </>}</span>
                 </div>
               }
             </div>

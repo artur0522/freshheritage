@@ -51,6 +51,7 @@ const MemoizedCustomer = memo(({ customer, orderMetaData, logout, modalContext }
       })
 
       if (response.errors) {
+        setErrors(response.errors)
         return
       }
 

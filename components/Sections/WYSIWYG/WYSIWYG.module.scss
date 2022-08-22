@@ -112,4 +112,21 @@
       }
     }
   }
+
+  .wysiwyg__image {
+    margin: 30px 0 50px;
+    img {
+      border-radius: 12px;
+    }
+  }
+
+  .wysiwyg__image-caption {
+    font-size: 14px;
+    font-style: italic;
+    display: block;
+    margin: 10px 0 0;
+    @include breakpoint-up('sm') {
+      font-size: 16px;
+    }
+  }
 }

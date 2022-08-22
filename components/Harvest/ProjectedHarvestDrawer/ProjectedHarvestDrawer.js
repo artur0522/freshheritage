@@ -64,6 +64,7 @@ const ProjectedHarvestDrawer = ({ title, harvestList, currentSelling }) => {
                     <Swiper
                         slidesPerView={"auto"}
                         spaceBetween={18}
+                        threshold={15}
                         breakpoints={{
                             768: {
                                 spaceBetween: 60

@@ -2,6 +2,28 @@
 @import '@/styles/variables/_breakpoints.scss';
 @import '@/styles/variables/_colors.scss';
 
+@media print {
+  .hero {
+    display: none !important;
+  }
+}
+
+:global(.listing-pages--filters-open) {
+  .hero {
+    &.hero--center {
+      .hero__text {
+        &-inner {
+          h1 {
+            @include breakpoint-up('lg') {
+              font-size: 120px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 .hero {
   position: relative;
 
@@ -27,7 +49,8 @@
 
     .btn-wrap {
       a:first-child {
-        min-width: 243px;
+        min-width: 161px;
+        padding: 0 20px;
       }
 
       a:not(:first-child) {
@@ -88,6 +111,7 @@
       align-items: center;
 
       h1 {
+        font-size: 72px;
         margin-bottom: 12px;
 
         @include breakpoint-up('sm') {
@@ -96,12 +120,15 @@
       }
 
       h2 {
-        margin-top: 12px;
         margin-bottom: 30px;
+        @include breakpoint-up('sm') {
+          margin-bottom: 60px;
+        }
       }
 
       .btn {
-        min-width: 243px;
+        min-width: 161px;
+        padding: 0 20px;
         margin: 0 auto 24px auto;
       }
 
@@ -151,13 +178,18 @@
         text-align: center;
 
         h1 {
-          font-size: 4.5rem;
-          margin-bottom: 48px;
-        }
-
-        a {
           @include breakpoint-up('sm') {
-            max-width: 243px;
+            margin-bottom: 10px;
+          }
+          @include breakpoint-up('lg') {
+            font-size: 144px;
+            line-height: 1;
+            margin-bottom: 20px;
+          }
+        }
+        .btn {
+          @include breakpoint-up('sm') {
+            min-width: 250px !important;
           }
         }
       }
@@ -212,7 +244,7 @@
         }
 
         .btn {
-          min-width: 243px;
+          min-width: 161px;
 
           @include breakpoint-up('sm') {
             width: 392px;
@@ -245,12 +277,6 @@
       &-inner {
         text-align: left;
         align-items: flex-start;
-
-        a {
-          @include breakpoint-up('sm') {
-            max-width: 243px;
-          }
-        }
       }
     }
   }
@@ -263,6 +289,14 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 40px;
+
+  &:global(.alabaster) {
+    svg {
+      * {
+        fill: $sitkablue;
+      }
+    }
+  }
 
   svg {
     width: 17px;

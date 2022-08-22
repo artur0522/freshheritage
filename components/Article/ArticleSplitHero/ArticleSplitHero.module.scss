@@ -1,5 +1,11 @@
 @import '@/styles/_shared.scss';
 
+@media print {
+  .article-hero {
+    display: none !important;
+  }
+}
+
 :global(.article-cooking-guide) {
   .article-hero__content {
     @include breakpoint-up('md') {
@@ -20,6 +26,14 @@
       order: -1;
       right: 0;
       z-index: 2;
+    }
+  }
+}
+
+:global(.category-listing-page) {
+  .article-hero__heading {
+    @include breakpoint-up('lg') {
+      font-size: 72px;
     }
   }
 }
@@ -152,6 +166,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
   background-color: $pureWhite;
   padding: 25px 17px 35px;
   box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.05);

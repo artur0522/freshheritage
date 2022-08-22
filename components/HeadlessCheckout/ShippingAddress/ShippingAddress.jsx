@@ -93,10 +93,12 @@ const MemoizedShippingAddress = memo(({
         <Address
           className={(savedAddresses && savedAddresses.length > 0) ? 'FieldSet--AddressNew' : ''}
           address={address}
-          onChange={(data) => setAddress((prevAddress) => ({
+          onChange={(data) => {
+            setAddress((prevAddress) => ({
             ...prevAddress,
             ...data,
-          }))}
+          }
+          ))}}
           errors={errors}
           countries={countries}
           provinces={provinces}

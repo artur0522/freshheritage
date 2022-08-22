@@ -28,6 +28,7 @@
     margin-bottom: 0;
     flex-basis: 500px;
     width: 500px;
+    position: static
   }
 }
 
@@ -62,6 +63,6 @@
     left: -85px;
   }
   @include breakpoint-up('xl') {
-    left: -120px;
+    left: 0;
   }
 }

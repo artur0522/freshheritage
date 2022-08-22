@@ -1,5 +1,27 @@
 @import '@/styles/_shared.scss';
 
+:global(.featured-articles) {
+    .article-card {
+        &.fixed {
+            .image-wrap {
+                @include breakpoint-up('md') {
+                    height: 499px;
+                }
+            }
+        }
+        :global(.heading--article) {
+            @include breakpoint-up('md') {
+                font-size: 48px;
+            }
+        }
+        :global(.recipe--time) {
+            @include breakpoint-up('md') {
+                font-size: 18px;
+            }
+        }
+    }
+}
+
 .article-card {
     background-color: #fff;
     text-decoration: none;
@@ -72,6 +94,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
+            svg {
+                width: 23px;
+                height: 27px;
+            }
 
             svg path {
                 fill: $sitkablue;

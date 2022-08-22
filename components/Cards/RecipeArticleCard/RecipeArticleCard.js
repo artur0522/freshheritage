@@ -16,12 +16,6 @@ const RecipeArticleCard = ({ article, responsiveImage = false }) => {
 
     let url = `/${articleHandle}`
 
-    if (!article.title) {
-        console.log("article:", article)
-    }
-
-    // console.log("")
-
     if (blog) {
         const blogType = blog.blogType
         const blogCategory = blog.handle?.current ? blog.handle.current : blog.handle
@@ -29,7 +23,7 @@ const RecipeArticleCard = ({ article, responsiveImage = false }) => {
     }
 
     return (
-        <Link href={url} passHref>
+        <Link href={url}>
             <div className={`${classes['article__card']} ${!responsiveImage ? classes['fixed'] : ''}`}>
                     {desktopBackgroundImage.asset.url && !desktopBackgroundImage?.crop && <div className={classes['article__card-img']}>
 

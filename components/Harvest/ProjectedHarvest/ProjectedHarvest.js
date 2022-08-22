@@ -101,6 +101,7 @@ const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
                     <Swiper
                         slidesPerView={"auto"}
                         spaceBetween={18}
+                        threshold={15}
                         breakpoints={{
                             768: {
                                 spaceBetween: 60
@@ -108,9 +109,9 @@ const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
                         }}
                         className={`${classes['harvest__tabs-swiper']}`}
                     >
-                    {harvestListMonths.map((month) => {
+                    {harvestListMonths.map((month, index) => {
                         return (
-                            <SwiperSlide className={classes['harvest__tab']} key={month._id}>
+                            <SwiperSlide className={classes['harvest__tab']} key={`${index}-${month._id}`}>
                                 <button onClick={() => findFilteredFish(month.month.trim().toLowerCase())} className={`${classes['harvest__tab']} heading--tab ${activeTab.month === month.month.trim().toLowerCase() ? classes['active'] : ""} capitalize`}>
                                     {month.month} {month.year} {currentMonth === month.month.trim().toLowerCase()  ? '(Shipping Now!)' : ' '}
                                 </button>

@@ -4,12 +4,16 @@ import ArticleCard from '../ArticleCard'
 import RecipeArticleCard from '../RecipeArticleCard'
 
 const DynamicArticleCard = ({ article, reverse, responsiveImage = false}) => {
-  const tags = article.fields ? article.fields?.articleTags : article.hero?.articleTags
-  const recipeTag = tags?.find((tag) => {
-    return tag.value === 'recipe'
-  })
+  const blog = article.fields ? article.fields.blog : article.blog
+  let isRecipe = false;
+  if (blog) {
+    const blogCategory = blog.handle?.current ? blog.handle.current : blog.handle
+    if (blogCategory === 'recipes') {
+      isRecipe = true
+    }
+  }
 
-  if(recipeTag) {
+  if(isRecipe) {
     return (
         <>
           <RecipeArticleCard article={article} responsiveImage={responsiveImage} />

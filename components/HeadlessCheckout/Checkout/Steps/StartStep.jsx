@@ -49,6 +49,9 @@ const IndexPage = () => {
 
   return (
     <>
+      <header className="checkout__header-main">
+        <h4>Checkout</h4>
+      </header>
       <div className="checkout__layout checkout__main" role="main">
         <div className="checkout__panel-wrapper">
           <div className="checkout__panel">

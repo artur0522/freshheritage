@@ -1,23 +1,22 @@
-import { useEffect } from 'react'
+import { forwardRef } from 'react'
 import classes from './ProductReviews.module.scss'
 
-const ProductReviews = ({product, fields}) => {
+const ProductReviews = forwardRef(({product, fields}, ref) => {
 
   const { media } = product.content
   const { header } = fields
+  const ignoreProductHandles = ['digital-gift-card']
 
-  useEffect(() => {
-    if (StampedFn) {
-      StampedFn.init({ apiKey: process.env.NEXT_PUBLIC_STAMPEDIO_KEY_PUBLIC, storeUrl: process.env.NEXT_PUBLIC_STAMPEDIO_STORE_HASH })
-    }
-  }, [])
+  if (ignoreProductHandles.includes(product.content.handle)) {
+    return '';
+  }
 
   if (!media?.length) {
     return ''
   }
 
   return (
-    <div className={classes['product-reviews']}>
+    <div ref={ref?.current?.productReviews} className={classes['product-reviews']}>
       <div className="container">
         <div className={classes['product-reviews__header']}>
           <h2 className="h1">{header}</h2>
@@ -31,6 +30,6 @@ const ProductReviews = ({product, fields}) => {
       </div>
     </div>
   )
-}
+})
 
 export default ProductReviews

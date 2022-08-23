@@ -476,6 +476,31 @@ export function HeadlessCheckoutProvider({ children }) {
     return updatedData
   }
 
+  async function updateCustomerInOrder(payload) {
+    const { jwt, public_order_id } = JSON.parse(
+      localStorage.getItem('checkout_data'),
+    )
+    const response = await fetch(
+      `https://api.boldcommerce.com/checkout/storefront/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/${public_order_id}/customer`,
+      {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json',
+        },
+        method: 'PUT',
+        body: JSON.stringify(payload)
+      }
+    )
+    const updatedData = await response.json()
+    console.log('update customer assigned to order', updatedData)
+    await expiredJWTHandler(updatedData)
+    setData({
+      ...data,
+      application_state: updatedData.data.application_state
+    })
+    return updatedData
+  }
+
   async function removeCustomerFromOrder() {
     const { jwt, public_order_id } = JSON.parse(
       localStorage.getItem('checkout_data'),
@@ -734,6 +759,7 @@ export function HeadlessCheckoutProvider({ children }) {
         validateEmailAddress,
         addCustomerToOrder,
         removeCustomerFromOrder,
+        updateCustomerInOrder,
         PIGIMediaRules,
         isLoading,
         setIsLoading

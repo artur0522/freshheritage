@@ -2,6 +2,21 @@
 @import '@/styles/variables/_breakpoints.scss';
 @import '@/styles/variables/_colors.scss';
 
+:global(.know-your-fish-drawer) {
+    .article__card {
+        &.fixed {
+            min-height: 432px;
+            .article__card-img {
+                height: 312px;
+
+                @include breakpoint-up('sm') {
+                    height: 384px;
+                }
+            }
+        }
+    }
+}
+
 .article__card {
     background-color: #fff;
     border-radius: 12px;

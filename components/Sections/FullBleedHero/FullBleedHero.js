@@ -14,7 +14,7 @@ const FullBleedHero = ({ fields }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
 
-  let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage, imageBrightness, alt, youtubeVideoId, topMargin, bottomMargin, fixedImage } = fields
+  let { heroStyle, smallerText, textColor, desktopBackgroundImage, mobileBackgroundImage, imageBrightness, alt, youtubeVideoId, topMargin, bottomMargin, fixedImage } = fields
 
   const showVideo = () => {
     setStartVideo(true)
@@ -37,7 +37,7 @@ const FullBleedHero = ({ fields }) => {
   }
 
   return (
-    <div className={`${classes['hero']} ${classes[heroStyle]} ${classes[textColor]} ${topMargin ? classes['top-margin'] : ''} ${bottomMargin ? classes['bottom-margin'] : ''} ${startVideo ? classes['hero--video-enabled'] : ''}`}>
+    <div className={`${classes['hero']} ${smallerText ? classes['hero--smaller-text'] : ''} ${classes[heroStyle]} ${classes[textColor]} ${topMargin ? classes['top-margin'] : ''} ${bottomMargin ? classes['bottom-margin'] : ''} ${startVideo ? classes['hero--video-enabled'] : ''}`}>
       <div className={`${classes['hero__text']}`}>
         <div className={classes['hero__text-inner']}>
           {fields.header && <h1 className={`${heroStyle === 'hero--bottom' ? 'heading--catch' : ''}`}>{fields.header}</h1>}

@@ -46,6 +46,44 @@
 .hero {
   position: relative;
 
+  &.hero--smaller-text {
+    h1 {
+      font-size: 36px;
+      line-height: 100%;
+      letter-spacing: 0.02em;
+      @include breakpoint-up('sm') {
+        font-size: 48px;
+      }
+
+      @include breakpoint-up('md') {
+        font-size: 56px;
+      }
+
+      @include breakpoint-up('lg') {
+        font-size: 60px;
+      }
+
+      @include breakpoint-up('xl') {
+        font-size: 72px;
+        line-height: 120%;
+      }
+    }
+
+    h2 {
+      font-size: 14px;
+      line-height: 150%;
+
+      @include breakpoint-up('lg') {
+        font-size: 16px;
+      }
+
+      @include breakpoint-up('xl') {
+        font-size: 18px;
+      }
+    }
+
+  }
+
   &.top-margin {
     margin-top: 23px;
 

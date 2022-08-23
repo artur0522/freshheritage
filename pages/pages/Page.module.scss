@@ -1,5 +1,12 @@
 @import '@/styles/_shared.scss';
 
+.info-page__left {
+  :global(.accordion-items) {
+    background-color: $alabaster2;
+  }
+}
+
+
 .info-page {
   display: flex;
   flex-direction: column;
@@ -64,5 +71,6 @@
   }
   @include breakpoint-up('xl') {
     left: 0;
+    top: 450px;
   }
 }

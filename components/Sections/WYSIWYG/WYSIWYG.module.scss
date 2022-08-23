@@ -29,11 +29,12 @@
   h2 a, h3 a, h4 a {
     font-family: $frank-ruhl;
     font-weight: 500;
-    font-size: 21px;
+    font-size: 16px;
     margin-bottom: 10px;
     letter-spacing: 0;
     @include breakpoint-up('md') {
       margin-bottom: 10px;
+      font-size: 21px;
     }
     @include breakpoint-up('xl') {
       font-size: 28px;
@@ -66,6 +67,12 @@
   }
   .wysiwyg__video {
     width: 100%;
+    iframe {
+      width: 100%;
+      @include breakpoint-down('sm') {
+        height: 60vw;
+      }
+    }
   }
 
   .wysiwyg__value-props {

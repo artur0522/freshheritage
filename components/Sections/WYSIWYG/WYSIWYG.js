@@ -57,7 +57,7 @@ const WYSIWYG = ({fields}) => {
           </div>
         )
       },
-      youtubeVideoBlock: ({value}) => <Video youtubeVideoId={value.youtubeVideoId} autoplay={false} startVideo="true" className={classes['wysiwyg__video']} />,
+      youtubeVideoBlock: ({value}) => <Video youtubeVideoId={value.youtubeVideoId} autoplay={false} startVideo="true" youtubeOptions={{'height': '521' }} className={classes['wysiwyg__video']} />,
       valuePropsBlock:({value}) => {
         let valuePropsKeys = Object.keys(value).filter(key => key.includes('valueProp'))
         if (valuePropsKeys.length < 1) return ''

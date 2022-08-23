@@ -1,7 +1,7 @@
 import React from 'react'
 import Youtube from 'react-youtube'
 
-const Video = ({youtubeVideoId, startVideo, autoplay = true, className}) => {
+const Video = ({youtubeVideoId, startVideo, autoplay = true, className, youtubeOptions}) => {
 
   const onReady = (event) => {
     if (!autoplay) {
@@ -12,7 +12,7 @@ const Video = ({youtubeVideoId, startVideo, autoplay = true, className}) => {
     }, 1000)
   }
 
-  const youtubeOptions = {
+  const opts = {
     height: '390',
     width: '640',
     playerVars: {
@@ -20,6 +20,7 @@ const Video = ({youtubeVideoId, startVideo, autoplay = true, className}) => {
       // https://developers.google.com/youtube/player_parameters
       rel: 0
     },
+    ...youtubeOptions
   }
 
   if (!startVideo) {
@@ -28,7 +29,7 @@ const Video = ({youtubeVideoId, startVideo, autoplay = true, className}) => {
 
   return (
     <div className={className}>
-      <Youtube videoId={youtubeVideoId} opts={youtubeOptions} onReady={(e) => onReady(e)} />
+      <Youtube videoId={youtubeVideoId} opts={opts} onReady={(e) => onReady(e)} />
     </div>
   )
 }

@@ -40,6 +40,7 @@ const StandardContent = forwardRef(({fields, products}, ref) => {
         return <span style={{'color': value.hex }}>{children}</span>
       },
       link: ({children, value}) => {
+        if (!value.href) return <span>{children}</span>
         if (value.href.includes('mailto')) {
           return <a rel="noreferrer noopener" href={value.href} target="_blank">{children}</a>
         }

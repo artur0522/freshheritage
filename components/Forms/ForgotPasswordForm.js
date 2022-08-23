@@ -15,7 +15,7 @@ const ForgotPasswordForm = ({ isCheckout }) => {
     <h3>Reset Password</h3>
   ):(
     <>
-      <h4>Forgot Your<br />Password?</h4>
+      <h4>Forgot Your Password?</h4>
       <h5>{`Enter the email address associated with your account and we'll email you a link to reset your password.`}</h5>
     </>
   ))

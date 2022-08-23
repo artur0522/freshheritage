@@ -1,6 +1,14 @@
 @import '@/styles/_shared.scss';
 
 .hits-wrap {
+
+    .no-results {
+
+        span {
+            color: $salmon;
+        }
+    }
+
     .hits {
         display: grid;
         grid-template-columns: repeat(1, 1fr);

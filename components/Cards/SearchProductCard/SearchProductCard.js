@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useMediaQuery } from 'react-responsive'
 import Link from "next/link";
 import Image from "next/image";
+import ResponsiveImage from "@/components/ResponsiveImage";
 import classes from "./SearchProductCard.module.scss";
 
 function ProductCard({ product }) {
@@ -22,7 +23,7 @@ function ProductCard({ product }) {
         <Link href={`/products/${encodeURIComponent(product.handle)}`}>
           <a className={classes["media"]}>
             {product.product_image && isMobile && mounted && (
-              <Image
+              <ResponsiveImage
               src={product.product_image}
               alt={product.title}
               width={430}
@@ -31,7 +32,7 @@ function ProductCard({ product }) {
             />
             )}
             {product.product_image && isDesktop && mounted && (
-               <Image
+               <ResponsiveImage
                src={product.product_image}
                alt={product.title}
                width={650}

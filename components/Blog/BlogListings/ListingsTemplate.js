@@ -7,7 +7,6 @@ import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import FullBleedHero from '@/components/Sections/FullBleedHero'
 import ArticleRow from '@/components/Sections/ArticleRow'
 import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
-import RecipeArticleCard from '@/components/Cards/RecipeArticleCard'
 import BlogFilters from '@/components/Blog/BlogFilters'
 
 import IconSearch from '@/svgs/search.svg'

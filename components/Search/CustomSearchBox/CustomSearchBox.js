@@ -16,7 +16,7 @@ const CustomSearchBox = (props) => {
 
   return (
     <div className={classes['searchbox-wrap']}>
-      {query && <Stats />}
+      {/* {query && <Stats />} */}
       <div className={classes['searchbox']}>
         <IconSearch />
         <input className="h6" type="text" placeholder="Search here" onChange={(e) => handleChange(e)} value={searchTerm} />

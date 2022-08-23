@@ -1,6 +1,4 @@
-@import '@/styles/mixins/_breakpoints.scss';
-@import '@/styles/variables/_breakpoints.scss';
-@import '@/styles/variables/_colors.scss';
+@import '@/styles/_shared.scss';
 
 .card {
     display: flex;
@@ -15,6 +13,10 @@
 
     @media screen and (min-width: 736px) {
         padding: 25px 25px 31px 25px;
+    }
+
+    > :global(.btn) {
+        min-width: 0;
     }
 
     .best-seller {
@@ -46,6 +48,7 @@
     .media {
         margin-bottom: 25px;
         display: block;
+        border-radius: 12px;
     }
 
     // card__content

@@ -1,14 +1,15 @@
-@import '@/styles/mixins/_breakpoints.scss';
-@import '@/styles/variables/_breakpoints.scss';
+@import '@/styles/_shared.scss';
 
-.collection {
-    padding: 36px 0 122px 0;
+.hits-wrap {
 
-    @include breakpoint-up('sm') {
-        padding: 132px 0 92px 0;
+    .no-results {
+
+        span {
+            color: $salmon;
+        }
     }
 
-    &__list {
+    .hits {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         row-gap: 61px;

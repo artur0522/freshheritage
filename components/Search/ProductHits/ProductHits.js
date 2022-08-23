@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { useInfiniteHits } from 'react-instantsearch-hooks-web'
+import { useInfiniteHits, useInstantSearch } from 'react-instantsearch-hooks-web'
 import SearchProductCard from '@/components/Cards/SearchProductCard'
 
 import classes from "./ProductHits.module.scss"
@@ -7,6 +7,9 @@ import classes from "./ProductHits.module.scss"
 const ProductHits = (props) => {
   const { hits, isLastPage, showMore } = useInfiniteHits(props)
   const sentinelRef = useRef(null)
+  const { scopedResults } = useInstantSearch(props)
+  const { indexId } = props
+  const foundScoped = scopedResults?.find(index => index.indexId === indexId)
 
   useEffect(() => {
     if (sentinelRef.current !== null) {
@@ -27,12 +30,22 @@ const ProductHits = (props) => {
   }, [isLastPage, showMore]);
 
   return (
-    <div className={classes["collection__list"]}>
-        {hits.map((product, index) => (
-            <div className={classes.item} key={`${product.objectID}-${index}`}>
-                <SearchProductCard product={product} />
-            </div>
-        ))}
+    <div className={classes['hits-wrap']}>
+      {foundScoped?.results?.nbHits > 0 && <div className={classes['hits']}>
+          {hits.map((hit) => {
+              return (
+                  <div className={classes['grid-item']} key={hit.objectID}>
+                      <SearchProductCard product={hit} />
+                  </div>
+              )
+          })}
+          <div className="ais-InfiniteHits-sentinel" ref={sentinelRef} aria-hidden="true">
+          </div>
+      </div>}
+      {foundScoped?.results?.nbHits == 0 && <div className={classes['no-results']}>
+        <h4>Sorry, we could not find anything for <span>"{foundScoped?.results?.query}"</span></h4>
+        <p className="secondary--body">Try a different search term</p>
+      </div>}
     </div>
   )
 }

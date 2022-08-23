@@ -68,7 +68,7 @@ export const ShippingLineList = ({
                           if (!shipWeekOptionSelected) {
                             onShipWeekChange(o.shipWeekPreference)
                           } else {
-                            onShipWeekChange(undefined)
+                            onShipWeekChange(null)
                           }
                         }}
                       />
@@ -87,11 +87,11 @@ export const ShippingLineList = ({
               </div>
             );
           } else {
-            const secondaryLabel = method.display ? 
-              (<div className="checkout__secondary-radio-label">
+            const secondaryLabel = (
+              <div className="checkout__secondary-radio-label">
                 <span>{method.display}</span>
-              </div>)
-              : undefined;
+              </div>
+            );
 
             label = (
               <div>

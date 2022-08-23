@@ -151,12 +151,39 @@ describe('<ShippingLineList />', () => {
     await userEvent.click(wrapper.getByText('Expedited'));
     expect(selectedOption).toBe(2);
     expect(onChange).toHaveBeenCalledWith(2);
+  });
+
+  it('should update view when selected shipping line index changes', () => {
+    const wrapper = render(<ShippingLineList 
+      shippingLines={shippingLines}
+      shipOptionMetadata={shipOptionMetadata}
+      selectedShippingLineIndex={0}
+      onChange={onChange}
+      onShipWeekChange={onShipWeekChange}
+      disabled={false}
+    />);
     expect(
       wrapper.container
         .querySelector('.checkout__radio-wrapper.is-selected')
         .querySelector('.checkout__radio-label')
         .textContent
-    ).toBe('Expedited$100.00')
+    ).toBe('Bundle with Next Order$0.00');
+    wrapper.rerender(
+      <ShippingLineList 
+        shippingLines={shippingLines}
+        shipOptionMetadata={shipOptionMetadata}
+        selectedShippingLineIndex={2}
+        onChange={onChange}
+        onShipWeekChange={onShipWeekChange}
+        disabled={false}
+      />
+    );
+    expect(
+      wrapper.container
+        .querySelector('.checkout__radio-wrapper.is-selected')
+        .querySelector('.checkout__radio-label')
+        .textContent
+    ).toBe('Expedited$100.00');
   });
 
   it('should start without a selected standard ship week option', () => {
@@ -172,11 +199,11 @@ describe('<ShippingLineList />', () => {
     expect(
       container
         .querySelector('.checkout__secondary-radio-wrapper.is-selected')
-    ).toBeNull()
+    ).toBeNull();
   });
 
   it('should update ship week when a standard ship week option selected', async () => {
-    let shipWeekOption = -1;
+    let shipWeekOption = '';
     onShipWeekChange.mockImplementation((value) => shipWeekOption = value);
     const wrapper = render(<ShippingLineList 
       shippingLines={shippingLines}
@@ -189,18 +216,131 @@ describe('<ShippingLineList />', () => {
     />);
     await userEvent.click(wrapper.getByText('CHRISTMAS', {exact: false}));
     expect(shipWeekOption).toBe(25);
-    expect(onChange).toHaveBeenCalledWith(2);
+    expect(onShipWeekChange).toHaveBeenCalledWith(25);
+  });
+
+  it('should update view when ship week option index changes', () => {
+    const wrapper = render(<ShippingLineList 
+      shippingLines={shippingLines}
+      shipOptionMetadata={shipOptionMetadata}
+      selectedShippingLineIndex={1}
+      selectedStandardShipWeek={''}
+      onChange={onChange}
+      onShipWeekChange={onShipWeekChange}
+      disabled={false}
+    />);
+    expect(
+      wrapper.container
+        .querySelector('.checkout__secondary-radio-wrapper.is-selected')
+    ).toBeNull();
+    wrapper.rerender(<ShippingLineList 
+      shippingLines={shippingLines}
+      shipOptionMetadata={shipOptionMetadata}
+      selectedShippingLineIndex={1}
+      selectedStandardShipWeek={25}
+      onChange={onChange}
+      onShipWeekChange={onShipWeekChange}
+      disabled={false}
+    />);
     expect(
       wrapper.container
         .querySelector('.checkout__secondary-radio-wrapper.is-selected')
         .querySelector('.checkout__secondary-radio-label')
         .textContent
-    ).toBe('CHRISTMAS')
+    ).toBe('Ship week of CHRISTMAS');
+  })
+
+  it('should unset ship week when non-standard line selected', async () => {
+    let shipWeekOption = 25;
+    let selectedOption = 1;
+    onShipWeekChange.mockImplementation((value) => shipWeekOption = value);
+    onChange.mockImplementation((value) => selectedOption = value);
+    const wrapper = render(<ShippingLineList 
+      shippingLines={shippingLines}
+      shipOptionMetadata={shipOptionMetadata}
+      selectedShippingLineIndex={selectedOption}
+      selectedStandardShipWeek={shipWeekOption}
+      onChange={onChange}
+      onShipWeekChange={onShipWeekChange}
+      disabled={false}
+    />);
+    await userEvent.click(wrapper.getByText('Expedited'));
+    expect(shipWeekOption).toBe(null);
+    expect(onShipWeekChange).toHaveBeenCalledWith(null);
+    expect(selectedOption).toBe(2);
+    expect(onChange).toHaveBeenCalledWith(2);
   });
 
-  it('should unset ship week when non-standard line selected', () => {});
+  it('should unset ship week when currently selected ship week selected', async () => {
+    let shipWeekOption = 25;
+    let selectedOption = 1;
+    onShipWeekChange.mockImplementation((value) => shipWeekOption = value);
+    onChange.mockImplementation((value) => selectedOption = value);
+    const wrapper = render(<ShippingLineList 
+      shippingLines={shippingLines}
+      shipOptionMetadata={shipOptionMetadata}
+      selectedShippingLineIndex={selectedOption}
+      selectedStandardShipWeek={shipWeekOption}
+      onChange={onChange}
+      onShipWeekChange={onShipWeekChange}
+      disabled={false}
+    />);
+    await userEvent.click(wrapper.getByText('CHRISTMAS', {exact: false}));
+    expect(shipWeekOption).toBeNull();
+    expect(onShipWeekChange).toHaveBeenCalledWith(null);
+    expect(selectedOption).toBe(1);
+    expect(onChange).not.toHaveBeenCalled();
+  });
 
-  it('should unset ship week when currently selected ship week selected', () => {});
+  it('should set ship week preference for bundled order', async () => {
+    let shipWeekOption = 25;
+    let selectedOption = 1;
+    onShipWeekChange.mockImplementation((value) => shipWeekOption = value);
+    onChange.mockImplementation((value) => selectedOption = value);
+    const wrapper = render(<ShippingLineList 
+      shippingLines={shippingLines}
+      shipOptionMetadata={shipOptionMetadata}
+      selectedShippingLineIndex={selectedOption}
+      selectedStandardShipWeek={shipWeekOption}
+      onChange={onChange}
+      onShipWeekChange={onShipWeekChange}
+      disabled={false}
+    />);
+    await userEvent.click(wrapper.getByText('Bundle with Next Order'));
+    expect(shipWeekOption).toBe(35);
+    expect(onShipWeekChange).toHaveBeenCalledWith(35);
+    expect(selectedOption).toBe(0);
+    expect(onChange).toHaveBeenCalledWith(0);
+  });
 
-  it('should set ship week preference for bundled order', () => {});
+  it('should remove focus from selected Standard ship week option when changed', () => {
+    const wrapper = render(<ShippingLineList 
+      shippingLines={shippingLines}
+      shipOptionMetadata={shipOptionMetadata}
+      selectedShippingLineIndex={1}
+      selectedStandardShipWeek={25}
+      onChange={onChange}
+      onShipWeekChange={onShipWeekChange}
+      disabled={false}
+    />);
+    expect(
+      wrapper.container
+        .querySelector('.checkout__secondary-radio-wrapper.is-selected')
+        .querySelector('.checkout__secondary-radio-label')
+        .textContent
+    ).toBe('Ship week of CHRISTMAS');
+    wrapper.rerender(<ShippingLineList 
+      shippingLines={shippingLines}
+      shipOptionMetadata={shipOptionMetadata}
+      selectedShippingLineIndex={1}
+      selectedStandardShipWeek={null}
+      onChange={onChange}
+      onShipWeekChange={onShipWeekChange}
+      disabled={false}
+    />);
+    expect(
+      wrapper.container
+        .querySelector('.checkout__secondary-radio-wrapper.is-selected')
+    ).toBeNull();
+  });
 });

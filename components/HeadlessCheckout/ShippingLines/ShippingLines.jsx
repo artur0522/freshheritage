@@ -34,16 +34,6 @@ const ShippingLines = ({ applicationLoading }) => {
     applicationLoading ||
     !shipOptionMetadata;
 
-  // console.log("data.shippingLines:", data.shippingLines)
-  // console.log("shippingAddressErrors:", shippingAddressErrors)
-  // console.log("shippingAddressLoadingStatus:", shippingAddressLoadingStatus)
-  // console.log("shippingAddress:", shippingAddress)
-  // console.log("loadingStatus:", loadingStatus)
-
-  useEffect(() => {
-    console.log("errors:", errors)
-  }, [errors])
-
   return (
     <MemoizedShippingLines
       shippingLines={data.shippingLines}

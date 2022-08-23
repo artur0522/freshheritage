@@ -8,6 +8,7 @@ const useShippingLines = jest.fn(() => {});
 const useShippingAddress = jest.fn(() => {});
 const useErrors = jest.fn(() => {});
 const useOrderMetadata = jest.fn(() => {});
+const useLineItems = jest.fn(() => {});
 
 const updateShippingLine = jest.fn(() => {});
 const appendOrderMetadata = jest.fn(() => {});
@@ -37,7 +38,8 @@ jest.mock('@boldcommerce/checkout-react-components', () => {
     useShippingLines: () => useShippingLines(),
     useLoadingStatus: () => useLoadingStatus(),
     useErrors: () => useErrors(),
-    useOrderMetadata: () => useOrderMetadata()
+    useOrderMetadata: () => useOrderMetadata(),
+    useLineItems: () => useLineItems()
   }
 });
 
@@ -117,7 +119,10 @@ describe('<ShippingLines />', () => {
     });
     useOrderMetadata.mockReturnValue({
       appendOrderMetadata
-    })
+    });
+    useLineItems.mockReturnValue({
+      data: []
+    });
   });
 
   it('should show loading state when app loading', () => {

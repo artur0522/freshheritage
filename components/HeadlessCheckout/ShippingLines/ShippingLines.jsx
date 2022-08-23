@@ -31,6 +31,7 @@ const ShippingLines = ({ applicationLoading }) => {
     applicationLoading;
 
   // console.log("data.shippingLines:", data.shippingLines)
+  // console.log("selectedCountryCode:", selectedCountryCode)
   // console.log("shippingAddressErrors:", shippingAddressErrors)
   // console.log("shippingAddressLoadingStatus:", shippingAddressLoadingStatus)
   // console.log("shippingAddress:", shippingAddress)
@@ -74,12 +75,15 @@ const MemoizedShippingLines = memo(
 
     // need to refresh shipping lines when cart line item updates
     const refreshShippingLines = useCallback(async () => {
+      console.log("showShippingLines:", showShippingLines)
       if (showShippingLines) {
+        console.log("get shipping lines")
         try {
-          await getShippingLines()
+          await getShippingLines().then((res) => console.log(res))
           trackEvent('set_shipping_line');
           setErrors(null);
         } catch (e) {
+          console.log("error getting lines:", e)
           logError('shipping_lines', e);
           setErrors(e.body.errors);
         }
@@ -92,6 +96,7 @@ const MemoizedShippingLines = memo(
      * This usually means that a shipping address was preselected on the server and therefor we need to fetch shipping lines manually.
      */
     useEffect(() => {
+      console.log("line items changed")
       refreshShippingLines();
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lineItems]);

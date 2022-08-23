@@ -15,6 +15,7 @@ export function HeadlessCheckoutProvider({ children }) {
   const [data, setData] = useState(null)
   const [PIGIMediaRules, setPIGIMediaRules] = useState([]);
   const [flyoutState, setFlyoutState] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const { customer } = useCustomerContext()
 
   function saveDataInLocalStorage(data) {
@@ -169,6 +170,7 @@ export function HeadlessCheckoutProvider({ children }) {
         }
       })
     }
+
     if (open_flyout) {
       setFlyoutState(true)
     }
@@ -571,10 +573,47 @@ export function HeadlessCheckoutProvider({ children }) {
     //   quantity: 1,
     //   line_item_key: '977a6d10-43c5-414a-a60f-f1b551cbc3cf'
     // }
-    console.log(payload)
+    console.log("payload:", payload)
     const { jwt, public_order_id } = JSON.parse(
       localStorage.getItem('checkout_data'),
     )
+
+    const foundSubscriptionItem = data.application_state.line_items.find(item => item.product_data.line_item_key === payload.line_item_key)
+
+    if (foundSubscriptionItem && data.application_state.line_items.length >= 1) {
+      let lineItems = data.application_state.line_items.filter(item => item.product_data.variant_id !== foundSubscriptionItem?.product_data?.variant_id).map(item => {
+        const line_item = item.product_data
+        return {
+          platform_id: line_item.variant_id,
+          quantity: line_item.quantity,
+          line_item_key: line_item.line_item_key,
+          line_item_properties: line_item.properties
+        }
+      })
+
+      console.log("removing subscription.. initializing new checkout")
+
+      const order_meta_data = {
+        "cart_parameters": {}
+      }
+
+      if (data?.application_state?.order_meta_data?.cart_parameters?.pre) {
+        order_meta_data.cart_parameters.pre = {...data?.application_state?.order_meta_data?.cart_parameters?.pre}
+      }
+
+      setIsLoading(true)
+
+      await initializeCheckout({
+        products: [...lineItems],
+        order_meta_data: order_meta_data
+      })
+
+      setIsLoading(false)
+
+      return true
+    }
+
+
     const response = await fetch(
       `https://api.boldcommerce.com/checkout/storefront/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/${public_order_id}/items`,
       {
@@ -695,7 +734,9 @@ export function HeadlessCheckoutProvider({ children }) {
         validateEmailAddress,
         addCustomerToOrder,
         removeCustomerFromOrder,
-        PIGIMediaRules
+        PIGIMediaRules,
+        isLoading,
+        setIsLoading
       }}
     >
       <CheckoutFlyout />

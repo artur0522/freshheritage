@@ -5,6 +5,7 @@ import IconSearch from '@/svgs/search.svg'
 import { useMediaQuery } from 'react-responsive'
 import { useCustomerContext } from '@/context/CustomerContext'
 import { useHeaderContext } from '@/context/HeaderContext'
+import { useSearchModalContext } from '@/context/SearchModalContext'
 
 const PrimaryNavigation = ({props, classes}) => {
 
@@ -12,6 +13,8 @@ const PrimaryNavigation = ({props, classes}) => {
   const { customer } = customerContext
   const { setMobileMenuIsOpen } = useHeaderContext()
   const {menuItems} = (customerContext.customer?.is_member) ? props.memberPrimaryNavigation : props.nonMemberPrimaryNavigation
+  const searchModalContext = useSearchModalContext()
+  const { setSearchOpen } = searchModalContext
 
   const [mounted, setMounted] = useState(false);
   const isDesktop = useMediaQuery(
@@ -36,6 +39,10 @@ const PrimaryNavigation = ({props, classes}) => {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const openSearchModal = () => {
+    setSearchOpen(true)
+  }
 
   return (
     <ul className={classes.navItems}>
@@ -68,7 +75,7 @@ const PrimaryNavigation = ({props, classes}) => {
               <IconMenu />
             </button>
           </li>
-          <li className={classes.navItem}><IconSearch /></li>
+          <li className={classes.navItem}><IconSearch onClick={() => openSearchModal()} /></li>
         </>
 
       )}

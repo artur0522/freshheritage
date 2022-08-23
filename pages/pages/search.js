@@ -66,7 +66,9 @@ const Search = () => {
 
         <div className={classes['header']}>
           <h1>Search Results</h1>
-          <CustomSearchBox />
+          <div className={classes['searchbox-wrap']}>
+            <CustomSearchBox />
+          </div>
         </div>
 
         <div className={classes['results-wrap']}>

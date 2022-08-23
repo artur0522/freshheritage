@@ -1,0 +1,115 @@
+@import '@/styles/_shared.scss';
+
+@import '@/styles/_shared.scss';
+
+.pdp-flyout {
+    .pdp-flyout__content--enter {
+        transform: translateY(444px);
+    }
+
+    .pdp-flyout__content--enter-active {
+        transform: translate(0);
+    }
+
+    .pdp-flyout__content--enter-done {
+        transform: translateY(444px);
+    }
+
+    .pdp-flyout__content--exit {
+        transform: translateY(-444px);
+    }
+}
+
+.pdp-flyout {
+    width: 100%;
+    height: 100%;
+    z-index: 2001;
+    position: fixed;
+
+    &__content {
+        position: relative;
+    }
+
+    .content {
+        padding: 0 21.14%;
+    }
+
+    // .search-header {
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: space-between;
+    // }
+
+    .searchbox-close {
+        position: absolute;
+        top: 24px;
+        right: 6.25%;
+
+        button {
+            background-color: $salmon;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            border-radius: 100%;
+        }
+
+        svg {
+            height: 17px;
+            width: 17px;
+        }
+    }
+}
+
+.pdp-flyout__close-btn {
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    @include breakpoint-up('md') {
+        top: 15px;
+        right: 15px;
+    }
+
+    svg {
+        width: 14px;
+
+        @include breakpoint-up('sm') {
+            width: 20px;
+        }
+
+        @include breakpoint-up('md') {
+            width: 27px;
+        }
+
+        * {
+            fill: $sitkablue;
+        }
+    }
+}
+
+.pdp-flyout__overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    cursor: pointer;
+}
+
+.pdp-flyout__content {
+    width: 100%;
+    position: fixed;
+    top: -444px;
+    height: 444px;
+    background-color: $alabaster2;
+    box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translate(100%);
+    transition: 0.2s ease-in-out transform;
+    overflow-y: auto;
+}

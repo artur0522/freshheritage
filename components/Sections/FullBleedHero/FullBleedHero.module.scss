@@ -47,40 +47,51 @@
   position: relative;
 
   &.hero--smaller-text {
-    h1 {
-      font-size: 36px;
-      line-height: 100%;
-      letter-spacing: 0.02em;
-      @include breakpoint-up('sm') {
-        font-size: 48px;
-      }
+    &.hero--bottom,
+    &.hero--center,
+    &.hero--center-transparent {
+      h1 {
+        font-size: 36px;
 
-      @include breakpoint-up('md') {
-        font-size: 56px;
-      }
+        line-height: 100%;
+        letter-spacing: 0.02em;
+        @include breakpoint-up('sm') {
+          font-size: 48px;
+        }
 
-      @include breakpoint-up('lg') {
-        font-size: 60px;
-      }
+        @include breakpoint-up('md') {
+          font-size: 56px;
+        }
 
-      @include breakpoint-up('xl') {
-        font-size: 72px;
-        line-height: 120%;
+        @include breakpoint-up('lg') {
+          font-size: 60px;
+        }
+
+        @include breakpoint-up('xl') {
+          font-size: 72px;
+          line-height: 120%;
+        }
+      }
+    }
+
+    &.hero--smaller-text {
+      &.hero--bottom,
+      &.hero--center {
+        h2 {
+          font-size: 14px;
+          line-height: 150%;
+
+          @include breakpoint-up('lg') {
+            font-size: 16px;
+          }
+
+          @include breakpoint-up('xl') {
+            font-size: 18px;
+          }
+        }
       }
     }
 
-    h2 {
-      font-size: 14px;
-      line-height: 150%;
-
-      @include breakpoint-up('lg') {
-        font-size: 16px;
-      }
-
-      @include breakpoint-up('xl') {
-        font-size: 18px;
-      }
-    }
 
   }
 
@@ -177,16 +188,16 @@
       }
 
       h2 {
-        margin-bottom: 30px;
-        @include breakpoint-up('sm') {
-          margin-bottom: 60px;
-        }
+        margin: 0;
       }
 
       .btn {
         min-width: 161px;
         padding: 0 20px;
-        margin: 0 auto 24px auto;
+        margin: 30px auto 24px auto;
+        @include breakpoint-up('sm') {
+          margin-top: 60px;
+        }
       }
 
       a {
@@ -283,19 +294,25 @@
       left: 50%;
       transform: translate(-50%, -50%);
       border-radius: 2px;
-      width: 100%;
+      width: calc(100% - 60px);
+      max-width: 1108px;
 
       @include breakpoint-up('sm') {
         padding: 8.05% 7.45%;
         border-radius: 12px;
+        width: calc(100% - 100px);
+      }
+
+      @include breakpoint-up('md') {
+        width: calc(100% - 120px);
       }
 
       @include breakpoint-up('lg') {
         padding: 0;
-        width: 1108px;
         min-height: 623px;
         display: flex;
         align-items: center;
+        width: calc(100% - 170px);
       }
 
       // hero__text-inner

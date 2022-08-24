@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { nacelleClient } from 'services'
 import Image from 'next/image'
+import ResponsiveImage from '@/components/ResponsiveImage'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { FreeMode } from "swiper"
 
 import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
 
@@ -76,21 +78,17 @@ const FeaturedBlogContent = ({ fields }) => {
     <div className={`${classes['articles']}`}>
       {illustration && (
         <div className={classes['illustration-1']}>
-          <Image
+          <ResponsiveImage
             src={illustration.asset.url}
             alt={illustrationAlt}
-            width={743}
-            height={532}
           />
         </div>
       )}
       {illustration2 && (
         <div className={classes['illustration-2']}>
-          <Image
+          <ResponsiveImage
             src={illustration2.asset.url}
             alt={illustration2Alt}
-            width={524}
-            height={524}
           />
         </div>
       )}
@@ -101,34 +99,11 @@ const FeaturedBlogContent = ({ fields }) => {
         </div>
 
         {!!selectedSwiper && tabs.length > 1 && method !== 'tagBased' && (
-          <div
-            className={`${classes['articles__tabs-swiper']} ${classes['swiper-none']}`}
-          >
-            {tabs.map((tab) => {
-              return (
-                <div className={classes['tab-slide']} key={tab._key}>
-                  <a
-                    className={`${
-                      tab.tabName === selectedSwiper.tabName
-                        ? classes['active']
-                        : ''
-                    }`}
-                    onClick={() => filterArticles(tab.tabName)}
-                  >
-                    <span>{tab.tabName}</span>
-                  </a>
-                </div>
-              )
-            })}
-          </div>
-        )}
-
-        {!!selectedSwiper && tabs.length > 1 && method !== 'tagBased' && (
           <Swiper
-            loop={true}
             slidesPerView={'auto'}
             spaceBetween={40}
             threshold={15}
+            modules={[FreeMode]}
             className={`${classes['articles__tabs-swiper']} ${classes['has-swiper']}`}
           >
             {tabs.map((tab) => {

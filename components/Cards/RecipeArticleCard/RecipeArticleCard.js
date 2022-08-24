@@ -23,8 +23,6 @@ const RecipeArticleCard = ({ article, responsiveImage = false }) => {
         url = `/blogs/${blogType}/${blogCategory}/${articleHandle}`
     }
 
-    console.log(article, activeTime)
-
     return (
         <Link href={url}>
             <div className={`${classes['article__card']} ${!responsiveImage ? classes['fixed'] : ''}`}>

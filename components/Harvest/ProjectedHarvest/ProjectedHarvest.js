@@ -90,7 +90,7 @@ const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
                     {harvestList.map((harvest) => {
                         return (
                             <SwiperSlide className={classes['harvest__tab']} key={`${harvest.title}--${harvest.id}`}>
-                                <button onClick={() => filterHarvests(harvest.handle.current)} className={`${classes['harvest__tab']} ${activeHarvest.handle.current === harvest.handle.current ? classes['active'] : ""} heading--tab capitalize`}>
+                                <button onClick={() => filterHarvests(harvest.handle.current)} className={`${classes['harvest__tab-btn']} ${activeHarvest.handle.current === harvest.handle.current ? classes['active'] : ""} heading--tab capitalize`}>
                                    {harvest.title}
                                 </button>
                             </SwiperSlide>
@@ -110,9 +110,10 @@ const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
                         className={`${classes['harvest__tabs-swiper']}`}
                     >
                     {harvestListMonths.map((month, index) => {
+
                         return (
                             <SwiperSlide className={classes['harvest__tab']} key={`${index}-${month._id}`}>
-                                <button onClick={() => findFilteredFish(month.month.trim().toLowerCase())} className={`${classes['harvest__tab']} heading--tab ${activeTab.month === month.month.trim().toLowerCase() ? classes['active'] : ""} capitalize`}>
+                                <button onClick={() => findFilteredFish(month.month.trim().toLowerCase())} className={`${classes['harvest__tab-btn']} heading--tab ${activeTab.month === month.month.trim().toLowerCase() ? classes['active'] : ""} capitalize`}>
                                     {month.month} {month.year} {currentMonth === month.month.trim().toLowerCase()  ? '(Shipping Now!)' : ' '}
                                 </button>
                             </SwiperSlide>
@@ -127,6 +128,7 @@ const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
                                     {harvestList.length > 1 && harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
                                     <div className={`${classes['harvest__fish-list']}`}>
                                         {harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.map((fish) => {
+                                            console.log("fish:", fish)
                                             return (
                                                 <div className={`${classes['harvest__card']}`} key={fish._key}>
                                                     <HarvestCard fish={fish} />

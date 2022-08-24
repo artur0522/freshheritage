@@ -8,6 +8,7 @@ import { PurchaseFlowProvider } from '@/context/PurchaseFlowContext'
 import { HeadlessCheckoutProvider } from '@/context/HeadlessCheckoutContext'
 import { HeaderProvider } from '@/context/HeaderContext'
 import { KnowYourFishDrawerProvider } from '@/context/KnowYourFishDrawerContext'
+import { EditScheduleDrawerProvider } from '@/context/EditScheduleDrawerContext'
 import StructuredData from '../SEO/StructuredData'
 
 import Footer from '@/components/Layout/Footer'
@@ -18,7 +19,6 @@ import Footer from '@/components/Layout/Footer'
 // https://github.com/getnacelle/nacelle-react/tree/main/packages/react-hooks
 
 function Layout({ children, headerSettings, footerSettings }) {
-
   return (
     <CustomerProvider>
       <ModalProvider>
@@ -26,17 +26,24 @@ function Layout({ children, headerSettings, footerSettings }) {
           <PurchaseFlowProvider>
             <PDPDrawerProvider>
               <KnowYourFishDrawerProvider>
-                <ArticleFiltersDrawerProvider>
-                  <ArticleProvider>
-                    <TheCatchProvider>
-                      <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
-                        <StructuredData type="breadcrumb" />
-                        <main className={`main--${children.props.handle}`}>{children}</main>
-                        <Footer content={footerSettings} />
-                      </HeaderProvider>
-                    </TheCatchProvider>
-                  </ArticleProvider>
-                </ArticleFiltersDrawerProvider>
+                <EditScheduleDrawerProvider>
+                  <ArticleFiltersDrawerProvider>
+                    <ArticleProvider>
+                      <TheCatchProvider>
+                        <HeaderProvider
+                          content={headerSettings}
+                          pageHandle={children.props.handle}
+                        >
+                          <StructuredData type="breadcrumb" />
+                          <main className={`main--${children.props.handle}`}>
+                            {children}
+                          </main>
+                          <Footer content={footerSettings} />
+                        </HeaderProvider>
+                      </TheCatchProvider>
+                    </ArticleProvider>
+                  </ArticleFiltersDrawerProvider>
+                </EditScheduleDrawerProvider>
               </KnowYourFishDrawerProvider>
             </PDPDrawerProvider>
           </PurchaseFlowProvider>

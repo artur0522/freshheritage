@@ -3,6 +3,7 @@
 .all-know-your-fish-block {
   padding: 40px 0 80px;
   background-color: $fawn50-2;
+  cursor: pointer;
   @include breakpoint-up('xl') {
     padding: 60px 0 120px;
   }

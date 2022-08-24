@@ -7,8 +7,8 @@ import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import FullBleedHero from '@/components/Sections/FullBleedHero'
 import ArticleRow from '@/components/Sections/ArticleRow'
 import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
-import RecipeArticleCard from '@/components/Cards/RecipeArticleCard'
 import BlogFilters from '@/components/Blog/BlogFilters'
+import IconFilters from '@/svgs/filters.svg'
 
 import IconSearch from '@/svgs/search.svg'
 import PaginationLeft from '@/svgs/pagination-left.svg'
@@ -157,11 +157,11 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
 
           <div className={classes['recipes__filter-row']}>
             {filterGroups && filterGroups?.length > 0 && <button onClick={() => toggleFilterDrawer(!filterDrawer)} type="button" className={`${classes['toggle-filters']} ${classes['desktop']}`}>
-              {filterDrawer ? <span className="body">Hide Filters</span> : <span className="body">Show Filters</span>}
+              {filterDrawer ? <span className="body">Hide Filters <IconFilters/></span> : <span className="body">Show Filters <IconFilters/></span>}
             </button>}
 
             {filterGroups && filterGroups?.length > 0 && <button onClick={() => openDrawer()} type="button" className={`${classes['toggle-filters']} ${classes['mobile']}`}>
-              {isOpen ? <span className="body">Hide Filters</span> : <span className="body">Show Filters</span>}
+              {isOpen ? <span className="body">Hide Filters <IconFilters/></span> : <span className="body">Show Filters <IconFilters/></span>}
             </button>}
 
             <div className={classes['sort-by']}>

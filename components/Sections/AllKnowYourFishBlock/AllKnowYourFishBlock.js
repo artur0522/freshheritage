@@ -78,15 +78,14 @@ const AllKnowYourFishblock = ({fields}) => {
             }
 
             return (
-              <li className={classes['all-know-your-fish-block__item']} key={index}>
+              <li onClick={() => openDrawer({ fields: item})} className={classes['all-know-your-fish-block__item']} key={index}>
                 <div className={classes['all-know-your-fish-block__item-container']}>
                   {cropImageUrl && <div className={classes['all-know-your-fish-block__item-image']}>
                     <ResponsiveImage src={cropImageUrl} alt={image.asset.alt || ''}  style={imageInlineStyles} />
-                    <button
-                      className={classes['all-know-your-fish-block__more-info-btn']}
-                      onClick={() => openDrawer({ fields: item})}>
+                    <span
+                      className={classes['all-know-your-fish-block__more-info-btn']}>
                         <InfoCircle />
-                    </button>
+                    </span>
                   </div>}
                   <div className={classes['all-know-your-fish-block__item-content']}>
                     {header && <h2 className={classes['all-know-your-fish-block__item-header']}>{header}</h2>}

@@ -22,6 +22,26 @@ module.exports = {
         destination: '/account/subscriptions',
         permanent: true,
       },
+      {
+        source: '/products/premium-seafood-subscription-box',
+        destination: '/pages/choose-your-plan',
+        permanent: false,
+      },
+      {
+        source: '/products/salmon-subscription-box',
+        destination: '/pages/choose-your-plan',
+        permanent: false,
+      },
+      {
+        source: '/products/seafood-subscription-box',
+        destination: '/pages/choose-your-plan',
+        permanent: false,
+      },
+      {
+        source: '/products/sitka-seafood-intro-box',
+        destination: '/pages/choose-your-plan',
+        permanent: false,
+      },
     ]
-  },
+  }
 }

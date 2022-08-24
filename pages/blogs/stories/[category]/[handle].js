@@ -9,6 +9,7 @@ import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
+import moment from 'moment'
 
 const BrandArticle = ({ page, products, blogSettings, modals }) => {
   const { hero, articleTags } = page.fields
@@ -21,6 +22,11 @@ const BrandArticle = ({ page, products, blogSettings, modals }) => {
   const [mounted, setMounted] = useState(false)
   const customerContext = useCustomerContext()
   const { customer } = customerContext
+
+  let datePublished = moment.unix(page.createdAt).format('MMMM DD, YYYY')
+  if (page.fields?.publishedDate) {
+    datePublished = moment(page.fields.publishedDate).format('MMMM DD, YYYY')
+  }
 
   useEffect(() => {
     setMounted(true)
@@ -77,7 +83,7 @@ const BrandArticle = ({ page, products, blogSettings, modals }) => {
       <StructuredData type="article" data={page} />
       <PageSEO seo={page.fields.seo} />
       <ArticleSplitHero fields={hero} renderType="default" blogGlobalSettings={blogGlobalSettings} />
-      <ArticleMain contentType="standard" fields={page.fields} products={products} blogGlobalSettings={blogGlobalSettings} />
+      <ArticleMain contentType="standard" datePublished={datePublished} fields={page.fields} products={products} blogGlobalSettings={blogGlobalSettings} />
       <ContentSections sections={page.fields.pageContent} />
     </>
   )
@@ -95,7 +101,7 @@ export async function getStaticPaths() {
   const validArticles = standardArticles.reduce((carry, article) => {
     // only get brand categories
     const blogType = article.fields.blog.blogType
-    if (blogType === 'brand') {
+    if (blogType === 'stories') {
       return [...carry, {
         category: article.fields.blog.handle.current,
         handle: article.handle
@@ -131,7 +137,7 @@ export async function getStaticProps({ params }) {
     type: 'blogSettings'
   })
 
-  if (!pages.length) {
+  if (!pages.length || !pages[0].fields.published) {
     return {
       notFound: true
     }
@@ -163,8 +169,7 @@ export async function getStaticProps({ params }) {
         }
       })
       if (data.products && data.products.length) {
-        const products = data.products
-        props.products = products.filter(product => product.tags.includes('Subscription Box'))
+        props.products = data.products
       }
     }
   }

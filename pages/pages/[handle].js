@@ -13,7 +13,11 @@ export default function DynamicPage({ page }) {
   const isDesktop = useMediaQuery(
     {query: '(min-width: 1074px)'}
   )
-  
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   if (page.type === 'infoPage') {
     const { header, leftContent , rightContent, bottomContent, desktopIllustration, mobileIllustration } = page.fields
     return (
@@ -101,7 +105,8 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      page: fullRefPage
+      page: fullRefPage,
+      handle: params.handle
     }
   }
 

@@ -140,7 +140,7 @@
 
     // filter__list-wrap
     .filters-list__wrap {
-        width: 100%;
+        // width: 100%;
 
         @include breakpoint-up('md') {
             display: flex;
@@ -154,12 +154,13 @@
 
             @include breakpoint-up('md') {
                 display: block;
-                padding-left: 60px;
+                // padding-left: 60px;
+                width: 450px;
+                flex-basis: 450px;
+                padding-right: 45px;
             }
-
             @include breakpoint-up('lg') {
-                padding-left: 120px;
-                width: 23%;
+                padding-right: 90px;
             }
         }
 
@@ -199,12 +200,19 @@
             }
 
             &.filters-open {
+                @include breakpoint-up('md') {
+                    grid-template-columns: repeat(2, 1fr);
+                }
                 @include breakpoint-up('lg') {
                     grid-template-columns: repeat(3, 1fr);
                 }
             }
         }
     }
+}
+
+.grid-item {
+    width: 100%;
 }
 
 .pagination {

@@ -10,7 +10,6 @@ import { HeaderProvider } from '@/context/HeaderContext'
 import { KnowYourFishDrawerProvider } from '@/context/KnowYourFishDrawerContext'
 import StructuredData from '../SEO/StructuredData'
 
-import Header from '@/components/Layout/Header'
 import Footer from '@/components/Layout/Footer'
 
 // This component utilizes `useCart` and `useCheckout` hooks from

@@ -6,6 +6,7 @@ import { usePDPDrawerContext } from '@/context/PDPDrawerContext'
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const ArticleProduct = ({product, parentClasses}) => {
 
@@ -16,6 +17,8 @@ const ArticleProduct = ({product, parentClasses}) => {
   const isDesktop = useMediaQuery(
     {query: '(min-width: 1074px)'}
   )
+
+  const isSubscription = product.tags.includes('Subscription Box')
 
   useEffect(() => {
     setMounted(true)
@@ -43,25 +46,37 @@ const ArticleProduct = ({product, parentClasses}) => {
           <div className={classes['article-product__details']}>
             <h4 className="heading--product-title">{product.content.title}</h4>
             <div className={`${classes['article-product____tier-price-pounds']} secondary--body`}>
-              <span>${product.variants[0].price} / box</span>
+              <span>${product.variants[0].price} {isSubscription && <>/ box </>}</span>
               <span>{product.variants[0].weight} lbs</span>
             </div>
             <div className={classes['article-product__details-footer']}>
-              <button
-                onClick={() => PDPDrawerContext.openDrawer(product)}
-                className="btn-link-underline">
-                  Details & Projected Harvest
-              </button>
-              <button
-                onClick={() => {
-                  const variant = getCartVariant({
-                    product,
-                    variant: product.variants[0]
-                  });
-                  addItemToOrder({variant})
-                }}
-                className="btn salmon"
-              >Add to Cart</button>
+              {isSubscription ?
+                <button
+                  onClick={() => PDPDrawerContext.openDrawer(product)}
+                  className="btn-link-underline">
+                    Details & Projected Harvest
+                </button>
+              :
+                <Link href={`/products/${product.content.handle}`}>
+                  <a>View Details</a>
+                </Link>
+              }
+              {isSubscription ?
+                <Link href="/pages/choose-your-plan">
+                  <button className="btn salmon">Subscribe Now</button>
+                </Link>
+              :
+                <button
+                  onClick={() => {
+                    const variant = getCartVariant({
+                      product,
+                      variant: product.variants[0]
+                    });
+                    addItemToOrder({variant})
+                  }}
+                  className="btn salmon"
+                >Add to Cart</button>
+              }
             </div>
           </div>
         </div>

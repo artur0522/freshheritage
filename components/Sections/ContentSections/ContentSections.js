@@ -1,4 +1,4 @@
-import React from 'react'
+import { forwardRef } from 'react'
 
 import { useRouter } from 'next/router'
 import { useTheCatchContext } from '@/context/TheCatchContext'
@@ -34,8 +34,9 @@ import ContactUs from '@/components/Sections/ContactUs'
 import Accordion from '../Accordion'
 import ReviewsCarousel from '@/components/Sections/ReviewsCarousel'
 import FishermenPartners from '../FishermenPartners'
+import ProductReviews from '@/components/Product/ProductReviews'
 
-const ContentSections = ({ sections, harvestMetafield, harvests, disableHarvestFilters}) => {
+const ContentSections = forwardRef(({ sections, harvestMetafield, harvests, disableHarvestFilters, product}, ref) => {
   const router = useRouter()
 
   if (harvestMetafield === undefined && router.pathname.includes('/products')) {
@@ -154,10 +155,15 @@ const ContentSections = ({ sections, harvestMetafield, harvests, disableHarvestF
         return <ReviewsCarousel fields={section} key={section._key} />
       case 'fishermenPartners':
         return <FishermenPartners fields={section} key={section._key} />
+      case 'productReviews':
+        if (product) {
+          return <ProductReviews ref={ref} product={product} fields={section} key={section._key} />
+        }
+        return null
       default:
         return null
     }
   })
-}
+})
 
 export default ContentSections

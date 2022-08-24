@@ -7,6 +7,7 @@ import 'react-dropdown/style.css'
 import { useEffect, useState } from 'react'
 import { Router, useRouter } from 'next/router'
 import Script from 'next/script'
+import TagManager from 'react-gtm-module'
 import { set } from 'es-cookie'
 
 // The `AppContainer` overrides Next's default `App` component.
@@ -25,6 +26,10 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) 
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    TagManager.initialize({ })
+  }, [])
+
+  useEffect(() => {
     setMounted(true)
 
     const onRountChangeComplete = () => {
@@ -35,6 +40,9 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) 
           document.getElementById('launcher').style.display = 'none'
         }
       }
+      if (window && window.StampedFn) {
+        StampedFn.init()
+      }
     }
     Router.events.on('routeChangeComplete', onRountChangeComplete)
   }, [router.asPath, mounted])
@@ -44,6 +52,17 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings }) 
       <Layout headerSettings={headerSettings} footerSettings={footerSettings}>
         <Component {...pageProps} />
       </Layout>
+
+      {mounted &&
+        <Script
+          data-api-key={process.env.NEXT_PUBLIC_STAMPEDIO_KEY_PUBLIC}
+          id="stamped-script-widget"
+          src="https://cdn1.stamped.io/files/widget.min.js"
+          onLoad={() => {
+            StampedFn.init({ apiKey: 'pubkey-rCuPl7qXFI5WD689Ee3LO4Mtu461N4', storeUrl: '252897' });
+          }}
+        />
+      }
 
       {mounted && <Script id="ze-settings" strategy="lazyOnload">
         {`

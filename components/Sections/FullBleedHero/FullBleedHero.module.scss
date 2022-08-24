@@ -2,8 +2,87 @@
 @import '@/styles/variables/_breakpoints.scss';
 @import '@/styles/variables/_colors.scss';
 
+@media print {
+  .hero {
+    display: none !important;
+  }
+}
+
+:global(.listing-pages--filters-open) {
+  .hero {
+    &.hero--center {
+      .hero__text {
+        &-inner {
+          h1 {
+            @include breakpoint-up('lg') {
+              font-size: 120px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+:global(.main--the-catch) {
+  .hero {
+    &.hero--bottom {
+      h1 {
+        font-size: 72px;
+        @include breakpoint-up('md') {
+          font-size: 204px;
+        }
+      }
+      .hero__text {
+        bottom: -15px;
+        @include breakpoint-up('md') {
+          bottom: -41px;
+        }
+      }
+    }
+  }
+}
+
 .hero {
   position: relative;
+
+  &.hero--smaller-text {
+    h1 {
+      font-size: 36px;
+      line-height: 100%;
+      letter-spacing: 0.02em;
+      @include breakpoint-up('sm') {
+        font-size: 48px;
+      }
+
+      @include breakpoint-up('md') {
+        font-size: 56px;
+      }
+
+      @include breakpoint-up('lg') {
+        font-size: 60px;
+      }
+
+      @include breakpoint-up('xl') {
+        font-size: 72px;
+        line-height: 120%;
+      }
+    }
+
+    h2 {
+      font-size: 14px;
+      line-height: 150%;
+
+      @include breakpoint-up('lg') {
+        font-size: 16px;
+      }
+
+      @include breakpoint-up('xl') {
+        font-size: 18px;
+      }
+    }
+
+  }
 
   &.top-margin {
     margin-top: 23px;
@@ -27,7 +106,8 @@
 
     .btn-wrap {
       a:first-child {
-        min-width: 243px;
+        min-width: 161px;
+        padding: 0 20px;
       }
 
       a:not(:first-child) {
@@ -88,6 +168,7 @@
       align-items: center;
 
       h1 {
+        font-size: 72px;
         margin-bottom: 12px;
 
         @include breakpoint-up('sm') {
@@ -96,12 +177,15 @@
       }
 
       h2 {
-        margin-top: 12px;
         margin-bottom: 30px;
+        @include breakpoint-up('sm') {
+          margin-bottom: 60px;
+        }
       }
 
       .btn {
-        min-width: 243px;
+        min-width: 161px;
+        padding: 0 20px;
         margin: 0 auto 24px auto;
       }
 
@@ -113,21 +197,30 @@
   }
 
   // HERO BOTTOM ALIGNED STYLES
+  // for the catch page
   &.hero--bottom {
     h1 {
+      font-size: 72px;
       margin-bottom: 0;
+      @include breakpoint-up('md') {
+        font-size: 204px;
+      }
     }
 
     .hero__text {
       position: absolute;
-      bottom: -15px;
+      bottom: 0;
       left: 28px;
       max-width: 319px;
 
       @include breakpoint-up('md') {
-        bottom: -41px;
         left: 7.34%;
         max-width: 735px;
+      }
+
+      &-inner {
+        text-align: left;
+        align-items: flex-start;
       }
     }
   }
@@ -151,13 +244,18 @@
         text-align: center;
 
         h1 {
-          font-size: 4.5rem;
-          margin-bottom: 48px;
-        }
-
-        a {
           @include breakpoint-up('sm') {
-            max-width: 243px;
+            margin-bottom: 10px;
+          }
+          @include breakpoint-up('lg') {
+            font-size: 144px;
+            line-height: 1;
+            margin-bottom: 20px;
+          }
+        }
+        .btn {
+          @include breakpoint-up('sm') {
+            min-width: 250px !important;
           }
         }
       }
@@ -185,6 +283,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       border-radius: 2px;
+      width: 100%;
 
       @include breakpoint-up('sm') {
         padding: 8.05% 7.45%;
@@ -212,7 +311,7 @@
         }
 
         .btn {
-          min-width: 243px;
+          min-width: 161px;
 
           @include breakpoint-up('sm') {
             width: 392px;
@@ -245,12 +344,6 @@
       &-inner {
         text-align: left;
         align-items: flex-start;
-
-        a {
-          @include breakpoint-up('sm') {
-            max-width: 243px;
-          }
-        }
       }
     }
   }
@@ -263,6 +356,14 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 40px;
+
+  &:global(.alabaster) {
+    svg {
+      * {
+        fill: $sitkablue;
+      }
+    }
+  }
 
   svg {
     width: 17px;

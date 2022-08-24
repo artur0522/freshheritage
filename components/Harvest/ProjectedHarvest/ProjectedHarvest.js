@@ -128,6 +128,7 @@ const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
                                     {harvestList.length > 1 && harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
                                     <div className={`${classes['harvest__fish-list']}`}>
                                         {harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.map((fish) => {
+                                            console.log("fish:", fish)
                                             return (
                                                 <div className={`${classes['harvest__card']}`} key={fish._key}>
                                                     <HarvestCard fish={fish} />

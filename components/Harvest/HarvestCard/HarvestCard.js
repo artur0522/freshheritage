@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { PortableText } from '@portabletext/react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useMediaQuery } from 'react-responsive'
+import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 import { Navigation, Thumbs } from "swiper";
 import "swiper/css/free-mode";
@@ -12,7 +13,13 @@ import "swiper/css"
 
 import classes from './HarvestCard.module.scss'
 
-const HarvestCard = ({ fish, cardStyle }) => {
+async function getFullRefFish(fish) {
+ return await getNacelleReferences(fish)
+}
+
+const HarvestCard = ({ fish: fishData, cardStyle }) => {
+
+  const [fish, setFish] = useState(fishData)
   const [tabInfo, setTabInfo] = useState(fish['species'])
   const [mounted, setMounted] = useState(false)
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -21,6 +28,13 @@ const HarvestCard = ({ fish, cardStyle }) => {
     setMounted(true)
     setThumbsSwiper()
   }, [thumbsSwiper])
+
+  useEffect(() => {
+    getFullRefFish(fish)
+      .then((res) => {
+        setFish({...res})
+      })
+  }, [])
 
   const isMobile =  useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery({query: '(min-width: 768px)'})

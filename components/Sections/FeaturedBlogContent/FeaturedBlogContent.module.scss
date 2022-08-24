@@ -15,25 +15,35 @@
     .illustration-1 {
         position: absolute;
         top: 108px;
-        left: -120px;
+        left: 0;
         display: none;
-        z-index: -1;
 
         @include breakpoint-up('md') {
             display: block;
         }
+        @include breakpoint-up('lg') {
+            width: 366px;
+          }
+          @include breakpoint-up('xl') {
+            width: 570px;
+          }
     }
 
     .illustration-2 {
         position: absolute;
         bottom: -36px;
-        right: -80px;
+        right: 0;
         display: none;
-        z-index: -1;
 
         @include breakpoint-up('md') {
             display: block;
         }
+        @include breakpoint-up('lg') {
+            width: 366px;
+          }
+          @include breakpoint-up('xl') {
+            width: 570px;
+          }
     }
 
     &__content {

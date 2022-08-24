@@ -139,6 +139,9 @@
                 @include breakpoint-up('lg') {
                     margin-left: 85px;
                 }
+                @include breakpoint-up('xl') {
+                    margin-left: 0;
+                }
             }
 
 
@@ -170,27 +173,28 @@
 
     // harvest__tabs-swiper
     &__tabs-swiper {
-        margin-left: 28px;
         margin-bottom: 29px;
         position: relative;
+        padding-right: 30px;
 
         @include breakpoint-up('sm') {
-            margin-left: 50px;
+            padding-left: 50px;
             margin-bottom: 59px;
         }
 
         @include breakpoint-up('md') {
-            margin-left: 60px;
+            padding-left: 60px;
         }
 
         @include breakpoint-up('lg') {
-            margin-left: 85px;
+            padding-left: 85px;
         }
 
         @include breakpoint-up('xl') {
             width: calc(100% - 240px);
             max-width: 1680px;
             margin: 0 auto 60px auto;
+            padding-left: 0;
         }
 
         &::after {
@@ -198,9 +202,25 @@
             position: absolute;
             border-bottom: 1px solid $black20;
             border-radius: 3px;
-            width: 100%;
-            left: 0;
+            width: calc(100% - 30px);
+            right: 0;
             bottom: 1px;
+            @include breakpoint-up('sm') {
+                width: calc(100% - 50px);
+            }
+
+            @include breakpoint-up('md') {
+                width: calc(100% - 60px);
+            }
+
+            @include breakpoint-up('lg') {
+                width: calc(100% - 85px);
+            }
+
+            @include breakpoint-up('xl') {
+                width: 100%;
+            }
+
         }
 
         .harvest__tab {
@@ -216,6 +236,13 @@
                 justify-content: center;
             }
 
+            &:first-child {
+                margin-left: 30px;
+                @include breakpoint-up('sm') {
+                    margin-left: 0;
+                }
+            }
+
             button {
                 text-align: left;
                 border: none;
@@ -229,7 +256,10 @@
                     border-radius: 3px;
                     width: 100%;
                     left: 0;
-                    bottom: 0px;
+                    bottom: -9px;
+                    @include breakpoint-up('sm') {
+                        bottom: -18px;
+                    }
                 }
 
                 &.active {

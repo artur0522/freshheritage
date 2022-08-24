@@ -177,16 +177,16 @@
       }
 
       h2 {
-        margin-bottom: 30px;
-        @include breakpoint-up('sm') {
-          margin-bottom: 60px;
-        }
+        margin: 0;
       }
 
       .btn {
         min-width: 161px;
         padding: 0 20px;
-        margin: 0 auto 24px auto;
+        margin: 30px auto 24px auto;
+        @include breakpoint-up('sm') {
+          margin-top: 60px;
+        }
       }
 
       a {

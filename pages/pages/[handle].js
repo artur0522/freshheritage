@@ -96,13 +96,21 @@ export async function getStaticProps({ params }) {
     entryDepth: 1
   })
 
-  if (!pages.length) {
+  const infoPages = await nacelleClient.content({
+    handles: [params.handle],
+    type: 'infoPage',
+    entryDepth: 1
+  })
+
+  if (!pages.length && !infoPages.length) {
     return {
       notFound: true
     }
   }
 
-  const fullRefPage = await getNacelleReferences(pages[0])
+  const page = pages.length ? pages[0] : infoPages[0]
+
+  const fullRefPage = await getNacelleReferences(page)
 
   return {
     props: {

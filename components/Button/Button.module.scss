@@ -1,0 +1,17 @@
+.button {
+  &.rounded {
+    margin-top: 36px;
+    background-color: $salmon;
+    padding: 13px 114px;
+    border-radius: 48px;
+    color: $fawn50-2;
+    border: none;
+    &:hover {
+      background-color: $yeller;
+    }
+    &:disabled {
+      background-color: $yeller;
+      cursor: not-allowed;
+    }
+  }
+}

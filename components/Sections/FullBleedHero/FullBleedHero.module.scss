@@ -283,6 +283,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       border-radius: 2px;
+      width: 100%;
 
       @include breakpoint-up('sm') {
         padding: 8.05% 7.45%;

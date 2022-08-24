@@ -73,7 +73,7 @@ const MemoizedShippingLines = memo(
     const refreshShippingLines = useCallback(async () => {
       if (showShippingLines) {
         try {
-          await getShippingLines().then((res) => console.log(res))
+          await getShippingLines();
           trackEvent('set_shipping_line');
           setErrors(null);
         } catch (e) {

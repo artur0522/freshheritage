@@ -15,74 +15,76 @@
     .illustration-1 {
         position: absolute;
         top: 108px;
-        left: -120px;
+        left: 0;
         display: none;
-        z-index: -1;
 
         @include breakpoint-up('md') {
             display: block;
         }
+        @include breakpoint-up('lg') {
+            width: 366px;
+          }
+          @include breakpoint-up('xl') {
+            width: 570px;
+          }
     }
 
     .illustration-2 {
         position: absolute;
         bottom: -36px;
-        right: -80px;
+        right: 0;
         display: none;
-        z-index: -1;
 
         @include breakpoint-up('md') {
             display: block;
         }
+        @include breakpoint-up('lg') {
+            width: 366px;
+          }
+          @include breakpoint-up('xl') {
+            width: 570px;
+          }
     }
 
     &__content {
         max-width: 1680px;
         margin: auto;
-        padding-left: 30px;
+        width: 100%;
 
         @include breakpoint-up('sm') {
             padding-left: 0;
-            width: calc(100% - 100px);
-        }
-
-        @include breakpoint-up('md') {
-            width: calc(100% - 120px);
-        }
-
-        @include breakpoint-up('lg') {
-            width: calc(100% - 170px);
-        }
-
-        @include breakpoint-up('xl') {
-            width: calc(100% - 240px);
         }
     }
 
     // articles__tab-swiper
     &__tabs-swiper {
         min-height: 32px;
-
+        padding-right: 30px;
         @include breakpoint-up('sm') {
             text-align: center;
             min-height: 45px;
             display: flex;
             justify-content: center;
+            padding-bottom: 25px;
+        }
+        @include breakpoint-up('sm') {
+            padding-left: 50px;
+        }
+        @include breakpoint-up('md') {
+            padding-right: 60px;
         }
 
-        &.swiper-none {
-            display: none;
-
-            @include breakpoint-up('sm') {
-                display: flex;
-            }
+        @include breakpoint-up('lg') {
+            padding-right: 85px;
         }
 
-        &.has-swiper {
-            display: block;
+        @include breakpoint-up('xl') {
+            padding-right: 120px;
+        }
 
-            @include breakpoint-up('sm') {
-                display: none;
+        :global(.swiper-wrapper) {
+            @include breakpoint-up('md') {
+                justify-content: center;
             }
         }
 
@@ -91,12 +93,31 @@
             display: flex;
             align-items: center;
             width: auto;
-            margin-right: 75px;
+            // margin-right: 75px;
+            margin: 0 30px 0 0;
 
             @include breakpoint-up('sm') {
                 width: initial;
                 justify-content: center;
-                margin-right: 75px;
+                margin: 0 37.5px;
+            }
+
+            &:first-child {
+                margin-left: 30px;
+                @include breakpoint-up('sm') {
+                    margin-left: 40px;
+                }
+                @include breakpoint-up('md') {
+                    margin-left: 60px;
+                }
+
+                @include breakpoint-up('lg') {
+                    margin-left: 85px;
+                }
+
+                @include breakpoint-up('xl') {
+                    margin-left: 120px;
+                }
             }
         }
 
@@ -115,7 +136,7 @@
                 bottom: -10px;
 
                 @include breakpoint-up('sm') {
-                    bottom: 0;
+                    bottom: -25px;
                 }
             }
 
@@ -134,17 +155,45 @@
     // articles__swiper
     &__swiper {
         padding-top: 30px;
-
+        padding-right: 30px;
         @include breakpoint-up('sm') {
             padding-top: 47px;
+            padding-right: 50px;
+        }
+        @include breakpoint-up('md') {
+            padding-right: 60px;
+        }
+
+        @include breakpoint-up('lg') {
+            padding-right: 85px;
+        }
+
+        @include breakpoint-up('xl') {
+            padding-right: 120px;
         }
 
         .article-slide {
-            width: auto;
-            min-width: 263px;
+            width: 263px;
 
             @include breakpoint-up('sm') {
-                min-width: 393px;
+                width: 393px;
+            }
+            &:first-child {
+                margin-left: 30px;
+                @include breakpoint-up('sm') {
+                    margin-left: 50px;
+                }
+                @include breakpoint-up('md') {
+                    margin-right: 60px;
+                }
+
+                @include breakpoint-up('lg') {
+                    margin-right: 85px;
+                }
+
+                @include breakpoint-up('xl') {
+                    margin-right: 120px;
+                }
             }
         }
     }

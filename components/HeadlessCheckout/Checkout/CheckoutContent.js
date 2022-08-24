@@ -1,10 +1,17 @@
 import { useRouter } from 'next/router'
 import { StateBasedCheckout } from './StateBasedCheckout'
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext'
+import LoadingState from '@/components/LoadingState';
 
 const CheckoutContent = ({data}) => {
   const router = useRouter()
-  const { setFlyoutState, initializeCheckout } = useHeadlessCheckoutContext()
+  const { setFlyoutState, isLoading, setIsLoading, initializeCheckout } = useHeadlessCheckoutContext()
+
+  if (isLoading) {
+    return <div className="checkout__loading-state" role="main">
+      <LoadingState />
+    </div>
+  }
 
   if (data?.application_state?.line_items.length > 0) {
     return <StateBasedCheckout data={data} />
@@ -20,9 +27,10 @@ const CheckoutContent = ({data}) => {
               }
               const localStorageCheckoutData = JSON.parse(localStorage.getItem('checkout_data'));
               if (!localStorageCheckoutData) {
+                setIsLoading(true)
                 await initializeCheckout()
               }
-
+              setIsLoading(false)
               setFlyoutState(false)
             }}
             className="checkout__continue-shopping-btn btn sitkablue">Continue Shopping</button>

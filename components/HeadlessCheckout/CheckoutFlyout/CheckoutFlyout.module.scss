@@ -1,5 +1,13 @@
 @import '@/styles/_shared.scss';
 
+:global(html.nav-is-hidden) {
+  .checkout-flyout__content {
+    @include breakpoint-up('md') {
+      padding: 80px;
+    }
+  }
+}
+
 .checkout-flyout {
   .checkout-flyout__content--enter {
     transform: translate(100%);
@@ -84,6 +92,6 @@
     padding: 50px 40px;
   }
   @include breakpoint-up('md') {
-    padding: 80px;
+    padding: 140px 80px 80px;
   }
 }

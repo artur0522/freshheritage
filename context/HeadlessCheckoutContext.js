@@ -15,10 +15,9 @@ export function HeadlessCheckoutProvider({ children }) {
   const router = useRouter();
   const [data, setData] = useState(null);
   const [PIGIMediaRules, setPIGIMediaRules] = useState([]);
-  const [flyoutState, setFlyoutState] = useState(false);
-  const { customer } = useCustomerContext();
-  const [shipOptionMetadata, setShipOptionMetadata] = useState(undefined);
-  const { subsData } = useCustomerContext();
+  const [flyoutState, setFlyoutState] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const { customer } = useCustomerContext()
 
   // TODO: Any of these functions that call fetch should not really be stored in this file. They should be functions accessed from elsewhere to make this testable and cleaned up.
   function saveDataInLocalStorage(data) {
@@ -173,6 +172,7 @@ export function HeadlessCheckoutProvider({ children }) {
         }
       })
     }
+
     if (open_flyout) {
       setFlyoutState(true)
     }
@@ -480,6 +480,31 @@ export function HeadlessCheckoutProvider({ children }) {
     return updatedData
   }
 
+  async function updateCustomerInOrder(payload) {
+    const { jwt, public_order_id } = JSON.parse(
+      localStorage.getItem('checkout_data'),
+    )
+    const response = await fetch(
+      `https://api.boldcommerce.com/checkout/storefront/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/${public_order_id}/customer`,
+      {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json',
+        },
+        method: 'PUT',
+        body: JSON.stringify(payload)
+      }
+    )
+    const updatedData = await response.json()
+    console.log('update customer assigned to order', updatedData)
+    await expiredJWTHandler(updatedData)
+    setData({
+      ...data,
+      application_state: updatedData.data.application_state
+    })
+    return updatedData
+  }
+
   async function removeCustomerFromOrder() {
     const { jwt, public_order_id } = JSON.parse(
       localStorage.getItem('checkout_data'),
@@ -577,10 +602,47 @@ export function HeadlessCheckoutProvider({ children }) {
     //   quantity: 1,
     //   line_item_key: '977a6d10-43c5-414a-a60f-f1b551cbc3cf'
     // }
-    console.log(payload)
+    console.log("payload:", payload)
     const { jwt, public_order_id } = JSON.parse(
       localStorage.getItem('checkout_data'),
     )
+
+    const foundSubscriptionItem = data.application_state.line_items.find(item => item.product_data.line_item_key === payload.line_item_key)
+
+    if (foundSubscriptionItem && data.application_state.line_items.length >= 1) {
+      let lineItems = data.application_state.line_items.filter(item => item.product_data.variant_id !== foundSubscriptionItem?.product_data?.variant_id).map(item => {
+        const line_item = item.product_data
+        return {
+          platform_id: line_item.variant_id,
+          quantity: line_item.quantity,
+          line_item_key: line_item.line_item_key,
+          line_item_properties: line_item.properties
+        }
+      })
+
+      console.log("removing subscription.. initializing new checkout")
+
+      const order_meta_data = {
+        "cart_parameters": {}
+      }
+
+      if (data?.application_state?.order_meta_data?.cart_parameters?.pre) {
+        order_meta_data.cart_parameters.pre = {...data?.application_state?.order_meta_data?.cart_parameters?.pre}
+      }
+
+      setIsLoading(true)
+
+      await initializeCheckout({
+        products: [...lineItems],
+        order_meta_data: order_meta_data
+      })
+
+      setIsLoading(false)
+
+      return true
+    }
+
+
     const response = await fetch(
       `https://api.boldcommerce.com/checkout/storefront/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/${public_order_id}/items`,
       {
@@ -722,9 +784,10 @@ export function HeadlessCheckoutProvider({ children }) {
         validateEmailAddress,
         addCustomerToOrder,
         removeCustomerFromOrder,
+        updateCustomerInOrder,
         PIGIMediaRules,
-        shipOptionMetadata,
-        refreshShipOptionData,
+        isLoading,
+        setIsLoading
       }}
     >
       <CheckoutFlyout />

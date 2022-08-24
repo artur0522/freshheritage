@@ -15,14 +15,14 @@ const FishermenCard = ({ article }) => {
   }
 
   return (
-    <div className={classes['article-card__wrap']}>
+    <div onClick={() => openInfoDrawer()} className={classes['article-card__wrap']}>
         <div className={`${classes['article-card']}`}>
                 <div className={`${classes['slider__slide']}`}>
                 {image.asset.url && <div className={classes['image-wrap']}>
                     <ResponsiveImage alt={title} src={image.asset.url} />
-                    <button onClick={() => openInfoDrawer()} className={classes['info-icon']}>
+                    <span className={classes['info-icon']}>
                         <InfoIcon />
-                    </button>
+                    </span>
                 </div>}
 
                 <div className={classes['text']}>

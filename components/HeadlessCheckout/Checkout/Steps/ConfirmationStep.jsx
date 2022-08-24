@@ -23,7 +23,7 @@ const ConfirmationPage = () => {
     state.applicationState.shipping.selected_shipping.description;
   const payments = state.applicationState.payments;
   const { t } = useTranslation();
-  const { setFlyoutState, initializeCheckout } = useHeadlessCheckoutContext()
+  const { setFlyoutState, initializeCheckout, setIsLoading } = useHeadlessCheckoutContext()
 
   // const continueShopping = () => {
   //   location.href = `https://${state.initialData.shop_name}`;
@@ -124,11 +124,13 @@ const ConfirmationPage = () => {
         <div className="checkout__navigation">
           <button
             onClick={async () => {
+              setIsLoading(true)
               await initializeCheckout()
               if (router.pathname === '/checkout') {
                 router.push('/')
                 return
               }
+              setIsLoading(false)
               setFlyoutState(false)
             }}
             className="checkout__cta-btn btn sitkablue">Continue Shopping</button>

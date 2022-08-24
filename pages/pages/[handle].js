@@ -92,6 +92,7 @@ export async function getStaticProps({ params }) {
 
   const pages = await nacelleClient.content({
     handles: [params.handle],
+    type: 'page',
     entryDepth: 1
   })
 

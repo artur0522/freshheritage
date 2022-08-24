@@ -3,6 +3,7 @@ import { nacelleClient } from 'services'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { FreeMode } from "swiper"
 
 import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
 
@@ -101,34 +102,11 @@ const FeaturedBlogContent = ({ fields }) => {
         </div>
 
         {!!selectedSwiper && tabs.length > 1 && method !== 'tagBased' && (
-          <div
-            className={`${classes['articles__tabs-swiper']} ${classes['swiper-none']}`}
-          >
-            {tabs.map((tab) => {
-              return (
-                <div className={classes['tab-slide']} key={tab._key}>
-                  <a
-                    className={`${
-                      tab.tabName === selectedSwiper.tabName
-                        ? classes['active']
-                        : ''
-                    }`}
-                    onClick={() => filterArticles(tab.tabName)}
-                  >
-                    <span>{tab.tabName}</span>
-                  </a>
-                </div>
-              )
-            })}
-          </div>
-        )}
-
-        {!!selectedSwiper && tabs.length > 1 && method !== 'tagBased' && (
           <Swiper
-            loop={true}
             slidesPerView={'auto'}
             spaceBetween={40}
             threshold={15}
+            modules={[FreeMode]}
             className={`${classes['articles__tabs-swiper']} ${classes['has-swiper']}`}
           >
             {tabs.map((tab) => {

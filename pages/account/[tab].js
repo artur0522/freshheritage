@@ -77,7 +77,7 @@ const AccountMainPage = () => {
       case 'subscriptions':
         return (<SubscriptionsPage subsData={subsData} membershipData={membershipData}/>);
       case 'account-details':
-        return (<AccountDetailsPage/>)
+        return (<AccountDetailsPage subsData={subsData} membershipData={membershipData}/>)
       case 'order-history':
         return (<OrderHistoryPage/>)
       case 'referrals':

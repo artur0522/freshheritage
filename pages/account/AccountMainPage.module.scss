@@ -8,6 +8,14 @@
   .tabs-container {
     padding-left: 125px;
     background-color: $fawn50-2;
+
+    @include breakpoint-down(1300px) {
+      padding-left: 64px;
+    }
+
+    @include breakpoint-down(700px) {
+      padding-left: 12px;
+    }
   }
 
   .cards {

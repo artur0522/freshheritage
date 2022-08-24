@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import classes from './ReferralForm.module.scss'
 import { submitReferral } from 'services/referralClient'
-
+import facebookLogo from './facebook.png'
+import twitterLogo from './twitter.png'
+import linkedinLogo from './linkedin.png'
 import banner from './referral-dinner.png'
 
 export default function ReferralForm({ customer }) {
@@ -21,6 +23,12 @@ export default function ReferralForm({ customer }) {
       alert('Your referral did not work. Please try again')
     }
     setSubmittingForm(false)
+    resetForm()
+  }
+
+  const resetForm = () => {
+    setName('')
+    setEmail('')
   }
 
   return (
@@ -34,7 +42,7 @@ export default function ReferralForm({ customer }) {
         <Image
           src={banner.src}
           alt="Alana serving Sitka's seafood during a summer dinner"
-          layout="responsive"
+          layout="intrinsic"
           height={294}
           width={520}
         />
@@ -69,10 +77,43 @@ export default function ReferralForm({ customer }) {
             placeholder="Friend's Email Address"
           />
         </div>
-        <button type="submit" value="Submit" disabled={submittingForm || !email || !name}>
+        <button
+          type="submit"
+          value="Submit"
+          disabled={submittingForm || !email || !name}
+        >
           {submittingForm ? 'Submitting...' : 'Submit'}
         </button>
       </form>
+      <div className={classes['social-links']}>
+        <a href="crouton.net">
+          <Image
+            src={facebookLogo.src}
+            alt="Facebook icon"
+            layout="fixed"
+            height={32}
+            width={32}
+          />
+        </a>
+        <a href="crouton.net">
+          <Image
+            src={twitterLogo.src}
+            alt="Twitter icon"
+            layout="fixed"
+            height={32}
+            width={32}
+          />
+        </a>
+        <a href="crouton.net">
+          <Image
+            src={linkedinLogo.src}
+            alt="Linkedin icon"
+            layout="fixed"
+            height={32}
+            width={32}
+          />
+        </a>
+      </div>
     </div>
   )
 }

@@ -1,10 +1,12 @@
 import React from 'react'
 import classes from './ReferralCard.module.scss'
+import { useRouter } from 'next/router'
 
 export default function ReferralCard() {
+  const router = useRouter()
 
   const onReferAFriendClicked = () => {
-    console.log('go')
+    router.push('/account/referrals', undefined, { shallow: true })
   }
 
   return (
@@ -14,7 +16,9 @@ export default function ReferralCard() {
         <span className={classes['salmon']}>$10 OFF</span> EVERY MONTH FOR EVERY
         REFERRAL!
       </h5>
-      <button className="btn" onClick={() => onReferAFriendClicked}>Refer a Friend</button>
+      <button className="btn" onClick={() => onReferAFriendClicked()}>
+        Refer a Friend
+      </button>
     </div>
   )
 }

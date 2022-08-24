@@ -15,7 +15,7 @@ export default function ReferralActivity({customer}) {
     const id = idArr[idArr.length - 1]
 
     // TODO - Swap this out with the actual id
-    const test = await getReferrals(3141920227412);
+    const test = await getReferrals(5140795326548);
     console.log(test);
   }
 

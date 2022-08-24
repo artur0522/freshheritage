@@ -13,8 +13,9 @@
 
   h5 {
     color: $fawn50-2;
-    font-size: 32px;
+    font-size: inherit;
     font-family: $bebas;
+    font-size: 1em;
   }
 
   .salmon {
@@ -22,6 +23,6 @@
   }
   .address {
     font-family: $frank-ruhl;
-    font-size: 18px;
+    font-size: 0.5625em;
   }
 }

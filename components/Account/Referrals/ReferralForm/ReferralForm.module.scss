@@ -25,6 +25,7 @@
   .banner {
     max-height: 294px;
     margin-bottom: 16px;
+    text-align: center;
   }
 
   .text {
@@ -61,6 +62,12 @@
         background-color: $yeller;
         cursor: not-allowed;
       }
+    }
+  }
+  .social-links {
+    margin-top: 32px;
+    a {
+      margin-right: 32px;
     }
   }
 }

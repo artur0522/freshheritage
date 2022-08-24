@@ -1,5 +1,5 @@
 import { HeadlessCheckoutContext } from "@/context/HeadlessCheckoutContext";
-import { render, act } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import ShippingLines from "./ShippingLines"
 import userEvent from '@testing-library/user-event';
 

@@ -20,6 +20,7 @@ export function HeadlessCheckoutProvider({ children }) {
   const [shipOptionMetadata, setShipOptionMetadata] = useState(undefined);
   const { subsData } = useCustomerContext();
 
+  // TODO: Any of these functions that call fetch should not really be stored in this file. They should be functions accessed from elsewhere to make this testable and cleaned up.
   function saveDataInLocalStorage(data) {
     const checkoutData = {
       jwt: data.jwt_token,
@@ -303,6 +304,8 @@ export function HeadlessCheckoutProvider({ children }) {
         }
       }
     }
+
+    console.log(`${process.env.NEXT_PUBLIC_CHECKOUT_URL}/api/checkout/initialize-otp`);
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_CHECKOUT_URL}/api/checkout/initialize-otp`,
@@ -682,8 +685,6 @@ export function HeadlessCheckoutProvider({ children }) {
   }, [flyoutState]);
 
   async function refreshShipOptionData(zip) {
-    console.log('refresh ship options', zip)
-
     const body = {zip};
     if (subsData && subsData.length > 0) {
       body.bundledShipWeek = `${moment(Math.max(subsData.map(d => d.fulfill_start))).week()}`;
@@ -702,7 +703,6 @@ export function HeadlessCheckoutProvider({ children }) {
 
     const shipOptions = await response.json();
     setShipOptionMetadata(shipOptions);
-    console.log('shipOptionMetadata: ', shipOptions)
   }
 
   return (

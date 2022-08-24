@@ -15,9 +15,9 @@ const IndexButton = (props) => {
         {indexId === 'culinary_articles' && 'Culinary Resources'}
         {indexId === 'brand_articles' && 'Articles'}
         
-        <span style={{ marginLeft: '4px' }}>
+        {/* <span style={{ marginLeft: '4px' }}>
           ({foundScoped?.results?.nbHits})
-        </span>
+        </span> */}
       </button>
     )
 }

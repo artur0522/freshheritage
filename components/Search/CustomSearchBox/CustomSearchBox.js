@@ -1,6 +1,7 @@
 import { useSearchBox } from 'react-instantsearch-hooks-web'
 import classes from "./CustomSearchBox.module.scss"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import Stats from '../Stats'
 import IconSearch from '@/svgs/search.svg'
 
@@ -8,6 +9,15 @@ const CustomSearchBox = (props) => {
   const { query, refine } = useSearchBox(props)
   const [searchTerm, setSearchTerm] = useState("")
 
+  const router = useRouter()
+
+  useEffect(() => {
+    const query = router.asPath.split('=')[1]
+    if(query) {
+      setSearchTerm(query)
+      refine(query)
+    }
+  }, [])
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value)

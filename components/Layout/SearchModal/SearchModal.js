@@ -3,6 +3,7 @@ import {
     Highlight,
     Index,
     InstantSearch,
+    useInstantSearch
   } from 'react-instantsearch-hooks-web'
 import { history } from 'instantsearch.js/es/lib/routers'
 import { simple } from 'instantsearch.js/es/lib/stateMappings'
@@ -10,6 +11,8 @@ import algoliasearch from 'algoliasearch/lite'
 import { useSearchModalContext } from '@/context/SearchModalContext'
 import CustomSearchBox from '@/components/Search/CustomSearchBox'
 import IconClose from '@/svgs/close.svg'
+import ModalArticleHits from '@/components/Search/ModalArticleHits/ModalArticleHits'
+import ModalProductHits from '@/components/Search/ModalProductHits'
 
 import { CSSTransition } from 'react-transition-group'
 import classes from './SearchModal.module.scss'
@@ -18,7 +21,7 @@ import 'instantsearch.css/themes/satellite.css'
 
 const SearchModal = () => {
   const searchModalContext = useSearchModalContext()
-  const { searchOpen  } = searchModalContext
+  const { searchOpen } = searchModalContext
   const [mounted, setMounted]= useState(false) 
   const [drawerOpen, setDrawerOpen] = useState(false)
   const nodeRef = useRef(null)
@@ -52,6 +55,50 @@ const SearchModal = () => {
     stateMapping: simple(),
   }
 
+  const Hit = ({ hit }) => {
+      return (
+        <article>
+          <Highlight attribute="title" hit={hit} />
+        </article>
+      )
+  }
+
+  const QueryState = (props) => {
+    const { results } = useInstantSearch(props)
+
+    return (
+      <>
+        {results?.query === '' ? <div className={classes['search-results']}>
+          <h4>Popular Searches</h4>
+          <ul>
+            <li className="h6">What's In My Next Box</li>
+            <li className="h6">Recipes</li>
+            <li className="h6">Cooking Tips</li>
+            <li className="h6">Pin Bone Removal</li>
+            <li className="h6">Delivery Info</li>
+          </ul>
+        </div> :
+        <>
+          <h4>Top Search Results</h4>
+          <div className={classes['indicies']}>
+            <Index className={classes['index']} indexName="prod_shopify_products">
+              <ModalProductHits hitComponent={Hit} indexId="prod_shopify_products" />
+            </Index>
+
+            <Index className={classes['index']} indexName="culinary_articles">
+              <ModalArticleHits hitComponent={Hit} indexId="culinary_articles" />
+            </Index>
+
+            <Index className={classes['index']} indexName="brand_articles">
+              <ModalArticleHits hitComponent={Hit} indexId="brand_articles" />
+            </Index>
+          </div>
+        </>
+        }
+      </>
+    )
+  }
+
   if(searchOpen && mounted) {
     return (
       <div className={classes['pdp-flyout']}>
@@ -69,22 +116,42 @@ const SearchModal = () => {
 
             <div ref={nodeRef} className={classes['pdp-flyout__content']}>
                 <div className={classes['searchbox-close']}>
-                    <button className="body" onClick={() => closeDrawer()}>
-                        <IconClose />
-                    </button>
+                  <button className="body" onClick={() => closeDrawer()}>
+                    <IconClose />
+                  </button>
                 </div>
                 <div className={classes['content']}>
+
+
+
+
                     <InstantSearch 
                         searchClient={searchClient}
                         indexName="brand_articles" 
                         routing={routing}
                     >
-                    <div className={classes['search-header']}>
+                      <div className={classes['search-header']}>
                         <div className={classes['searchbox-wrap']}>
                             <CustomSearchBox />
                         </div>
-                    </div>
+                        <button className="body" onClick={() => closeDrawer()}>
+                          <IconClose />
+                        </button>
+                      </div>
+                      
+                      <div className={classes['search-results']}>
+                        <QueryState />
+                      </div>
                     </InstantSearch>
+
+
+
+
+
+
+
+
+
                 </div>
             </div>
 

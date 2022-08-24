@@ -4,7 +4,6 @@ import {
   InstantSearch,
 } from 'react-instantsearch-hooks-web'
 import { history } from 'instantsearch.js/es/lib/routers'
-import { simple } from 'instantsearch.js/es/lib/stateMappings'
 import algoliasearch from 'algoliasearch/lite'
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
@@ -30,17 +29,111 @@ const Hit = ({ hit }) => {
     )
 }
 
+// const routing = {
+//   router: history({
+//     getLocation() {
+//       if (typeof window !== 'undefined') {
+//         return window.location
+//       }
+//       return new URL(serverUrl)
+//     },
+//   }),
+//   stateMapping: simple(),
+// }
+
+function getCategorySlug(name) {
+  return name
+    .split(' ')
+    .map(encodeURIComponent)
+    .join('+');
+}
+function getCategoryName(slug) {
+  return slug
+    .split('+')
+    .map(decodeURIComponent)
+    .join(' ');
+}
+
 const routing = {
   router: history({
-    getLocation() {
-      if (typeof window !== 'undefined') {
-        return window.location
+    createURL({ qsModule, routeState, location }) {
+      const urlParts = location.href.match(/^(.*?)\/search/);
+      const baseUrl = `${urlParts ? urlParts[1] : ''}/`;
+
+      const categoryPath = routeState.category
+        ? `${getCategorySlug(routeState.category)}/`
+        : '';
+      const queryParameters = {};
+
+      if (routeState.query) {
+        queryParameters.query = encodeURIComponent(routeState.query);
       }
-      return new URL(serverUrl)
+      if (routeState.page !== 1) {
+        queryParameters.page = routeState.page;
+      }
+      if (routeState.brands) {
+        queryParameters.brands = routeState.brands.map(encodeURIComponent);
+      }
+
+      const queryString = qsModule.stringify(queryParameters, {
+        addQueryPrefix: true,
+        arrayFormat: 'repeat',
+      });
+
+      return `${baseUrl}search${queryString}`;
+    },
+
+    parseURL({ qsModule, location }) {
+      const pathnameMatches = location.pathname.match(/search\/(.*?)\/?$/);
+      const category = getCategoryName(
+        (pathnameMatches?.[1]) || ''
+      );
+      const { query = '', page, brands = [] } = qsModule.parse(
+        location.search.slice(1)
+      );
+      // `qs` does not return an array when there's a single value.
+      const allBrands = Array.isArray(brands)
+        ? brands
+        : [brands].filter(Boolean);
+
+      return {
+        query: decodeURIComponent(query),
+        page,
+        brands: allBrands.map(decodeURIComponent),
+        category,
+      };
     },
   }),
-  stateMapping: simple(),
-}
+
+  stateMapping: {
+    stateToRoute(uiState) {
+      const indexUiState = uiState['brand_articles'] || {};
+
+      return {
+        query: indexUiState.query,
+        page: indexUiState.page,
+        brands:
+          indexUiState.refinementList?.brand,
+        category: indexUiState.menu?.categories,
+      };
+    },
+
+    routeToState(routeState) {
+      return {
+        instant_search: {
+          query: routeState.query,
+          page: routeState.page,
+          menu: {
+            categories: routeState.category,
+          },
+          refinementList: {
+            brand: routeState.brands,
+          },
+        },
+      };
+    },
+  },
+};
 
 const Search = () => {
   const [currentIndex, setCurrentIndex] = useState("prod_shopify_products")
@@ -54,7 +147,7 @@ const Search = () => {
   useEffect(() => {
     setMounted(true)
     console.log(currentIndex)
-  }, [currentIndex])
+  })
 
   return (
     <div className={`${classes['search']} container`}>
@@ -78,9 +171,9 @@ const Search = () => {
 
                   <div className={classes['filters-wrap']}>
                     <div className={classes['refinement-wrap']}>
-                      <Index className={classes['index']} indexName="culinary_articles"></Index>
+                      {/* <Index className={classes['index']} indexName="culinary_articles"></Index>
                       <Index className={classes['index']} indexName="brand_articles"></Index>
-                      <Index className={classes['index']} indexName="prod_shopify_products"></Index>
+                      <Index className={classes['index']} indexName="prod_shopify_products"></Index> */}
                       
                       {mounted && isDesktop && <IndexButton indexId='prod_shopify_products' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
                       {mounted && isDesktop && <IndexButton indexId='culinary_articles' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
@@ -101,9 +194,9 @@ const Search = () => {
                 <Index className={classes['index']} indexName="brand_articles">
                   <div className={classes['filters-wrap']}>
                     <div className={classes['refinement-wrap']}>
-                      <Index className={classes['index']} indexName="culinary_articles"></Index>
+                      {/* <Index className={classes['index']} indexName="culinary_articles"></Index>
                       <Index className={classes['index']} indexName="brand_articles"></Index>
-                      <Index className={classes['index']} indexName="prod_shopify_products"></Index>
+                      <Index className={classes['index']} indexName="prod_shopify_products"></Index> */}
                       
                       {mounted && isDesktop && <IndexButton indexId='prod_shopify_products' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
                       {mounted && isDesktop && <IndexButton indexId='culinary_articles' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
@@ -123,9 +216,9 @@ const Search = () => {
               <Index className={classes['index']} indexName="prod_shopify_products">
                 <div className={classes['filters-wrap']}>
                   <div className={classes['refinement-wrap']}>
-                    <Index className={classes['index']} indexName="culinary_articles"></Index>
+                    {/* <Index className={classes['index']} indexName="culinary_articles"></Index>
                     <Index className={classes['index']} indexName="brand_articles"></Index>
-                    <Index className={classes['index']} indexName="prod_shopify_products"></Index>
+                    <Index className={classes['index']} indexName="prod_shopify_products"></Index> */}
                     
                     {mounted && isDesktop && <IndexButton indexId='prod_shopify_products' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
                     {mounted && isDesktop && <IndexButton indexId='culinary_articles' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}

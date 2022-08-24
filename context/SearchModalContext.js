@@ -22,24 +22,8 @@ export function SearchProvider({ children }) {
 
   useEffect(() => {
     const onRountChangeComplete = () => {
-      if(router.pathname !== '/products/[handle]' || router.pathname !== '/blogs/brand/[category]/[handle]' || router.pathname !== '/blogs/culinary/[category]/[handle]' || router.pathname !== '/blogs/culinary/culinary-contest/[handle]') {
-        setsearchOpen(false)
-      }
-     
-      if(router.pathname === '/products/[handle]' && prevContent && !productCustomerTag) {
-        setsearchOpen(true)
-      }
-
-      if(router.pathname === '/blogs/brand/[category]/[handle]' && prevContent && !articleCustomerTag) {
-        setsearchOpen(true)
-      }
-
-      if(router.pathname === '/blogs/culinary/[category]/[handle]' && prevContent && !articleCustomerTag) {
-        setsearchOpen(true)
-      }
-
-      if(router.pathname === '/blogs/culinary/culinary-contest/[handle]' && prevContent && !articleCustomerTag) {
-        setsearchOpen(true)
+      if(router.pathname === '/pages/search' || router.pathname !== '/products/[handle]' || router.pathname !== '/blogs/brand/[category]/[handle]' || router.pathname !== '/blogs/culinary/[category]/[handle]' || router.pathname !== '/blogs/culinary/culinary-contest/[handle]') {
+        setSearchOpen(false)
       }
     }
     Router.events.on('routeChangeComplete', onRountChangeComplete)

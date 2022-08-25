@@ -1,17 +1,16 @@
 import {useEffect, useState, useRef} from 'react'
 import { CSSTransition } from 'react-transition-group'
 import classes from './TheCatchDrawer.module.scss'
+import Link from 'next/link'
 
 import { useTheCatchContext } from '@/context/TheCatchContext'
-import { useMediaQuery } from 'react-responsive'
 
 import IconClose from '@/svgs/close.svg'
-import ResponsiveImage from '@/components/ResponsiveImage'
 import Image from 'next/image'
 
 const TheCatchDrawer = () => {
   const theCatchContext = useTheCatchContext()
-  const { currentIssue, monthName, findIssue, filteredIssue } = theCatchContext
+  const { monthName, year, pastIssues,  } = theCatchContext
 
   const [drawerOpen, setDrawerOpen] = useState(false)
   const nodeRef = useRef(null)
@@ -29,8 +28,6 @@ const TheCatchDrawer = () => {
       theCatchContext.dispatch({ type: 'close_drawer' })
     }, timeout)
   }
-
-  console.log(currentIssue)
 
     return (
         <div className={classes['pdp-flyout']}>
@@ -50,32 +47,37 @@ const TheCatchDrawer = () => {
                             <span className={classes['btn-text']}>Close</span>
                         </button>
                     </div>
-                    <ul className={classes['content']}>
-                        {currentIssue.fields?.content?.filter(content => content._type === 'staticHarvest').map((staticHarvest) => {
+                    {pastIssues?.length > 0 && <ul className={classes['content']}>
+                        {pastIssues?.map((issue) => {
+                            let foundContent = issue.content.find(section =>  section._type === 'staticHarvest')
                             return (
-                                <li key={staticHarvest._key} onClick={() => findIssue(staticHarvest.harvestMonth[0].month)}>
-                                    <div className={classes['item-img']}>
-                                        <Image 
-                                            src={staticHarvest.harvestMonth[0]?.fishArray[0]?.species?.image?.asset?.url}
-                                            height={120}
-                                            width={120}
-                                            objectFit="cover"
-                                            alt={staticHarvest.harvestMonth[0]?.fishArray[0]?.species?.title}
-                                        />
-                                    </div>
-                                    <div className={classes['item-text']}>
-                                        <h1>
-                                            <span>{staticHarvest.harvestMonth[0].month} {staticHarvest.harvestMonth[0].year}</span>
-                                            {filteredIssue.harvestMonth[0].month === staticHarvest.harvestMonth[0].month && <h4 className={classes['current-label']}>
-                                                Current Issue
-                                            </h4>}
-                                        </h1>
-                                        <h6>{currentIssue.fields.associatedProduct}</h6>
-                                    </div>
+                                <li key={issue._key}>
+                                    <Link href={`/the-catch/${issue.associatedProduct.toLowerCase().replaceAll(' ', '-')}-${issue.month.toLowerCase()}-${issue.year}`}>
+                                        <a>
+                                            <div className={classes['item-img']}>
+                                                <Image 
+                                                    src={foundContent?.harvestMonth[0]?.fishArray[0]?.species?.image?.asset?.url}
+                                                    height={120}
+                                                    width={120}
+                                                    objectFit="cover"
+                                                    alt={foundContent?.harvestMonth[0]?.fishArray[0]?.species?.title}
+                                                />
+                                            </div>
+                                            <div className={classes['item-text']}>
+                                                <h1>
+                                                    <span>{issue.month} {issue.year}</span>
+                                                    {issue.month.toLowerCase() === monthName && issue.year.toString() === year.toString() && <h4 className={classes['current-label']}>
+                                                        Current Issue
+                                                    </h4>}
+                                                </h1>
+                                                <h6>{issue.associatedProduct}</h6>
+                                            </div>
+                                        </a>
+                                    </Link>
                                 </li>
                             )
                         })}
-                    </ul>
+                    </ul>}
                 </div>
             </CSSTransition>
         </div>

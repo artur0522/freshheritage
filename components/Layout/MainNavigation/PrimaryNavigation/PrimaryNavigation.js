@@ -6,15 +6,18 @@ import { useMediaQuery } from 'react-responsive'
 import { useCustomerContext } from '@/context/CustomerContext'
 import { useHeaderContext } from '@/context/HeaderContext'
 import { useSearchModalContext } from '@/context/SearchModalContext'
+import { useTheCatchContext } from '@/context/TheCatchContext'
 
 const PrimaryNavigation = ({props, classes}) => {
 
   const customerContext = useCustomerContext()
+  const theCatchContext = useTheCatchContext()
   const { customer } = customerContext
   const { setMobileMenuIsOpen } = useHeaderContext()
   const {menuItems} = (customerContext.customer?.is_member) ? props.memberPrimaryNavigation : props.nonMemberPrimaryNavigation
   const searchModalContext = useSearchModalContext()
   const { setSearchOpen } = searchModalContext
+  const { monthName, year } = theCatchContext
 
   const [mounted, setMounted] = useState(false);
   const isDesktop = useMediaQuery(
@@ -25,11 +28,11 @@ const PrimaryNavigation = ({props, classes}) => {
 
   if (customer) {
     if (customer.tags.includes('PS') || customer.tags.includes('PSWS')) {
-      theCatchUrl = '/the-catch/premium-seafood-box'
+      theCatchUrl = `/the-catch/premium-seafood-box-${monthName}-${year}`
     } else if (customer.tags.includes('SF') || customer.tags.includes('SF-BI')) {
-      theCatchUrl = '/the-catch/seafood-box'
+      theCatchUrl = `/the-catch/seafood-box-${monthName}-${year}`
     } else if (customer.tags.includes('S')) {
-      theCatchUrl = '/the-catch/salmon-box'
+      theCatchUrl = `/the-catch/salmon-box-${monthName}-${year}`
     }
   }
 

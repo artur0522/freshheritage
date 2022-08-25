@@ -209,7 +209,7 @@ export async function getStaticPaths() {
     query: HANDLES_QUERY
   })
   const handles = results.products
-    .filter((product) => product.content?.handle)
+    .filter((product) => product.content.handle && product.content.handle !== 'gift-subscription-box')
     .map((product) => ({ params: { handle: product.content.handle } }))
 
   return {

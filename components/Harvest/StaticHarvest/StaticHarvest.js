@@ -20,15 +20,8 @@ const StaticHarvest = ({ fields }) => {
     setMounted(true)
   }, [])
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  if(mounted && fields?.harvestMonth[0]?.month === filteredIssue?.harvestMonth[0]?.month) {
-=======
+
   if(mounted && fields.harvestMonth.length && fields.harvestMonth[0].month === filteredIssue.harvestMonth[0].month) {
->>>>>>> origin/main
-=======
-  if(mounted && fields.harvestMonth.length && fields.harvestMonth[0].month === filteredIssue.harvestMonth[0].month) {
->>>>>>> 3a2c3a3701a2bcdd2d32c1601cb91a2c0eb0de7d
     return (
         <div className={`${classes['harvest']}`}>
             <div className={classes['harvest__inner']}>

@@ -121,7 +121,6 @@ const FishermenPartners = ({ fields }) => {
                 <div className={`${classes['recipes__list-wrap']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
                     {listings.length > 0 && selectedFilterList.length > 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
                         {listings.map((article) => {
-                            console.log(article)
                             return (
                                 <div className={classes['grid-item']} key={article._id}>
                                     <FishermenCard article={article} />

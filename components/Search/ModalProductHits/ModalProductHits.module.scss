@@ -1,0 +1,32 @@
+@import '@/styles/_shared.scss';
+
+.hits-wrap {
+    .hits-header {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 16px;
+
+        h6 {
+            color: rgba(22, 49, 68, 0.6);
+            padding-bottom: 12px;
+        }
+
+        a {
+            font-weight: 500;
+            color: $salmon;
+        }
+
+        span {
+            color: $sitkablue;
+        }
+    }
+
+    .hits-items {
+        border-top: 1px solid $black20;
+        padding-top: 18px;
+
+        h6 {
+            margin-bottom: 12px;
+        }
+    }
+}

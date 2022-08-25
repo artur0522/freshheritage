@@ -140,6 +140,21 @@
                 margin-left: 13px;
                 margin-top: 2px;
             }
+
+            .search-cta {
+                font-weight: 500;
+                color: $salmon;
+                text-decoration: none;
+
+                svg {
+                    width: 23px;
+                    margin-left: 8px;
+
+                    path {
+                        fill: $sitkablue;
+                    }
+                }
+            }
         }
     }
 }

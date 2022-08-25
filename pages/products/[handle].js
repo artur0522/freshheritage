@@ -16,7 +16,6 @@ import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
 
 import classes from './Product.module.scss'
-import { split } from 'lodash-es'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import ProductStamps from '@/components/Product/ProductStamps'
 
@@ -190,9 +189,6 @@ function Product({ product, page, modals }) {
                 </div>}
 
                 {/* STAMPS */}
-                <div className={classes['product-stamps']}>
-
-                </div>
                 <ProductStamps fields={badgeSection.badges} product={product} />
               </div>
             </div>

@@ -6,7 +6,7 @@ const Accordion = ({fields}) => {
   const { accordionItems } = fields
 
   return (
-    <ul>
+    <ul className="accordion-items">
       {accordionItems.map(item => {
         return <AccordionItem key={item._key} props={item} />
       })}

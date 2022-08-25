@@ -20,12 +20,16 @@ const StaticHarvest = ({ fields }) => {
     setMounted(true)
   }, [])
 
+<<<<<<< HEAD
   if(mounted && fields?.harvestMonth[0]?.month === filteredIssue?.harvestMonth[0]?.month) {
+=======
+  if(mounted && fields.harvestMonth.length && fields.harvestMonth[0].month === filteredIssue.harvestMonth[0].month) {
+>>>>>>> origin/main
     return (
         <div className={`${classes['harvest']}`}>
             <div className={classes['harvest__inner']}>
                 <button className={`${classes['btn']} secondary--body`} onClick={() => openDrawer()}>View Past Issues Of The Catch +</button>
-    
+
                 {illustration && <div className={`${classes['harvest__illustration']}`}>
                     <div className={classes['harvest__illustration-img']}>
                         <Image
@@ -36,13 +40,13 @@ const StaticHarvest = ({ fields }) => {
                         />
                     </div>
                 </div>}
-    
+
                 <div className={`${classes['harvest__content']}`}>
                     <div className={`${classes['harvest__header']} container`}>
                         {header ? <h1>{header}</h1> : <h1>{`${currentMonth} ${currentYear} Harvest`}</h1>}
                         {description && <h3>{description}</h3>}
                     </div>
-    
+
                     {harvestMonth && <div className={`${classes['harvest__fish-list']} container`}>
                         {harvestMonth[0].fishArray.map((fish) => {
                             return (

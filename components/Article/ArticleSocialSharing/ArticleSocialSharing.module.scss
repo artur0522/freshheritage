@@ -1,5 +1,11 @@
 @import '@/styles/_shared.scss';
 
+@media print {
+  .article-social-sharing {
+    display: none !important;
+  }
+}
+
 .article-social-sharing {
   display: flex;
   list-style: none;

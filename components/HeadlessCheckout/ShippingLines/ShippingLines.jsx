@@ -3,19 +3,20 @@ import {
   useShippingLines,
   useLoadingStatus,
   useErrors,
-  useShippingAddress
+  useShippingAddress,
+  useLineItems
 } from '@boldcommerce/checkout-react-components';
 import { LoadingState } from '../LoadingState';
 import { ShippingLineList, EmptyShippingLines } from './components';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';
-import IconSelectArrow from '@/svgs/select-arrow.svg'
 
 const ShippingLines = ({ applicationLoading }) => {
   const { data, updateShippingLine, getShippingLines } = useShippingLines();
   const { data: shippingAddress } = useShippingAddress();
   const { data: loadingStatus } = useLoadingStatus();
   const { data: errors } = useErrors();
+  const { data: lineItems } = useLineItems();
   const shippingAddressErrors = errors.shippingAddress;
   const selectedCountryCode = shippingAddress?.country_code;
   const shippingAddressLoadingStatus = loadingStatus.shippingAddress;
@@ -36,6 +37,7 @@ const ShippingLines = ({ applicationLoading }) => {
       getShippingLines={getShippingLines}
       showShippingLines={showShippingLines}
       appLoading={loading}
+      lineItems={lineItems}
     />
   );
 };
@@ -47,7 +49,8 @@ const MemoizedShippingLines = memo(
     updateShippingLine,
     getShippingLines,
     showShippingLines,
-    appLoading
+    appLoading,
+    lineItems
   }) => {
     const trackEvent = useAnalytics();
     const logError = useErrorLogging();
@@ -58,10 +61,11 @@ const MemoizedShippingLines = memo(
     const [shippingMethodOpen, setShippingMethodOpen] = useState(true);
     const { t } = useTranslation();
 
+    // need to refresh shipping lines when cart line item updates
     const refreshShippingLines = useCallback(async () => {
       if (showShippingLines) {
         try {
-          await getShippingLines();
+          await getShippingLines().then((res) => console.log(res))
           trackEvent('set_shipping_line');
           setErrors(null);
         } catch (e) {
@@ -79,7 +83,7 @@ const MemoizedShippingLines = memo(
     useEffect(() => {
       refreshShippingLines();
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [lineItems]);
 
     // Keep local state for selected shipping line in sync with server app state
     useEffect(() => {

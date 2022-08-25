@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, createRef, useRef } from 'react'
 import { nacelleClient } from 'services'
 import { useMediaQuery } from 'react-responsive'
 import ResponsiveImage from '@/components/ResponsiveImage'
@@ -6,7 +6,8 @@ import ResponsiveImage from '@/components/ResponsiveImage'
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
 import ContentSections from '@/components/Sections/ContentSections'
-import ProductReviewStars from '../../components/Product/ProductReviewStars'
+import ProductReviewStars from '@/components/Product/ProductReviewStars'
+import ProductReviews from '@/components/Product/ProductReviews'
 import ProductSlider from '../../components/Product/ProductSlider'
 import ProductForm from '@/components/Product/ProductForm'
 import ProductDetailsList from '@/components/Product/ProductDetailsList'
@@ -37,6 +38,13 @@ function Product({ product, page, modals }) {
   const customerContext = useCustomerContext()
   const { customer } = customerContext
   const shellfishFreeInputRef = useRef()
+
+  const refs = useRef(['reviewsStars', 'productReviews'].reduce((carry, ref) => {
+    return {
+      ...carry,
+      [ref]: createRef()
+    }
+  }, {}))
 
   useEffect(() =>  {
     setMounted(true)
@@ -110,7 +118,7 @@ function Product({ product, page, modals }) {
               </div>
 
               <div className={classes['main']}>
-                <ProductReviewStars productId={product.sourceEntryId.replace('gid://shopify/Product/', '')} />
+                <ProductReviewStars refs={refs} productId={product.sourceEntryId.replace('gid://shopify/Product/', '')} />
 
                 {product.content?.title && <h1 className={classes['product-title']}>{product.content.title}</h1>}
 
@@ -193,7 +201,7 @@ function Product({ product, page, modals }) {
               </div>
             </div>
           {/* SECTIONS */}
-          <ContentSections sections={page.fields.content} harvestMetafield={harvestMetafield} />
+          <ContentSections ref={refs} product={product} sections={page.fields.content} harvestMetafield={harvestMetafield} />
         </div>
       </div>
     )

@@ -73,7 +73,7 @@ const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
             <div className={classes['harvest__inner']}>
                 <div className={`${classes['harvest__content']}`}>
                     <div className={`${classes['harvest__header']} container`}>
-                        {title && <h4>{title}</h4>}
+                        {title && <h4 className="h1">{title}</h4>}
                         {description && <h5>{description}</h5>}
                     </div>
 
@@ -90,7 +90,7 @@ const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
                     {harvestList.map((harvest) => {
                         return (
                             <SwiperSlide className={classes['harvest__tab']} key={`${harvest.title}--${harvest.id}`}>
-                                <button onClick={() => filterHarvests(harvest.handle.current)} className={`${classes['harvest__tab']} ${activeHarvest.handle.current === harvest.handle.current ? classes['active'] : ""} heading--tab capitalize`}>
+                                <button onClick={() => filterHarvests(harvest.handle.current)} className={`${classes['harvest__tab-btn']} ${activeHarvest.handle.current === harvest.handle.current ? classes['active'] : ""} heading--tab capitalize`}>
                                    {harvest.title}
                                 </button>
                             </SwiperSlide>
@@ -101,6 +101,7 @@ const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
                     <Swiper
                         slidesPerView={"auto"}
                         spaceBetween={18}
+                        threshold={15}
                         breakpoints={{
                             768: {
                                 spaceBetween: 60
@@ -108,10 +109,11 @@ const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
                         }}
                         className={`${classes['harvest__tabs-swiper']}`}
                     >
-                    {harvestListMonths.map((month) => {
+                    {harvestListMonths.map((month, index) => {
+
                         return (
-                            <SwiperSlide className={classes['harvest__tab']} key={month._id}>
-                                <button onClick={() => findFilteredFish(month.month.trim().toLowerCase())} className={`${classes['harvest__tab']} heading--tab ${activeTab.month === month.month.trim().toLowerCase() ? classes['active'] : ""} capitalize`}>
+                            <SwiperSlide className={classes['harvest__tab']} key={`${index}-${month._id}`}>
+                                <button onClick={() => findFilteredFish(month.month.trim().toLowerCase())} className={`${classes['harvest__tab-btn']} heading--tab ${activeTab.month === month.month.trim().toLowerCase() ? classes['active'] : ""} capitalize`}>
                                     {month.month} {month.year} {currentMonth === month.month.trim().toLowerCase()  ? '(Shipping Now!)' : ' '}
                                 </button>
                             </SwiperSlide>
@@ -123,9 +125,10 @@ const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
                         return (
                             <div className={`${classes['harvest__list']}`} key={harvest._id}>
                                 <div className="container">
-                                    {harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
+                                    {harvestList.length > 1 && harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
                                     <div className={`${classes['harvest__fish-list']}`}>
                                         {harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.map((fish) => {
+                                            console.log("fish:", fish)
                                             return (
                                                 <div className={`${classes['harvest__card']}`} key={fish._key}>
                                                     <HarvestCard fish={fish} />
@@ -142,8 +145,8 @@ const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
                         return (
                             <div className={`${classes['harvest__list']}`} key={harvest._id}>
                                 <div className="container">
-                                    {activeTab.month === currentMonth && harvest.months.filter(month => currentDate >= month.sellStart && currentDate <= month.sellEnd)[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
-                                    {activeTab.month !== currentMonth && harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
+                                    {harvestList.length > 1 && activeTab.month === currentMonth && harvest.months.filter(month => currentDate >= month.sellStart && currentDate <= month.sellEnd)[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
+                                    {harvestList.length > 1 && activeTab.month !== currentMonth && harvest.months.filter(month => activeTab.month === month.month.trim().toLowerCase())[0]?.fishArray.length > 0 && <h4 className={classes['harvest__list-title']}>{harvest.header}</h4>}
                                     <div className={`${classes['harvest__fish-list']}`}>
                                         {activeTab.month === currentMonth && harvest.months.filter(month => currentDate >= month.sellStart && currentDate <= month.sellEnd)[0]?.fishArray.map((fish) => {
                                             return (

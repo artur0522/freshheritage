@@ -38,6 +38,10 @@ export function PurchaseFlowProvider({ children }) {
       step: 2,
       shellfish_free_selected
     })
+    // if selecting box outside of purchase flow pages
+    if (router.asPath !== '/pages/choose-your-plan' && router.asPath !== '/pages/customize-your-plan') {
+      router.push('/pages/customize-your-plan')
+    }
   }
 
   // step 2 - selecting membership and frequency variant option
@@ -148,7 +152,7 @@ export function PurchaseFlowProvider({ children }) {
   }, [options, router])
 
   useEffect(() => {
-    // console.log("options useEffect:", options)
+    console.log("options useEffect:", options)
     const saveData = {...options};
     delete saveData.product
     localStorage.setItem('purchase_flow_data', JSON.stringify(saveData))

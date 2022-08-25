@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 25px;
+  cursor: pointer;
   @include breakpoint-up('sm') {
     margin-bottom: 30px;
   }

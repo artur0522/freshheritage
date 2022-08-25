@@ -16,7 +16,7 @@ async function getArticles(page, numOfEntries) {
 
     if (articles) {
       const fullRefArticles = await getNacelleReferences(articles)
-      return [...promises, ...fullRefArticles]
+      return [...promises, ...fullRefArticles].filter(article => article.fields.published)
     }
   }, Promise.resolve([]))
 
@@ -61,7 +61,7 @@ export async function getStaticPaths() {
       entryDepth: 1
     })
 
-    const validBlogs = blogs.filter(blog => blog.fields.blogType === 'brand')
+    const validBlogs = blogs.filter(blog => blog.fields.blogType === 'stories')
 
     const handles = validBlogs.map((article) => ({ params: { category: article.handle } }))
 
@@ -82,6 +82,12 @@ export async function getStaticProps({ params }) {
     type: 'blog',
     entryDepth: 1
   })
+
+  if (!pages.length) {
+    return {
+      notFound: true
+    }
+  }
 
   const fullRefPage = await getNacelleReferences(pages[0])
 

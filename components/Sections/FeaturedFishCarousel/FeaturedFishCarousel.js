@@ -45,7 +45,7 @@ const FeaturedFishCarousel = ({fields}) => {
         {featuredFishes?.length >= 4 || featuredFishermen?.length >= 4 ? <div className={classes['featured-fish-carousel__nav-btns']}>
           <button className={classes['featured-fish-carousel__nav-btn']} onClick={handlePrev} ref={prevSlideBtnRef}><IconArrowLeft /></button>
           <button className={classes['featured-fish-carousel__nav-btn']} onClick={handleNext} ref={nextSlideBtnRef}><IconArrowLeft /></button>
-        </div> : null} 
+        </div> : null}
       </div>
       {featuredFishes?.length > 0 || featuredFishermen?.length > 0 ?
         <Swiper
@@ -81,7 +81,11 @@ const FeaturedFishCarousel = ({fields}) => {
                 return ''
               }
 
-              const cropImageUrl = image ? urlFor(image).width(438).height(600).focalPoint(image.hotspot.x, image.hotspot.y).crop('focalpoint').fit('crop').url() : undefined
+              let cropImageUrl = image.asset.url
+
+              if (image.hotspot) {
+                cropImageUrl = image ? urlFor(image).width(438).height(600).focalPoint(image.hotspot.x, image.hotspot.y).crop('focalpoint').fit('crop').url() : undefined
+              }
 
               const imageInlineStyles = {
                 'filter': `brightness(${image?.imageBrightness ? image.imageBrightness : 100}%)`

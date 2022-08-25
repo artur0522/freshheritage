@@ -1,3 +1,14 @@
+@import '@/styles/_shared.scss';
+
+:global(.checkout__loading-state) {
+  .loader {
+    border: 2px solid $sitkablue;
+    border-bottom-color: $pureWhite;
+    width: 52px;
+    height: 52px;
+  }
+}
+
 .loader-wrapper {
   display: flex;
   align-items: center;

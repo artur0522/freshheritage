@@ -1,5 +1,12 @@
 @import '@/styles/_shared.scss';
 
+@media print {
+  .article-product {
+    display: none !important;
+  }
+}
+
+
 .article-product {
   margin: 35px 0 50px;
   .article-product__card {
@@ -29,6 +36,7 @@
       width: 215px;
       margin: 0;
       height: auto;
+      padding-bottom: 0;
     }
     img {
       border-radius: 12px;

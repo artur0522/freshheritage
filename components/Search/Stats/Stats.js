@@ -14,7 +14,7 @@ const Stats = (props) => {
   } = useStats(props)
 
   return (
-    <p className="secondary--body">Show {nbHits} results for "{query}"</p>
+    <p className="secondary--body">Show {nbHits} results for &#34;{query}&#34;</p>
   )
 }
 

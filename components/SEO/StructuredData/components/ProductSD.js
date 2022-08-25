@@ -27,7 +27,7 @@ const ProductSD = ({ data }) => {
       // }}
       offers={variants.map(variant => {
         return {
-          price: variant.price.toFixed(2),
+          price: variant.price ? variant.price.toFixed(2) : '',
           priceCurrency: 'USD',
           availability: (variant.availableForSale) ? 'InStock' :  'OutOfStock',
           url

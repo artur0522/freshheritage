@@ -22,7 +22,7 @@ const TheCatch = (props) => {
 
     return (
         <>
-            <ContentSections sections={page.fields.content} />
+          <ContentSections sections={page.fields.content} />
         </>
     )
 }

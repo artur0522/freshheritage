@@ -20,6 +20,7 @@ const StaticHarvest = ({ fields }) => {
     setMounted(true)
   }, [])
 
+
   if(mounted && fields.harvestMonth.length && fields.harvestMonth[0].month === filteredIssue.harvestMonth[0].month) {
     return (
         <div className={`${classes['harvest']}`}>

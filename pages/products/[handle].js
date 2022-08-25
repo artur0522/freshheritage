@@ -7,7 +7,6 @@ import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
 import ContentSections from '@/components/Sections/ContentSections'
 import ProductReviewStars from '@/components/Product/ProductReviewStars'
-import ProductReviews from '@/components/Product/ProductReviews'
 import ProductSlider from '../../components/Product/ProductSlider'
 import ProductForm from '@/components/Product/ProductForm'
 import ProductDetailsList from '@/components/Product/ProductDetailsList'
@@ -17,8 +16,8 @@ import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
 
 import classes from './Product.module.scss'
-import { split } from 'lodash-es'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
+import ProductStamps from '@/components/Product/ProductStamps'
 
 function Product({ product, page, modals }) {
   const [checked, setChecked] = useState(false)
@@ -31,7 +30,7 @@ function Product({ product, page, modals }) {
   const deliveryDetails = product.metafields.find(metafield => metafield.key === 'delivery_details')
   const harvestMetafield = product.metafields.find(metafield => metafield.key === 'harvest_handle')
   const deliveryDetailsList = deliveryDetails ? JSON.parse(deliveryDetails.value) : null
-  const stampSection = page.fields.content.find(field => field._type === 'stamps')
+  const badgeSection = page.fields.content.find(field => field._type === 'stamps')
 
   const modalContext = useModalContext()
   const [mounted, setMounted] = useState(false)
@@ -190,14 +189,7 @@ function Product({ product, page, modals }) {
                 </div>}
 
                 {/* STAMPS */}
-                <div className={classes['product-stamps']}>
-                  {isDesktop &&
-                    <ResponsiveImage src={stampSection.stamps.desktopImage.asset.url} alt={stampSection.stamps.desktopImage.alt || product.content?.title} />
-                  }
-                  {!isDesktop &&
-                    <ResponsiveImage src={stampSection.stamps.mobileImage.asset.url} alt={stampSection.stamps.mobileImage.alt || product.content?.title} />
-                  }
-                </div>
+                <ProductStamps fields={badgeSection.badges} product={product} />
               </div>
             </div>
           {/* SECTIONS */}
@@ -217,7 +209,7 @@ export async function getStaticPaths() {
     query: HANDLES_QUERY
   })
   const handles = results.products
-    .filter((product) => product.content?.handle)
+    .filter((product) => product.content.handle && product.content.handle !== 'gift-subscription-box')
     .map((product) => ({ params: { handle: product.content.handle } }))
 
   return {

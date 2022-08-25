@@ -1,0 +1,22 @@
+@import '@/styles/_shared.scss';
+
+.searchbox {
+    position: relative;
+    height: 48px;
+
+    svg {
+        width: 17.3px;
+        height: 15.9px;
+        position: absolute;
+        top: 16.11px;
+        left: 24.37px;
+    }
+
+    input {
+        border: 1px solid $fawn50-2;
+        padding: 12px 0 12px 61px;
+        width: 100%;
+        min-height: 48px;
+        border-radius: 12px;
+    }
+}

@@ -1,0 +1,15 @@
+@import '@/styles/_shared.scss';
+
+.tab-btn {
+    padding-bottom: 3px;
+    border: none;
+    background: none;
+    padding: 0;
+    margin-bottom: 13px;
+    display: block;
+
+    &.active {
+        color: $salmon;
+    }
+
+}

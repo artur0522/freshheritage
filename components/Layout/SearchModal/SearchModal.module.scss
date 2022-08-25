@@ -1,0 +1,231 @@
+@import '@/styles/_shared.scss';
+
+.pdp-flyout {
+    .pdp-flyout__content--enter {
+        transform: translateY(492px);
+
+        @include breakpoint-up('md') {
+            transform: translateY(477px);
+        }
+    }
+
+    .pdp-flyout__content--enter-active {
+        transform: translateY(0);
+
+
+    }
+
+    .pdp-flyout__content--enter-done {
+        transform: translateY(492px);
+
+        @include breakpoint-up('md') {
+            transform: translateY(477px);
+        }
+    }
+
+    .pdp-flyout__content--exit {
+        transform: translateY(-492px);
+
+        @include breakpoint-up('md') {
+            transform: translateY(-477px);
+        }
+    }
+}
+
+.pdp-flyout {
+    width: 100%;
+    height: 100%;
+    z-index: 2001;
+    position: fixed;
+    overflow-y: scroll;
+
+    > :global(.btn) {
+        min-width: none;
+        border-radius: 48px;
+    }
+
+    .indicies {
+        width: 100%;
+
+        @include breakpoint-up('md') {
+            width: 59%;
+        }
+    }
+
+    // pdp-flyout__content
+    &__content {
+        position: relative;
+        padding-bottom: 53px;
+        height: 100vh;
+
+        @include breakpoint-up('md') {
+            height: initial;
+        }
+    }
+
+    .searchbox {
+        position: relative;
+        height: 48px;
+
+        svg {
+            width: 17.3px;
+            height: 15.9px;
+            position: absolute;
+            top: 16.11px;
+            left: 24.37px;
+        }
+
+        input {
+            border: 1px solid $fawn50-2;
+            padding: 12px 0 12px 61px;
+            width: 100%;
+            min-height: 48px;
+            border-radius: 12px;
+        }
+    }
+
+    .content {
+        padding: 24px 7.46% 0 7.46%;
+
+        @include breakpoint-up('sm') {
+            padding: 18px 10% 0 10%;
+        }
+    }
+
+    .search-results {
+        margin-top: 42px;
+
+        @include breakpoint-up('md') {
+            display: flex;
+        }
+
+        h4 {
+            margin-right: 8.85%;
+        }
+
+        ul {
+            list-style: none;
+            margin-top: 12px;
+
+            @include breakpoint-up('md') {
+                margin-top: 0;
+            }
+
+            li {
+                margin-bottom: 12px;
+
+                a {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .search-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        button {
+            background-color: $salmon;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            border-radius: 100%;
+
+            @include breakpoint-up('md') {
+                display: none;
+            }
+        }
+
+        svg {
+            height: 17px;
+            width: 17px;
+        }
+
+        .searchbox-wrap {
+            width: 86%;
+        }
+    }
+
+    .searchbox-close {
+        display: none;
+
+        @include breakpoint-up('md') {
+            position: absolute;
+            top: 24px;
+            right: 6.25%;
+            display: block;
+        }
+
+        button {
+            background-color: $salmon;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            border-radius: 100%;
+        }
+
+        svg {
+            height: 17px;
+            width: 17px;
+        }
+    }
+}
+
+.pdp-flyout__close-btn {
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    @include breakpoint-up('md') {
+        top: 15px;
+        right: 15px;
+    }
+
+    svg {
+        width: 14px;
+
+        @include breakpoint-up('sm') {
+            width: 20px;
+        }
+
+        @include breakpoint-up('md') {
+            width: 27px;
+        }
+
+        * {
+            fill: $sitkablue;
+        }
+    }
+}
+
+.pdp-flyout__overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    cursor: pointer;
+}
+
+.pdp-flyout__content {
+    width: 100%;
+    top: -444px;
+    min-height: 444px;
+    background-color: $alabaster2;
+    box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translate(100%);
+    transition: 0.2s ease-in-out transform;
+    overflow-y: auto;
+}

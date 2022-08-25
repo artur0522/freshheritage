@@ -13,10 +13,10 @@ const ModalProductHits = (props) => {
     <div className={classes['hits-wrap']}>
       {results.query !== '' && <div className={classes['hits']}>
         <div className={classes['hits-header']}>
-          {/* <h6>{foundScoped?.results?.nbHits} product results for <span>"{results.query}"</span></h6>
+          <h6>{foundScoped?.results?.nbHits} product results for <span>&#34;{results.query}&#34;</span></h6>
           <Link href={`/pages/search/?query=${results.query}`}>
             <a className="secondary--body">View All</a>
-          </Link> */}
+          </Link>
         </div>
         <div className={classes['hits-items']}>
           {hits.slice(0,2).map((hit) => {

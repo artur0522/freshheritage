@@ -55,7 +55,7 @@ const PDPDrawer = ({box = undefined}) => {
                 <ProductDetailsList fields={boxDetails.details} expandOnLoad={true} />
               }
               {!!boxDetails.stamps &&
-                <ProductStamps fields={boxDetails.stamps} product={product} />
+                <ProductStamps fields={boxDetails.badges} product={product} />
               }
               <ProductHarvests product={product} />
               <FAQs fields={boxDetails.membershipInfo} parentClasses={'pdp-drawer__faq'} />

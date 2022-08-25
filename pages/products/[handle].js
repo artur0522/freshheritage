@@ -64,17 +64,13 @@ function Product({ product, page, modals }) {
 
     modalContext.setArticleCustomerTag(productHasCustomerTag)
 
-    const foundModal = modals.find(modal => modal.handle.includes(splitTagWithDash) && modal.handle !== 'non-member')
-    const defaultModal = modals.find(modal => modal.handle === 'non-member')
+    const foundModal = modals.find(modal => modal.handle.includes(splitTagWithDash))
 
     // if product tags exist but none of the product tags match customer tag
     if(foundVisibleTags.length > 0 && !productHasCustomerTag) {
       if(foundModal) {
         modalContext.setPrevContent(foundModal?.fields)
         modalContext.setContent(foundModal?.fields)
-      } else {
-        modalContext.setPrevContent(defaultModal?.fields)
-        modalContext.setContent(defaultModal?.fields)
       }
       modalContext.setModalType('gated_product')
       modalContext.setIsOpen(true)

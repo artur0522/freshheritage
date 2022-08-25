@@ -8,6 +8,7 @@ import {
 import { history } from 'instantsearch.js/es/lib/routers'
 import { simple } from 'instantsearch.js/es/lib/stateMappings'
 import algoliasearch from 'algoliasearch/lite'
+import Link from 'next/link'
 import { useSearchModalContext } from '@/context/SearchModalContext'
 import CustomSearchBox from '@/components/Search/CustomSearchBox'
 import IconClose from '@/svgs/close.svg'
@@ -21,7 +22,7 @@ import 'instantsearch.css/themes/satellite.css'
 
 const SearchModal = () => {
   const searchModalContext = useSearchModalContext()
-  const { searchOpen } = searchModalContext
+  const { searchOpen, searchLinks } = searchModalContext
   const [mounted, setMounted]= useState(false) 
   const [drawerOpen, setDrawerOpen] = useState(false)
   const nodeRef = useRef(null)
@@ -41,7 +42,7 @@ const SearchModal = () => {
     }, timeout)
   }
 
-  const searchClient = algoliasearch('9RTKNI42PN', '4876c2b9c59451c3b189e5bd892dfc9f')
+  const searchClient = algoliasearch(process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID, process.env.NEXT_PUBLIC_ALGOLIA_WRITE_API_KEY)
 
   const routing = {
     router: history({
@@ -71,11 +72,15 @@ const SearchModal = () => {
         {results?.query === '' ? <div className={classes['search-results']}>
           <h4>Popular Searches</h4>
           <ul>
-            <li className="h6">What's In My Next Box</li>
-            <li className="h6">Recipes</li>
-            <li className="h6">Cooking Tips</li>
-            <li className="h6">Pin Bone Removal</li>
-            <li className="h6">Delivery Info</li>
+            {searchLinks.menuItems.map((link) => {
+              return (
+                <li key={link._key}>
+                  <Link href={link.linkUrl}>
+                    <a className="h6">{link.linkText}</a>
+                  </Link>
+                </li>
+              )
+            })}
           </ul>
         </div> :
         <>
@@ -109,11 +114,6 @@ const SearchModal = () => {
             'enterDone': classes['pdp-flyout__content--enter-done'],
             'exit': classes['pdp-flyout__content--exit'],
             }}>
-
-
-
-
-
             <div ref={nodeRef} className={classes['pdp-flyout__content']}>
                 <div className={classes['searchbox-close']}>
                   <button className="body" onClick={() => closeDrawer()}>
@@ -121,10 +121,6 @@ const SearchModal = () => {
                   </button>
                 </div>
                 <div className={classes['content']}>
-
-
-
-
                     <InstantSearch 
                         searchClient={searchClient}
                         indexName="brand_articles" 
@@ -143,26 +139,8 @@ const SearchModal = () => {
                         <QueryState />
                       </div>
                     </InstantSearch>
-
-
-
-
-
-
-
-
-
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
         </CSSTransition>
       </div>
     )

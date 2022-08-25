@@ -23,9 +23,11 @@ const ModalArticleHits = (props) => {
         <div className={classes['hits-items']}>
           {hits.slice(0, 3).map((hit) => {
               return (
-                <h6 className={classes['grid-item']} key={hit.objectID}>
-                  {hit.title}
-                </h6>
+                <Link href={`/blogs/${hit.blog.blogType}/${hit.blog.handle.current}/${hit.handle.current}`} key={hit.objectID}>
+                  <a className="h6">
+                    {hit.title}
+                  </a>
+                </Link>
               )
           })}
         </div>

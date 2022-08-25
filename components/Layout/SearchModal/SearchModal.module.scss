@@ -2,19 +2,33 @@
 
 .pdp-flyout {
     .pdp-flyout__content--enter {
-        transform: translateY(477px);
+        transform: translateY(492px);
+
+        @include breakpoint-up('md') {
+            transform: translateY(477px);
+        }
     }
 
     .pdp-flyout__content--enter-active {
-        transform: translate(0);
+        transform: translateY(0);
+
+
     }
 
     .pdp-flyout__content--enter-done {
-        transform: translateY(477px);
+        transform: translateY(492px);
+
+        @include breakpoint-up('md') {
+            transform: translateY(477px);
+        }
     }
 
     .pdp-flyout__content--exit {
-        transform: translateY(-477px);
+        transform: translateY(-492px);
+
+        @include breakpoint-up('md') {
+            transform: translateY(-477px);
+        }
     }
 }
 
@@ -42,6 +56,11 @@
     &__content {
         position: relative;
         padding-bottom: 53px;
+        height: 100vh;
+
+        @include breakpoint-up('md') {
+            height: initial;
+        }
     }
 
     .searchbox {
@@ -66,10 +85,10 @@
     }
 
     .content {
-        padding: 24px 6.5% 0 6.5%;
+        padding: 24px 7.46% 0 7.46%;
 
         @include breakpoint-up('sm') {
-            padding: 24px 10% 0 10%;
+            padding: 18px 10% 0 10%;
         }
     }
 
@@ -86,9 +105,18 @@
 
         ul {
             list-style: none;
+            margin-top: 12px;
+
+            @include breakpoint-up('md') {
+                margin-top: 0;
+            }
 
             li {
                 margin-bottom: 12px;
+
+                a {
+                    text-decoration: none;
+                }
             }
         }
     }

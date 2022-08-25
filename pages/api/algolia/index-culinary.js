@@ -21,10 +21,11 @@ _type == "liveCookingClassArticle" && blog._ref in *[_type=="blog" && blogType =
 {
     _type,
     _rev,
+    handle,
     "objectID": _id,
     _createdAt,
     title,
-    blog,
+    "blog": blog->{title, blogType, handle},
     articleTags,
     hero {
        desktopBackgroundImage {

@@ -1,16 +1,28 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useInfiniteHits, useInstantSearch } from 'react-instantsearch-hooks-web'
-import DynamicArticleCard from '@/components/Cards/DynamicArticleCard';
-import classes from "./ArticleHits.module.scss";
+import ArticleCard from '@/components/Cards/ArticleCard'
+import MobileSearchArticleCard from '@/components/Cards/MobileSearchArticleCard';
+import { useMediaQuery } from 'react-responsive'
+
+import classes from "./ArticleHits.module.scss"
 
 const ArticleHits = (props) => {
-  const { hits, isLastPage, showMore, results } = useInfiniteHits(props)
+  const { hits, isLastPage, showMore } = useInfiniteHits(props)
   const sentinelRef = useRef(null)
   const { scopedResults } = useInstantSearch(props)
-  const { indexId } = props
+  const { indexId, currentIndex } = props
   const foundScoped = scopedResults?.find(index => index.indexId === indexId)
+  const [mounted, setMounted] = useState(false)
+
+
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
+  const isDesktop = useMediaQuery(
+    {query: '(min-width: 768px)'}
+  )
 
   useEffect(() => {
+    setMounted(true)
+
     if (sentinelRef.current !== null) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -30,18 +42,29 @@ const ArticleHits = (props) => {
 
   return (
     <div className={classes['hits-wrap']}>
-      {foundScoped?.results?.nbHits > 0 && <div className={classes['hits']}>
+      {foundScoped?.results?.nbHits > 0 && mounted && isDesktop && <div className={classes['hits']}>
           {hits.map((hit) => {
               return (
                   <div className={classes['grid-item']} key={hit.objectID}>
-                      <DynamicArticleCard article={hit} responsiveImage={true} />
+                    <ArticleCard article={hit} responsiveImage={true} fromSearch={true} />
                   </div>
               )
           })}
           <div className="ais-InfiniteHits-sentinel" ref={sentinelRef} aria-hidden="true">
           </div>
       </div>}
-      {foundScoped?.results?.nbHits == 0 && <div className={classes['no-results']}>
+      {foundScoped?.results?.nbHits > 0 && mounted && isMobile && <div className={classes['hits']}>
+          {hits.map((hit) => {
+              return (
+                  <div className={classes['grid-item']} key={hit.objectID}>
+                    <MobileSearchArticleCard article={hit} />
+                  </div>
+              )
+          })}
+          <div className="ais-InfiniteHits-sentinel" ref={sentinelRef} aria-hidden="true">
+          </div>
+      </div>}
+      {foundScoped?.results?.nbHits == 0 && currentIndex !== 'all_results' && <div className={classes['no-results']}>
         <h4>Sorry, we could not find anything for <span>"{foundScoped?.results?.query}"</span></h4>
         <p className="secondary--body">Try a different search term</p>
       </div>}

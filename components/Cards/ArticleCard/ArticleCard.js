@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import IconBullet from '@/svgs/list-item.svg'
+import ArrowIcon from '@/svgs/long-arrow-right.svg'
 import PlayIcon from '@/svgs/play.svg'
 import imageUrlBuilder from '@sanity/image-url'
 import sanityClient from 'services/sanityClient'
@@ -9,11 +10,11 @@ import ResponsiveImage from '@/components/ResponsiveImage'
 
 import classes from "./ArticleCard.module.scss"
 
-const ArticleCard = ({ article, reverse, responsiveImage = false }) => {
+const ArticleCard = ({ article, reverse, responsiveImage = false, fromSearch = false }) => {
     const tags = article.fields ? article.fields?.hero?.articleTags : article.hero?.articleTags
     const foundTag = tags?.find(tag => tag.value === 'video' || tag.value === 'live cooking class')
     const { desktopBackgroundImage } = article.fields ? article.fields.hero : article.hero
-    const {articleCardCtaText} = article.fields ? article.fields : {}
+    const { articleCardCtaText } = article.fields ? article.fields : {}
 
     const builder = imageUrlBuilder(sanityClient)
 
@@ -48,7 +49,7 @@ const ArticleCard = ({ article, reverse, responsiveImage = false }) => {
 
                     <div className={classes['text']}>
                         {article.title && <h4 className='heading--article'>{article.title}</h4>}
-                        {articleCardCtaText && <p className="recipe--time">
+                        {articleCardCtaText && !fromSearch && <p className="recipe--time">
                             <span>
                                 {articleCardCtaText}
                             </span>
@@ -56,6 +57,13 @@ const ArticleCard = ({ article, reverse, responsiveImage = false }) => {
                                 <IconBullet />
                             </span>
                         </p>}
+                        {fromSearch &&
+                        <Link href={`/blogs/${article.blog.blogType}/${article.blog.handle.current}/${article.handle.current}`}>
+                            <a className={`${classes['search-cta']} secondary--body`}>
+                                Read Article
+                                <IconBullet />
+                            </a>
+                        </Link>}
                     </div>
                 </div>
             </a>

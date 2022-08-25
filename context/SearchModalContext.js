@@ -8,7 +8,8 @@ export function useSearchModalContext() {
   return useContext(SearchModalContext)
 }
 
-export function SearchProvider({ children }) {
+export function SearchProvider({ children, searchLinks }) {
+  console.log('searchlinks', searchLinks)
   const [searchOpen, setSearchOpen] = useState(false)
   const [content, setContent] = useState('')
   const [modalType, setModalType] = useState(null)
@@ -30,7 +31,7 @@ export function SearchProvider({ children }) {
   }, [router.pathname])
 
   return (
-    <SearchModalContext.Provider value={{ searchOpen, setSearchOpen, content, setContent, modalType, setModalType }}>
+    <SearchModalContext.Provider value={{ searchOpen, setSearchOpen, content, setContent, modalType, setModalType, searchLinks }}>
       {searchOpen &&
         <SearchModal children={content} />
       }

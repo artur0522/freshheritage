@@ -18,9 +18,12 @@
     }
 
     .card__inner {
+        width: 100%;
+
         @include breakpoint-up('md') {
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
     }
 

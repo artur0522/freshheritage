@@ -26,6 +26,11 @@
         border-top: 1px solid $black20;
         padding-top: 18px;
 
+        a {
+            display: block;
+            text-decoration: none;
+        }
+
         h6 {
             margin-bottom: 12px;
         }

@@ -8,7 +8,7 @@ const ProductHits = (props) => {
   const { hits, isLastPage, showMore } = useInfiniteHits(props)
   const sentinelRef = useRef(null)
   const { scopedResults } = useInstantSearch(props)
-  const { indexId } = props
+  const { indexId, currentIndex } = props
   const foundScoped = scopedResults?.find(index => index.indexId === indexId)
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const ProductHits = (props) => {
           <div className="ais-InfiniteHits-sentinel" ref={sentinelRef} aria-hidden="true">
           </div>
       </div>}
-      {foundScoped?.results?.nbHits == 0 && <div className={classes['no-results']}>
+      {foundScoped?.results?.nbHits == 0 && currentIndex !== 'all_results'  && <div className={classes['no-results']}>
         <h4>Sorry, we could not find anything for <span>"{foundScoped?.results?.query}"</span></h4>
         <p className="secondary--body">Try a different search term</p>
       </div>}

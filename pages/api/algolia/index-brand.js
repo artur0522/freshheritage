@@ -14,31 +14,35 @@ export const sanity = sanityClient({
 })
 
 const QUERY = `
-    *[_type == "standardArticle" && blog._ref in *[_type=="blog" && blogType == "brand"]._id || 
-    _type == "recipeArticle" && blog._ref in *[_type=="blog" && blogType == "brand"]._id ||
-    _type == "videoArticle" && blog._ref in *[_type=="blog" && blogType == "brand"]._id ||
-    _type == "liveCookingClassArticle" && blog._ref in *[_type=="blog" && blogType == "brand"]._id]
-    {
-      _type,
-      _rev,
-      "objectID": _id,
-      _createdAt,
-      title,
-      blog,
-      articleTags,
-      hero {
-         desktopBackgroundImage {
-           crop,
-           hotspot {
-             x,
-             y,
-           },
-           asset->{url}
+*[_type == "standardArticle" && blog._ref in *[_type=="blog" && blogType == "brand"]._id || 
+_type == "recipeArticle" && blog._ref in *[_type=="blog" && blogType == "brand"]._id ||
+_type == "videoArticle" && blog._ref in *[_type=="blog" && blogType == "brand"]._id ||
+_type == "liveCookingClassArticle" && blog._ref in *[_type=="blog" && blogType == "brand"]._id]
+{
+    _type,
+    _rev,
+    handle,
+    "objectID": _id,
+    _createdAt,
+    title,
+    "blog": blog->{title, blogType, handle},
+    articleTags,
+    hero {
+       desktopBackgroundImage {
+         crop,
+         hotspot {
+           x,
+           y,
          },
-         ctaText,
-         ctaUrl
-      }
-  }
+         asset->{url}
+       },
+       activeTime,
+       cookTime,
+       totalTime,
+       ctaText,
+       ctaUrl
+    }
+}
 `
 export default async function handler(res) {
     const documents = await sanity.fetch(QUERY)

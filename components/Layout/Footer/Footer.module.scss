@@ -1,5 +1,11 @@
 @import '@/styles/_shared';
 
+@media print {
+  .footer {
+    display: none !important;
+  }
+}
+
 .footer {
   background-color: $sitkablue;
   color: $alabaster2;

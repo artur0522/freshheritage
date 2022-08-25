@@ -9,6 +9,7 @@ import BookmarkIcon from '@/svgs/bookmark.svg'
 import classes from './RecipeArticleCard.module.scss'
 
 const RecipeArticleCard = ({ article, responsiveImage = false }) => {
+
     const { desktopBackgroundImage, activeTime, totalTime } = article.fields ? article.fields.hero : article.hero
 
     const articleHandle = article.handle?.current ? article.handle.current : article.handle;
@@ -20,8 +21,6 @@ const RecipeArticleCard = ({ article, responsiveImage = false }) => {
         console.log("article:", article)
     }
 
-    console.log(desktopBackgroundImage)
-
     if (blog) {
         const blogType = blog.blogType
         const blogCategory = blog.handle?.current ? blog.handle.current : blog.handle
@@ -29,7 +28,7 @@ const RecipeArticleCard = ({ article, responsiveImage = false }) => {
     }
 
     return (
-        <Link href={url} passHref>
+        <Link href={url}>
             <div className={`${classes['article__card']} ${!responsiveImage ? classes['fixed'] : ''}`}>
                     {desktopBackgroundImage.asset.url && !desktopBackgroundImage?.crop && <div className={classes['article__card-img']}>
 

@@ -12,7 +12,6 @@ import { SearchProvider } from '@/context/SearchModalContext'
 
 import StructuredData from '../SEO/StructuredData'
 
-import Header from '@/components/Layout/Header'
 import Footer from '@/components/Layout/Footer'
 
 // This component utilizes `useCart` and `useCheckout` hooks from

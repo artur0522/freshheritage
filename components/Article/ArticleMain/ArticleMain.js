@@ -5,7 +5,7 @@ import StandardContent from '../ArticleContent/StandardContent'
 import RecipeContent from '../ArticleContent/RecipeContent'
 import ArticleSidebar from '../ArticleSidebar'
 
-const ArticleMain = forwardRef(({contentType, fields, products, showNav = false, showSidebar = false, blogGlobalSettings}, ref) => {
+const ArticleMain = forwardRef(({contentType, fields, datePublished, products, showNav = false, showSidebar = false, blogGlobalSettings}, ref) => {
 
   const h1blocks = fields.content?.filter(item => item.style === 'h1')
 
@@ -31,10 +31,10 @@ const ArticleMain = forwardRef(({contentType, fields, products, showNav = false,
 
   return (
     <div ref={ref} className={classes['article-main']}>
-      {showNav && refs.current && Object.keys(refs.current).length && <ArticleNav ref={refs} />}
+      {showNav && refs.current && !!Object.keys(refs.current).length && <ArticleNav ref={refs} />}
       <div className={classes['article-main__wrapper']}>
         {getContent(contentType)}
-        {(sidebar || showSidebar) && <ArticleSidebar fields={sidebar} blogGlobalSettings={blogGlobalSettings} />}
+        {(sidebar || showSidebar) && <ArticleSidebar datePublished={datePublished} fields={sidebar} blogGlobalSettings={blogGlobalSettings} />}
       </div>
     </div>
   )

@@ -1,7 +1,10 @@
 @import '@/styles/_shared.scss';
 
 .featured-fish-carousel {
-  padding: 120px 0;
+  padding: 40px 0;
+  @include breakpoint-up('md') {
+    padding: 120px 0;
+  }
 }
 
 .featured-fish-carousel__header {

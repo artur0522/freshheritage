@@ -40,6 +40,7 @@ const StandardContent = forwardRef(({fields, products}, ref) => {
         return <span style={{'color': value.hex }}>{children}</span>
       },
       link: ({children, value}) => {
+        if (!value.href) return <span>{children}</span>
         if (value.href.includes('mailto')) {
           return <a rel="noreferrer noopener" href={value.href} target="_blank">{children}</a>
         }
@@ -64,7 +65,9 @@ const StandardContent = forwardRef(({fields, products}, ref) => {
         }
         return (
           <div className={classes['article-section__image']}>
-            <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />
+            {value?.asset &&
+              <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />
+            }
             {value.caption && <span className={classes['article-section__image-caption']}>{value.caption}</span>}
           </div>
         )

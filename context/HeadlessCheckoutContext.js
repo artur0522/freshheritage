@@ -15,6 +15,7 @@ export function HeadlessCheckoutProvider({ children }) {
   const [data, setData] = useState(null)
   const [PIGIMediaRules, setPIGIMediaRules] = useState([]);
   const [flyoutState, setFlyoutState] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const { customer } = useCustomerContext()
 
   function saveDataInLocalStorage(data) {
@@ -26,7 +27,7 @@ export function HeadlessCheckoutProvider({ children }) {
     localStorage.setItem('checkout_data', JSON.stringify(checkoutData))
   }
 
-  function deleteDataInLocalStoraage() {
+  function deleteDataInLocalStorage() {
     console.log("removing checkout data from storage")
     localStorage.removeItem('checkout_data')
   }
@@ -35,7 +36,7 @@ export function HeadlessCheckoutProvider({ children }) {
     const localStorageCheckoutData = JSON.parse(localStorage.getItem('checkout_data')) || '';
     if (data.errors && data.errors.some(error => error.type === 'authorization.expired_jwt')) {
       console.log("running expired jwt handler")
-      if (Object.keys(localStorageCheckoutData).length) {
+      if (localStorageCheckoutData) {
         await resumeCheckout(localStorageCheckoutData)
       } else {
         window.location.reload()
@@ -140,6 +141,8 @@ export function HeadlessCheckoutProvider({ children }) {
         order_meta_data.cart_parameters.pre = {...data?.application_state?.order_meta_data?.cart_parameters?.pre}
       }
 
+      console.log("order_meta_data before init:", order_meta_data)
+
       const response = await initializeCheckout({
         products: [...lineItems, {
           platform_id: newItem.variantId,
@@ -167,6 +170,7 @@ export function HeadlessCheckoutProvider({ children }) {
         }
       })
     }
+
     if (open_flyout) {
       setFlyoutState(true)
     }
@@ -277,8 +281,26 @@ export function HeadlessCheckoutProvider({ children }) {
     //   ]
     // }
     // if the user is logged in add the attribute customer to the payload
+
     if (customer) {
       payload.customer = transformCustomerData(customer)
+      if (payload.order_meta_data?.cart_parameters) {
+        payload.order_meta_data.cart_parameters.pre = {
+          customer_data: {
+            tags: customer.tags
+          }
+        }
+      } else {
+        payload.order_meta_data = {
+          cart_parameters: {
+            pre: {
+              customer_data: {
+                tags: customer.tags
+              }
+            }
+          }
+        }
+      }
     }
 
     const res = await fetch(
@@ -292,7 +314,7 @@ export function HeadlessCheckoutProvider({ children }) {
     saveDataInLocalStorage(data)
     console.log(data, 'init checkout')
     stylePaymentIframe()
-    setData(data)
+    setData({...data})
   }
 
   // this endpoint also refreshes the jwt
@@ -352,7 +374,7 @@ export function HeadlessCheckoutProvider({ children }) {
 
     // remove local storage data if the order has been processed
     if (data.application_state.is_processed) {
-      localStorage.setItem('checkout_data', JSON.stringify({}))
+      deleteDataInLocalStorage()
     }
   }
 
@@ -454,6 +476,31 @@ export function HeadlessCheckoutProvider({ children }) {
     return updatedData
   }
 
+  async function updateCustomerInOrder(payload) {
+    const { jwt, public_order_id } = JSON.parse(
+      localStorage.getItem('checkout_data'),
+    )
+    const response = await fetch(
+      `https://api.boldcommerce.com/checkout/storefront/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/${public_order_id}/customer`,
+      {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json',
+        },
+        method: 'PUT',
+        body: JSON.stringify(payload)
+      }
+    )
+    const updatedData = await response.json()
+    console.log('update customer assigned to order', updatedData)
+    await expiredJWTHandler(updatedData)
+    setData({
+      ...data,
+      application_state: updatedData.data.application_state
+    })
+    return updatedData
+  }
+
   async function removeCustomerFromOrder() {
     const { jwt, public_order_id } = JSON.parse(
       localStorage.getItem('checkout_data'),
@@ -520,32 +567,6 @@ export function HeadlessCheckoutProvider({ children }) {
     //   platform_id: '39396153295034'
     // }
 
-    // const { line_item_key, platform_id, quantity, line_item_properties } = payload
-
-    // const waitfirst = await updateOrderMetaData({
-    //   "cart_parameters": {
-    //     "bold_subscriptions": {
-    //       "line_items_subscription_info": [
-    //         {
-    //           "line_item_id": `${platform_id}-${line_item_key}`,
-    //           "variant_id": Number(platform_id),
-    //           "quantity": quantity,
-    //           "subscription_group_id": Number(line_item_properties.sub_group_id),
-    //           "interval_id": Number(line_item_properties.interval_id),
-    //           "interval_text": "Monthly",
-    //           "prepaid_selected": true,
-    //           "prepaid_duration_id": 20470,
-    //           "full_price": 15900
-    //         }
-    //       ]
-    //     }
-    //   },
-    //   "note_attributes": {
-    //     "staff_notes": "SUBSCRIPTION"
-    //   },
-    //   "tags": ['bold-subscription', 'prepaid-subscription']
-    // })
-
     const { jwt, public_order_id } = JSON.parse(
       localStorage.getItem('checkout_data'),
     )
@@ -568,11 +589,6 @@ export function HeadlessCheckoutProvider({ children }) {
       application_state: updatedData.data.application_state
     })
 
-
-    // if (payload.line_item_properties?.membership_type === 'prepaid') {
-      //this might remove other cart params
-    // }
-
     return updatedData
   }
 
@@ -582,10 +598,47 @@ export function HeadlessCheckoutProvider({ children }) {
     //   quantity: 1,
     //   line_item_key: '977a6d10-43c5-414a-a60f-f1b551cbc3cf'
     // }
-    console.log(payload)
+    console.log("payload:", payload)
     const { jwt, public_order_id } = JSON.parse(
       localStorage.getItem('checkout_data'),
     )
+
+    const foundSubscriptionItem = data.application_state.line_items.find(item => item.product_data.line_item_key === payload.line_item_key)
+
+    if (foundSubscriptionItem && data.application_state.line_items.length >= 1) {
+      let lineItems = data.application_state.line_items.filter(item => item.product_data.variant_id !== foundSubscriptionItem?.product_data?.variant_id).map(item => {
+        const line_item = item.product_data
+        return {
+          platform_id: line_item.variant_id,
+          quantity: line_item.quantity,
+          line_item_key: line_item.line_item_key,
+          line_item_properties: line_item.properties
+        }
+      })
+
+      console.log("removing subscription.. initializing new checkout")
+
+      const order_meta_data = {
+        "cart_parameters": {}
+      }
+
+      if (data?.application_state?.order_meta_data?.cart_parameters?.pre) {
+        order_meta_data.cart_parameters.pre = {...data?.application_state?.order_meta_data?.cart_parameters?.pre}
+      }
+
+      setIsLoading(true)
+
+      await initializeCheckout({
+        products: [...lineItems],
+        order_meta_data: order_meta_data
+      })
+
+      setIsLoading(false)
+
+      return true
+    }
+
+
     const response = await fetch(
       `https://api.boldcommerce.com/checkout/storefront/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/${public_order_id}/items`,
       {
@@ -607,7 +660,7 @@ export function HeadlessCheckoutProvider({ children }) {
 
     // delete checkout data in local storage there are no items in order
     if (updatedData.data.application_state.line_items.length === 0) {
-      deleteDataInLocalStoraage()
+      deleteDataInLocalStorage()
       return true
     }
 
@@ -616,8 +669,8 @@ export function HeadlessCheckoutProvider({ children }) {
 
   useEffect(() => {
     const handleRouteChange = async (e) => {
-      const localStorageCheckoutData = JSON.parse(localStorage.getItem('checkout_data'));
-      if (!Object.keys(localStorageCheckoutData).length) {
+      const localStorageCheckoutData = JSON.parse(localStorage.getItem('checkout_data')) || '';
+      if (!localStorageCheckoutData) {
         await initializeCheckout()
       }
       setFlyoutState(false)
@@ -631,7 +684,7 @@ export function HeadlessCheckoutProvider({ children }) {
   useEffect(() => {
     const localStorageCheckoutData = JSON.parse(localStorage.getItem('checkout_data')) || '';
     // resume checkout if there's a checkout saved otherwise initialize it
-    if (Object.keys(localStorageCheckoutData).length) {
+    if (localStorageCheckoutData) {
       resumeCheckout(localStorageCheckoutData);
     } else {
       initializeCheckout()
@@ -706,7 +759,10 @@ export function HeadlessCheckoutProvider({ children }) {
         validateEmailAddress,
         addCustomerToOrder,
         removeCustomerFromOrder,
-        PIGIMediaRules
+        updateCustomerInOrder,
+        PIGIMediaRules,
+        isLoading,
+        setIsLoading
       }}
     >
       <CheckoutFlyout />

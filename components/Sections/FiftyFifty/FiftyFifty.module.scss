@@ -6,13 +6,13 @@
     // modifiers
     .image--left {
         @include breakpoint-up('sm') {
-            flex-direction: row-reverse;
+            flex-direction: row;
         }
     }
 
     .image--right {
         @include breakpoint-up('sm') {
-            flex-direction: row;
+            flex-direction: row-reverse;
         }
     }
 

@@ -1,5 +1,11 @@
 @import '@/styles/_shared.scss';
 
+@media print {
+  .primaryAnnouncement {
+    display: none !important;
+  }
+}
+
 .primaryAnnouncement {
   text-align: center;
   display: flex;

@@ -14,4 +14,7 @@
   @include breakpoint-up('xl') {
     width: calc(100% - 240px);
   }
+  &.container--no-max-width {
+    max-width: none
+  }
 }

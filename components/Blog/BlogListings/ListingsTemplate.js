@@ -8,6 +8,7 @@ import FullBleedHero from '@/components/Sections/FullBleedHero'
 import ArticleRow from '@/components/Sections/ArticleRow'
 import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
 import BlogFilters from '@/components/Blog/BlogFilters'
+import IconFilters from '@/svgs/filters.svg'
 
 import IconSearch from '@/svgs/search.svg'
 import PaginationLeft from '@/svgs/pagination-left.svg'
@@ -137,7 +138,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
     }
 
   return (
-    <>
+    <div className="category-listing-page">
       <StructuredData type="blog" data={page} />
       <PageSEO seo={page.fields.seo} />
       {page.type === "cookingClassCategory" ? (
@@ -156,11 +157,11 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
 
           <div className={classes['recipes__filter-row']}>
             {filterGroups && filterGroups?.length > 0 && <button onClick={() => toggleFilterDrawer(!filterDrawer)} type="button" className={`${classes['toggle-filters']} ${classes['desktop']}`}>
-              {filterDrawer ? <span className="body">Hide Filters</span> : <span className="body">Show Filters</span>}
+              {filterDrawer ? <span className="body">Hide Filters <IconFilters/></span> : <span className="body">Show Filters <IconFilters/></span>}
             </button>}
 
             {filterGroups && filterGroups?.length > 0 && <button onClick={() => openDrawer()} type="button" className={`${classes['toggle-filters']} ${classes['mobile']}`}>
-              {isOpen ? <span className="body">Hide Filters</span> : <span className="body">Show Filters</span>}
+              {isOpen ? <span className="body">Hide Filters <IconFilters/></span> : <span className="body">Show Filters <IconFilters/></span>}
             </button>}
 
             <div className={classes['sort-by']}>
@@ -173,10 +174,10 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
           </div>
         </form>
 
-        <div className={`${classes['filters-list__wrap']} ${filterDrawer ? 'open' : 'close'}`}>
+        <div className={`${classes['filters-list__wrap']} ${filterDrawer ? 'open' : 'close'} container`}>
           {filterDrawer && filterGroups?.length > 0 && <div className={`${classes['filters']}`}>
-          <BlogFilters />
-        </div>}
+            <BlogFilters />
+          </div>}
 
 
         {!articles.length ? (
@@ -184,12 +185,12 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             <h2>Loading Articles...</h2>
           </div>
         ):(
-          <div className={`${classes['recipes__list-wrap']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
-            {listings.length > 0 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
+          <div className={`${classes['recipes__list-wrap']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} ${filterDrawer && filterGroups ? 'listing-pages--filters-open' : ''}`}>
+            {listings.length > 0 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
                   {listings.slice(0, 8).map((article) => {
                     return (
                       <div className={classes['grid-item']} key={article.handle}>
-                          <DynamicArticleCard article={article} responsiveImage={true} />
+                          <DynamicArticleCard article={article} F />
                       </div>
                     )
               })}
@@ -199,11 +200,11 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
               <FullBleedHero fields={heroSection} key={heroSection._key} />
             }
 
-            {listings.length >= 8 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
+            {listings.length >= 8 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
               {listings.slice(8, 16).map((article) => {
                   return (
                     <div className={classes['grid-item']} key={article.handle}>
-                      <DynamicArticleCard article={article} responsiveImage={true} />
+                      <DynamicArticleCard article={article} />
                     </div>
                   )
               })}
@@ -215,28 +216,28 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
               </div>
             }
 
-            {listings.length >= 17 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
+            {listings.length >= 17 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
               {listings.slice(17, 21).map((article) => {
                   return (
                     <div className={classes['grid-item']} key={article.handle}>
-                        <DynamicArticleCard article={article} responsiveImage={true} />
+                        <DynamicArticleCard article={article} />
                     </div>
                   )
               })}
             </div>}
 
-            {currentPage !== 1 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
+            {currentPage !== 1 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
               {getPaginatedData().map((article) => (
                   <div className={classes['grid-item']} key={article.handle}>
-                    <DynamicArticleCard article={article} responsiveImage={true}  />
+                    <DynamicArticleCard article={article}  />
                 </div>
               ))}
             </div>}
 
-            {selectedFilterList.length > 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
+            {selectedFilterList.length > 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
               {listings.map((article) => (
                 <div className={classes['grid-item']} key={article.handle}>
-                  <DynamicArticleCard article={article} responsiveImage={true} />
+                  <DynamicArticleCard article={article} />
                 </div>
               ))}
             </div>}
@@ -271,7 +272,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             </button>
           </div>}
         </div>
-    </>
+    </div>
   )
 }
 

@@ -1,14 +1,21 @@
 @import '@/styles/_shared.scss';
 
+:global(.gift-subscription-product) {
+    .harvest {
+        margin: 0;
+    }
+}
+
 .harvest {
     background-color: $alabaster;
     margin-bottom: 60px;
     position: relative;
     z-index: 1;
-    padding: 72px 0;
+    padding: 40px 0;
 
     @include breakpoint-up('sm') {
         margin-bottom: 51px;
+        padding: 72px 0;
     }
 
     @include breakpoint-up('lg') {
@@ -32,7 +39,7 @@
             @include breakpoint-up('sm') {
                 display: block;
                 height: initial;
-                margin-bottom: 36px;
+                margin-bottom: 26px;
             }
         }
 
@@ -86,21 +93,21 @@
     }
 
     .active-harvest__swiper {
-        margin-left: 28px;
         margin-bottom: 29px;
         position: relative;
+        padding-right: 30px;
 
         @include breakpoint-up('sm') {
-            margin-left: 50px;
             margin-bottom: 57px;
+            padding-right: 50px;
         }
 
         @include breakpoint-up('md') {
-            margin-left: 60px;
+            padding-right: 60px;
         }
 
         @include breakpoint-up('lg') {
-            margin-left: 85px;
+            padding-right: 85px;
         }
 
         @include breakpoint-up('xl') {
@@ -110,24 +117,51 @@
         }
 
         .harvest__tab {
-            min-height: 37px;
-            display: flex;
-            align-items: center;
             color: $sitkablue;
             width: auto;
 
             @include breakpoint-up('sm') {
-                min-height: 61px;
+                height: 66px;
                 width: initial;
                 justify-content: center;
             }
 
+            &:first-child {
+                margin-left: 30px;
+                @include breakpoint-up('sm') {
+                    margin-left: 50px;
+                }
+
+                @include breakpoint-up('md') {
+                    margin-left: 60px;
+                }
+
+                @include breakpoint-up('lg') {
+                    margin-left: 85px;
+                }
+                @include breakpoint-up('xl') {
+                    margin-left: 0;
+                }
+            }
+
+
             button {
+                display: flex;
+                align-items: center;
+                font-size: 16px;
                 background-color: #fff;
                 border: 1px solid $fawn50-2;
                 border-radius: 12px;
-                padding: 20.5px 31px;
                 font-family: $bebas;
+                padding: 2px 20px 0;
+                letter-spacing: 0.02em;
+                height: 30px;
+
+                @include breakpoint-up('sm') {
+                    font-size: 24px;
+                    height: 66px;
+                    padding: 20.5px 31px;
+                }
 
                 &.active {
                     background-color: $sitkablue;
@@ -139,27 +173,28 @@
 
     // harvest__tabs-swiper
     &__tabs-swiper {
-        margin-left: 28px;
         margin-bottom: 29px;
         position: relative;
+        padding-right: 30px;
 
         @include breakpoint-up('sm') {
-            margin-left: 50px;
+            padding-left: 50px;
             margin-bottom: 59px;
         }
 
         @include breakpoint-up('md') {
-            margin-left: 60px;
+            padding-left: 60px;
         }
 
         @include breakpoint-up('lg') {
-            margin-left: 85px;
+            padding-left: 85px;
         }
 
         @include breakpoint-up('xl') {
             width: calc(100% - 240px);
             max-width: 1680px;
             margin: 0 auto 60px auto;
+            padding-left: 0;
         }
 
         &::after {
@@ -167,9 +202,25 @@
             position: absolute;
             border-bottom: 1px solid $black20;
             border-radius: 3px;
-            width: 100%;
-            left: 0;
+            width: calc(100% - 30px);
+            right: 0;
             bottom: 1px;
+            @include breakpoint-up('sm') {
+                width: calc(100% - 50px);
+            }
+
+            @include breakpoint-up('md') {
+                width: calc(100% - 60px);
+            }
+
+            @include breakpoint-up('lg') {
+                width: calc(100% - 85px);
+            }
+
+            @include breakpoint-up('xl') {
+                width: 100%;
+            }
+
         }
 
         .harvest__tab {
@@ -183,6 +234,13 @@
                 min-height: 61px;
                 width: initial;
                 justify-content: center;
+            }
+
+            &:first-child {
+                margin-left: 30px;
+                @include breakpoint-up('sm') {
+                    margin-left: 0;
+                }
             }
 
             button {
@@ -198,7 +256,10 @@
                     border-radius: 3px;
                     width: 100%;
                     left: 0;
-                    bottom: 0px;
+                    bottom: -9px;
+                    @include breakpoint-up('sm') {
+                        bottom: -18px;
+                    }
                 }
 
                 &.active {

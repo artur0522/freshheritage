@@ -6,16 +6,18 @@ import { getSubscriptionInfo } from '@/utils/getSubscriptionInfo'
 import { getVariantByOptions } from '@/utils/getVariantByOptions'
 import LoadingState from '@/components/LoadingState'
 import { getCartVariant } from '@/utils/getCartVariant'
+import { getMetafield } from '@/utils/getMetafield'
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext'
 
 function buildSelectors(allProducts) {
  return allProducts.reduce((carry, product) => {
     const productHandle = product.content.handle
+    const selectorDetailsMetafield = getMetafield({product, key: 'selector_details'})
     const productObj = {
       product,
       boxOption: {
         value: productHandle,
-        label: product.content.title
+        label: <div className={classes['subscription-selector__product-selector-details']}><span>{product.content.title}</span> {selectorDetailsMetafield && <span> • {selectorDetailsMetafield.value}</span>} </div>
       },
       frequencyOptions: [],
       shipmentsOptions: [] // prepaid options
@@ -48,6 +50,7 @@ const ProductGiftSubForm = ({selectedVariant, setSelectedVariant, allProducts, p
   const handleAddItem = async (event) => {
     event.preventDefault()
     setIsLoading(true)
+
     const variant = getCartVariant({
       product: product,
       variant: selectedVariant
@@ -167,7 +170,8 @@ const ProductGiftSubForm = ({selectedVariant, setSelectedVariant, allProducts, p
                   type="button"
                   onClick={() => {setShipmentSelected(option)}}
                   className={`${classes['subscription-selector__shipment-item-btn']} btn ${shipmentSelected === option ? 'sitkablue' : 'pureWhite' }`}>
-                  {option} box
+                  <span>{option} boxes</span>
+                  {option >= 12 && <p>3% Discount</p>}
                 </button>
               </li>
             })}

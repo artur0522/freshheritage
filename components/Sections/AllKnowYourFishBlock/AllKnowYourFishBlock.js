@@ -21,20 +21,20 @@ const AllKnowYourFishblock = ({fields}) => {
     return ''
   }
 
-  const sortListings = (value) => {
-    const sorted = fishList.sort((a, b) => {
-      let aPublishedDate = moment(a._createdAt).unix()
-      let bPublishedDate = moment(b._createdAt).unix()
-      if (a.fields?.publishedDate) {
-        aPublishedDate = moment(a.fields.publishedDate).unix()
-      }
-      if (b.fields?.publishedDate) {
-        bPublishedDate = moment(b.fields.publishedDate).unix()
-      }
-      return (value === 'newest') ? aPublishedDate - bPublishedDate : bPublishedDate - aPublishedDate
-    })
-    setFishList([...sorted])
-  }
+  // const sortListings = (value) => {
+  //   const sorted = fishList.sort((a, b) => {
+  //     let aPublishedDate = moment(a._createdAt).unix()
+  //     let bPublishedDate = moment(b._createdAt).unix()
+  //     if (a.fields?.publishedDate) {
+  //       aPublishedDate = moment(a.fields.publishedDate).unix()
+  //     }
+  //     if (b.fields?.publishedDate) {
+  //       bPublishedDate = moment(b.fields.publishedDate).unix()
+  //     }
+  //     return (value === 'newest') ? aPublishedDate - bPublishedDate : bPublishedDate - aPublishedDate
+  //   })
+  //   setFishList([...sorted])
+  // }
 
   const builder = imageUrlBuilder(sanityClient)
 
@@ -50,13 +50,13 @@ const AllKnowYourFishblock = ({fields}) => {
             {header && <h2 className="h1">{header}</h2>}
             {subheader && <p>{subheader}</p>}
           </div>
-          <div className={classes['sort-by']}>
+          {/* <div className={classes['sort-by']}>
              <label className="body">Sort By</label>
              <select className="body" onChange={(e) => sortListings(e.target.value)}>
                <option value="newest">Newest</option>
                <option value="oldest">Oldest</option>
              </select>
-           </div>
+           </div> */}
         </div>
         <ul className={classes['all-know-your-fish-block__list']}>
           {fishList.map((item, index) => {
@@ -67,22 +67,25 @@ const AllKnowYourFishblock = ({fields}) => {
               return ''
             }
 
-            const cropImageUrl = image ? urlFor(image).width(isMobile ? 600 : 350).height(isMobile ? 570 : 385).focalPoint(image.hotspot.x, image.hotspot.y).crop('focalpoint').fit('crop').url() : undefined
+            let cropImageUrl = image.asset.url
+
+            if (image.hotspot) {
+              cropImageUrl = image ? urlFor(image).width(isMobile ? 600 : 350).height(isMobile ? 570 : 385).focalPoint(image.hotspot.x, image.hotspot.y).crop('focalpoint').fit('crop').url() : undefined
+            }
 
             const imageInlineStyles = {
               'filter': `brightness(${image?.imageBrightness ? image.imageBrightness : 100}%)`
             }
 
             return (
-              <li className={classes['all-know-your-fish-block__item']} key={index}>
+              <li onClick={() => openDrawer({ fields: item})} className={classes['all-know-your-fish-block__item']} key={index}>
                 <div className={classes['all-know-your-fish-block__item-container']}>
                   {cropImageUrl && <div className={classes['all-know-your-fish-block__item-image']}>
                     <ResponsiveImage src={cropImageUrl} alt={image.asset.alt || ''}  style={imageInlineStyles} />
-                    <button
-                      className={classes['all-know-your-fish-block__more-info-btn']}
-                      onClick={() => openDrawer({ fields: item})}>
+                    <span
+                      className={classes['all-know-your-fish-block__more-info-btn']}>
                         <InfoCircle />
-                    </button>
+                    </span>
                   </div>}
                   <div className={classes['all-know-your-fish-block__item-content']}>
                     {header && <h2 className={classes['all-know-your-fish-block__item-header']}>{header}</h2>}

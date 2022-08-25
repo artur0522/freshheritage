@@ -20,20 +20,17 @@ const PrimaryNavigation = ({props, classes}) => {
   const isDesktop = useMediaQuery(
     { minWidth: 1074 }
   )
-  
-  const foundTags = customer?.tags.filter((tag) => {
-    return tag.toLowerCase() === 'seafood box' || tag.toLowerCase() === 'bi monthly seafood box'  || tag.toLowerCase() === 'premium seafood box'  || tag.toLowerCase() === 'premium seafood box no shellfish' || tag.toLowerCase() === 'salmon box'
-  })
 
-  let theCatchUrl
-  if(foundTags?.includes('premium seafood box')) {
-   theCatchUrl = '/the-catch/premium-seafood-box'
-  } else if(foundTags?.includes('seafood box')) {
-    theCatchUrl = '/the-catch/premium-seafood-box'
-  } else if(foundTags?.includes('salmon box')) {
-    theCatchUrl = '/the-catch/salmon-box'
-  } else {
-    theCatchUrl = '/the-catch/premium-seafood-box'
+  let theCatchUrl = '/the-catch/premium-seafood-box'
+
+  if (customer) {
+    if (customer.tags.includes('PS') || customer.tags.includes('PSWS')) {
+      theCatchUrl = '/the-catch/premium-seafood-box'
+    } else if (customer.tags.includes('SF') || customer.tags.includes('SF-BI')) {
+      theCatchUrl = '/the-catch/seafood-box'
+    } else if (customer.tags.includes('S')) {
+      theCatchUrl = '/the-catch/salmon-box'
+    }
   }
 
   useEffect(() => {

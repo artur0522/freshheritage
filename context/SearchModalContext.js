@@ -9,7 +9,6 @@ export function useSearchModalContext() {
 }
 
 export function SearchProvider({ children, searchLinks }) {
-  console.log('searchlinks', searchLinks)
   const [searchOpen, setSearchOpen] = useState(false)
   const [content, setContent] = useState('')
   const [modalType, setModalType] = useState(null)

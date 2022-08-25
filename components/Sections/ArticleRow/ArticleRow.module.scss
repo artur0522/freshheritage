@@ -128,6 +128,11 @@
         }
     }
 
+    .article-row-content {
+        z-index: 1;
+        position: relative;
+    }
+
     .header {
         padding-top: 14px;
         padding-bottom: 14px;

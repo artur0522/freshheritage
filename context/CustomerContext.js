@@ -61,7 +61,7 @@ export function CustomerProvider({ children }) {
 
     // TODO: might need to turn this into a useReducer instead of using useState above
     if (data?.customer?.tags?.length) {
-      if (data.customer.tags.some(tag => ['member', 'premium member'].includes(tag))) {
+      if (data.customer.tags.some(tag => ['Member', 'PremiumMember', 'Prepaid'].includes(tag))) {
         customer.is_member = true
       } else {
         customer.is_member = false

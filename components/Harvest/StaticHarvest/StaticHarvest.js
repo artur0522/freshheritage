@@ -12,20 +12,21 @@ const StaticHarvest = ({ fields }) => {
   const { header, description, harvestMonth, illustration, alt } = fields
 
   const theCatchContext = useTheCatchContext()
-  const { openDrawer, filteredIssue } = theCatchContext
+  const { openDrawer, filteredIssue, addPastIssues, addIssue } = theCatchContext
 
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
-  }, [])
+    addPastIssues(fields.list)
+    addIssue(fields.harvestMonth[0])
+  }, [mounted])
 
-
-  if(mounted && fields.harvestMonth.length && fields.harvestMonth[0].month === filteredIssue.harvestMonth[0].month) {
+  if(mounted && fields.harvestMonth?.length > 0) {
     return (
         <div className={`${classes['harvest']}`}>
             <div className={classes['harvest__inner']}>
-                <button className={`${classes['btn']} secondary--body`} onClick={() => openDrawer()}>View Past Issues Of The Catch +</button>
+                {fields?.list?.length > 0 && <button className={`${classes['btn']} secondary--body`} onClick={() => openDrawer()}>View Past Issues Of The Catch +</button>}
 
                 {illustration && <div className={`${classes['harvest__illustration']}`}>
                     <div className={classes['harvest__illustration-img']}>

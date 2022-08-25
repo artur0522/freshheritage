@@ -1,23 +1,20 @@
 import classes from './ProductStamps.module.scss'
-import { useMediaQuery } from 'react-responsive'
 import ResponsiveImage from '@/components/ResponsiveImage'
 
 const ProductStamps = ({fields, product}) => {
 
-  const isDesktop = useMediaQuery(
-    { minWidth: 1074 }
-  )
+  const { badgeItems } = fields
 
-  return (
-    <div className={classes['product-stamps']}>
-      {isDesktop &&
-        <ResponsiveImage src={fields.desktopImage.asset.url} alt={fields.desktopImage.alt || product.content?.title} />
-      }
-      {!isDesktop &&
-        <ResponsiveImage src={fields.mobileImage.asset.url} alt={fields.mobileImage.alt || product.content?.title} />
-      }
-    </div>
-  )
+  return <div className={classes['product-stamps']}>
+    <ul>
+      {badgeItems.map(item => {
+        if (!item.asset) return ''
+        return <li key={item._key}>
+          <ResponsiveImage src={item.asset.url} alt={item.alt || product.content?.title} />
+        </li>
+      })}
+    </ul>
+  </div>
 }
 
 export default ProductStamps

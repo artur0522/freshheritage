@@ -1,3 +1,21 @@
+@import '@/styles/_shared.scss';
+
 .product-stamps {
   margin: 80px 0;
+  ul {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    list-style: none;
+    align-items: center;
+    justify-content: center;
+    @include breakpoint-up('sm') {
+      flex-wrap: nowrap;
+    }
+    li {
+      width: 33.33%;
+      @include breakpoint-up('sm') {
+        width: 100%;
+      }
+    }
+  }
 }

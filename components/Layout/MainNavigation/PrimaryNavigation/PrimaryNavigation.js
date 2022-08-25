@@ -24,7 +24,7 @@ const PrimaryNavigation = ({props, classes}) => {
     { minWidth: 1074 }
   )
 
-  let theCatchUrl = '/the-catch/premium-seafood-box'
+  let theCatchUrl = `/the-catch/premium-seafood-box-${monthName}-${year}`
 
   if (customer) {
     if (customer.tags.includes('PS') || customer.tags.includes('PSWS')) {

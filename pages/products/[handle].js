@@ -18,6 +18,7 @@ import StructuredData from '@/components/SEO/StructuredData'
 import classes from './Product.module.scss'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import ProductStamps from '@/components/Product/ProductStamps'
+import { dataLayerViewProduct } from '@/utils/dataLayer'
 
 function Product({ product, page, modals }) {
   const [checked, setChecked] = useState(false)
@@ -87,6 +88,10 @@ function Product({ product, page, modals }) {
     }
 
   }, [customer])
+
+  useEffect(() => {
+    dataLayerViewProduct({product})
+  }, [])
 
   const isDesktop = useMediaQuery(
     { minWidth: 1074 }

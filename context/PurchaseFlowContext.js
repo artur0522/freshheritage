@@ -82,6 +82,7 @@ export function PurchaseFlowProvider({ children }) {
         membership_type: membershipType,
         shipments: '12'
       },
+      product: options.product,
       open_flyout: false
     })
     .then(() => {

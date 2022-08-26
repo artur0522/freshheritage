@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import { Router, useRouter } from 'next/router'
 import Script from 'next/script'
 import TagManager from 'react-gtm-module'
+import { dataLayerRouteChange } from '@/utils/dataLayer'
 import { set } from 'es-cookie'
 
 // The `AppContainer` overrides Next's default `App` component.
@@ -54,6 +55,9 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
       }
       if (window && window.StampedFn) {
         StampedFn.init()
+      }
+      if (TagManager) {
+        dataLayerRouteChange({ url: router.asPath })
       }
     }
     Router.events.on('routeChangeComplete', onRountChangeComplete)

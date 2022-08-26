@@ -276,6 +276,13 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
   const subOptionHandler = (hasSubfilter, filterGroup, filterOption, subFilter) => {
     filters[filterGroup].options[filterOption].checked = false
+    const nestedSubFilters = filters[filterGroup].options[filterOption].subFilters
+
+    console.log("allllll", nestedSubFilters)
+   
+    const allSubFiltersChecked = Object.keys(nestedSubFilters).every((subFilter => subFilter.checked == true))
+
+    console.log('alllll', allSubFiltersChecked)
 
     dispatch({ type: 'toggle_checkbox', payload: {
       hasSubfilter,

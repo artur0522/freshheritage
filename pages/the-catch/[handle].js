@@ -35,7 +35,9 @@ export async function getStaticPaths() {
         entryDepth: 1
     })
 
-    const handles = theCatchPages.map((page) => ({ params: { handle: page.handle }}))
+    const handles = theCatchPages
+      .filter((page) => (page.handle))
+      .map((page) => ({ params: { handle: page.handle }}))
 
     return {
       paths: handles,

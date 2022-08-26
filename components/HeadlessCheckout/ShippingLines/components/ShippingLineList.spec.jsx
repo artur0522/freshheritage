@@ -16,9 +16,9 @@ describe('<ShippingLineList />', () => {
   const onShipWeekChange = jest.fn(() => {});
 
   const shippingLines = [
-    {id: 0, description: 'Bundle with Next Order', amount: 0},
-    {id: 1, description: 'Standard', amount: 2000},
-    {id: 2, description: 'Expedited', amount: 10000}
+    {id: 0, description: 'Ship with Next Order', amount: 0},
+    {id: 1, description: 'Free Standard Shipping', amount: 2000},
+    {id: 2, description: 'Expedited Shipping', amount: 10000}
   ];
 
   const shipOptionMetadata = {
@@ -45,11 +45,11 @@ describe('<ShippingLineList />', () => {
       onShipWeekChange={onShipWeekChange}
       disabled={false}
     />);
-    expect(wrapper.getByText('Bundle with Next Order')).toBeVisible();
+    expect(wrapper.getByText('Ship with Next Order')).toBeVisible();
     expect(wrapper.getByText('$0.00')).toBeVisible();
-    expect(wrapper.getByText('Standard')).toBeVisible();
+    expect(wrapper.getByText('Free Standard Shipping')).toBeVisible();
     expect(wrapper.getByText('$20.00')).toBeVisible();
-    expect(wrapper.getByText('Expedited')).toBeVisible();
+    expect(wrapper.getByText('Expedited Shipping')).toBeVisible();
     expect(wrapper.getByText('$100.00')).toBeVisible();
   });
 
@@ -93,7 +93,7 @@ describe('<ShippingLineList />', () => {
       onShipWeekChange={onShipWeekChange}
       disabled={false}
     />);
-    expect(wrapper.queryByText('Bundle with Next Order')).toBeNull();
+    expect(wrapper.queryByText('Ship with Next Order')).toBeNull();
   });
 
   it('should map proper values for expedited order', () => {
@@ -134,7 +134,7 @@ describe('<ShippingLineList />', () => {
         .querySelector('.checkout__radio-wrapper.is-selected')
         .querySelector('.checkout__radio-label')
         .textContent
-    ).toBe('Standard$20.00')
+    ).toBe('Free Standard Shipping$20.00')
   });
 
   it('should update shipping line index when one selected', async () => {
@@ -148,7 +148,7 @@ describe('<ShippingLineList />', () => {
       onShipWeekChange={onShipWeekChange}
       disabled={false}
     />);
-    await userEvent.click(wrapper.getByText('Expedited'));
+    await userEvent.click(wrapper.getByText('Expedited Shipping'));
     expect(selectedOption).toBe(2);
     expect(onChange).toHaveBeenCalledWith(2);
   });
@@ -167,7 +167,7 @@ describe('<ShippingLineList />', () => {
         .querySelector('.checkout__radio-wrapper.is-selected')
         .querySelector('.checkout__radio-label')
         .textContent
-    ).toBe('Bundle with Next Order$0.00');
+    ).toBe('Ship with Next Order$0.00');
     wrapper.rerender(
       <ShippingLineList 
         shippingLines={shippingLines}
@@ -183,7 +183,7 @@ describe('<ShippingLineList />', () => {
         .querySelector('.checkout__radio-wrapper.is-selected')
         .querySelector('.checkout__radio-label')
         .textContent
-    ).toBe('Expedited$100.00');
+    ).toBe('Expedited Shipping$100.00');
   });
 
   it('should start without a selected standard ship week option', () => {
@@ -264,7 +264,7 @@ describe('<ShippingLineList />', () => {
       onShipWeekChange={onShipWeekChange}
       disabled={false}
     />);
-    await userEvent.click(wrapper.getByText('Expedited'));
+    await userEvent.click(wrapper.getByText('Expedited Shipping'));
     expect(shipWeekOption).toBe(null);
     expect(onShipWeekChange).toHaveBeenCalledWith(null);
     expect(selectedOption).toBe(2);
@@ -306,7 +306,7 @@ describe('<ShippingLineList />', () => {
       onShipWeekChange={onShipWeekChange}
       disabled={false}
     />);
-    await userEvent.click(wrapper.getByText('Bundle with Next Order'));
+    await userEvent.click(wrapper.getByText('Ship with Next Order'));
     expect(shipWeekOption).toBe(35);
     expect(onShipWeekChange).toHaveBeenCalledWith(35);
     expect(selectedOption).toBe(0);

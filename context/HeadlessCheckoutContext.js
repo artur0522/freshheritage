@@ -16,8 +16,9 @@ export function HeadlessCheckoutProvider({ children }) {
   const [data, setData] = useState(null);
   const [PIGIMediaRules, setPIGIMediaRules] = useState([]);
   const [flyoutState, setFlyoutState] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const { customer } = useCustomerContext()
+  const [isLoading, setIsLoading] = useState(false);
+  const [shipOptionMetadata, setShipOptionMetadata] = useState(undefined);
+  const { customer, subsData } = useCustomerContext()
 
   // TODO: Any of these functions that call fetch should not really be stored in this file. They should be functions accessed from elsewhere to make this testable and cleaned up.
   function saveDataInLocalStorage(data) {
@@ -787,7 +788,9 @@ export function HeadlessCheckoutProvider({ children }) {
         updateCustomerInOrder,
         PIGIMediaRules,
         isLoading,
-        setIsLoading
+        setIsLoading,
+        refreshShipOptionData,
+        shipOptionMetadata
       }}
     >
       <CheckoutFlyout />

@@ -13,7 +13,7 @@ export const ShippingLineList = ({
   const displayedShippingLines = shippingLines
     .map(line => {
       switch(line.description) {
-        case 'Bundle with Next Order':
+        case 'Ship with Next Order':
           if (!!shipOptionMetadata.bundled) {
             line.showOption = true;
             line.display = `Shipping between ${shipOptionMetadata.bundled.shipWeekDisplay}`;
@@ -21,11 +21,11 @@ export const ShippingLineList = ({
           }
           else line.showOption = false;
           break;
-        case 'Standard':
+        case 'Free Standard Shipping':
           line.showOption = true;
           line.options = shipOptionMetadata.standard;
           break;
-        case 'Expedited':
+        case 'Expedited Shipping':
           line.showOption = true;
           line.display = `Estimated delivery on ${shipOptionMetadata.expedited.estimatedDeliveryDateDisplay}`;
           break;
@@ -50,7 +50,7 @@ export const ShippingLineList = ({
           let label;
           let extraOptions;
 
-          if (method.description === 'Standard') {
+          if (method.description === 'Free Standard Shipping') {
             extraOptions = (
               <div className={`secondary-shipping-method-selector ${lineSelected ? 'is-visible' : ''}`}>
                 {method.options.map((o, i) => {
@@ -114,7 +114,7 @@ export const ShippingLineList = ({
                   checked={selectedShippingLineIndex === parseInt(method.id, 10)}
                   disabled={disabled || lineSelected}
                   onChange={() => {
-                    if (method.description === 'Bundle with Next Order') {
+                    if (method.description === 'Ship with Next Order') {
                       onShipWeekChange(method.shipWeekPreference);
                     } else {
                       onShipWeekChange(null);

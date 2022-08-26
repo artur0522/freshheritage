@@ -81,9 +81,9 @@ jest.mock('./components', () => {
 
 describe('<ShippingLines />', () => {
   const shippingLines = [
-    {description: 'Bundle with Next Order'},
-    {description: 'Standard'},
-    {description: 'Expedited'}
+    {description: 'Ship with Next Order'},
+    {description: 'Free Standard Shipping'},
+    {description: 'Expedited Shipping'}
   ];
 
   const shipOptionMetadata = {

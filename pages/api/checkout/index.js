@@ -1,4 +1,8 @@
-export default async function handler(req, res) {
+import { withSentry } from "@sentry/nextjs";
+
+
+// export default async function handler(req, res) {
+const handler = async (req, res) => {
   const publicOrderId = req.query.public_order_id
   const cartId = req.query.cart_id
 
@@ -38,4 +42,6 @@ export default async function handler(req, res) {
       error: e
     })
   }
-}
+};
+
+export default withSentry(handler);

@@ -1,6 +1,6 @@
 /* /api/klaviyo */
-
 export default async function handler(req, res) {
+import { withSentry } from "@sentry/nextjs";
 
   /*
     sample data
@@ -9,6 +9,8 @@ export default async function handler(req, res) {
       'Entered Drawing - ${klaviyoListId}': true
     }
   */
+
+const handler = async (req, res) => {
 
   const options = {
     method: 'POST',
@@ -31,4 +33,6 @@ export default async function handler(req, res) {
       res.status(400).json({ message: 'error', data: err })
     })
 
-}
+};
+
+export default withSentry(handler);

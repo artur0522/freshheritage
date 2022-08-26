@@ -1,3 +1,6 @@
+import { withSentry } from "@sentry/nextjs";
+
+
 // const bodyParser = require('body-parser')
 const crypto = require('crypto')
 const util = require('util')
@@ -7,7 +10,9 @@ const util = require('util')
 // app.use(bodyParser.urlencoded({ extended: true }))
 // app.use(bodyParser.json())
 
-export default async function handler(req, res) {
+// export default async function handler(req, res) {
+const handler = async (req, res) => {
+
   // https://sitkasalmontest.ngrok.io/api/checkout/guest?product=39396153295034&qty=1
 
   // TEST PRODUCTS
@@ -133,4 +138,6 @@ export default async function handler(req, res) {
       error: e
     })
   }
-}
+};
+
+export default withSentry(handler);

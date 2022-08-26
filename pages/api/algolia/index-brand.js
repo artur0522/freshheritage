@@ -1,5 +1,6 @@
 import algoliasearch from 'algoliasearch'
 import sanityClient from '@sanity/client'
+import { withSentry } from "@sentry/nextjs";
 
 export const algolia = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID,
@@ -44,7 +45,8 @@ _type == "liveCookingClassArticle" && blog._ref in *[_type=="blog" && blogType =
     }
 }
 `
-export default async function handler(res) {
+// export default async function handler(res) {
+const handler = async (req, res) => {
     const documents = await sanity.fetch(QUERY)
 
     const index = algolia.initIndex('brand_articles')
@@ -63,4 +65,6 @@ export default async function handler(res) {
         body: error,
       }
     }
-}
+};
+
+export default withSentry(handler);

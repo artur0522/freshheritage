@@ -119,10 +119,10 @@ const NavigationUtilities = ({props, classes}) => {
       }
       <li
         onClick={() => {
+          checkoutContext.setFlyoutState(true)
           if (router.pathname === '/checkout') {
             return
           }
-          checkoutContext.setFlyoutState(true)
         }}
         className={classes.navItem}>
           <IconCart />

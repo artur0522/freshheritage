@@ -8,6 +8,20 @@ const util = require('util')
 // app.use(bodyParser.json())
 
 export default async function handler(req, res) {
+  // don't await result
+  // Causes google function to make sure it has cached data for later API calls during checkout
+  fetch(
+    `${process.env.SITKA_GOOGLE_FUNCTION_BASE_URL}/checkout/keepAlive`,
+    {
+      headers: {
+        'x-api-key': process.env.SITKA_GOOGLE_FUNCTION_KEY,
+        'origin': 'pwa'
+      },
+      method: 'POST'
+    }
+  ).then(res => console.log('ship option cache response', res.statusText))
+  .catch(e => console.log(e));
+
   // https://sitkasalmontest.ngrok.io/api/checkout/guest?product=39396153295034&qty=1
 
   // TEST PRODUCTS
@@ -98,19 +112,6 @@ export default async function handler(req, res) {
 
   console.log('body:', util.inspect(body, false, null));
 
-  // don't await result
-  fetch(
-    `${process.env.SITKA_GOOGLE_FUNCTION_BASE_URL}/checkout/keepAlive`,
-    {
-      headers: {
-        'x-api-key': process.env.SITKA_GOOGLE_FUNCTION_KEY,
-        'origin': 'pwa'
-      },
-      method: 'POST'
-    }
-  ).then(res => console.log('ship option cache response', res.statusText))
-  .catch(e => console.log(e))
-
   try {
     // Initialize checkout
     const response = await fetch(
@@ -123,10 +124,10 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify(body)
       }
-    )
-    const responseJson = await response.json()
-    console.log(responseJson)
-    res.json(responseJson)
+    );
+    const responseJson = await response.json();
+    console.log(responseJson);
+    res.status(201).json(responseJson);
     // console.log(responseJson)
     // const checkoutData = responseJson.data
     // const publicOrderId = checkoutData.public_order_id
@@ -139,11 +140,11 @@ export default async function handler(req, res) {
     // refactor to redirect to nextjs uncompiled client
     // res.redirect(`/api/checkout/begin?public_order_id=${publicOrderId}&cart_id=${cartId}`)
   } catch (e) {
-    //   functions.logger.error("initialize",e)
-    console.log(e)
-    res.json({
-      message: 'sometproductsng went wrong',
+    console.error(e);
+    res.status(500).json({
+      message: 'something went wrong',
       error: e
-    })
+    });
   }
+  res.send();
 }

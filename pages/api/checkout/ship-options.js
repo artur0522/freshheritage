@@ -2,7 +2,7 @@ export default async function handler(req, res) {
   const { zip, bundledShipWeek } = req.body;
 
   try {
-    const response = await fetch(
+    const result = await fetch(
       `${process.env.SITKA_GOOGLE_FUNCTION_BASE_URL}/checkout/shippingOptions`,
       {
         headers: {
@@ -18,16 +18,15 @@ export default async function handler(req, res) {
       }
     );
 
-    if (response.ok) {
-      const data = await response.json();
-      console.log('ship options returned: ', data);
+    if (result.ok) {
+      const data = await result.json();
       res.status(200).json(data);
     } else {
       res.status(500);
     }
   } catch (e) {
-    console.log(e);
-    res.json({
+    console.error(e);
+    res.status(500).json({
       message: 'something went wrong',
       error: e
     });

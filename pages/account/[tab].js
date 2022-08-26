@@ -8,6 +8,7 @@ import ReferralsPage from '@/components/Account/Referrals/Referrals'
 import AccountDetailsPage from '@/components/Account/AccountDetails/AccountDetails'
 import OrderHistoryPage from '@/components/Account/OrderHistory/OrderHistory'
 import SubscriptionsPage from '@/components/Account/Subscriptions/Subscriptions'
+import CardsContainer from '@/components/Account/CardsContainer/CardsContainer'
 
 const AccountMainPage = () => {
   const router = useRouter()
@@ -80,7 +81,7 @@ const AccountMainPage = () => {
       case 'order-history':
         return (<OrderHistoryPage/>)
       case 'referrals':
-        return (<ReferralsPage/>)
+        return (<ReferralsPage customer={customerContext.customer} />)
     }
   }
 
@@ -97,6 +98,10 @@ const AccountMainPage = () => {
               selected={tabs[selectedTab]}
               onSelected={onTabSelected}
             ></Tabs>
+          </div>
+          {/* Cards */}
+          <div className={classes['cards']}>
+            <CardsContainer></CardsContainer>
           </div>
           {/* Body Content */}
           <div>{renderBody(tab)}</div>

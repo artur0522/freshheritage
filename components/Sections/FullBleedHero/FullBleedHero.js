@@ -44,18 +44,18 @@ const FullBleedHero = ({ fields }) => {
           {fields.subheader && <h2>{fields.subheader}</h2>}
 
           <div className={classes['btn-wrap']}>
-            {youtubeVideoId && <button onClick={() => showVideo()} className={`${classes['hero-video__action-btn']} btn ${btnColor}`}>
-              <IconPlayButtonTriangle />
-              <span>Play Video</span>
-            </button>}
-
-            {fields.primaryCtaUrl && !youtubeVideoId && <Link href={`${fields.primaryCtaUrl}`}>
-              <a className={`${classes['btn']} btn ${btnColor} no-underline`}>
-              {fields.primaryCtaText}
-              </a>
-            </Link>}
-
-            {fields.secondaryCtaUrl && !youtubeVideoId && <Link href={`${fields.secondaryCtaUrl}`}>
+            <div className={classes['primary-btn-wrap']}>
+              {fields.primaryCtaUrl && <Link href={`${fields.primaryCtaUrl}`}>
+                <a className={`${classes['btn']} btn ${youtubeVideoId ? 'sitkablue' : btnColor} no-underline`}>
+                  {fields.primaryCtaText}
+                </a>
+              </Link>}
+              {youtubeVideoId && <button onClick={() => showVideo()} className={`${classes['hero-video__action-btn']} btn ${btnColor}`}>
+                <IconPlayButtonTriangle />
+                <span>Play Video</span>
+              </button>}
+            </div>
+            {fields.secondaryCtaUrl && <Link href={`${fields.secondaryCtaUrl}`}>
               <a>{fields.secondaryCtaText}</a>
             </Link>}
           </div>

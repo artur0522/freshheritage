@@ -26,7 +26,7 @@ const OrderSummary = ({ readOnly }) => {
         <LineItems readOnly={readOnly} />
       }
       {!readOnly && <DiscountForm /> }
-      <OrderSummaryBreakdown />
+      <OrderSummaryBreakdown readOnly={readOnly} />
     </div>
   );
 };

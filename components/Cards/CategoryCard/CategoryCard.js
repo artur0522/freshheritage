@@ -13,7 +13,7 @@ const CategoryCard = ({ category, slide }) => {
             <Image width={438} height={600} alt={category.alt} src={category.image.asset.url} />
         </div>
         <div className={classes['text']}>
-            <h1>{category.header}</h1>
+            <h2 className="h4">{category.header}</h2>
             <div className={classes['btn-wrap']}>
                 <Link href={category.ctaUrl}>
                     <a className="btn alabaster">{category.ctaText}</a>

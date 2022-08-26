@@ -52,33 +52,25 @@ function Product({ product, page, modals }) {
       setChecked(true)
     }
 
-    const foundVisibleTags = product.tags.filter(tag => tag.includes('Visible' || 'visible'));
-    const splitTag = foundVisibleTags[0]?.split(':')[1]
+    if (!product.tags.length) {
+      return
+    }
+
+    const foundVisibleTags = product.tags.filter(tag => tag.toLowerCase().includes('visible'))
+    const splitTag = foundVisibleTags[0]?.split(':')[1].trim()
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
-    const foundCustomerTag = customer?.tags.find(tag => tag.includes('member' || 'Member') || tag.includes('sustainer' || 'sustainer'))
 
-    const productHasCustomerTag = foundVisibleTags?.find((tag) => {
-      let splitTag = tag.split(':')[1] === foundCustomerTag
-      if(splitTag) {
-        return splitTag
-      } else {
-        return null
-      }
-    })
+    const productHasCustomerTag = customer?.tags.some(tag => tag.toLowerCase().indexOf(splitTag))
 
-    modalContext.setProductCustomerTag(productHasCustomerTag)
+    modalContext.setArticleCustomerTag(productHasCustomerTag)
 
-    const foundModal = modals.find(modal => modal.handle === splitTagWithDash)
-    const defaultModal = modals.find(modal => modal.handle === 'non-member')
+    const foundModal = modals.find(modal => modal.handle.includes(splitTagWithDash))
 
     // if product tags exist but none of the product tags match customer tag
     if(foundVisibleTags.length > 0 && !productHasCustomerTag) {
       if(foundModal) {
         modalContext.setPrevContent(foundModal?.fields)
         modalContext.setContent(foundModal?.fields)
-      } else {
-        modalContext.setPrevContent(defaultModal?.fields)
-        modalContext.setContent(defaultModal?.fields)
       }
       modalContext.setModalType('gated_product')
       modalContext.setIsOpen(true)
@@ -93,6 +85,7 @@ function Product({ product, page, modals }) {
     if(foundVisibleTags.length === 0) {
       modalContext.setIsOpen(false)
     }
+
   }, [customer])
 
   const isDesktop = useMediaQuery(

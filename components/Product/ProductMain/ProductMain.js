@@ -2,14 +2,19 @@ import { useRef } from 'react'
 import classes from './ProductMain.module.scss'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import { usePDPDrawerContext } from '@/context/PDPDrawerContext'
+import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext'
 import ProductSlider from '../ProductSlider'
 import ProductReviewStars from '../ProductReviewStars'
+import { getCartVariant } from 'utils/getCartVariant'
+import { useRouter } from 'next/router'
 
 const ProductMain = ({box}) => {
 
   const inputRef = useRef()
   const purchaseFlowContext = usePurchaseFlowContext()
   const PDPDrawerContext = usePDPDrawerContext()
+  const { addItemToOrder } = useHeadlessCheckoutContext()
+  const router = useRouter()
 
   const product = box ? box.product : {}
   const boxDetails = box ? box.boxDetails?.fields : {}
@@ -43,11 +48,22 @@ const ProductMain = ({box}) => {
           <label htmlFor="shellfish_free">Shellfish Free</label>
         </div>
       }
-
       <button
-        onClick={() => {
-          purchaseFlowContext.selectBox(product, inputRef.current?.checked)
-          PDPDrawerContext.dispatch({ type: 'close_drawer' })
+        onClick={async () => {
+          if (product.content.handle === 'sitka-seafood-intro-box') {
+            const variant = getCartVariant({
+              product,
+              variant: firstVariant
+            });
+            await addItemToOrder({variant})
+              .then(() => {
+                PDPDrawerContext.dispatch({ type: 'close_drawer' })
+                router.push('/checkout')
+              })
+          } else {
+            purchaseFlowContext.selectBox(product, inputRef.current?.checked)
+            PDPDrawerContext.dispatch({ type: 'close_drawer' })
+          }
         }}
         className={`${classes['product-atc-btn']} btn salmon`}>
           {boxDetails.ctaText}

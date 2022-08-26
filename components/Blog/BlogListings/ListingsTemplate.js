@@ -22,7 +22,7 @@ import ArticleCookingClassHero from '@/components/Article/ArticleCookingClassHer
 
 const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const drawerContext = useArticleFiltersDrawerContext()
-    const { addFilters, openDrawer, closeDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
+    const { addFilters, openDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
 
     const { content, filterGroups } = page.fields
     const heroSection = content?.find(section => section._type === 'hero')
@@ -78,10 +78,13 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         addTagArray(tagArray)
         addTagCount(tagCount)
 
+        console.log("tagArray", tagArray)
+        console.log('tagCount', tagCount)
+
         const filterGroupObj = {}
         filterGroups?.map((group) => {
           filterGroupObj[group.title.toLowerCase()] = {
-              options: {}
+            options: {}
           }
 
           group.filterOptions?.map((option) => {
@@ -99,6 +102,9 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
               }
           })
         })
+
+        // FILTER GROUP OBJECT -- controls checkboxes that are clicked
+        console.log("filterGroupObject", filterGroupObj)
 
         addFilters(filterGroupObj)
 
@@ -190,7 +196,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
                   {listings.slice(0, 8).map((article) => {
                     return (
                       <div className={classes['grid-item']} key={article.handle}>
-                          <DynamicArticleCard article={article} F />
+                          <DynamicArticleCard article={article} />
                       </div>
                     )
               })}

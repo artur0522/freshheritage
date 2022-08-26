@@ -274,57 +274,36 @@ export function ArticleFiltersDrawerProvider({ children }) {
     }
   }
 
-  const checkBoxHandler = (hasSubfilter, filterGroup, filterOption, subFilter = null) => {
-    if(hasSubfilter) {
-      if(!subFilter) {
-        filters[filterGroup].options[filterOption].checked = !filters[filterGroup].options[filterOption].checked
-        dispatch({type: 'remove_selected_filters', payload: filters[filterGroup].options[filterOption]})
+  const subOptionHandler = (hasSubfilter, filterGroup, filterOption, subFilter) => {
+    filters[filterGroup].options[filterOption].checked = false
 
-        const nestedSubFilters = filters[filterGroup].options[filterOption].subFilters
+    dispatch({ type: 'toggle_checkbox', payload: {
+      hasSubfilter,
+      filterGroup,
+      option: filterOption,
+      subFilter: subFilter
+    }})
 
-        if(nestedSubFilters) {
-          Object.keys(nestedSubFilters).forEach((key) => {
-            if(tagCount[key] >= 3) {
-            filters[filterGroup].options[filterOption].subFilters[key].checked = true
-            }
-  
-            if(filters[filterGroup].options[filterOption].subFilters[key].checked) {
-              dispatch({type: 'add_selected_filters', payload: key})
-              filterListingsByTags()
-            } else {
-              dispatch({type: 'remove_selected_filters', payload: key})
-              filterListingsByTags()
-            }
-          })
-        }
-      }
-
-      if(subFilter) {
-        filters[filterGroup].options[filterOption].checked = false
-
-        dispatch({ type: 'toggle_checkbox', payload: {
-          hasSubfilter,
-          filterGroup,
-          option: filterOption,
-          subFilter: subFilter
-        }})
-
-        if(filters[filterGroup].options[filterOption].subFilters[subFilter].checked) {
-          dispatch({type: 'remove_selected_filters', payload: subFilter})
-          filterListingsByTags()
-        } else {
-          dispatch({type: 'add_selected_filters', payload: subFilter})
-          filterListingsByTags()
-        }
-      }
+    if(filters[filterGroup].options[filterOption].subFilters[subFilter].checked) {
+      dispatch({type: 'remove_selected_filters', payload: subFilter})
+      filterListingsByTags()
     } else {
-      console.log('running', filterOption)
+      dispatch({type: 'add_selected_filters', payload: subFilter})
+      filterListingsByTags()
+    }
+  }
+
+  const optionHandler = (hasSubfilter, filterGroup, filterOption) => {
+    if(hasSubfilter) {
+      filters[filterGroup].options[filterOption].checked = !filters[filterGroup].options[filterOption].checked
+      dispatch({type: 'remove_selected_filters', payload: filters[filterGroup].options[filterOption]})
+
       const nestedSubFilters = filters[filterGroup].options[filterOption].subFilters
 
       if(nestedSubFilters) {
-      Object.keys(nestedSubFilters).forEach((key) => {
+        Object.keys(nestedSubFilters).map((key) => {
           if(tagCount[key] >= 3) {
-          filters[filterGroup].options[filterOption].subFilters[key].checked = true
+            filters[filterGroup].options[filterOption].subFilters[key].checked = !filters[filterGroup].options[filterOption].subFilters[key].checked
           }
 
           if(filters[filterGroup].options[filterOption].subFilters[key].checked) {
@@ -336,7 +315,23 @@ export function ArticleFiltersDrawerProvider({ children }) {
           }
         })
       }
+    } else {
+      const nestedSubFilters = filters[filterGroup].options[filterOption].subFilters
 
+      Object.keys(nestedSubFilters).map((key) => {
+        if(tagCount[key] >= 3) {
+          filters[filterGroup].options[filterOption].subFilters[key].checked = true
+        }
+
+        if(filters[filterGroup].options[filterOption].subFilters[key].checked) {
+          dispatch({type: 'add_selected_filters', payload: key})
+          filterListingsByTags()
+        } else {
+          dispatch({type: 'remove_selected_filters', payload: key})
+          filterListingsByTags()
+        }
+      })
+      
       dispatch({ type: 'toggle_checkbox', payload: {
         hasSubfilter,
         filterGroup,
@@ -391,7 +386,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
   }, [router])
 
   return (
-    <ArticleFiltersDrawerContext.Provider value={{isOpen, openFishInfo, isFishInfoOpen, setInfoCard, infoCardFields, setIsFishermen, isFishermen, selectChangeHandler, addTagCount, addTagArray, tagCount, filters, filterListingsByTags, openDrawer, closeDrawer, addFilters, checkBoxHandler, dispatch, selectedFilterList, listings, originalListings, addListings, addOriginalListings, sortListings}}>
+    <ArticleFiltersDrawerContext.Provider value={{isOpen, openFishInfo, isFishInfoOpen, setInfoCard, infoCardFields, setIsFishermen, isFishermen, selectChangeHandler, addTagCount, addTagArray, tagCount, filters, filterListingsByTags, openDrawer, closeDrawer, addFilters, optionHandler, subOptionHandler, dispatch, selectedFilterList, listings, originalListings, addListings, addOriginalListings, sortListings}}>
       {isOpen &&
         <ArticleFiltersDrawer />
       }

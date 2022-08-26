@@ -9,13 +9,11 @@ import { filter } from 'lodash-es'
 
 const BlogFilterItem = (props) => {
   const articleFiltersDrawerContext = useArticleFiltersDrawerContext()
-  const { filters, checkBoxHandler, tagCount, dispatch, filterListingsByTags } = articleFiltersDrawerContext
+  const { filters, optionHandler, subOptionHandler, tagCount} = articleFiltersDrawerContext
   const { filterGroup } = props
   const [dropdown, setDropdown] = useState(false)
 
-  const changeHandler = (hasSubfilter, filterGroup, filterOption, subFilter) => {
-    checkBoxHandler(hasSubfilter, filterGroup, filterOption, subFilter)
-  }
+  console.log("filters options array", Object.keys(filters[filterGroup].options))
 
   return (
     <div key={`${filterGroup}`} className={classes['filter-group']}>
@@ -31,20 +29,25 @@ const BlogFilterItem = (props) => {
             {Object.keys(filters[filterGroup].options).map((filterOption) => {
                 return (
                     <li key={filterOption}>
-                        {tagCount[filterOption] !== undefined && tagCount[filterOption] >= 3 && <div className={classes['filter-option']}>
-                            <input onChange={() => changeHandler(false, filterGroup, filterOption)} value={filterOption} id={filterOption} checked={filters[filterGroup].options[filterOption].checked} type="checkbox" />
+                        {/* FILTER OPTION WITH ZERO SUBFILTERS */}
+                        {tagCount[filterOption] !== undefined && tagCount[filterOption] >= 3 && tagCount[Object.keys(filters[filterGroup].options[filterOption].subFilters)[0]] === undefined && <div className={classes['filter-option']}>
+                            <input onChange={() => optionHandler(false, filterGroup, filterOption)} value={filterOption} id={filterOption} checked={filters[filterGroup].options[filterOption].checked} type="checkbox" />
                             <label htmlFor={filterOption}>{filterOption}</label>
                         </div>}
+
+                        {/* FILTER OPTION WITH SUBFILTERS */}
                         {tagCount[Object.keys(filters[filterGroup].options[filterOption].subFilters)[0]] !== undefined && filters[filterGroup].options[filterOption].subFilters && <div className={classes['filter-option']}>
-                            <input onChange={() => changeHandler(true, filterGroup, filterOption)} value={filterOption} id={filterOption} checked={filters[filterGroup].options[filterOption].checked} type="checkbox" />
+                            <input onChange={() => optionHandler(true, filterGroup, filterOption)} value={filterOption} id={filterOption} checked={filters[filterGroup].options[filterOption].checked} type="checkbox" />
                             <label htmlFor={filterOption}>{filterOption}</label>
                         </div>}
+
+                         {/* SUBFILTERS */}
                         <ul className={classes['filter-suboption__wrap']}>
                             {filters[filterGroup].options[filterOption].subFilters && Object.keys(filters[filterGroup].options[filterOption].subFilters).map((subFilter) => {
                                 if(tagCount[subFilter] !== undefined && tagCount[subFilter] >= 3) {
                                     return (
                                         <li key={subFilter}>
-                                            <input onChange={() => changeHandler(true, filterGroup, filterOption, subFilter)} value={subFilter} id={subFilter} checked={filters[filterGroup].options[filterOption].subFilters[subFilter].checked} type="checkbox" />
+                                            <input onChange={() => subOptionHandler(true, filterGroup, filterOption, subFilter)} value={subFilter} id={subFilter} checked={filters[filterGroup].options[filterOption].subFilters[subFilter].checked} type="checkbox" />
                                             <label htmlFor={subFilter}>{subFilter}</label>
                                         </li>
                                     )

@@ -25,6 +25,18 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
 
+  const pagesToDisplayChatWidget = [
+    '/pages/how-it-works',
+    '/pages/choose-your-plan',
+    '/pages/customize-your-plan',
+    '/pages/intro-box',
+    '/collections/one-time-boxes',
+    '/collections/gifts',
+    '/checkout',
+    '/pages/contact-us',
+    '/products/gift-subscription-box'
+  ]
+
   useEffect(() => {
     TagManager.initialize({ })
   }, [])
@@ -34,7 +46,7 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
 
     const onRountChangeComplete = () => {
       if (document.getElementById('launcher')) {
-        if(router.asPath === '/pages/how-it-works' || router.asPath === '/pages/choose-your-plan' || router.asPath === '/pages/customize-your-plan' || router.asPath === '/pages/intro-box' || router.asPath === '/collections/one-time-boxes' || router.asPath === '/collections/gifts' || router.pathname === '/products/[handle]' || router.asPath === '/checkout' || router.asPath === '/pages/contact' && mounted) {
+        if (mounted && (pagesToDisplayChatWidget.includes(router.asPath)) || router.pathname === '/products/[handle]') {
           document.getElementById('launcher').style.display = 'block'
         } else {
           document.getElementById('launcher').style.display = 'none'
@@ -71,7 +83,7 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
         }`}
       </Script>}
 
-      {mounted && router.asPath === '/pages/how-it-works' || router.asPath === '/pages/choose-your-plan' || router.asPath === '/pages/customize-your-plan' || router.asPath === '/pages/intro-box' || router.asPath === '/collections/one-time-boxes' || router.asPath === '/collections/gifts' || router.pathname === '/products/[handle]' || router.asPath === '/checkout' || router.asPath === '/pages/contact' ? <Script
+      {mounted && (pagesToDisplayChatWidget.includes(router.asPath) || router.pathname === '/products/[handle]') ? <Script
         id="ze-snippet"
         src={`https://static.zdassets.com/ekr/snippet.js?key=${process.env.NEXT_PUBLIC_ZENDESK_KEY}`}
         strategy="lazyOnload"

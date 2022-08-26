@@ -52,12 +52,12 @@ function Product({ product, page, modals }) {
       setChecked(true)
     }
 
-    if (!articleTags) {
+    if (!product.tags.length) {
       return
     }
 
-    const foundVisibleTags = articleTags.filter(tag => tag.value.toLowerCase().includes('visible'))
-    const splitTag = foundVisibleTags[0]?.value?.split(':')[1].trim()
+    const foundVisibleTags = product.tags.filter(tag => tag.toLowerCase().includes('visible'))
+    const splitTag = foundVisibleTags[0]?.split(':')[1].trim()
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
 
     const productHasCustomerTag = customer?.tags.some(tag => tag.toLowerCase().indexOf(splitTag))

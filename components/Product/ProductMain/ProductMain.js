@@ -46,7 +46,7 @@ const ProductMain = ({box}) => {
 
       <button
         onClick={() => {
-          purchaseFlowContext.selectBox(product, inputRef.current.checked)
+          purchaseFlowContext.selectBox(product, inputRef.current?.checked)
           PDPDrawerContext.dispatch({ type: 'close_drawer' })
         }}
         className={`${classes['product-atc-btn']} btn salmon`}>

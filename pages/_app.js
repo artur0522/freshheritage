@@ -5,7 +5,7 @@ import Layout from '@/components/Layout'
 import '../styles/global.scss'
 import 'react-dropdown/style.css'
 import { useEffect, useState } from 'react'
-import { Router, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import Script from 'next/script'
 import TagManager from 'react-gtm-module'
 import { dataLayerRouteChange } from '@/utils/dataLayer'
@@ -38,29 +38,33 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
     '/products/gift-subscription-box'
   ]
 
-  useEffect(() => {
-    TagManager.initialize({ })
-  }, [])
+  const onRountChangeComplete = () => {
+    if (document.getElementById('launcher')) {
+      if (mounted && (pagesToDisplayChatWidget.includes(router.asPath)) || router.pathname === '/products/[handle]') {
+        document.getElementById('launcher').style.display = 'block'
+      } else {
+        document.getElementById('launcher').style.display = 'none'
+      }
+    }
+    if (window && window.StampedFn) {
+      StampedFn.init()
+    }
+  }
+
+  const trackRouteChange = () => {
+    if (TagManager) {
+      dataLayerRouteChange({ url: router.asPath })
+    }
+  }
 
   useEffect(() => {
     setMounted(true)
+    TagManager.initialize({ })
+    router.events.on('routeChangeComplete', trackRouteChange)
+  }, [])
 
-    const onRountChangeComplete = () => {
-      if (document.getElementById('launcher')) {
-        if (mounted && (pagesToDisplayChatWidget.includes(router.asPath)) || router.pathname === '/products/[handle]') {
-          document.getElementById('launcher').style.display = 'block'
-        } else {
-          document.getElementById('launcher').style.display = 'none'
-        }
-      }
-      if (window && window.StampedFn) {
-        StampedFn.init()
-      }
-      if (TagManager) {
-        dataLayerRouteChange({ url: router.asPath })
-      }
-    }
-    Router.events.on('routeChangeComplete', onRountChangeComplete)
+  useEffect(() => {
+    router.events.on('routeChangeComplete', onRountChangeComplete)
   }, [router.asPath, mounted])
 
   return (

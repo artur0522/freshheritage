@@ -43,19 +43,6 @@ const BlogFilterItem = (props) => {
             {Object.keys(filters[filterGroup].options).map((filterOption) => {
                 return (
                     <li key={filterOption}>
-                        {/* FILTER OPTION WITH ZERO SUBFILTERS */}
-                        {tagCount[filterOption] !== undefined && tagCount[filterOption] >= 3 && tagCount[Object.keys(filters[filterGroup].options[filterOption].subFilters)[0]] === undefined && <div className={classes['filter-option']}>
-                            <input onChange={() => optionHandler(false, filterGroup, filterOption)} value={filterOption} id={filterOption} checked={filters[filterGroup].options[filterOption].checked} type="checkbox" />
-                            <label htmlFor={filterOption}>{filterOption}</label>
-                        </div>}
-
-                        {/* FILTER OPTION WITH SUBFILTERS */}
-                        {tagCount[Object.keys(filters[filterGroup].options[filterOption].subFilters)[0]] !== undefined && filters[filterGroup].options[filterOption].subFilters && <div className={classes['filter-option']}>
-                            <input onChange={() => optionHandler(true, filterGroup, filterOption)} value={filterOption} id={filterOption} checked={filters[filterGroup].options[filterOption].checked} type="checkbox" />
-                            <label htmlFor={filterOption}>{filterOption}</label>
-                        </div>}
-
-                        {/* SUBFILTERS */}
                         {tagCount[filterOption] !== undefined && tagCount[filterOption] >= 3 && tagCount[Object.keys(filters[filterGroup].options[filterOption].subFilters)[0]] === undefined &&
                             buildCheckboxInput({
                                 label: filterOption,
@@ -63,7 +50,6 @@ const BlogFilterItem = (props) => {
                                 onChange: () => optionHandler(false, filterGroup, filterOption)
                             })
                         }
-
 
                         {tagCount[Object.keys(filters[filterGroup].options[filterOption].subFilters)[0]] !== undefined && filters[filterGroup].options[filterOption].subFilters &&
                             buildCheckboxInput({

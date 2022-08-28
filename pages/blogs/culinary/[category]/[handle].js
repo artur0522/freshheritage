@@ -59,16 +59,16 @@ const RecipeArticle = ({ page, products, blogSettings, modals }) => {
 
     modalContext.setArticleCustomerTag(articleHasCustomerTag)
 
-    const foundModal = modals.find(modal => modal.handle.includes(splitTagWithDash))
+    const foundModal = modals.find(modal => modal.handle.replace(/-/g, '').includes(splitTagWithDash))
 
     // if product tags exist but none of the product tags match customer tag
     if(foundVisibleTags.length > 0 && !articleHasCustomerTag) {
       if(foundModal) {
         modalContext.setPrevContent(foundModal?.fields)
         modalContext.setContent(foundModal?.fields)
+        modalContext.setModalType('gated_product')
+        modalContext.setIsOpen(true)
       }
-      modalContext.setModalType('gated_product')
-      modalContext.setIsOpen(true)
     }
 
     // if one of the product tags contains customer tag

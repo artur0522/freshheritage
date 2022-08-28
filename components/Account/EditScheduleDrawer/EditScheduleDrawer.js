@@ -3,17 +3,16 @@ import { CSSTransition } from 'react-transition-group'
 import classes from './EditScheduleDrawer.module.scss'
 import { useEditScheduleDrawerContext } from '@/context/EditScheduleDrawerContext'
 import IconClose from '@/svgs/close.svg'
-import { PortableText } from '@portabletext/react'
 
 const EditScheduleDrawer = ({ subscription }) => {
   const { dispatch } = useEditScheduleDrawerContext()
   const nodeRef = useRef(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [currentActiveFulfillment, setCurrentActiveFulfillment] = useState('A')
+  const [savedFulfillment, setSavedFulfillment] = useState(
+    subscription.fulfill_group,
+  )
   const timeout = 200
-
-  // const { header, peakSeason, nutritionalInfo, image, description, content } = fields
-
-  // const [contentSections, setContentSections] = useState(content)
 
   const closeDrawer = () => {
     setDrawerOpen(false)
@@ -32,16 +31,10 @@ const EditScheduleDrawer = ({ subscription }) => {
 
   const currentChargeDate = new Date(subscription.subscription_next_orderdate)
 
-  // useEffect(() => {
-  //   const getUpdatedContent = async () => {
-  //     const fullRefContent = await getNacelleReferences(content)
-  //     return fullRefContent
-  //   }
-  //   getUpdatedContent()
-  //     .then((res) => {
-  //       setContentSections([...res])
-  //     })
-  // }, [])
+  useEffect(() => {
+    setCurrentActiveFulfillment(subscription.fulfill_group)
+    setSavedFulfillment(subscription.fulfill_group)
+  }, [subscription])
 
   return (
     <div className={`${classes['edit-schedule']} edit-schedule`}>
@@ -93,9 +86,21 @@ const EditScheduleDrawer = ({ subscription }) => {
             </div>
             <div className={classes['fulfillment-rows']}>
               {subscription.fulfillment_options.map((ful, index) =>
-                renderFulfillmentOption(subscription, ful, index),
+                renderFulfillmentOption(
+                  subscription,
+                  ful,
+                  index,
+                  currentActiveFulfillment,
+                  setCurrentActiveFulfillment,
+                ),
               )}
             </div>
+            <button
+              disabled={savedFulfillment === currentActiveFulfillment}
+              className={`btn salmon ${classes['action-button']}`}
+            >
+              Save Changes
+            </button>
           </div>
         </div>
       </CSSTransition>
@@ -103,16 +108,62 @@ const EditScheduleDrawer = ({ subscription }) => {
   )
 }
 
-const renderFulfillmentOption = (sub, ful, index) => {
+const renderFulfillmentOption = (
+  sub,
+  ful,
+  index,
+  currentActiveFulfillment,
+  setCurrentActiveFulfillment,
+) => {
+  const fulStartDate = new Date(ful.fulfill_start)
+  const fulEndDate = new Date(ful.fulfill_end)
+
+  const startString = fulStartDate.toLocaleDateString(undefined, {
+    month: 'short',
+    day: 'numeric',
+  })
+
+  const endString = fulEndDate.toLocaleDateString(undefined, {
+    month: 'short',
+    day: 'numeric',
+  })
+
+  const isFulSelected = currentActiveFulfillment === ful.group
+  const isFulDisabled = ful.avail.toLocaleLowerCase() === 'false'
+
+  const mainItemClasses = [
+    classes['fulfillment-option'],
+    isFulSelected ? classes['selected'] : '',
+    isFulDisabled ? classes['disabled'] : '',
+  ]
+    .filter((i) => !!i)
+    .join(' ')
+
   return (
-    <div>
+    <div
+      className={mainItemClasses}
+      onClick={() => {
+        if (!isFulDisabled && ful.group !== currentActiveFulfillment) {
+          setCurrentActiveFulfillment(ful.group)
+        }
+      }}
+    >
       <input
+        onChange={() => {
+          setCurrentActiveFulfillment(ful.group)
+        }}
+        checked={isFulSelected}
+        disabled={isFulDisabled}
         type="radio"
+        key={`radio-${sub.subscription_id}-${ful.month}-${ful.group}`}
         id={`radio-${sub.subscription_id}-${ful.month}-${ful.group}`}
         name="radio-fulfillment-options"
       />
       <label htmlFor={`radio-${sub.subscription_id}-${ful.month}-${ful.group}`}>
-        Week {index + 1} <span>date - date </span>
+        Week {index + 1}{' '}
+        <span className={classes['highlight']}>
+          {startString} - {endString}
+        </span>
       </label>
     </div>
   )

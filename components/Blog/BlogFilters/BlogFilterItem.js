@@ -56,11 +56,11 @@ const BlogFilterItem = (props) => {
                         </div>}
 
                         {/* SUBFILTERS */}
-                        {tagCount[filterOption] !== undefined && tagCount[filterOption] >= 3 && && tagCount[Object.keys(filters[filterGroup].options[filterOption].subFilters)[0]] === undefined &&
+                        {tagCount[filterOption] !== undefined && tagCount[filterOption] >= 3 && tagCount[Object.keys(filters[filterGroup].options[filterOption].subFilters)[0]] === undefined &&
                             buildCheckboxInput({
                                 label: filterOption,
                                 checked: filters[filterGroup].options[filterOption].checked,
-                                onChange: () => changeHandler(false, filterGroup, filterOption)
+                                onChange: () => optionHandler(false, filterGroup, filterOption)
                             })
                         }
 
@@ -69,7 +69,7 @@ const BlogFilterItem = (props) => {
                             buildCheckboxInput({
                                 label: filterOption,
                                 checked: filters[filterGroup].options[filterOption].checked,
-                                onChange: () => changeHandler(true, filterGroup, filterOption)
+                                onChange: () => optionHandler(true, filterGroup, filterOption)
                             })
                         }
                         

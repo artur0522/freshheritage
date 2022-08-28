@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useModalContext } from '@/context/ModalContext'
+import { useSearchModalContext } from '@/context/SearchModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext'
 import { CSSTransition } from 'react-transition-group'
@@ -21,6 +22,7 @@ const NavigationUtilities = ({props, classes}) => {
   const modalContext = useModalContext()
   const customerContext = useCustomerContext()
   const checkoutContext = useHeadlessCheckoutContext()
+  const searchModalContext = useSearchModalContext()
 
   const [mounted, setMounted] = useState(false)
   const [showCustomerServiceInfo, setShowCustomerServiceInfo] = useState(false)
@@ -29,6 +31,12 @@ const NavigationUtilities = ({props, classes}) => {
 
   const navCTA = (customerContext.customer?.is_member) ? props.memberCta : props.nonMemberCta
   const customerService = props.customerService
+
+  const { setSearchOpen } = searchModalContext
+
+  const openSearchModal = () => {
+    setSearchOpen(true)
+  }
 
   const openAccountModal = (e) => {
     e.preventDefault()
@@ -57,7 +65,7 @@ const NavigationUtilities = ({props, classes}) => {
               </a>
             </Link>
           </li>
-          <li className={classes.navItem}><IconSearch /></li>
+          <li className={classes.navItem}><IconSearch onClick={() => openSearchModal()} /></li>
         </>
       }
       <li className={[classes.navItem, classes.navItemAccount].join(' ')}>
@@ -111,10 +119,10 @@ const NavigationUtilities = ({props, classes}) => {
       }
       <li
         onClick={() => {
+          checkoutContext.setFlyoutState(true)
           if (router.pathname === '/checkout') {
             return
           }
-          checkoutContext.setFlyoutState(true)
         }}
         className={classes.navItem}>
           <IconCart />

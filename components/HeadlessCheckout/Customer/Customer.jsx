@@ -40,7 +40,7 @@ const MemoizedCustomer = memo(({ customer, orderMetaData, logout, modalContext }
   const [acceptsMarketing, setAcceptsMarketing] = useState(false);
   const { updateOrderMetaData, addCustomerToOrder, removeCustomerFromOrder, updateCustomerInOrder, validateEmailAddress, data: checkoutData} = useHeadlessCheckoutContext()
   const [customerOpen, setCustomerOpen] = useState(true)
-  const [accountFormType, setAccountFormType] = useState('default')
+  const [accountFormType, setAccountFormType] = useState('login')
   const { t } = useTranslation();
 
   const addGuestCustomer = async () => {

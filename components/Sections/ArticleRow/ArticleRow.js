@@ -55,27 +55,45 @@ const ArticleRow = ({ fields, enableSlider = true }) => {
             />
         </div>}
 
-        <div className={`${classes['header']} container ${featuredArticles ? 'container--no-max-width' : ''}`}>
-            {header && <h1>{header}</h1>}
-            {ctaUrl && <div className={`${classes['header-link']} secondary--body`}>
-                <Link href={ctaUrl}>
-                    <a>{ctaText}</a>
-                </Link>
-                <IconArrow />
-            </div>}
-        </div>
-        {articles?.length > 0 && mounted && enableSlider &&
-            <div className={`${classes['slider']} ${featuredArticles ? '' : 'container'}`}>
-                <Swiper
-                    slidesPerView={'auto'}
-                    spaceBetween={15}
-                    threshold={15}
-                    breakpoints={{
-                        1074: {
-                            spaceBetween: 36
-                        }
-                    }}
-                    >
+        <div className={classes['article-row-content']}>
+            <div className={`${classes['header']} container ${featuredArticles ? 'container--no-max-width' : ''}`}>
+                {header && <h1>{header}</h1>}
+                {ctaUrl && <div className={`${classes['header-link']} secondary--body`}>
+                    <Link href={ctaUrl}>
+                        <a>{ctaText}</a>
+                    </Link>
+                    <IconArrow />
+                </div>}
+            </div>
+            {articles?.length > 0 && mounted && enableSlider &&
+                <div className={`${classes['slider']} ${featuredArticles ? '' : 'container'}`}>
+                    <Swiper
+                        slidesPerView={'auto'}
+                        spaceBetween={15}
+                        threshold={15}
+                        breakpoints={{
+                            1074: {
+                                spaceBetween: 36
+                            }
+                        }}
+                        >
+                        {articles.map((article, index) => {
+                            // if handle doesn't exist, you're probably on the same page of the article you are referencing
+                            if (!article.handle) {
+                                return ''
+                            }
+
+                            return (
+                                <SwiperSlide className={classes['article-slide']} key={`${article._id}-${_key}-${index}`}>
+                                    <DynamicArticleCard article={article} reverse={reverseCard} />
+                                </SwiperSlide>
+                            )
+                        })}
+                    </Swiper>
+                </div>
+            }
+            {articles?.length > 0 && mounted && !enableSlider &&
+                <div className={`${classes['article-list']} ${featuredArticles ? '' : 'container'}`}>
                     {articles.map((article, index) => {
                         // if handle doesn't exist, you're probably on the same page of the article you are referencing
                         if (!article.handle) {
@@ -83,30 +101,15 @@ const ArticleRow = ({ fields, enableSlider = true }) => {
                         }
 
                         return (
-                            <SwiperSlide className={classes['article-slide']} key={`${article._id}-${_key}-${index}`}>
+                            <li className={classes['article-slide']} key={`${article._id}-${_key}-${index}`}>
                                 <DynamicArticleCard article={article} reverse={reverseCard} />
-                            </SwiperSlide>
+                            </li>
                         )
                     })}
-                </Swiper>
-            </div>
-        }
-        {articles?.length > 0 && mounted && !enableSlider &&
-            <div className={`${classes['article-list']} ${featuredArticles ? '' : 'container'}`}>
-                {articles.map((article, index) => {
-                    // if handle doesn't exist, you're probably on the same page of the article you are referencing
-                    if (!article.handle) {
-                        return ''
-                    }
+                </div>
+            }
+        </div>
 
-                    return (
-                        <li className={classes['article-slide']} key={`${article._id}-${_key}-${index}`}>
-                            <DynamicArticleCard article={article} reverse={reverseCard} />
-                        </li>
-                    )
-                })}
-            </div>
-        }
 
     </div>
   )

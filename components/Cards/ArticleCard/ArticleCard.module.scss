@@ -89,15 +89,17 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 69px;
-            height: 69px;
             display: flex;
             align-items: center;
             justify-content: center;
 
             svg {
-                width: 23px;
-                height: 27px;
+                width: 40px;
+                height: 40px;
+                @include breakpoint-up('md') {
+                    width: 69px;
+                    height: 69px;
+                }
             }
 
             svg path {
@@ -139,6 +141,21 @@
                 width: 23px;
                 margin-left: 13px;
                 margin-top: 2px;
+            }
+
+            .search-cta {
+                font-weight: 500;
+                color: $salmon;
+                text-decoration: none;
+
+                svg {
+                    width: 23px;
+                    margin-left: 8px;
+
+                    path {
+                        fill: $sitkablue;
+                    }
+                }
             }
         }
     }

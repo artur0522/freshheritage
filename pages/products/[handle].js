@@ -7,7 +7,6 @@ import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
 import ContentSections from '@/components/Sections/ContentSections'
 import ProductReviewStars from '@/components/Product/ProductReviewStars'
-import ProductReviews from '@/components/Product/ProductReviews'
 import ProductSlider from '../../components/Product/ProductSlider'
 import ProductForm from '@/components/Product/ProductForm'
 import ProductDetailsList from '@/components/Product/ProductDetailsList'
@@ -17,8 +16,8 @@ import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
 
 import classes from './Product.module.scss'
-import { split } from 'lodash-es'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
+import ProductStamps from '@/components/Product/ProductStamps'
 
 function Product({ product, page, modals }) {
   const [checked, setChecked] = useState(false)
@@ -31,7 +30,7 @@ function Product({ product, page, modals }) {
   const deliveryDetails = product.metafields.find(metafield => metafield.key === 'delivery_details')
   const harvestMetafield = product.metafields.find(metafield => metafield.key === 'harvest_handle')
   const deliveryDetailsList = deliveryDetails ? JSON.parse(deliveryDetails.value) : null
-  const stampSection = page.fields.content.find(field => field._type === 'stamps')
+  const badgeSection = page.fields.content.find(field => field._type === 'stamps')
 
   const modalContext = useModalContext()
   const [mounted, setMounted] = useState(false)
@@ -53,36 +52,28 @@ function Product({ product, page, modals }) {
       setChecked(true)
     }
 
-    const foundVisibleTags = product.tags.filter(tag => tag.includes('Visible' || 'visible'));
-    const splitTag = foundVisibleTags[0]?.split(':')[1]
+    if (!product.tags.length) {
+      return
+    }
+
+    const foundVisibleTags = product.tags.filter(tag => tag.toLowerCase().includes('visible'))
+    const splitTag = foundVisibleTags[0]?.split(':')[1].trim()
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
-    const foundCustomerTag = customer?.tags.find(tag => tag.includes('member' || 'Member') || tag.includes('sustainer' || 'sustainer'))
 
-    const productHasCustomerTag = foundVisibleTags?.find((tag) => {
-      let splitTag = tag.split(':')[1] === foundCustomerTag
-      if(splitTag) {
-        return splitTag
-      } else {
-        return null
-      }
-    })
+    const productHasCustomerTag = customer?.tags.some(tag => tag.toLowerCase().indexOf(splitTag))
 
-    modalContext.setProductCustomerTag(productHasCustomerTag)
+    modalContext.setArticleCustomerTag(productHasCustomerTag)
 
-    const foundModal = modals.find(modal => modal.handle === splitTagWithDash)
-    const defaultModal = modals.find(modal => modal.handle === 'non-member')
+    const foundModal = modals.find(modal => modal.handle.replace(/-/g, '').includes(splitTagWithDash))
 
     // if product tags exist but none of the product tags match customer tag
     if(foundVisibleTags.length > 0 && !productHasCustomerTag) {
       if(foundModal) {
         modalContext.setPrevContent(foundModal?.fields)
         modalContext.setContent(foundModal?.fields)
-      } else {
-        modalContext.setPrevContent(defaultModal?.fields)
-        modalContext.setContent(defaultModal?.fields)
+        modalContext.setModalType('gated_product')
+        modalContext.setIsOpen(true)
       }
-      modalContext.setModalType('gated_product')
-      modalContext.setIsOpen(true)
     }
 
     // if one of the product tags contains customer tag
@@ -94,6 +85,7 @@ function Product({ product, page, modals }) {
     if(foundVisibleTags.length === 0) {
       modalContext.setIsOpen(false)
     }
+
   }, [customer])
 
   const isDesktop = useMediaQuery(
@@ -190,14 +182,7 @@ function Product({ product, page, modals }) {
                 </div>}
 
                 {/* STAMPS */}
-                <div className={classes['product-stamps']}>
-                  {isDesktop &&
-                    <ResponsiveImage src={stampSection.stamps.desktopImage.asset.url} alt={stampSection.stamps.desktopImage.alt || product.content?.title} />
-                  }
-                  {!isDesktop &&
-                    <ResponsiveImage src={stampSection.stamps.mobileImage.asset.url} alt={stampSection.stamps.mobileImage.alt || product.content?.title} />
-                  }
-                </div>
+                <ProductStamps fields={badgeSection.badges} product={product} />
               </div>
             </div>
           {/* SECTIONS */}
@@ -217,7 +202,7 @@ export async function getStaticPaths() {
     query: HANDLES_QUERY
   })
   const handles = results.products
-    .filter((product) => product.content?.handle)
+    .filter((product) => product.content.handle && product.content.handle !== 'gift-subscription-box')
     .map((product) => ({ params: { handle: product.content.handle } }))
 
   return {

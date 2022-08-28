@@ -101,8 +101,8 @@ function GiftSubscriptionBoxPDP({ page, products }) {
                   }} />
                 }
 
-                {!!product.boxDetails.fields.stamps &&
-                  <ProductStamps fields={product.boxDetails.fields.stamps} product={product} />
+                {!!product.boxDetails.fields.badges &&
+                  <ProductStamps fields={product.boxDetails.fields.badges} product={product} />
                 }
 
               </div>

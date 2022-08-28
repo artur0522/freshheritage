@@ -49,6 +49,7 @@
   &.hero--smaller-text {
     &.hero--bottom,
     &.hero--center,
+    &.hero--left,
     &.hero--center-transparent {
       h1 {
         font-size: 36px;
@@ -154,6 +155,11 @@
   }
 
   // hero__wrap
+
+  &__main-wrap {
+    position: relative;
+  }
+
   &__wrap {
     position: relative;
 
@@ -191,13 +197,30 @@
         margin: 0;
       }
 
-      .btn {
-        min-width: 161px;
-        padding: 0 20px;
-        margin: 30px auto 24px auto;
+      .btn-wrap {
+        margin: 30px 0 24px;
         @include breakpoint-up('sm') {
           margin-top: 60px;
         }
+      }
+
+      .primary-btn-wrap {
+        @include breakpoint-up('sm') {
+          display: flex;
+        }
+        .btn {
+          margin-right: 20px;
+        }
+      }
+
+      .btn {
+        min-width: 161px;
+        padding: 0 20px;
+        margin-bottom: 20px;
+        // margin: 30px auto 24px auto;
+        // @include breakpoint-up('sm') {
+        //   margin-top: 60px;
+        // }
       }
 
       a {
@@ -237,7 +260,8 @@
   }
 
   // HERO CENTER STYLES
-  &.hero--center {
+  &.hero--center,
+  &.hero--with-container {
     .hero__wrap--mbl {
       height: 806px;
     }
@@ -270,6 +294,48 @@
           }
         }
       }
+    }
+  }
+
+  &.hero--with-container {
+    text-align: center;
+    .hero__text {
+      @include breakpoint-down('md') {
+        position: static;
+        width: 100%;
+        transform: none;
+      }
+    }
+    h1 {
+      @include breakpoint-up('lg') {
+        font-size: 144px;
+        line-height: 1;
+      }
+      @include breakpoint-down('md') {
+        color: $sitkablue;
+        font-size: 52px;
+      }
+    }
+    .btn-wrap {
+      @include breakpoint-down('md') {
+        display: none;
+      }
+    }
+    .hero-video__action-btn {
+      @include breakpoint-down('md') {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        margin: 0;
+        min-width: 140px;
+        width: auto;
+        height: 34px;
+      }
+    }
+    img {
+      border-radius: 12px;
     }
   }
 
@@ -372,7 +438,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 
   &:global(.alabaster) {
     svg {

@@ -61,8 +61,6 @@
         margin-bottom: 12px;
 
         @include breakpoint-up('md') {
-            margin-bottom: 0;
-            height: 85px;
             display: flex;
             align-items: center;
         }

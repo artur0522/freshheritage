@@ -21,10 +21,6 @@ const CheckoutContent = ({data}) => {
         <h4>Your Cart Is Empty</h4>
           <button
             onClick={async() => {
-              if (router.pathname === '/checkout') {
-                router.push('/')
-                return
-              }
               const localStorageCheckoutData = JSON.parse(localStorage.getItem('checkout_data'));
               if (!localStorageCheckoutData) {
                 setIsLoading(true)
@@ -32,6 +28,9 @@ const CheckoutContent = ({data}) => {
               }
               setIsLoading(false)
               setFlyoutState(false)
+              if (router.pathname === '/checkout') {
+                router.push('/')
+              }
             }}
             className="checkout__continue-shopping-btn btn sitkablue">Continue Shopping</button>
       </header>

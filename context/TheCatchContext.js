@@ -24,6 +24,12 @@ function drawerReducer(state, action) {
           currentIssue: action.payload,
         }
     }
+    case 'add_past_issues': {
+      return {
+        ...state, 
+        pastIssues: action.payload,
+      }
+    }
     case 'add_filtered_issue': {
         return {
           ...state, 
@@ -49,11 +55,12 @@ export function useTheCatchContext() {
 export function TheCatchProvider({ children }) {
   const router = useRouter()
   const [state, dispatch] = useReducer(drawerReducer, initialState)
-  const { currentIssue, isOpen, filteredIssue } = state
+  const { currentIssue, isOpen, filteredIssue, pastIssues } = state
 
   const month = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
   const date = new Date()
   const monthName = month[date.getMonth()]
+  const year = date.getFullYear()
 
   const openDrawer = () => {
     dispatch({ type: 'open_drawer'})
@@ -71,13 +78,16 @@ export function TheCatchProvider({ children }) {
     dispatch({ type: 'add_filtered_issue', payload: issue})
   }
 
-  const findIssue = (month) => {
-    const filtered = currentIssue.fields?.content?.filter(content => content._type === 'staticHarvest')
-    const found = filtered.find(staticHarvest => staticHarvest.harvestMonth[0].month === month)
-
-    addFilteredIssue(found)
-    closeDrawer()
+  const addPastIssues = (issues) => {
+    dispatch({ type: 'add_past_issues', payload: issues})
   }
+
+  useEffect(() => {
+    const onRountChangeComplete = () => {
+      closeDrawer()
+    }
+    router.events.on('routeChangeComplete', onRountChangeComplete)
+  }, [router.pathname])
 
   useEffect(() => {
     if (isOpen) document.querySelector('html').classList.add('disable-scroll')
@@ -95,7 +105,7 @@ export function TheCatchProvider({ children }) {
   }, [router])
 
   return (
-    <TheCatchContext.Provider value={{isOpen, openDrawer, closeDrawer, addFilteredIssue, filteredIssue, addIssue, findIssue, currentIssue, monthName, dispatch}}>
+    <TheCatchContext.Provider value={{isOpen, openDrawer, closeDrawer, addFilteredIssue, addPastIssues, pastIssues, filteredIssue, addIssue, currentIssue, monthName, year, dispatch}}>
       {isOpen &&
         <TheCatchDrawer  />
       }

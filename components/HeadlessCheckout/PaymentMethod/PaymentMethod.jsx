@@ -198,12 +198,12 @@ const MemoizedPaymentMethod = memo(
           membership = 'KingSustainer';
         } else if (customerTags.includes('SockeyeSustainer')) {
           membership = 'SockeyeSustainer';
-        } else if (customerTags.includes('prepaid') && customerTags.includes('member')) {
-          membership = 'prepaid member';
-        } else if (customerTags.includes('premium member')) {
-          membership = 'premium member';
-        } else if (customerTags.includes('member')) {
-          membership = 'member';
+        } else if (customerTags.includes('Prepaid')) {
+          membership = 'PrepaidMember';
+        } else if (customerTags.includes('PremiumMember')) {
+          membership = 'PremiumMember';
+        } else if (customerTags.includes('Member')) {
+          membership = 'Member';
         }
         console.log('membership: ' + membership);
 
@@ -215,15 +215,9 @@ const MemoizedPaymentMethod = memo(
           discount = '10% King Sustainer Discount';
         } else if (hasFb && membership === 'SockeyeSustainer') {
           discount = '10% Sustainer Discount';
-        } else if (hasFb && membership === 'prepaid member') {
+        } else if (hasFb && membership === 'PrepaidMember') {
           discount = '5% Member Discount';
         }
-        // } else if (
-        //   hasFb &&
-        //   (membership === 'premium member' || membership === 'member')
-        // ) {
-        //   discount = '10% Member Discount';
-        // }
 
         //AUTO DISCOUNTS FOR SUBSCRIPTIONS
         if (hasSub && membership === 'KingSustainer') {

@@ -1,0 +1,25 @@
+@import '@/styles/_shared.scss';
+
+.card {
+    width: 100%;
+    border-bottom: 1px solid $black20;
+    padding: 14px 0 20.5px 0;
+
+    p {
+        color: $salmon;
+        margin-bottom: 10px;
+    }
+
+    h4 {
+        margin-bottom: 17px;
+    }
+
+    a {
+        font-weight: 500;
+        text-decoration: none;
+
+        svg {
+            margin-left: 12.26px;
+        }
+    }
+}

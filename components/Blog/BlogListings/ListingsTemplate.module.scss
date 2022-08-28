@@ -175,7 +175,7 @@
 
             &.filters-open {
                 @include breakpoint-up('md') {
-                    width: 75%;
+                    width: calc(100% - 450px);
                 }
             }
         }
@@ -221,6 +221,7 @@
 
 .pagination {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     margin-bottom: 37px;
@@ -238,7 +239,7 @@
     height: 40px;
     width: 40px;
     position: relative;
-    margin: 0 10px;
+    margin: 0 10px 10px;
     cursor: pointer;
     transition: border 0.1s ease-in-out;
 

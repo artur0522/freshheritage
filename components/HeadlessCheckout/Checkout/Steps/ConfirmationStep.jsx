@@ -126,12 +126,11 @@ const ConfirmationPage = () => {
             onClick={async () => {
               setIsLoading(true)
               await initializeCheckout()
-              if (router.pathname === '/checkout') {
-                router.push('/')
-                return
-              }
               setIsLoading(false)
               setFlyoutState(false)
+              if (router.pathname === '/checkout') {
+                router.push('/')
+              }
             }}
             className="checkout__cta-btn btn sitkablue">Continue Shopping</button>
         </div>

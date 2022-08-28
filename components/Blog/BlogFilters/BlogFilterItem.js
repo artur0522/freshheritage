@@ -41,20 +41,18 @@ const BlogFilterItem = (props) => {
                             <label htmlFor={filterOption}>{filterOption}</label>
                         </div>}
 
-                         {/* SUBFILTERS */}
+                        {/* SUBFILTERS */}
                         <ul className={classes['filter-suboption__wrap']}>
                             {filters[filterGroup].options[filterOption].subFilters && Object.keys(filters[filterGroup].options[filterOption].subFilters).map((subFilter) => {
-                                if(tagCount[subFilter] !== undefined && tagCount[subFilter] >= 3) {
                                     return (
                                         <li key={subFilter}>
                                             <input onChange={() => subOptionHandler(true, filterGroup, filterOption, subFilter)} value={subFilter} id={subFilter} checked={filters[filterGroup].options[filterOption].subFilters[subFilter].checked} type="checkbox" />
                                             <label htmlFor={subFilter}>{subFilter}</label>
                                         </li>
                                     )
-                                }
                             })}
                         </ul>
-                    </li> 
+                    </li>
                 )
             })}
         </ul>}

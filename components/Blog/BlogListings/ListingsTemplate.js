@@ -22,7 +22,7 @@ import ArticleCookingClassHero from '@/components/Article/ArticleCookingClassHer
 
 const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const drawerContext = useArticleFiltersDrawerContext()
-    const { addFilters, openDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
+    const { setMultipleSelectedFilters, addFilters, openDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
 
     const { content, filterGroups } = page.fields
     const heroSection = content?.find(section => section._type === 'hero')
@@ -82,24 +82,28 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         console.log('tagCount', tagCount)
 
         const filterGroupObj = {}
+        const multipleSelectedFilters = {}
+
         filterGroups?.map((group) => {
+          multipleSelectedFilters[group.title.toLowerCase()] = []
+
           filterGroupObj[group.title.toLowerCase()] = {
             options: {}
           }
 
           group.filterOptions?.map((option) => {
-              filterGroupObj[group.title.toLowerCase()].options[option.value.toLowerCase()] = {
-                checked: false,
-                subFilters: {}
-              }
+            filterGroupObj[group.title.toLowerCase()].options[option.value.toLowerCase()] = {
+              checked: false,
+              subFilters: {}
+            }
 
-              if(option.subFilters) {
-                option.subFilters.map((subFilter) => {
-                    filterGroupObj[group.title.toLowerCase()].options[option.value.toLowerCase()].subFilters[subFilter.value.toLowerCase()] = {
-                    checked: false
-                    }
-                })
+            option.subFilters?.map((subFilter) => {
+              if(tagCount[subFilter.value.toLowerCase()] >= 4) {
+                filterGroupObj[group.title.toLowerCase()].options[option.value.toLowerCase()].subFilters[subFilter.value.toLowerCase()] = {
+                  checked: false
+                }
               }
+            })
           })
         })
 
@@ -107,6 +111,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         console.log("filterGroupObject", filterGroupObj)
 
         addFilters(filterGroupObj)
+        setMultipleSelectedFilters(multipleSelectedFilters)
 
         if(selectedFilterList.length > 0) {
           setCurrentPage(1)

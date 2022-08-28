@@ -43,7 +43,7 @@ const BlogFilterItem = (props) => {
             {Object.keys(filters[filterGroup].options).map((filterOption) => {
                 return (
                     <li key={filterOption}>
-                        {tagCount[filterOption] !== undefined && tagCount[filterOption] >= 3 && tagCount[Object.keys(filters[filterGroup].options[filterOption].subFilters)[0]] === undefined &&
+                        {tagCount[filterOption] !== undefined && tagCount[filterOption] >= 4 && tagCount[Object.keys(filters[filterGroup].options[filterOption].subFilters)[0]] === undefined &&
                             buildCheckboxInput({
                                 label: filterOption,
                                 checked: filters[filterGroup].options[filterOption].checked,

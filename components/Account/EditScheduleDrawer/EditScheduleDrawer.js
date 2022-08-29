@@ -77,7 +77,26 @@ const EditScheduleDrawer = ({ subscription }) => {
 
           <div className={classes['skip-and-schedule-box']}>
             <div className={classes['text']}>Skip</div>
-            <button className={`btn salmon ${classes['action-button']}`}>
+            <button
+              onClick={() => {
+                fetch(`/api/account/skip-order`, {
+                  method: 'POST',
+                  body: JSON.stringify({
+                    skip_date: subscription.subscription_next_orderdate,
+                    subscription: subscription.subscription_id,
+                    action: 'skip',
+                    // d.scheduled_status === "skipped" ? "recover" : "skip",
+                  }),
+                })
+                  .then((_res) => {
+                    console.log('skipped ok')
+                  })
+                  .catch(() => {
+                    console.log('skipped failed')
+                  })
+              }}
+              className={`btn salmon ${classes['action-button']}`}
+            >
               Skip This Box
             </button>
             <div className={classes['divider']} />
@@ -98,6 +117,23 @@ const EditScheduleDrawer = ({ subscription }) => {
             <button
               disabled={savedFulfillment === currentActiveFulfillment}
               className={`btn salmon ${classes['action-button']}`}
+              onClick={() => {
+                fetch(`/api/account/update-shipdate`, {
+                  method: 'POST',
+                  body: JSON.stringify({
+                    subscription_id: subscription.subscription_id,
+                    subscription_next_orderdate: subscription.fulfillment_options.find(
+                      (f) => f.group === currentActiveFulfillment,
+                    ).new_chargedate,
+                  }),
+                })
+                  .then((_res) => {
+                    console.log('saved ok')
+                  })
+                  .catch(() => {
+                    console.log('saved failed')
+                  })
+              }}
             >
               Save Changes
             </button>

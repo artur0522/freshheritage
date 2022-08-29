@@ -90,9 +90,6 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         addTagArray(tagArray)
         addTagCount(tagCount)
 
-        console.log("tagArray", tagArray)
-        console.log('tagCount', tagCount)
-
         const filterGroupObj = {}
         const multipleSelectedFilters = {}
 
@@ -119,16 +116,12 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
           })
         })
 
-        // FILTER GROUP OBJECT -- controls checkboxes that are clicked
-        console.log("filterGroupObject", filterGroupObj)
-
         addFilters(filterGroupObj)
         setMultipleSelectedFilters(multipleSelectedFilters)
 
         if(selectedFilterList.length > 0) {
           setCurrentPage(1)
         }
-
         setPages(Math.ceil(listings.length / 20))
     }, [articles, pages, originalListings])
 

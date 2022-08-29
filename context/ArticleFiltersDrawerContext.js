@@ -315,22 +315,82 @@ export function ArticleFiltersDrawerProvider({ children }) {
   }
 
   // FILTER LISTINGS BY TAGS
-  const filterListingsByTags = (filterGroup = null, filterOption = null, subFilter = null) => {
-    let res = []
-    const filteredArray = tagArray.filter((tag) => {
-      return selectedFilterList.includes(tag)
+  // const filterListingsByTags = (filterGroup = null, filterOption = null, subFilter = null) => {
+  //   let res = []
+  //   const filteredArray = tagArray.filter((tag) => {
+  //     return selectedFilterList.includes(tag)
+  //   })
+
+  //   if(selectedFilterList.length > 0) {
+  //     res = originalListings.filter((listing) => {
+  //       return listing.fields?.articleTags?.some(tag => filteredArray.includes(tag.value.toLowerCase()))
+  //     })
+  //   } else {
+  //     res = originalListings
+  //   }
+
+  //   dispatch({ type: 'add_listings', payload: res})
+  // }
+
+
+
+
+// FILTER LISTINGS BY TAGS
+const filterListingsByTags = (filterGroup = null, filterOption = null, subFilter = null) => {
+  let res = []
+
+  const filteredArray = tagArray.filter((tag) => {
+    return selectedFilterList.includes(tag)
+  })
+
+  if(!isFishermen) {
+    let count = 0
+
+    console.log('multiple', multipleSelectedFilters)
+    // object with filter group and length
+    const obj = {}
+    console.log('multipleselectedfiltersarray', multipleSelectedFilters)
+
+    // maps keys to length of filtergroup
+    Object.keys(multipleSelectedFilters).map((group, index) => {
+      if(multipleSelectedFilters[group].length > 0) {
+        count++
+        obj[group.toLowerCase()] = multipleSelectedFilters[group].length
+      }
     })
 
-    if(selectedFilterList.length > 0) {
-      res = originalListings.filter((listing) => {
-        return listing.fields?.articleTags?.some(tag => filteredArray.includes(tag.value.toLowerCase()))
-      })
-    } else {
-      res = originalListings
-    }
+    // filter listing one by one by group
+    Object.keys(obj).map((filterGroup, index) => { 
+      if(obj[filterGroup] > 0) {
+        res = originalListings.filter((listing, index) => {
+          return listing.fields?.articleTags?.some(tag => multipleSelectedFilters[filterGroup]?.includes(tag.value.toLowerCase()))
+        })
+      }
+    })
+    console.log('res', res)
+    console.log("obj", obj)
 
-    dispatch({ type: 'add_listings', payload: res})
+    // if(count === 0) {
+    //   res = originalListings.filter((listing) => {
+    //     return listing.fields?.articleTags?.some(tag => filteredArray.includes(tag.value.toLowerCase()))
+    //   })
+    // }
   }
+
+  if(selectedFilterList.length > 0 && isFishermen) {
+    res = originalListings.filter((listing) => {
+      return listing.species?.some(tag => filteredArray.includes(tag.header.toLowerCase()) && tagCount[tag.header.toLowerCase()] >= 2)
+    })
+  } else {
+    res = originalListings
+  }
+
+  dispatch({ type: 'add_listings', payload: res})
+}
+
+
+
+
 
   // SUBOPTION HANDLER
   const subOptionHandler = (hasSubfilter, filterGroup, filterOption, subFilter) => {
@@ -507,8 +567,6 @@ export function ArticleFiltersDrawerProvider({ children }) {
        }
     }
 
-    console.log("filters", filters)
-    console.log("multipleselectedfilters", multipleSelectedFilters)
     return () => {
       window.removeEventListener('resize', handleResize)
     }

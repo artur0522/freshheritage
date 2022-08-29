@@ -11,6 +11,8 @@ import { useEffect, useState } from 'react'
 const StaticHarvest = ({ fields }) => {
   const { header, description, harvestMonth, illustration, alt } = fields
 
+  console.log(fields)
+
   const theCatchContext = useTheCatchContext()
   const { openDrawer, addPastIssues, addIssue } = theCatchContext
 

@@ -34,36 +34,18 @@ const Hit = ({ hit }) => {
 
 const Search = () => {
   const [currentIndex, setCurrentIndex] = useState("all_results")
-  const [previousRoute, setPreviousRouter] = useState('');
   const [mounted, setMounted] = useState(false)
   const router = useRouter()
-
-  console.log("router", router)
-  console.log("history", history)
-
+  
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
   const isDesktop = useMediaQuery(
     {query: '(min-width: 768px)'}
   )
 
+  console.log("router", router)
+  
   useEffect(() => {
     setMounted(true)
-
-    const handleBeforeHistoryChange = (url) => {
-      const [nextUrl] = url?.split('?') || [];
-  
-      if (
-        nextUrl !== router.asPath
-      ) {
-        setPreviousRouter(router.asPath)
-      }
-    }
-
-    router.events.on('beforeHistoryChange', handleBeforeHistoryChange)
-
-    return () => {
-      router.events.off('beforeHistoryChange', handleBeforeHistoryChange)
-    }
   }, [mounted, router.pathname])
 
   return (
@@ -81,7 +63,7 @@ const Search = () => {
           </div>
           <h1>Search Results</h1>
           <div className={classes['searchbox-wrap']}>
-            <CustomSearchBox />
+            <CustomSearchBox currentIndex={currentIndex} setCurrentIndex={setCurrentIndex} />
           </div>
         </div>
 

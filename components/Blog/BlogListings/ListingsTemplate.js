@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useMediaQuery } from 'react-responsive'
-
+import { useRouter } from 'next/router'
 import { useArticleFiltersDrawerContext } from '@/context/ArticleFiltersDrawerContext'
 
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
@@ -22,6 +22,7 @@ import ArticleCookingClassHero from '@/components/Article/ArticleCookingClassHer
 
 const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const drawerContext = useArticleFiltersDrawerContext()
+    const router = useRouter()
     const { setMultipleSelectedFilters, addFilters, openDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
 
     const { content, filterGroups } = page.fields
@@ -32,7 +33,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const [currentPage, setCurrentPage] = useState(1)
     const [filterDrawer, toggleFilterDrawer]= useState(true)
     const [mounted, setMounted]= useState(false)
-
+    const [searchTerm, setSearchTerm] = useState("")
     const isDesktop = useMediaQuery({query: '(min-width: 1074px)'})
 
     const { hero } = page?.fields
@@ -41,6 +42,17 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
 
     hero.header = page.title
     hero.subheader = page.fields?.subheader
+
+    const handleChange = (e) => {
+      setSearchTerm(e.target.value)
+    }
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Enter') {
+       e.preventDefault()
+       router.push(`/pages/search?query=${searchTerm}&index=culinary_resources`)
+      }
+    }
 
     useEffect(() => {
         setMounted(true)
@@ -163,7 +175,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             <button type="button">
                 <IconSearch />
             </button>
-            <input type="text" placeholder='Search' className="body" />
+            <input type="text" placeholder='Search' className="body" onKeyDown={(e) => handleKeyDown(e)} onChange={(e) => handleChange(e)} />
           </div>
 
           <div className={classes['recipes__filter-row']}>

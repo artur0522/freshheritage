@@ -8,15 +8,15 @@ import IconSearch from '@/svgs/search.svg'
 const CustomSearchBox = (props) => {
   const { query, refine } = useSearchBox(props)
   const [searchTerm, setSearchTerm] = useState("")
+  const { currentIndex, setCurrentIndex } = props
 
   const router = useRouter()
 
   useEffect(() => {
-    console.log(router.asPath)
     if(router.asPath === 'pages/search' || router.asPath.includes("?query")) {
       router.replace({
         pathname: '/pages/search',
-        query: { query: searchTerm }
+        query: { query: searchTerm, index: currentIndex }
       },
       undefined, { shallow: true }
       )

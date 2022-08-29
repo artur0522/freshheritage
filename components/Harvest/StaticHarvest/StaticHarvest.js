@@ -12,14 +12,14 @@ const StaticHarvest = ({ fields }) => {
   const { header, description, harvestMonth, illustration, alt } = fields
 
   const theCatchContext = useTheCatchContext()
-  const { openDrawer, filteredIssue, addPastIssues, addIssue } = theCatchContext
+  const { openDrawer, addPastIssues, addIssue } = theCatchContext
 
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
-    addPastIssues(fields.list)
-    addIssue(fields.harvestMonth[0])
+    addPastIssues(fields?.list)
+    addIssue(fields?.harvestMonth[0])
   }, [mounted])
 
   if(mounted && fields.harvestMonth?.length > 0) {

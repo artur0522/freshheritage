@@ -4,6 +4,7 @@ import { useArticleFiltersDrawerContext } from '@/context/ArticleFiltersDrawerCo
 import FishermenFilters from './FishermenFilters'
 import FishermenCard from '@/components/Cards/FishermenCard/FishermenCard'
 import ResponsiveImage from "@/components/ResponsiveImage"
+import IconFilters from '@/svgs/filters.svg'
 
 import classes from "./FishermenPartners.module.scss"
 
@@ -33,7 +34,7 @@ const FishermenPartners = ({ fields }) => {
         tagArray.push(tag.title.toLowerCase())
         })
     })
-    
+
     addTagArray(tagArray)
     addTagCount(tagCount)
 
@@ -95,11 +96,11 @@ const FishermenPartners = ({ fields }) => {
                 {header && <h1>{header}</h1>}
                 <div className={classes['recipes__filter-row']}>
                     {filterGroups && filterGroups?.length > 0 && <button onClick={() => toggleFilterDrawer(!filterDrawer)} type="button" className={`${classes['toggle-filters']} ${classes['desktop']}`}>
-                    {filterDrawer ? <span className="body">Hide Filters</span> : <span className="body">Show Filters</span>}
+                    {filterDrawer ? <span className="body">Hide Filters <IconFilters/></span> : <span className="body">Show Filters <IconFilters/></span>}
                     </button>}
 
                     {filterGroups && filterGroups?.length > 0 && <button onClick={() => openFiltersDrawer()} type="button" className={`${classes['toggle-filters']} ${classes['mobile']}`}>
-                    {isOpen ? <span className="body">Hide Filters</span> : <span className="body">Show Filters</span>}
+                    {isOpen ? <span className="body">Hide Filters <IconFilters/></span> : <span className="body">Show Filters <IconFilters/></span>}
                     </button>}
 
                     <div className={classes['sort-by']}>
@@ -120,7 +121,6 @@ const FishermenPartners = ({ fields }) => {
                 <div className={`${classes['recipes__list-wrap']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
                     {listings.length > 0 && selectedFilterList.length > 0 && <div className={`${classes['recipes__list']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} container`}>
                         {listings.map((article) => {
-                            console.log(article)
                             return (
                                 <div className={classes['grid-item']} key={article._id}>
                                     <FishermenCard article={article} />

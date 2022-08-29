@@ -9,6 +9,7 @@ import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
+import moment from 'moment'
 
 const BrandArticle = ({ page, products, blogSettings, modals }) => {
   const { hero, articleTags } = page.fields
@@ -22,6 +23,11 @@ const BrandArticle = ({ page, products, blogSettings, modals }) => {
   const customerContext = useCustomerContext()
   const { customer } = customerContext
 
+  let datePublished = moment.unix(page.createdAt).format('MMMM DD, YYYY')
+  if (page.fields?.publishedDate) {
+    datePublished = moment(page.fields.publishedDate).format('MMMM DD, YYYY')
+  }
+
   useEffect(() => {
     setMounted(true)
 
@@ -29,36 +35,24 @@ const BrandArticle = ({ page, products, blogSettings, modals }) => {
       return
     }
 
-    const foundVisibleTags = articleTags.filter(tag => tag.value.includes('Visible' || 'visible'))
-    const splitTag = foundVisibleTags[0]?.value?.split(':')[1]
+    const foundVisibleTags = articleTags.filter(tag => tag.value.toLowerCase().includes('visible'))
+    const splitTag = foundVisibleTags[0]?.value?.split(':')[1].trim()
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
-    const foundCustomerTag = customer?.tags.find(tag => tag.includes('member' || 'Member') || tag.includes('sustainer' || 'sustainer'))
 
-    const articleHasCustomerTag = foundVisibleTags?.find((tag) => {
-      let splitTag = tag.value.split(':')[1] === foundCustomerTag
-      if(splitTag) {
-        return splitTag
-      } else {
-        return null
-      }
-    })
+    const articleHasCustomerTag = customer?.tags.some(tag => tag.toLowerCase().indexOf(splitTag))
 
     modalContext.setArticleCustomerTag(articleHasCustomerTag)
 
-    const foundModal = modals.find(modal => modal.handle === splitTagWithDash)
-    const defaultModal = modals.find(modal => modal.handle === 'non-member')
+    const foundModal = modals.find(modal => modal.handle.replace(/-/g, '').includes(splitTagWithDash))
 
     // if product tags exist but none of the product tags match customer tag
     if(foundVisibleTags.length > 0 && !articleHasCustomerTag) {
       if(foundModal) {
         modalContext.setPrevContent(foundModal?.fields)
         modalContext.setContent(foundModal?.fields)
-      } else {
-        modalContext.setPrevContent(defaultModal?.fields)
-        modalContext.setContent(defaultModal?.fields)
+        modalContext.setModalType('gated_product')
+        modalContext.setIsOpen(true)
       }
-      modalContext.setModalType('gated_product')
-      modalContext.setIsOpen(true)
     }
 
     // if one of the product tags contains customer tag
@@ -70,6 +64,7 @@ const BrandArticle = ({ page, products, blogSettings, modals }) => {
     if(foundVisibleTags.length === 0) {
       modalContext.setIsOpen(false)
     }
+
   }, [customer])
 
   return (
@@ -77,7 +72,7 @@ const BrandArticle = ({ page, products, blogSettings, modals }) => {
       <StructuredData type="article" data={page} />
       <PageSEO seo={page.fields.seo} />
       <ArticleSplitHero fields={hero} renderType="default" blogGlobalSettings={blogGlobalSettings} />
-      <ArticleMain contentType="standard" fields={page.fields} products={products} blogGlobalSettings={blogGlobalSettings} />
+      <ArticleMain contentType="standard" datePublished={datePublished} fields={page.fields} products={products} blogGlobalSettings={blogGlobalSettings} />
       <ContentSections sections={page.fields.pageContent} />
     </>
   )
@@ -95,7 +90,7 @@ export async function getStaticPaths() {
   const validArticles = standardArticles.reduce((carry, article) => {
     // only get brand categories
     const blogType = article.fields.blog.blogType
-    if (blogType === 'brand') {
+    if (blogType === 'stories') {
       return [...carry, {
         category: article.fields.blog.handle.current,
         handle: article.handle
@@ -131,7 +126,7 @@ export async function getStaticProps({ params }) {
     type: 'blogSettings'
   })
 
-  if (!pages.length) {
+  if (!pages.length || !pages[0].fields.published) {
     return {
       notFound: true
     }
@@ -163,8 +158,7 @@ export async function getStaticProps({ params }) {
         }
       })
       if (data.products && data.products.length) {
-        const products = data.products
-        props.products = products.filter(product => product.tags.includes('Subscription Box'))
+        props.products = data.products
       }
     }
   }

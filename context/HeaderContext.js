@@ -41,6 +41,11 @@ export function HeaderProvider({ children, content, pageHandle }) {
   }, [])
 
   useEffect(() => {
+    if (hide) document.querySelector('html').classList.add('nav-is-hidden')
+    if (!hide) document.querySelector('html').classList.remove('nav-is-hidden')
+  }, [hide])
+
+  useEffect(() => {
     const hidePrimaryAnnoucement = Cookies.get('hidePrimaryAnnoucement')
     setShowAnnoucementBar(hidePrimaryAnnoucement == 'true' ? false : true)
   }, []);

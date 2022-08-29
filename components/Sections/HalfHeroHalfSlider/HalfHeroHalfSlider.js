@@ -82,6 +82,7 @@ const HalfHeroHalfSlider = ({ fields }) => {
                             loop={true}
                             slidesPerView={"auto"}
                             spaceBetween={18}
+                            threshold={15}
                             centeredSlides={true}
                         >
                         {articles.map((article) => {

@@ -13,7 +13,11 @@ export default function DynamicPage({ page }) {
   const isDesktop = useMediaQuery(
     {query: '(min-width: 1074px)'}
   )
-  
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   if (page.type === 'infoPage') {
     const { header, leftContent , rightContent, bottomContent, desktopIllustration, mobileIllustration } = page.fields
     return (
@@ -88,20 +92,30 @@ export async function getStaticProps({ params }) {
 
   const pages = await nacelleClient.content({
     handles: [params.handle],
+    type: 'page',
     entryDepth: 1
   })
 
-  if (!pages.length) {
+  const infoPages = await nacelleClient.content({
+    handles: [params.handle],
+    type: 'infoPage',
+    entryDepth: 1
+  })
+
+  if (!pages.length && !infoPages.length) {
     return {
       notFound: true
     }
   }
 
-  const fullRefPage = await getNacelleReferences(pages[0])
+  const page = pages.length ? pages[0] : infoPages[0]
+
+  const fullRefPage = await getNacelleReferences(page)
 
   return {
     props: {
-      page: fullRefPage
+      page: fullRefPage,
+      handle: params.handle
     }
   }
 

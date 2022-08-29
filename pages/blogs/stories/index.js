@@ -8,18 +8,18 @@ import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 export default function BrandBlog({ page }) {
   return (
-    <>
+    <div className="stories-blog">
       <StructuredData type="blog" data={page} />
       <PageSEO seo={page.fields.seo} />
       <ContentSections sections={page.fields.content} />
-    </>
+    </div>
   )
 }
 
 export async function getStaticProps({ previewData }) {
 
   const pages = await nacelleClient.content({
-    handles: ['brand-blog'],
+    handles: ['stories-blog'],
     entryDepth: 1
   })
 

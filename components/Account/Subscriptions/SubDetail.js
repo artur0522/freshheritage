@@ -4,6 +4,7 @@ import { nacelleClient } from 'services'
 import FutureMonthHarvest from './FutureMonthHarvest'
 import CurrentMonthHarvestDetail from './CurrentMonthHarvestDetail'
 import classes from './SubDetail.module.scss'
+import UpcomingDeliveriesBar from './UpcomingDeliveriesBar'
 
 const getHarvetHandle = (variant, product) => {
   // First, check the meta fields on the variant
@@ -45,6 +46,7 @@ const renderMonths = (subscription, harvest) => {
   const currentMonth = harvest.fields.months.find((m) => m.month.includes(subscription.fulfill_month));
 
   return <div>
+    <UpcomingDeliveriesBar subscription={subscription}/>
     {currentMonth && <CurrentMonthHarvestDetail subscription={subscription} month={currentMonth}/>}
     {subscription.group_schedule.map((g) => {
     // Get the harvest details for the month

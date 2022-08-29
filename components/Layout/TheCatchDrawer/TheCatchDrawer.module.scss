@@ -29,11 +29,11 @@
 }
 
 .pdp-flyout {
-    width: 100%;
+    width: 100vw;
     height: 100%;
     z-index: 2001;
     position: fixed;
-    max-width: 353px;
+    overflow-y: scroll;
 }
 
 .pdp-flyout__close-btn {
@@ -76,7 +76,6 @@
 
 .pdp-flyout__content {
     width: 100%;
-    position: fixed;
     top: 0;
     background-color: $sitkablue;
     color: $alabaster2;
@@ -123,11 +122,16 @@
         list-style: none;
 
         li {
-            display: flex;
-            align-items: center;
             border-bottom: 1px solid rgba(246, 243, 237, 0.2);
             padding: 14px 0;
             cursor: pointer;
+
+            a {
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+                color: #fff;
+            }
         }
 
         .item-img {
@@ -141,14 +145,19 @@
         .item-text {
             h1 {
                 margin-bottom: 10px;
-                display: flex;
-                align-items: flex-end;
+
+                @include breakpoint-up('sm') {
+                    display: flex;
+                    align-items: flex-end;
+                }
             }
 
             .current-label {
                 color: $salmon;
-                margin-left: 16px;
-                margin-top: -5px;
+
+                @include breakpoint-up('sm') {
+                    margin-left: 16px;
+                }
             }
         }
     }

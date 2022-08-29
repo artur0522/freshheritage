@@ -9,7 +9,7 @@ import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import { useCustomerContext } from '@/context/CustomerContext'
-
+import moment from 'moment'
 
 const RecipeArticle = ({ page, products, blogSettings, modals }) => {
 
@@ -21,9 +21,14 @@ const RecipeArticle = ({ page, products, blogSettings, modals }) => {
   const customerContext = useCustomerContext()
   const { customer } = customerContext
 
-  const { hero, articleTags } = page.fields
-  if (page.fields.articleTags) {
-    hero.tags = page.fields.articleTags
+  let datePublished = moment.unix(page.createdAt).format('MMMM DD, YYYY')
+  if (page.fields?.publishedDate) {
+    datePublished = moment(page.fields.publishedDate).format('MMMM DD, YYYY')
+  }
+
+  const { hero, articleTags, displayTags } = page.fields
+  if (displayTags) {
+    hero.tags = displayTags
   }
   const blogType = page.fields.blog?.blogType
   const blogGlobalSettings = blogSettings ? { ...blogSettings.fields[blogType], blogType} : undefined
@@ -46,36 +51,24 @@ const RecipeArticle = ({ page, products, blogSettings, modals }) => {
       return
     }
 
-    const foundVisibleTags = articleTags.filter(tag => tag.value.includes('Visible' || 'visible'))
-    const splitTag = foundVisibleTags[0]?.value?.split(':')[1]
+    const foundVisibleTags = articleTags.filter(tag => tag.value.toLowerCase().includes('visible'))
+    const splitTag = foundVisibleTags[0]?.value?.split(':')[1].trim()
     const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
-    const foundCustomerTag = customer?.tags.find(tag => tag.includes('member' || 'Member') || tag.includes('sustainer' || 'sustainer'))
 
-    const articleHasCustomerTag = foundVisibleTags?.find((tag) => {
-      let splitTag = tag.value.split(':')[1] === foundCustomerTag
-      if(splitTag) {
-        return splitTag
-      } else {
-        return null
-      }
-    })
+    const articleHasCustomerTag = customer?.tags.some(tag => tag.toLowerCase().indexOf(splitTag))
 
     modalContext.setArticleCustomerTag(articleHasCustomerTag)
 
-    const foundModal = modals.find(modal => modal.handle === splitTagWithDash)
-    const defaultModal = modals.find(modal => modal.handle === 'non-member')
+    const foundModal = modals.find(modal => modal.handle.replace(/-/g, '').includes(splitTagWithDash))
 
     // if product tags exist but none of the product tags match customer tag
     if(foundVisibleTags.length > 0 && !articleHasCustomerTag) {
       if(foundModal) {
         modalContext.setPrevContent(foundModal?.fields)
         modalContext.setContent(foundModal?.fields)
-      } else {
-        modalContext.setPrevContent(defaultModal?.fields)
-        modalContext.setContent(defaultModal?.fields)
+        modalContext.setModalType('gated_product')
+        modalContext.setIsOpen(true)
       }
-      modalContext.setModalType('gated_product')
-      modalContext.setIsOpen(true)
     }
 
     // if one of the product tags contains customer tag
@@ -88,8 +81,7 @@ const RecipeArticle = ({ page, products, blogSettings, modals }) => {
       modalContext.setIsOpen(false)
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [customer])
 
   if (page.type === 'recipeArticle') {
     return (
@@ -98,7 +90,7 @@ const RecipeArticle = ({ page, products, blogSettings, modals }) => {
         <StructuredData type="recipe" data={page} />
         <PageSEO seo={page.fields.seo} />
         <ArticleSplitHero fields={hero} renderType="recipe" blogGlobalSettings={blogGlobalSettings} />
-        <ArticleMain contentType="recipe" showNav={true} fields={page.fields} products={products} blogGlobalSettings={blogGlobalSettings} />
+        <ArticleMain contentType="recipe" showNav={true} fields={page.fields} datePublished={datePublished} products={products} blogGlobalSettings={blogGlobalSettings} />
         <ContentSections sections={page.fields.pageContent} />
       </>
     )
@@ -110,7 +102,7 @@ const RecipeArticle = ({ page, products, blogSettings, modals }) => {
         <StructuredData type="article" data={page} />
         <PageSEO seo={page.fields.seo} />
         <ArticleSplitHero fields={hero} renderType="default" blogGlobalSettings={blogGlobalSettings} />
-        <ArticleMain contentType="standard" fields={page.fields} products={products} blogGlobalSettings={blogGlobalSettings} />
+        <ArticleMain contentType="standard" fields={page.fields} datePublished={datePublished} products={products} blogGlobalSettings={blogGlobalSettings} />
         <ContentSections sections={page.fields.pageContent} />
       </>
     )
@@ -126,7 +118,7 @@ const RecipeArticle = ({ page, products, blogSettings, modals }) => {
         <StructuredData type="video" data={page} />
         <PageSEO seo={page.fields.seo} />
         <ArticleSplitHero ref={mainContentRef} fields={hero} renderType="cooking-guide" blogGlobalSettings={blogGlobalSettings} />
-        <ArticleMain ref={mainContentRef} contentType="standard" fields={page.fields} products={products} showNav={true} blogGlobalSettings={blogGlobalSettings} />
+        <ArticleMain ref={mainContentRef} contentType="standard" fields={page.fields} datePublished={datePublished} products={products} showNav={true} blogGlobalSettings={blogGlobalSettings} />
         <ContentSections sections={page.fields.pageContent} />
       </div>
     )
@@ -147,7 +139,7 @@ const RecipeArticle = ({ page, products, blogSettings, modals }) => {
         <StructuredData type="video" data={page} />
         <PageSEO seo={page.fields.seo} />
         <ArticleSplitHero fields={hero} renderType="cooking-class" blogGlobalSettings={blogGlobalSettings} />
-        <ArticleMain contentType="standard" fields={page.fields} products={products} blogGlobalSettings={blogGlobalSettings} />
+        <ArticleMain contentType="standard" fields={page.fields} datePublished={datePublished} products={products} blogGlobalSettings={blogGlobalSettings} />
         <ContentSections sections={page.fields.pageContent} />
       </>
     )
@@ -159,7 +151,7 @@ const RecipeArticle = ({ page, products, blogSettings, modals }) => {
       <StructuredData type="article" data={page} />
       <PageSEO seo={page.fields.seo} />
       <ArticleSplitHero fields={hero} renderType="default" blogGlobalSettings={blogGlobalSettings} />
-      <ArticleMain contentType="standard" fields={page.fields} products={products} blogGlobalSettings={blogGlobalSettings} />
+      <ArticleMain contentType="standard" fields={page.fields} datePublished={datePublished} products={products} blogGlobalSettings={blogGlobalSettings} />
       <ContentSections sections={page.fields.pageContent} />
     </>
   )
@@ -231,9 +223,7 @@ export async function getStaticProps({ params }) {
     entryDepth: 1
   })
 
-  console.log(pages)
-
-  if (!pages.length) {
+  if (!pages.length || !pages[0].fields.published) {
     return {
       notFound: true
     }
@@ -279,8 +269,7 @@ export async function getStaticProps({ params }) {
         }
       })
       if (data.products && data.products.length) {
-        const products = data.products
-        props.products = products.filter(product => product.tags.includes('Subscription Box'))
+        props.products = data.products
       }
     }
   }

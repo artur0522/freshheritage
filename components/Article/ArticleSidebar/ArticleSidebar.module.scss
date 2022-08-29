@@ -1,5 +1,11 @@
 @import '@/styles/_shared.scss';
 
+@media print {
+  .article-sidebar {
+    display: none !important;
+  }
+}
+
 
 :global(.article-culinary-contest) {
   .article-sidebar {
@@ -62,9 +68,17 @@
           margin: 0 0 30px;
         }
       }
-      @include breakpoint-up('xl') {
+      @include breakpoint-up('lg') {
         width: calc(50% - 15px);
         max-width: none;
+      }
+      .article-related-item__image {
+        @include breakpoint-up('lg') {
+          height: 250px;
+        }
+        @include breakpoint-up('xl') {
+          height: 385px;
+        }
       }
     }
   }
@@ -80,7 +94,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1000;
+  z-index: 2000;
   transition: 0.3s ease-in-out transform;
   transform: translateX(100%);
   overflow-y: auto;
@@ -95,6 +109,16 @@
     z-index: auto;
     width: 47%;
     padding: 65px;
+  }
+}
+
+.article-side__data-published {
+  font-style: italic;
+  text-align: center;
+  margin: -20px 0 20px;
+  @include breakpoint-up('md') {
+    text-align: right;
+    margin: -50px 0 40px;
   }
 }
 

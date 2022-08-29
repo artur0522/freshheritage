@@ -1,5 +1,10 @@
 @import '@/styles/_shared';
 
+@media print {
+  .mainNavigation {
+    display: none !important;
+  }
+}
 
 .mainNavigation {
   display: flex;
@@ -219,7 +224,7 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(7px);
-  z-index: 1000;
+  z-index: 2000;
 }
 
 .customerServiceInfoContent {

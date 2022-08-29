@@ -47,6 +47,7 @@ const BrowseCategory = ({fields}) => {
                         loop={true}
                         slidesPerView={1.5}
                         spaceBetween={18}
+                        threshold={15}
                         breakpoints={{
                             768: {
                                 slidesPerView: 2.75

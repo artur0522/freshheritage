@@ -33,7 +33,7 @@ const ArticleSD = ({data}) => {
 
   if (content) {
     content.forEach(item => {
-      if (item._type === 'image') {
+      if (item._type === 'image' && item.asset?.url) {
         const image = item.asset.url
         images.push(image)
       }

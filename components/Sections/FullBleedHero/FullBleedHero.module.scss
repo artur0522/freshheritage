@@ -2,8 +2,99 @@
 @import '@/styles/variables/_breakpoints.scss';
 @import '@/styles/variables/_colors.scss';
 
+@media print {
+  .hero {
+    display: none !important;
+  }
+}
+
+:global(.listing-pages--filters-open) {
+  .hero {
+    &.hero--center {
+      .hero__text {
+        &-inner {
+          h1 {
+            @include breakpoint-up('lg') {
+              font-size: 120px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+:global(.main--the-catch) {
+  .hero {
+    &.hero--bottom {
+      h1 {
+        font-size: 72px;
+        @include breakpoint-up('md') {
+          font-size: 204px;
+        }
+      }
+      .hero__text {
+        bottom: -15px;
+        @include breakpoint-up('md') {
+          bottom: -41px;
+        }
+      }
+    }
+  }
+}
+
 .hero {
   position: relative;
+
+  &.hero--smaller-text {
+    &.hero--bottom,
+    &.hero--center,
+    &.hero--left,
+    &.hero--center-transparent {
+      h1 {
+        font-size: 36px;
+
+        line-height: 100%;
+        letter-spacing: 0.02em;
+        @include breakpoint-up('sm') {
+          font-size: 48px;
+        }
+
+        @include breakpoint-up('md') {
+          font-size: 56px;
+        }
+
+        @include breakpoint-up('lg') {
+          font-size: 60px;
+        }
+
+        @include breakpoint-up('xl') {
+          font-size: 72px;
+          line-height: 120%;
+        }
+      }
+    }
+
+    &.hero--smaller-text {
+      &.hero--bottom,
+      &.hero--center {
+        h2 {
+          font-size: 14px;
+          line-height: 150%;
+
+          @include breakpoint-up('lg') {
+            font-size: 16px;
+          }
+
+          @include breakpoint-up('xl') {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+
+
+  }
 
   &.top-margin {
     margin-top: 23px;
@@ -27,7 +118,8 @@
 
     .btn-wrap {
       a:first-child {
-        min-width: 243px;
+        min-width: 161px;
+        padding: 0 20px;
       }
 
       a:not(:first-child) {
@@ -63,6 +155,11 @@
   }
 
   // hero__wrap
+
+  &__main-wrap {
+    position: relative;
+  }
+
   &__wrap {
     position: relative;
 
@@ -88,6 +185,7 @@
       align-items: center;
 
       h1 {
+        font-size: 72px;
         margin-bottom: 12px;
 
         @include breakpoint-up('sm') {
@@ -96,13 +194,33 @@
       }
 
       h2 {
-        margin-top: 12px;
-        margin-bottom: 30px;
+        margin: 0;
+      }
+
+      .btn-wrap {
+        margin: 30px 0 24px;
+        @include breakpoint-up('sm') {
+          margin-top: 60px;
+        }
+      }
+
+      .primary-btn-wrap {
+        @include breakpoint-up('sm') {
+          display: flex;
+        }
+        .btn {
+          margin-right: 20px;
+        }
       }
 
       .btn {
-        min-width: 243px;
-        margin: 0 auto 24px auto;
+        min-width: 161px;
+        padding: 0 20px;
+        margin-bottom: 20px;
+        // margin: 30px auto 24px auto;
+        // @include breakpoint-up('sm') {
+        //   margin-top: 60px;
+        // }
       }
 
       a {
@@ -113,27 +231,37 @@
   }
 
   // HERO BOTTOM ALIGNED STYLES
+  // for the catch page
   &.hero--bottom {
     h1 {
+      font-size: 72px;
       margin-bottom: 0;
+      @include breakpoint-up('md') {
+        font-size: 204px;
+      }
     }
 
     .hero__text {
       position: absolute;
-      bottom: -15px;
+      bottom: 0;
       left: 28px;
       max-width: 319px;
 
       @include breakpoint-up('md') {
-        bottom: -41px;
         left: 7.34%;
         max-width: 735px;
+      }
+
+      &-inner {
+        text-align: left;
+        align-items: flex-start;
       }
     }
   }
 
   // HERO CENTER STYLES
-  &.hero--center {
+  &.hero--center,
+  &.hero--with-container {
     .hero__wrap--mbl {
       height: 806px;
     }
@@ -151,16 +279,63 @@
         text-align: center;
 
         h1 {
-          font-size: 4.5rem;
-          margin-bottom: 48px;
-        }
-
-        a {
           @include breakpoint-up('sm') {
-            max-width: 243px;
+            margin-bottom: 10px;
+          }
+          @include breakpoint-up('lg') {
+            font-size: 144px;
+            line-height: 1;
+            margin-bottom: 20px;
+          }
+        }
+        .btn {
+          @include breakpoint-up('sm') {
+            min-width: 250px !important;
           }
         }
       }
+    }
+  }
+
+  &.hero--with-container {
+    text-align: center;
+    .hero__text {
+      @include breakpoint-down('md') {
+        position: static;
+        width: 100%;
+        transform: none;
+      }
+    }
+    h1 {
+      @include breakpoint-up('lg') {
+        font-size: 144px;
+        line-height: 1;
+      }
+      @include breakpoint-down('md') {
+        color: $sitkablue;
+        font-size: 52px;
+      }
+    }
+    .btn-wrap {
+      @include breakpoint-down('md') {
+        display: none;
+      }
+    }
+    .hero-video__action-btn {
+      @include breakpoint-down('md') {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        margin: 0;
+        min-width: 140px;
+        width: auto;
+        height: 34px;
+      }
+    }
+    img {
+      border-radius: 12px;
     }
   }
 
@@ -185,18 +360,25 @@
       left: 50%;
       transform: translate(-50%, -50%);
       border-radius: 2px;
+      width: calc(100% - 60px);
+      max-width: 1108px;
 
       @include breakpoint-up('sm') {
         padding: 8.05% 7.45%;
         border-radius: 12px;
+        width: calc(100% - 100px);
+      }
+
+      @include breakpoint-up('md') {
+        width: calc(100% - 120px);
       }
 
       @include breakpoint-up('lg') {
         padding: 0;
-        width: 1108px;
         min-height: 623px;
         display: flex;
         align-items: center;
+        width: calc(100% - 170px);
       }
 
       // hero__text-inner
@@ -212,7 +394,7 @@
         }
 
         .btn {
-          min-width: 243px;
+          min-width: 161px;
 
           @include breakpoint-up('sm') {
             width: 392px;
@@ -245,12 +427,6 @@
       &-inner {
         text-align: left;
         align-items: flex-start;
-
-        a {
-          @include breakpoint-up('sm') {
-            max-width: 243px;
-          }
-        }
       }
     }
   }
@@ -262,7 +438,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+
+  &:global(.alabaster) {
+    svg {
+      * {
+        fill: $sitkablue;
+      }
+    }
+  }
 
   svg {
     width: 17px;

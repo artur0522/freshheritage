@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { useOrderMetadata } from '@boldcommerce/checkout-react-components';
 import { useCustomerContext } from '@/context/CustomerContext'
 import { useModalContext } from '@/context/ModalContext'
@@ -38,9 +38,9 @@ const MemoizedCustomer = memo(({ customer, orderMetaData, logout, modalContext }
   const [email, setEmail] = useState(customer?.email);
   const [errors, setErrors] = useState(null);
   const [acceptsMarketing, setAcceptsMarketing] = useState(false);
-  const { updateOrderMetaData, addCustomerToOrder, removeCustomerFromOrder, validateEmailAddress, data: checkoutData} = useHeadlessCheckoutContext()
+  const { updateOrderMetaData, addCustomerToOrder, removeCustomerFromOrder, updateCustomerInOrder, validateEmailAddress, data: checkoutData} = useHeadlessCheckoutContext()
   const [customerOpen, setCustomerOpen] = useState(true)
-  const [accountFormType, setAccountFormType] = useState('default')
+  const [accountFormType, setAccountFormType] = useState('login')
   const { t } = useTranslation();
 
   const addGuestCustomer = async () => {
@@ -51,6 +51,7 @@ const MemoizedCustomer = memo(({ customer, orderMetaData, logout, modalContext }
       })
 
       if (response.errors) {
+        setErrors(response.errors)
         return
       }
 
@@ -157,7 +158,15 @@ const MemoizedCustomer = memo(({ customer, orderMetaData, logout, modalContext }
                 icon={<div className="checkbox--checked"><IconCheckmark /></div>}
                 label={t('customer.subscribe')}
                 checked={acceptsMarketing}
-                onChange={() => setAcceptsMarketing(!acceptsMarketing)}
+                onChange={async() => {
+                  await updateCustomerInOrder({
+                    first_name: checkoutData.application_state.customer.first_name,
+                    last_name: checkoutData.application_state.customer.last_name,
+                    email_address: checkoutData.application_state.customer.email_address,
+                    accepts_marketing: !acceptsMarketing
+                  })
+                  setAcceptsMarketing(!acceptsMarketing)}
+                }
               />
             </div>
             <div className="checkout__checkbox-wrapper">

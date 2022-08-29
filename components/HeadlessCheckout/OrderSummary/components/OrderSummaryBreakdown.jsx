@@ -7,7 +7,7 @@ import OrderSummaryItemLine from './OrderSummaryItemLine';
 import { useCustomerContext } from '@/context/CustomerContext'
 import { useTranslation } from 'react-i18next';
 
-const OrderSummaryBreakdown = () => {
+const OrderSummaryBreakdown = ({ readOnly }) => {
   const { data } = useBreakdown();
   const { data: { discountTotal, discountCode }, removeDiscount } = useDiscount();
   const { customer: customerData } = useCustomerContext()
@@ -30,6 +30,7 @@ const OrderSummaryBreakdown = () => {
       payments={payments}
       onRemoveDiscount={removeDiscount}
       customer={customerData}
+      readOnly={readOnly}
     />
   );
 };
@@ -43,7 +44,8 @@ const MemoizedOrderSummaryBreakdown = memo(({
   discountCode,
   payments,
   onRemoveDiscount,
-  customer
+  customer,
+  readOnly
 }) => {
   const trackEvent = useAnalytics();
   const logError = useErrorLogging();
@@ -62,7 +64,7 @@ const MemoizedOrderSummaryBreakdown = memo(({
     <OrderSummaryItemLine
       description={`${t('discount.code')}: ${discountCode}`}
       amount={-discountTotal}
-      onRemove={customer?.is_member ? null : handleRemoveDiscount}
+      onRemove={customer?.is_member || readOnly ? null : handleRemoveDiscount}
       type={'discount'}
     />
   );

@@ -212,16 +212,11 @@ const MemoizedPaymentMethod = memo(
         if (hasFb && membership === 'Employee') {
           discount = '30% Employee Discount';
         } else if (hasFb && membership === 'KingSustainer') {
-          discount = '20% King Sustainer Discount';
+          discount = '10% King Sustainer Discount';
         } else if (hasFb && membership === 'SockeyeSustainer') {
-          discount = '15% Sustainer Discount';
+          discount = '10% Sustainer Discount';
         } else if (hasFb && membership === 'PrepaidMember') {
-          discount = '10% Member Discount';
-        } else if (
-          hasFb &&
-          (membership === 'PremiumMember' || membership === 'Member')
-        ) {
-          discount = '10% Member Discount';
+          discount = '5% Member Discount';
         }
 
         //AUTO DISCOUNTS FOR SUBSCRIPTIONS

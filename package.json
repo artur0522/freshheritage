@@ -25,6 +25,8 @@
     "@sanity/client": "^3.3.2",
     "@sanity/image-url": "^1.0.1",
     "@svgr/webpack": "^6.2.1",
+    "@vercel/node": "^2.5.8",
+    "algoliasearch": "^4.14.2",
     "axios": "^0.27.2",
     "calendar-link": "^2.2.0",
     "classnames": "^2.3.1",
@@ -32,6 +34,8 @@
     "graphql": "^16.5.0",
     "i18n": "^0.14.2",
     "i18next": "^21.6.14",
+    "instantsearch.css": "^7.4.5",
+    "instantsearch.js": "^4.44.0",
     "js-base64": "^3.7.2",
     "lodash-es": "^4.17.21",
     "moment": "^2.29.4",
@@ -46,14 +50,18 @@
     "react-dropdown": "^1.10.0",
     "react-expand-animated": "^1.0.2",
     "react-ga": "^3.3.0",
+    "react-gtm-module": "^2.0.11",
     "react-html-parser": "^2.0.2",
     "react-i18next": "^11.16.2",
+    "react-instantsearch-dom": "^6.31.1",
+    "react-instantsearch-hooks-web": "^6.31.1",
     "react-responsive": "^9.0.0-beta.8",
     "react-scroll": "^1.8.7",
     "react-timer-hook": "^3.0.5",
     "react-transition-group": "^4.4.5",
     "react-use-file-upload": "^0.9.5",
     "react-youtube": "^9.0.2",
+    "sanity-algolia": "^1.0.2",
     "sass": "^1.51.0",
     "sass-migrator": "^1.5.4",
     "string-strip-html": "^9.1.12",
@@ -64,7 +72,9 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "css-loader": "^6.7.1",
     "eslint": "^8.4.1",
-    "eslint-config-next": "12.0.7"
+    "eslint-config-next": "12.0.7",
+    "style-loader": "^3.3.1"
   }
 }

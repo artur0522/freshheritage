@@ -1,5 +1,27 @@
 @import '@/styles/_shared.scss';
 
+:global(.featured-articles) {
+    .article-card {
+        &.fixed {
+            .image-wrap {
+                @include breakpoint-up('md') {
+                    height: 499px;
+                }
+            }
+        }
+        :global(.heading--article) {
+            @include breakpoint-up('md') {
+                font-size: 48px;
+            }
+        }
+        :global(.recipe--time) {
+            @include breakpoint-up('md') {
+                font-size: 18px;
+            }
+        }
+    }
+}
+
 .article-card {
     background-color: #fff;
     text-decoration: none;
@@ -67,11 +89,18 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 69px;
-            height: 69px;
             display: flex;
             align-items: center;
             justify-content: center;
+
+            svg {
+                width: 40px;
+                height: 40px;
+                @include breakpoint-up('md') {
+                    width: 69px;
+                    height: 69px;
+                }
+            }
 
             svg path {
                 fill: $sitkablue;
@@ -112,6 +141,21 @@
                 width: 23px;
                 margin-left: 13px;
                 margin-top: 2px;
+            }
+
+            .search-cta {
+                font-weight: 500;
+                color: $salmon;
+                text-decoration: none;
+
+                svg {
+                    width: 23px;
+                    margin-left: 8px;
+
+                    path {
+                        fill: $sitkablue;
+                    }
+                }
             }
         }
     }

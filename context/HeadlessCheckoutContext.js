@@ -4,6 +4,7 @@ import { useCustomerContext } from './CustomerContext'
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router'
 import { isEqual } from 'lodash-es';
+import { dataLayerATC, dataLayerViewCart } from '@/utils/dataLayer';
 const HeadlessCheckoutContext = createContext()
 
 export function useHeadlessCheckoutContext() {
@@ -76,6 +77,7 @@ export function HeadlessCheckoutProvider({ children }) {
     */
 
     const newItem = {
+      product,
       variant,
       variantId: variant.id.replace('gid://shopify/ProductVariant/', ''),
       quantity,
@@ -170,6 +172,8 @@ export function HeadlessCheckoutProvider({ children }) {
         }
       })
     }
+
+    dataLayerATC({item: newItem})
 
     if (open_flyout) {
       setFlyoutState(true)
@@ -738,7 +742,12 @@ export function HeadlessCheckoutProvider({ children }) {
   }, [customer, data])
 
   useEffect(() => {
-    if (flyoutState) document.querySelector('html').classList.add('disable-scroll')
+    if (flyoutState) {
+      document.querySelector('html').classList.add('disable-scroll')
+      if (data) {
+        dataLayerViewCart({cart: data.application_state})
+      }
+    }
     if (!flyoutState) document.querySelector('html').classList.remove('disable-scroll')
   }, [flyoutState]);
 

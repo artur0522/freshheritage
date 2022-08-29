@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 import { useMediaQuery } from 'react-responsive'
 import Link from "next/link";
-import ResponsiveImage from '@/components/ResponsiveImage'
 import Image from "next/image";
-import { useCart } from "@nacelle/react-hooks";
 import { getSelectedVariant } from "utils/getSelectedVariant";
-import { getCartVariant } from "utils/getCartVariant";
 import classes from "./ProductCard.module.scss";
+import { useRouter } from 'next/router'
+import { dataLayerSelectProduct } from "@/utils/dataLayer";
 
 function ProductCard({ product }) {
-  const [, { addToCart }] = useCart();
+  const router = useRouter()
   const [mounted, setMounted] = useState(false)
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
   const [selectedOptions, setSelectedOptions] = useState(
@@ -58,47 +57,36 @@ function ProductCard({ product }) {
     setSelectedVariant(variant ? { ...variant } : null);
   };
 
-  // Get product data and add it to the cart by using `addToCart`
-  // from the `useCart` hook provided by `@nacelle/react-hooks`.
-  // (https://github.com/getnacelle/nacelle-react/tree/main/packages/react-hooks)
-  const handleAddItem = () => {
-    const variant = getCartVariant({
-      product,
-      variant: selectedVariant,
-    });
-    addToCart({
-      variant,
-      quantity: 1,
-    });
-  };
+  const handleLink = (product) => {
+    dataLayerSelectProduct({product, url: router.pathname})
+    router.push(`/products/${encodeURIComponent(product.content.handle)}`)
+  }
 
   return (
     product && (
       <div className={classes["card"]}>
         {splitFlagTag && <div className={`${classes['best-seller']} best-seller`}>{splitFlagTag}</div>}
         <div className={classes['card__inner']}>
-        <Link href={`/products/${encodeURIComponent(product.content.handle)}`}>
-          <a className={classes["media"]}>
-            {product.content.featuredMedia && isMobile && mounted && (
+        <a onClick={() => handleLink(product)} className={classes["media"]}>
+          {product.content.featuredMedia && isMobile && mounted && (
+            <Image
+            src={product.content.featuredMedia.src}
+            alt={product.content.featuredMedia.altText}
+            width={430}
+            height={278}
+            className={classes.image}
+          />
+          )}
+          {product.content.featuredMedia && isDesktop && mounted && (
               <Image
               src={product.content.featuredMedia.src}
               alt={product.content.featuredMedia.altText}
-              width={430}
-              height={278}
+              width={650}
+              height={350}
               className={classes.image}
             />
-            )}
-            {product.content.featuredMedia && isDesktop && mounted && (
-               <Image
-               src={product.content.featuredMedia.src}
-               alt={product.content.featuredMedia.altText}
-               width={650}
-               height={350}
-               className={classes.image}
-             />
-            )}
-          </a>
-        </Link>
+          )}
+        </a>
 
         <div className={classes["card__content"]}>
           {product.content.title && (
@@ -147,9 +135,9 @@ function ProductCard({ product }) {
         </div>
         </div>
 
-        <Link href={`/products/${encodeURIComponent(product.content.handle)}`}>
-          <a className="btn salmon">View Details</a>
-        </Link>
+
+        <a onClick={() => handleLink(product)} className="btn salmon">View Details</a>
+
       </div>
     )
   );

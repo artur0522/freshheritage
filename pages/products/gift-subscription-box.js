@@ -13,6 +13,7 @@ import classes from './Product.module.scss'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import { getHarvests } from '@/utils/getHarvests'
 import { getMetafield } from '@/utils/getMetafield'
+import { dataLayerViewProduct } from '@/utils/dataLayer'
 
 function GiftSubscriptionBoxPDP({ page, products }) {
 
@@ -44,6 +45,7 @@ function GiftSubscriptionBoxPDP({ page, products }) {
     if (window && window.StampedFn) {
       StampedFn.init()
     }
+    dataLayerViewProduct({product})
   }, [product])
 
   useEffect(() => {

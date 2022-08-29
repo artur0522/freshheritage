@@ -18,6 +18,7 @@ import StructuredData from '@/components/SEO/StructuredData'
 import classes from './Product.module.scss'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import ProductStamps from '@/components/Product/ProductStamps'
+import { dataLayerViewProduct } from '@/utils/dataLayer'
 
 function Product({ product, page, modals }) {
   const [checked, setChecked] = useState(false)
@@ -58,13 +59,13 @@ function Product({ product, page, modals }) {
 
     const foundVisibleTags = product.tags.filter(tag => tag.toLowerCase().includes('visible'))
     const splitTag = foundVisibleTags[0]?.split(':')[1].trim()
-    const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
+    const splitTagWithoutDash = splitTag?.replace(/-/g, '').toLowerCase()
 
-    const productHasCustomerTag = customer?.tags.some(tag => tag.toLowerCase().indexOf(splitTag))
+    const productHasCustomerTag = customer?.tags.some(tag => tag.replace(/-/g, '').toLowerCase().indexOf(splitTagWithoutDash) > -1)
 
     modalContext.setArticleCustomerTag(productHasCustomerTag)
 
-    const foundModal = modals.find(modal => modal.handle.replace(/-/g, '').includes(splitTagWithDash))
+    const foundModal = modals.find(modal => modal.handle.replace(/-/g, '').includes(splitTagWithoutDash))
 
     // if product tags exist but none of the product tags match customer tag
     if(foundVisibleTags.length > 0 && !productHasCustomerTag) {
@@ -87,6 +88,10 @@ function Product({ product, page, modals }) {
     }
 
   }, [customer])
+
+  useEffect(() => {
+    dataLayerViewProduct({product})
+  }, [])
 
   const isDesktop = useMediaQuery(
     { minWidth: 1074 }

@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { nacelleClient } from "services";
 
 import ProductCard from "@/components/Cards/ProductCard/ProductCard";
 import PageSEO from "@/components/SEO/PageSEO";
+import { dataLayerViewProductList } from "@/utils/dataLayer";
 
 import classes from "./Collection.module.scss";
 
@@ -35,6 +36,10 @@ function Collection(props) {
     }
     setIsFetching(false);
   };
+
+  useEffect(() => {
+    dataLayerViewProductList({products, url: router.asPath})
+  }, [])
 
   return (
     collection && (

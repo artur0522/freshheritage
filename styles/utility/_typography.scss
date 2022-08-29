@@ -466,6 +466,14 @@ button {
       font-size: fontsize(36px);
     }
   }
+
+  &--search-results {
+    font-size: fontsize(21px);
+
+    @include breakpoint-up('md') {
+      font-size: fontsize(42px);
+    }
+  }
 }
 
 .delivery--time {

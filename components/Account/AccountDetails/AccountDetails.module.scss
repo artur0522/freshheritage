@@ -9,12 +9,14 @@
   h3 {
     font-family: $bebas;
     font-size: 48px;
+    margin-bottom: 60px;
   }
 
   h5 {
     font-family: $bebas;
     font-size: 21px;
     margin-top: 16px;
+    margin-bottom: 16px;
   }
 
   .customer-email-info {
@@ -109,6 +111,35 @@
             font-weight: 200;
           }
         }
+      }
+    }
+  }
+
+  .cancel-container {
+    color: $sitkablue;
+    font-family: $frank-ruhl;
+    font-size: 18px;
+    font-weight: 700;
+
+    h5 {
+      font-family: $frank-ruhl;
+      font-size: 24px;
+    }
+
+    button {
+      margin-top: 16px;
+      max-width: 18rem;
+    }
+
+    .options {
+      margin-top: 14px;
+      max-width: 18rem;
+      display: flex;
+      justify-content: space-between;
+
+      a {
+        font-weight: 400;
+        text-decoration: underline;
       }
     }
   }

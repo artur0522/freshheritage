@@ -27,8 +27,10 @@ const PrimaryNavigation = ({props, classes}) => {
   let theCatchUrl = `/the-catch/premium-seafood-box-${monthName}-${year}`
 
   if (customer) {
-    if (customer.tags.includes('PS') || customer.tags.includes('PSWS')) {
+    if (customer.tags.includes('PS')) {
       theCatchUrl = `/the-catch/premium-seafood-box-${monthName}-${year}`
+    } else if(customer.tags.includes('PSWS')) {
+      theCatchUrl = `/the-catch/premium-seafood-box-no-shellfish-${monthName}-${year}`
     } else if (customer.tags.includes('SF') || customer.tags.includes('SF-BI')) {
       theCatchUrl = `/the-catch/seafood-box-${monthName}-${year}`
     } else if (customer.tags.includes('S')) {

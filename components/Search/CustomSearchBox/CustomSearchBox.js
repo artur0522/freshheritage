@@ -27,7 +27,8 @@ const CustomSearchBox = (props) => {
     const query = router.asPath.split('=')[1]
 
     if(query) {
-      setSearchTerm(query)
+      const decoded = decodeURI(query)
+      setSearchTerm(decoded)
       refine(query)
     }
   }, [])
@@ -48,7 +49,7 @@ const CustomSearchBox = (props) => {
       {/* {query && <Stats />} */}
       <div className={classes['searchbox']}>
         <IconSearch />
-        <input className="h6" type="text" placeholder="Search here" onKeyDown={(e) => handleKeyDown(e)} onChange={(e) => handleChange(e)} value={searchTerm} />
+        <input className="h6" type="text" autoFocus placeholder="Search the site..." onKeyDown={(e) => handleKeyDown(e)} onChange={(e) => handleChange(e)} value={searchTerm} />
       </div>
     </div>
   )

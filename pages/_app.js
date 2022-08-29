@@ -27,31 +27,31 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
   const [mounted, setMounted] = useState(false)
 
   const pagesToDisplayChatWidget = [
+    '/collections/',
+    '/products/',
     '/pages/how-it-works',
     '/pages/choose-your-plan',
     '/pages/customize-your-plan',
     '/pages/intro-box',
-    '/collections/one-time-boxes',
-    '/collections/gifts',
-    '/checkout',
     '/pages/contact-us',
-    '/products/gift-subscription-box'
+    '/checkout',
   ]
 
-  const onRountChangeComplete = () => {
+  const displayZendeskWidget = (newUrl = router.asPath) => {
     if (document.getElementById('launcher')) {
-      if (mounted && (pagesToDisplayChatWidget.includes(router.asPath)) || router.pathname === '/products/[handle]') {
+      if (pagesToDisplayChatWidget.some(pageUrl => newUrl.indexOf(pageUrl) > -1)) {
         document.getElementById('launcher').style.display = 'block'
       } else {
         document.getElementById('launcher').style.display = 'none'
       }
     }
+  }
+
+  const onRountChangeComplete = (newUrl) => {
+    displayZendeskWidget(newUrl)
     if (window && window.StampedFn) {
       StampedFn.init()
     }
-  }
-
-  const trackRouteChange = () => {
     if (TagManager) {
       dataLayerRouteChange({ url: router.asPath })
     }
@@ -59,13 +59,16 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
 
   useEffect(() => {
     setMounted(true)
-    TagManager.initialize({ })
-    router.events.on('routeChangeComplete', trackRouteChange)
+    TagManager.initialize({
+      gtmId: process.env.NEXT_PUBLIC_GA_TRACKING_ID
+    })
+    onRountChangeComplete()
+    router.events.on('routeChangeComplete', onRountChangeComplete)
   }, [])
 
   useEffect(() => {
-    router.events.on('routeChangeComplete', onRountChangeComplete)
-  }, [router.asPath, mounted])
+    displayZendeskWidget()
+  }, [router.asPath])
 
   return (
     <CartProvider>
@@ -91,10 +94,15 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
         }`}
       </Script>}
 
-      {mounted && (pagesToDisplayChatWidget.includes(router.asPath) || router.pathname === '/products/[handle]') ? <Script
+      {mounted ? <Script
         id="ze-snippet"
         src={`https://static.zdassets.com/ekr/snippet.js?key=${process.env.NEXT_PUBLIC_ZENDESK_KEY}`}
         strategy="lazyOnload"
+        onLoad={() => {
+          setTimeout(() => {
+            displayZendeskWidget()
+          }, 5000)
+        }}
       ></Script> : null}
     </CartProvider>
   )

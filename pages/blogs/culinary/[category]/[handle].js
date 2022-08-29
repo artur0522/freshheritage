@@ -51,15 +51,16 @@ const RecipeArticle = ({ page, products, blogSettings, modals }) => {
       return
     }
 
-    const foundVisibleTags = articleTags.filter(tag => tag.value.toLowerCase().includes('visible'))
-    const splitTag = foundVisibleTags[0]?.value?.split(':')[1].trim()
-    const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
+    const foundVisibleTags = articleTags.tags.filter(tag => tag.toLowerCase().includes('visible'))
+    const splitTag = foundVisibleTags[0]?.split(':')[1].trim()
+    const splitTagWithoutDash = splitTag?.replace(/-/g, '').toLowerCase()
 
-    const articleHasCustomerTag = customer?.tags.some(tag => tag.toLowerCase().indexOf(splitTag))
+    const articleTagsHasCustomerTag = customer?.tags.some(tag => tag.replace(/-/g, '').toLowerCase().indexOf(splitTagWithoutDash) > -1)
 
-    modalContext.setArticleCustomerTag(articleHasCustomerTag)
+    modalContext.setArticleCustomerTag(articleTagsHasCustomerTag)
 
-    const foundModal = modals.find(modal => modal.handle.replace(/-/g, '').includes(splitTagWithDash))
+    const foundModal = modals.find(modal => modal.handle.replace(/-/g, '').includes(splitTagWithoutDash))
+
 
     // if product tags exist but none of the product tags match customer tag
     if(foundVisibleTags.length > 0 && !articleHasCustomerTag) {

@@ -4,7 +4,7 @@ import { useCustomerContext } from './CustomerContext'
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router'
 import { isEqual } from 'lodash-es';
-import { dataLayerATC } from '@/utils/dataLayer';
+import { dataLayerATC, dataLayerViewCart } from '@/utils/dataLayer';
 const HeadlessCheckoutContext = createContext()
 
 export function useHeadlessCheckoutContext() {
@@ -742,7 +742,12 @@ export function HeadlessCheckoutProvider({ children }) {
   }, [customer, data])
 
   useEffect(() => {
-    if (flyoutState) document.querySelector('html').classList.add('disable-scroll')
+    if (flyoutState) {
+      document.querySelector('html').classList.add('disable-scroll')
+      if (data) {
+        dataLayerViewCart({cart: data.application_state})
+      }
+    }
     if (!flyoutState) document.querySelector('html').classList.remove('disable-scroll')
   }, [flyoutState]);
 

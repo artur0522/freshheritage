@@ -197,7 +197,6 @@ export function ArticleFiltersDrawerProvider({ children }) {
   // state
   const { selectedFilterObjectsList, multipleSelectedFilters, currentOption, currentFilterGroup, isOpen, infoCardFields, isFishInfoOpen, filters, selectedFilterList, listings, originalListings, tagCount, tagArray, selectValue, isFishermen} = state
 
-  // dispatch functions
   const setCurrentOption = (currentOption) => {
     dispatch({type: 'set_current_option', payload: currentOption})
   }
@@ -320,6 +319,15 @@ export function ArticleFiltersDrawerProvider({ children }) {
       option: filterOption,
       subFilter: subFilter,
     }})
+
+    console.log(router.url)
+
+    // router.replace({
+    //   pathname: `/blogs/culinary/${router.query.category}` || `/blogs/stories/${router.query.category}`,
+    //   query: { selectedFilters: selectedFilterList.map(option => option).join(decodeURI('&')) }
+    // },
+    // undefined, { shallow: true }
+    // )
 
     setCurrentOption(filterOption)
     setCurrentFilterGroup(filterGroup)
@@ -500,18 +508,6 @@ export function ArticleFiltersDrawerProvider({ children }) {
     // if(router.query.selectedFilters) {
     //   console.log("router", router)
     //   const refinedSelectedFilters = router.query.selectedFilters.split("&")
-    //   console.log('refinedselectedfilters', refinedSelectedFilters)
-
-    //   selectedFilterObjectsList.map((filterObject) => {
-    //     console.log('foss', filterObject)
-
-    //     dispatch({ type: 'toggle_checkbox', payload: {
-    //       hasSubfilter: filterObject.hasSubfilter || null,
-    //       filterGroup: filterObject.filterGroup,
-    //       option: filterObject.filterOption,
-    //       subFilter: filterObject.subFilter,
-    //     }})
-    //   })
     // }
 
     if(selectedFilterList.length > 0) {

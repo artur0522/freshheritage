@@ -17,6 +17,7 @@ export function HeadlessCheckoutProvider({ children }) {
   const [PIGIMediaRules, setPIGIMediaRules] = useState([]);
   const [flyoutState, setFlyoutState] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [checkoutIsReady, setCheckoutIsReady] = useState(false)
   const { customer } = useCustomerContext()
 
   function saveDataInLocalStorage(data) {
@@ -319,6 +320,7 @@ export function HeadlessCheckoutProvider({ children }) {
     console.log(data, 'init checkout')
     stylePaymentIframe()
     setData({...data})
+    setCheckoutIsReady(true)
   }
 
   // this endpoint also refreshes the jwt
@@ -339,6 +341,7 @@ export function HeadlessCheckoutProvider({ children }) {
     console.log(data, 'resumed checkout')
     stylePaymentIframe()
     setData(data)
+    setCheckoutIsReady(true)
   }
 
   async function refreshApplicationState(payload) {
@@ -774,7 +777,9 @@ export function HeadlessCheckoutProvider({ children }) {
         updateCustomerInOrder,
         PIGIMediaRules,
         isLoading,
-        setIsLoading
+        setIsLoading,
+        checkoutIsReady,
+        setCheckoutIsReady
       }}
     >
       <CheckoutFlyout />

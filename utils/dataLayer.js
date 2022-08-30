@@ -160,17 +160,25 @@ export const dataLayerViewCart = ({ cart }) => {
     event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
     cart_total: formatPrice(cart.order_total).toString(),
     ecommerce: {
-      "actionField": { "list": "Shopping Cart" },
+      actionField: { "list": "Shopping Cart" },
       impressions: buildProductDataFromBold(cart.line_items)
     }
   }})
 }
 
-/*
-  When does this get fired if checkout is the flyout?
-*/
 export const dataLayerBeginCheckout = ({ cart }) => {
-
+  TagManager.dataLayer({ dataLayer: {
+    event: 'dl_begin_checkout',
+    // user_properties: user_properties,
+    event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
+    cart_total: formatPrice(cart.order_total).toString(),
+    ecommerce: {
+      checkout: {
+        actionField: { "step": "Final", "action": "checkout" },
+      },
+      products: buildProductDataFromBold(cart.line_items)
+    }
+  }})
 }
 
 export const dataLayerSignup = ({ customer, url }) => {

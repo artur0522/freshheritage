@@ -14,9 +14,7 @@ const BlogFilterItem = (props) => {
   const { filters, optionHandler, subOptionHandler, tagCount} = articleFiltersDrawerContext
   const { filterGroup } = props
   const [dropdown, setDropdown] = useState(false)
-
-  console.log("filters options array", Object.keys(filters[filterGroup].options))
-
+  
   function buildCheckboxInput({ onChange, label, checked }) {
     return <div className={`${classes['filter-option__checkbox-wrapper']} body`}>
                 <Checkbox

@@ -258,14 +258,15 @@ const MemoizedPaymentMethod = memo(
             } catch (e) {
               //console.log(e)
             }
+          } else {
+            try {
+              const results = await applyDiscount(discounts[0]);
+              //console.log(results)
+            } catch (e) {
+              //console.log(e)
+            }
           }
 
-          try {
-            const results = await applyDiscount(discounts[0]);
-            //console.log(results)
-          } catch (e) {
-            //console.log(e)
-          }
         } else {
           try {
             console.log("removing discount")

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useMediaQuery } from 'react-responsive'
-
+import { useRouter } from 'next/router'
 import { useArticleFiltersDrawerContext } from '@/context/ArticleFiltersDrawerContext'
 
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
@@ -22,7 +22,8 @@ import ArticleCookingClassHero from '@/components/Article/ArticleCookingClassHer
 
 const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const drawerContext = useArticleFiltersDrawerContext()
-    const { setMultipleSelectedFilters, addFilters, openDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
+    const router = useRouter()
+    const { addFilters, openDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
 
     const { content, filterGroups } = page.fields
     const heroSection = content?.find(section => section._type === 'hero')
@@ -32,7 +33,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const [currentPage, setCurrentPage] = useState(1)
     const [filterDrawer, toggleFilterDrawer]= useState(true)
     const [mounted, setMounted]= useState(false)
-
+    const [searchTerm, setSearchTerm] = useState("")
     const isDesktop = useMediaQuery({query: '(min-width: 1074px)'})
 
     const { hero } = page?.fields
@@ -42,9 +43,29 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
     hero.header = page.title
     hero.subheader = page.fields?.subheader
 
-    useEffect(() => {
-        setMounted(true)
+    const handleChange = (e) => {
+      setSearchTerm(e.target.value)
+    }
 
+    const handleKeyDown = (e) => {
+      if (e.key === 'Enter') {
+       e.preventDefault()
+
+       if(blogGlobalSettings.blogType === 'culinary') {
+        router.push({
+          pathname: '/pages/search',
+          query: { query: searchTerm, index: "culinary_articles" },
+        })
+       } else {
+        router.push({
+          pathname: '/pages/search',
+          query: { query: searchTerm, index: "brand_articles" },
+        })
+       }
+      }
+    }
+
+    useEffect(() => {
         addListings(articles)
         addOriginalListings(articles)
         sortListings(articles, true)
@@ -78,9 +99,6 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         addTagArray(tagArray)
         addTagCount(tagCount)
 
-        console.log("tagArray", tagArray)
-        console.log('tagCount', tagCount)
-
         const filterGroupObj = {}
         const multipleSelectedFilters = {}
 
@@ -107,18 +125,15 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
           })
         })
 
-        // FILTER GROUP OBJECT -- controls checkboxes that are clicked
-        console.log("filterGroupObject", filterGroupObj)
-
         addFilters(filterGroupObj)
-        setMultipleSelectedFilters(multipleSelectedFilters)
 
         if(selectedFilterList.length > 0) {
           setCurrentPage(1)
         }
-
         setPages(Math.ceil(listings.length / 20))
-    }, [articles, pages, originalListings])
+
+        setMounted(true)
+    }, [articles, pages, originalListings, mounted])
 
     useEffect(() => {
       window.scrollTo({ behavior: 'smooth', top: '0px' })
@@ -163,7 +178,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             <button type="button">
                 <IconSearch />
             </button>
-            <input type="text" placeholder='Search' className="body" />
+            <input type="text" placeholder='Search' className="body" onKeyDown={(e) => handleKeyDown(e)} onChange={(e) => handleChange(e)} />
           </div>
 
           <div className={classes['recipes__filter-row']}>

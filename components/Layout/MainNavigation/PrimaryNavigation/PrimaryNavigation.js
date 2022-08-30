@@ -14,7 +14,7 @@ const PrimaryNavigation = ({props, classes}) => {
   const theCatchContext = useTheCatchContext()
   const { customer } = customerContext
   const { setMobileMenuIsOpen } = useHeaderContext()
-  const {menuItems} = (customerContext.customer?.is_member) ? props.memberPrimaryNavigation : props.nonMemberPrimaryNavigation
+  const {menuItems} = (customerContext.customer?.is_member || customerContext.customer?.is_sustainer) ? props.memberPrimaryNavigation : props.nonMemberPrimaryNavigation
   const searchModalContext = useSearchModalContext()
   const { setSearchOpen } = searchModalContext
   const { monthName, year } = theCatchContext

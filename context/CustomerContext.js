@@ -69,6 +69,11 @@ export function CustomerProvider({ children }) {
       } else {
         customer.is_member = false
       }
+      if (data.customer.tags.some(tag => ['KingSustainer', 'SockeyeSustainer'].includes(tag))) {
+        customer.is_sustainer = true
+      } else {
+        customer.is_sustainer = false
+      }
     }
 
     if (customer?.addresses?.edges.length > 0) {

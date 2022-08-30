@@ -82,7 +82,8 @@ const StandardContent = forwardRef(({fields, products}, ref) => {
       productBlock: ({value}) => {
         if (!products || products.length < 1) return <></>
         const product = products.find(product => product.content.handle === value.product)
-        return <ArticleProduct product={product} parentClasses={classes} />
+        if (product) return <ArticleProduct product={product} parentClasses={classes} />
+        return <></>
       },
       youtubeVideoBlock: ({value}) => <Video youtubeVideoId={value.youtubeVideoId} autoplay={false} startVideo="true" className={classes['article-section__video']} />
     },

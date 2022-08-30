@@ -193,8 +193,6 @@ export function ArticleFiltersDrawerProvider({ children }) {
   const router = useRouter()
   const [state, dispatch] = useReducer(drawerReducer, initialState)
 
-
-  // state
   const { selectedFilterObjectsList, multipleSelectedFilters, currentOption, currentFilterGroup, isOpen, infoCardFields, isFishInfoOpen, filters, selectedFilterList, listings, originalListings, tagCount, tagArray, selectValue, isFishermen} = state
 
   const setCurrentOption = (currentOption) => {

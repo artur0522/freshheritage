@@ -250,8 +250,7 @@ const MemoizedPaymentMethod = memo(
 
         console.log('discounts:', discounts);
         if (discounts.length) {
-
-          if (appliedDiscounts?.discountCode !== discounts[0]) {
+          if (appliedDiscounts?.discountCode !== '' && appliedDiscounts?.discountCode !== discounts[0]) {
             try {
               const removeResults = await removeDiscount(appliedDiscounts.discountCode);
               const addResults = await applyDiscount(discounts[0]);

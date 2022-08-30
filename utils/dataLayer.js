@@ -4,7 +4,7 @@ import moment from 'moment'
 import { formatPrice } from './formatPrice';
 
 function buildProductData(products, type, url) {
-  return products.map(product => {
+  return products.map((product, index) => {
     const firstVariant = product.variants[0]
     const data = {
       id: firstVariant.sku, // SKU
@@ -22,12 +22,29 @@ function buildProductData(products, type, url) {
 
     if (type === 'collection') {
       data['list'] = url // The list the product was discovered from or is displayed in
+      data['position'] = index.toString() // position in the list of search results, collection views and position in cart indexed starting at 1
     }
 
-    if (type === 'collection' || type === 'search') {
-      // data['position'] = item.position // position in the list of search results, collection views and position in cart indexed starting at 1
-    }
     return data
+  })
+}
+
+function buildProductDataFromBold(lineItems) {
+  return lineItems.map((item) => {
+    item = item.product_data
+    return {
+      id: item.sku, // SKU
+      name: item.product_title, // Product title
+      brand: "Sitka Salmon Shares",
+      category: "",
+      variant: item.title,
+      price: formatPrice(item.price).toString(),
+      quantity: item.quantity.toString(),
+      product_id: item.product_id, // The product_id
+      variant_id: item.variant_id, // id or variant_id
+      compare_at_price: item.compare_at_price ? formatPrice(item.compare_at_price).toString() : '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
+      image: item.image_url || '', // If available, otherwise use an empty string
+    }
   })
 }
 
@@ -37,6 +54,7 @@ function buildProductData(products, type, url) {
 export const dataLayerATC = ({ item }) => {
   TagManager.dataLayer({ dataLayer: {
     event: 'dl_add_to_cart',
+    event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
     ecommerce: {
       add: {
         products: [{
@@ -61,8 +79,16 @@ export const dataLayerATC = ({ item }) => {
   item must be unique custom object from HeadlessCheckoutContext.js
   - this is for removing from cart
 */
-export const dataLayerRFC = ({}) => {
-
+export const dataLayerRFC = ({ item }) => {
+  TagManager.dataLayer({ dataLayer: {
+    event: 'dl_remove_from_cart',
+    event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
+    ecommerce: {
+      remove: {
+        products: buildProductDataFromBold([item])
+      }
+    }
+  }})
 }
 
 export const dataLayerViewProductList = ({products, url}) => {
@@ -85,7 +111,22 @@ export const dataLayerViewSearchResults = ({products}) => {
     event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
     ecommerce: {
       actionField: { list: 'search results' },
-      impressions: buildProductData([...products], 'search')
+      impressions: products.map((item, index) => {
+        return {
+          id: item.sku, // SKU
+          name: item.title, // Product title
+          brand: "Sitka Salmon Shares",
+          category: "",
+          variant: item.variant_title,
+          price: formatPrice(item.price).toString(),
+          quantity: "1",
+          product_id: item.id.toString(), // The product_id
+          variant_id: "", // id or variant_id
+          compare_at_price: item.compare_at_price ? formatPrice(item.compare_at_price).toString() : '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
+          image: item.image || '', // If available, otherwise use an empty string
+          position: index.toString()
+        }
+      })
     }
   }})
 }
@@ -120,22 +161,7 @@ export const dataLayerViewCart = ({ cart }) => {
     cart_total: formatPrice(cart.order_total).toString(),
     ecommerce: {
       "actionField": { "list": "Shopping Cart" },
-      impressions: cart.line_items.map(item => {
-        item = item.product_data
-        return {
-          id: item.sku, // SKU
-          name: item.product_title, // Product title
-          brand: "Sitka Salmon Shares",
-          category: "",
-          variant: item.title,
-          price: formatPrice(item.price).toString(),
-          quantity: item.quantity.toString(),
-          product_id: item.product_id, // The product_id
-          variant_id: item.variant_id, // id or variant_id
-          compare_at_price: item.compare_at_price ? formatPrice(item.compare_at_price).toString() : '', // If available on dl_view_item & dl_add_to_cart otherwise use an empty string
-          image: item.image_url || '', // If available, otherwise use an empty string
-        }
-      })
+      impressions: buildProductDataFromBold(cart.line_items)
     }
   }})
 }

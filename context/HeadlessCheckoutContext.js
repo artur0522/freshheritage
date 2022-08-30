@@ -4,7 +4,7 @@ import { useCustomerContext } from './CustomerContext'
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router'
 import { isEqual } from 'lodash-es';
-import { dataLayerATC, dataLayerViewCart } from '@/utils/dataLayer';
+import { dataLayerATC, dataLayerRFC, dataLayerViewCart } from '@/utils/dataLayer';
 const HeadlessCheckoutContext = createContext()
 
 export function useHeadlessCheckoutContext() {
@@ -607,7 +607,10 @@ export function HeadlessCheckoutProvider({ children }) {
       localStorage.getItem('checkout_data'),
     )
 
-    const foundSubscriptionItem = data.application_state.line_items.find(item => item.product_data.line_item_key === payload.line_item_key)
+    const itemToBeRemoved = data.application_state.line_items.find(item => item.product_data.line_item_key === payload.line_item_key)
+    dataLayerRFC({item: itemToBeRemoved})
+
+    const foundSubscriptionItem = data.application_state.line_items.find(item => item.product_data.line_item_key === payload.line_item_key && item.product_data.tags.includes('Subscription Box'))
 
     if (foundSubscriptionItem && data.application_state.line_items.length >= 1) {
       let lineItems = data.application_state.line_items.filter(item => item.product_data.variant_id !== foundSubscriptionItem?.product_data?.variant_id).map(item => {

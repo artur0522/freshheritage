@@ -67,7 +67,23 @@ const RecipeArticle = ({ page, products, blogSettings, modals }) => {
 
     modalContext.setArticleCustomerTag(articleHasCustomerTag)
 
-    const foundModal = modals.find(modal => foundVisibleTags.some(tag =>  modal.handle.replace(/-/g, '').includes(tag)))
+    const hierarchy = [
+      'kingsustainer',
+      'sockeyesustainer',
+      'prepaid',
+      'member'
+    ]
+
+    const foundModal = modals.reduce((carry, modal) => {
+      const modalHandleWithoutDash = modal.handle.replace(/-/g, '')
+      if (foundVisibleTags.some(tag => tag.indexOf(modalHandleWithoutDash) > -1)) {
+        if (!carry.handle) return modal
+        if (hierarchy.indexOf(modalHandleWithoutDash) < hierarchy.indexOf(carry.handle.replace(/-/g, ''))) {
+          return modal
+        }
+      }
+      return carry
+    }, {})
 
     // if product tags exist but none of the product tags match customer tag
     if(foundVisibleTags.length > 0 && !articleHasCustomerTag && foundModal) {

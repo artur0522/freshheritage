@@ -204,13 +204,19 @@ export function HeadlessCheckoutProvider({ children }) {
           "cssText": ".TogglePanel__Header { height: 60px; display: flex; align-items: center; padding: 0 15px;}"
         },
         {
-          "cssText": ".ToggleField__Input:focus { box-shadow: 0 0 0 2px #163144 inset !important;}"
+          "cssText": ".ToggleField__Input:focus { box-shadow: 0 0 0 2px #163144 inset;}"
         },
         {
-          "cssText": ".ToggleField__Input--Checkbox:checked { box-shadow: 0 0 0 10px #163144 inset !important;}"
+          "cssText": ".ToggleField__Input--Checkbox:checked { box-shadow: 0 0 0 10px #163144 inset;}"
         },
         {
-          "cssText": ".ToggleField__Input--Radio { box-shadow: 0 0 0 2px #fff inset !important; border: 1px solid #163144; background-color: #163144; }"
+          "cssText": ".ToggleField__Input--Radio { box-shadow: 0 0 0 2px #fff inset; border: 1px solid #163144; background-color: #fff; }"
+        },
+        {
+          "cssText": ".ToggleField__Input--Radio:checked { background-color: #163144; box-shadow: 0 0 0 2px #fff inset !important }"
+        },
+        {
+          "cssText": ".ToggleField__Input--Radio:focus { box-shadow: none }"
         },
         {
           "cssText": ".TogglePanelGroup { border-radius: 12px !important; border: 1px solid #eaeae9; }"

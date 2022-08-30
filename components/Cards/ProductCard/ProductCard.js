@@ -27,8 +27,6 @@ function ProductCard({ product }) {
     router.push(`/products/${encodeURIComponent(product.content.handle)}`)
   }
 
-  console.log("product:", product)
-
   return (
     product && (
       <div className={classes["card"]}>

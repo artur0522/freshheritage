@@ -41,8 +41,6 @@ const Search = () => {
   const isDesktop = useMediaQuery(
     {query: '(min-width: 768px)'}
   )
-
-  console.log("router", router)
   
   useEffect(() => {
     setMounted(true)

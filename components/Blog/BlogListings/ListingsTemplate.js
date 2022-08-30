@@ -23,7 +23,7 @@ import ArticleCookingClassHero from '@/components/Article/ArticleCookingClassHer
 const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const drawerContext = useArticleFiltersDrawerContext()
     const router = useRouter()
-    const { setMultipleSelectedFilters, addFilters, openDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
+    const { addFilters, openDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
 
     const { content, filterGroups } = page.fields
     const heroSection = content?.find(section => section._type === 'hero')
@@ -50,7 +50,18 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const handleKeyDown = (e) => {
       if (e.key === 'Enter') {
        e.preventDefault()
-       router.push(`/pages/search?query=${searchTerm}&index=culinary_resources`)
+
+       if(blogGlobalSettings.blogType === 'culinary') {
+        router.push({
+          pathname: '/pages/search',
+          query: { query: searchTerm, index: "culinary_articles" },
+        })
+       } else {
+        router.push({
+          pathname: '/pages/search',
+          query: { query: searchTerm, index: "brand_articles" },
+        })
+       }
       }
     }
 
@@ -116,16 +127,11 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
           })
         })
 
-        // FILTER GROUP OBJECT -- controls checkboxes that are clicked
-        console.log("filterGroupObject", filterGroupObj)
-
         addFilters(filterGroupObj)
-        setMultipleSelectedFilters(multipleSelectedFilters)
 
         if(selectedFilterList.length > 0) {
           setCurrentPage(1)
         }
-
         setPages(Math.ceil(listings.length / 20))
     }, [articles, pages, originalListings])
 

@@ -48,7 +48,8 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
     const pages = await nacelleClient.content({
       handles: [params.handle],
-      type: 'theCatch'
+      type: 'theCatch',
+      entryDepth: 1
     })
 
     if (!pages.length) {

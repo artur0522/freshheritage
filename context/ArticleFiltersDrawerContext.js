@@ -247,7 +247,6 @@ export function ArticleFiltersDrawerProvider({ children }) {
     dispatch({ type: 'set_info_card', payload: info})
   }
 
-  // method
   const sortListings = (listings, mostRecent) => {
     const sortedListings = listings.sort((a, b) => {
       let aPublishedDate = a.fields ? moment(a.fields.createdAt).unix() : moment(a.createdAt).unix()

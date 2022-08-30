@@ -38,7 +38,7 @@ const StaticHarvest = ({ fields }) => {
     return (
         <div className={`${classes['harvest']}`}>
             <div className={classes['harvest__inner']}>
-                {fields?.list?.length > 0 && <button className={`${classes['btn']} secondary--body`} onClick={() => openDrawer()}>View Past Issues Of The Catch +</button>}
+                {fields?.theCatchList?.length > 0 && <button className={`${classes['btn']} secondary--body`} onClick={() => openDrawer()}>View Past Issues Of The Catch +</button>}
 
                 {illustration && <div className={`${classes['harvest__illustration']}`}>
                     <div className={classes['harvest__illustration-img']}>

@@ -5,6 +5,7 @@ import classes from './MobileMenu.module.scss'
 import { CSSTransition } from 'react-transition-group'
 import { useCustomerContext } from '@/context/CustomerContext'
 import { useHeaderContext } from '@/context/HeaderContext'
+import { useTheCatchContext } from '@/context/TheCatchContext'
 
 const MobileMenu = ({props, pageHandle}) => {
 
@@ -15,11 +16,25 @@ const MobileMenu = ({props, pageHandle}) => {
   }
 
   const customerContext = useCustomerContext()
+  const theCatchContext = useTheCatchContext()
+  const { customer } = customerContext
   const { mobileMenuIsOpen, setMobileMenuIsOpen } = useHeaderContext()
   const {menuItems} = (customerContext.customer?.is_member) ? props.memberPrimaryNavigation : props.nonMemberPrimaryNavigation
   const navCTA = (customerContext.customer?.is_member) ? props.memberCta : props.nonMemberCta
   const customerService = props.customerService
   const nodeRef = useRef(null)
+  const { monthName, year } = theCatchContext
+
+  let theCatchUrl = `/the-catch/premium-seafood-box-${monthName}-${year}`
+  if (customer) {
+    if (customer.tags.includes('PS') || customer.tags.includes('PSWS')) {
+      theCatchUrl = `/the-catch/premium-seafood-box-${monthName}-${year}`
+    } else if (customer.tags.includes('SF') || customer.tags.includes('SF-BI')) {
+      theCatchUrl = `/the-catch/seafood-box-${monthName}-${year}`
+    } else if (customer.tags.includes('S')) {
+      theCatchUrl = `/the-catch/salmon-box-${monthName}-${year}`
+    }
+  }
 
   return (
     <CSSTransition in={mobileMenuIsOpen} timeout={250} nodeRef={nodeRef} unmountOnExit classNames={{
@@ -45,13 +60,23 @@ const MobileMenu = ({props, pageHandle}) => {
           <div className={classes.mobileMenuSection}>
             <ul>
               {menuItems.map(item => {
-                return (
-                  <li className={classes.mobilePrimaryNavItem} key={item._key}>
-                    <Link href={item.linkUrl ? item.linkUrl : '/'}>
-                      <a>{item.linkText}</a>
-                    </Link>
-                  </li>
-                )
+                  if(item.linkText === 'The Catch') {
+                    return (
+                      <li className={classes.mobilePrimaryNavItem} key={item._key}>
+                        <Link href={theCatchUrl || '/'}>
+                          <a>{item.linkText}</a>
+                        </Link>
+                      </li>
+                    )
+                  } else {
+                    return (
+                      <li className={classes.mobilePrimaryNavItem} key={item._key}>
+                        <Link href={item.linkUrl ? item.linkUrl : '/'}>
+                          <a>{item.linkText}</a>
+                        </Link>
+                      </li>
+                    )
+                  }
               })}
             </ul>
           </div>

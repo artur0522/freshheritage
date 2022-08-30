@@ -66,8 +66,6 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
     }
 
     useEffect(() => {
-        setMounted(true)
-
         addListings(articles)
         addOriginalListings(articles)
         sortListings(articles, true)
@@ -133,7 +131,9 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
           setCurrentPage(1)
         }
         setPages(Math.ceil(listings.length / 20))
-    }, [articles, pages, originalListings])
+
+        setMounted(true)
+    }, [articles, pages, originalListings, mounted])
 
     useEffect(() => {
       window.scrollTo({ behavior: 'smooth', top: '0px' })

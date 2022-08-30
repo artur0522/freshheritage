@@ -1,66 +1,33 @@
 import { useState, useEffect } from "react";
 import { useMediaQuery } from 'react-responsive'
-import Link from "next/link";
 import Image from "next/image";
-import { getSelectedVariant } from "utils/getSelectedVariant";
 import classes from "./ProductCard.module.scss";
 import { useRouter } from 'next/router'
 import { dataLayerSelectProduct } from "@/utils/dataLayer";
+import { formatPrice } from "@/utils/formatPrice";
 
 function ProductCard({ product }) {
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
-  const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
-  const [selectedOptions, setSelectedOptions] = useState(
-    selectedVariant.content?.selectedOptions
-  );
   const isMobile =  useMediaQuery({ query: '(max-width: 430px)' })
   const isDesktop = useMediaQuery({query: '(min-width: 430px)'})
+  const firstVariant = product.variants[0]
 
   useEffect(() => {
     setMounted(true)
   }, [])
-
-  let options = null;
-  if (product?.content?.options?.some((option) => option.values.length > 1)) {
-    options = product?.content?.options;
-  }
 
   const includesMetafield = product.metafields.find(metafield => metafield.key === 'includes')
   const shortDescriptionMetafield = product.metafields.find(metafield => metafield.key === 'short_description')
   const flagTag = product.tags.find(tag => tag.includes("Flag"))
   const splitFlagTag = flagTag?.split(":")[1]
 
-  const buttonText = selectedVariant
-    ? selectedVariant.availableForSale
-      ? "Add To Cart"
-      : "Sold Out"
-    : "Select Option";
-
-  const handleOptionChange = (event, option) => {
-    const newOption = { name: option.name, value: event.target.value };
-    const optionIndex = selectedOptions.findIndex((selectedOption) => {
-      return selectedOption.name === newOption.name;
-    });
-
-    const newSelectedOptions = [...selectedOptions];
-    if (optionIndex > -1) {
-      newSelectedOptions.splice(optionIndex, 1, newOption);
-      setSelectedOptions([...newSelectedOptions]);
-    } else {
-      setSelectedOptions([...newSelectedOptions, newOption]);
-    }
-    const variant = getSelectedVariant({
-      product,
-      options: newSelectedOptions,
-    });
-    setSelectedVariant(variant ? { ...variant } : null);
-  };
-
   const handleLink = (product) => {
     dataLayerSelectProduct({product, url: router.pathname})
     router.push(`/products/${encodeURIComponent(product.content.handle)}`)
   }
+
+  console.log("product:", product)
 
   return (
     product && (
@@ -99,39 +66,20 @@ function ProductCard({ product }) {
 
           <div className={classes["price-wrap"]}>
             <div className={classes["price"]}>
-              {selectedVariant.compareAtPrice && (
+              {firstVariant.compareAtPrice && (
                 <p className={`${classes.compare} secondary--body`}>
-                  ${selectedVariant.compareAtPrice}
+                  ${formatPrice(firstVariant.compareAtPrice * 100)}
                 </p>
               )}
-              <p className="secondary--body">${selectedVariant.price}</p>
+              <p className="secondary--body">${formatPrice(firstVariant.price * 100)}</p>
             </div>
-            {selectedVariant.weight && <p className={`${classes["weight"]} secondary--body`}>
-              {selectedVariant.weight}lbs
+            {firstVariant.weight && <p className={`${classes["weight"]} secondary--body`}>
+              {firstVariant.weight}lbs
             </p>}
           </div>
 
           {includesMetafield && <p className={`${classes['metafield']} base-font`}>{includesMetafield.value}</p>}
           {shortDescriptionMetafield && <p className={`${classes['metafield']} base-font`}>{shortDescriptionMetafield.value}</p>}
-
-          {options &&
-            options.map((option, oIndex) => (
-              <div key={oIndex}>
-                <label htmlFor={`select-${oIndex}-${product.id}`}>
-                  {option.name}
-                </label>
-                <select
-                  id={`select-${oIndex}-${product.id}`}
-                  onChange={($event) => handleOptionChange($event, option)}
-                >
-                  {option.values.map((value, vIndex) => (
-                    <option key={vIndex} value={value}>
-                      {value}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            ))}
         </div>
         </div>
 

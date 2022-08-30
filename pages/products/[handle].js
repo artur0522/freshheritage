@@ -57,24 +57,29 @@ function Product({ product, page, modals }) {
       return
     }
 
-    const foundVisibleTags = product.tags.filter(tag => tag.toLowerCase().includes('visible'))
-    const splitTag = foundVisibleTags[0]?.split(':')[1].trim()
-    const splitTagWithoutDash = splitTag?.replace(/-/g, '').toLowerCase()
+    const foundVisibleTags = product.tags.reduce((carry, tag) => {
+      if (tag.toLowerCase().includes('visible')) {
+        const splitTag = tag.split(':')[1].trim()
+        const splitTagWithoutDash = splitTag?.replace(/-/g, '').toLowerCase()
+        return [...carry, splitTagWithoutDash]
+      }
+      return carry
+    }, [])
 
-    const productHasCustomerTag = customer?.tags.some(tag => tag.replace(/-/g, '').toLowerCase().indexOf(splitTagWithoutDash) > -1)
+    const productHasCustomerTag = customer?.tags.some(tag => {
+      const customerTagWithoutDash = tag.replace(/-/g, '').toLowerCase()
+      return foundVisibleTags.some(tag => customerTagWithoutDash.indexOf(tag) > -1)
+    })
 
     modalContext.setArticleCustomerTag(productHasCustomerTag)
 
-    const foundModal = modals.find(modal => modal.handle.replace(/-/g, '').includes(splitTagWithoutDash))
+    const foundModal = modals.find(modal => foundVisibleTags.some(tag =>  modal.handle.replace(/-/g, '').includes(tag)))
 
     // if product tags exist but none of the product tags match customer tag
-    if(foundVisibleTags.length > 0 && !productHasCustomerTag) {
-      if(foundModal) {
-        modalContext.setPrevContent(foundModal?.fields)
-        modalContext.setContent(foundModal?.fields)
-        modalContext.setModalType('gated_product')
-        modalContext.setIsOpen(true)
-      }
+    if(foundVisibleTags.length > 0 && !productHasCustomerTag && foundModal) {
+      modalContext.setContent(foundModal.fields)
+      modalContext.setModalType('gated_product')
+      modalContext.setIsOpen(true)
     }
 
     // if one of the product tags contains customer tag

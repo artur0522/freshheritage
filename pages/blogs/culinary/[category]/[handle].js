@@ -51,25 +51,29 @@ const RecipeArticle = ({ page, products, blogSettings, modals }) => {
       return
     }
 
-    const foundVisibleTags = articleTags.tags.filter(tag => tag.toLowerCase().includes('visible'))
-    const splitTag = foundVisibleTags[0]?.split(':')[1].trim()
-    const splitTagWithoutDash = splitTag?.replace(/-/g, '').toLowerCase()
+    const foundVisibleTags = articleTags.reduce((carry, tag) => {
+      if (tag.value.toLowerCase().includes('visible')) {
+        const splitTag = tag.value.split(':')[1].trim()
+        const splitTagWithoutDash = splitTag?.replace(/-/g, '').toLowerCase()
+        return [...carry, splitTagWithoutDash]
+      }
+      return carry
+    }, [])
 
-    const articleTagsHasCustomerTag = customer?.tags.some(tag => tag.replace(/-/g, '').toLowerCase().indexOf(splitTagWithoutDash) > -1)
+    const articleHasCustomerTag = customer?.tags.some(tag => {
+      const customerTagWithoutDash = tag.replace(/-/g, '').toLowerCase()
+      return foundVisibleTags.some(tag => customerTagWithoutDash.indexOf(tag) > -1)
+    })
 
-    modalContext.setArticleCustomerTag(articleTagsHasCustomerTag)
+    modalContext.setArticleCustomerTag(articleHasCustomerTag)
 
-    const foundModal = modals.find(modal => modal.handle.replace(/-/g, '').includes(splitTagWithoutDash))
-
+    const foundModal = modals.find(modal => foundVisibleTags.some(tag =>  modal.handle.replace(/-/g, '').includes(tag)))
 
     // if product tags exist but none of the product tags match customer tag
-    if(foundVisibleTags.length > 0 && !articleHasCustomerTag) {
-      if(foundModal) {
-        modalContext.setPrevContent(foundModal?.fields)
-        modalContext.setContent(foundModal?.fields)
-        modalContext.setModalType('gated_product')
-        modalContext.setIsOpen(true)
-      }
+    if(foundVisibleTags.length > 0 && !articleHasCustomerTag && foundModal) {
+      modalContext.setContent(foundModal.fields)
+      modalContext.setModalType('gated_product')
+      modalContext.setIsOpen(true)
     }
 
     // if one of the product tags contains customer tag

@@ -18,6 +18,11 @@ module.exports = {
   async redirects() {
     return [
       {
+        source: '/account',
+        destination: '/account/subscriptions',
+        permanent: true,
+      },
+      {
         source: '/products/premium-seafood-subscription-box',
         destination: '/pages/choose-your-plan',
         permanent: false,

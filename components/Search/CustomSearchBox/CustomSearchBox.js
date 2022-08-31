@@ -13,7 +13,6 @@ const CustomSearchBox = (props) => {
   const router = useRouter()
 
   useEffect(() => {
-    console.log(router.asPath)
     if(router.asPath === 'pages/search' || router.asPath.includes("?query")) {
       router.replace({
         pathname: '/pages/search',

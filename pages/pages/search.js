@@ -54,11 +54,6 @@ const Search = () => {
       >
 
         <div className={classes['header']}>
-          <div className={classes['links']}>
-            <Link href={"/"}><a className="secondary--body">Home</a></Link>
-            <span>/</span>
-            <Link href={"/pages/search"}><a className="secondary--body">Search</a></Link>
-          </div>
           <h1>Search Results</h1>
           <div className={classes['searchbox-wrap']}>
             <CustomSearchBox currentIndex={currentIndex} setCurrentIndex={setCurrentIndex} />

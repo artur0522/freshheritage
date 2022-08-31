@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useMediaQuery } from 'react-responsive'
-import { useRouter } from 'next/router'
+
 import { useArticleFiltersDrawerContext } from '@/context/ArticleFiltersDrawerContext'
 
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
@@ -22,7 +22,6 @@ import ArticleCookingClassHero from '@/components/Article/ArticleCookingClassHer
 
 const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const drawerContext = useArticleFiltersDrawerContext()
-    const router = useRouter()
     const { addFilters, openDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
 
     const { content, filterGroups } = page.fields
@@ -33,7 +32,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const [currentPage, setCurrentPage] = useState(1)
     const [filterDrawer, toggleFilterDrawer]= useState(true)
     const [mounted, setMounted]= useState(false)
-    const [searchTerm, setSearchTerm] = useState("")
+
     const isDesktop = useMediaQuery({query: '(min-width: 1074px)'})
 
     const { hero } = page?.fields
@@ -43,29 +42,9 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
     hero.header = page.title
     hero.subheader = page.fields?.subheader
 
-    const handleChange = (e) => {
-      setSearchTerm(e.target.value)
-    }
-
-    const handleKeyDown = (e) => {
-      if (e.key === 'Enter') {
-       e.preventDefault()
-
-       if(blogGlobalSettings.blogType === 'culinary') {
-        router.push({
-          pathname: '/pages/search',
-          query: { query: searchTerm, index: "culinary_articles" },
-        })
-       } else {
-        router.push({
-          pathname: '/pages/search',
-          query: { query: searchTerm, index: "brand_articles" },
-        })
-       }
-      }
-    }
-
     useEffect(() => {
+        setMounted(true)
+
         addListings(articles)
         addOriginalListings(articles)
         sortListings(articles, true)
@@ -96,9 +75,6 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             })
         })
 
-        addTagArray(tagArray)
-        addTagCount(tagCount)
-
         const filterGroupObj = {}
         const multipleSelectedFilters = {}
 
@@ -125,15 +101,15 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
           })
         })
 
+        addTagArray(tagArray)
+        addTagCount(tagCount)
         addFilters(filterGroupObj)
 
         if(selectedFilterList.length > 0) {
           setCurrentPage(1)
         }
         setPages(Math.ceil(listings.length / 20))
-
-        setMounted(true)
-    }, [articles, pages, originalListings, mounted])
+    }, [articles, pages, originalListings])
 
     useEffect(() => {
       window.scrollTo({ behavior: 'smooth', top: '0px' })
@@ -178,7 +154,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             <button type="button">
                 <IconSearch />
             </button>
-            <input type="text" placeholder='Search' className="body" onKeyDown={(e) => handleKeyDown(e)} onChange={(e) => handleChange(e)} />
+            <input type="text" placeholder='Search' className="body" />
           </div>
 
           <div className={classes['recipes__filter-row']}>
@@ -205,12 +181,11 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             <BlogFilters />
           </div>}
 
-
-        {!articles.length ? (
-          <div className={`${classes['recipes__list-loading']}`}>
-            <h2>Loading Articles...</h2>
-          </div>
-        ):(
+          {!articles.length ? (
+            <div className={`${classes['recipes__list-loading']}`}>
+              <h2>Loading Articles...</h2>
+            </div>
+          ):(
           <div className={`${classes['recipes__list-wrap']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} ${filterDrawer && filterGroups ? 'listing-pages--filters-open' : ''}`}>
             {listings.length > 0 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${filterDrawer ? '' : 'container'} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
                   {listings.slice(0, 8).map((article) => {

@@ -46,7 +46,7 @@ const ArticleHits = (props) => {
           {hits.map((hit) => {
               return (
                   <div className={classes['grid-item']} key={hit.objectID}>
-                    <ArticleCard article={hit} responsiveImage={true} fromSearch={true} />
+                    <ArticleCard article={hit} responsiveImage={false} fromSearch={true} />
                   </div>
               )
           })}

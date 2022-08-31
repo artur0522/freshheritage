@@ -28,9 +28,7 @@ function Collection(props) {
         </div>
         <div className={classes["collection__list"]}>
           {products.map((product, index) => (
-            <div className={classes.item} key={`${product.id}-${index}`}>
-              <ProductCard product={product} />
-            </div>
+            <ProductCard product={product} key={`${product.id}-${index}`} />
           ))}
         </div>
       </div>

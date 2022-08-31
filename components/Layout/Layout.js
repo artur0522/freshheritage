@@ -8,6 +8,7 @@ import { PurchaseFlowProvider } from '@/context/PurchaseFlowContext'
 import { HeadlessCheckoutProvider } from '@/context/HeadlessCheckoutContext'
 import { HeaderProvider } from '@/context/HeaderContext'
 import { KnowYourFishDrawerProvider } from '@/context/KnowYourFishDrawerContext'
+import { EditScheduleDrawerProvider } from '@/context/EditScheduleDrawerContext'
 import { SearchProvider } from '@/context/SearchModalContext'
 
 import StructuredData from '../SEO/StructuredData'
@@ -28,6 +29,7 @@ function Layout({ children, headerSettings, footerSettings, searchLinks }) {
           <PurchaseFlowProvider>
             <PDPDrawerProvider>
               <KnowYourFishDrawerProvider>
+              <EditScheduleDrawerProvider>
                 <ArticleFiltersDrawerProvider>
                   <ArticleProvider>
                     <TheCatchProvider>
@@ -41,6 +43,7 @@ function Layout({ children, headerSettings, footerSettings, searchLinks }) {
                     </TheCatchProvider>
                   </ArticleProvider>
                 </ArticleFiltersDrawerProvider>
+              </EditScheduleDrawerProvider>
               </KnowYourFishDrawerProvider>
             </PDPDrawerProvider>
           </PurchaseFlowProvider>

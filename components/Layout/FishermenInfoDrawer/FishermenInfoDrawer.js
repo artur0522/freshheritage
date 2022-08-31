@@ -13,7 +13,6 @@ const FishermenInfoDrawer = () => {
   const articleFiltersDrawerContext = useArticleFiltersDrawerContext()
   const { isFishInfoOpen, infoCardFields } = articleFiltersDrawerContext
   const { title, subheader, species, flyoutDescription, flyoutImage, youtubeVideoId } = infoCardFields
-  console.log(infoCardFields)
   const [mounted, setMounted]= useState(false)
   const [startVideo, setStartVideo] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)

@@ -28,8 +28,6 @@ function ProductCard({ product }) {
     router.push(`/products/${encodeURIComponent(product.content.handle)}`)
   }
 
-  console.log("product:", product)
-
   return (
     product && (
       <div className={classes["card"]}>
@@ -55,39 +53,46 @@ function ProductCard({ product }) {
               className={classes.image}
               objectFit="cover"
             />
-          )}
-        </a>
+            )}
+            {product.content.featuredMedia && isDesktop && mounted && (
+                <Image
+                src={product.content.featuredMedia.src}
+                alt={product.content.featuredMedia.altText}
+                width={650}
+                height={350}
+                className={classes.image}
+              />
+            )}
+          </a>
 
-        <div className={classes["card__content"]}>
-          {product.content.title && (
-            <h4
-              className={`${classes["title"]} heading--product-title uppercase`}
-            >
-              {product.content.title}
-            </h4>
-          )}
+          <div className={classes["card__content"]}>
+            {product.content.title && (
+              <h4
+                className={`${classes["title"]} heading--product-title uppercase`}
+              >
+                {product.content.title}
+              </h4>
+            )}
 
-          <div className={classes["price-wrap"]}>
-            <div className={classes["price"]}>
-              {firstVariant.compareAtPrice && (
-                <p className={`${classes.compare} secondary--body`}>
-                  ${formatPrice(firstVariant.compareAtPrice * 100)}
-                </p>
-              )}
-              <p className="secondary--body">${formatPrice(firstVariant.price * 100)}</p>
+            <div className={classes["price-wrap"]}>
+              <div className={classes["price"]}>
+                {firstVariant.compareAtPrice && (
+                  <p className={`${classes.compare} secondary--body`}>
+                    ${formatPrice(firstVariant.compareAtPrice * 100)}
+                  </p>
+                )}
+                <p className="secondary--body">${formatPrice(firstVariant.price * 100)}</p>
+              </div>
+              {firstVariant.weight && <p className={`${classes["weight"]} secondary--body`}>
+                {firstVariant.weight}lbs
+              </p>}
             </div>
-            {firstVariant.weight && <p className={`${classes["weight"]} secondary--body`}>
-              {firstVariant.weight}lbs
-            </p>}
+
+            {includesMetafield && <p className={`${classes['metafield']} base-font`}>{includesMetafield.value}</p>}
+            {shortDescriptionMetafield && <p className={`${classes['metafield']} base-font`}>{shortDescriptionMetafield.value}</p>}
           </div>
-
-          {includesMetafield && <p className={`${classes['metafield']} base-font`}>{includesMetafield.value}</p>}
-          {shortDescriptionMetafield && <p className={`${classes['metafield']} base-font`}>{shortDescriptionMetafield.value}</p>}
+          <a onClick={() => handleLink(product)} className="btn salmon">View Details</a>
         </div>
-        </div>
-
-
-        <a onClick={() => handleLink(product)} className="btn salmon">View Details</a>
 
       </div>
     )

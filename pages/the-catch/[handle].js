@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
-
 import { useTheCatchContext } from '@/context/TheCatchContext'
-
 import ContentSections from '@/components/Sections/ContentSections'
-
+import PageSEO from '@/components/SEO/PageSEO'
 import { nacelleClient } from 'services'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
@@ -22,6 +20,7 @@ const TheCatch = (props) => {
 
     return (
         <>
+          <PageSEO seo={page.seo} />
           <ContentSections sections={page.fields.content} />
         </>
     )

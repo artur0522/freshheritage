@@ -1,9 +1,20 @@
 import { useEditScheduleDrawerContext } from '@/context/EditScheduleDrawerContext'
-import React from 'react'
+import { useMemberAccountContext } from '@/context/MemberAccountContext';
+import React, { useEffect } from 'react'
 import classes from './UpcomingDeliveriesBar.module.scss'
 
 export default function UpcomingDeliveriesBar({subscription}) {
-  const { openDrawer } = useEditScheduleDrawerContext();
+  const { isOpen, currentOpenSubscription, openDrawer, updateSubscription } = useEditScheduleDrawerContext();
+
+  // Since we set the subscription for the drawer _at the point that we open it_
+  // we need a way to tell the drawer that the subscription changed
+  // We need to make sure that we only send this if we are the component for the open
+  // subscription
+  useEffect(() => {
+    if (isOpen && currentOpenSubscription.subscription_id === subscription.subscription_id) {
+      updateSubscription(subscription)
+    }
+  }, [isOpen, currentOpenSubscription, updateSubscription, subscription])
 
   return <div className={classes['upcoming-deliveries-bar']}>
     <h4 className={classes['section-text']}>Upcoming Deliveries</h4>

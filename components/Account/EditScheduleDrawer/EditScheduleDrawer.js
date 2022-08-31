@@ -3,15 +3,20 @@ import { CSSTransition } from 'react-transition-group'
 import classes from './EditScheduleDrawer.module.scss'
 import { useEditScheduleDrawerContext } from '@/context/EditScheduleDrawerContext'
 import IconClose from '@/svgs/close.svg'
+import { useMemberAccountContext } from '@/context/MemberAccountContext'
+import _ from 'lodash'
 
 const EditScheduleDrawer = ({ subscription }) => {
-  const { dispatch } = useEditScheduleDrawerContext()
+  const { dispatch } = useEditScheduleDrawerContext();
+  const MemberAccountContext = useMemberAccountContext();
+  // console.log(`memberaccountcontext`, MemberAccountContext);
   const nodeRef = useRef(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [currentActiveFulfillment, setCurrentActiveFulfillment] = useState('A')
   const [savedFulfillment, setSavedFulfillment] = useState(
     subscription.fulfill_group,
   )
+  const [saving, setSaving] = useState(false);
   const timeout = 200
 
   const closeDrawer = () => {
@@ -35,6 +40,10 @@ const EditScheduleDrawer = ({ subscription }) => {
     setCurrentActiveFulfillment(subscription.fulfill_group)
     setSavedFulfillment(subscription.fulfill_group)
   }, [subscription])
+
+  const disableSaveButton = () => {
+    return savedFulfillment === currentActiveFulfillment || saving || MemberAccountContext.reloadingData;
+  }
 
   return (
     <div className={`${classes['edit-schedule']} edit-schedule`}>
@@ -115,9 +124,10 @@ const EditScheduleDrawer = ({ subscription }) => {
               )}
             </div>
             <button
-              disabled={savedFulfillment === currentActiveFulfillment}
+              disabled={disableSaveButton()}
               className={`btn salmon ${classes['action-button']}`}
               onClick={() => {
+                setSaving(true);
                 fetch(`/api/account/update-shipdate`, {
                   method: 'POST',
                   body: JSON.stringify({
@@ -129,9 +139,13 @@ const EditScheduleDrawer = ({ subscription }) => {
                 })
                   .then((_res) => {
                     console.log('saved ok')
+                    setSaving(false);
+                    MemberAccountContext.fetchCustomerData();
                   })
                   .catch(() => {
                     console.log('saved failed')
+                    setSaving(false);
+                    MemberAccountContext.fetchCustomerData();
                   })
               }}
             >
@@ -177,6 +191,7 @@ const renderFulfillmentOption = (
 
   return (
     <div
+    key={`${sub.subscription_id}-${ful.month}-${ful.group}`}
       className={mainItemClasses}
       onClick={() => {
         if (!isFulDisabled && ful.group !== currentActiveFulfillment) {
@@ -191,7 +206,6 @@ const renderFulfillmentOption = (
         checked={isFulSelected}
         disabled={isFulDisabled}
         type="radio"
-        key={`radio-${sub.subscription_id}-${ful.month}-${ful.group}`}
         id={`radio-${sub.subscription_id}-${ful.month}-${ful.group}`}
         name="radio-fulfillment-options"
       />

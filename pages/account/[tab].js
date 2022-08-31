@@ -3,9 +3,7 @@ import { MemberAccountContextProvider } from '@/context/MemberAccountContext'
 
 const AccountTab = () => {
   return (
-    <MemberAccountContextProvider>
       <AccountMainPage/>
-    </MemberAccountContextProvider>
   )
 }
 

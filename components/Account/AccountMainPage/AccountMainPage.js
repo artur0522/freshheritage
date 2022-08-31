@@ -15,6 +15,7 @@ const AccountMainPage = () => {
   const router = useRouter();
   const customerContext = useCustomerContext();
   const MemberAccountContext = useMemberAccountContext();
+  console.log('main page member account context', MemberAccountContext);
 
   const { tab } = router.query
 

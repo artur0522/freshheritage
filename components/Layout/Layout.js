@@ -14,6 +14,7 @@ import { SearchProvider } from '@/context/SearchModalContext'
 import StructuredData from '../SEO/StructuredData'
 
 import Footer from '@/components/Layout/Footer'
+import { MemberAccountContextProvider } from '@/context/MemberAccountContext'
 
 // This component utilizes `useCart` and `useCheckout` hooks from
 // `@nacelle/react-hooks` to clear cart and checkout data if the
@@ -29,6 +30,7 @@ function Layout({ children, headerSettings, footerSettings, searchLinks }) {
           <PurchaseFlowProvider>
             <PDPDrawerProvider>
               <KnowYourFishDrawerProvider>
+              <MemberAccountContextProvider>
               <EditScheduleDrawerProvider>
                 <ArticleFiltersDrawerProvider>
                   <ArticleProvider>
@@ -44,6 +46,7 @@ function Layout({ children, headerSettings, footerSettings, searchLinks }) {
                   </ArticleProvider>
                 </ArticleFiltersDrawerProvider>
               </EditScheduleDrawerProvider>
+              </MemberAccountContextProvider>
               </KnowYourFishDrawerProvider>
             </PDPDrawerProvider>
           </PurchaseFlowProvider>

@@ -77,7 +77,7 @@ const AccountMainPage = () => {
       case 'subscriptions':
         return (<SubscriptionsPage subsData={subsData} membershipData={membershipData}/>);
       case 'account-details':
-        return (<AccountDetailsPage/>)
+        return (<AccountDetailsPage subscriptions={subsData} membershipData={membershipData} customer={customerContext.customer}/>)
       case 'order-history':
         return (<OrderHistoryPage/>)
       case 'referrals':
@@ -101,7 +101,7 @@ const AccountMainPage = () => {
           </div>
           {/* Cards */}
           <div className={classes['cards']}>
-            <CardsContainer></CardsContainer>
+            <CardsContainer subscriptions={subsData}></CardsContainer>
           </div>
           {/* Body Content */}
           <div>{renderBody(tab)}</div>

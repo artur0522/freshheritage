@@ -41,7 +41,5 @@ export async function getHarvests({product, selectedVariant, returnHarvestHandle
     return harvestsInfo.filter(harvest => harvest.variantTitle === selectedVariant.content.title)
   }
 
-  console.log("harvestsInfo:", harvestsInfo)
-
   return harvestsInfo
 }

@@ -18,6 +18,7 @@ import StructuredData from '@/components/SEO/StructuredData'
 import classes from './Product.module.scss'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import ProductStamps from '@/components/Product/ProductStamps'
+import { dataLayerViewProduct } from '@/utils/dataLayer'
 
 function Product({ product, page, modals }) {
   const [checked, setChecked] = useState(false)
@@ -56,22 +57,43 @@ function Product({ product, page, modals }) {
       return
     }
 
-    const foundVisibleTags = product.tags.filter(tag => tag.toLowerCase().includes('visible'))
-    const splitTag = foundVisibleTags[0]?.split(':')[1].trim()
-    const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
+    const foundVisibleTags = product.tags.reduce((carry, tag) => {
+      if (tag.toLowerCase().includes('visible')) {
+        const splitTag = tag.split(':')[1].trim()
+        const splitTagWithoutDash = splitTag?.replace(/-/g, '').toLowerCase()
+        return [...carry, splitTagWithoutDash]
+      }
+      return carry
+    }, [])
 
-    const productHasCustomerTag = customer?.tags.some(tag => tag.toLowerCase().indexOf(splitTag))
+    const productHasCustomerTag = customer?.tags.some(tag => {
+      const customerTagWithoutDash = tag.replace(/-/g, '').toLowerCase()
+      return foundVisibleTags.some(tag => customerTagWithoutDash.indexOf(tag) > -1)
+    })
 
     modalContext.setArticleCustomerTag(productHasCustomerTag)
 
-    const foundModal = modals.find(modal => modal.handle.includes(splitTagWithDash))
+    const hierarchy = [
+      'kingsustainer',
+      'sockeyesustainer',
+      'prepaid',
+      'member'
+    ]
+
+    const foundModal = modals.reduce((carry, modal) => {
+      const modalHandleWithoutDash = modal.handle.replace(/-/g, '')
+      if (foundVisibleTags.some(tag => tag.indexOf(modalHandleWithoutDash) > -1)) {
+        if (!carry.handle) return modal
+        if (hierarchy.indexOf(modalHandleWithoutDash) < hierarchy.indexOf(carry.handle.replace(/-/g, ''))) {
+          return modal
+        }
+      }
+      return carry
+    }, {})
 
     // if product tags exist but none of the product tags match customer tag
-    if(foundVisibleTags.length > 0 && !productHasCustomerTag) {
-      if(foundModal) {
-        modalContext.setPrevContent(foundModal?.fields)
-        modalContext.setContent(foundModal?.fields)
-      }
+    if(foundVisibleTags.length > 0 && !productHasCustomerTag && foundModal) {
+      modalContext.setContent(foundModal.fields)
       modalContext.setModalType('gated_product')
       modalContext.setIsOpen(true)
     }
@@ -87,6 +109,10 @@ function Product({ product, page, modals }) {
     }
 
   }, [customer])
+
+  useEffect(() => {
+    dataLayerViewProduct({product})
+  }, [])
 
   const isDesktop = useMediaQuery(
     { minWidth: 1074 }

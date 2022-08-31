@@ -20,6 +20,7 @@ import Footer from '@/components/Layout/Footer'
 // https://github.com/getnacelle/nacelle-react/tree/main/packages/react-hooks
 
 function Layout({ children, headerSettings, footerSettings, searchLinks }) {
+
   return (
     <CustomerProvider>
       <ModalProvider>

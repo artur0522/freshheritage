@@ -6,8 +6,11 @@ import {
 import { history } from 'instantsearch.js/es/lib/routers'
 import algoliasearch from 'algoliasearch/lite'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { useMediaQuery } from 'react-responsive'
+import Link from 'next/link'
 
+import AllResultsHits from '@/components/Search/AllResultsHits'
 import ArticleHits from '@/components/Search/ArticleHits'
 import ProductHits from '@/components/Search/ProductHits'
 import CustomSearchBox from '@/components/Search/CustomSearchBox'
@@ -32,15 +35,16 @@ const Hit = ({ hit }) => {
 const Search = () => {
   const [currentIndex, setCurrentIndex] = useState("all_results")
   const [mounted, setMounted] = useState(false)
-
+  const router = useRouter()
+  
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
   const isDesktop = useMediaQuery(
     {query: '(min-width: 768px)'}
   )
-
+  
   useEffect(() => {
     setMounted(true)
-  }, [mounted])
+  }, [mounted, router.pathname])
 
   return (
     <div className={`${classes['search']} container`}>
@@ -50,38 +54,20 @@ const Search = () => {
       >
 
         <div className={classes['header']}>
+          <div className={classes['links']}>
+            <Link href={"/"}><a className="secondary--body">Home</a></Link>
+            <span>/</span>
+            <Link href={"/pages/search"}><a className="secondary--body">Search</a></Link>
+          </div>
           <h1>Search Results</h1>
           <div className={classes['searchbox-wrap']}>
-            <CustomSearchBox />
+            <CustomSearchBox currentIndex={currentIndex} setCurrentIndex={setCurrentIndex} />
           </div>
         </div>
 
         <div className={classes['results-wrap']}>
           <div className={classes['hits']}>
-            {currentIndex === "all_results" && <div className={classes['hits-group']}>
-                  <div className={classes['filters-wrap']}>
-                    <div className={classes['refinement-wrap']}>
-                      {mounted && isDesktop && <IndexButton indexId='all_results' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
-                      {mounted && isDesktop && <IndexButton indexId='prod_shopify_products' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
-                      {mounted && isDesktop && <IndexButton indexId='culinary_articles' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
-                      {mounted && isDesktop && <IndexButton indexId='brand_articles' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
-
-                      {mounted && isMobile && <SelectInput currentIndex={currentIndex} setCurrentIndex={setCurrentIndex} />}
-                    </div>
-                  </div>
-                 
-                  <div className={classes['hits-row']}>
-                    <Index className={classes['index']} indexName="prod_shopify_products">
-                      <ProductHits hitComponent={Hit} indexId="prod_shopify_products" currentIndex={currentIndex} />
-                    </Index>
-                    <Index className={classes['index']} indexName="culinary_articles">
-                      <ArticleHits hitComponent={Hit} indexId="culinary_articles" currentIndex={currentIndex} />
-                    </Index>
-                    <Index className={classes['index']} indexName="brand_articles">
-                      <ArticleHits hitComponent={Hit} indexId="brand_articles" currentIndex={currentIndex} />
-                    </Index>
-                  </div>
-            </div>}
+            {currentIndex === "all_results" && <AllResultsHits currentIndex={currentIndex} setCurrentIndex={setCurrentIndex} />}
 
             {currentIndex === "culinary_articles" && <div className={classes['hits-group']}>
                 <Index className={classes['index']} indexName="culinary_articles">

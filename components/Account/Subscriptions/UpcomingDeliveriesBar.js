@@ -4,7 +4,6 @@ import classes from './UpcomingDeliveriesBar.module.scss'
 
 export default function UpcomingDeliveriesBar({subscription}) {
   const { openDrawer } = useEditScheduleDrawerContext();
-  console.log(openDrawer);
 
   return <div className={classes['upcoming-deliveries-bar']}>
     <h4 className={classes['section-text']}>Upcoming Deliveries</h4>

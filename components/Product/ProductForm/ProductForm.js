@@ -107,7 +107,8 @@ const ProductForm = (props) => {
             properties: {
                 ...formFieldsWithGiftOption,
                 ...subscriptionProperties
-            }
+            },
+            product
         }).then(() => {
             setIsLoading(false)
         })

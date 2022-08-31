@@ -1,23 +1,18 @@
-import {useEffect, useState, useRef} from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import classes from './EditScheduleDrawer.module.scss'
 import { useEditScheduleDrawerContext } from '@/context/EditScheduleDrawerContext'
 import IconClose from '@/svgs/close.svg'
-import ResponsiveImage from '@/components/ResponsiveImage'
-import ArticleRow from '@/components/Sections/ArticleRow'
-import { PortableText } from '@portabletext/react'
-import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
-const EditScheduleDrawer = ({subscription}) => {
-
+const EditScheduleDrawer = ({ subscription }) => {
   const { dispatch } = useEditScheduleDrawerContext()
   const nodeRef = useRef(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [currentActiveFulfillment, setCurrentActiveFulfillment] = useState('A')
+  const [savedFulfillment, setSavedFulfillment] = useState(
+    subscription.fulfill_group,
+  )
   const timeout = 200
-
-  // const { header, peakSeason, nutritionalInfo, image, description, content } = fields
-
-  // const [contentSections, setContentSections] = useState(content)
 
   const closeDrawer = () => {
     setDrawerOpen(false)
@@ -34,47 +29,178 @@ const EditScheduleDrawer = ({subscription}) => {
     }
   }, [subscription])
 
-  // useEffect(() => {
-  //   const getUpdatedContent = async () => {
-  //     const fullRefContent = await getNacelleReferences(content)
-  //     return fullRefContent
-  //   }
-  //   getUpdatedContent()
-  //     .then((res) => {
-  //       setContentSections([...res])
-  //     })
-  // }, [])
+  const currentChargeDate = new Date(subscription.subscription_next_orderdate)
+
+  useEffect(() => {
+    setCurrentActiveFulfillment(subscription.fulfill_group)
+    setSavedFulfillment(subscription.fulfill_group)
+  }, [subscription])
 
   return (
-    <div className={`${classes['know-your-fish-drawer']} know-your-fish-drawer`}>
-      <div onClick={() => closeDrawer()} className={classes['know-your-fish-drawer__overlay']}></div>
-      <CSSTransition in={drawerOpen} timeout={timeout} nodeRef={nodeRef} unmountOnExit classNames={{
-          'enter': classes['know-your-fish-drawer__content--enter'],
-          'enterActive': classes['know-your-fish-drawer__content--enter-active'],
-          'enterDone': classes['know-your-fish-drawer__content--enter-done'],
-          'exit': classes['know-your-fish-drawer__content--exit'],
-        }}>
-          <div ref={nodeRef} className={classes['know-your-fish-drawer__content']}>
-            <button
-              onClick={() => closeDrawer()}
-              className={classes['know-your-fish-drawer__close-btn']}>
-                <IconClose />
-            </button>
-            <div className={classes['know-your-fish']}>
-              <div className={classes['know-your-fisher__header']}>
-                <h2 className="h1">HEADER</h2>
-                <div className={classes['know-your-fish__detail-item']}>
-                  <h3>Peak Season:</h3>
-                  <p>peak season here</p>
-                </div>
-              </div>
-
-              {<div className={classes['know-your-fish__description']}>
-                <PortableText value='this is a description' />
-              </div>}
-            </div>
+    <div className={`${classes['edit-schedule']} edit-schedule`}>
+      <div
+        onClick={() => closeDrawer()}
+        className={classes['edit-schedule__overlay']}
+      ></div>
+      <CSSTransition
+        in={drawerOpen}
+        timeout={timeout}
+        nodeRef={nodeRef}
+        unmountOnExit
+        classNames={{
+          enter: classes['edit-schedule__content--enter'],
+          enterActive: classes['edit-schedule__content--enter-active'],
+          enterDone: classes['edit-schedule__content--enter-done'],
+          exit: classes['edit-schedule__content--exit'],
+        }}
+      >
+        <div ref={nodeRef} className={classes['edit-schedule__content']}>
+          <button
+            onClick={() => closeDrawer()}
+            className={classes['edit-schedule__close-btn']}
+          >
+            <IconClose />
+          </button>
+          <div className={classes['schedule-header']}>
+            <h1>Edit Schedule</h1>
+            <h4>
+              Next Order{' '}
+              <span className={classes['highlight']}>
+                charges{' '}
+                {currentChargeDate.toLocaleDateString(undefined, {
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </span>
+            </h4>
           </div>
+
+          <div className={classes['skip-and-schedule-box']}>
+            <div className={classes['text']}>Skip</div>
+            <button
+              onClick={() => {
+                fetch(`/api/account/skip-order`, {
+                  method: 'POST',
+                  body: JSON.stringify({
+                    skip_date: subscription.subscription_next_orderdate,
+                    subscription: subscription.subscription_id,
+                    action: 'skip',
+                    // d.scheduled_status === "skipped" ? "recover" : "skip",
+                  }),
+                })
+                  .then((_res) => {
+                    console.log('skipped ok')
+                  })
+                  .catch(() => {
+                    console.log('skipped failed')
+                  })
+              }}
+              className={`btn salmon ${classes['action-button']}`}
+            >
+              Skip This Box
+            </button>
+            <div className={classes['divider']} />
+            <div className={classes['text']}>
+              Change Shipping Week for This Box
+            </div>
+            <div className={classes['fulfillment-rows']}>
+              {subscription.fulfillment_options.map((ful, index) =>
+                renderFulfillmentOption(
+                  subscription,
+                  ful,
+                  index,
+                  currentActiveFulfillment,
+                  setCurrentActiveFulfillment,
+                ),
+              )}
+            </div>
+            <button
+              disabled={savedFulfillment === currentActiveFulfillment}
+              className={`btn salmon ${classes['action-button']}`}
+              onClick={() => {
+                fetch(`/api/account/update-shipdate`, {
+                  method: 'POST',
+                  body: JSON.stringify({
+                    subscription_id: subscription.subscription_id,
+                    subscription_next_orderdate: subscription.fulfillment_options.find(
+                      (f) => f.group === currentActiveFulfillment,
+                    ).new_chargedate,
+                  }),
+                })
+                  .then((_res) => {
+                    console.log('saved ok')
+                  })
+                  .catch(() => {
+                    console.log('saved failed')
+                  })
+              }}
+            >
+              Save Changes
+            </button>
+          </div>
+        </div>
       </CSSTransition>
+    </div>
+  )
+}
+
+const renderFulfillmentOption = (
+  sub,
+  ful,
+  index,
+  currentActiveFulfillment,
+  setCurrentActiveFulfillment,
+) => {
+  const fulStartDate = new Date(ful.fulfill_start)
+  const fulEndDate = new Date(ful.fulfill_end)
+
+  const startString = fulStartDate.toLocaleDateString(undefined, {
+    month: 'short',
+    day: 'numeric',
+  })
+
+  const endString = fulEndDate.toLocaleDateString(undefined, {
+    month: 'short',
+    day: 'numeric',
+  })
+
+  const isFulSelected = currentActiveFulfillment === ful.group
+  const isFulDisabled = ful.avail.toLocaleLowerCase() === 'false'
+
+  const mainItemClasses = [
+    classes['fulfillment-option'],
+    isFulSelected ? classes['selected'] : '',
+    isFulDisabled ? classes['disabled'] : '',
+  ]
+    .filter((i) => !!i)
+    .join(' ')
+
+  return (
+    <div
+      className={mainItemClasses}
+      onClick={() => {
+        if (!isFulDisabled && ful.group !== currentActiveFulfillment) {
+          setCurrentActiveFulfillment(ful.group)
+        }
+      }}
+    >
+      <input
+        onChange={() => {
+          setCurrentActiveFulfillment(ful.group)
+        }}
+        checked={isFulSelected}
+        disabled={isFulDisabled}
+        type="radio"
+        key={`radio-${sub.subscription_id}-${ful.month}-${ful.group}`}
+        id={`radio-${sub.subscription_id}-${ful.month}-${ful.group}`}
+        name="radio-fulfillment-options"
+      />
+      <label htmlFor={`radio-${sub.subscription_id}-${ful.month}-${ful.group}`}>
+        Week {index + 1}{' '}
+        <span className={classes['highlight']}>
+          {startString} - {endString}
+        </span>
+      </label>
     </div>
   )
 }

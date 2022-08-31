@@ -1,40 +1,20 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { nacelleClient } from "services";
 
 import ProductCard from "@/components/Cards/ProductCard/ProductCard";
 import PageSEO from "@/components/SEO/PageSEO";
+import { dataLayerViewProductList } from "@/utils/dataLayer";
 
 import classes from "./Collection.module.scss";
 
 function Collection(props) {
   const router = useRouter();
-  const { collection } = props;
-  const [products, setProducts] = useState(props.products);
-  const [canFetch, setCanFetch] = useState(props.canFetch);
-  const [isFetching, setIsFetching] = useState(false);
+  const { collection, products } = props;
 
-  const activeProducts = canFetch
-    ? products?.slice(0, products.length - 1)
-    : products;
-
-  // Performs a GraphQL query to Nacelle to get paginated products
-  // from a collection, using the last `nacelleEntryId` as a cursor.
-  // (https://nacelle.com/docs/querying-data/storefront-sdk)
-  const handleFetch = async () => {
-    setIsFetching(true);
-    const after = products[products?.length - 1].nacelleEntryId;
-    const { productCollections } = await nacelleClient.query({
-      query: PRODUCTS_QUERY,
-      variables: { handle: router.query.handle, after },
-    });
-    const newProducts = productCollections[0]?.products;
-    if (newProducts) {
-      setCanFetch(newProducts.length === 12);
-      setProducts([...products, ...newProducts]);
-    }
-    setIsFetching(false);
-  };
+  useEffect(() => {
+    dataLayerViewProductList({products, url: router.asPath})
+  }, [])
 
   return (
     collection && (
@@ -47,22 +27,12 @@ function Collection(props) {
           )}
         </div>
         <div className={classes["collection__list"]}>
-          {activeProducts.map((product, index) => (
+          {products.map((product, index) => (
             <div className={classes.item} key={`${product.id}-${index}`}>
               <ProductCard product={product} />
             </div>
           ))}
         </div>
-
-        {canFetch && (
-          <button
-            className={classes.action}
-            disabled={isFetching}
-            onClick={handleFetch}
-          >
-            Load More
-          </button>
-        )}
       </div>
     )
   );
@@ -106,7 +76,6 @@ export async function getStaticProps({ params }) {
     props: {
       collection: rest,
       products,
-      canFetch: products?.length > 12,
     },
   };
 }
@@ -185,7 +154,7 @@ const PAGE_QUERY = `
         description
         handle
       }
-      products(first: 13){
+      products(first: 25){
         ${PRODUCT_FRAGMENT}
       }
     }
@@ -198,7 +167,7 @@ const PAGE_QUERY = `
 const PRODUCTS_QUERY = `
   query CollectionProducts($handle: String!, $after: String!){
     productCollections(filter: { handles: [$handle] }){
-      products(first: 12, after: $after){
+      products(first: 24, after: $after){
         ${PRODUCT_FRAGMENT}
       }
     }

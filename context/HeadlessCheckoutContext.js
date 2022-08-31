@@ -4,6 +4,7 @@ import { useCustomerContext } from './CustomerContext'
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router'
 import { isEqual } from 'lodash-es';
+import { dataLayerATC, dataLayerRFC, dataLayerViewCart } from '@/utils/dataLayer';
 const HeadlessCheckoutContext = createContext()
 
 export function useHeadlessCheckoutContext() {
@@ -16,6 +17,7 @@ export function HeadlessCheckoutProvider({ children }) {
   const [PIGIMediaRules, setPIGIMediaRules] = useState([]);
   const [flyoutState, setFlyoutState] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [checkoutIsReady, setCheckoutIsReady] = useState(false)
   const { customer } = useCustomerContext()
 
   function saveDataInLocalStorage(data) {
@@ -76,6 +78,7 @@ export function HeadlessCheckoutProvider({ children }) {
     */
 
     const newItem = {
+      product,
       variant,
       variantId: variant.id.replace('gid://shopify/ProductVariant/', ''),
       quantity,
@@ -171,6 +174,8 @@ export function HeadlessCheckoutProvider({ children }) {
       })
     }
 
+    dataLayerATC({item: newItem})
+
     if (open_flyout) {
       setFlyoutState(true)
     }
@@ -199,13 +204,19 @@ export function HeadlessCheckoutProvider({ children }) {
           "cssText": ".TogglePanel__Header { height: 60px; display: flex; align-items: center; padding: 0 15px;}"
         },
         {
-          "cssText": ".ToggleField__Input:focus { box-shadow: 0 0 0 2px #163144 inset !important;}"
+          "cssText": ".ToggleField__Input:focus { box-shadow: 0 0 0 2px #163144 inset;}"
         },
         {
-          "cssText": ".ToggleField__Input--Checkbox:checked { box-shadow: 0 0 0 10px #163144 inset !important;}"
+          "cssText": ".ToggleField__Input--Checkbox:checked { box-shadow: 0 0 0 10px #163144 inset;}"
         },
         {
-          "cssText": ".ToggleField__Input--Radio { box-shadow: 0 0 0 2px #fff inset !important; border: 1px solid #163144; background-color: #163144; }"
+          "cssText": ".ToggleField__Input--Radio { box-shadow: 0 0 0 2px #fff inset; border: 1px solid #163144; background-color: #fff; }"
+        },
+        {
+          "cssText": ".ToggleField__Input--Radio:checked { background-color: #163144; box-shadow: 0 0 0 2px #fff inset !important }"
+        },
+        {
+          "cssText": ".ToggleField__Input--Radio:focus { box-shadow: none }"
         },
         {
           "cssText": ".TogglePanelGroup { border-radius: 12px !important; border: 1px solid #eaeae9; }"
@@ -315,6 +326,7 @@ export function HeadlessCheckoutProvider({ children }) {
     console.log(data, 'init checkout')
     stylePaymentIframe()
     setData({...data})
+    setCheckoutIsReady(true)
   }
 
   // this endpoint also refreshes the jwt
@@ -335,6 +347,7 @@ export function HeadlessCheckoutProvider({ children }) {
     console.log(data, 'resumed checkout')
     stylePaymentIframe()
     setData(data)
+    setCheckoutIsReady(true)
   }
 
   async function refreshApplicationState(payload) {
@@ -603,7 +616,10 @@ export function HeadlessCheckoutProvider({ children }) {
       localStorage.getItem('checkout_data'),
     )
 
-    const foundSubscriptionItem = data.application_state.line_items.find(item => item.product_data.line_item_key === payload.line_item_key)
+    const itemToBeRemoved = data.application_state.line_items.find(item => item.product_data.line_item_key === payload.line_item_key)
+    dataLayerRFC({item: itemToBeRemoved})
+
+    const foundSubscriptionItem = data.application_state.line_items.find(item => item.product_data.line_item_key === payload.line_item_key && item.product_data.tags.includes('Subscription Box'))
 
     if (foundSubscriptionItem && data.application_state.line_items.length >= 1) {
       let lineItems = data.application_state.line_items.filter(item => item.product_data.variant_id !== foundSubscriptionItem?.product_data?.variant_id).map(item => {
@@ -738,7 +754,12 @@ export function HeadlessCheckoutProvider({ children }) {
   }, [customer, data])
 
   useEffect(() => {
-    if (flyoutState) document.querySelector('html').classList.add('disable-scroll')
+    if (flyoutState) {
+      document.querySelector('html').classList.add('disable-scroll')
+      if (data) {
+        dataLayerViewCart({cart: data.application_state})
+      }
+    }
     if (!flyoutState) document.querySelector('html').classList.remove('disable-scroll')
   }, [flyoutState]);
 
@@ -762,7 +783,9 @@ export function HeadlessCheckoutProvider({ children }) {
         updateCustomerInOrder,
         PIGIMediaRules,
         isLoading,
-        setIsLoading
+        setIsLoading,
+        checkoutIsReady,
+        setCheckoutIsReady
       }}
     >
       <CheckoutFlyout />

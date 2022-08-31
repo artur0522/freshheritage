@@ -5,6 +5,7 @@ import {
   usePaymentIframe,
   useShippingAddress,
   useShippingLines,
+  useLineItems,
   useErrors,
   useCustomer
 } from '@boldcommerce/checkout-react-components';
@@ -33,8 +34,9 @@ const PaymentMethod = ({ applicationLoading }) => {
     paymentIframeOnLoaded
   } = usePaymentIframe();
   const { data } = useShippingLines();
+  const { data: lineItems } = useLineItems();
   const { data: customer } = useCustomer()
-  const { PIGIMediaRules } = useHeadlessCheckoutContext()
+  const { PIGIMediaRules, flyoutState } = useHeadlessCheckoutContext()
   const shippingLines = data.shippingLines;
   const orderStatus = state.orderInfo.orderStatus;
   const loading =
@@ -54,6 +56,7 @@ const PaymentMethod = ({ applicationLoading }) => {
       loading={loading}
       PIGIMediaRules={PIGIMediaRules}
       customer={customer}
+      lineItems={lineItems}
     />
   );
 };
@@ -70,7 +73,8 @@ const MemoizedPaymentMethod = memo(
     onPaymentIframeLoaded,
     loading,
     PIGIMediaRules,
-    customer
+    customer,
+    lineItems
   }) => {
     const [disabled, setDisabled] = useState();
     const [paymentMethodOpen, setPaymentMethodOpen] = useState(true);
@@ -208,23 +212,27 @@ const MemoizedPaymentMethod = memo(
         console.log('membership: ' + membership);
 
         //AUTO DISCOUNTS FOR OTP
-        var discount = '';
+        var discounts = [];
         if (hasFb && membership === 'Employee') {
-          discount = '30% Employee Discount';
+          discounts.push('30% Employee Discount');
         } else if (hasFb && membership === 'KingSustainer') {
-          discount = '10% King Sustainer Discount';
+          discounts.push('10% King Sustainer Discount');
         } else if (hasFb && membership === 'SockeyeSustainer') {
-          discount = '10% Sustainer Discount';
+          discounts.push('10% Sustainer Discount');
         } else if (hasFb && membership === 'PrepaidMember') {
-          discount = '5% Member Discount';
+          discounts.push('5% Member Discount');
         }
 
         //AUTO DISCOUNTS FOR SUBSCRIPTIONS
         if (hasSub && membership === 'KingSustainer') {
-          discount = '10% King Sustainer Discount';
+          discounts.push('10% King Sustainer Discount');
         } else if (hasSub && membership === 'SockeyeSustainer') {
-          discount = '5% Sustainer Discount';
+          discounts.push('5% Sustainer Discount');
         }
+
+        discounts = discounts.sort((a, b) => {
+          return parseInt(b) - parseInt(a)
+        })
 
         // AUTO DISCOUNT FOR REFERREES
         // if (cart.attributes.hasOwnProperty("member_referral") && membership === "") {
@@ -240,14 +248,24 @@ const MemoizedPaymentMethod = memo(
         //   }
         // }
 
-        console.log('discount: ' + discount);
-        if (discount !== '') {
-          try {
-            const results = await applyDiscount(discount);
-            //console.log(results)
-          } catch (e) {
-            //console.log(e)
+        console.log('discounts:', discounts);
+        if (discounts.length) {
+          if (appliedDiscounts?.discountCode !== '' && appliedDiscounts?.discountCode !== discounts[0]) {
+            try {
+              const removeResults = await removeDiscount(appliedDiscounts.discountCode);
+              const addResults = await applyDiscount(discounts[0]);
+            } catch (e) {
+              //console.log(e)
+            }
+          } else {
+            try {
+              const results = await applyDiscount(discounts[0]);
+              //console.log(results)
+            } catch (e) {
+              //console.log(e)
+            }
           }
+
         } else {
           try {
             console.log("removing discount")
@@ -263,7 +281,7 @@ const MemoizedPaymentMethod = memo(
 
       applyMembershipDiscount();
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [orderMetaData]);
+    }, [orderMetaData, lineItems]);
 
     return (
       <div className="order-payment-method">

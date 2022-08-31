@@ -3,6 +3,8 @@ import { accountClientPost } from '@/utils/account'
 import { CUSTOMER_ACCESS_TOKEN_CREATE, CUSTOMER_ACCESS_TOKEN_DELETE, GET_CUSTOMER, CUSTOMER_CREATE, CUSTOMER_RECOVER, CUSTOMER_RESET, transformEdges } from '@/gql/index.js'
 import { encode } from 'js-base64'
 import * as Cookies from 'es-cookie'
+import { dataLayerLogin } from '@/utils/dataLayer'
+import { useRouter } from 'next/router'
 
 const CustomerContext = createContext()
 
@@ -14,6 +16,7 @@ export function CustomerProvider({ children }) {
 
   const [customer, setCustomer] = useState(null)
   const [customerLoading, setCustomerLoading] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     const customerAccessToken = Cookies.get('customerAccessToken')
@@ -66,6 +69,11 @@ export function CustomerProvider({ children }) {
       } else {
         customer.is_member = false
       }
+      if (data.customer.tags.some(tag => ['KingSustainer', 'SockeyeSustainer'].includes(tag))) {
+        customer.is_sustainer = true
+      } else {
+        customer.is_sustainer = false
+      }
     }
 
     if (customer?.addresses?.edges.length > 0) {
@@ -86,10 +94,12 @@ export function CustomerProvider({ children }) {
       return { errors: customerAccessTokenCreate.userErrors }
     }
     const customerAccessToken = customerAccessTokenCreate.customerAccessToken
-    return getCustomer({
+    const customer = await getCustomer({
       accessToken: customerAccessToken.accessToken,
       expiresAt: customerAccessToken.expiresAt
     })
+    dataLayerLogin({customer, url: router.pathname})
+    return customer
   }
 
   async function logout() {

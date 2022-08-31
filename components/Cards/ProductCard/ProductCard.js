@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useMediaQuery } from 'react-responsive'
 import Image from "next/image";
+import ResponsiveImage from "@/components/ResponsiveImage";
 import classes from "./ProductCard.module.scss";
 import { useRouter } from 'next/router'
 import { dataLayerSelectProduct } from "@/utils/dataLayer";
@@ -37,20 +38,22 @@ function ProductCard({ product }) {
         <a onClick={() => handleLink(product)} className={classes["media"]}>
           {product.content.featuredMedia && isMobile && mounted && (
             <Image
-            src={product.content.featuredMedia.src}
-            alt={product.content.featuredMedia.altText}
-            width={430}
-            height={278}
-            className={classes.image}
-          />
-          )}
-          {product.content.featuredMedia && isDesktop && mounted && (
-              <Image
               src={product.content.featuredMedia.src}
               alt={product.content.featuredMedia.altText}
-              width={650}
-              height={350}
+              width={590}
+              height={432}
               className={classes.image}
+              objectFit="cover"
+            />
+          )}
+          {product.content.featuredMedia && isDesktop && mounted && (
+            <Image
+              src={product.content.featuredMedia.src}
+              alt={product.content.featuredMedia.altText}
+              width={688}
+              height={543}
+              className={classes.image}
+              objectFit="cover"
             />
           )}
         </a>

@@ -4,7 +4,8 @@
 
 .shipping-method-selector,
 .secondary-shipping-method-selector {
-  .checkout__radio-wrapper.is-selected {
+  .checkout__radio-wrapper.is-selected,
+  .checkout__secondary-radio-wrapper.is-selected {
     > label {
       border: 1px solid $success;
       background: rgba(70, 124, 82, 0.1);
@@ -14,12 +15,6 @@
   .checkout__secondary-radio-wrapper.is-visible {
     * {
       opacity: 1;
-    }
-  }
-
-  .checkout__secondary-radio-wrapper.is-selected {
-    > label {
-      border: 1px solid $success;
     }
   }
 }
@@ -32,7 +27,7 @@
 }
 
 .secondary-shipping-method-selector.is-visible {
-  height: 140px;
+  height: 180px;
 }
 
 .field-set__content {

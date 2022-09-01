@@ -40,7 +40,7 @@ describe('<ShippingLineList />', () => {
     const wrapper = render(<ShippingLineList 
       shippingLines={shippingLines}
       shipOptionMetadata={shipOptionMetadata}
-      selectedShippingLineIndex={0}
+      selectedShippingLine={0}
       onChange={onChange}
       onShipWeekChange={onShipWeekChange}
       disabled={false}
@@ -57,7 +57,7 @@ describe('<ShippingLineList />', () => {
     const wrapper = render(<ShippingLineList 
       shippingLines={shippingLines}
       shipOptionMetadata={shipOptionMetadata}
-      selectedShippingLineIndex={0}
+      selectedShippingLine={0}
       onChange={onChange}
       onShipWeekChange={onShipWeekChange}
       disabled={false}
@@ -71,7 +71,7 @@ describe('<ShippingLineList />', () => {
     const wrapper = render(<ShippingLineList 
       shippingLines={shippingLines}
       shipOptionMetadata={shipOptionMetadata}
-      selectedShippingLineIndex={0}
+      selectedShippingLine={shippingLines[0]}
       onChange={onChange}
       onShipWeekChange={onShipWeekChange}
       disabled={false}
@@ -88,7 +88,7 @@ describe('<ShippingLineList />', () => {
         },
         standard: [],
       }}
-      selectedShippingLineIndex={0}
+      selectedShippingLine={shippingLines[0]}
       onChange={onChange}
       onShipWeekChange={onShipWeekChange}
       disabled={false}
@@ -100,7 +100,7 @@ describe('<ShippingLineList />', () => {
     const wrapper = render(<ShippingLineList 
       shippingLines={shippingLines}
       shipOptionMetadata={shipOptionMetadata}
-      selectedShippingLineIndex={0}
+      selectedShippingLine={shippingLines[0]}
       onChange={onChange}
       onShipWeekChange={onShipWeekChange}
       disabled={false}
@@ -109,7 +109,7 @@ describe('<ShippingLineList />', () => {
   });
 
   it('should not start with hidden option selected', () => {
-    let selectedOption = 0;
+    let selectedOption = shippingLines[0];
     onChange.mockImplementation((value) => selectedOption = value);
     const {container} = render(<ShippingLineList 
       shippingLines={shippingLines}
@@ -123,12 +123,12 @@ describe('<ShippingLineList />', () => {
           {shipWeekDisplay: 'CHRISTMAS'}
         ]
       }}
-      selectedShippingLineIndex={selectedOption}
+      selectedShippingLine={selectedOption}
       onChange={onChange}
       onShipWeekChange={onShipWeekChange}
       disabled={false}
     />);
-    expect(selectedOption).toBe(1);
+    expect(selectedOption).toBe(shippingLines[1]);
     expect(
       container
         .querySelector('.checkout__radio-wrapper.is-selected')
@@ -138,26 +138,26 @@ describe('<ShippingLineList />', () => {
   });
 
   it('should update shipping line index when one selected', async () => {
-    let selectedOption = 0;
+    let selectedOption = shippingLines[0];
     onChange.mockImplementation((value) => selectedOption = value);
     const wrapper = render(<ShippingLineList 
       shippingLines={shippingLines}
       shipOptionMetadata={shipOptionMetadata}
-      selectedShippingLineIndex={selectedOption}
+      selectedShippingLine={selectedOption}
       onChange={onChange}
       onShipWeekChange={onShipWeekChange}
       disabled={false}
     />);
     await userEvent.click(wrapper.getByText('Expedited Shipping'));
-    expect(selectedOption).toBe(2);
-    expect(onChange).toHaveBeenCalledWith(2);
+    expect(selectedOption).toBe(shippingLines[2]);
+    expect(onChange).toHaveBeenCalledWith(shippingLines[2]);
   });
 
-  it('should update view when selected shipping line index changes', () => {
+  it('should update view when selected shipping line changes', () => {
     const wrapper = render(<ShippingLineList 
       shippingLines={shippingLines}
       shipOptionMetadata={shipOptionMetadata}
-      selectedShippingLineIndex={0}
+      selectedShippingLine={shippingLines[0]}
       onChange={onChange}
       onShipWeekChange={onShipWeekChange}
       disabled={false}
@@ -172,7 +172,7 @@ describe('<ShippingLineList />', () => {
       <ShippingLineList 
         shippingLines={shippingLines}
         shipOptionMetadata={shipOptionMetadata}
-        selectedShippingLineIndex={2}
+        selectedShippingLine={shippingLines[2]}
         onChange={onChange}
         onShipWeekChange={onShipWeekChange}
         disabled={false}
@@ -190,7 +190,7 @@ describe('<ShippingLineList />', () => {
     const {container} = render(<ShippingLineList 
       shippingLines={shippingLines}
       shipOptionMetadata={shipOptionMetadata}
-      selectedShippingLineIndex={1} // start with standard option
+      selectedShippingLine={shippingLines[0]} // start with standard option
       selectedStandardShipWeek={-1}
       onChange={onChange}
       onShipWeekChange={onShipWeekChange}
@@ -208,7 +208,7 @@ describe('<ShippingLineList />', () => {
     const wrapper = render(<ShippingLineList 
       shippingLines={shippingLines}
       shipOptionMetadata={shipOptionMetadata}
-      selectedShippingLineIndex={1}
+      selectedShippingLine={shippingLines[1]}
       selectedStandardShipWeek={shipWeekOption}
       onChange={onChange}
       onShipWeekChange={onShipWeekChange}
@@ -223,7 +223,7 @@ describe('<ShippingLineList />', () => {
     const wrapper = render(<ShippingLineList 
       shippingLines={shippingLines}
       shipOptionMetadata={shipOptionMetadata}
-      selectedShippingLineIndex={1}
+      selectedShippingLine={shippingLines[1]}
       selectedStandardShipWeek={''}
       onChange={onChange}
       onShipWeekChange={onShipWeekChange}
@@ -236,7 +236,7 @@ describe('<ShippingLineList />', () => {
     wrapper.rerender(<ShippingLineList 
       shippingLines={shippingLines}
       shipOptionMetadata={shipOptionMetadata}
-      selectedShippingLineIndex={1}
+      selectedShippingLine={shippingLines[1]}
       selectedStandardShipWeek={25}
       onChange={onChange}
       onShipWeekChange={onShipWeekChange}
@@ -252,13 +252,13 @@ describe('<ShippingLineList />', () => {
 
   it('should unset ship week when non-standard line selected', async () => {
     let shipWeekOption = 25;
-    let selectedOption = 1;
+    let selectedOption = shippingLines[1];
     onShipWeekChange.mockImplementation((value) => shipWeekOption = value);
     onChange.mockImplementation((value) => selectedOption = value);
     const wrapper = render(<ShippingLineList 
       shippingLines={shippingLines}
       shipOptionMetadata={shipOptionMetadata}
-      selectedShippingLineIndex={selectedOption}
+      selectedShippingLine={selectedOption}
       selectedStandardShipWeek={shipWeekOption}
       onChange={onChange}
       onShipWeekChange={onShipWeekChange}
@@ -267,19 +267,19 @@ describe('<ShippingLineList />', () => {
     await userEvent.click(wrapper.getByText('Expedited Shipping'));
     expect(shipWeekOption).toBe(null);
     expect(onShipWeekChange).toHaveBeenCalledWith(null);
-    expect(selectedOption).toBe(2);
-    expect(onChange).toHaveBeenCalledWith(2);
+    expect(selectedOption).toBe(shippingLines[2]);
+    expect(onChange).toHaveBeenCalledWith(shippingLines[2]);
   });
 
   it('should unset ship week when currently selected ship week selected', async () => {
     let shipWeekOption = 25;
-    let selectedOption = 1;
+    let selectedOption = shippingLines[1];
     onShipWeekChange.mockImplementation((value) => shipWeekOption = value);
     onChange.mockImplementation((value) => selectedOption = value);
     const wrapper = render(<ShippingLineList 
       shippingLines={shippingLines}
       shipOptionMetadata={shipOptionMetadata}
-      selectedShippingLineIndex={selectedOption}
+      selectedShippingLine={selectedOption}
       selectedStandardShipWeek={shipWeekOption}
       onChange={onChange}
       onShipWeekChange={onShipWeekChange}
@@ -288,19 +288,19 @@ describe('<ShippingLineList />', () => {
     await userEvent.click(wrapper.getByText('CHRISTMAS', {exact: false}));
     expect(shipWeekOption).toBeNull();
     expect(onShipWeekChange).toHaveBeenCalledWith(null);
-    expect(selectedOption).toBe(1);
+    expect(selectedOption).toBe(shippingLines[1]);
     expect(onChange).not.toHaveBeenCalled();
   });
 
   it('should set ship week preference for bundled order', async () => {
     let shipWeekOption = 25;
-    let selectedOption = 1;
+    let selectedOption = shippingLines[1];
     onShipWeekChange.mockImplementation((value) => shipWeekOption = value);
     onChange.mockImplementation((value) => selectedOption = value);
     const wrapper = render(<ShippingLineList 
       shippingLines={shippingLines}
       shipOptionMetadata={shipOptionMetadata}
-      selectedShippingLineIndex={selectedOption}
+      selectedShippingLine={selectedOption}
       selectedStandardShipWeek={shipWeekOption}
       onChange={onChange}
       onShipWeekChange={onShipWeekChange}
@@ -309,15 +309,15 @@ describe('<ShippingLineList />', () => {
     await userEvent.click(wrapper.getByText('Ship with Next Order'));
     expect(shipWeekOption).toBe(35);
     expect(onShipWeekChange).toHaveBeenCalledWith(35);
-    expect(selectedOption).toBe(0);
-    expect(onChange).toHaveBeenCalledWith(0);
+    expect(selectedOption).toBe(shippingLines[0]);
+    expect(onChange).toHaveBeenCalledWith(shippingLines[0]);
   });
 
   it('should remove focus from selected Standard ship week option when changed', () => {
     const wrapper = render(<ShippingLineList 
       shippingLines={shippingLines}
       shipOptionMetadata={shipOptionMetadata}
-      selectedShippingLineIndex={1}
+      selectedShippingLine={shippingLines[1]}
       selectedStandardShipWeek={25}
       onChange={onChange}
       onShipWeekChange={onShipWeekChange}
@@ -332,7 +332,7 @@ describe('<ShippingLineList />', () => {
     wrapper.rerender(<ShippingLineList 
       shippingLines={shippingLines}
       shipOptionMetadata={shipOptionMetadata}
-      selectedShippingLineIndex={1}
+      selectedShippingLine={shippingLines[1]}
       selectedStandardShipWeek={null}
       onChange={onChange}
       onShipWeekChange={onShipWeekChange}

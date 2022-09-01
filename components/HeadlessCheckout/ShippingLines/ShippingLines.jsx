@@ -59,8 +59,6 @@ const MemoizedShippingLines = memo(
   }) => {
     const trackEvent = useAnalytics();
     const logError = useErrorLogging();
-    const [shippingLineIndex, setShippingLineIndex] =
-      useState(selectedShippingLineIndex);
     const [shipWeekPreference, setShipWeekPreference] = useState('');
     const [errors, setErrors] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -68,6 +66,8 @@ const MemoizedShippingLines = memo(
     const { t } = useTranslation();
     const { shipOptionMetadata } = useHeadlessCheckoutContext();
     const { appendOrderMetadata } = useOrderMetadata();
+    const [displayedShippingLines, setDisplayedShippingLines] = useState(shippingLines);
+    const [selectedShippingLine, setSelectedShippingLine] = useState(shippingLines[selectedShippingLineIndex]);
 
     // need to refresh shipping lines when cart line item updates
     const refreshShippingLines = useCallback(async () => {
@@ -93,21 +93,28 @@ const MemoizedShippingLines = memo(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lineItems]);
 
+    useEffect(() => {
+      setDisplayedShippingLines(shippingLines);
+    }, [shippingLines]);
+
     // Keep local state for selected shipping line in sync with server app state
     useEffect(() => {
-      setShippingLineIndex(selectedShippingLineIndex);
+      setSelectedShippingLine(shippingLines[selectedShippingLineIndex]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedShippingLineIndex]);
 
-    const handleChange = useCallback(async (index) => {
-      setShippingLineIndex(index);
+    const handleChange = useCallback(async (line) => {
       setLoading(true);
       try {
+        const index = shippingLines.findIndex(l => l.description === line.description);
+        setSelectedShippingLine(line);
         await updateShippingLine(index);
         setErrors(null);
       } catch (e) {
+        console.error(e);
+        setErrors(e.body?.errors);
         // If there was an error, reset the selected shipping line to the previous selected shipping line.
-        setShippingLineIndex(selectedShippingLineIndex);
-        setErrors(e.body.errors);
+        setSelectedShippingLine(shippingLines[selectedShippingLineIndex]);
       }
       setLoading(false);
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -137,8 +144,8 @@ const MemoizedShippingLines = memo(
     } else {
       content = (
         <ShippingLineList
-          shippingLines={shippingLines}
-          selectedShippingLineIndex={shippingLineIndex}
+          shippingLines={displayedShippingLines}
+          selectedShippingLine={selectedShippingLine}
           onChange={handleChange}
           disabled={loading}
           selectedStandardShipWeek={shipWeekPreference}

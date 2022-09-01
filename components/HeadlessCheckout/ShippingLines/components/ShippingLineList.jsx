@@ -3,7 +3,7 @@ import { formatPrice } from '@/utils/formatPrice';
 
 export const ShippingLineList = ({
   shippingLines,
-  selectedShippingLineIndex,
+  selectedShippingLine,
   onChange,
   disabled,
   selectedStandardShipWeek,
@@ -34,19 +34,19 @@ export const ShippingLineList = ({
     });
 
   // Don't select a shipping line that is not visible
-  if (selectedShippingLineIndex !== -1 && !displayedShippingLines[selectedShippingLineIndex].showOption) {
+  if (!displayedShippingLines.find(line => line.description === selectedShippingLine.description)?.showOption) {
     // Currently defaults to automatically select the first option (which is the lowest price)
     // should only be hiding the bundled ship line, so for now we can just move to the next one
-    const newIndex = displayedShippingLines.findIndex(line => line.showOption);
-    onChange(newIndex);
-    selectedShippingLineIndex = newIndex;
+    const selectedLine = displayedShippingLines.find(line => line.showOption);
+    onChange(selectedLine);
+    selectedShippingLine = selectedLine;
   }
 
   return (
     <div className="shipping-method-selector">
       {displayedShippingLines && displayedShippingLines.map((method, index) => {
         if (method.showOption) {
-          const lineSelected = selectedShippingLineIndex === parseInt(method.id, 10);
+          const lineSelected = selectedShippingLine.description === method.description;
           let label;
           let extraOptions;
 
@@ -111,7 +111,7 @@ export const ShippingLineList = ({
                   icon={<div className="radio--checked"></div>}
                   label={label}
                   name="shipping-method"
-                  checked={selectedShippingLineIndex === parseInt(method.id, 10)}
+                  checked={lineSelected}
                   disabled={disabled || lineSelected}
                   onChange={() => {
                     if (method.description === 'Ship with Next Order') {
@@ -119,7 +119,7 @@ export const ShippingLineList = ({
                     } else {
                       onShipWeekChange(null);
                     }
-                    onChange(index);
+                    onChange(method);
                   }}
                 />
               </div>

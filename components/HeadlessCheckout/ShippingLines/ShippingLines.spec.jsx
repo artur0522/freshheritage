@@ -48,7 +48,7 @@ jest.mock('./components', () => {
     ShippingLineList: ({
       shippingLines,
       shipOptionMetadata,
-      selectedShippingLineIndex,
+      selectedShippingLine,
       selectedStandardShipWeek,
       onChange,
       onShipWeekChange
@@ -58,9 +58,9 @@ jest.mock('./components', () => {
           <p>THIS IS SHIPPING LINES LIST</p>
           <p>{JSON.stringify(shippingLines)}</p>
           <p>{JSON.stringify(shipOptionMetadata)}</p>
-          <p>{`Selected Shipping Line Index: ${selectedShippingLineIndex}`}</p>
+          <p>{`Selected Shipping Line: ${selectedShippingLine.description}`}</p>
           <p>{`Selected Standard Ship Week: ${selectedStandardShipWeek}`}</p>
-          <button onClick={() => onChange(3)}>
+          <button onClick={() => onChange(shippingLines[2])}>
             onChange
           </button>
           <button onClick={() => onShipWeekChange(35)}>
@@ -272,7 +272,7 @@ describe('<ShippingLines />', () => {
   });
 
   describe('handleChange', () => {
-    it('should update the local shipping line index', async () => {
+    it('should update the local selected shipping line', async () => {
       const wrapper = render(
         <HeadlessCheckoutContext.Provider value={{
           shipOptionMetadata
@@ -282,9 +282,9 @@ describe('<ShippingLines />', () => {
             />
         </HeadlessCheckoutContext.Provider>
       );
-      expect(wrapper.getByText('Selected Shipping Line Index: 0')).toBeVisible();
+      expect(wrapper.getByText('Selected Shipping Line: Ship with Next Order')).toBeVisible();
       await userEvent.click(wrapper.getByText('onChange'));
-      expect(wrapper.getByText('Selected Shipping Line Index: 3')).toBeVisible();
+      expect(wrapper.getByText('Selected Shipping Line: Expedited Shipping')).toBeVisible();
     });
 
     it('should update the shipping line with bold', async () => {
@@ -298,7 +298,7 @@ describe('<ShippingLines />', () => {
         </HeadlessCheckoutContext.Provider>
       );
       await userEvent.click(wrapper.getByText('onChange'));
-      expect(updateShippingLine).toHaveBeenCalledWith(3);
+      expect(updateShippingLine).toHaveBeenCalledWith(2);
     });
   });
 

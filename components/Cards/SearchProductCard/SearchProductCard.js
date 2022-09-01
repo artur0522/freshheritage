@@ -23,20 +23,20 @@ function ProductCard({ product }) {
         <Link href={`/products/${encodeURIComponent(product.handle)}`}>
           <a className={classes["media"]}>
             {product.product_image && isMobile && mounted && (
-              <ResponsiveImage
+            <Image
               src={product.product_image}
               alt={product.title}
-              width={430}
-              height={278}
+              width={590}
+              height={432}
               className={classes.image}
             />
             )}
             {product.product_image && isDesktop && mounted && (
-               <ResponsiveImage
+              <Image
                src={product.product_image}
                alt={product.title}
-               width={650}
-               height={350}
+               width={688}
+               height={543}
                className={classes.image}
              />
             )}

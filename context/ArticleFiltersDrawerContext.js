@@ -316,9 +316,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
       option: filterOption,
       subFilter: subFilter,
     }})
-
-    console.log(router.url)
-
+    
     // router.replace({
     //   pathname: `/blogs/culinary/${router.query.category}` || `/blogs/stories/${router.query.category}`,
     //   query: { selectedFilters: selectedFilterList.map(option => option).join(decodeURI('&')) }

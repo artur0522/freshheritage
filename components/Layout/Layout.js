@@ -36,11 +36,11 @@ function Layout({ children, headerSettings, footerSettings, searchLinks }) {
                   <ArticleProvider>
                     <TheCatchProvider>
                       <SearchProvider searchLinks={searchLinks}>
-                        <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
+                        {/* <HeaderProvider content={headerSettings} pageHandle={children.props.handle} > */}
                           <StructuredData type="breadcrumb" />
                           <main className={`main--${children.props.handle}`}>{children}</main>
-                          <Footer content={footerSettings} />
-                        </HeaderProvider>
+                          {/* <Footer content={footerSettings} /> */}
+                        {/* </HeaderProvider> */}
                       </SearchProvider>
                     </TheCatchProvider>
                   </ArticleProvider>

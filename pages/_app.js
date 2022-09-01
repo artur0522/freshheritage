@@ -97,9 +97,13 @@ AppContainer.getInitialProps = async (appContext) => {
     handles: ['header-settings', 'footer-settings', 'search-recommended-links']
   })
 
-  const headerSettings = contentEntry[0].fields
-  const footerSettings = contentEntry[1].fields
-  const searchLinks = contentEntry[2].fields
+  // const headerSettings = contentEntry[0].fields
+  // const footerSettings = contentEntry[1].fields
+  // const searchLinks = contentEntry[2].fields
+
+  const searchLinks = contentEntry[0].fields
+  const headerSettings = {};
+  const footerSettings = {};
 
   const appProps = await App.getInitialProps(appContext)
 

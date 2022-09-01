@@ -3,7 +3,6 @@ import classes from './ReferralActivity.module.scss'
 import { uniqueId } from 'lodash-es'
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
-import { getReferrals } from 'services/referralClient'
 
 export default function ReferralActivity({customer}) {
   const numberOfActiveReferrees = 1;
@@ -15,7 +14,12 @@ export default function ReferralActivity({customer}) {
     const id = idArr[idArr.length - 1]
 
     // TODO - Swap this out with the actual id
-    const test = await getReferrals(5140795326548);
+    const test = await fetch(`/api/account/get-referrals?cId=${'3141920227412'}`, {
+      method: 'GET',
+    })
+
+    // getReferrals(5140795326548);
+    console.log('--------------------------------------------')
     console.log(test);
   }
 

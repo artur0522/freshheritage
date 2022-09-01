@@ -19,7 +19,7 @@ const MobileMenu = ({props, pageHandle}) => {
   const theCatchContext = useTheCatchContext()
   const { customer } = customerContext
   const { mobileMenuIsOpen, setMobileMenuIsOpen } = useHeaderContext()
-  const {menuItems} = (customerContext.customer?.is_member) ? props.memberPrimaryNavigation : props.nonMemberPrimaryNavigation
+  const {menuItems} = (customerContext.customer?.is_member || customerContext.customer?.is_sustainer) ? props.memberPrimaryNavigation : props.nonMemberPrimaryNavigation
   const navCTA = (customerContext.customer?.is_member) ? props.memberCta : props.nonMemberCta
   const customerService = props.customerService
   const nodeRef = useRef(null)

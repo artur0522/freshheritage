@@ -37,7 +37,7 @@ const MemoizedShippingAddress = memo(({
   const [loading, setLoading] = useState(false);
   const trackEvent = useAnalytics();
   const logError = useErrorLogging();
-  const [address, setAddress] = useState(shippingAddress);
+  const [address, setAddress] = useState(Array.isArray(shippingAddress) ? {'country_code': 'US'} : shippingAddress);
   const { data } = useCountryInfo(address);
   const [addressOpen, setAddressOpen] = useState(true);
   const {
@@ -53,11 +53,16 @@ const MemoizedShippingAddress = memo(({
   let provincePlaceholder = provinceLabel;
 
   useEffect(() => {
-    setAddress(shippingAddress);
+    setAddress(Array.isArray(shippingAddress) ? {'country_code': 'US'} : shippingAddress);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const updateSelectedShippingAddress = useCallback(async (currentAddress) => {
+
+    if (currentAddress && currentAddress.city && currentAddress.address_line_1) {
+      currentAddress.country_code = 'US'
+    }
+
     setAddress(currentAddress);
     setLoading(true);
     try {
@@ -101,7 +106,7 @@ const MemoizedShippingAddress = memo(({
           countries={countries}
           provinces={provinces}
           showPostalCode={showPostalCode}
-          showProvince={showProvince}
+          showProvince={true}
           provinceLabel={provincePlaceholder}
           submit={() => updateSelectedShippingAddress(address)}
           requiredAddressFields={requiredAddressFields}

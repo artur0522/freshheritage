@@ -61,6 +61,7 @@ const SelectField = ({
         <Select
           {...otherProps}
           className={`new-checkout-dropdown-selector`}
+          classNamePrefix="react-select"
           options={options}
           defaultValue={defaultValue}
           components={{ DropdownIndicator }}

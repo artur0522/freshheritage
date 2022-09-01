@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { dataLayerSelectProduct } from "@/utils/dataLayer";
 import { formatPrice } from "@/utils/formatPrice";
 
-function ProductCard({ product }) {
+function ProductCard({ product, responsive = false }) {
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
   const isMobile =  useMediaQuery({ query: '(max-width: 430px)' })
@@ -54,12 +54,10 @@ function ProductCard({ product }) {
               objectFit="cover"
             />
             )}
-            {product.content.featuredMedia && isDesktop && mounted && (
-                <Image
+            {product.content.featuredMedia && responsive && mounted && (
+              <ResponsiveImage
                 src={product.content.featuredMedia.src}
                 alt={product.content.featuredMedia.altText}
-                width={650}
-                height={350}
                 className={classes.image}
               />
             )}

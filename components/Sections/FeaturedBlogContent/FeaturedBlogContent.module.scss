@@ -15,18 +15,21 @@
     .illustration-1 {
         position: absolute;
         top: 108px;
-        left: 0;
+        left: -120px;
         display: none;
+        width: 366px;
 
         @include breakpoint-up('md') {
             display: block;
         }
+
         @include breakpoint-up('lg') {
             width: 366px;
-          }
-          @include breakpoint-up('xl') {
+        }
+
+        @include breakpoint-up('xl') {
             width: 570px;
-          }
+        }
     }
 
     .illustration-2 {
@@ -37,13 +40,16 @@
 
         @include breakpoint-up('md') {
             display: block;
+            width: 366px;
         }
+
         @include breakpoint-up('lg') {
             width: 366px;
-          }
-          @include breakpoint-up('xl') {
+        }
+
+        @include breakpoint-up('xl') {
             width: 570px;
-          }
+        }
     }
 
     &__content {
@@ -60,6 +66,7 @@
     &__tabs-swiper {
         min-height: 32px;
         padding-right: 30px;
+
         @include breakpoint-up('sm') {
             text-align: center;
             min-height: 45px;
@@ -67,9 +74,11 @@
             justify-content: center;
             padding-bottom: 25px;
         }
+
         @include breakpoint-up('sm') {
             padding-left: 50px;
         }
+
         @include breakpoint-up('md') {
             padding-right: 60px;
         }
@@ -104,9 +113,11 @@
 
             &:first-child {
                 margin-left: 30px;
+
                 @include breakpoint-up('sm') {
                     margin-left: 40px;
                 }
+
                 @include breakpoint-up('md') {
                     margin-left: 60px;
                 }
@@ -156,10 +167,12 @@
     &__swiper {
         padding-top: 30px;
         padding-right: 30px;
+
         @include breakpoint-up('sm') {
             padding-top: 47px;
             padding-right: 50px;
         }
+
         @include breakpoint-up('md') {
             padding-right: 60px;
         }
@@ -178,11 +191,14 @@
             @include breakpoint-up('sm') {
                 width: 393px;
             }
+
             &:first-child {
                 margin-left: 30px;
+
                 @include breakpoint-up('sm') {
                     margin-left: 50px;
                 }
+
                 @include breakpoint-up('md') {
                     margin-right: 60px;
                 }

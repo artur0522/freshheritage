@@ -1,4 +1,4 @@
-import { useState} from 'react'
+import { useState, useEffect } from 'react'
 import { useArticleFiltersDrawerContext } from '@/context/ArticleFiltersDrawerContext'
 
 import PlusIcon from '@/svgs/plus.svg'
@@ -14,7 +14,14 @@ const BlogFilterItem = (props) => {
   const { filters, optionHandler, subOptionHandler, tagCount} = articleFiltersDrawerContext
   const { filterGroup } = props
   const [dropdown, setDropdown] = useState(false)
-  
+  const [filtersArray, setFiltersArray] = useState([])
+  const [mounted, setMounted] = useState([])
+
+  useEffect(() => {
+    setMounted(true)
+    setFiltersArray(Object.keys(filters[filterGroup].options))
+  }, [mounted, filters])
+
   function buildCheckboxInput({ onChange, label, checked }) {
     return <div className={`${classes['filter-option__checkbox-wrapper']} body`}>
                 <Checkbox
@@ -38,7 +45,7 @@ const BlogFilterItem = (props) => {
             </div>
         </button>
         {dropdown && <ul className={classes['filter-option__wrap']}>
-            {Object.keys(filters[filterGroup].options).map((filterOption) => {
+            {filtersArray.map((filterOption) => {
                 return (
                     <li key={filterOption}>
                         {tagCount[filterOption] !== undefined && tagCount[filterOption] >= 4 && tagCount[Object.keys(filters[filterGroup].options[filterOption].subFilters)[0]] === undefined &&

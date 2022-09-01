@@ -87,6 +87,83 @@
   left: 15px;
 }
 
+.new-checkout-dropdown-selector {
+  svg {
+    width: 12px;
+  }
+  .react-select__control {
+    border-radius: 12px;
+    border: 1px solid $black10;
+    padding: 0;
+    box-shadow: none !important;
+    height: 48px;
+    @include breakpoint-up('sm') {
+      height: 60px;
+    }
+  }
+  .react-select__value-container {
+    padding: 20px 0 0 15px;
+    @include breakpoint-up('sm') {
+      padding: 25px 0 0 15px;
+    }
+  }
+  .react-select__placeholder,
+  .react-select__single-value {
+    color: $sitkablue;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    @include breakpoint-up('sm') {
+      font-size: 16px;
+    }
+  }
+  .react-select__input {
+    margin: 0;
+    padding: 0;
+  }
+  .react-select__indicators {
+    .react-select__indicator-separator {
+      display: none;
+    }
+    .react-select__indicator {
+      width: 46px;
+      height: 36px;
+      border-left: 1px solid $black10;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .react-select__menu {
+    top: -8px;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+  .react-select__menu-list {
+    padding: 0;
+    border-radius: 12px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(45, 43, 38, 0.1);
+  }
+  .react-select__option {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 21px 15px;
+    // background-color: $alabaster;
+    // color: $sitkablue;
+    @include breakpoint-up('sm') {
+      font-size: 16px;
+    }
+    &:hover {
+      background: $sitkablue;
+      color: $alabaster2;
+    }
+  }
+}
+
 .checkout-dropdown-selector {
   position: relative;
   margin-bottom: 0;

@@ -72,7 +72,7 @@ const SearchModal = () => {
         {results?.query === '' ? <div className={classes['search-results']}>
           <h4 className={"heading--search-results"}>Popular Searches</h4>
           <ul>
-            {searchLinks.menuItems.map((link) => {
+            {searchLinks?.menuItems.map((link) => {
               return (
                 <li key={link._key}>
                   <Link href={link.linkUrl}>

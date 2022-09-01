@@ -1,7 +1,6 @@
 /* eslint-disable */
 import cn from 'classnames';
-import React from 'react';
-import Dropdown from 'react-dropdown'
+import Select, { components } from 'react-select'
 import IconTriangleSelector from '@/svgs/triangle-selector.svg'
 
 const SelectField = ({
@@ -14,6 +13,7 @@ const SelectField = ({
   className,
   ...otherProps
 }) => {
+
   const classNames = cn([
     'select-field',
     {'select-field--alert': messageType === 'alert' || messageType === 'error'},
@@ -33,22 +33,40 @@ const SelectField = ({
     defaultValue = options.some(option => option.value === value) ? options.find(option => option.value === value) : options[0]
   }
 
+  const DropdownIndicator = props => {
+    return (
+      components.DropdownIndicator && (
+        <components.DropdownIndicator {...props}>
+          <div className="dropdown-selector__arrow-open"><IconTriangleSelector /></div>
+        </components.DropdownIndicator>
+      )
+    );
+  };
+
+  const colourStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isSelected || state.isFocused ? '#163144' : '#fcfaf8',
+      color: state.isSelected || state.isFocused ? '#fffdfc' : '#163144',
+    }),
+  };
+
+
   return (
     <div className="input-group">
       <div className={classNames}>
         {otherProps.name &&
           <label className="checkout-dropdown-label">{otherProps.name}</label>
         }
-         <Dropdown
+        <Select
           {...otherProps}
-          className={`checkout-dropdown-selector`}
+          className={`new-checkout-dropdown-selector`}
           options={options}
-          value={defaultValue}
-          valueattr={defaultValue}
-          arrowClosed={<div className="dropdown-selector__arrow-closed"><IconTriangleSelector /></div>}
-          arrowOpen={<div className="dropdown-selector__arrow-open"><IconTriangleSelector /></div>}
-          disabled={disabled}
+          defaultValue={defaultValue}
+          components={{ DropdownIndicator }}
+          isDisabled={disabled}
           placeholder={placeholder}
+          styles={colourStyles}
         />
         { messageText && <div className='field__message'>{ messageText }</div> }
       </div>

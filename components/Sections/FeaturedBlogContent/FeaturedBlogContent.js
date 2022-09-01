@@ -48,8 +48,10 @@ const FeaturedBlogContent = ({ fields }) => {
           setValidArticles(articles)
         })
     } else {
+      console.log("tabs:", tabs)
       getArticles({articleHandles: tabs[0].tabList})
         .then(articles => {
+          console.log("articles:", articles)
           setSelectedSwiper({
             ...tabs[0],
             tabList: articles
@@ -73,6 +75,8 @@ const FeaturedBlogContent = ({ fields }) => {
         })
     }
   }
+
+  console.log("selectedSwiper:", selectedSwiper)
 
   return (
     <div className={`${classes['articles']}`}>
@@ -151,7 +155,7 @@ const FeaturedBlogContent = ({ fields }) => {
           </Swiper>
         )}
 
-        {!!selectedSwiper && mounted && method === 'manual' && (
+        {!!selectedSwiper && mounted && method !== 'tagBased' && (
           <Swiper
             slidesPerView={'auto'}
             spaceBetween={18}

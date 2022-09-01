@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useReducer, useEffect, useCallback } from 'react'
+import { createContext, useContext, useReducer, useEffect} from 'react'
 import { useRouter } from 'next/router'
 import ArticleFiltersDrawer from '@/components/Layout/ArticleFiltersDrawer'
 import FishermenInfoDrawer from '@/components/Layout/FishermenInfoDrawer/FishermenInfoDrawer'
@@ -110,18 +110,6 @@ function drawerReducer(state, action) {
         selectedFilterList: [...state.selectedFilterList.filter(filter => filter !== action.payload)]
       }
     }
-    case 'add_selected_filterObjects': {
-      return {
-        ...state,
-        selectedFilterObjectsList: [...state.selectedFilterObjectsList.filter(filter => filter !== action.payload.filterOption || action.payload.subFilter), action.payload]
-      }
-    }
-    case 'remove_selected_filterObjects': {
-      return {
-        ...state,
-        selectedFilterObjectsList: [...state.selectedFilterObjectsList.filter(filter => filter === action.payload.filterOption || filter === action.payload.subFilter)]
-      }
-    }
     case 'toggle_checkbox': {
       if(action.payload.hasSubfilter) {
         return {
@@ -172,7 +160,6 @@ const initialState = {
   isFishermen: false,
   filters: {},
   selectedFilterList: [],
-  selectedFilterObjectsList: [],
   listings: [],
   originalListings: [],
   tagCount: {},
@@ -193,7 +180,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
   const router = useRouter()
   const [state, dispatch] = useReducer(drawerReducer, initialState)
 
-  const { selectedFilterObjectsList, multipleSelectedFilters, currentOption, currentFilterGroup, isOpen, infoCardFields, isFishInfoOpen, filters, selectedFilterList, listings, originalListings, tagCount, tagArray, selectValue, isFishermen} = state
+  const { currentOption, currentFilterGroup, isOpen, infoCardFields, isFishInfoOpen, filters, selectedFilterList, listings, originalListings, tagCount, tagArray, isFishermen} = state
 
   const setCurrentOption = (currentOption) => {
     dispatch({type: 'set_current_option', payload: currentOption})
@@ -350,8 +337,6 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
       filterListingsByTags(filterGroup, filterOption, subFilter)
     }
-
-    
   }
 
   // OPTION HANDLER
@@ -468,13 +453,13 @@ export function ArticleFiltersDrawerProvider({ children }) {
   }
 
   useEffect(() => {
+    filterListingsByTags()
+    
     if (isOpen) document.querySelector('html').classList.add('disable-scroll')
     if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
 
     if (isFishInfoOpen) document.querySelector('html').classList.add('disable-scroll')
     if (!isFishInfoOpen) document.querySelector('html').classList.remove('disable-scroll')
-
-    filterListingsByTags()
 
     const handleResize = () => {
       if (window.innerWidth >= 1074) {
@@ -517,7 +502,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [isOpen, multipleSelectedFilters, selectedFilterList, selectedFilterObjectsList, filters, currentOption, currentFilterGroup, isFishInfoOpen, router.pathname])
+  }, [isOpen, isFishInfoOpen, selectedFilterList, filters, currentOption, currentFilterGroup, router.pathname])
 
   useEffect(() => {
     router.beforePopState(({ as }) => {

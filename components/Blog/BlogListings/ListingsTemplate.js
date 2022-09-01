@@ -2,23 +2,22 @@ import React, {useState, useEffect} from 'react'
 import { useMediaQuery } from 'react-responsive'
 
 import { useArticleFiltersDrawerContext } from '@/context/ArticleFiltersDrawerContext'
-
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
 import FullBleedHero from '@/components/Sections/FullBleedHero'
 import ArticleRow from '@/components/Sections/ArticleRow'
 import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
 import BlogFilters from '@/components/Blog/BlogFilters'
 import IconFilters from '@/svgs/filters.svg'
+import ArticleCookingClassHero from '@/components/Article/ArticleCookingClassHero'
 
 import IconSearch from '@/svgs/search.svg'
 import PaginationLeft from '@/svgs/pagination-left.svg'
 import PaginationRight from '@/svgs/pagination-right.svg'
 
-import classes from "./ListingsTemplate.module.scss"
-
 import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
-import ArticleCookingClassHero from '@/components/Article/ArticleCookingClassHero'
+
+import classes from "./ListingsTemplate.module.scss"
 
 const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const drawerContext = useArticleFiltersDrawerContext()
@@ -61,8 +60,8 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
 
         const tagCount = {}
         const tagArray = []
-        articles.forEach((article) => {
-          article.fields?.articleTags?.forEach((tag) => {
+        articles.map((article) => {
+          article.fields?.articleTags?.map((tag) => {
             if(!tagCount[tag.value.toLowerCase()]) {
               tagCount[tag.value.toLowerCase()] = 1
             }
@@ -105,6 +104,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         addTagCount(tagCount)
         addFilters(filterGroupObj)
 
+        // PAGINATION
         if(selectedFilterList.length > 0) {
           setCurrentPage(1)
         }

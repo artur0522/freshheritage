@@ -22,8 +22,10 @@
 
     &__list {
         display: flex;
+        flex-wrap: wrap;
         margin-top: 36px;
         margin: 36px -18px 0;
+
         @include breakpoint-up('md') {
             margin-top: 59px;
         }

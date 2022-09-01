@@ -208,7 +208,9 @@ function Product({ product, page, modals }) {
                 </div>}
 
                 {/* STAMPS */}
-                <ProductStamps fields={badgeSection.badges} product={product} />
+                {badgeSection.badges &&
+                  <ProductStamps fields={badgeSection.badges} product={product} />
+                }
               </div>
             </div>
           {/* SECTIONS */}

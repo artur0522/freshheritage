@@ -24,6 +24,8 @@ export function CustomerProvider({ children }) {
     // console.log("customerAccessToken:", customerAccessToken)
     if (customerAccessToken) {
       getCustomer({ accessToken: customerAccessToken })
+    } else {
+      setCustomerLoading(false)
     }
   }, [])
 

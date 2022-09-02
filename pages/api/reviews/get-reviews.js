@@ -13,7 +13,7 @@ const handler = async (req, res) => {
     },
     auth: {
       username: process.env.NEXT_PUBLIC_STAMPEDIO_KEY_PUBLIC,
-      password: process.env.NEXT_PUBLIC_STAMPEDIO_API_KEY
+      password: process.env.STAMPEDIO_API_KEY
     }
   };
 

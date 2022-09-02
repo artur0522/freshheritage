@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
 import "swiper/css"
@@ -6,7 +7,7 @@ import classes from './StaticHarvest.module.scss'
 import HarvestCard from "../HarvestCard"
 
 import { useTheCatchContext } from '@/context/TheCatchContext'
-import { useEffect, useState } from 'react'
+import { nacelleClient } from 'services'
 
 const StaticHarvest = ({ fields }) => {
   const { header, description, harvestMonth, illustration, alt } = fields
@@ -18,7 +19,18 @@ const StaticHarvest = ({ fields }) => {
 
   useEffect(() => {
     setMounted(true)
-    addPastIssues(fields?.list)
+    const getIssues = async (theCatchList) => {
+        return await nacelleClient.content({
+            handles: theCatchList
+        })
+    }
+
+    if (fields.theCatchList?.length > 0) {
+        getIssues(fields.theCatchList)
+            .then(res => {
+                addPastIssues(res)
+            })
+    }
     addIssue(fields?.harvestMonth[0])
   }, [mounted])
 
@@ -26,7 +38,7 @@ const StaticHarvest = ({ fields }) => {
     return (
         <div className={`${classes['harvest']}`}>
             <div className={classes['harvest__inner']}>
-                {fields?.list?.length > 0 && <button className={`${classes['btn']} secondary--body`} onClick={() => openDrawer()}>View Past Issues Of The Catch +</button>}
+                {fields?.theCatchList?.length > 0 && <button className={`${classes['btn']} secondary--body`} onClick={() => openDrawer()}>View Past Issues Of The Catch +</button>}
 
                 {illustration && <div className={`${classes['harvest__illustration']}`}>
                     <div className={classes['harvest__illustration-img']}>

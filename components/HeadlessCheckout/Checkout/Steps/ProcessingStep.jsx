@@ -1,8 +1,13 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const ProcessingPage = () => {
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (window) window.scrollTo(0,0)
+  }, [])
+
   return (
     <div className="checkout__processing">
       {/* <LoadingSpinner /> */}

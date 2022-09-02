@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useCheckoutStore } from '@boldcommerce/checkout-react-components';
 import {
   OrderSummary,
@@ -44,6 +44,10 @@ const ConfirmationPage = () => {
       </li>
     );
   });
+
+  useEffect(() => {
+    if (window) window.scrollTo(0,0)
+  }, [])
 
   return (
     <>

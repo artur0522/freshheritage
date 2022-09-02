@@ -28,7 +28,9 @@ const ProductDetailsList = ({fields, enableToggle = false, expandOnLoad = false 
       </h4>
 
       {fields.description != undefined || fields.description != null ? (
-        <div className="body">{fields.description?.replace(/(<([^>]+)>)/ig, '')}</div>
+        <Expand open={height !== 0} duration={300}>
+          <div className={`${classes['product-details__description']} body`}>{fields.description?.replace(/(<([^>]+)>)/ig, '')}</div>
+        </Expand>
       ):(
         <Expand open={height !== 0} duration={300}>
           <ul className={classes['product-details__items']}>

@@ -1,7 +1,11 @@
+import { useEffect } from 'react'
 import { useErrors } from '@boldcommerce/checkout-react-components';
 
 const ErrorPage = ({ backToStarStep }) => {
   const { data } = useErrors();
+  useEffect(() => {
+    if (window) window.scrollTo(0,0)
+  }, [])
   return (
     <div className="checkout__error">
       {/* <LoadingSpinner /> */}

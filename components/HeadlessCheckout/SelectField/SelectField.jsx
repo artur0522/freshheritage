@@ -27,11 +27,7 @@ const SelectField = ({
     }
   })
 
-  let defaultValue = value;
-
-  if (options.length === 0) {
-    defaultValue = options.some(option => option.value === value) ? options.find(option => option.value === value) : options[0]
-  }
+  let defaultValue = options.find(option => option.value === value) || '';
 
   const DropdownIndicator = props => {
     return (
@@ -63,7 +59,7 @@ const SelectField = ({
           className={`new-checkout-dropdown-selector`}
           classNamePrefix="react-select"
           options={options}
-          defaultValue={defaultValue}
+          value={defaultValue}
           components={{ DropdownIndicator }}
           isDisabled={disabled}
           placeholder={placeholder}

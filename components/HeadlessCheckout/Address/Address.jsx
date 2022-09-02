@@ -28,7 +28,7 @@ export const Address = ({
   const postalCodePlaceholder = provinceLabel === 'state_territory' ? t('address.zip_code') : t('address.postal_code');
 
   const handleSubmit = useCallback(() => {
-    if (address && address.country_code) {
+    if (address && address.address_line_1 && address.city) {
       submit(address);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -134,7 +134,7 @@ export const Address = ({
           city: e.target.value,
         })}
       />
-      <div className="input-group--wrapper">
+      <div className="input-group--wrapper display--none">
         <SelectField
           placeholder={t('address.country_hint')}
           name="country"
@@ -149,23 +149,23 @@ export const Address = ({
         >
           {countryList}
         </SelectField>
-        <SelectField
-          placeholder={provincePlaceholder}
-          name="province"
-          autoComplete="address-level1"
-          className={classNames("input", !(address?.country_code && showProvince) && 'input--hidden')}
-          value={address?.province_code ?? ''}
-          messageType={errors && errorMap?.province && 'alert' || ''}
-          messageText={errors && errorMap?.province && provincePlaceholder || ''}
-          onChange={(e) => onChange({
-            province: e.label,
-            province_code: e.value,
-          })}
-        >
-          {provinceList}
-        </SelectField>
       </div>
       <div className="input-group--wrapper">
+        <SelectField
+            placeholder={provincePlaceholder}
+            name="state"
+            autoComplete="address-level1"
+            className={classNames("input", !(address?.country_code && showProvince) && 'input--hidden')}
+            value={address?.province_code ?? ''}
+            messageType={errors && errorMap?.province && 'alert' || ''}
+            messageText={errors && errorMap?.province && provincePlaceholder || ''}
+            onChange={(e) => onChange({
+              province: e.label,
+              province_code: e.value,
+            })}
+          >
+          {provinceList}
+        </SelectField>
         <InputField
           placeholder={postalCodePlaceholder}
           type="text"
@@ -179,20 +179,20 @@ export const Address = ({
             postal_code: e.target.value,
           })}
         />
-        <InputField
-          placeholder={hasRequiredFields && requiredAddressFields.includes('phone_number') ? t('address.phone_number') : t('address.phone_number_optional')}
-          type="tel"
-          name="phone_number"
-          autoComplete="tel"
-          className="input"
-          value={address?.phone_number ?? ''}
-          messageType={errors && errorMap?.phone_number && 'alert' || ''}
-          messageText={errors && errorMap?.phone_number && t('address.phone_number_hint') || ''}
-          onChange={(e) => onChange({
-            phone_number: e.target.value,
-          })}
-        />
       </div>
+      <InputField
+        placeholder={hasRequiredFields && requiredAddressFields.includes('phone_number') ? t('address.phone_number') : t('address.phone_number_optional')}
+        type="tel"
+        name="phone_number"
+        autoComplete="tel"
+        className="input"
+        value={address?.phone_number ?? ''}
+        messageType={errors && errorMap?.phone_number && 'alert' || ''}
+        messageText={errors && errorMap?.phone_number && t('address.phone_number_hint') || ''}
+        onChange={(e) => onChange({
+          phone_number: e.target.value,
+        })}
+      />
     </div>
   );
 };

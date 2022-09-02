@@ -12,43 +12,63 @@ import 'swiper/css'
 import classes from './FeaturedBlogContent.module.scss'
 
 const FeaturedBlogContent = ({ fields }) => {
-  const { tabs, header, subheader, ctaUrl, ctaText, illustration, illustration2, illustrationAlt, illustration2Alt, method, blog, tag, articleType } = fields
+  const { tabs, header, subheader, ctaUrl, ctaText, illustration, illustration2, illustrationAlt, illustration2Alt, method, blog, tagList, articleType } = fields
   const [selectedSwiper, setSelectedSwiper] = useState(null)
   const [mounted, setMounted] = useState(false)
   const [validArticles, setValidArticles] = useState([])
 
-  const getArticles = async ({fieldTag, articleHandles}) => {
-    if (method === 'tagBased') {
+  const getArticles = async ({fieldTags = [], articleHandles, forceTagBased = false}) => {
+    if (method === 'tagBased' || forceTagBased || method === 'mostRecent') {
       const articles = await nacelleClient.content({
         type: `${articleType}`,
+        maxReturnedEntries: 50
       })
       const filteredArr = articles.filter(article => article.fields.published)
         .filter((article) => {
-          return (
-            article.fields?.blog?.blogType === blog?.blogType &&
-            article.fields?.articleTags?.find((tag) => tag.value === fieldTag)
-          )
+          if (fieldTags.length && method !== 'mostRecent') {
+            return (
+              article.fields?.blog?.blogType === blog?.blogType &&
+              article.fields?.articleTags?.find((tag) => fieldTags.includes(tag.value))
+            )
+          }
+          return article.fields?.blog?.blogType === blog?.blogType
         })
         .slice(0, 4)
 
       return filteredArr
     } else {
+
+      if (!articleHandles) {
+        return []
+      }
+
       const articles = await nacelleClient.content({
         handles: articleHandles
       })
+
       return articles.filter(article => article.fields.published)
     }
   }
 
   useEffect(() => {
     setMounted(true)
-    if (method === 'tagBased') {
-      getArticles({fieldTag: tag})
+    if (method === 'tagBased' || method === 'mostRecent') {
+      getArticles({fieldTags: tagList})
         .then(articles => {
           setValidArticles(articles)
         })
     } else {
-      getArticles({articleHandles: tabs[0].tabList})
+
+      const options = {
+        articleHandles: tabs[0].tabList,
+        fieldTags: tabs[0].tagList
+      }
+
+      if (tabs[0].tagList?.length) {
+        options.forceTagBased = true
+      }
+
+      getArticles(options)
         .then(articles => {
           setSelectedSwiper({
             ...tabs[0],
@@ -63,15 +83,23 @@ const FeaturedBlogContent = ({ fields }) => {
       return tab.tabName === tabName
     })
 
-    if (foundTab.tabList.length > 0) {
-      getArticles({articleHandles: foundTab.tabList})
-        .then(articles => {
-          setSelectedSwiper({
-            ...foundTab,
-            tabList: articles
-          })
-        })
+    const options = {
+      articleHandles: foundTab.tabList,
+      fieldTags: foundTab.tagList
     }
+
+    if (foundTab.tagList?.length) {
+      options.forceTagBased = true
+    }
+
+    getArticles(options)
+      .then(articles => {
+        setSelectedSwiper({
+          ...foundTab,
+          tabList: articles
+        })
+      })
+
   }
 
   return (
@@ -125,7 +153,7 @@ const FeaturedBlogContent = ({ fields }) => {
           </Swiper>
         )}
 
-        {mounted && method === 'tagBased' && (
+        {mounted && (method === 'tagBased' || method === 'mostRecent') && (
           <Swiper
             slidesPerView={'auto'}
             spaceBetween={18}
@@ -151,7 +179,7 @@ const FeaturedBlogContent = ({ fields }) => {
           </Swiper>
         )}
 
-        {!!selectedSwiper && mounted && method === 'manual' && (
+        {!!selectedSwiper && mounted && method !== 'tagBased' && (
           <Swiper
             slidesPerView={'auto'}
             spaceBetween={18}

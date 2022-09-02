@@ -60,6 +60,13 @@
   }
 }
 
+.product-details__description {
+  padding-top: 20px;
+  @include breakpoint-up('md') {
+    padding-top: 25px;
+  }
+}
+
 .product-details__items {
   list-style: none;
 }

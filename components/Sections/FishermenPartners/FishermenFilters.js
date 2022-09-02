@@ -1,7 +1,8 @@
 import React from 'react'
 
 import { useArticleFiltersDrawerContext } from '@/context/ArticleFiltersDrawerContext'
-import { filter } from 'lodash-es'
+import IconCheckmark from '@/svgs/checkmark.svg'
+import Checkbox from "react-custom-checkbox";
 
 import classes from "./FishermenFilters.module.scss"
 
@@ -12,6 +13,19 @@ const FishermenFilters = () => {
   const changeHandler = (hasSubfilter, filterGroup, filterOption, subFilter) => {
     checkBoxHandler(hasSubfilter, filterGroup, filterOption, subFilter)
   }
+
+  function buildCheckboxInput({ onChange, label, checked }) {
+    return <div className={`${classes['filter-option__checkbox-wrapper']} body`}>
+                <Checkbox
+                    className={`${classes['filter-option']}`}
+                    icon={<div className={classes['filter-option--checked']}><IconCheckmark /></div>}
+                    label={label}
+                    checked={checked}
+                    onChange={() => onChange()}
+                />
+            </div>
+  }
+
 
   return (
     <div>
@@ -25,23 +39,27 @@ const FishermenFilters = () => {
                     {Object.keys(filters[filterGroup].options).map((filterOption) => {
                         return (
                             <li key={filterOption}>
-                                <div className={classes['filter-option']}>
-                                    <input onChange={() => changeHandler(false, filterGroup, filterOption)} value={filterOption} id={filterOption} checked={filters[filterGroup].options[filterOption].checked} type="checkbox" />
-                                    <label htmlFor={filterOption}>{filterOption}</label>
-                                </div>
+                                {buildCheckboxInput({
+                                    label: filterOption,
+                                    checked: filters[filterGroup].options[filterOption].checked,
+                                    onChange: () => changeHandler(false, filterGroup, filterOption)
+                                })}
                                 <ul className={classes['filter-suboption__wrap']}>
                                     {filters[filterGroup].options[filterOption].subFilters && Object.keys(filters[filterGroup].options[filterOption].subFilters).map((subFilter) => {
                                         if(tagCount[subFilter] !== undefined && tagCount[subFilter] >= 3) {
                                             return (
                                                 <li key={subFilter}>
-                                                    <input onChange={() => changeHandler(true, filterGroup, filterOption, subFilter)} value={subFilter} id={subFilter} checked={filters[filterGroup].options[filterOption].subFilters[subFilter].checked} type="checkbox" />
-                                                    <label htmlFor={subFilter}>{subFilter}</label>
+                                                    {buildCheckboxInput({
+                                                        label: subFilter,
+                                                        checked: filters[filterGroup].options[filterOption].subFilters[subFilter].checked,
+                                                        onChange: () => changeHandler(true, filterGroup, filterOption, subFilter)
+                                                    })}
                                                 </li>
                                             )
                                         }
                                     })}
                                 </ul>
-                            </li> 
+                            </li>
                         )
                     })}
                 </ul>

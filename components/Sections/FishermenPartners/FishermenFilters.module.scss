@@ -35,23 +35,50 @@
         padding: 0;
     }
 
+
     .filter-option__wrap {
         list-style: none;
         margin-top: 14px;
         text-transform: capitalize;
 
-        .filter-option {
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid $black20;
-            padding: 14px 0;
-        }
 
-        input {
-            margin-right: 12px;
-            height: 21px;
-            width: 21px;
-        }
+        .filter-option__checkbox-wrapper {
+            margin: 0 0 15px;
+            position: relative;
+            line-height: 1;
+            > label {
+              display: inline-flex !important;
+              cursor: pointer;
+            }
+          }
+
+          .filter-option {
+            border: 1px solid rgba(22, 49, 68, 0.4) !important;
+            width: 21px !important;
+            height: 21px !important;
+            border-radius: 3px;
+            margin-right: 5px;
+            svg {
+              width: 12px;
+              height: 12px;
+              * {
+                fill: $pureWhite;
+              }
+            }
+            .filter-option--checked {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 21px;
+              height: 21px;
+              background-color: $sitkablue;
+              border-radius: 3px;
+              border: none;
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+          }
     }
 
     .filter-suboption__wrap {

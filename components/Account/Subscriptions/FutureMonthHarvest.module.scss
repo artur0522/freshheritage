@@ -1,0 +1,42 @@
+@import '@/styles/variables/_colors.scss';
+
+.future-harvest {
+  h4 {
+    font-size: 24px;
+  }
+  margin-bottom: 28px;
+}
+
+.estimated-delivery {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  .date-string {
+    margin-left: 5px;
+    color: $salmon;
+  }
+}
+
+.future-harvest-header, .future-harvest-left {
+  display: flex;
+}
+
+.future-harvest-header {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.future-harvest-month {
+  padding-left: 10px;
+  width: 200px;
+}
+
+.view-projected-harvest {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h4 {
+    font-size: 14px;
+  }
+}

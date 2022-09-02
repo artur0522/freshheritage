@@ -15,11 +15,11 @@ export const sanity = sanityClient({
 })
 
 const QUERY = `
-*[_type == "standardArticle" && blog._ref in *[_type=="blog" && blogType == "brand"]._id || 
-_type == "recipeArticle" && blog._ref in *[_type=="blog" && blogType == "brand"]._id ||
-_type == "videoArticle" && blog._ref in *[_type=="blog" && blogType == "brand"]._id ||
-_type == "liveCookingClassArticle" && blog._ref in *[_type=="blog" && blogType == "brand"]._id]
-{
+*[_type == "standardArticle" && blog._ref in *[_type=="blog" && blogType == "stories"]._id || 
+_type == "recipeArticle" && blog._ref in *[_type=="blog" && blogType == "stories"]._id ||
+_type == "videoArticle" && blog._ref in *[_type=="blog" && blogType == "stories"]._id ||
+_type == "liveCookingClassArticle" && blog._ref in *[_type=="blog" && blogType == "stories"]._id]
+  {
     _type,
     _rev,
     handle,

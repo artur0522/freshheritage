@@ -64,7 +64,7 @@ const MemoizedOrderSummaryBreakdown = memo(({
     <OrderSummaryItemLine
       description={`${t('discount.code')}: ${discountCode}`}
       amount={-discountTotal}
-      onRemove={customer?.is_member || readOnly ? null : handleRemoveDiscount}
+      onRemove={customer?.is_member || customer?.is_sustainer  || readOnly ? null : handleRemoveDiscount}
       type={'discount'}
     />
   );

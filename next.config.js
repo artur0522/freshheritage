@@ -16,6 +16,14 @@ module.exports = {
     checkoutUrl: process.env.NEXT_PUBLIC_CHECKOUT_URL || 'https://sitka-staging.vercel.app',
   },
   async redirects() {
+
+    const month = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+    const date = new Date()
+    const monthName = month[date.getMonth()]
+    const year = date.getFullYear()
+
+    let theCatchUrl = `/the-catch/premium-seafood-box-${monthName}-${year}`
+
     return [
       {
         source: '/account',
@@ -40,6 +48,11 @@ module.exports = {
       {
         source: '/products/sitka-seafood-intro-box',
         destination: '/pages/choose-your-plan',
+        permanent: false,
+      },
+      {
+        source: '/the-catch',
+        destination: theCatchUrl,
         permanent: false,
       },
     ]

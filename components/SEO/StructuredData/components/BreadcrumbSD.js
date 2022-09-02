@@ -15,7 +15,7 @@ const Breadcrumb = () => {
 
   let itemListElements = urlPathArray.map((item, index) => {
     const path = urlPathArray.filter((_, itemIndex) => itemIndex <= index).join('/')
-    const url = `${process.env.NEXT_PUBLIC_CHECKOUT_URL}/${path}`
+    const url = `${process.env.NEXT_PUBLIC_DOMAIN}/${path}`
     return {
       position: index + 1,
       name: item,

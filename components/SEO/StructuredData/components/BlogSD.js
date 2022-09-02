@@ -10,7 +10,7 @@ const BlogSD = ({data}) => {
     return ''
   }
 
-  const url = `${process.env.NEXT_PUBLIC_CHECKOUT_URL}/${router.asPath}`
+  const url = `${process.env.NEXT_PUBLIC_DOMAIN}${router.asPath}`
   const { metaTitle = '', metaDesc = '', shareGraphic = undefined } = data.fields.seo
   let datePublished = moment.unix(data.createdAt).format('MM/DD/YYYY')
   const dateModified = moment.unix(data.updatedAt).format('MM/DD/YYYY')

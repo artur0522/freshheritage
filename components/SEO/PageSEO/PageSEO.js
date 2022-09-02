@@ -9,7 +9,7 @@ import { stripHtml } from "string-strip-html"
 const PageSEO = ({ seo, images = [], product, collection }) => {
 
   const router = useRouter()
-  const url = `${process.env.NEXT_PUBLIC_CHECKOUT_URL}${router.asPath}`
+  const url = `${process.env.NEXT_PUBLIC_DOMAIN}${router.asPath}`
 
   if (!seo && !product && !collection) {
     return ''

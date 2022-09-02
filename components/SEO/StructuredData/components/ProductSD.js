@@ -8,7 +8,7 @@ const ProductSD = ({ data }) => {
   const product = data.content
   const { variants } = data
   const { title, description } = product
-  const url = `${process.env.NEXT_PUBLIC_CHECKOUT_URL}/${router.asPath}`
+  const url = `${process.env.NEXT_PUBLIC_DOMAIN}${router.asPath}`
   const images = product.media.map(image => {
     return {
       url: image.src,

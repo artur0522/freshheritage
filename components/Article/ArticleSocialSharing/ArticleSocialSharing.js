@@ -24,7 +24,7 @@ const ArticleSocialSharing = ({ seo }) => {
   )
   const { setIsSidebarOpen } = useArticleContext()
   const router = useRouter()
-  const url = `${process.env.NEXT_PUBLIC_CHECKOUT_URL}${router.asPath}`
+  const url = `${process.env.NEXT_PUBLIC_DOMAIN}${router.asPath}`
 
   useEffect(() => {
     setMounted(true)

@@ -1,6 +1,7 @@
 /* eslint-disable */
 import cn from 'classnames';
-import Select, { components } from 'react-select'
+import React from 'react';
+import Dropdown from 'react-dropdown'
 import IconTriangleSelector from '@/svgs/triangle-selector.svg'
 
 const SelectField = ({
@@ -13,7 +14,6 @@ const SelectField = ({
   className,
   ...otherProps
 }) => {
-
   const classNames = cn([
     'select-field',
     {'select-field--alert': messageType === 'alert' || messageType === 'error'},
@@ -27,26 +27,11 @@ const SelectField = ({
     }
   })
 
-  let defaultValue = options.find(option => option.value === value) || '';
+  let defaultValue = value;
 
-  const DropdownIndicator = props => {
-    return (
-      components.DropdownIndicator && (
-        <components.DropdownIndicator {...props}>
-          <div className="dropdown-selector__arrow-open"><IconTriangleSelector /></div>
-        </components.DropdownIndicator>
-      )
-    );
-  };
-
-  const colourStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      backgroundColor: state.isSelected || state.isFocused ? '#163144' : '#fcfaf8',
-      color: state.isSelected || state.isFocused ? '#fffdfc' : '#163144',
-    }),
-  };
-
+  if (options.length === 0) {
+    defaultValue = options.some(option => option.value === value) ? options.find(option => option.value === value) : options[0]
+  }
 
   return (
     <div className="input-group">
@@ -54,16 +39,16 @@ const SelectField = ({
         {otherProps.name &&
           <label className="checkout-dropdown-label">{otherProps.name}</label>
         }
-        <Select
+         <Dropdown
           {...otherProps}
-          className={`new-checkout-dropdown-selector`}
-          classNamePrefix="react-select"
+          className={`checkout-dropdown-selector`}
           options={options}
           value={defaultValue}
-          components={{ DropdownIndicator }}
-          isDisabled={disabled}
+          valueattr={defaultValue}
+          arrowClosed={<div className="dropdown-selector__arrow-closed"><IconTriangleSelector /></div>}
+          arrowOpen={<div className="dropdown-selector__arrow-open"><IconTriangleSelector /></div>}
+          disabled={disabled}
           placeholder={placeholder}
-          styles={colourStyles}
         />
         { messageText && <div className='field__message'>{ messageText }</div> }
       </div>

@@ -46,6 +46,7 @@ export function PurchaseFlowProvider({ children }) {
 
   // step 2 - selecting membership and frequency variant option
   const selectMembershipPlan = async (variantSelected, membershipType) => {
+    console.log("variantSelected:", variantSelected)
     setOptions({
       ...options,
       step: 3,
@@ -81,7 +82,6 @@ export function PurchaseFlowProvider({ children }) {
         membership_type: membershipType,
         shipments: '12'
       },
-      product: options.product,
       open_flyout: false
     })
     .then(() => {

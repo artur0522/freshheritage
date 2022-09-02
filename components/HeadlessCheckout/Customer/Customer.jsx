@@ -133,7 +133,7 @@ const MemoizedCustomer = memo(({ customer, orderMetaData, logout, modalContext }
                 </div>
               ))
             )}
-            {accountFormType != 'default' && !customer?.email && !checkoutData?.application_state?.customer?.email_address &&
+            {accountFormType != 'default' && !customer?.email &&
               <div className="order-customer__header-link">
                 {`Checkout as a `}
                 <button onClick={() => setAccountFormType('default')} className="btn-link-underline">Guest</button>

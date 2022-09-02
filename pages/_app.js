@@ -5,10 +5,9 @@ import Layout from '@/components/Layout'
 import '../styles/global.scss'
 import 'react-dropdown/style.css'
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import { Router, useRouter } from 'next/router'
 import Script from 'next/script'
 import TagManager from 'react-gtm-module'
-import { dataLayerRouteChange } from '@/utils/dataLayer'
 import { set } from 'es-cookie'
 
 // The `AppContainer` overrides Next's default `App` component.
@@ -26,49 +25,27 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
 
-  const pagesToDisplayChatWidget = [
-    '/collections/',
-    '/products/',
-    '/pages/how-it-works',
-    '/pages/choose-your-plan',
-    '/pages/customize-your-plan',
-    '/pages/intro-box',
-    '/pages/contact-us',
-    '/checkout',
-  ]
-
-  const displayZendeskWidget = (newUrl = router.asPath) => {
-    if (document.getElementById('launcher')) {
-      if (pagesToDisplayChatWidget.some(pageUrl => newUrl.indexOf(pageUrl) > -1)) {
-        document.getElementById('launcher').style.display = 'block'
-      } else {
-        document.getElementById('launcher').style.display = 'none'
-      }
-    }
-  }
-
-  const onRountChangeComplete = (newUrl) => {
-    displayZendeskWidget(newUrl)
-    if (window && window.StampedFn) {
-      StampedFn.init()
-    }
-    if (TagManager) {
-      dataLayerRouteChange({ url: router.asPath })
-    }
-  }
-
   useEffect(() => {
-    setMounted(true)
-    TagManager.initialize({
-      gtmId: process.env.NEXT_PUBLIC_GA_TRACKING_ID
-    })
-    onRountChangeComplete()
-    router.events.on('routeChangeComplete', onRountChangeComplete)
+    TagManager.initialize({ })
   }, [])
 
   useEffect(() => {
-    displayZendeskWidget()
-  }, [router.asPath])
+    setMounted(true)
+
+    const onRountChangeComplete = () => {
+      if (document.getElementById('launcher')) {
+        if(router.asPath === '/pages/how-it-works' || router.asPath === '/pages/choose-your-plan' || router.asPath === '/pages/customize-your-plan' || router.asPath === '/pages/intro-box' || router.asPath === '/collections/one-time-boxes' || router.asPath === '/collections/gifts' || router.pathname === '/products/[handle]' || router.asPath === '/checkout' || router.asPath === '/pages/contact' && mounted) {
+          document.getElementById('launcher').style.display = 'block'
+        } else {
+          document.getElementById('launcher').style.display = 'none'
+        }
+      }
+      if (window && window.StampedFn) {
+        StampedFn.init()
+      }
+    }
+    Router.events.on('routeChangeComplete', onRountChangeComplete)
+  }, [router.asPath, mounted])
 
   return (
     <CartProvider>
@@ -94,15 +71,10 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
         }`}
       </Script>}
 
-      {mounted ? <Script
+      {mounted && router.asPath === '/pages/how-it-works' || router.asPath === '/pages/choose-your-plan' || router.asPath === '/pages/customize-your-plan' || router.asPath === '/pages/intro-box' || router.asPath === '/collections/one-time-boxes' || router.asPath === '/collections/gifts' || router.pathname === '/products/[handle]' || router.asPath === '/checkout' || router.asPath === '/pages/contact' ? <Script
         id="ze-snippet"
         src={`https://static.zdassets.com/ekr/snippet.js?key=${process.env.NEXT_PUBLIC_ZENDESK_KEY}`}
         strategy="lazyOnload"
-        onLoad={() => {
-          setTimeout(() => {
-            displayZendeskWidget()
-          }, 5000)
-        }}
       ></Script> : null}
     </CartProvider>
   )
@@ -113,9 +85,9 @@ AppContainer.getInitialProps = async (appContext) => {
     handles: ['header-settings', 'footer-settings', 'search-recommended-links']
   })
 
-  const headerSettings = contentEntry[0]?.fields
-  const footerSettings = contentEntry[1]?.fields
-  const searchLinks = contentEntry[2]?.fields
+  const headerSettings = contentEntry[0].fields
+  const footerSettings = contentEntry[1].fields
+  const searchLinks = contentEntry[2].fields
 
   const appProps = await App.getInitialProps(appContext)
 

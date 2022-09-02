@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useInfiniteHits, useInstantSearch } from 'react-instantsearch-hooks-web'
 import SearchProductCard from '@/components/Cards/SearchProductCard'
-import { dataLayerViewSearchResults } from '@/utils/dataLayer'
 
 import classes from "./ProductHits.module.scss"
 
@@ -29,10 +28,6 @@ const ProductHits = (props) => {
       };
     }
   }, [isLastPage, showMore]);
-
-  useEffect(() => {
-    dataLayerViewSearchResults({products: hits})
-  }, [hits])
 
   return (
     <div className={classes['hits-wrap']}>

@@ -8,52 +8,26 @@ import IconSearch from '@/svgs/search.svg'
 const CustomSearchBox = (props) => {
   const { query, refine } = useSearchBox(props)
   const [searchTerm, setSearchTerm] = useState("")
-  const {currentIndex, setCurrentIndex} = props
 
   const router = useRouter()
 
   useEffect(() => {
+    console.log(router.asPath)
     if(router.asPath === 'pages/search' || router.asPath.includes("?query")) {
       router.replace({
         pathname: '/pages/search',
-        query: { query: searchTerm, index: router.query.index}
+        query: { query: searchTerm }
       },
       undefined, { shallow: true }
       )
     }
-    if(router.query.index) {
-      setCurrentIndex(router.query.index)
-    }
   }, [searchTerm])
-
-  // useEffect(() => {
-  //   if(router.asPath === 'pages/search' || router.asPath.includes("?query")) {
-  //     router.push({
-  //       pathname: '/pages/search',
-  //       query: { 
-  //         query: searchTerm,
-  //         index: router.query.index
-  //       }
-  //     },
-  //     undefined, { shallow: true }
-  //     )
-  //   }
-
-  //   if(router.query.index) {
-  //     setCurrentIndex(router.query.index)
-  //   }
-
-  //   if(router.query.query) {
-  //     setSearchTerm(router.query.query)
-  //   }
-  // }, [searchTerm])
 
   useEffect(() => {
     const query = router.asPath.split('=')[1]
 
     if(query) {
-      const decoded = decodeURI(query)
-      setSearchTerm(decoded)
+      setSearchTerm(query)
       refine(query)
     }
   }, [])
@@ -74,7 +48,7 @@ const CustomSearchBox = (props) => {
       {/* {query && <Stats />} */}
       <div className={classes['searchbox']}>
         <IconSearch />
-        <input className="h6" type="text" autoFocus placeholder="Search the site..." onKeyDown={(e) => handleKeyDown(e)} onChange={(e) => handleChange(e)} value={searchTerm.replaceAll("&index", '')} />
+        <input className="h6" type="text" placeholder="Search here" onKeyDown={(e) => handleKeyDown(e)} onChange={(e) => handleChange(e)} value={searchTerm} />
       </div>
     </div>
   )

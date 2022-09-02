@@ -13,7 +13,6 @@ const FullBleedHero = ({ fields }) => {
   const [startVideo, setStartVideo] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
-  const isLargeMobile = useMediaQuery({ query: '(max-width: 1439px)' })
 
   let { heroStyle, smallerText, textColor, desktopBackgroundImage, mobileBackgroundImage, imageBrightness, alt, youtubeVideoId, topMargin, bottomMargin, fixedImage } = fields
 
@@ -38,7 +37,7 @@ const FullBleedHero = ({ fields }) => {
   }
 
   return (
-    <div className={`${classes['hero']} ${smallerText ? classes['hero--smaller-text'] : ''} ${classes[heroStyle]} ${heroStyle === 'hero--with-container' ? 'container' : ''} ${classes[textColor]} ${topMargin ? classes['top-margin'] : ''} ${bottomMargin ? classes['bottom-margin'] : ''} ${startVideo ? classes['hero--video-enabled'] : ''}`}>
+    <div className={`${classes['hero']} ${smallerText ? classes['hero--smaller-text'] : ''} ${classes[heroStyle]} ${classes[textColor]} ${topMargin ? classes['top-margin'] : ''} ${bottomMargin ? classes['bottom-margin'] : ''} ${startVideo ? classes['hero--video-enabled'] : ''}`}>
       <div className={`${classes['hero__text']}`}>
         <div className={classes['hero__text-inner']}>
           {fields.header && <h1 className={`${heroStyle === 'hero--bottom' ? 'heading--catch' : ''}`}>{fields.header}</h1>}
@@ -51,11 +50,7 @@ const FullBleedHero = ({ fields }) => {
                   {fields.primaryCtaText}
                 </a>
               </Link>}
-              {youtubeVideoId && isDesktop && heroStyle !== 'hero--with-container' && <button onClick={() => showVideo()} className={`${classes['hero-video__action-btn']} btn ${btnColor}`}>
-                <IconPlayButtonTriangle />
-                <span>Play Video</span>
-              </button>}
-              {youtubeVideoId && !isLargeMobile && heroStyle === 'hero--with-container' && <button onClick={() => showVideo()} className={`${classes['hero-video__action-btn']} btn ${btnColor}`}>
+              {youtubeVideoId && <button onClick={() => showVideo()} className={`${classes['hero-video__action-btn']} btn ${btnColor}`}>
                 <IconPlayButtonTriangle />
                 <span>Play Video</span>
               </button>}
@@ -67,26 +62,19 @@ const FullBleedHero = ({ fields }) => {
         </div>
       </div>
 
-      <div className={classes['hero__main-wrap']}>
-        {youtubeVideoId && isLargeMobile && heroStyle === 'hero--with-container' && <button onClick={() => showVideo()} className={`${classes['hero-video__action-btn']} btn ${btnColor}`}>
-          <IconPlayButtonTriangle />
-          <span>Play Video</span>
-        </button>}
-        {isMobile && mounted && mobileBackgroundImage && <div className={`${classes['hero__wrap']} ${fixedImage ? classes['hero__wrap--mbl'] : ''}`}>
-          {fixedImage ?
-            <Image className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} /> :
-            <ResponsiveImage className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} />
-          }
-        </div>}
+      {isMobile && mounted && mobileBackgroundImage && <div className={`${classes['hero__wrap']} ${fixedImage ? classes['hero__wrap--mbl'] : ''}`}>
+        {fixedImage ?
+          <Image className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} /> :
+          <ResponsiveImage className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} />
+        }
+      </div>}
 
-        {isDesktop && mounted && desktopBackgroundImage && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--dsktp']}`}>
-          {heroStyle === 'hero--center-transparent' ?
-            <Image className={classes.mbl__img} src={desktopBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} /> :
-            <ResponsiveImage className={classes.mbl__img} src={desktopBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} />
-          }
-        </div>}
-      </div>
-
+      {isDesktop && mounted && desktopBackgroundImage && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--dsktp']}`}>
+        {heroStyle === 'hero--center-transparent' ?
+          <Image className={classes.mbl__img} src={desktopBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} /> :
+          <ResponsiveImage className={classes.mbl__img} src={desktopBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} />
+        }
+      </div>}
 
       {youtubeVideoId && <Video youtubeVideoId={youtubeVideoId} startVideo={startVideo} className={classes['hero-video__wrap']} />}
 

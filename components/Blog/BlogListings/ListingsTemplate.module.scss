@@ -175,7 +175,7 @@
 
             &.filters-open {
                 @include breakpoint-up('md') {
-                    width: calc(100% - 450px);
+                    width: 75%;
                 }
             }
         }

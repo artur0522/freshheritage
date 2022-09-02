@@ -132,7 +132,7 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
           </div>}
 
           {tags && <ul className={classes['article-hero__tags']}>
-            {tags.slice(0, 5).map((tag, index) => {
+            {tags.map((tag, index) => {
               return <li className={classes['article-hero__tag']} key={index}>{tag.value}</li>
             })}
           </ul>}

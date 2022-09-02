@@ -30,7 +30,7 @@ const MemoizedBillingAddress = memo(({
 }) => {
   const trackEvent = useAnalytics();
   const logError = useErrorLogging();
-  const [address, setAddress] = useState({'country_code': 'US'});
+  const [address, setAddress] = useState(null);
   const { data } = useCountryInfo(address);
   const {
     countries,
@@ -48,7 +48,7 @@ const MemoizedBillingAddress = memo(({
   let provincePlaceholder = provinceLabel;
 
   useEffect(() => {
-    setAddress(Array.isArray(billingAddress) ? {'country_code': 'US'} : billingAddress);
+    setAddress(billingAddress);
   }, [billingAddress])
 
   const updateBillingAddress = useCallback(async (currentAddress) => {
@@ -116,7 +116,7 @@ const MemoizedBillingAddress = memo(({
               countries={countries}
               provinces={provinces}
               showPostalCode={showPostalCode}
-              showProvince={true}
+              showProvince={showProvince}
               provinceLabel={provincePlaceholder}
               submit={() => updateBillingAddress(address)}
             />

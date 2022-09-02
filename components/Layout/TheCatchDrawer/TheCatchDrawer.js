@@ -41,7 +41,7 @@ const TheCatchDrawer = () => {
                 <div ref={nodeRef} className={classes['pdp-flyout__content']}>
                     <div className={classes['header']}>
                         <h4>Current and Past Issues</h4>
-
+                    
                         <button className="body" onClick={() => closeDrawer()}>
                             <span><IconClose /></span>
                             <span className={classes['btn-text']}>Close</span>
@@ -49,14 +49,13 @@ const TheCatchDrawer = () => {
                     </div>
                     {pastIssues?.length > 0 && <ul className={classes['content']}>
                         {pastIssues?.map((issue) => {
-                            issue = issue.fields
                             let foundContent = issue.content.find(section =>  section._type === 'staticHarvest')
                             return (
                                 <li key={issue._key}>
                                     <Link href={`/the-catch/${issue.associatedProduct.toLowerCase().replaceAll(' ', '-')}-${issue.month.toLowerCase()}-${issue.year}`}>
                                         <a>
                                             <div className={classes['item-img']}>
-                                                <Image
+                                                <Image 
                                                     src={foundContent?.harvestMonth[0]?.fishArray[0]?.species?.image?.asset?.url}
                                                     height={120}
                                                     width={120}

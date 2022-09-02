@@ -1,7 +1,9 @@
 import { EmptyState } from '@/components/HeadlessCheckout/EmptyState';
 
-export const EmptyShippingLines = ({ title, icon }) => (
+const EmptyShippingLines = ({ title, icon }) => (
   <div className="field-set__content">
     <EmptyState title={title} icon={icon} />
   </div>
 );
+
+export default EmptyShippingLines;

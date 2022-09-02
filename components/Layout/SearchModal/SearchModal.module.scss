@@ -4,10 +4,6 @@
     .pdp-flyout__content--enter {
         transform: translateY(492px);
 
-        @media screen and (min-width: 653px) {
-            transform: translateY(479px);
-        }
-
         @include breakpoint-up('md') {
             transform: translateY(477px);
         }
@@ -15,14 +11,12 @@
 
     .pdp-flyout__content--enter-active {
         transform: translateY(0);
+
+
     }
 
     .pdp-flyout__content--enter-done {
         transform: translateY(492px);
-
-        @media screen and (min-width: 653px) {
-            transform: translateY(479px);
-        }
 
         @include breakpoint-up('md') {
             transform: translateY(477px);
@@ -31,10 +25,6 @@
 
     .pdp-flyout__content--exit {
         transform: translateY(-492px);
-
-        @media screen and (min-width: 653px) {
-            transform: translateY(-479px);
-        }
 
         @include breakpoint-up('md') {
             transform: translateY(-477px);
@@ -47,11 +37,7 @@
     height: 100%;
     z-index: 2001;
     position: fixed;
-    overflow: hidden;
-
-    @include breakpoint-up('md') {
-        overflow-y: scroll;
-    }
+    overflow-y: scroll;
 
     > :global(.btn) {
         min-width: none;
@@ -62,7 +48,7 @@
         width: 100%;
 
         @include breakpoint-up('md') {
-            width: 656px;
+            width: 59%;
         }
     }
 
@@ -104,24 +90,13 @@
         @include breakpoint-up('sm') {
             padding: 18px 10% 0 10%;
         }
-
-        @include breakpoint-up('lg') {
-            padding: 18px 0;
-            max-width: 1106px;
-            margin: auto;
-        }
     }
 
     .search-results {
         margin-top: 42px;
 
-        > :global(.search-results__header) {
-            font-size: fontsize(21px);
-        }
-
         @include breakpoint-up('md') {
             display: flex;
-            width: 100%;
         }
 
         h4 {
@@ -170,7 +145,6 @@
         svg {
             height: 17px;
             width: 17px;
-            z-index: 1;
         }
 
         .searchbox-wrap {
@@ -180,7 +154,6 @@
 
     .searchbox-close {
         display: none;
-        z-index: 1000;
 
         @include breakpoint-up('md') {
             position: absolute;
@@ -252,7 +225,7 @@
     min-height: 444px;
     background-color: $alabaster2;
     box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.1);
-    transform: translateY(-492px);
+    transform: translate(100%);
     transition: 0.2s ease-in-out transform;
     overflow-y: auto;
 }

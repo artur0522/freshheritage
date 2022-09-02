@@ -26,43 +26,22 @@ const CulinaryContestArticle = ({ page, product, blogSettings, modals }) => {
       return
     }
 
-    const foundVisibleTags = articleTags.reduce((carry, tag) => {
-      if (tag.value.toLowerCase().includes('visible')) {
-        const splitTag = tag.value.split(':')[1].trim()
-        const splitTagWithoutDash = splitTag?.replace(/-/g, '').toLowerCase()
-        return [...carry, splitTagWithoutDash]
-      }
-      return carry
-    }, [])
+    const foundVisibleTags = articleTags.filter(tag => tag.value.toLowerCase().includes('visible'))
+    const splitTag = foundVisibleTags[0]?.value?.split(':')[1].trim()
+    const splitTagWithDash = splitTag?.replace(/\s/g, '-').toLowerCase()
 
-    const articleHasCustomerTag = customer?.tags.some(tag => {
-      const customerTagWithoutDash = tag.replace(/-/g, '').toLowerCase()
-      return foundVisibleTags.some(tag => customerTagWithoutDash.indexOf(tag) > -1)
-    })
+    const articleHasCustomerTag = customer?.tags.some(tag => tag.toLowerCase().indexOf(splitTag))
 
     modalContext.setArticleCustomerTag(articleHasCustomerTag)
 
-    const hierarchy = [
-      'kingsustainer',
-      'sockeyesustainer',
-      'prepaid',
-      'member'
-    ]
-
-    const foundModal = modals.reduce((carry, modal) => {
-      const modalHandleWithoutDash = modal.handle.replace(/-/g, '')
-      if (foundVisibleTags.some(tag => tag.indexOf(modalHandleWithoutDash) > -1)) {
-        if (!carry.handle) return modal
-        if (hierarchy.indexOf(modalHandleWithoutDash) < hierarchy.indexOf(carry.handle.replace(/-/g, ''))) {
-          return modal
-        }
-      }
-      return carry
-    }, {})
+    const foundModal = modals.find(modal => modal.handle.includes(splitTagWithDash))
 
     // if product tags exist but none of the product tags match customer tag
-    if(foundVisibleTags.length > 0 && !articleHasCustomerTag && foundModal) {
-      modalContext.setContent(foundModal.fields)
+    if(foundVisibleTags.length > 0 && !articleHasCustomerTag) {
+      if(foundModal) {
+        modalContext.setPrevContent(foundModal?.fields)
+        modalContext.setContent(foundModal?.fields)
+      }
       modalContext.setModalType('gated_product')
       modalContext.setIsOpen(true)
     }

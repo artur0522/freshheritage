@@ -135,11 +135,9 @@
       }
 
       .btn-wrap {
-        flex-wrap: wrap;
         @include breakpoint-up('sm') {
           display: flex;
           align-items: center;
-          flex-wrap: nowrap;
           margin-bottom: 48px;
         }
 
@@ -150,7 +148,7 @@
           @include breakpoint-up('sm') {
             max-width: 250px;
             margin-bottom: 0;
-            margin-right: 72px;
+            margin-right: 36px;
           }
         }
 
@@ -263,6 +261,7 @@
       align-items: center;
 
       .secondary-btn {
+        margin-left: 36px;
         background: none;
       }
     }

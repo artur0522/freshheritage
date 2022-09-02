@@ -9,6 +9,9 @@ import HarvestCard from "../HarvestCard"
 
 // Used for both CURRENT SELLING HARVEST AND CURRENT MONTH HARVEST: _type inside of fields will dicate this
 const CurrentHarvest = ({ fields }) => {
+
+    console.log("fields:", fields)
+
   const { header, description, harvestList, illustration, _type, alt } = fields
   const [harvestListMonths, setHarvestListMonths] = useState(harvestList[0].months)
   const [activeTab, setActiveTab] = useState(harvestList[0])
@@ -37,7 +40,7 @@ const CurrentHarvest = ({ fields }) => {
     setActiveTab(foundHarvest)
   }
 
-  const filteredHarvestListByCurrentMonth = harvestListMonths.filter(harvestList => currentMonth === harvestList.month?.trim().toLowerCase())
+  const filteredHarvestListByCurrentMonth = harvestListMonths.filter(harvestList => currentMonth === harvestList.month.trim().toLowerCase())
   const foundHarvestsByDate = filteredHarvestListByCurrentMonth.filter(harvest => currentDate >= harvest.sellStart && currentDate <= harvest.sellEnd)
 
   return (
@@ -97,7 +100,7 @@ const CurrentHarvest = ({ fields }) => {
                 </div>}
 
                 {_type === 'currentMonthHarvest' && <div className={`${classes['harvest__fish-list']} container`}>
-                    {harvestListMonths && harvestListMonths.filter((harvestList) => harvestList.month?.trim().toLowerCase() === currentMonth)[0]?.fishArray.map((fish) => {
+                    {harvestListMonths && harvestListMonths.filter((harvestList) => harvestList.month.trim().toLowerCase() === currentMonth)[0]?.fishArray.map((fish) => {
                         return (
                             <div className={classes['harvest__card']} key={fish._key}>
                                 <HarvestCard fish={fish} />

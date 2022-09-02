@@ -2,15 +2,12 @@ import { useRef, useReducer } from 'react'
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
 import { accountFormReducer, initialState } from '@/utils/account'
-import { dataLayerSignup } from '@/utils/dataLayer'
-import { useRouter } from 'next/router'
 import classes from './AccountForm.module.scss'
 
 const CreateAccountForm = () => {
 
   const modalContext = useModalContext()
   const customerContext = useCustomerContext()
-  const router = useRouter()
   const firstNameRef = useRef()
   const lastNameRef = useRef()
   const emailRef = useRef()
@@ -32,9 +29,6 @@ const CreateAccountForm = () => {
       console.log(response)
       dispatch({ type: 'error', payload: response.errors[0].message })
     } else {
-
-      dataLayerSignup({ url: router.pathname})
-
       const response = await customerContext.login({
         email: emailRef.current.value,
         password: passwordRef.current.value,

@@ -89,7 +89,6 @@ const ProductGiftSubForm = ({selectedVariant, setSelectedVariant, allProducts, p
         membership_type: 'prepaid',
         shipments: shipmentSelected.toString()
       },
-      product,
       open_flyout: true
     }).then(() => {
       setIsLoading(false)

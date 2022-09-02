@@ -14,7 +14,7 @@ const PrimaryNavigation = ({props, classes}) => {
   const theCatchContext = useTheCatchContext()
   const { customer } = customerContext
   const { setMobileMenuIsOpen } = useHeaderContext()
-  const {menuItems} = (customerContext.customer?.is_member || customerContext.customer?.is_sustainer) ? props.memberPrimaryNavigation : props.nonMemberPrimaryNavigation
+  const {menuItems} = (customerContext.customer?.is_member) ? props.memberPrimaryNavigation : props.nonMemberPrimaryNavigation
   const searchModalContext = useSearchModalContext()
   const { setSearchOpen } = searchModalContext
   const { monthName, year } = theCatchContext
@@ -27,10 +27,8 @@ const PrimaryNavigation = ({props, classes}) => {
   let theCatchUrl = `/the-catch/premium-seafood-box-${monthName}-${year}`
 
   if (customer) {
-    if (customer.tags.includes('PS')) {
+    if (customer.tags.includes('PS') || customer.tags.includes('PSWS')) {
       theCatchUrl = `/the-catch/premium-seafood-box-${monthName}-${year}`
-    } else if(customer.tags.includes('PSWS')) {
-      theCatchUrl = `/the-catch/premium-seafood-box-no-shellfish-${monthName}-${year}`
     } else if (customer.tags.includes('SF') || customer.tags.includes('SF-BI')) {
       theCatchUrl = `/the-catch/seafood-box-${monthName}-${year}`
     } else if (customer.tags.includes('S')) {

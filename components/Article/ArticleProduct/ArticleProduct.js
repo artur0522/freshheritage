@@ -72,7 +72,7 @@ const ArticleProduct = ({product, parentClasses}) => {
                       product,
                       variant: product.variants[0]
                     });
-                    addItemToOrder({variant, product})
+                    addItemToOrder({variant})
                   }}
                   className="btn salmon"
                 >Add to Cart</button>

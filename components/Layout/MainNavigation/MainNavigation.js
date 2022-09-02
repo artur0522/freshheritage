@@ -23,7 +23,7 @@ const MainNavigation = ({props, pageHandle}) => {
         <div className={classes.navLogo}>
           <Link href="/">
             <a>
-              <ResponsiveImage src={props.logo?.asset.url} alt={props.logo?.asset.alt || 'Logo'} />
+              <ResponsiveImage src={props.logo.asset.url} alt={props.logo.asset.alt || 'Logo'} />
             </a>
           </Link>
         </div>

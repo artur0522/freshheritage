@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+
 import { useTheCatchContext } from '@/context/TheCatchContext'
+
 import ContentSections from '@/components/Sections/ContentSections'
-import PageSEO from '@/components/SEO/PageSEO'
+
 import { nacelleClient } from 'services'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
@@ -20,7 +22,6 @@ const TheCatch = (props) => {
 
     return (
         <>
-          <PageSEO seo={page.seo} />
           <ContentSections sections={page.fields.content} />
         </>
     )
@@ -34,9 +35,7 @@ export async function getStaticPaths() {
         entryDepth: 1
     })
 
-    const handles = theCatchPages
-      .filter((page) => (page.handle))
-      .map((page) => ({ params: { handle: page.handle }}))
+    const handles = theCatchPages.map((page) => ({ params: { handle: page.handle }}))
 
     return {
       paths: handles,
@@ -47,8 +46,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
     const pages = await nacelleClient.content({
       handles: [params.handle],
-      type: 'theCatch',
-      entryDepth: 1
+      type: 'theCatch'
     })
 
     if (!pages.length) {

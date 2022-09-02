@@ -4,7 +4,7 @@ import { Address } from '@/components/HeadlessCheckout/Address';
 import { SavedAddressList } from './components';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';
-import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
+import IconSelectArrow from '@/svgs/select-arrow.svg'
 
 const ShippingAddress = ({ applicationLoading }) => {
 
@@ -37,7 +37,7 @@ const MemoizedShippingAddress = memo(({
   const [loading, setLoading] = useState(false);
   const trackEvent = useAnalytics();
   const logError = useErrorLogging();
-  const [address, setAddress] = useState(Array.isArray(shippingAddress) ? {'country_code': 'US'} : shippingAddress);
+  const [address, setAddress] = useState(shippingAddress);
   const { data } = useCountryInfo(address);
   const [addressOpen, setAddressOpen] = useState(true);
   const {
@@ -49,26 +49,19 @@ const MemoizedShippingAddress = memo(({
   } = data;
   const [errors, setErrors] = useState(null);
   const { t } = useTranslation();
-  const { refreshShipOptionData } = useHeadlessCheckoutContext();
 
   let provincePlaceholder = provinceLabel;
 
   useEffect(() => {
-    setAddress(Array.isArray(shippingAddress) ? {'country_code': 'US'} : shippingAddress);
+    setAddress(shippingAddress);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const updateSelectedShippingAddress = useCallback(async (currentAddress) => {
-
-    if (currentAddress && currentAddress.city && currentAddress.address_line_1) {
-      currentAddress.country_code = 'US'
-    }
-
     setAddress(currentAddress);
     setLoading(true);
     try {
       await submitAddress(currentAddress);
-      await refreshShipOptionData(currentAddress.postal_code);
       trackEvent('set_shipping_address');
       setErrors(null);
     } catch(e) {
@@ -108,7 +101,7 @@ const MemoizedShippingAddress = memo(({
           countries={countries}
           provinces={provinces}
           showPostalCode={showPostalCode}
-          showProvince={true}
+          showProvince={showProvince}
           provinceLabel={provincePlaceholder}
           submit={() => updateSelectedShippingAddress(address)}
           requiredAddressFields={requiredAddressFields}

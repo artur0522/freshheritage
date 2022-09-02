@@ -42,7 +42,7 @@ const NavigationUtilities = ({props, classes}) => {
     e.preventDefault()
     modalContext.setIsOpen(false)
     console.log(modalContext.isOpen)
-    modalContext.setModalType('login')
+    modalContext.setModalType('create')
     modalContext.setIsOpen(true)
   }
 

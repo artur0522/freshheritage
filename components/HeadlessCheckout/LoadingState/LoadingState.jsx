@@ -1,8 +1,10 @@
 import React from 'react';
 
-export const LoadingState = () => (
+const LoadingState = () => (
   <div className="FieldSet--LoadingState">
     {/* <LoadingSpinner /> */}
     ...loading
   </div>
 );
+
+export default LoadingState;

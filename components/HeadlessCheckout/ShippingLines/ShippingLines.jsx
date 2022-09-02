@@ -97,7 +97,7 @@ const MemoizedShippingLines = memo(
       const displayedShippingLines = [];
       displayedShippingLines.push(shippingLines.find(line => line.description === 'Free Standard Shipping'));
       const productIds = lineItems.map(li => li.product_data.product_id);
-      const expeditedProductIds = Array.from(JSON.parse(process.env.AUTOMATICALLY_EXPEDITED_PRODUCTS));
+      const expeditedProductIds = Array.from(JSON.parse(process.env.NEXT_PUBLIC_AUTOMATICALLY_EXPEDITED_PRODUCTS));
       if (productIds.some(id => expeditedProductIds.indexOf(id) > -1)) {
         displayedShippingLines.push(shippingLines.find(line => line.description === 'Expedited Shipping'));
       }

@@ -94,7 +94,14 @@ const MemoizedShippingLines = memo(
     }, [lineItems]);
 
     useEffect(() => {
-      setDisplayedShippingLines(shippingLines);
+      const displayedShippingLines = [];
+      displayedShippingLines.push(shippingLines.find(line => line.description === 'Free Standard Shipping'));
+      const productIds = lineItems.map(li => li.product_data.product_id);
+      const expeditedProductIds = Array.from(JSON.parse(process.env.AUTOMATICALLY_EXPEDITED_PRODUCTS));
+      if (productIds.some(id => expeditedProductIds.indexOf(id) > -1)) {
+        displayedShippingLines.push(shippingLines.find(line => line.description === 'Expedited Shipping'));
+      }
+      setDisplayedShippingLines(displayedShippingLines);
     }, [shippingLines]);
 
     // Keep local state for selected shipping line in sync with server app state
@@ -131,9 +138,9 @@ const MemoizedShippingLines = memo(
 
     let content = null;
 
-    if (appLoading) {
+    if (appLoading || (shippingLines.length > 0 && !shipOptionMetadata)) {
       content = <LoadingState />;
-    } else if (!showShippingLines) {
+    } else if (!showShippingLines || !shipOptionMetadata) {
       content = (
         <EmptyShippingLines title={t('shipping.options_description')} icon={'box'} />
       );

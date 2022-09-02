@@ -2,6 +2,7 @@ import { HeadlessCheckoutContext } from "@/context/HeadlessCheckoutContext";
 import { render } from "@testing-library/react";
 import ShippingLines from "./ShippingLines"
 import userEvent from '@testing-library/user-event';
+import { randomUUID } from 'crypto';
 
 const useLoadingStatus = jest.fn(() => {});
 const useShippingLines = jest.fn(() => {});
@@ -60,7 +61,7 @@ jest.mock('./components', () => {
           <p>{JSON.stringify(shipOptionMetadata)}</p>
           <p>{`Selected Shipping Line: ${selectedShippingLine.description}`}</p>
           <p>{`Selected Standard Ship Week: ${selectedStandardShipWeek}`}</p>
-          <button onClick={() => onChange(shippingLines[2])}>
+          <button onClick={() => onChange(shippingLines[1])}>
             onChange
           </button>
           <button onClick={() => onShipWeekChange(35)}>
@@ -80,8 +81,10 @@ jest.mock('./components', () => {
 });
 
 describe('<ShippingLines />', () => {
+  const expeditedProductId = randomUUID();
+  const lineItems = [{product_data: {product_id: expeditedProductId}}];
+
   const shippingLines = [
-    {description: 'Ship with Next Order'},
     {description: 'Free Standard Shipping'},
     {description: 'Expedited Shipping'}
   ];
@@ -121,8 +124,10 @@ describe('<ShippingLines />', () => {
       appendOrderMetadata
     });
     useLineItems.mockReturnValue({
-      data: []
+      data: lineItems
     });
+
+    process.env.AUTOMATICALLY_EXPEDITED_PRODUCTS = `["${expeditedProductId}"]`;
   });
 
   it('should show loading state when app loading', () => {
@@ -132,6 +137,27 @@ describe('<ShippingLines />', () => {
       }}>
         <ShippingLines
           applicationLoading={true}
+          />
+      </HeadlessCheckoutContext.Provider>
+    )
+    expect(wrapper.getByText('THIS IS LOADING...')).toBeVisible();
+  });
+
+  it('should show loading state when shipping lines loaded but metadata still not loaded', () => {
+    useShippingLines.mockReturnValue({
+      data: {
+        shippingLines,
+        selectedShippingLineIndex: 0
+      },
+      updateShippingLine,
+      getShippingLines: jest.fn(),
+    });
+    const wrapper = render(
+      <HeadlessCheckoutContext.Provider value={{
+        shipOptionMetadata: undefined
+      }}>
+        <ShippingLines
+          applicationLoading={false}
           />
       </HeadlessCheckoutContext.Provider>
     )
@@ -250,7 +276,8 @@ describe('<ShippingLines />', () => {
   });
 
   it('should show shipping line list when set to display', () => {
-    const displayedLines = [{first: true}, {second: false}];
+    const displayedLines = [{description: 'Free Standard Shipping'}, {description: 'Expedited Shipping'}];
+
     useShippingLines.mockReturnValue({
       data: {
         shippingLines: displayedLines,
@@ -259,6 +286,7 @@ describe('<ShippingLines />', () => {
       updateShippingLine: jest.fn(),
       getShippingLines: jest.fn(),
     });
+
     const wrapper = render(
       <HeadlessCheckoutContext.Provider value={{
         shipOptionMetadata
@@ -271,6 +299,34 @@ describe('<ShippingLines />', () => {
     expect(wrapper.getByText(JSON.stringify(displayedLines))).toBeVisible();
   });
 
+  it('should filter out expedited shipping when no expedited product', () => {
+    const displayedLines = [{description: 'Free Standard Shipping'}, {description: 'Expedited Shipping'}];
+
+    useShippingLines.mockReturnValue({
+      data: {
+        shippingLines: displayedLines,
+        selectedShippingLineIndex: 0
+      },
+      updateShippingLine: jest.fn(),
+      getShippingLines: jest.fn(),
+    });
+
+    useLineItems.mockReturnValue({
+      data: [{product_data: {product_id: randomUUID()}}]
+    });
+
+    const wrapper = render(
+      <HeadlessCheckoutContext.Provider value={{
+        shipOptionMetadata
+      }}>
+        <ShippingLines
+          applicationLoading={false}
+          />
+      </HeadlessCheckoutContext.Provider>
+    );
+    expect(wrapper.getByText('[{"description":"Free Standard Shipping"}]')).toBeVisible();
+  })
+
   describe('handleChange', () => {
     it('should update the local selected shipping line', async () => {
       const wrapper = render(
@@ -282,7 +338,7 @@ describe('<ShippingLines />', () => {
             />
         </HeadlessCheckoutContext.Provider>
       );
-      expect(wrapper.getByText('Selected Shipping Line: Ship with Next Order')).toBeVisible();
+      expect(wrapper.getByText('Selected Shipping Line: Free Standard Shipping')).toBeVisible();
       await userEvent.click(wrapper.getByText('onChange'));
       expect(wrapper.getByText('Selected Shipping Line: Expedited Shipping')).toBeVisible();
     });
@@ -298,7 +354,7 @@ describe('<ShippingLines />', () => {
         </HeadlessCheckoutContext.Provider>
       );
       await userEvent.click(wrapper.getByText('onChange'));
-      expect(updateShippingLine).toHaveBeenCalledWith(2);
+      expect(updateShippingLine).toHaveBeenCalledWith(1);
     });
   });
 

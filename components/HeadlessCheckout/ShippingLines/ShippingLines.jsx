@@ -94,6 +94,7 @@ const MemoizedShippingLines = memo(
     }, [lineItems]);
 
     useEffect(() => {
+      setSelectedShippingLine(shippingLines[selectedShippingLineIndex]);
       const displayedShippingLines = [];
       displayedShippingLines.push(shippingLines.find(line => line.description === 'Free Standard Shipping'));
       const productIds = lineItems.map(li => li.product_data.product_id);
@@ -104,7 +105,7 @@ const MemoizedShippingLines = memo(
       setDisplayedShippingLines(displayedShippingLines);
     }, [shippingLines]);
 
-    // Keep local state for selected shipping line in sync with server app state
+    // // Keep local state for selected shipping line in sync with server app state
     useEffect(() => {
       setSelectedShippingLine(shippingLines[selectedShippingLineIndex]);
       // eslint-disable-next-line react-hooks/exhaustive-deps

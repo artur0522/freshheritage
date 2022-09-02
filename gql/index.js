@@ -207,3 +207,13 @@ export const GET_PRODUCTS = `query products($filter: ProductFilterInput) {
     }
   }
 }`;
+
+
+export const GET_RECENT_ARTICLES = `query content($type: String!) {
+  content(filter: { type: $type }) {
+    handle
+    title
+    fields,
+    createdAt
+  }
+}`

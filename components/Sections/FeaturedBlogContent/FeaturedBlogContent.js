@@ -5,6 +5,7 @@ import ResponsiveImage from '@/components/ResponsiveImage'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode } from "swiper"
+import { GET_RECENT_ARTICLES } from '@/gql/index.js'
 
 import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
 
@@ -19,23 +20,35 @@ const FeaturedBlogContent = ({ fields }) => {
 
   const getArticles = async ({fieldTags = [], articleHandles, forceTagBased = false}) => {
     if (method === 'tagBased' || forceTagBased || method === 'mostRecent') {
-      const articles = await nacelleClient.content({
-        type: `${articleType}`,
-        maxReturnedEntries: 50
-      })
-      const filteredArr = articles.filter(article => article.fields.published)
-        .filter((article) => {
-          if (fieldTags.length && method !== 'mostRecent') {
-            return (
-              article.fields?.blog?.blogType === blog?.blogType &&
-              article.fields?.articleTags?.find((tag) => fieldTags.includes(tag.value))
-            )
-          }
-          return article.fields?.blog?.blogType === blog?.blogType
-        })
-        .slice(0, 4)
+      // const articles = await nacelleClient.content({
+      //   type: `${articleType}`,
+      //   maxReturnedEntries: 50
+      // })
 
-      return filteredArr
+      const articles = await nacelleClient.query({
+        query: GET_RECENT_ARTICLES,
+        variables: {
+          "type": articleType,
+          "first": 200
+        }
+      })
+
+      console.log("articles:", articles)
+
+      // console.log("articles:", articles)
+      // const filteredArr = articles.filter(article => article.fields.published)
+      //   .filter((article) => {
+      //     if (fieldTags.length && method !== 'mostRecent') {
+      //       return (
+      //         article.fields?.blog?.blogType === blog?.blogType &&
+      //         article.fields?.articleTags?.find((tag) => fieldTags.includes(tag.value))
+      //       )
+      //     }
+      //     return article.fields?.blog?.blogType === blog?.blogType
+      //   })
+      //   .slice(0, 4)
+
+      // return filteredArr
     } else {
 
       if (!articleHandles) {

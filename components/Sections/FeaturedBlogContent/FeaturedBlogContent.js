@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode } from "swiper"
 import { GET_RECENT_ARTICLES } from '@/gql/index.js'
+import moment from 'moment'
 
 import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
 
@@ -20,35 +21,40 @@ const FeaturedBlogContent = ({ fields }) => {
 
   const getArticles = async ({fieldTags = [], articleHandles, forceTagBased = false}) => {
     if (method === 'tagBased' || forceTagBased || method === 'mostRecent') {
-      // const articles = await nacelleClient.content({
-      //   type: `${articleType}`,
-      //   maxReturnedEntries: 50
-      // })
 
-      const articles = await nacelleClient.query({
+      let { content } = await nacelleClient.query({
         query: GET_RECENT_ARTICLES,
         variables: {
           "type": articleType,
-          "first": 200
+          "first": 50
         }
       })
 
-      console.log("articles:", articles)
+      let sortedArticles = [...content].sort((a, b) => b.createdAt - a.createdAt)
 
-      // console.log("articles:", articles)
-      // const filteredArr = articles.filter(article => article.fields.published)
-      //   .filter((article) => {
-      //     if (fieldTags.length && method !== 'mostRecent') {
-      //       return (
-      //         article.fields?.blog?.blogType === blog?.blogType &&
-      //         article.fields?.articleTags?.find((tag) => fieldTags.includes(tag.value))
-      //       )
-      //     }
-      //     return article.fields?.blog?.blogType === blog?.blogType
-      //   })
-      //   .slice(0, 4)
+      const articles = await nacelleClient.content({
+        handles: sortedArticles.map(article => article.handle)
+      })
 
-      // return filteredArr
+      sortedArticles = articles.sort((a, b) => {
+        let aDatePublished = a.fields.publishedDate ? moment(a.fields.publishedDate).valueOf() / 1000 : a.createdAt
+        let bDatePublished = b.fields.publishedDate ? moment(b.fields.publishedDate).valueOf() / 1000 : b.createdAt
+        return bDatePublished - aDatePublished
+      })
+
+      const filteredArr = sortedArticles.filter(article => article.fields.published)
+        .filter((article) => {
+          if (fieldTags.length && method !== 'mostRecent') {
+            return (
+              article.fields?.blog?.blogType === blog?.blogType &&
+              article.fields?.articleTags?.find((tag) => fieldTags.includes(tag.value))
+            )
+          }
+          return article.fields?.blog?.blogType === blog?.blogType
+        })
+        .slice(0, 4)
+
+      return filteredArr
     } else {
 
       if (!articleHandles) {

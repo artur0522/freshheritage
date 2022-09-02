@@ -1,10 +1,18 @@
+import { useEffect } from 'react'
 import CheckoutContent from '@/components/HeadlessCheckout/Checkout/CheckoutContent'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import { useHeadlessCheckoutContext} from '@/context/HeadlessCheckoutContext'
+import { dataLayerBeginCheckout } from '@/utils/dataLayer'
 
 const CheckoutPage = () => {
   const purchaseFlowContext = usePurchaseFlowContext()
-  const { data } = useHeadlessCheckoutContext()
+  const { data, checkoutIsReady } = useHeadlessCheckoutContext()
+
+  useEffect(() => {
+    if (data) {
+      dataLayerBeginCheckout({cart: data.application_state})
+    }
+  }, [checkoutIsReady])
 
   if (!purchaseFlowContext.options.is_loaded) {
     return ''

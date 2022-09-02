@@ -22,7 +22,7 @@ import ArticleCookingClassHero from '@/components/Article/ArticleCookingClassHer
 
 const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const drawerContext = useArticleFiltersDrawerContext()
-    const { addFilters, openDrawer, closeDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
+    const { addFilters, openDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
 
     const { content, filterGroups } = page.fields
     const heroSection = content?.find(section => section._type === 'hero')
@@ -75,37 +75,39 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             })
         })
 
-        addTagArray(tagArray)
-        addTagCount(tagCount)
-
         const filterGroupObj = {}
+        const multipleSelectedFilters = {}
+
         filterGroups?.map((group) => {
+          multipleSelectedFilters[group.title.toLowerCase()] = []
+
           filterGroupObj[group.title.toLowerCase()] = {
-              options: {}
+            options: {}
           }
 
           group.filterOptions?.map((option) => {
-              filterGroupObj[group.title.toLowerCase()].options[option.value.toLowerCase()] = {
-                checked: false,
-                subFilters: {}
-              }
+            filterGroupObj[group.title.toLowerCase()].options[option.value.toLowerCase()] = {
+              checked: false,
+              subFilters: {}
+            }
 
-              if(option.subFilters) {
-                option.subFilters.map((subFilter) => {
-                    filterGroupObj[group.title.toLowerCase()].options[option.value.toLowerCase()].subFilters[subFilter.value.toLowerCase()] = {
-                    checked: false
-                    }
-                })
+            option.subFilters?.map((subFilter) => {
+              if(tagCount[subFilter.value.toLowerCase()] >= 4) {
+                filterGroupObj[group.title.toLowerCase()].options[option.value.toLowerCase()].subFilters[subFilter.value.toLowerCase()] = {
+                  checked: false
+                }
               }
+            })
           })
         })
 
+        addTagArray(tagArray)
+        addTagCount(tagCount)
         addFilters(filterGroupObj)
 
         if(selectedFilterList.length > 0) {
           setCurrentPage(1)
         }
-
         setPages(Math.ceil(listings.length / 20))
     }, [articles, pages, originalListings])
 
@@ -179,18 +181,17 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             <BlogFilters />
           </div>}
 
-
-        {!articles.length ? (
-          <div className={`${classes['recipes__list-loading']}`}>
-            <h2>Loading Articles...</h2>
-          </div>
-        ):(
+          {!articles.length ? (
+            <div className={`${classes['recipes__list-loading']}`}>
+              <h2>Loading Articles...</h2>
+            </div>
+          ):(
           <div className={`${classes['recipes__list-wrap']} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']} ${filterDrawer && filterGroups ? 'listing-pages--filters-open' : ''}`}>
             {listings.length > 0 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${filterDrawer ? '' : 'container'} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
                   {listings.slice(0, 8).map((article) => {
                     return (
                       <div className={classes['grid-item']} key={article.handle}>
-                          <DynamicArticleCard article={article} F />
+                          <DynamicArticleCard article={article} />
                       </div>
                     )
               })}

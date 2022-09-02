@@ -4,17 +4,31 @@
 
 .card {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  border-radius: 12px;
-  border: 1px solid $fawn;
-  padding: 12px 12px 26px 12px;
-  position: relative;
-  height: 100%;
-
-  @media screen and (min-width: 736px) {
-    padding: 25px 25px 31px 25px;
+  width: 100%;
+  padding: 0 18px;
+  @include breakpoint-up('sm') {
+    width: 50%;
+  }
+  @include breakpoint-up('md') {
+    width: 33.33%;
+  }
+  @include breakpoint-up('lg') {
+    width: 25%;
+  }
+  .card__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    border-radius: 12px;
+    border: 1px solid $fawn;
+    padding: 12px 12px 26px 12px;
+    width: 100%;
+    height: 100%;
+    @media screen and (min-width: 736px) {
+      padding: 25px 25px 31px 25px;
+    }
   }
 
   .best-seller {
@@ -29,13 +43,13 @@
     top: -12px;
     left: 50%;
     transform: translateX(-50%);
-
     @media screen and (min-width: 736px) {
       display: flex;
       align-items: center;
       justify-content: center;
     }
   }
+
 
   .metafield {
     margin-top: 17.41px;

@@ -80,6 +80,7 @@
         &.top-margin {
             margin: 0;
             padding-top: 60px;
+            margin-top: 60px;
 
             @include breakpoint-up('md') {
                 padding-top: 132px;
@@ -89,9 +90,11 @@
         &.bottom-margin {
             margin: 0;
             padding-bottom: 60px;
+            margin-bottom: 60px;
 
             @include breakpoint-up('md') {
                 padding-bottom: 132px;
+                margin-bottom: 60px;
             }
         }
     }

@@ -53,17 +53,17 @@ const CustomRefinementList = (props) => {
         {items.length > 0 && <h5>{header}</h5>}
         {items.map((item) => {
             return (
-                <div className={classes['checkbox']} key={item.value}>
-                    <input 
-                      type="checkbox" 
-                      onChange={() => refine(item.value)} 
-                      name={item.value}
-                      id={item.value}
-                    />
-                    <label htmlFor={item.value}>
-                      {item.label}
-                    </label>
-                </div>
+              <div className={classes['checkbox']} key={item.value}>
+                  <input 
+                    type="checkbox" 
+                    onChange={() => refine(item.value)} 
+                    name={item.value}
+                    id={item.value}
+                  />
+                  <label htmlFor={item.value}>
+                    {item.label}
+                  </label>
+              </div>
             )
         })}
     </div>

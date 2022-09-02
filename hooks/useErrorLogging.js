@@ -1,6 +1,6 @@
 const useErrorLogging = () => {
   const logError = (type, error) => {
-    // Add error logging service here
+    console.error(`${type}: `, error);
   };
 
   return logError

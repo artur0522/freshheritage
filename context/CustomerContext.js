@@ -16,6 +16,7 @@ export function CustomerProvider({ children }) {
 
   const [customer, setCustomer] = useState(null)
   const [customerLoading, setCustomerLoading] = useState(false)
+  const [subsData, setSubsData] = useState(null)
   const router = useRouter()
 
   useEffect(() => {
@@ -81,8 +82,25 @@ export function CustomerProvider({ children }) {
     }
 
     setCustomer(customer)
+
+    getSubs(customer)
+
     console.log("customer:", customer)
     return { data }
+  }
+
+  async function getSubs(customer) {
+    if (customer?.id) {
+      const idArr = customer.id.split('/')
+      const id = idArr[idArr.length - 1]
+      fetch('/api/account/get-subs?cID=' + id)
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.message === 'success') {
+            setSubsData(res.data)
+          }
+        })
+    }
   }
 
   async function login({ email, password }) {
@@ -173,7 +191,7 @@ export function CustomerProvider({ children }) {
   }
 
   return (
-    <CustomerContext.Provider value={{customer, setCustomer, customerLoading, login, logout, register, recover, reset}}>
+    <CustomerContext.Provider value={{customer, setCustomer, customerLoading, login, logout, register, recover, reset, subsData}}>
       {children}
     </CustomerContext.Provider>
   )

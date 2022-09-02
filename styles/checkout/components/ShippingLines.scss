@@ -2,13 +2,32 @@
   margin-bottom: 20px;
 }
 
-.shipping-method-selector {
-  .checkout__radio-wrapper.is-selected {
+.shipping-method-selector,
+.secondary-shipping-method-selector {
+  .checkout__radio-wrapper.is-selected,
+  .checkout__secondary-radio-wrapper.is-selected {
     > label {
       border: 1px solid $success;
       background: rgba(70, 124, 82, 0.1);
     }
   }
+
+  .checkout__secondary-radio-wrapper.is-visible {
+    * {
+      opacity: 1;
+    }
+  }
+}
+
+.secondary-shipping-method-selector {
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+  height: 0;
+  overflow: hidden;
+}
+
+.secondary-shipping-method-selector.is-visible {
+  height: 180px;
 }
 
 .field-set__content {

@@ -4,7 +4,7 @@ import { Address } from '@/components/HeadlessCheckout/Address';
 import { SavedAddressList } from './components';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';
-import IconSelectArrow from '@/svgs/select-arrow.svg'
+import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
 
 const ShippingAddress = ({ applicationLoading }) => {
 
@@ -49,6 +49,7 @@ const MemoizedShippingAddress = memo(({
   } = data;
   const [errors, setErrors] = useState(null);
   const { t } = useTranslation();
+  const { refreshShipOptionData } = useHeadlessCheckoutContext();
 
   let provincePlaceholder = provinceLabel;
 
@@ -67,6 +68,7 @@ const MemoizedShippingAddress = memo(({
     setLoading(true);
     try {
       await submitAddress(currentAddress);
+      await refreshShipOptionData(currentAddress.postal_code);
       trackEvent('set_shipping_address');
       setErrors(null);
     } catch(e) {

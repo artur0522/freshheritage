@@ -4,22 +4,25 @@ import { useCustomerContext } from './CustomerContext'
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router'
 import { isEqual } from 'lodash-es';
+import moment from 'moment';
 import { dataLayerATC, dataLayerRFC, dataLayerViewCart } from '@/utils/dataLayer';
-const HeadlessCheckoutContext = createContext()
+export const HeadlessCheckoutContext = createContext();
 
 export function useHeadlessCheckoutContext() {
-  return useContext(HeadlessCheckoutContext)
+  return useContext(HeadlessCheckoutContext);
 }
 
 export function HeadlessCheckoutProvider({ children }) {
-  const router = useRouter()
-  const [data, setData] = useState(null)
+  const router = useRouter();
+  const [data, setData] = useState(null);
   const [PIGIMediaRules, setPIGIMediaRules] = useState([]);
   const [flyoutState, setFlyoutState] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [checkoutIsReady, setCheckoutIsReady] = useState(false)
-  const { customer } = useCustomerContext()
+  const [isLoading, setIsLoading] = useState(false);
+  const [checkoutIsReady, setCheckoutIsReady] = useState(false);
+  const [shipOptionMetadata, setShipOptionMetadata] = useState(undefined);
+  const { customer, subsData } = useCustomerContext()
 
+  // TODO: Any of these functions that call fetch should not really be stored in this file. They should be functions accessed from elsewhere to make this testable and cleaned up.
   function saveDataInLocalStorage(data) {
     const checkoutData = {
       jwt: data.jwt_token,
@@ -314,8 +317,10 @@ export function HeadlessCheckoutProvider({ children }) {
       }
     }
 
+    console.log(`${process.env.NEXT_PUBLIC_CHECKOUT_URL}/api/checkout/initialize-otp`);
+
     const res = await fetch(
-      `${process.env.checkoutUrl}/api/checkout/initialize-otp`,
+      `${process.env.NEXT_PUBLIC_CHECKOUT_URL}/api/checkout/initialize-otp`,
       {
         method: 'POST',
         body: JSON.stringify(payload),
@@ -763,6 +768,27 @@ export function HeadlessCheckoutProvider({ children }) {
     if (!flyoutState) document.querySelector('html').classList.remove('disable-scroll')
   }, [flyoutState]);
 
+  async function refreshShipOptionData(zip) {
+    const body = {zip};
+    if (subsData && subsData.length > 0) {
+      body.bundledShipWeek = `${moment(Math.max(subsData.map(d => d.fulfill_start))).week()}`;
+    }
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_CHECKOUT_URL}/api/checkout/ship-options`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify(body),
+      },
+    )
+
+    const shipOptions = await response.json();
+    setShipOptionMetadata(shipOptions);
+  }
+
   return (
     <HeadlessCheckoutContext.Provider
       value={{
@@ -784,6 +810,8 @@ export function HeadlessCheckoutProvider({ children }) {
         PIGIMediaRules,
         isLoading,
         setIsLoading,
+        refreshShipOptionData,
+        shipOptionMetadata,
         checkoutIsReady,
         setCheckoutIsReady
       }}

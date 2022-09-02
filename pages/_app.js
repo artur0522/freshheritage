@@ -82,7 +82,7 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
           id="stamped-script-widget"
           src="https://cdn1.stamped.io/files/widget.min.js"
           onLoad={() => {
-            StampedFn.init({ apiKey: 'pubkey-rCuPl7qXFI5WD689Ee3LO4Mtu461N4', storeUrl: '252897' });
+            StampedFn.init({ apiKey: process.env.NEXT_PUBLIC_STAMPEDIO_KEY_PUBLIC, storeUrl: process.env.NEXT_PUBLIC_STAMPEDIO_STORE_HASH });
           }}
         />
       }

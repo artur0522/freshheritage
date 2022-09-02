@@ -52,7 +52,7 @@ const FeaturedBlogContent = ({ fields }) => {
 
   useEffect(() => {
     setMounted(true)
-    if (method === 'tagBased') {
+    if (method === 'tagBased' || method === 'mostRecent') {
       getArticles({fieldTags: tagList})
         .then(articles => {
           setValidArticles(articles)
@@ -82,8 +82,6 @@ const FeaturedBlogContent = ({ fields }) => {
     const foundTab = tabs.find((tab) => {
       return tab.tabName === tabName
     })
-
-    console.log("foundTab:", foundTab)
 
     const options = {
       articleHandles: foundTab.tabList,
@@ -155,7 +153,7 @@ const FeaturedBlogContent = ({ fields }) => {
           </Swiper>
         )}
 
-        {mounted && method === 'tagBased' && (
+        {mounted && (method === 'tagBased' || method === 'mostRecent') && (
           <Swiper
             slidesPerView={'auto'}
             spaceBetween={18}

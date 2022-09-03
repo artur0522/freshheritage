@@ -5,7 +5,7 @@
   duration - Ex. 1, 3, 6, 12
 */
 
-export const getSubscriptionInfo = ({subscriptionGroup, frequencyName, membershipType, duration = 12}) => {
+export const getSubscriptionInfo = ({subscriptionGroup, frequencyName, membershipType, duration}) => {
   const { sub_group_id, billing_intervals, prepaid_options } = subscriptionGroup
   const billingInterval = billing_intervals.find(({interval_name}) => interval_name === frequencyName)
   const props = {

@@ -15,7 +15,8 @@ export async function getHarvests({product, selectedVariant, returnHarvestHandle
           handles: [harvestHandle],
           type: 'harvest'
         })
-        if (harvestContent) {
+
+        if (harvestContent && harvestContent.length) {
           promises.push({
             ...harvestContent[0].fields,
             handle: harvestHandle,

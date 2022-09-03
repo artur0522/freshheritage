@@ -23,6 +23,15 @@ jest.mock('@/components/HeadlessCheckout/CheckoutFlyout/index.js', () => {
   };
 });
 
+jest.mock('@/context/CustomerContext', () => {
+  return {
+    __esModule: true,
+    useCustomerContext: () => {
+      return {}
+    }
+  }
+})
+
 jest.mock('../LoadingState', () => {
   return {
     __esModule: true,

@@ -19,7 +19,7 @@ const getHarvetHandle = (variant, product) => {
   }
 }
 
-export default function SubDetail({ subscription, product, variant }) {
+export default function SubDetail({ subscription, product, variant, membership }) {
   const [harvest, setHarvest] = useState(null)
   useEffect(() => {
     const getHarvest = async () => {
@@ -29,7 +29,6 @@ export default function SubDetail({ subscription, product, variant }) {
           handles: [handleValue],
           type: 'harvest',
         })
-        console.log('harvestContent', harvestContent)
         if (!!harvestContent) {
           setHarvest(harvestContent[0])
         }
@@ -38,16 +37,16 @@ export default function SubDetail({ subscription, product, variant }) {
     getHarvest()
   }, [product, variant])
 
-  return harvest && <div>{renderMonths(subscription, harvest)}</div>
+  return harvest && <div>{renderMonths(subscription, harvest, membership)}</div>
 }
 
-const renderMonths = (subscription, harvest) => {
+const renderMonths = (subscription, harvest, membership) => {
 
   const currentMonth = harvest.fields.months.find((m) => m.month.includes(subscription.fulfill_month));
 
   return <div>
     <UpcomingDeliveriesBar subscription={subscription}/>
-    {currentMonth && <CurrentMonthHarvestDetail subscription={subscription} month={currentMonth}/>}
+    {currentMonth && <CurrentMonthHarvestDetail subscription={subscription} month={currentMonth} membership={membership}/>}
     {subscription.group_schedule.map((g) => {
     // Get the harvest details for the month
     const month = harvest.fields.months.find((m) => m.month.includes(g.month))

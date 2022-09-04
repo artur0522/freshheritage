@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useMediaQuery } from 'react-responsive'
+import { useRouter } from 'next/router'
 
 import { useArticleFiltersDrawerContext } from '@/context/ArticleFiltersDrawerContext'
 import ArticleSplitHero from '@/components/Article/ArticleSplitHero'
@@ -20,8 +21,9 @@ import StructuredData from '@/components/SEO/StructuredData'
 import classes from "./ListingsTemplate.module.scss"
 
 const ListingsTemplate = ({ articles, blogSettings, page }) => {
+    const router = useRouter()
     const drawerContext = useArticleFiltersDrawerContext()
-    const { addFilters, openDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
+    const { replaceSelectedFilters, addUrl, addFilters, openDrawer, isOpen, selectChangeHandler, selectedFilterList, addListings, addTagArray, sortListings, addOriginalListings, listings, addTagCount, originalListings } = drawerContext
 
     const { content, filterGroups } = page.fields
     const heroSection = content?.find(section => section._type === 'hero')
@@ -47,13 +49,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         addListings(articles)
         addOriginalListings(articles)
         sortListings(articles, true)
-
-        // if(!isDesktop && filterGroups?.length > 0 && mounted) {
-        //     openDrawer()
-        // } else {
-        //     closeDrawer()
-        // }
-
+        
         if(isDesktop && mounted && filterGroups?.length === 0) {
           toggleFilterDrawer(false)
         }
@@ -91,7 +87,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             }
 
             option.subFilters?.map((subFilter) => {
-              if(tagCount[subFilter.value.toLowerCase()] >= 4) {
+              if(tagCount[subFilter.value?.toLowerCase()] >= 4) {
                 filterGroupObj[group.title.toLowerCase()].options[option.value.toLowerCase()].subFilters[subFilter.value.toLowerCase()] = {
                   checked: false
                 }
@@ -99,6 +95,41 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             })
           })
         })
+
+        if(router.query.filters) {
+          addUrl(router.query.filters)
+    
+          const refinedSelectedFilters = router.query.filters.split("&")
+          let newSelectedFilterList = []
+
+          refinedSelectedFilters.map((group) => {
+            const splitGroup = group.split('=')
+    
+            if(splitGroup.length === 2) {
+              filterGroupObj[splitGroup[0]].options[splitGroup[1]].checked = true
+              console.log(filterGroupObj[splitGroup[0]].options[splitGroup[1]])
+
+              console.log('spg1', splitGroup[1])
+              if(!filterGroupObj[splitGroup[0]].options[splitGroup[1]].subFilters) {
+                newSelectedFilterList.push(splitGroup[1])
+              }
+
+              if(filterGroupObj[splitGroup[0]].options[splitGroup[1]].subFilters) {
+                Object.keys(filterGroupObj[splitGroup[0]].options[splitGroup[1]].subFilters).map((subFilter) => {
+                  newSelectedFilterList.push(subFilter)    
+                })
+              }
+            }
+    
+            if(splitGroup.length === 3) {
+              console.log('routerqueryfilters', router.query.filters)
+              console.log(filterGroupObj[splitGroup[0]].options[splitGroup[1]])
+              newSelectedFilterList.push(splitGroup[2])
+            }
+          })
+
+          replaceSelectedFilters(newSelectedFilterList)
+        }
 
         addTagArray(tagArray)
         addTagCount(tagCount)
@@ -111,9 +142,9 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         setPages(Math.ceil(listings.length / 20))
     }, [articles, pages, originalListings])
 
-    useEffect(() => {
-      window.scrollTo({ behavior: 'smooth', top: '0px' })
-    }, [currentPage])
+    // useEffect(() => {
+    //   window.scrollTo({ behavior: 'smooth', top: '0px' })
+    // }, [currentPage])
 
     const getPaginatedData = () => {
         const startIndex = currentPage * 20 - 20
@@ -122,8 +153,8 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
     }
 
     const getPaginationGroup = () => {
-        let start = Math.floor((currentPage - 1) / pages) * pages
-        return new Array(pages).fill().map((_, idx) => start + idx + 1)
+      let start = Math.floor((currentPage - 1) / pages) * pages
+      return new Array(pages).fill().map((_, idx) => start + idx + 1)
     }
 
     const goToNextPage = () => {

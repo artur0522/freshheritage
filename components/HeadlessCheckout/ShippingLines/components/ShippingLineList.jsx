@@ -12,24 +12,21 @@ export const ShippingLineList = ({
 }) => {
   const displayedShippingLines = shippingLines
     .map(line => {
-      switch(line.description) {
-        case 'Ship with Next Order':
-          if (!!shipOptionMetadata.bundled) {
-            line.showOption = true;
-            line.display = `Shipping between ${shipOptionMetadata.bundled.shipWeekDisplay}`;
-            line.shipWeekPreference = shipOptionMetadata.bundled.shipWeekPreference;
-          }
-          else line.showOption = false;
-          break;
-        case 'Free Standard Shipping':
+      if (line.description.indexOf('Ship with Next Order') > -1) {
+        if (!!shipOptionMetadata.bundled) {
           line.showOption = true;
-          line.options = shipOptionMetadata.standard;
-          break;
-        case 'Expedited Shipping':
-          line.showOption = true;
-          line.display = `Estimated delivery on ${shipOptionMetadata.expedited.estimatedDeliveryDateDisplay}`;
-          break;
-      }
+          line.display = `Shipping between ${shipOptionMetadata.bundled.shipWeekDisplay}`;
+          line.shipWeekPreference = shipOptionMetadata.bundled.shipWeekPreference;
+        }
+        else line.showOption = false;
+      } else if (line.description.indexOf('Free Standard Shipping') > -1) {
+        line.showOption = true;
+        line.options = shipOptionMetadata.standard;
+        } else if (line.description.indexOf('Expedited Shipping') > -1) {
+        line.showOption = true;
+        line.display = `Estimated delivery on ${shipOptionMetadata.expedited.estimatedDeliveryDateDisplay}`;
+        }
+
       return line;
     });
 
@@ -38,7 +35,7 @@ export const ShippingLineList = ({
     // Currently defaults to automatically select the first option (which is the lowest price)
     // should only be hiding the bundled ship line, so for now we can just move to the next one
     const selectedLine = displayedShippingLines.find(line => line.showOption);
-    onChange(selectedLine);
+    onChange(selectedLine, shippingLines);
     selectedShippingLine = selectedLine;
   }
 
@@ -50,7 +47,7 @@ export const ShippingLineList = ({
           let label;
           let extraOptions;
 
-          if (method.description === 'Free Standard Shipping') {
+          if (method.description.indexOf('Free Standard Shipping') > -1) {
             extraOptions = (
               <div className={`secondary-shipping-method-selector ${lineSelected ? 'is-visible' : ''}`}>
                 {method.options.map((o, i) => {
@@ -114,12 +111,12 @@ export const ShippingLineList = ({
                   checked={lineSelected}
                   disabled={disabled || lineSelected}
                   onChange={() => {
-                    if (method.description === 'Ship with Next Order') {
+                    if (method.description.indexOf('Ship with Next Order') > -1) {
                       onShipWeekChange(method.shipWeekPreference);
                     } else {
                       onShipWeekChange(null);
                     }
-                    onChange(method);
+                    onChange(method, shippingLines);
                   }}
                 />
               </div>

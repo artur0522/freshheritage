@@ -33,7 +33,6 @@ const ShippingLines = ({ applicationLoading }) => {
     loadingStatus.shippingLines === 'fetching' ||
     applicationLoading ||
     !shipOptionMetadata;
-
   return (
     <MemoizedShippingLines
       shippingLines={data.shippingLines}
@@ -96,11 +95,11 @@ const MemoizedShippingLines = memo(
     useEffect(() => {
       setSelectedShippingLine(shippingLines[selectedShippingLineIndex]);
       const displayedShippingLines = [];
-      displayedShippingLines.push(shippingLines.find(line => line.description === 'Free Standard Shipping'));
+      displayedShippingLines.push(shippingLines.find(line => line.description.indexOf('Free Standard Shipping') > -1));
       const productIds = lineItems.map(li => li.product_data.product_id);
       const expeditedProductIds = Array.from(JSON.parse(process.env.NEXT_PUBLIC_AUTOMATICALLY_EXPEDITED_PRODUCTS));
       if (productIds.some(id => expeditedProductIds.indexOf(id) > -1)) {
-        displayedShippingLines.push(shippingLines.find(line => line.description === 'Expedited Shipping'));
+        displayedShippingLines.push(shippingLines.find(line => line.description.indexOf('Expedited Shipping') > -1));
       }
       setDisplayedShippingLines(displayedShippingLines);
     }, [shippingLines]);

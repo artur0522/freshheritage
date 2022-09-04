@@ -775,7 +775,7 @@ export function HeadlessCheckoutProvider({ children }) {
     }
 
     const response = await fetch(
-      `${process.env.checkoutUrl}/api/checkout/ship-options`,
+      `${process.env.checkoutUrl || ''}/api/checkout/ship-options`,
       {
         headers: {
           'Content-Type': 'application/json',

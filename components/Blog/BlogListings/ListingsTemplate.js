@@ -107,9 +107,6 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
     
             if(splitGroup.length === 2) {
               filterGroupObj[splitGroup[0]].options[splitGroup[1]].checked = true
-              console.log(filterGroupObj[splitGroup[0]].options[splitGroup[1]])
-
-              console.log('spg1', splitGroup[1])
               if(!filterGroupObj[splitGroup[0]].options[splitGroup[1]].subFilters) {
                 newSelectedFilterList.push(splitGroup[1])
               }
@@ -122,8 +119,6 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             }
     
             if(splitGroup.length === 3) {
-              console.log('routerqueryfilters', router.query.filters)
-              console.log(filterGroupObj[splitGroup[0]].options[splitGroup[1]])
               newSelectedFilterList.push(splitGroup[2])
             }
           })

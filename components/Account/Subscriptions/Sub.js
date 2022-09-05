@@ -8,7 +8,7 @@ import classes from './Sub.module.scss'
 
 const getVariant = (variantId, allProducts) => {
   // TODO: Remove this when the data matches up
-  variantId = '41593002361018'; // Premium Seafood Box
+  // variantId = '41593002361018'; // Premium Seafood Box
   // variantId = '41593002393786'; // Premium Seafood Box w/ Shellfish
   // END TODO
   const p = allProducts.find(p => p.variants.some(v => v.sourceEntryId.includes(variantId)));

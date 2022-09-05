@@ -10,6 +10,9 @@ module.exports = {
       use: ['@svgr/webpack'],
     })
 
+    // TODO: Remove this before releasing
+    config.optimization.minimize = false;
+
     return config
   },
   env: {

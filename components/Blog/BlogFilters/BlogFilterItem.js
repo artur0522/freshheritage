@@ -13,7 +13,7 @@ const BlogFilterItem = (props) => {
   const articleFiltersDrawerContext = useArticleFiltersDrawerContext()
   const { filters, optionHandler, subOptionHandler, tagCount, selectedFilterList} = articleFiltersDrawerContext
   const { filterGroup } = props
-  const [dropdown, setDropdown] = useState(true)
+  const [dropdown, setDropdown] = useState(false)
   const [filtersArray, setFiltersArray] = useState([])
 
   useEffect(() => {

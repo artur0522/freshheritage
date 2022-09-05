@@ -24,11 +24,15 @@ export default function SubDetail({ subscription, product, variant, membership }
   useEffect(() => {
     const getHarvest = async () => {
       const handleValue = getHarvetHandle(product, variant)
+      console.log('got harvest handle value', handleValue);
+
       if (!!handleValue) {
+        console.log('trying to get harvest content from nacelle');
         const harvestContent = await nacelleClient.content({
           handles: [handleValue],
           type: 'harvest',
         })
+        console.log('get harvestContent', harvestContent);
         if (!!harvestContent) {
           setHarvest(harvestContent[0])
         }

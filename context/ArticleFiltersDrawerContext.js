@@ -307,7 +307,6 @@ export function ArticleFiltersDrawerProvider({ children }) {
     let refinedUrl;
    
     if(!hasSubfilter && !subFilter && !newUrl) {
-      console.log("i have ran")
       refinedUrl = `${filterGroup}=${option}`
 
       dispatch({ type: 'add_url', payload: refinedUrl})
@@ -351,20 +350,12 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
     // IF OPTION WITHOUT A SUBFILTER IS CLICKED
     if(!hasSubfilter && newUrl) {
-      console.log('running')
-      console.log('newurl', newUrl)
-      console.log('router', router)
-
       if(newUrl.includes(option) && newUrl.includes('&')) {
-        console.log("option1", newUrl)
         refinedUrl = newUrl.replace(`&${filterGroup}=${option}`, '')
 
       } else if(newUrl.includes(option)) {
-        console.log("option2", newUrl)
         refinedUrl = newUrl.replace(`${filterGroup}=${option}`, '')
-        console.log(refinedUrl)
       } else {
-        console.log("option3")
         refinedUrl = `${newUrl}&${filterGroup}=${option}`
       }
 
@@ -635,8 +626,6 @@ export function ArticleFiltersDrawerProvider({ children }) {
        }
     }
     
-    console.log("sfg", selectedFilterList)
-
     return () => {
       window.removeEventListener('resize', handleResize)
     }

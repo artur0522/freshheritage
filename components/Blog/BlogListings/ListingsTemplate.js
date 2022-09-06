@@ -33,6 +33,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const [currentPage, setCurrentPage] = useState(1)
     const [filterDrawer, toggleFilterDrawer]= useState(true)
     const [mounted, setMounted]= useState(false)
+    const [searchTerm, setSearchTerm] = useState('')
 
     const isDesktop = useMediaQuery({query: '(min-width: 1074px)'})
 
@@ -137,9 +138,9 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         setPages(Math.ceil(listings.length / 20))
     }, [articles, pages, originalListings])
 
-    // useEffect(() => {
-    //   window.scrollTo({ behavior: 'smooth', top: '0px' })
-    // }, [currentPage])
+    useEffect(() => {
+      window.scrollTo({ behavior: 'smooth', top: '0px' })
+    }, [currentPage])
 
     const getPaginatedData = () => {
         const startIndex = currentPage * 20 - 20
@@ -165,6 +166,24 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         setCurrentPage(pageNumber)
     }
 
+    const handleChange = (e) => {
+      setSearchTerm(e.target.value)
+    }
+  
+    const handleKeyDown = (e) => {
+      let index
+      if(blogType === 'culinary') {
+        index = 'culinary_articles'
+      } else {
+        index = 'brand_articles'
+      }
+
+      if (e.key === 'Enter') {
+        e.preventDefault()
+        router.push(`/pages/search?query=${searchTerm}&index=${index}`)
+      }
+    }
+
   return (
     <div className="category-listing-page">
       <StructuredData type="blog" data={page} />
@@ -180,7 +199,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
             <button type="button">
                 <IconSearch />
             </button>
-            <input type="text" placeholder='Search' className="body" />
+            <input type="text" placeholder='Search' className="body" onKeyDown={(e) => handleKeyDown(e)} onChange={(e) => handleChange(e)} value={searchTerm} />
           </div>
 
           <div className={classes['recipes__filter-row']}>

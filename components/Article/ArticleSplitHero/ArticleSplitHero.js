@@ -102,9 +102,9 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
         {backgroundIllustrationImage && renderType === 'blog-listing' && isDesktop && mounted &&
           <div className={classes['article-hero__illustration-image']}>
             <ResponsiveImage
-              src={backgroundIllustrationImage.asset.url}
+              src={backgroundIllustrationImage?.asset?.url}
               layout="fill"
-              alt={backgroundIllustrationImage.asset.alt || ''}
+              alt={backgroundIllustrationImage?.asset?.alt || ''}
             />
           </div>
         }
@@ -180,13 +180,13 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
         {!startVideo && <div className={classes['article-hero__image']}>
           {mobileBackgroundImage && isMobile && mounted &&
             <ResponsiveImage
-              src={mobileBackgroundImage.asset.url}
+              src={mobileBackgroundImage?.asset?.url}
               layout="fill"
               alt={mobileBackgroundImage.alt || ''}
             />}
           {desktopBackgroundImage && isDesktop && mounted &&
             <Image
-              src={desktopBackgroundImage.asset.url}
+              src={desktopBackgroundImage?.asset?.url}
               layout="fill"
               alt={desktopBackgroundImage.alt || ''}
             />

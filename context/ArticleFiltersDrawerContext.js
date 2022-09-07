@@ -350,23 +350,16 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
     // IF OPTION WITHOUT A SUBFILTER IS CLICKED
     if(!hasSubfilter && newUrl) {
-      console.log('newurl', newUrl)
-      if(newUrl.includes(option) && newUrl.includes('&')) {
-        console.log('contains option 1', newUrl)
+      const splitUrlLength = newUrl.split('&').length
+      if(newUrl.includes(option) && splitUrlLength > 2) {
+        refinedUrl = newUrl.replace(`&${filterGroup}=${option}`, '')
+      } else if(newUrl.includes(option) && splitUrlLength === 2) {
         refinedUrl = newUrl.replace(`${filterGroup}=${option}`, '')
-        dispatch({ type: 'add_url', payload: refinedUrl})
-
-      } else if(newUrl.includes(option)) {
-        console.log('contains option 2', newUrl)
-        refinedUrl = newUrl.replace(`${filterGroup}=${option}`, '')
-        dispatch({ type: 'add_url', payload: refinedUrl})
-
       } else {
         refinedUrl = `${newUrl}&${filterGroup}=${option}`
-        dispatch({ type: 'add_url', payload: refinedUrl})
       }
 
-      
+      dispatch({ type: 'add_url', payload: refinedUrl})
 
       router.replace({
         pathname: `/blogs/culinary/${router.query.category}` || `/blogs/stories/${router.query.category}`,
@@ -379,9 +372,11 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
     // ALL FILTER : IF OPTION WITH A SUBFILTER IS CLICKED
     if(hasSubfilter && !subFilter && newUrl) {
-      if(newUrl.includes(option) && newUrl.includes('&')) {
+      const splitUrlLength = newUrl.split('&').length
+
+      if(newUrl.includes(option) && splitUrlLength > 2) {
         refinedUrl = newUrl.replace(`&${filterGroup}=${option}`, '')
-      } else if(newUrl.includes(option)) {
+      } else if(newUrl.includes(option) && splitUrlLength === 2) {
         refinedUrl = newUrl.replace(`${filterGroup}=${option}`, '')
       } else {
         refinedUrl = `${newUrl}&${filterGroup}=${option}`
@@ -400,10 +395,11 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
     // SUBFILTER CLICKED
     if(hasSubfilter && subFilter && newUrl) {
-      console.log(newUrl)
-      if(newUrl.includes(subFilter) && newUrl.includes('&')) {
+      const splitUrlLength = newUrl.split('&').length
+
+      if(newUrl.includes(subFilter) && splitUrlLength > 2) {
         refinedUrl = newUrl.replace(`&${filterGroup}=${option}=${subFilter}`, '')
-      } else if(newUrl.includes(subFilter)) {
+      } else if(newUrl.includes(option) && splitUrlLength === 2) {
         refinedUrl = newUrl.replace(`${filterGroup}=${option}=${subFilter}`, '')
       } else {
         refinedUrl = `${newUrl}&${filterGroup}=${option}=${subFilter}`

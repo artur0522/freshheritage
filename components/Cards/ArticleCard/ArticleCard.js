@@ -45,7 +45,7 @@ const ArticleCard = ({ article, reverse, responsiveImage = false, fromSearch = f
         <Link href={url}>
             <a className={`${classes['article-card']} ${!responsiveImage ? classes['fixed'] : ''}`}>
                 <div className={`${classes['slider__slide']} ${reverse ? classes['row'] : ''}`}>
-                    {desktopBackgroundImage.asset.url && <div className={classes['image-wrap']}>
+                    {desktopBackgroundImage?.asset?.url && <div className={classes['image-wrap']}>
                         {responsiveImage &&  !desktopBackgroundImage?.crop && <ResponsiveImage alt={article.title} src={desktopBackgroundImage.asset.url} />}
                         {responsiveImage && desktopBackgroundImage?.crop && <ResponsiveImage alt={article.title} src={urlFor(desktopBackgroundImage.asset.url).width(345).height(384).focalPoint(desktopBackgroundImage.hotspot.x, desktopBackgroundImage.hotspot.y).crop('focalpoint').fit('crop').url()} />}
                         {!responsiveImage && <Image src={desktopBackgroundImage?.asset.url} alt={article.title} layout="fill" objectFit="cover" />}

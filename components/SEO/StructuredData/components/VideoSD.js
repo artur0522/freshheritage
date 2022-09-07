@@ -12,7 +12,7 @@ const VideoSD = ({data}) => {
   const images = []
 
   if (data.fields?.hero?.desktopBackgroundImage) {
-    images.push(data.fields.hero.desktopBackgroundImage.asset.url)
+    images.push(data.fields.hero.desktopBackgroundImage?.asset?.url)
   }
 
   return (

@@ -21,7 +21,7 @@ const BlogHero = ({ fields }) => {
   } else {
     btnColor = 'salmon'
   }
-  
+
   return (
     <div className={`${classes['hero']} ${classes[heroStyle]} ${classes[textColor]} ${topMargin ? classes['top-margin'] : ''} ${bottomMargin ? classes['bottom-margin'] : ''}`}>
       <div className={`${classes['hero__text']}`}>
@@ -41,7 +41,7 @@ const BlogHero = ({ fields }) => {
           />
         </div>}
 
-        {isDesktop && mounted && desktopBackgroundImage.asset.url && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--dsktp']}`}>
+        {isDesktop && mounted && desktopBackgroundImage?.asset?.url && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--dsktp']}`}>
           <Image
             className={classes.mbl__img}
             src={desktopBackgroundImage.asset.url}

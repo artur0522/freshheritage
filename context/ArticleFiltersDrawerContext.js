@@ -1,8 +1,9 @@
-import { createContext, useContext, useState, useReducer, useEffect, useCallback } from 'react'
+import { createContext, useContext, useReducer, useEffect} from 'react'
 import { useRouter } from 'next/router'
 import ArticleFiltersDrawer from '@/components/Layout/ArticleFiltersDrawer'
 import FishermenInfoDrawer from '@/components/Layout/FishermenInfoDrawer/FishermenInfoDrawer'
 import moment from 'moment'
+import { filter, groupBy } from 'lodash-es'
 
 const ArticleFiltersDrawerContext = createContext()
 
@@ -56,6 +57,12 @@ function drawerReducer(state, action) {
         isOpen: false
       }
     }
+    case 'add_url': {
+      return {
+        ...state,
+        newUrl: action.payload
+      }
+    }
     case 'add_tag_count': {
       return {
         ...state,
@@ -92,34 +99,44 @@ function drawerReducer(state, action) {
         selectValue: action.payload
       }
     }
+    case 'add_selected_filtergroup': {
+      return {
+        ...state,
+        selectedFilterGroups: [...state.selectedFilterGroups, action.payload]
+      }
+    }
+    case 'remove_selected_filtergroup_by_option': {
+      return {
+        ...state,
+        selectedFilterGroups: [...state.selectedFilterGroups.filter((group) => {
+          group.filterOption !== action.payload.filterOption
+        })]
+      }
+    }
+    case 'remove_selected_filtergroup_by_subfilter': {
+      return {
+        ...state,
+        selectedFilterGroups: [...state.selectedFilterGroups.filter((group) => {
+          group.subFilter !== action.payload.subFilter
+        })]
+      }
+    }
+    case 'replace_selected_filters': {
+      return {
+        ...state,
+        selectedFilterList: action.payload
+      }
+    }
     case 'add_selected_filters': {
       return {
         ...state,
-        selectedFilterList: [...state.selectedFilterList.filter(filter => filter !== action.payload), action.payload]
+        selectedFilterList: [...state.selectedFilterList.filter(filter => filter !== action.payload), action.payload],
       }
     }
     case 'remove_selected_filters': {
       return {
         ...state,
-        selectedFilterList: [...state.selectedFilterList.filter(filter => filter !== action.payload)]
-      }
-    }
-    case 'add_selected_multiple_filters': {
-      return {
-        ...state,
-        multipleSelectedFilters: {
-          ...state.multipleSelectedFilters,
-          [action.payload.filterGroup]: [...state.multipleSelectedFilters[action.payload.filterGroup], action.payload.option]
-        }
-      }
-    }
-    case 'remove_selected_multiple_filters': {
-      return {
-        ...state,
-        multipleSelectedFilters: {
-          ...state.multipleSelectedFilters,
-          [action.payload.filterGroup]: [...state.multipleSelectedFilters[action.payload.filterGroup].filter(option => option !== action.payload.option)]
-        }
+        selectedFilterList: [...state.selectedFilterList.filter(filter => filter !== action.payload)],
       }
     }
     case 'toggle_checkbox': {
@@ -162,12 +179,6 @@ function drawerReducer(state, action) {
         }
       }
     }
-    case 'set_multiple_selected_filters': {
-      return {
-        ...state,
-        multipleSelectedFilters: action.payload
-      }
-    }
     default:
       return state
   }
@@ -178,6 +189,7 @@ const initialState = {
   isFishermen: false,
   filters: {},
   selectedFilterList: [],
+  selectedFilterGroups: [],
   listings: [],
   originalListings: [],
   tagCount: {},
@@ -187,7 +199,7 @@ const initialState = {
   isFishInfoOpen: false,
   currentOption: null,
   currentFilterGroup: null,
-  multipleSelectedFilters: {}
+  newUrl: null
 }
 
 export function useArticleFiltersDrawerContext() {
@@ -198,21 +210,12 @@ export function ArticleFiltersDrawerProvider({ children }) {
   const router = useRouter()
   const [state, dispatch] = useReducer(drawerReducer, initialState)
 
+  const { newUrl, currentOption, currentFilterGroup, isOpen, infoCardFields, isFishInfoOpen, filters, selectedFilterList, selectedFilterGroups, listings, originalListings, tagCount, tagArray, isFishermen} = state
 
-  // state
-  const { multipleSelectedFilters, currentOption, currentFilterGroup, isOpen, infoCardFields, isFishInfoOpen, filters, selectedFilterList, listings, originalListings, tagCount, tagArray, selectValue, isFishermen} = state
-
-
-
-
-
-
-
-  // dispatch functions
-  const setMultipleSelectedFilters = (multipleSelectedFilters) => {
-    dispatch({type: 'set_multiple_selected_filters', payload: multipleSelectedFilters})
+  const replaceSelectedFilters = (list) => {
+    dispatch({type: 'replace_selected_filters', payload: list})
   }
-
+  
   const setCurrentOption = (currentOption) => {
     dispatch({type: 'set_current_option', payload: currentOption})
   }
@@ -265,14 +268,10 @@ export function ArticleFiltersDrawerProvider({ children }) {
     dispatch({ type: 'set_info_card', payload: info})
   }
 
+  const addUrl = (url) => {
+    dispatch({ type: 'add_url', payload: url})
+  }
 
-
-
-
-
-
-
-  // method
   const sortListings = (listings, mostRecent) => {
     const sortedListings = listings.sort((a, b) => {
       let aPublishedDate = a.fields ? moment(a.fields.createdAt).unix() : moment(a.createdAt).unix()
@@ -292,6 +291,126 @@ export function ArticleFiltersDrawerProvider({ children }) {
       return (mostRecent) ?  bPublishedDate - aPublishedDate : aPublishedDate - bPublishedDate
     })
     dispatch({ type: 'add_listings', payload: sortedListings})
+  }
+
+  const checkboxHandler  = (hasSubfilter, filterGroup, option, subFilter, subFilters) => {
+    if(!hasSubfilter || subFilter) {
+      dispatch({ type: 'toggle_checkbox', payload: {
+        hasSubfilter,
+        filterGroup,
+        option: option,
+        subFilter: subFilter,
+        subFilters: subFilters
+      }})
+    }
+
+    let refinedUrl;
+   
+    if(!hasSubfilter && !subFilter && !newUrl) {
+      refinedUrl = `${filterGroup}=${option}`
+
+      dispatch({ type: 'add_url', payload: refinedUrl})
+
+      router.replace({
+        pathname: `/blogs/culinary/${router.query.category}` || `/blogs/stories/${router.query.category}`,
+        query: {
+          filters: decodeURI(refinedUrl)
+        }
+      },
+      undefined, { shallow: true })
+    }
+
+    if(hasSubfilter && !subFilter && !newUrl) {
+      refinedUrl = `${filterGroup}=${option}`
+
+      dispatch({ type: 'add_url', payload: refinedUrl})
+
+      router.replace({
+        pathname: `/blogs/culinary/${router.query.category}` || `/blogs/stories/${router.query.category}`,
+        query: {
+          filters: decodeURI(refinedUrl)
+        }
+      },
+      undefined, { shallow: true })
+    }
+
+    if(subFilter && !newUrl) {
+      refinedUrl = `${filterGroup}=${option}=${subFilter}`
+
+      dispatch({ type: 'add_url', payload: refinedUrl})
+
+      router.replace({
+        pathname: `/blogs/culinary/${router.query.category}` || `/blogs/stories/${router.query.category}`,
+        query: {
+          filters: decodeURI(refinedUrl)
+        }
+      },
+      undefined, { shallow: true })
+    }
+
+    // IF OPTION WITHOUT A SUBFILTER IS CLICKED
+    if(!hasSubfilter && newUrl) {
+      if(newUrl.includes(option) && newUrl.includes('&')) {
+        refinedUrl = newUrl.replace(`&${filterGroup}=${option}`, '')
+
+      } else if(newUrl.includes(option)) {
+        refinedUrl = newUrl.replace(`${filterGroup}=${option}`, '')
+      } else {
+        refinedUrl = `${newUrl}&${filterGroup}=${option}`
+      }
+
+      dispatch({ type: 'add_url', payload: refinedUrl})
+
+      router.replace({
+        pathname: `/blogs/culinary/${router.query.category}` || `/blogs/stories/${router.query.category}`,
+        query: {
+          filters: decodeURI(refinedUrl)
+        }
+      },
+      undefined, { shallow: true })
+    }
+
+    // ALL FILTER : IF OPTION WITH A SUBFILTER IS CLICKED
+    if(hasSubfilter && !subFilter && newUrl) {
+      if(newUrl.includes(option) && newUrl.includes('&')) {
+        refinedUrl = newUrl.replace(`&${filterGroup}=${option}`, '')
+      } else if(newUrl.includes(option)) {
+        refinedUrl = newUrl.replace(`${filterGroup}=${option}`, '')
+      } else {
+        refinedUrl = `${newUrl}&${filterGroup}=${option}`
+      }
+
+      dispatch({ type: 'add_url', payload: refinedUrl})
+
+      router.replace({
+        pathname: `/blogs/culinary/${router.query.category}` || `/blogs/stories/${router.query.category}`,
+        query: {
+          filters: decodeURI(refinedUrl)
+        }
+      },
+      undefined, { shallow: true })
+    }
+
+    // SUBFILTER CLICKED
+    if(hasSubfilter && subFilter && newUrl) {
+      if(newUrl.includes(subFilter) && newUrl.includes('&')) {
+        refinedUrl = newUrl.replace(`&${filterGroup}=${option}=${subFilter}`, '')
+      } else if(newUrl.includes(subFilter)) {
+        refinedUrl = newUrl.replace(`${filterGroup}=${option}=${subFilter}`, '')
+      } else {
+        refinedUrl = `${newUrl}&${filterGroup}=${option}=${subFilter}`
+      }
+
+      dispatch({ type: 'add_url', payload: refinedUrl})
+
+      router.replace({
+        pathname: `/blogs/culinary/${router.query.category}` || `/blogs/stories/${router.query.category}`,
+        query: {
+          filters: decodeURI(refinedUrl)
+        }
+      },
+      undefined, { shallow: true })
+    }  
   }
 
   const selectChangeHandler = (value) => {
@@ -336,31 +455,29 @@ export function ArticleFiltersDrawerProvider({ children }) {
   const subOptionHandler = (hasSubfilter, filterGroup, filterOption, subFilter) => {
     filters[filterGroup].options[filterOption].checked = false
 
-    dispatch({ type: 'toggle_checkbox', payload: {
-      hasSubfilter,
-      filterGroup,
-      option: filterOption,
-      subFilter: subFilter,
-    }})
-
+    checkboxHandler(hasSubfilter, filterGroup, filterOption, subFilter, null)
     setCurrentOption(filterOption)
     setCurrentFilterGroup(filterGroup)
 
     if(filters[filterGroup].options[filterOption].subFilters[subFilter].checked) {
       dispatch({type: 'remove_selected_filters', payload: subFilter})
 
-      dispatch({type: 'remove_selected_multiple_filters', payload: {
+      dispatch({type: 'remove_selected_filtergroup_by_subfilter', payload: {
+        hasSubfilter,
         filterGroup: filterGroup,
-        option: subFilter
+        filterOption: filterOption,
+        subFilter: subFilter
       }})
 
       filterListingsByTags(filterGroup, filterOption, subFilter)
     } else {
       dispatch({type: 'add_selected_filters', payload: subFilter})
 
-      dispatch({type: 'add_selected_multiple_filters', payload: {
+      dispatch({type: 'add_selected_filtergroup', payload: {
+        hasSubfilter,
         filterGroup: filterGroup,
-        option: subFilter
+        filterOption: filterOption,
+        subFilter: subFilter
       }})
 
       filterListingsByTags(filterGroup, filterOption, subFilter)
@@ -373,11 +490,13 @@ export function ArticleFiltersDrawerProvider({ children }) {
       filters[filterGroup].options[filterOption].checked = !filters[filterGroup].options[filterOption].checked
       dispatch({type: 'remove_selected_filters', payload: filters[filterGroup].options[filterOption]})
 
-      dispatch({type: 'remove_selected_multiple_filters', payload: {
+      dispatch({type: 'remove_selected_filtergroup_by_option', payload: {
+        hasSubfilter,
         filterGroup: filterGroup,
-        option: filterOption
+        filterOption: filterOption,
+        subFilter: null
       }})
-
+      
       const nestedSubFilters = filters[filterGroup].options[filterOption].subFilters
 
       if(nestedSubFilters) {
@@ -391,23 +510,28 @@ export function ArticleFiltersDrawerProvider({ children }) {
           if(filters[filterGroup].options[filterOption].subFilters[key].checked) {
             dispatch({type: 'add_selected_filters', payload: key})
 
-            dispatch({type: 'add_selected_multiple_filters', payload: {
+            dispatch({type: 'add_selected_filtergroup', payload: {
+              hasSubfilter,
               filterGroup: filterGroup,
-              option: key
+              filterOption: filterOption,
+              subFilter: null
             }})
 
             filterListingsByTags(filterGroup, filterOption, null)
           } else {
             dispatch({type: 'remove_selected_filters', payload: key})
 
-            dispatch({type: 'remove_selected_multiple_filters', payload: {
+            dispatch({type: 'remove_selected_filtergroup_by_option', payload: {
+              hasSubfilter,
               filterGroup: filterGroup,
-              option: key
+              filterOption: filterOption,
+              subFilter: null
             }})
 
             filterListingsByTags(filterGroup, filterOption)
           }
         })
+        checkboxHandler(hasSubfilter, filterGroup, filterOption, null)
       }
     } else {
       const nestedSubFilters = filters[filterGroup].options[filterOption].subFilters
@@ -420,46 +544,48 @@ export function ArticleFiltersDrawerProvider({ children }) {
         if(filters[filterGroup].options[filterOption].subFilters[key].checked) {
           dispatch({type: 'add_selected_filters', payload: key})
 
-          dispatch({type: 'add_selected_multiple_filters', payload: {
+          dispatch({type: 'add_selected_filtergroup', payload: {
+            hasSubfilter,
             filterGroup: filterGroup,
-            option: key
+            filterOption: filterOption,
+            subFilter: null
           }})
 
           filterListingsByTags(filterGroup, filterOption, null)
         } else {
           dispatch({type: 'remove_selected_filters', payload: key})
 
-          dispatch({type: 'remove_selected_multiple_filters', payload: {
+          dispatch({type: 'remove_selected_filtergroup_by_option', payload: {
+            hasSubfilter,
             filterGroup: filterGroup,
-            option: key
+            filterOption: filterOption,
+            subFilter: null
           }})
 
           filterListingsByTags(filterGroup, filterOption, null)
         }
       })
       
-      dispatch({ type: 'toggle_checkbox', payload: {
-        hasSubfilter,
-        filterGroup,
-        option: filterOption,
-        subFilters: nestedSubFilters
-      }})
+      checkboxHandler(hasSubfilter, filterGroup, filterOption, null, nestedSubFilters)
 
       if(filters[filterGroup].options[filterOption].checked) {
         dispatch({type: 'remove_selected_filters', payload: filterOption})
 
-        dispatch({type: 'remove_selected_multiple_filters', payload: {
+        dispatch({type: 'remove_selected_filtergroup_by_option', payload: {
+          hasSubfilter,
           filterGroup: filterGroup,
-          option: filterOption
+          filterOption: filterOption,
+          subFilter: null
         }})
 
         filterListingsByTags(filterGroup, filterOption, null)
       } else {
         dispatch({type: 'add_selected_filters', payload: filterOption})
-
-        dispatch({type: 'add_selected_multiple_filters', payload: {
+        dispatch({type: 'add_selected_filtergroup', payload: {
+          hasSubfilter,
           filterGroup: filterGroup,
-          option: filterOption
+          filterOption: filterOption,
+          subFilter: null
         }})
 
         filterListingsByTags(filterGroup, filterOption, null)
@@ -467,21 +593,14 @@ export function ArticleFiltersDrawerProvider({ children }) {
     }
   }
 
-
-
-
-
-
-
-
   useEffect(() => {
+    filterListingsByTags()
+    
     if (isOpen) document.querySelector('html').classList.add('disable-scroll')
     if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
 
     if (isFishInfoOpen) document.querySelector('html').classList.add('disable-scroll')
     if (!isFishInfoOpen) document.querySelector('html').classList.remove('disable-scroll')
-
-    filterListingsByTags()
 
     const handleResize = () => {
       if (window.innerWidth >= 1074) {
@@ -506,31 +625,11 @@ export function ArticleFiltersDrawerProvider({ children }) {
         addFilters(newFilters)
        }
     }
-
-    console.log("filters", filters)
-    console.log("multipleselectedfilters", multipleSelectedFilters)
+    
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [isOpen, multipleSelectedFilters, selectedFilterList, filters, currentOption, currentFilterGroup, isFishInfoOpen])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  }, [isOpen, selectedFilterList, selectedFilterGroups, filters, isFishInfoOpen])
 
   useEffect(() => {
     router.beforePopState(({ as }) => {
@@ -543,7 +642,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
   }, [router])
 
   return (
-    <ArticleFiltersDrawerContext.Provider value={{setMultipleSelectedFilters, isOpen, openFishInfo, isFishInfoOpen, setInfoCard, infoCardFields, setIsFishermen, isFishermen, selectChangeHandler, addTagCount, addTagArray, tagCount, filters, filterListingsByTags, openDrawer, closeDrawer, addFilters, optionHandler, subOptionHandler, dispatch, selectedFilterList, listings, originalListings, addListings, addOriginalListings, sortListings}}>
+    <ArticleFiltersDrawerContext.Provider value={{ replaceSelectedFilters, addUrl, isOpen, openFishInfo, isFishInfoOpen, setInfoCard, infoCardFields, setIsFishermen, isFishermen, selectChangeHandler, addTagCount, addTagArray, tagCount, filters, filterListingsByTags, openDrawer, closeDrawer, addFilters, optionHandler, subOptionHandler, dispatch, selectedFilterList, listings, originalListings, addListings, addOriginalListings, sortListings}}>
       {isOpen &&
         <ArticleFiltersDrawer />
       }

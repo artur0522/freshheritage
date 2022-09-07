@@ -55,7 +55,7 @@ const ProductMain = ({box}) => {
               product,
               variant: firstVariant
             });
-            await addItemToOrder({variant})
+            await addItemToOrder({variant, product})
               .then(() => {
                 PDPDrawerContext.dispatch({ type: 'close_drawer' })
                 router.push('/checkout')

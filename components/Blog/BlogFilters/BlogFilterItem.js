@@ -1,4 +1,4 @@
-import { useState} from 'react'
+import { useState, useEffect } from 'react'
 import { useArticleFiltersDrawerContext } from '@/context/ArticleFiltersDrawerContext'
 
 import PlusIcon from '@/svgs/plus.svg'
@@ -11,11 +11,14 @@ import { filter } from 'lodash-es'
 
 const BlogFilterItem = (props) => {
   const articleFiltersDrawerContext = useArticleFiltersDrawerContext()
-  const { filters, optionHandler, subOptionHandler, tagCount} = articleFiltersDrawerContext
+  const { filters, optionHandler, subOptionHandler, tagCount, selectedFilterList} = articleFiltersDrawerContext
   const { filterGroup } = props
   const [dropdown, setDropdown] = useState(false)
+  const [filtersArray, setFiltersArray] = useState([])
 
-  console.log("filters options array", Object.keys(filters[filterGroup].options))
+  useEffect(() => {
+    setFiltersArray(Object.keys(filters[filterGroup].options))
+  }, [filters])
 
   function buildCheckboxInput({ onChange, label, checked }) {
     return <div className={`${classes['filter-option__checkbox-wrapper']} body`}>
@@ -40,7 +43,7 @@ const BlogFilterItem = (props) => {
             </div>
         </button>
         {dropdown && <ul className={classes['filter-option__wrap']}>
-            {Object.keys(filters[filterGroup].options).map((filterOption) => {
+            {filtersArray.map((filterOption) => {
                 return (
                     <li key={filterOption}>
                         {tagCount[filterOption] !== undefined && tagCount[filterOption] >= 4 && tagCount[Object.keys(filters[filterGroup].options[filterOption].subFilters)[0]] === undefined &&
@@ -65,7 +68,7 @@ const BlogFilterItem = (props) => {
                                         <li key={subFilter}>
                                             {buildCheckboxInput({
                                                 label: subFilter,
-                                                checked: filters[filterGroup].options[filterOption].subFilters[subFilter].checked,
+                                                checked: selectedFilterList.includes(subFilter) ? filters[filterGroup].options[filterOption].subFilters[subFilter].checked = true :  filters[filterGroup].options[filterOption].subFilters[subFilter].checked = false,
                                                 onChange: () => subOptionHandler(true, filterGroup, filterOption, subFilter)
                                             })}
                                         </li>

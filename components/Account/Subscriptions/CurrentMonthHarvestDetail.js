@@ -3,7 +3,7 @@ import MiniDetails from './MiniDetails'
 import React, { useState } from 'react'
 import classes from './CurrentMonthHarvestDetail.module.scss'
 
-export default function CurrentMonthHarvestDetail({ subscription, month }) {
+export default function CurrentMonthHarvestDetail({ subscription, month, membership }) {
   const startDate = new Date(subscription.fulfill_start)
   const endDate = new Date(subscription.fulfill_end)
   const startDateString = startDate.toLocaleDateString(undefined, {
@@ -56,7 +56,7 @@ export default function CurrentMonthHarvestDetail({ subscription, month }) {
       </div>
       <div className={classes['detail-body']}>
         {activeTab === 'left' ? (
-          <MiniDetails subscription={subscription} month={month}/>
+          <MiniDetails subscription={subscription} month={month} membership={membership}/>
         ) : (
           month.fishArray.map((fish) => (
             <HarvestCard

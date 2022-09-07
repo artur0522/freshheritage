@@ -15,7 +15,8 @@ export async function getHarvests({product, selectedVariant, returnHarvestHandle
           handles: [harvestHandle],
           type: 'harvest'
         })
-        if (harvestContent) {
+
+        if (harvestContent && harvestContent.length) {
           promises.push({
             ...harvestContent[0].fields,
             handle: harvestHandle,
@@ -40,8 +41,6 @@ export async function getHarvests({product, selectedVariant, returnHarvestHandle
   if (selectedVariant && harvestsInfo.some(harvest => harvest.variantTitle === selectedVariant.content.title)) {
     return harvestsInfo.filter(harvest => harvest.variantTitle === selectedVariant.content.title)
   }
-
-  console.log("harvestsInfo:", harvestsInfo)
 
   return harvestsInfo
 }

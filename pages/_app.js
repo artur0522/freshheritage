@@ -5,9 +5,10 @@ import Layout from '@/components/Layout'
 import '../styles/global.scss'
 import 'react-dropdown/style.css'
 import { useEffect, useState } from 'react'
-import { Router, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import Script from 'next/script'
 import TagManager from 'react-gtm-module'
+import { dataLayerRouteChange } from '@/utils/dataLayer'
 import { set } from 'es-cookie'
 
 // The `AppContainer` overrides Next's default `App` component.
@@ -26,38 +27,48 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
   const [mounted, setMounted] = useState(false)
 
   const pagesToDisplayChatWidget = [
+    '/collections/',
+    '/products/',
     '/pages/how-it-works',
     '/pages/choose-your-plan',
     '/pages/customize-your-plan',
     '/pages/intro-box',
-    '/collections/one-time-boxes',
-    '/collections/gifts',
-    '/checkout',
     '/pages/contact-us',
-    '/products/gift-subscription-box'
+    '/checkout',
   ]
 
-  useEffect(() => {
-    TagManager.initialize({ })
-  }, [])
+  const displayZendeskWidget = (newUrl = router.asPath) => {
+    if (document.getElementById('launcher')) {
+      if (pagesToDisplayChatWidget.some(pageUrl => newUrl.indexOf(pageUrl) > -1)) {
+        document.getElementById('launcher').style.display = 'block'
+      } else {
+        document.getElementById('launcher').style.display = 'none'
+      }
+    }
+  }
+
+  const onRountChangeComplete = (newUrl) => {
+    displayZendeskWidget(newUrl)
+    if (window && window.StampedFn) {
+      StampedFn.init()
+    }
+    if (TagManager) {
+      dataLayerRouteChange({ url: router.asPath })
+    }
+  }
 
   useEffect(() => {
     setMounted(true)
+    TagManager.initialize({
+      gtmId: process.env.NEXT_PUBLIC_GA_TRACKING_ID
+    })
+    onRountChangeComplete()
+    router.events.on('routeChangeComplete', onRountChangeComplete)
+  }, [])
 
-    const onRountChangeComplete = () => {
-      if (document.getElementById('launcher')) {
-        if (mounted && (pagesToDisplayChatWidget.includes(router.asPath)) || router.pathname === '/products/[handle]') {
-          document.getElementById('launcher').style.display = 'block'
-        } else {
-          document.getElementById('launcher').style.display = 'none'
-        }
-      }
-      if (window && window.StampedFn) {
-        StampedFn.init()
-      }
-    }
-    Router.events.on('routeChangeComplete', onRountChangeComplete)
-  }, [router.asPath, mounted])
+  useEffect(() => {
+    displayZendeskWidget()
+  }, [router.asPath])
 
   return (
     <CartProvider>
@@ -71,7 +82,7 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
           id="stamped-script-widget"
           src="https://cdn1.stamped.io/files/widget.min.js"
           onLoad={() => {
-            StampedFn.init({ apiKey: 'pubkey-rCuPl7qXFI5WD689Ee3LO4Mtu461N4', storeUrl: '252897' });
+            StampedFn.init({ apiKey: process.env.NEXT_PUBLIC_STAMPEDIO_KEY_PUBLIC, storeUrl: process.env.NEXT_PUBLIC_STAMPEDIO_STORE_HASH });
           }}
         />
       }
@@ -83,10 +94,15 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
         }`}
       </Script>}
 
-      {mounted && (pagesToDisplayChatWidget.includes(router.asPath) || router.pathname === '/products/[handle]') ? <Script
+      {mounted ? <Script
         id="ze-snippet"
         src={`https://static.zdassets.com/ekr/snippet.js?key=${process.env.NEXT_PUBLIC_ZENDESK_KEY}`}
         strategy="lazyOnload"
+        onLoad={() => {
+          setTimeout(() => {
+            displayZendeskWidget()
+          }, 5000)
+        }}
       ></Script> : null}
     </CartProvider>
   )
@@ -97,13 +113,9 @@ AppContainer.getInitialProps = async (appContext) => {
     handles: ['header-settings', 'footer-settings', 'search-recommended-links']
   })
 
-  // const headerSettings = contentEntry[0].fields
-  // const footerSettings = contentEntry[1].fields
-  // const searchLinks = contentEntry[2].fields
-
-  const searchLinks = contentEntry[0].fields
-  const headerSettings = {};
-  const footerSettings = {};
+  const headerSettings = contentEntry[0]?.fields
+  const footerSettings = contentEntry[1]?.fields
+  const searchLinks = contentEntry[2]?.fields
 
   const appProps = await App.getInitialProps(appContext)
 

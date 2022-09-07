@@ -46,7 +46,6 @@ export function PurchaseFlowProvider({ children }) {
 
   // step 2 - selecting membership and frequency variant option
   const selectMembershipPlan = async (variantSelected, membershipType) => {
-    console.log("variantSelected:", variantSelected)
     setOptions({
       ...options,
       step: 3,
@@ -71,7 +70,7 @@ export function PurchaseFlowProvider({ children }) {
         subscriptionGroup,
         frequencyName: frequency.value,
         membershipType,
-        duration: 12
+        duration: membershipType === 'prepaid' ? 12 : undefined
       })
     }
 
@@ -80,8 +79,9 @@ export function PurchaseFlowProvider({ children }) {
       properties: {
         ...subscriptionProperties,
         membership_type: membershipType,
-        shipments: '12'
+        shipments: membershipType === 'prepaid' ? '12' : ''
       },
+      product: options.product,
       open_flyout: false
     })
     .then(() => {

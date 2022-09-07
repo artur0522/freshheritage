@@ -5,6 +5,8 @@ import ResponsiveImage from '@/components/ResponsiveImage'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode } from "swiper"
+import { GET_RECENT_ARTICLES } from '@/gql/index.js'
+import moment from 'moment'
 
 import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
 
@@ -12,43 +14,80 @@ import 'swiper/css'
 import classes from './FeaturedBlogContent.module.scss'
 
 const FeaturedBlogContent = ({ fields }) => {
-  const { tabs, header, subheader, ctaUrl, ctaText, illustration, illustration2, illustrationAlt, illustration2Alt, method, blog, tag, articleType } = fields
+  const { tabs, header, subheader, ctaUrl, ctaText, illustration, illustration2, illustrationAlt, illustration2Alt, method, blog, tagList, articleType } = fields
   const [selectedSwiper, setSelectedSwiper] = useState(null)
   const [mounted, setMounted] = useState(false)
   const [validArticles, setValidArticles] = useState([])
 
-  const getArticles = async ({fieldTag, articleHandles}) => {
-    if (method === 'tagBased') {
-      const articles = await nacelleClient.content({
-        type: `${articleType}`,
+  const getArticles = async ({fieldTags = [], articleHandles, forceTagBased = false}) => {
+    if (method === 'tagBased' || forceTagBased || method === 'mostRecent') {
+
+      let { content } = await nacelleClient.query({
+        query: GET_RECENT_ARTICLES,
+        variables: {
+          "type": articleType,
+          "first": 50
+        }
       })
-      const filteredArr = articles.filter(article => article.fields.published)
+
+      let sortedArticles = [...content].sort((a, b) => b.createdAt - a.createdAt)
+
+      const articles = await nacelleClient.content({
+        handles: sortedArticles.map(article => article.handle)
+      })
+
+      sortedArticles = articles.sort((a, b) => {
+        let aDatePublished = a.fields.publishedDate ? moment(a.fields.publishedDate).valueOf() / 1000 : a.createdAt
+        let bDatePublished = b.fields.publishedDate ? moment(b.fields.publishedDate).valueOf() / 1000 : b.createdAt
+        return bDatePublished - aDatePublished
+      })
+
+      const filteredArr = sortedArticles.filter(article => article.fields.published)
         .filter((article) => {
-          return (
-            article.fields?.blog?.blogType === blog?.blogType &&
-            article.fields?.articleTags?.find((tag) => tag.value === fieldTag)
-          )
+          if (fieldTags.length && method !== 'mostRecent') {
+            return (
+              article.fields?.blog?.blogType === blog?.blogType &&
+              article.fields?.articleTags?.find((tag) => fieldTags.includes(tag.value))
+            )
+          }
+          return article.fields?.blog?.blogType === blog?.blogType
         })
         .slice(0, 4)
 
       return filteredArr
     } else {
+
+      if (!articleHandles) {
+        return []
+      }
+
       const articles = await nacelleClient.content({
         handles: articleHandles
       })
+
       return articles.filter(article => article.fields.published)
     }
   }
 
   useEffect(() => {
     setMounted(true)
-    if (method === 'tagBased') {
-      getArticles({fieldTag: tag})
+    if (method === 'tagBased' || method === 'mostRecent') {
+      getArticles({fieldTags: tagList})
         .then(articles => {
           setValidArticles(articles)
         })
     } else {
-      getArticles({articleHandles: tabs[0].tabList})
+
+      const options = {
+        articleHandles: tabs[0].tabList,
+        fieldTags: tabs[0].tagList
+      }
+
+      if (tabs[0].tagList?.length) {
+        options.forceTagBased = true
+      }
+
+      getArticles(options)
         .then(articles => {
           setSelectedSwiper({
             ...tabs[0],
@@ -63,15 +102,23 @@ const FeaturedBlogContent = ({ fields }) => {
       return tab.tabName === tabName
     })
 
-    if (foundTab.tabList.length > 0) {
-      getArticles({articleHandles: foundTab.tabList})
-        .then(articles => {
-          setSelectedSwiper({
-            ...foundTab,
-            tabList: articles
-          })
-        })
+    const options = {
+      articleHandles: foundTab.tabList,
+      fieldTags: foundTab.tagList
     }
+
+    if (foundTab.tagList?.length) {
+      options.forceTagBased = true
+    }
+
+    getArticles(options)
+      .then(articles => {
+        setSelectedSwiper({
+          ...foundTab,
+          tabList: articles
+        })
+      })
+
   }
 
   return (
@@ -125,7 +172,7 @@ const FeaturedBlogContent = ({ fields }) => {
           </Swiper>
         )}
 
-        {mounted && method === 'tagBased' && (
+        {mounted && (method === 'tagBased' || method === 'mostRecent') && (
           <Swiper
             slidesPerView={'auto'}
             spaceBetween={18}
@@ -151,7 +198,7 @@ const FeaturedBlogContent = ({ fields }) => {
           </Swiper>
         )}
 
-        {!!selectedSwiper && mounted && method === 'manual' && (
+        {!!selectedSwiper && mounted && method !== 'tagBased' && (
           <Swiper
             slidesPerView={'auto'}
             spaceBetween={18}

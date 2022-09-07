@@ -53,6 +53,7 @@ const MembershipOption = ({option, membershipType}) => {
     setSelectedVariant(variant)
   }
 
+  const dropdownOptions = frequencyOptions.map(option => ({label: `Delivered ${option}`, value: option }))
 
   return (
     <li className={classes['membership-option']}>
@@ -76,9 +77,9 @@ const MembershipOption = ({option, membershipType}) => {
           {product &&
             <Dropdown
               className={`dropdown-selector`}
-              options={frequencyOptions.map(option => option)}
+              options={dropdownOptions}
               onChange={(e) => onSelectVariant(e)}
-              value={frequencyOptions[0]}
+              value={dropdownOptions[0].value}
               arrowClosed={<IconSelectArrow className="dropdown-selector__arrow-closed" />}
               arrowOpen={<IconSelectArrow className="dropdown-selector__arrow-open" />}
             />

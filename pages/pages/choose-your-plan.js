@@ -8,10 +8,12 @@ import { getNacelleReferences } from '@/utils/getNacelleReferences'
 const PurchaseFlow = ({page, tierOptions}) => {
   const purchaseFlowContext = usePurchaseFlowContext()
 
+  console.log("page:", page)
+
   if (purchaseFlowContext.options.is_loaded) {
     return (
       <>
-        <PageSEO seo={page.fields.seo} />
+        <PageSEO seo={page.seo} />
         <ChooseYourBox tierOptions={tierOptions} props={page} />
       </>
     )

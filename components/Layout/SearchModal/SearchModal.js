@@ -44,17 +44,17 @@ const SearchModal = () => {
 
   const searchClient = algoliasearch(process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID, process.env.NEXT_PUBLIC_ALGOLIA_WRITE_API_KEY)
 
-  const routing = {
-    router: history({
-      getLocation() {
-        if (typeof window !== 'undefined') {
-          return window.location
-        }
-        return new URL(serverUrl)
-      },
-    }),
-    stateMapping: simple(),
-  }
+  // const routing = {
+  //   router: history({
+  //     getLocation() {
+  //       if (typeof window !== 'undefined') {
+  //         return window.location
+  //       }
+  //       return new URL(serverUrl)
+  //     },
+  //   }),
+  //   stateMapping: simple(),
+  // }
 
   const Hit = ({ hit }) => {
       return (
@@ -124,7 +124,6 @@ const SearchModal = () => {
                     <InstantSearch 
                         searchClient={searchClient}
                         indexName="brand_articles" 
-                        routing={routing}
                     >
                       <div className={classes['search-header']}>
                         <div className={classes['searchbox-wrap']}>

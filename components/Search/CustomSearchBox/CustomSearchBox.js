@@ -12,28 +12,6 @@ const CustomSearchBox = (props) => {
 
   const router = useRouter()
 
-  // useEffect(() => {
-  //   if(router.asPath === 'pages/search' || router.asPath.includes("?query")) {
-  //     router.replace({
-  //       pathname: '/pages/search',
-  //       query: { 
-  //         query: searchTerm,
-  //         index: router.query.index
-  //       }
-  //     },
-  //     undefined, { shallow: true }
-  //     )
-  //   }
-
-  //   if(router.query.index) {
-  //     setCurrentIndex(router.query.index)
-  //   }
-
-  //   if(router.query.query) {
-  //     setSearchTerm(router.query.query)
-  //   }
-  // })
-
   useEffect(() => {
     let query
 

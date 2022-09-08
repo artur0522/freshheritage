@@ -5,8 +5,6 @@ import {
     InstantSearch,
     useInstantSearch
   } from 'react-instantsearch-hooks-web'
-import { history } from 'instantsearch.js/es/lib/routers'
-import { simple } from 'instantsearch.js/es/lib/stateMappings'
 import algoliasearch from 'algoliasearch/lite'
 import Link from 'next/link'
 import { useSearchModalContext } from '@/context/SearchModalContext'
@@ -43,18 +41,6 @@ const SearchModal = () => {
   }
 
   const searchClient = algoliasearch(process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID, process.env.NEXT_PUBLIC_ALGOLIA_WRITE_API_KEY)
-
-  // const routing = {
-  //   router: history({
-  //     getLocation() {
-  //       if (typeof window !== 'undefined') {
-  //         return window.location
-  //       }
-  //       return new URL(serverUrl)
-  //     },
-  //   }),
-  //   stateMapping: simple(),
-  // }
 
   const Hit = ({ hit }) => {
       return (

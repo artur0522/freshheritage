@@ -124,7 +124,6 @@ const SearchModal = () => {
                     <InstantSearch 
                         searchClient={searchClient}
                         indexName="brand_articles" 
-                        routing={routing}
                     >
                       <div className={classes['search-header']}>
                         <div className={classes['searchbox-wrap']}>

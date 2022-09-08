@@ -350,10 +350,10 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
     // IF OPTION WITHOUT A SUBFILTER IS CLICKED
     if(!hasSubfilter && newUrl) {
-      if(newUrl.includes(option) && newUrl.includes('&')) {
+      const splitUrlLength = newUrl.split('&').length
+      if(newUrl.includes(option) && splitUrlLength > 2) {
         refinedUrl = newUrl.replace(`&${filterGroup}=${option}`, '')
-
-      } else if(newUrl.includes(option)) {
+      } else if(newUrl.includes(option) && splitUrlLength === 2) {
         refinedUrl = newUrl.replace(`${filterGroup}=${option}`, '')
       } else {
         refinedUrl = `${newUrl}&${filterGroup}=${option}`
@@ -372,9 +372,11 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
     // ALL FILTER : IF OPTION WITH A SUBFILTER IS CLICKED
     if(hasSubfilter && !subFilter && newUrl) {
-      if(newUrl.includes(option) && newUrl.includes('&')) {
+      const splitUrlLength = newUrl.split('&').length
+
+      if(newUrl.includes(option) && splitUrlLength > 2) {
         refinedUrl = newUrl.replace(`&${filterGroup}=${option}`, '')
-      } else if(newUrl.includes(option)) {
+      } else if(newUrl.includes(option) && splitUrlLength === 2) {
         refinedUrl = newUrl.replace(`${filterGroup}=${option}`, '')
       } else {
         refinedUrl = `${newUrl}&${filterGroup}=${option}`
@@ -393,9 +395,11 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
     // SUBFILTER CLICKED
     if(hasSubfilter && subFilter && newUrl) {
-      if(newUrl.includes(subFilter) && newUrl.includes('&')) {
+      const splitUrlLength = newUrl.split('&').length
+
+      if(newUrl.includes(subFilter) && splitUrlLength > 2) {
         refinedUrl = newUrl.replace(`&${filterGroup}=${option}=${subFilter}`, '')
-      } else if(newUrl.includes(subFilter)) {
+      } else if(newUrl.includes(option) && splitUrlLength === 2) {
         refinedUrl = newUrl.replace(`${filterGroup}=${option}=${subFilter}`, '')
       } else {
         refinedUrl = `${newUrl}&${filterGroup}=${option}=${subFilter}`

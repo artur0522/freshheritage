@@ -7,20 +7,18 @@ import CheckIcon from '@mui/icons-material/Check';
 export default function ReferralActivity({customer}) {
   const numberOfActiveReferrees = 1;
 
-
-
   const load = async () => {
     const idArr = customer.id.split('/')
     const id = idArr[idArr.length - 1]
 
     // TODO - Swap this out with the actual id
-    const test = await fetch(`/api/account/get-referrals?cId=${'3141920227412'}`, {
+    const test = await fetch(`/api/account/get-referrals?cID=${id}`, {
       method: 'GET',
-    })
+    }).then((res) => res.json())
 
-    // getReferrals(5140795326548);
-    console.log('--------------------------------------------')
-    console.log(test);
+    if (test.message === 'success') {
+      console.log('referrals', test)
+    }
   }
 
   load();

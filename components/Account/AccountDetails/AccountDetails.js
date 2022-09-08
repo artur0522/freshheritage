@@ -17,7 +17,7 @@ export default function AccountDetailsPage({subscriptions, membershipData, custo
       <h5>My Info</h5>
       <div className={classes['customer-email-info']}>
         <div>
-          <div>{customer.email}</div>
+          <div className={classes['email']}>{customer.email}</div>
           <div>*********</div>
         </div>
         <div className={classes['reset']}>

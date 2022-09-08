@@ -114,11 +114,11 @@ const ArticleSidebar = ({fields = {}, datePublished, blogGlobalSettings}) => {
                 const { header, peakSeason, nutritionalInfo, image } = item
                 return <li key={index} className={classes['know-your-fish__item']} onClick={() => openDrawer({ fields: item })}>
                   <div className={classes['article-related-item__image']}>
-                    <Image
+                    {image?.asset && <Image
                       src={image.asset.url}
                       layout="fill"
                       alt={image.alt || ''}
-                    />
+                    />}
                   </div>
                   {header && <h2 className={classes['know-your-fish__title']}>{header}</h2>}
                   {peakSeason && <div className={classes['know-your-fish__detail-item']}>
@@ -161,11 +161,11 @@ const ArticleSidebar = ({fields = {}, datePublished, blogGlobalSettings}) => {
                   <Link href={url}>
                     <a>
                       <div className={classes['article-related-item__image']}>
-                        <Image
+                        {image?.asset && <Image
                           src={image.asset.url}
                           layout="fill"
                           alt={image.alt || ''}
-                        />
+                        />}
                       </div>
                     </a>
                   </Link>

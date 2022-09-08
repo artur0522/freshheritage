@@ -9,7 +9,7 @@ const PurchaseFlow = ({page}) => {
   if (purchaseFlowContext.options.is_loaded) {
     return (
       <>
-        <PageSEO seo={page.seo} />
+        <PageSEO seo={page.fields.seo} />
         <CustomizeYourPlan props={page} />
       </>
     )

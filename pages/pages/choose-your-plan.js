@@ -11,7 +11,7 @@ const PurchaseFlow = ({page, tierOptions}) => {
   if (purchaseFlowContext.options.is_loaded) {
     return (
       <>
-        <PageSEO seo={page.seo} />
+        <PageSEO seo={page.fields.seo} />
         <ChooseYourBox tierOptions={tierOptions} props={page} />
       </>
     )

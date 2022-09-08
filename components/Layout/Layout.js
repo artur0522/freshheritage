@@ -27,23 +27,23 @@ function Layout({ children, headerSettings, footerSettings, searchLinks }) {
         <HeadlessCheckoutProvider pageHandle={children.props.handle}>
           <PurchaseFlowProvider>
             <PDPDrawerProvider>
-            <SearchProvider searchLinks={searchLinks}>
               <KnowYourFishDrawerProvider>
                 <EditScheduleDrawerProvider>
                   <ArticleFiltersDrawerProvider>
                     <ArticleProvider>
                       <TheCatchProvider>
+                        <SearchProvider searchLinks={searchLinks}>
                           <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
                             <StructuredData type="breadcrumb" />
                             <main className={`main--${children.props.handle}`}>{children}</main>
                             <Footer content={footerSettings} />
                           </HeaderProvider>
+                        </SearchProvider>
                       </TheCatchProvider>
                     </ArticleProvider>
                   </ArticleFiltersDrawerProvider>
                 </EditScheduleDrawerProvider>
               </KnowYourFishDrawerProvider>
-              </SearchProvider>
             </PDPDrawerProvider>
           </PurchaseFlowProvider>
         </HeadlessCheckoutProvider>

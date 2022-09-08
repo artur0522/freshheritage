@@ -23,7 +23,7 @@ const HalfVideoBlock = ({fields}) => {
                     </Link>}
                 </div>
                 <div className={classes['article']}>
-                    {recipeArticle.hero.desktopBackgroundImage.asset.url && <div className={classes['article__image']}>
+                    {recipeArticle.hero.desktopBackgroundImage?.asset?.url && <div className={classes['article__image']}>
                         <Image
                             src={recipeArticle.hero.desktopBackgroundImage.asset.url}
                             layout="fill"

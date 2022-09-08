@@ -1,11 +1,11 @@
 import { useSearchBox } from 'react-instantsearch-hooks-web'
-import classes from "./CustomSearchBox.module.scss"
+import classes from "./PageSearchBox.module.scss"
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Stats from '../Stats'
 import IconSearch from '@/svgs/search.svg'
 
-const CustomSearchBox = (props) => {
+const PageSearchBox = (props) => {
   const { query, refine } = useSearchBox(props)
   const [searchTerm, setSearchTerm] = useState("")
   const {currentIndex, setCurrentIndex} = props
@@ -104,4 +104,4 @@ const CustomSearchBox = (props) => {
   )
 }
 
-export default CustomSearchBox
+export default PageSearchBox

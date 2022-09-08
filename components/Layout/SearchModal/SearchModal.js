@@ -121,7 +121,8 @@ const SearchModal = () => {
                   </button>
                 </div>
                 <div className={classes['content']}>
-                    <InstantSearch 
+                  hey
+                    {/* <InstantSearch 
                         searchClient={searchClient}
                         indexName="brand_articles" 
                     >
@@ -137,7 +138,7 @@ const SearchModal = () => {
                       <div className={classes['search-results']}>
                         <QueryState />
                       </div>
-                    </InstantSearch>
+                    </InstantSearch> */}
                 </div>
             </div>
         </CSSTransition>

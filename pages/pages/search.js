@@ -3,12 +3,10 @@ import {
   Index,
   InstantSearch,
 } from 'react-instantsearch-hooks-web'
-import { history } from 'instantsearch.js/es/lib/routers'
 import algoliasearch from 'algoliasearch/lite'
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import { useMediaQuery } from 'react-responsive'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import AllResultsHits from '@/components/Search/AllResultsHits'
 import ArticleHits from '@/components/Search/ArticleHits'
@@ -44,13 +42,27 @@ const Search = () => {
   
   useEffect(() => {
     setMounted(true)
-  }, [mounted, router.pathname])
+
+    if(router.query.index) {
+      setCurrentIndex(router.query.index)
+
+      router.replace({
+        pathname: '/pages/search',
+        query: { 
+          query: router.query.query,
+          index: currentIndex
+        }
+      },
+      undefined, { shallow: true }
+      )
+    }
+  }, [mounted])
 
   return (
     <div className={`${classes['search']} container`}>
       <InstantSearch 
         searchClient={searchClient}
-        indexName="brand_articles" 
+        indexName="brand_articles"
       >
 
         <div className={classes['header']}>
@@ -74,7 +86,7 @@ const Search = () => {
                       <Index className={classes['index']} indexName="prod_shopify_products"></Index> */}
                       
                       {mounted && isDesktop && <IndexButton indexId='all_results' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
-                      {mounted && isDesktop && <IndexButton indexId='prod_shopify_products' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
+                      {mounted && isDesktop && <IndexButton indexId='products' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
                       {mounted && isDesktop && <IndexButton indexId='culinary_articles' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
                       {mounted && isDesktop && <IndexButton indexId='brand_articles' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
                                           
@@ -98,7 +110,7 @@ const Search = () => {
                       <Index className={classes['index']} indexName="prod_shopify_products"></Index> */}
 
                       {mounted && isDesktop && <IndexButton indexId='all_results' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
-                      {mounted && isDesktop && <IndexButton indexId='prod_shopify_products' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
+                      {mounted && isDesktop && <IndexButton indexId='products' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
                       {mounted && isDesktop && <IndexButton indexId='culinary_articles' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
                       {mounted && isDesktop && <IndexButton indexId='brand_articles' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
 
@@ -112,7 +124,7 @@ const Search = () => {
                 </Index>
             </div>}
             
-            {currentIndex === "prod_shopify_products" && <div className={classes['hits-group']}>
+            {currentIndex === "products" && <div className={classes['hits-group']}>
               <Index className={classes['index']} indexName="prod_shopify_products">
                 <div className={classes['filters-wrap']}>
                   <div className={classes['refinement-wrap']}>
@@ -121,7 +133,7 @@ const Search = () => {
                     <Index className={classes['index']} indexName="prod_shopify_products"></Index> */}
                     
                     {mounted && isDesktop && <IndexButton indexId='all_results' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
-                    {mounted && isDesktop && <IndexButton indexId='prod_shopify_products' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
+                    {mounted && isDesktop && <IndexButton indexId='products' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
                     {mounted && isDesktop && <IndexButton indexId='culinary_articles' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
                     {mounted && isDesktop && <IndexButton indexId='brand_articles' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
 

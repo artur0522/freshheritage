@@ -14,6 +14,8 @@ export default function DynamicPage({ page }) {
     {query: '(min-width: 1074px)'}
   )
 
+  console.log("page:", page)
+
   useEffect(() => {
     setMounted(true)
   }, [])
@@ -23,7 +25,7 @@ export default function DynamicPage({ page }) {
     return (
       <>
         <div className={`${classes['info-page']} info-page container`}>
-          <PageSEO seo={page.seo} />
+          <PageSEO seo={page.fields.seo} />
           <div className={classes['info-page__left']}>
             <h1 className={classes['info-page__header']}>{header}</h1>
             {leftContent &&
@@ -63,7 +65,7 @@ export default function DynamicPage({ page }) {
 
   return (
     <>
-      <PageSEO seo={page.seo} />
+      <PageSEO seo={page.fields.seo} />
       <ContentSections sections={page.fields.content} />
     </>
   )

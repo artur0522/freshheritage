@@ -211,6 +211,9 @@ const MemoizedPaymentMethod = memo(
         }
         console.log('membership: ' + membership);
 
+        // to use as a reference to remove discount codes if not a member
+        const memberDiscountLists = ['10% King Sustainer Discount', '10% Sustainer Discount', '5% Sustainer Discount', '5% Member Discount']
+
         //AUTO DISCOUNTS FOR OTP
         var discounts = [];
         if (hasFb && membership === 'Employee') {
@@ -249,6 +252,9 @@ const MemoizedPaymentMethod = memo(
         // }
 
         console.log('discounts:', discounts);
+
+        // applying membership discounts
+
         if (discounts.length) {
           if (appliedDiscounts?.discountCode !== '' && appliedDiscounts?.discountCode !== discounts[0]) {
             try {
@@ -265,18 +271,15 @@ const MemoizedPaymentMethod = memo(
               //console.log(e)
             }
           }
-
-        } else {
+        // removes discount membership code if not a member
+        } else if (membership === 'guest' && appliedDiscounts?.discountCode !== '' && memberDiscountLists.includes(appliedDiscounts.discountCode)) {
           try {
-            console.log("removing discount")
-            if (appliedDiscounts?.discountCode) {
-              const results = await removeDiscount(appliedDiscounts.discountCode);
-              //console.log(results)
-            }
+            const removeResults = await removeDiscount(appliedDiscounts.discountCode);
           } catch (e) {
             //console.log(e)
           }
         }
+
       };
 
       applyMembershipDiscount();

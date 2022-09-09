@@ -33,7 +33,6 @@ const ShippingLines = ({ applicationLoading }) => {
     loadingStatus.shippingLines === 'fetching' ||
     applicationLoading ||
     !shipOptionMetadata;
-
   return (
     <MemoizedShippingLines
       shippingLines={data.shippingLines}
@@ -94,17 +93,18 @@ const MemoizedShippingLines = memo(
     }, [lineItems]);
 
     useEffect(() => {
+      setSelectedShippingLine(shippingLines[selectedShippingLineIndex]);
       const displayedShippingLines = [];
-      displayedShippingLines.push(shippingLines.find(line => line.description === 'Free Standard Shipping'));
+      displayedShippingLines.push(shippingLines.find(line => line.description.indexOf('Free Standard Shipping') > -1));
       const productIds = lineItems.map(li => li.product_data.product_id);
-      const expeditedProductIds = Array.from(JSON.parse(process.env.AUTOMATICALLY_EXPEDITED_PRODUCTS));
+      const expeditedProductIds = Array.from(JSON.parse(process.env.NEXT_PUBLIC_AUTOMATICALLY_EXPEDITED_PRODUCTS));
       if (productIds.some(id => expeditedProductIds.indexOf(id) > -1)) {
-        displayedShippingLines.push(shippingLines.find(line => line.description === 'Expedited Shipping'));
+        displayedShippingLines.push(shippingLines.find(line => line.description.indexOf('Expedited Shipping') > -1));
       }
       setDisplayedShippingLines(displayedShippingLines);
     }, [shippingLines]);
 
-    // Keep local state for selected shipping line in sync with server app state
+    // // Keep local state for selected shipping line in sync with server app state
     useEffect(() => {
       setSelectedShippingLine(shippingLines[selectedShippingLineIndex]);
       // eslint-disable-next-line react-hooks/exhaustive-deps

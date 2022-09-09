@@ -23,6 +23,15 @@ jest.mock('@/components/HeadlessCheckout/CheckoutFlyout/index.js', () => {
   };
 });
 
+jest.mock('@/context/CustomerContext', () => {
+  return {
+    __esModule: true,
+    useCustomerContext: () => {
+      return {}
+    }
+  }
+})
+
 jest.mock('../LoadingState', () => {
   return {
     __esModule: true,
@@ -127,7 +136,7 @@ describe('<ShippingLines />', () => {
       data: lineItems
     });
 
-    process.env.AUTOMATICALLY_EXPEDITED_PRODUCTS = `["${expeditedProductId}"]`;
+    process.env.NEXT_PUBLIC_AUTOMATICALLY_EXPEDITED_PRODUCTS = `["${expeditedProductId}"]`;
   });
 
   it('should show loading state when app loading', () => {
@@ -373,7 +382,7 @@ describe('<ShippingLines />', () => {
       await userEvent.click(wrapper.getByText('onShipWeekChange'));
       expect(wrapper.getByText('Selected Standard Ship Week: 35')).toBeVisible();
     });
-    
+
     it('should update the ship week preference on the order', async () => {
       const wrapper = render(
         <HeadlessCheckoutContext.Provider value={{

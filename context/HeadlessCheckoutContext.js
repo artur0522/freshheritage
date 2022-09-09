@@ -317,10 +317,10 @@ export function HeadlessCheckoutProvider({ children }) {
       }
     }
 
-    console.log(`${process.env.NEXT_PUBLIC_CHECKOUT_URL}/api/checkout/initialize-otp`);
+    console.log('log:', `${process.env.checkoutUrl}/api/checkout/initialize-otp`);
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_CHECKOUT_URL}/api/checkout/initialize-otp`,
+      `${process.env.checkoutUrl}/api/checkout/initialize-otp`,
       {
         method: 'POST',
         body: JSON.stringify(payload),
@@ -775,7 +775,7 @@ export function HeadlessCheckoutProvider({ children }) {
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_CHECKOUT_URL}/api/checkout/ship-options`,
+      `${process.env.checkoutUrl}/api/checkout/ship-options`,
       {
         headers: {
           'Content-Type': 'application/json',

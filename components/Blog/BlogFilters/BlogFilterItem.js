@@ -11,16 +11,14 @@ import { filter } from 'lodash-es'
 
 const BlogFilterItem = (props) => {
   const articleFiltersDrawerContext = useArticleFiltersDrawerContext()
-  const { filters, optionHandler, subOptionHandler, tagCount} = articleFiltersDrawerContext
+  const { filters, optionHandler, subOptionHandler, tagCount, selectedFilterList} = articleFiltersDrawerContext
   const { filterGroup } = props
   const [dropdown, setDropdown] = useState(false)
   const [filtersArray, setFiltersArray] = useState([])
-  const [mounted, setMounted] = useState([])
 
   useEffect(() => {
-    setMounted(true)
     setFiltersArray(Object.keys(filters[filterGroup].options))
-  }, [mounted, filters])
+  }, [filters])
 
   function buildCheckboxInput({ onChange, label, checked }) {
     return <div className={`${classes['filter-option__checkbox-wrapper']} body`}>
@@ -70,7 +68,7 @@ const BlogFilterItem = (props) => {
                                         <li key={subFilter}>
                                             {buildCheckboxInput({
                                                 label: subFilter,
-                                                checked: filters[filterGroup].options[filterOption].subFilters[subFilter].checked,
+                                                checked: selectedFilterList.includes(subFilter) ? filters[filterGroup].options[filterOption].subFilters[subFilter].checked = true :  filters[filterGroup].options[filterOption].subFilters[subFilter].checked = false,
                                                 onChange: () => subOptionHandler(true, filterGroup, filterOption, subFilter)
                                             })}
                                         </li>

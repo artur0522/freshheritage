@@ -18,7 +18,8 @@ const moduleExports = {
     return config
   },
   env: {
-    checkoutUrl: process.env.NEXT_PUBLIC_CHECKOUT_URL || 'https://sitka-staging.vercel.app',
+    // process.env.NEXT_PUBLIC_CHECKOUT_URL needed for local testing with ngrok
+    checkoutUrl: process.env.NEXT_PUBLIC_CHECKOUT_URL || '',
   },
   async redirects() {
 

@@ -41,7 +41,7 @@ const AllResultsHits = (props) => {
             <div className={classes['filters-wrap']}>
                 <div className={classes['refinement-wrap']}>
                     {mounted && isDesktop && <IndexButton indexId='all_results' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
-                    {mounted && isDesktop && <IndexButton indexId='prod_shopify_products' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
+                    {mounted && isDesktop && <IndexButton indexId='products' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
                     {mounted && isDesktop && <IndexButton indexId='culinary_articles' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
                     {mounted && isDesktop && <IndexButton indexId='brand_articles' hide={false} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex} />}
 

@@ -28,7 +28,7 @@ const ArticleSD = ({data}) => {
   }
 
   if (data.fields?.hero?.desktopBackgroundImage) {
-    images.push(data.fields.hero.desktopBackgroundImage.asset.url)
+    images.push(data.fields.hero.desktopBackgroundImage?.asset?.url)
   }
 
   if (content) {

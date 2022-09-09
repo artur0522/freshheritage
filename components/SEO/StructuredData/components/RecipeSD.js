@@ -7,11 +7,11 @@ const RecipeSD = ({ data }) => {
     return ''
   }
 
-  const {activeTime, cookTime, totalTime} = data.fields.hero
-  const { metaTitle = '', metaDesc = '', shareGraphic = undefined } = data.fields.seo
+  const {activeTime, cookTime, totalTime} = {...data.fields.hero}
+  const { metaTitle = '', metaDesc = '', shareGraphic = undefined } = {...data.fields.seo}
   const content = data.fields.content
-  const { author = '' } = data.fields.sidebar
-  const { calories = '', keywords = '', category = '', cuisine = '' } = data.fields.structuredData
+  const { author = '' } = {...data.fields.sidebar}
+  const { calories = '', keywords = '', category = '', cuisine = '' } = {...data.fields.structuredData}
   const images = []
 
   if (shareGraphic) {

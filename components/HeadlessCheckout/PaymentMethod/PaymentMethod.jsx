@@ -158,6 +158,30 @@ const MemoizedPaymentMethod = memo(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+      const applyAttributions = async () => {
+        let attributions = {}
+        attributions.utm_source = sessionStorage.getItem("utm_source")
+        attributions.utm_medium = sessionStorage.getItem("utm_medium")
+        attributions.utm_campaign = sessionStorage.getItem("utm_campaign")
+        attributions.utm_content = sessionStorage.getItem("utm_content")
+
+        try {
+          const results = await appendOrderMetadata({
+            note_attributes: {
+              'marketingAttributions': attributions
+            }
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      };
+      if (sessionStorage.getItem("utm_source") || sessionStorage.getItem("utm_medium") || sessionStorage.getItem("utm_campaign") || sessionStorage.getItem("utm_content")){
+        applyAttributions();
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     const { data: appliedDiscounts, errors, loadingStatus, applyDiscount, removeDiscount } = useDiscount();
     useEffect(() => {
       const applyMembershipDiscount = async () => {
@@ -230,18 +254,13 @@ const MemoizedPaymentMethod = memo(
         })
 
         // AUTO DISCOUNT FOR REFERREES
-        // if (cart.attributes.hasOwnProperty("member_referral") && membership === "") {
-        //   if (hasSub){
-        //     var dollarDiscount = 2500;
-        //     var subtotal = cart.subtotal;
-        //     var discount = (dollarDiscount / subtotal) * 100;
-        //     discountCartByPercent(discount, "$25 Refer a Friend");
-        //     discountmessage = "We see you've been referred by a Sitka Salmon Shares member. Your referral discount is automatically applied to your order! No discount code necessary.";
-        //   } else if (hasFb){
-        //     discountCartByPercent(10, "10% Refer a Friend");
-        //     discountmessage = "We see you've been referred by a Sitka Salmon Shares member. Your referral discount is automatically applied to your order! No discount code necessary.";
-        //   }
-        // }
+        if (sessionStorage.getItem("utm_source") === "member_referral" && membership === "") {
+          if (hasSub){
+            discounts.push('$25 Refer a Friend');
+          } else if (hasFb){
+            discounts.push('10% Refer a Friend');
+          }
+        }
 
         console.log('discounts:', discounts);
 

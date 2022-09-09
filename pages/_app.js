@@ -7,7 +7,7 @@ import 'react-dropdown/style.css'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
-// import TagManager from 'react-gtm-module'
+import TagManager from 'react-gtm-module'
 import { dataLayerRouteChange } from '@/utils/dataLayer'
 import { set } from 'es-cookie'
 
@@ -26,6 +26,32 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
 
+  useEffect(() => {
+    if (router.isReady) {
+      console.log('query params:',router.query);
+      if (typeof router.query.utm_source !== 'undefined') {
+        sessionStorage.setItem("utm_source", router.query.utm_source)
+        console.log('utm_source detected: ' + sessionStorage.getItem("utm_source"))
+      }
+      if (typeof router.query.utm_medium !== 'undefined') {
+        sessionStorage.setItem("utm_medium", router.query.utm_medium)
+        console.log('utm_medium detected: ' + sessionStorage.getItem("utm_medium"))
+      }
+      if (typeof router.query.utm_campaign !== 'undefined') {
+        sessionStorage.setItem("utm_campaign", router.query.utm_campaign)
+        console.log('utm_campaign detected: ' + sessionStorage.getItem("utm_campaign"))
+      }
+      if (typeof router.query.utm_content !== 'undefined') {
+        sessionStorage.setItem("utm_content", router.query.utm_content)
+        console.log('utm_content detected: ' + sessionStorage.getItem("utm_content"))
+      }
+      // TODO: referrer domain / url, and landing page
+      // console.log('referer ', window.document.referrer)
+      // console.log('referer ' + window.document.referrer.split('/')[2])
+    }
+  }, [router.isReady]);
+
+  
   const pagesToDisplayChatWidget = [
     '/collections/',
     '/products/',
@@ -52,9 +78,9 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
     if (window && window.StampedFn) {
       StampedFn.init()
     }
-    // if (TagManager) {
-    //   dataLayerRouteChange({ url: router.asPath })
-    // }
+    if (TagManager) {
+      dataLayerRouteChange({ url: router.asPath })
+    }
   }
 
   // useEffect(() => {

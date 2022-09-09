@@ -37,6 +37,8 @@ const LoginAccountForm = ({ redirect, isCheckout, onForgotPasswordClick }) => {
       dispatch({ type: 'success' })
       if (redirect) {
         router.push(redirect)
+      } else {
+        router.push('/account')
       }
     }
   }

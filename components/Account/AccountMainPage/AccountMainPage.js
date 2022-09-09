@@ -70,6 +70,11 @@ const AccountMainPage = () => {
               tabs={Object.values(tabs)}
               selected={tabs[selectedTab]}
               onSelected={onTabSelected}
+              onSignOut={() => {
+                customerContext.logout().then(
+                  router.push('/')
+                );
+              }}
             ></Tabs>
           </div>
           {/* Cards */}
@@ -80,7 +85,7 @@ const AccountMainPage = () => {
           <div>{renderBody(tab)}</div>
         </div>
       ) : (
-        <div>LOADING</div>
+        <h4 className={classes['loading']}>Loading your informaion</h4>
       )}
     </div>
   )

@@ -54,35 +54,50 @@ const renderMonths = (subscription, harvest, membership) => {
     m.month.includes(subscription.fulfill_month),
   )
 
+  const futureDeliveries = subscription.group_schedule
+  .filter((g) => g.scheduled_status !== 'skipped')
+  .map(g => {
+    // Get the harvest details for the month
+    const month = harvest.fields.months.find((m) =>
+      m.month.includes(g.month),
+    )
+
+    if (!month) {
+      console.error('No harvest data for ' + g.month);
+    }
+
+    return {
+      group: g,
+      month
+    }
+  })
+  .filter(mg => !!mg.month)
+  .map((mg) => {
+
+    return (
+      <FutureMonthHarvest
+        key={`future-harvest-${mg.month.month}`}
+        subscriptionGroupSchedule={mg.group}
+        month={month}
+      />
+    )
+  });
+
+  const renderEmptyMessage = !currentMonth && futureDeliveries.length === 0;
+
   return (
-    <div>
+    <div className={classes['sub-detail']}>
       <UpcomingDeliveriesBar subscription={subscription} />
-      {currentMonth && (
+
+      {renderEmptyMessage && (<h4 className={classes['no-upcoming']}>No upcoming deliveries</h4>)}
+      {!renderEmptyMessage && currentMonth && (
         <CurrentMonthHarvestDetail
           subscription={subscription}
           month={currentMonth}
           membership={membership}
         />
       )}
-      {subscription.group_schedule
-        .filter((g) => g.scheduled_status !== 'skipped')
-        .map((g) => {
-          // Get the harvest details for the month
-          const month = harvest.fields.months.find((m) =>
-            m.month.includes(g.month),
-          )
-          return month ? (
-            <FutureMonthHarvest
-              key={`future-harvest-${month.month}`}
-              subscriptionGroupSchedule={g}
-              month={month}
-            />
-          ) : (
-            <div key={`no-harvest-data-${g.month}`}>
-              No harvest data for {g.month}
-            </div>
-          )
-        })}
+      {!renderEmptyMessage && futureDeliveries}
     </div>
   )
 }

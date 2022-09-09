@@ -17,6 +17,7 @@ const EditScheduleDrawer = ({ subscription }) => {
     subscription.fulfill_group,
   )
   const [saving, setSaving] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const timeout = 200
 
   const closeDrawer = () => {
@@ -40,6 +41,10 @@ const EditScheduleDrawer = ({ subscription }) => {
     setCurrentActiveFulfillment(subscription.fulfill_group)
     setSavedFulfillment(subscription.fulfill_group)
   }, [subscription])
+
+  const disableSkipButton = () => {
+    return saving || MemberAccountContext.reloadingData;
+  }
 
   const disableSaveButton = () => {
     return savedFulfillment === currentActiveFulfillment || saving || MemberAccountContext.reloadingData;
@@ -85,9 +90,13 @@ const EditScheduleDrawer = ({ subscription }) => {
           </div>
 
           <div className={classes['skip-and-schedule-box']}>
+            {errorMessage ? <div className={classes['error']}>{errorMessage}</div> : null}
             <div className={classes['text']}>Skip</div>
             <button
+              disabled={disableSkipButton()}
               onClick={() => {
+                setErrorMessage('');
+                setSaving(true);
                 fetch(`/api/account/skip-order`, {
                   method: 'POST',
                   body: JSON.stringify({
@@ -99,9 +108,15 @@ const EditScheduleDrawer = ({ subscription }) => {
                 })
                   .then((_res) => {
                     console.log('skipped ok')
+                    setSaving(false);
+                    MemberAccountContext.fetchCustomerData();
+                    closeDrawer();
                   })
                   .catch(() => {
                     console.log('skipped failed')
+                    setSaving(false);
+                    setErrorMessage('There was a problem submitting your request.');
+                    MemberAccountContext.fetchCustomerData();
                   })
               }}
               className={`btn salmon ${classes['action-button']}`}
@@ -128,6 +143,7 @@ const EditScheduleDrawer = ({ subscription }) => {
               className={`btn salmon ${classes['action-button']}`}
               onClick={() => {
                 setSaving(true);
+                setErrorMessage('');
                 fetch(`/api/account/update-shipdate`, {
                   method: 'POST',
                   body: JSON.stringify({
@@ -145,6 +161,7 @@ const EditScheduleDrawer = ({ subscription }) => {
                   .catch(() => {
                     console.log('saved failed')
                     setSaving(false);
+                    setErrorMessage('There was a problem submitting your request.');
                     MemberAccountContext.fetchCustomerData();
                   })
               }}

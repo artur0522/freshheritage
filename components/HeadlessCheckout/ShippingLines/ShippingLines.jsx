@@ -31,8 +31,7 @@ const ShippingLines = ({ applicationLoading }) => {
   const loading =
     loadingStatus.shippingAddress === 'setting' ||
     loadingStatus.shippingLines === 'fetching' ||
-    applicationLoading ||
-    !shipOptionMetadata;
+    applicationLoading;
   return (
     <MemoizedShippingLines
       shippingLines={data.shippingLines}

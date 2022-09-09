@@ -137,7 +137,7 @@ describe('<ShippingLineList />', () => {
     ).toBe('Free Standard Shipping$20.00')
   });
 
-  it('should update shipping line index when one selected', async () => {
+  it('should update shipping line when one selected', async () => {
     let selectedOption = shippingLines[0];
     onChange.mockImplementation((value) => selectedOption = value);
     const wrapper = render(<ShippingLineList 

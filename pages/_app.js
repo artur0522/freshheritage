@@ -7,7 +7,7 @@ import 'react-dropdown/style.css'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
-import TagManager from 'react-gtm-module'
+// import TagManager from 'react-gtm-module'
 import { dataLayerRouteChange } from '@/utils/dataLayer'
 import { set } from 'es-cookie'
 
@@ -52,19 +52,20 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
     if (window && window.StampedFn) {
       StampedFn.init()
     }
-    if (TagManager) {
-      dataLayerRouteChange({ url: router.asPath })
-    }
+    // if (TagManager) {
+    //   dataLayerRouteChange({ url: router.asPath })
+    // }
   }
 
-  useEffect(() => {
-    setMounted(true)
-    TagManager.initialize({
-      gtmId: process.env.NEXT_PUBLIC_GA_TRACKING_ID
-    })
-    onRountChangeComplete()
-    router.events.on('routeChangeComplete', onRountChangeComplete)
-  }, [])
+  // useEffect(() => {
+  //   setMounted(true)
+  //   TagManager.initialize({
+  //     gtmId: process.env.NEXT_PUBLIC_GA_TRACKING_ID
+  //   })
+  //   onRountChangeComplete()
+  //   router.events.on('routeChangeComplete', onRountChangeComplete)
+  // }, [])
+
 
   useEffect(() => {
     displayZendeskWidget()
@@ -76,34 +77,56 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
         <Component {...pageProps} />
       </Layout>
 
+      <Script
+        strategy="afterInteractive"
+        src="https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_MEASUREMENT_ID}"
+      />
+      <Script 
+        strategy="afterInteractive"
+        id="google-analytics">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', '${process.env.NEXT_PUBLIC_MEASUREMENT_ID}');
+        `}
+      </Script>
+
       {mounted &&
         <Script
-          data-api-key={process.env.NEXT_PUBLIC_STAMPEDIO_KEY_PUBLIC}
+          strategy="afterInteractive"
           id="stamped-script-widget"
           src="https://cdn1.stamped.io/files/widget.min.js"
+          data-api-key={process.env.NEXT_PUBLIC_STAMPEDIO_KEY_PUBLIC}
           onLoad={() => {
             StampedFn.init({ apiKey: process.env.NEXT_PUBLIC_STAMPEDIO_KEY_PUBLIC, storeUrl: process.env.NEXT_PUBLIC_STAMPEDIO_STORE_HASH });
           }}
         />
       }
 
-      {mounted && <Script id="ze-settings" strategy="lazyOnload">
-        {`
-        window.zESettings = {
-          analytics: false
-        }`}
-      </Script>}
+      {mounted && 
+        <Script 
+          strategy="lazyOnload"
+          id="ze-settings" >
+            {`
+            window.zESettings = {
+              analytics: false
+            }`}
+        </Script>
+      }
 
-      {mounted ? <Script
-        id="ze-snippet"
-        src={`https://static.zdassets.com/ekr/snippet.js?key=${process.env.NEXT_PUBLIC_ZENDESK_KEY}`}
-        strategy="lazyOnload"
-        onLoad={() => {
-          setTimeout(() => {
-            displayZendeskWidget()
-          }, 5000)
-        }}
-      ></Script> : null}
+      {mounted ? 
+        <Script
+          strategy="lazyOnload"
+          id="ze-snippet"
+          src={`https://static.zdassets.com/ekr/snippet.js?key=${process.env.NEXT_PUBLIC_ZENDESK_KEY}`}
+          onLoad={() => {
+            setTimeout(() => {
+              displayZendeskWidget()
+            }, 5000)
+          }}
+        ></Script> : null}
     </CartProvider>
   )
 }

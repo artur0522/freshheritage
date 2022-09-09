@@ -19,8 +19,6 @@ import {
   useOrderMetadata,
   useDiscount
 } from '@boldcommerce/checkout-react-components';
-import ReactGA from 'react-ga';
-ReactGA.initialize(process.env.GA_PROPERTY);
 
 const PaymentMethod = ({ applicationLoading }) => {
   const { state } = useCheckoutStore();
@@ -141,26 +139,20 @@ const MemoizedPaymentMethod = memo(
 
     const { data: orderMetaData, appendOrderMetadata } = useOrderMetadata();
     useEffect(() => {
-      let GAClientID = '';
+      gtag('get', process.env.NEXT_PUBLIC_MEASUREMENT_ID, 'client_id', (client_id) => {
+          addGAClientID(client_id);
+        })
 
-      ReactGA.ga((tracker) => {
-        GAClientID = tracker.get('clientId');
-        console.log('clientid ' + GAClientID);
-        addGAClientID();
-      });
 
-      const addGAClientID = async () => {
+      const addGAClientID = async (client_id) => {
         try {
           const results = await appendOrderMetadata({
             note_attributes: {
-              'google-clientID': GAClientID,
-              terms_conditions: 'true',
-              hcheckout: 'true'
+              'google-clientID': client_id
             }
           });
-          //console.log(results)
         } catch (e) {
-          //console.log(e)
+          console.log(e)
         }
       };
       // eslint-disable-next-line react-hooks/exhaustive-deps

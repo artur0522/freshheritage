@@ -2,6 +2,8 @@ import TagManager from 'react-gtm-module'
 import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment'
 import { formatPrice } from './formatPrice';
+import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
+
 
 function buildProductData(products, type, url) {
   return products.map((product, index) => {
@@ -73,6 +75,8 @@ export const dataLayerATC = ({ item }) => {
       }
     }
   }})
+  const trackEvent = useAnalytics();
+  trackEvent('add_to_cart',item);
 }
 
 /*
@@ -89,6 +93,8 @@ export const dataLayerRFC = ({ item }) => {
       }
     }
   }})
+  const trackEvent = useAnalytics();
+  trackEvent('remove_from_cart',item);
 }
 
 export const dataLayerViewProductList = ({products, url}) => {
@@ -100,6 +106,9 @@ export const dataLayerViewProductList = ({products, url}) => {
       impressions: buildProductData([...products], 'collection', url)
     }
   }})
+  // console.log('view product lists',products);
+  const trackEvent = useAnalytics();
+  trackEvent('view_item_list',products,url);
 }
 
 export const dataLayerViewSearchResults = ({products}) => {
@@ -199,6 +208,9 @@ export const dataLayerLogin = ({ customer, url }) => {
     },
     event_time: moment().format('YYYY-MM-DD HH:mm:ss'), // Timestamp for the event
   }})
+  console.log('login',customer);
+  const trackEvent = useAnalytics();
+  trackEvent('login',customer);
 }
 
 export const dataLayerViewProduct = ({product}) => {
@@ -214,6 +226,9 @@ export const dataLayerViewProduct = ({product}) => {
       }
     }
   }})
+  // console.log('view product',product);
+  const trackEvent = useAnalytics();
+  trackEvent('view_product',product);
 }
 
 export const dataLayerRouteChange = ({ url }) => {

@@ -7,7 +7,7 @@ import 'react-dropdown/style.css'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
-// import TagManager from 'react-gtm-module'
+import TagManager from 'react-gtm-module'
 import { dataLayerRouteChange } from '@/utils/dataLayer'
 import { set } from 'es-cookie'
 
@@ -78,16 +78,16 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
     if (window && window.StampedFn) {
       StampedFn.init()
     }
-    // if (TagManager) {
-    //   dataLayerRouteChange({ url: router.asPath })
-    // }
+    if (TagManager) {
+      dataLayerRouteChange({ url: router.asPath })
+    }
   }
 
   useEffect(() => {
     setMounted(true)
-    // TagManager.initialize({
-    //   gtmId: process.env.NEXT_PUBLIC_GTM_ID
-    // })
+    TagManager.initialize({
+      gtmId: process.env.NEXT_PUBLIC_GTM_ID
+    })
     onRountChangeComplete()
     router.events.on('routeChangeComplete', onRountChangeComplete)
   }, [])

@@ -7,8 +7,8 @@ import { useMemberAccountContext } from '@/context/MemberAccountContext'
 import _ from 'lodash'
 
 const EditScheduleDrawer = ({ subscription }) => {
-  const { dispatch } = useEditScheduleDrawerContext();
-  const MemberAccountContext = useMemberAccountContext();
+  const { dispatch } = useEditScheduleDrawerContext()
+  const MemberAccountContext = useMemberAccountContext()
   // console.log(`memberaccountcontext`, MemberAccountContext);
   const nodeRef = useRef(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -16,8 +16,8 @@ const EditScheduleDrawer = ({ subscription }) => {
   const [savedFulfillment, setSavedFulfillment] = useState(
     subscription.fulfill_group,
   )
-  const [saving, setSaving] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [saving, setSaving] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   const timeout = 200
 
   const closeDrawer = () => {
@@ -43,11 +43,15 @@ const EditScheduleDrawer = ({ subscription }) => {
   }, [subscription])
 
   const disableSkipButton = () => {
-    return saving || MemberAccountContext.reloadingData;
+    return saving || MemberAccountContext.reloadingData
   }
 
   const disableSaveButton = () => {
-    return savedFulfillment === currentActiveFulfillment || saving || MemberAccountContext.reloadingData;
+    return (
+      savedFulfillment === currentActiveFulfillment ||
+      saving ||
+      MemberAccountContext.reloadingData
+    )
   }
 
   return (
@@ -90,13 +94,15 @@ const EditScheduleDrawer = ({ subscription }) => {
           </div>
 
           <div className={classes['skip-and-schedule-box']}>
-            {errorMessage ? <div className={classes['error']}>{errorMessage}</div> : null}
+            {errorMessage ? (
+              <div className={classes['error']}>{errorMessage}</div>
+            ) : null}
             <div className={classes['text']}>Skip</div>
             <button
               disabled={disableSkipButton()}
               onClick={() => {
-                setErrorMessage('');
-                setSaving(true);
+                setErrorMessage('')
+                setSaving(true)
                 fetch(`/api/account/skip-order`, {
                   method: 'POST',
                   body: JSON.stringify({
@@ -108,21 +114,62 @@ const EditScheduleDrawer = ({ subscription }) => {
                 })
                   .then((_res) => {
                     console.log('skipped ok')
-                    setSaving(false);
-                    MemberAccountContext.fetchCustomerData();
-                    closeDrawer();
+                    setSaving(false)
+                    MemberAccountContext.fetchCustomerData()
+                    closeDrawer()
                   })
                   .catch(() => {
                     console.log('skipped failed')
-                    setSaving(false);
-                    setErrorMessage('There was a problem submitting your request.');
-                    MemberAccountContext.fetchCustomerData();
+                    setSaving(false)
+                    setErrorMessage(
+                      'There was a problem submitting your request.',
+                    )
+                    MemberAccountContext.fetchCustomerData()
                   })
               }}
               className={`btn salmon ${classes['action-button']}`}
             >
               Skip This Box
             </button>
+            {subscription.group_schedule
+              .filter((g) => g.scheduled_status === 'skipped')
+              .map((g) => (
+                <div className={classes['skipped-item']} key={`skipped-item-${g.month}`}>
+                  <div className={classes['skipped-text']}>Order for {g.month} was skipped</div>
+                  <button
+                    disabled={disableSkipButton()}
+                    className={`btn salmon ${classes['recover-button']}`}
+                    onClick={() => {
+                      setErrorMessage('')
+                      setSaving(true)
+                      fetch(`/api/account/skip-order`, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                          skip_date: g.charge_date,
+                          subscription: subscription.subscription_id,
+                          action: 'recover',
+                        }),
+                      })
+                        .then((_res) => {
+                          console.log('recovered ok')
+                          setSaving(false)
+                          MemberAccountContext.fetchCustomerData()
+                          closeDrawer()
+                        })
+                        .catch(() => {
+                          console.log('recovered failed')
+                          setSaving(false)
+                          setErrorMessage(
+                            'There was a problem submitting your request.',
+                          )
+                          MemberAccountContext.fetchCustomerData()
+                        })
+                    }}
+                  >
+                    Recover
+                  </button>
+                </div>
+              ))}
             <div className={classes['divider']} />
             <div className={classes['text']}>
               Change Shipping Week for This Box
@@ -142,27 +189,30 @@ const EditScheduleDrawer = ({ subscription }) => {
               disabled={disableSaveButton()}
               className={`btn salmon ${classes['action-button']}`}
               onClick={() => {
-                setSaving(true);
-                setErrorMessage('');
+                setSaving(true)
+                setErrorMessage('')
                 fetch(`/api/account/update-shipdate`, {
                   method: 'POST',
                   body: JSON.stringify({
                     subscription_id: subscription.subscription_id,
-                    subscription_next_orderdate: subscription.fulfillment_options.find(
-                      (f) => f.group === currentActiveFulfillment,
-                    ).new_chargedate,
+                    subscription_next_orderdate:
+                      subscription.fulfillment_options.find(
+                        (f) => f.group === currentActiveFulfillment,
+                      ).new_chargedate,
                   }),
                 })
                   .then((_res) => {
                     console.log('saved ok')
-                    setSaving(false);
-                    MemberAccountContext.fetchCustomerData();
+                    setSaving(false)
+                    MemberAccountContext.fetchCustomerData()
                   })
                   .catch(() => {
                     console.log('saved failed')
-                    setSaving(false);
-                    setErrorMessage('There was a problem submitting your request.');
-                    MemberAccountContext.fetchCustomerData();
+                    setSaving(false)
+                    setErrorMessage(
+                      'There was a problem submitting your request.',
+                    )
+                    MemberAccountContext.fetchCustomerData()
                   })
               }}
             >
@@ -208,7 +258,7 @@ const renderFulfillmentOption = (
 
   return (
     <div
-    key={`${sub.subscription_id}-${ful.month}-${ful.group}`}
+      key={`${sub.subscription_id}-${ful.month}-${ful.group}`}
       className={mainItemClasses}
       onClick={() => {
         if (!isFulDisabled && ful.group !== currentActiveFulfillment) {

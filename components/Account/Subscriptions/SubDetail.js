@@ -78,7 +78,7 @@ const renderMonths = (subscription, harvest, membership) => {
       <FutureMonthHarvest
         key={`future-harvest-${mg.month.month}`}
         subscriptionGroupSchedule={mg.group}
-        month={month}
+        month={mg.month}
       />
     )
   });

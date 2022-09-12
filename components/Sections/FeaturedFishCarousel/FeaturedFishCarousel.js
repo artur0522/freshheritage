@@ -77,7 +77,7 @@ const FeaturedFishCarousel = ({fields}) => {
 
               const { header, peakSeason, image } = item
 
-              if (!image?.asset) {
+              if (!image?.asset?.url) {
                 return ''
               }
 

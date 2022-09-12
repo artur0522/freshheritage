@@ -63,9 +63,9 @@ const AllKnowYourFishblock = ({fields}) => {
 
             const { header, peakSeason, nutritionalInfo, image } = item
 
-            if (!image?.asset) {
-              return ''
-            }
+            if (!image?.asset?.url) {
+                return ''
+              }
 
             let cropImageUrl = image.asset.url
 

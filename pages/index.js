@@ -1,13 +1,11 @@
-import dynamic from 'next/dynamic'
 import { nacelleClient } from 'services'
+import ContentSections from '../components/Sections/ContentSections'
 import DynamicHero from "@/components/Sections/DynamicHero"
 import { useCustomerContext } from '@/context/CustomerContext'
 import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 export default function Home({ page }) {
-
-  // console.log("page:", page)
 
   const context = useCustomerContext()
 
@@ -51,6 +49,7 @@ export default function Home({ page }) {
     <>
       <PageSEO seo={page.fields.seo} />
       {!context.customerLoading && <DynamicHero fields={foundDynamicHero} />}
+      <ContentSections sections={page.fields.content} />
     </>
   )
 }

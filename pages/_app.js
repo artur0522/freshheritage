@@ -51,7 +51,7 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
     }
   }, [router.isReady]);
 
-  
+
   const pagesToDisplayChatWidget = [
     '/collections/',
     '/products/',
@@ -107,7 +107,7 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_MEASUREMENT_ID}`}
       />
-      <Script 
+      <Script
         strategy="afterInteractive"
         id="google-analytics">
         {`
@@ -131,28 +131,23 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
         />
       }
 
-      {mounted && 
-        <Script 
-          strategy="lazyOnload"
-          id="ze-settings" >
-            {`
-            window.zESettings = {
-              analytics: false
-            }`}
-        </Script>
-      }
+      {mounted && <Script id="ze-settings" strategy="afterInteractive">
+        {`
+        window.zESettings = {
+          analytics: false
+        }`}
+      </Script>}
 
-      {mounted ? 
-        <Script
-          strategy="lazyOnload"
-          id="ze-snippet"
-          src={`https://static.zdassets.com/ekr/snippet.js?key=${process.env.NEXT_PUBLIC_ZENDESK_KEY}`}
-          onLoad={() => {
-            setTimeout(() => {
-              displayZendeskWidget()
-            }, 5000)
-          }}
-        ></Script> : null}
+      {mounted ? <Script
+        id="ze-snippet"
+        src={`https://static.zdassets.com/ekr/snippet.js?key=${process.env.NEXT_PUBLIC_ZENDESK_KEY}`}
+        strategy="afterInteractive"
+        onLoad={() => {
+          setTimeout(() => {
+            displayZendeskWidget()
+          }, 5000)
+        }}
+      ></Script> : null}
     </CartProvider>
   )
 }

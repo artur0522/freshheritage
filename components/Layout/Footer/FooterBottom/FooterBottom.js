@@ -9,7 +9,7 @@ const FooterBottom = ({props, classes}) => {
         <ul className={classes.termsLinks}>
           {props.termsLinks.map(item => {
             return <li key={item._key}>
-              <Link href={item.linkUrl ? item.linkUrl : ''}>
+              <Link prefetch={false} href={item.linkUrl ? item.linkUrl : ''}>
                 <a>
                   {item.linkText}
                 </a>

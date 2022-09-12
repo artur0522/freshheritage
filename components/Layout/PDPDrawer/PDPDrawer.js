@@ -8,6 +8,7 @@ import ProductDetailsList from '@/components/Product/ProductDetailsList'
 import FAQs from '@/components/Sections/FAQs'
 import IconClose from '@/svgs/close.svg'
 import ProductHarvests from '@/components/Product/ProductHarvests'
+import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 
 const PDPDrawer = ({box = undefined}) => {
   const PDPDrawerContext = usePDPDrawerContext()
@@ -30,6 +31,15 @@ const PDPDrawer = ({box = undefined}) => {
     if (Object.keys(product).length > 0 && Object.keys(boxDetails).length > 0) {
       setTimeout(() => {
         setDrawerOpen(true)
+
+        // console.log('drawer open',product)
+        const trackEvent = useAnalytics();
+        trackEvent('view_product',product);
+        window.gtag('event', 'page_view', {
+          'page_title': product.content.title,
+          'page_path': '/pages/choose-your-plan?expand='+product.content.handle
+          });
+        //TODO: history change from drawer opening and closing causes 2 more pageviews (per event) of "choose your plan" to GA
       }, timeout)
     }
   }, [box, boxDetails, product])

@@ -15,8 +15,12 @@ export default async function handler(req, res) {
 
     const responseJson = await response.json()
     console.log('bold response order processed: ', responseJson)
+    // if(responseJson.errors.length > 0 ){
+    //   throw Error(responseJson);
+    // }
 
     const responseData = responseJson.data
+    responseData.application_state.publicOrderId = publicOrderId;
     // console.log("checkout passed to client: ",checkout)
 
     res.status(200).json(responseData)

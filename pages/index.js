@@ -1,6 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import dynamic from 'next/dynamic'
 import { nacelleClient } from 'services'
-import ContentSections from '../components/Sections/ContentSections'
+const ContentSections = dynamic(() => import('@/components/Sections/ContentSections'), {
+  ssr: false,
+})
 import DynamicHero from "@/components/Sections/DynamicHero"
 import { useCustomerContext } from '@/context/CustomerContext'
 import PageSEO from '@/components/SEO/PageSEO'

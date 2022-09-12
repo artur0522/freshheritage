@@ -1,4 +1,4 @@
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 import { useHeaderContext } from '@/context/HeaderContext'
 
 import classes from './PrimaryAnnouncement.module.scss'
@@ -14,7 +14,7 @@ const PrimaryAnnouncement = ({props}) => {
   return (
     <div className={classes.primaryAnnouncement}>
       <button onClick={() => removeAnnoucementBar()}><IconClose /></button>
-      <div className={classes.primaryAnnouncementCopy}>{ReactHtmlParser(props.announcementText)}</div>
+      <div className={classes.primaryAnnouncementCopy}>{parse(props.announcementText)}</div>
     </div>
   )
 }

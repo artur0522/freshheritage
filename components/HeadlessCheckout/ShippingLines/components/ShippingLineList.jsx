@@ -53,6 +53,7 @@ export const ShippingLineList = ({
                 {method.options.map((o, i) => {
                   const shipWeekOptionSelected = selectedStandardShipWeek === o.shipWeekPreference
                   return (
+                    // eslint-disable-next-line react/no-unknown-property
                     <div key={i} className={`checkout__secondary-radio-wrapper ${shipWeekOptionSelected ? 'is-selected' : ''}`}>
                       <Checkbox
                         className="checkout__radio"
@@ -101,6 +102,7 @@ export const ShippingLineList = ({
           }
 
           return (
+            // eslint-disable-next-line react/no-unknown-property
             <div key={index}>
               <div className={`checkout__radio-wrapper ${lineSelected ? 'is-selected' : ''}`}>
                 <Checkbox
@@ -116,7 +118,7 @@ export const ShippingLineList = ({
                     } else {
                       onShipWeekChange(null);
                     }
-                    onChange(method, shippingLines);
+                    onChange(method);
                   }}
                 />
               </div>

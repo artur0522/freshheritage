@@ -274,7 +274,7 @@ describe('<ShippingLines />', () => {
     });
     const wrapper = render(
       <HeadlessCheckoutContext.Provider value={{
-        shipOptionMetadata
+        shipOptionMetadata: undefined
       }}>
         <ShippingLines
           applicationLoading={false}

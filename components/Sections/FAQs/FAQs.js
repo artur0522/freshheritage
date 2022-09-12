@@ -17,6 +17,8 @@ const FAQs = ({ fields, parentClasses }) => {
     setMounted(true)
   }, [])
 
+  console.log(fields)
+
   return (
     <div className={`${classes['faq']} ${classes[parentClasses]} `}>
       {!!fields.desktopIllustration && !!fields.mobileIllustration &&

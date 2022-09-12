@@ -104,6 +104,7 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
             <ResponsiveImage
               src={backgroundIllustrationImage?.asset?.url}
               layout="fill"
+              priority={true}
               alt={backgroundIllustrationImage?.asset?.alt || ''}
             />
           </div>
@@ -182,12 +183,14 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
             <ResponsiveImage
               src={mobileBackgroundImage?.asset?.url}
               layout="fill"
+              priority={true}
               alt={mobileBackgroundImage.alt || ''}
             />}
           {desktopBackgroundImage && isDesktop && mounted &&
             <Image
               src={desktopBackgroundImage?.asset?.url}
               layout="fill"
+              priority={true}
               alt={desktopBackgroundImage.alt || ''}
             />
           }

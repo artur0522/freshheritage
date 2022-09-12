@@ -30,7 +30,7 @@ const socialLinkItem = (item, classes) => {
   return <li
             key={item._key}
             className={[classes.socialLinkItem, classes[item.platform]].join(' ')}>
-              <Link href={item.socialLink ? item.socialLink : '/'}>
+              <Link prefetch={false} href={item.socialLink ? item.socialLink : '/'}>
                 <a>{getIcon(item.platform)}</a>
               </Link>
           </li>
@@ -45,7 +45,7 @@ const FooterNavigation = ({props, classes}) => {
     <div className={[classes.footerSection, classes.footerNavigation].join(' ')}>
       <div className={classes.footerLogoAndSocials}>
         <div className={classes.footerLogo}>
-          <Link href="/">
+          <Link prefetch={false} href="/">
             <a>
               <ResponsiveImage src={logo.asset.url} alt={logo.asset.alt || 'Logo'} />
             </a>

@@ -40,7 +40,7 @@ describe('ship-options', () => {
           return data;
         }
       });
-      
+
       const req = {
         body: {
           zip: '12345',
@@ -55,7 +55,7 @@ describe('ship-options', () => {
         {
           headers: {
             'x-api-key': process.env.SITKA_GOOGLE_FUNCTION_KEY,
-            'origin': 'pwa',
+            // 'origin': 'pwa',
             'Content-Type': 'application/json'
           },
           method: 'POST',
@@ -75,7 +75,7 @@ describe('ship-options', () => {
           return data;
         }
       });
-      
+
       const req = {
         body: {
           zip: '12345',
@@ -94,7 +94,7 @@ describe('ship-options', () => {
       fetchMock.mockReturnValue({
         ok: false,
       });
-      
+
       const req = {
         body: {
           zip: '12345',
@@ -111,7 +111,7 @@ describe('ship-options', () => {
 
     it('should return 500 if error thrown', async () => {
       fetchMock.mockRejectedValueOnce(new Error('bad stuff happened'));
-      
+
       const req = {
         body: {
           zip: '12345',

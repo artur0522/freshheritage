@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 import classes from './BlogHero.module.scss'
 
-const BlogHero = ({ fields }) => {
+const BlogHero = ({ fields, imagePriority }) => {
   const [mounted, setMounted] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
@@ -37,6 +37,7 @@ const BlogHero = ({ fields }) => {
             className={classes.dsktp__img}
             src={mobileBackgroundImage.asset.url}
             layout="fill"
+            priority={imagePriority}
             alt={alt}
           />
         </div>}
@@ -46,6 +47,7 @@ const BlogHero = ({ fields }) => {
             className={classes.mbl__img}
             src={desktopBackgroundImage.asset.url}
             layout="fill"
+            priority={imagePriority}
             alt={alt}
           />
         </div>}

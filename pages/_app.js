@@ -87,7 +87,7 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
         />
       }
 
-      {mounted && <Script id="ze-settings" strategy="lazyOnload">
+      {mounted && <Script id="ze-settings" strategy="afterInteractive">
         {`
         window.zESettings = {
           analytics: false
@@ -97,7 +97,7 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
       {mounted ? <Script
         id="ze-snippet"
         src={`https://static.zdassets.com/ekr/snippet.js?key=${process.env.NEXT_PUBLIC_ZENDESK_KEY}`}
-        strategy="lazyOnload"
+        strategy="afterInteractive"
         onLoad={() => {
           setTimeout(() => {
             displayZendeskWidget()

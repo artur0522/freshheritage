@@ -1,8 +1,5 @@
 import dynamic from 'next/dynamic'
 import { nacelleClient } from 'services'
-const ContentSections = dynamic(() => import('@/components/Sections/ContentSections'), {
-  ssr: false,
-})
 import DynamicHero from "@/components/Sections/DynamicHero"
 import { useCustomerContext } from '@/context/CustomerContext'
 import PageSEO from '@/components/SEO/PageSEO'
@@ -54,7 +51,6 @@ export default function Home({ page }) {
     <>
       <PageSEO seo={page.fields.seo} />
       {!context.customerLoading && <DynamicHero fields={foundDynamicHero} />}
-      <ContentSections sections={page.fields.content} />
     </>
   )
 }

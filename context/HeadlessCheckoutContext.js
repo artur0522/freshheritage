@@ -7,6 +7,7 @@ import { isEqual } from 'lodash-es';
 import moment from 'moment';
 import { dataLayerATC, dataLayerRFC, dataLayerViewCart } from '@/utils/dataLayer';
 export const HeadlessCheckoutContext = createContext();
+import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 
 export function useHeadlessCheckoutContext() {
   return useContext(HeadlessCheckoutContext);
@@ -21,6 +22,7 @@ export function HeadlessCheckoutProvider({ children }) {
   const [checkoutIsReady, setCheckoutIsReady] = useState(false);
   const [shipOptionMetadata, setShipOptionMetadata] = useState(undefined);
   const { customer, subsData } = useCustomerContext()
+  const trackEvent = useAnalytics();
 
   // TODO: Any of these functions that call fetch should not really be stored in this file. They should be functions accessed from elsewhere to make this testable and cleaned up.
   function saveDataInLocalStorage(data) {
@@ -393,6 +395,9 @@ export function HeadlessCheckoutProvider({ children }) {
     // remove local storage data if the order has been processed
     if (data.application_state.is_processed) {
       deleteDataInLocalStorage()
+
+      const trackEvent = useAnalytics();
+      trackEvent('checkout_complete',data.application_state);
     }
   }
 
@@ -486,6 +491,7 @@ export function HeadlessCheckoutProvider({ children }) {
     )
     const updatedData = await response.json()
     console.log('add customer to order', updatedData)
+    trackEvent('set_customer',updatedData);
     await expiredJWTHandler(updatedData)
     setData({
       ...data,

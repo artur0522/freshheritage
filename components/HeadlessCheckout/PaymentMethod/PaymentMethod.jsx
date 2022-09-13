@@ -270,12 +270,14 @@ const MemoizedPaymentMethod = memo(
           if (appliedDiscounts?.discountCode !== '' && memberDiscountLists.includes(appliedDiscounts.discountCode) && appliedDiscounts?.discountCode !== discounts[0]) {
             try {
               const removeResults = await removeDiscount(appliedDiscounts.discountCode);
+              console.log("applying discount code by removing then adding:", discounts[0])
               const addResults = await applyDiscount(discounts[0]);
             } catch (e) {
               //console.log(e)
             }
           } else {
             try {
+              console.log("applying discount code:", discounts[0])
               const results = await applyDiscount(discounts[0]);
               //console.log(results)
             } catch (e) {
@@ -284,6 +286,12 @@ const MemoizedPaymentMethod = memo(
           }
         // removes discount membership code if not a member
         } else if (membership === 'guest' && appliedDiscounts?.discountCode !== '' && memberDiscountLists.includes(appliedDiscounts.discountCode)) {
+          try {
+            const removeResults = await removeDiscount(appliedDiscounts.discountCode);
+          } catch (e) {
+            //console.log(e)
+          }
+        } else if (appliedDiscounts?.discountCode !== '' && memberDiscountLists.includes(appliedDiscounts.discountCode)) {
           try {
             const removeResults = await removeDiscount(appliedDiscounts.discountCode);
           } catch (e) {

@@ -39,11 +39,11 @@ const ChooseYourBox = ({props, tierOptions}) => {
     }
   }
 
-  useEffect(() => {
-    // console.log('track membership_view_list')
-    const trackEvent = useAnalytics();
-    trackEvent('membership_view_list');
-  }, [])
+  // useEffect(() => {
+  //   // console.log('track membership_view_list')
+  //   const trackEvent = useAnalytics();
+  //   trackEvent('membership_view_list');
+  // }, [])
 
 
   return (

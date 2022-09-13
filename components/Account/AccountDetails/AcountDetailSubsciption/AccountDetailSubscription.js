@@ -123,9 +123,11 @@ export default function AccountDetailSubscription({ sub }) {
                     label="Delivery or packaging issues"
                   />
                 </RadioGroup>
-                <button className={`btn sitkablue`} onClick={() => submitCancelPlan()}>
-                  Cancel My Plan
-                </button>
+
+                {/* TODO - Update this when Cancel Plan is supported - DAJ 20220912
+                  <button className={`btn sitkablue`} onClick={() => submitCancelPlan()}>
+                    Cancel My Plan
+                  </button> */}
               </FormControl>
             </div>
             <div className={classes['options']}>

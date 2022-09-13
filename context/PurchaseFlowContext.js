@@ -70,7 +70,7 @@ export function PurchaseFlowProvider({ children }) {
         subscriptionGroup,
         frequencyName: frequency.value,
         membershipType,
-        duration: membershipType === 'prepaid' ? 12 : undefined
+        duration: membershipType === 'prepaid' ? (frequency.value === 'Every Other Month' ? 6 : 12) : undefined
       })
     }
 
@@ -79,7 +79,7 @@ export function PurchaseFlowProvider({ children }) {
       properties: {
         ...subscriptionProperties,
         membership_type: membershipType,
-        shipments: membershipType === 'prepaid' ? '12' : ''
+        shipments: membershipType === 'prepaid' ? (frequency.value === 'Every Other Month' ? '6' : '12') : ''
       },
       product: options.product,
       open_flyout: false

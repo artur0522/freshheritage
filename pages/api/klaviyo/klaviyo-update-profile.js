@@ -1,5 +1,4 @@
 /* /api/klaviyo */
-export default async function handler(req, res) {
 import { withSentry } from "@sentry/nextjs";
 
   /*

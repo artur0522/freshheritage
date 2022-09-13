@@ -73,7 +73,8 @@ const StandardContent = forwardRef(({fields, products}, ref) => {
         )
       },
       iconWithTextBlock: ({value}) => {
-        const iconUrl = value.icon?.image.asset.url
+        const iconUrl = value.icon?.image?.asset?.url
+        if (!iconUrl) return <></>
         return (<p className={classes['article-section__cooking-tool']}>
           <span className={classes['article-section__cooking-tool-icon']}><Image src={iconUrl} layout="fill" alt={value.text} /></span>
           <span className={classes['article-section__cooking-tool-text']}>{value.text}</span>

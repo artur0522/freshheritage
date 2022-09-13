@@ -79,23 +79,6 @@ describe('<ShippingLineList />', () => {
     expect(wrapper.getByText('Shipping between NOW AND LATER')).toBeVisible();
   });
 
-  it('should hide bundled order when no bundled order metadata', () => {
-    const wrapper = render(<ShippingLineList 
-      shippingLines={shippingLines}
-      shipOptionMetadata={{
-        expedited: {
-          estimatedDeliveryDateDisplay: 'TOMORROW'
-        },
-        standard: [],
-      }}
-      selectedShippingLine={shippingLines[0]}
-      onChange={onChange}
-      onShipWeekChange={onShipWeekChange}
-      disabled={false}
-    />);
-    expect(wrapper.queryByText('Ship with Next Order')).toBeNull();
-  });
-
   it('should map proper values for expedited order', () => {
     const wrapper = render(<ShippingLineList 
       shippingLines={shippingLines}
@@ -106,35 +89,6 @@ describe('<ShippingLineList />', () => {
       disabled={false}
     />);
     expect(wrapper.getByText('Estimated delivery on TOMORROW')).toBeVisible();
-  });
-
-  it('should not start with hidden option selected', () => {
-    let selectedOption = shippingLines[0];
-    onChange.mockImplementation((value) => selectedOption = value);
-    const {container} = render(<ShippingLineList 
-      shippingLines={shippingLines}
-      shipOptionMetadata={{
-        expedited: {
-          estimatedDeliveryDateDisplay: 'TOMORROW'
-        },
-        standard: [
-          {shipWeekDisplay: 'NEXT WEEK'},
-          {shipWeekDisplay: 'THE WEEK AFTER NEXT'},
-          {shipWeekDisplay: 'CHRISTMAS'}
-        ]
-      }}
-      selectedShippingLine={selectedOption}
-      onChange={onChange}
-      onShipWeekChange={onShipWeekChange}
-      disabled={false}
-    />);
-    expect(selectedOption).toBe(shippingLines[1]);
-    expect(
-      container
-        .querySelector('.checkout__radio-wrapper.is-selected')
-        .querySelector('.checkout__radio-label')
-        .textContent
-    ).toBe('Free Standard Shipping$20.00')
   });
 
   it('should update shipping line when one selected', async () => {

@@ -25,7 +25,9 @@ const handler = async (req, res) => {
     )
 
     const responseJson = await response.json()
-    // console.log('bold response: ', responseJson)
+    // if(responseJson.errors.length > 0 ){
+    //   throw Error(responseJson);
+    // }
 
     // const checkout = responseJson.data
     // checkout['initial_data']['cart_id'] = cartId

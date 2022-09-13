@@ -19,8 +19,6 @@ import {
   useOrderMetadata,
   useDiscount
 } from '@boldcommerce/checkout-react-components';
-import ReactGA from 'react-ga';
-ReactGA.initialize(process.env.GA_PROPERTY);
 
 const PaymentMethod = ({ applicationLoading }) => {
   const { state } = useCheckoutStore();
@@ -141,28 +139,46 @@ const MemoizedPaymentMethod = memo(
 
     const { data: orderMetaData, appendOrderMetadata } = useOrderMetadata();
     useEffect(() => {
-      let GAClientID = '';
+      gtag('get', process.env.NEXT_PUBLIC_MEASUREMENT_ID, 'client_id', (client_id) => {
+          addGAClientID(client_id);
+        })
 
-      ReactGA.ga((tracker) => {
-        GAClientID = tracker.get('clientId');
-        console.log('clientid ' + GAClientID);
-        addGAClientID();
-      });
 
-      const addGAClientID = async () => {
+      const addGAClientID = async (client_id) => {
         try {
           const results = await appendOrderMetadata({
             note_attributes: {
-              'google-clientID': GAClientID,
-              terms_conditions: 'true',
-              hcheckout: 'true'
+              'google-clientID': client_id
             }
           });
-          //console.log(results)
         } catch (e) {
-          //console.log(e)
+          console.log(e)
         }
       };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+      const applyAttributions = async () => {
+        let attributions = {}
+        attributions.utm_source = sessionStorage.getItem("utm_source")
+        attributions.utm_medium = sessionStorage.getItem("utm_medium")
+        attributions.utm_campaign = sessionStorage.getItem("utm_campaign")
+        attributions.utm_content = sessionStorage.getItem("utm_content")
+
+        try {
+          const results = await appendOrderMetadata({
+            note_attributes: {
+              'marketingAttributions': attributions
+            }
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      };
+      if (sessionStorage.getItem("utm_source") || sessionStorage.getItem("utm_medium") || sessionStorage.getItem("utm_campaign") || sessionStorage.getItem("utm_content")){
+        applyAttributions();
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -238,25 +254,20 @@ const MemoizedPaymentMethod = memo(
         })
 
         // AUTO DISCOUNT FOR REFERREES
-        // if (cart.attributes.hasOwnProperty("member_referral") && membership === "") {
-        //   if (hasSub){
-        //     var dollarDiscount = 2500;
-        //     var subtotal = cart.subtotal;
-        //     var discount = (dollarDiscount / subtotal) * 100;
-        //     discountCartByPercent(discount, "$25 Refer a Friend");
-        //     discountmessage = "We see you've been referred by a Sitka Salmon Shares member. Your referral discount is automatically applied to your order! No discount code necessary.";
-        //   } else if (hasFb){
-        //     discountCartByPercent(10, "10% Refer a Friend");
-        //     discountmessage = "We see you've been referred by a Sitka Salmon Shares member. Your referral discount is automatically applied to your order! No discount code necessary.";
-        //   }
-        // }
+        if (sessionStorage.getItem("utm_source") === "member_referral" && membership === "") {
+          if (hasSub){
+            discounts.push('$25 Refer a Friend');
+          } else if (hasFb){
+            discounts.push('10% Refer a Friend');
+          }
+        }
 
         console.log('discounts:', discounts);
 
         // applying membership discounts
 
         if (discounts.length) {
-          if (appliedDiscounts?.discountCode !== '' && appliedDiscounts?.discountCode !== discounts[0]) {
+          if (appliedDiscounts?.discountCode !== '' && memberDiscountLists.includes(appliedDiscounts.discountCode) && appliedDiscounts?.discountCode !== discounts[0]) {
             try {
               const removeResults = await removeDiscount(appliedDiscounts.discountCode);
               const addResults = await applyDiscount(discounts[0]);
@@ -284,7 +295,7 @@ const MemoizedPaymentMethod = memo(
 
       applyMembershipDiscount();
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [orderMetaData, lineItems]);
+    }, [orderMetaData, lineItems.length]);
 
     return (
       <div className="order-payment-method">

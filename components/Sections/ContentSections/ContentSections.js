@@ -53,14 +53,16 @@ const ContentSections = forwardRef(({ sections, harvestMetafield, harvests, disa
     return null
   }
 
-  return sections.map((section) => {
+  return sections.map((section, index) => {
     const type = section?._type
+
+    const imagePriority = index < 2
 
     switch (type) {
       case 'hero':
-        return <FullBleedHero fields={section} key={section._key} />
+        return <FullBleedHero fields={section} imagePriority={imagePriority} key={section._key} />
       case 'splitHero':
-        return <SplitHero fields={section} key={section._key} />
+        return <SplitHero fields={section} imagePriority={imagePriority} key={section._key} />
       case 'halfContentBlock':
         return <FiftyFifty fields={section} key={section._key} />
       case 'pressLogos':
@@ -108,11 +110,11 @@ const ContentSections = forwardRef(({ sections, harvestMetafield, harvests, disa
       case 'faqs':
         return <FAQs fields={section} key={section._key} />
       case 'blogHero':
-        return <BlogHero fields={section} key={section._key} />
+        return <BlogHero fields={section} imagePriority={imagePriority} key={section._key} />
       case 'recipeCategoriesList':
         return <RecipeCategoriesList fields={section} key={section._key} />
       case 'halfHeroHalfSlider':
-        return <HalfHeroHalfSlider fields={section} key={section._key} />
+        return <HalfHeroHalfSlider fields={section} imagePriority={imagePriority} key={section._key} />
       case 'emailSignup':
         return <div className="bg-color--fawn">
           <div className="container">

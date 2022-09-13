@@ -8,7 +8,7 @@ import Video from '@/components/Video'
 
 import classes from './FullBleedHero.module.scss'
 
-const FullBleedHero = ({ fields }) => {
+const FullBleedHero = ({ fields, imagePriority }) => {
   const [mounted, setMounted] = useState(false)
   const [startVideo, setStartVideo] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
@@ -24,6 +24,8 @@ const FullBleedHero = ({ fields }) => {
   useEffect(() => {
     setMounted(true)
   }, [fields])
+
+  console.log("fixed", fields)
 
   let btnColor
   // Conditionally change the color of the button
@@ -74,15 +76,15 @@ const FullBleedHero = ({ fields }) => {
         </button>}
         {isMobile && mounted && mobileBackgroundImage && <div className={`${classes['hero__wrap']} ${fixedImage ? classes['hero__wrap--mbl'] : ''}`}>
           {fixedImage ?
-            <Image className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} /> :
-            <ResponsiveImage className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} />
+            <Image className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} layout="fill" priority={imagePriority} alt={alt} style={imageInlineStyles} /> :
+            <ResponsiveImage className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} priority={imagePriority} layout="fill" alt={alt} style={imageInlineStyles} />
           }
         </div>}
 
         {isDesktop && mounted && desktopBackgroundImage && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--dsktp']}`}>
           {heroStyle === 'hero--center-transparent' ?
-            <Image className={classes.mbl__img} src={desktopBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} /> :
-            <ResponsiveImage className={classes.mbl__img} src={desktopBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} />
+            <Image className={classes.mbl__img} src={desktopBackgroundImage?.asset.url} layout="fill" priority={imagePriority} alt={alt} style={imageInlineStyles} /> :
+            <ResponsiveImage className={classes.mbl__img} src={desktopBackgroundImage?.asset.url} layout="fill" priority={imagePriority} alt={alt} style={imageInlineStyles} />
           }
         </div>}
       </div>

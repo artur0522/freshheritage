@@ -46,7 +46,7 @@ const HarvestCard = ({ fish: fishData, cardStyle }) => {
   return (
     <div className={`${classes['harvest__card']} ${cardStyle === 'projected-card' ? classes['projected-card'] : ""}`}>
        {cardStyle === 'projected-card' && isMobile && mounted && tabInfo?.image?.asset?.url && tabInfo[0]?._type !== 'fishermen' &&
-        <div className={classes['harvest__card-img']}>
+        <div className={`harvest__card-img ${classes['harvest__card-img']}`}>
           <Image
               src={tabInfo.image.asset.url}
               alt={tabInfo.title}
@@ -56,7 +56,7 @@ const HarvestCard = ({ fish: fishData, cardStyle }) => {
         </div>}
 
         {cardStyle === 'projected-card' && isDesktop && mounted && tabInfo?.image?.asset?.url && tabInfo[0]?._type !== 'fishermen'  &&
-        <div className={classes['harvest__card-img']}>
+        <div className={`harvest__card-img ${classes['harvest__card-img']}`}>
           <Image
             src={tabInfo.image.asset.url}
             alt={tabInfo.title}
@@ -66,7 +66,7 @@ const HarvestCard = ({ fish: fishData, cardStyle }) => {
         </div>}
 
         {cardStyle !== 'projected-card' && tabInfo?.image?.asset?.url && mounted && tabInfo[0]?._type !== 'fishermen' &&
-        <div className={classes['harvest__card-img']}>
+        <div className={`harvest__card-img ${classes['harvest__card-img']}`}>
             <Image
                 src={tabInfo.image.asset.url}
                 alt={tabInfo.title}
@@ -87,13 +87,8 @@ const HarvestCard = ({ fish: fishData, cardStyle }) => {
               {fish.fishermen.map((fishermen) => {
                 return (
                   <SwiperSlide key={`${fishermen._key}-${fishermen.title}`}>
-                    <div className={classes['harvest__card-img']}>
-                      <Image
-                          src={fishermen?.image?.asset.url}
-                          alt={fishermen.title}
-                          width={858}
-                          height={572}
-                      />
+                    <div className={`harvest__card-img ${classes['harvest__card-img']}`}>
+                      <img className={'harvest__card-slider-image'} src={fishermen?.image?.asset.url} alt={fishermen.title} />
                     </div>
                   </SwiperSlide>
                 )
@@ -104,7 +99,7 @@ const HarvestCard = ({ fish: fishData, cardStyle }) => {
           <div className={classes['harvest__card-tabs']}>
             <Swiper
                   slidesPerView={"auto"}
-                  spaceBetween={36}
+                  spaceBetween={16}
                   threshold={15}
                   breakpoints={{
                     1024: {

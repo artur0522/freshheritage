@@ -1,6 +1,7 @@
 import algoliasearch from 'algoliasearch'
 import sanityClient from '@sanity/client'
 import indexer, { flattenBlocks } from 'sanity-algolia'
+import { withSentry } from "@sentry/nextjs";
 
 const algolia = algoliasearch(
     process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID,
@@ -16,7 +17,8 @@ const sanity = sanityClient({
 
 const index = 'sandbox_articles'
 
-export default function handler(req, res) {
+// export default function handler(req, res) {
+const handler = async (req, res) => {
   const sanityAlgolia = indexer(
     {
       article: {
@@ -100,4 +102,6 @@ export default function handler(req, res) {
   return sanityAlgolia
     .webhookSync(sanity, req.body)
     .then(() => res.status(200).send('ok'))
-}
+  };
+
+  export default withSentry(handler);

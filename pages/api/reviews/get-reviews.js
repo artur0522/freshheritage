@@ -1,7 +1,9 @@
 /* /api/reviews */
 import axios from 'axios'
+import { withSentry } from "@sentry/nextjs";
 
-export default async function handler(req, res) {
+// export default async function handler(req, res) {
+const handler = async (req, res) => {
 
   const config = {
     method: 'GET',
@@ -24,4 +26,6 @@ export default async function handler(req, res) {
     // console.log(error);
     res.status(400).json({ message: 'error', data: err });
   });
-}
+};
+
+export default withSentry(handler);

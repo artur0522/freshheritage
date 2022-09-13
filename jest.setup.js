@@ -14,21 +14,21 @@ jest.mock('react-i18next', () => ({
 
 beforeAll(() => {
   // comment out this section to get console logging while testing
-  // global.console = {
-  //   ...console,
-  //   log: jest.fn(),
-  //   debug: jest.fn(),
-  //   error: jest.fn(),
-  //   info: jest.fn(),
-  // };
+  global.console = {
+    ...console,
+    log: jest.fn(),
+    debug: jest.fn(),
+    error: jest.fn(),
+    info: jest.fn(),
+  };
   
-  // window.console = {
-  //   ...window.console,
-  //   log: jest.fn(),
-  //   debug: jest.fn(),
-  //   error: jest.fn(),
-  //   info: jest.fn(),
-  // };
+  window.console = {
+    ...window.console,
+    log: jest.fn(),
+    debug: jest.fn(),
+    error: jest.fn(),
+    info: jest.fn(),
+  };
   
   // window.scroll = jest.fn();
   // window.scrollTo = jest.fn();

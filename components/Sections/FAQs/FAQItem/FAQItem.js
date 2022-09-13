@@ -12,6 +12,10 @@ const FAQItem = ({item}) => {
     height === 0 ? setHeight('auto') : setHeight(0)
   }
 
+  if (!item.answer) {
+    return ''
+  }
+
   return (
     <li className={classes['faq__item']}>
         <h3 onClick={() => toggleExpand()}>

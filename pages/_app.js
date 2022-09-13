@@ -26,6 +26,32 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
 
+  useEffect(() => {
+    if (router.isReady) {
+      console.log('query params:',router.query);
+      if (typeof router.query.utm_source !== 'undefined') {
+        sessionStorage.setItem("utm_source", router.query.utm_source)
+        console.log('utm_source: ' + sessionStorage.getItem("utm_source"))
+      }
+      if (typeof router.query.utm_medium !== 'undefined') {
+        sessionStorage.setItem("utm_medium", router.query.utm_medium)
+        console.log('utm_medium: ' + sessionStorage.getItem("utm_medium"))
+      }
+      if (typeof router.query.utm_campaign !== 'undefined') {
+        sessionStorage.setItem("utm_campaign", router.query.utm_campaign)
+        console.log('utm_campaign: ' + sessionStorage.getItem("utm_campaign"))
+      }
+      if (typeof router.query.utm_content !== 'undefined') {
+        sessionStorage.setItem("utm_content", router.query.utm_content)
+        console.log('utm_content: ' + sessionStorage.getItem("utm_content"))
+      }
+      // TODO: referrer domain / url, and landing page
+      // console.log('referer ', window.document.referrer)
+      // console.log('referer ' + window.document.referrer.split('/')[2])
+    }
+  }, [router.isReady]);
+
+
   const pagesToDisplayChatWidget = [
     '/collections/',
     '/products/',
@@ -60,11 +86,12 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
   useEffect(() => {
     setMounted(true)
     TagManager.initialize({
-      gtmId: process.env.NEXT_PUBLIC_GA_TRACKING_ID
+      gtmId: process.env.NEXT_PUBLIC_GTM_ID
     })
     onRountChangeComplete()
     router.events.on('routeChangeComplete', onRountChangeComplete)
   }, [])
+
 
   useEffect(() => {
     displayZendeskWidget()
@@ -76,18 +103,35 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
         <Component {...pageProps} />
       </Layout>
 
+      <Script
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_MEASUREMENT_ID}`}
+      />
+      <Script
+        strategy="afterInteractive"
+        id="google-analytics">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', '${process.env.NEXT_PUBLIC_MEASUREMENT_ID}');
+        `}
+      </Script>
+
       {mounted &&
         <Script
-          data-api-key={process.env.NEXT_PUBLIC_STAMPEDIO_KEY_PUBLIC}
+          strategy="afterInteractive"
           id="stamped-script-widget"
           src="https://cdn1.stamped.io/files/widget.min.js"
+          data-api-key={process.env.NEXT_PUBLIC_STAMPEDIO_KEY_PUBLIC}
           onLoad={() => {
             StampedFn.init({ apiKey: process.env.NEXT_PUBLIC_STAMPEDIO_KEY_PUBLIC, storeUrl: process.env.NEXT_PUBLIC_STAMPEDIO_STORE_HASH });
           }}
         />
       }
 
-      {mounted && <Script id="ze-settings" strategy="lazyOnload">
+      {mounted && <Script id="ze-settings" strategy="afterInteractive">
         {`
         window.zESettings = {
           analytics: false
@@ -97,7 +141,7 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
       {mounted ? <Script
         id="ze-snippet"
         src={`https://static.zdassets.com/ekr/snippet.js?key=${process.env.NEXT_PUBLIC_ZENDESK_KEY}`}
-        strategy="lazyOnload"
+        strategy="afterInteractive"
         onLoad={() => {
           setTimeout(() => {
             displayZendeskWidget()

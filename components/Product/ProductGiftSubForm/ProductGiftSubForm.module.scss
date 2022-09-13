@@ -117,6 +117,9 @@
       @include breakpoint-up('md') {
         margin: 0 23px 20px 0;
       }
+      &:last-child {
+        margin-right: 0;
+      }
       button {
         font-family: $bebas;
         font-size: 16px;

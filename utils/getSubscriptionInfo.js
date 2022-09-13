@@ -1,5 +1,5 @@
 /*
-  subscriptionGroup - from shopify product metafields
+  subscriptionGroup - from shopify product metafields // can be sitka.gifted_subscription_group or sitka.subscription_group
   frequencyName - from variant selected option // Ex: Monthly or Every Other Month. These frequency names should match interval names from subscription group
   membershipType - regular or prepaid
   duration - Ex. 1, 3, 6, 12

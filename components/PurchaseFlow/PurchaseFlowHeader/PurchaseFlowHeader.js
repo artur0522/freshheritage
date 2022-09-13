@@ -7,7 +7,7 @@ const PurchaseFlowHeader = ({props}) => {
       <h1>{props.header}</h1>
       <h2>{props.subheader}</h2>
       <ul className={classes['purchase-flow__value-props']}>
-        {props.headerBullets.map((item, index) => {
+        {props.headerBullets && props.headerBullets.map((item, index) => {
           return <li className="secondary--body" key={index}><IconBullet />{item}</li>
         })}
       </ul>

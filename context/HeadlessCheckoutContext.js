@@ -357,8 +357,8 @@ export function HeadlessCheckoutProvider({ children }) {
     setCheckoutIsReady(true)
   }
 
-  async function refreshApplicationState(payload) {
-    console.log(payload)
+  // this is needed whenever updating line item to get the most up to date application state
+  async function refreshApplicationState() {
     const { jwt, public_order_id } = JSON.parse(
       localStorage.getItem('checkout_data'),
     )
@@ -369,13 +369,16 @@ export function HeadlessCheckoutProvider({ children }) {
           Authorization: `Bearer ${jwt}`,
           'Content-Type': 'application/json',
         },
-        method: 'GET',
-        body: JSON.stringify(payload),
+        method: 'GET'
       },
     )
     const updatedData = await response.json()
     console.log('received refreshed application state', updatedData)
     await expiredJWTHandler(updatedData)
+    setData({
+      ...data,
+      application_state: updatedData.data.application_state
+    })
     return updatedData.data.application_state
   }
 
@@ -573,13 +576,7 @@ export function HeadlessCheckoutProvider({ children }) {
     const updatedData = await response.json()
     console.log('response update line item', updatedData)
     await expiredJWTHandler(updatedData)
-    const applicationState = await refreshApplicationState()
-
-    setData({
-      ...data,
-      application_state: applicationState
-    })
-
+    await refreshApplicationState()
     return updatedData
   }
 
@@ -766,6 +763,7 @@ export function HeadlessCheckoutProvider({ children }) {
 
   useEffect(() => {
     if (flyoutState) {
+      console.log("data:", data)
       document.querySelector('html').classList.add('disable-scroll')
       if (data) {
         dataLayerViewCart({cart: data.application_state})
@@ -819,7 +817,8 @@ export function HeadlessCheckoutProvider({ children }) {
         refreshShipOptionData,
         shipOptionMetadata,
         checkoutIsReady,
-        setCheckoutIsReady
+        setCheckoutIsReady,
+        refreshApplicationState
       }}
     >
       <CheckoutFlyout />

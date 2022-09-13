@@ -267,7 +267,7 @@ const MemoizedPaymentMethod = memo(
         // applying membership discounts
 
         if (discounts.length) {
-          if (appliedDiscounts?.discountCode !== '' && appliedDiscounts?.discountCode !== discounts[0]) {
+          if (appliedDiscounts?.discountCode !== '' && memberDiscountLists.includes(appliedDiscounts.discountCode) && appliedDiscounts?.discountCode !== discounts[0]) {
             try {
               const removeResults = await removeDiscount(appliedDiscounts.discountCode);
               const addResults = await applyDiscount(discounts[0]);
@@ -295,7 +295,7 @@ const MemoizedPaymentMethod = memo(
 
       applyMembershipDiscount();
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [orderMetaData, lineItems]);
+    }, [orderMetaData, lineItems.length]);
 
     return (
       <div className="order-payment-method">

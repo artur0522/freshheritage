@@ -43,10 +43,9 @@
 
         .harvest__card-inner {
             width: 100%;
-            padding: 0 12px;
 
             @include breakpoint-up('sm') {
-                width: 56.78%;
+                flex: 1;
                 padding: 0 36px;
             }
         }
@@ -67,8 +66,6 @@
     }
 
     &-inner {
-        padding: 0 12px;
-
         @include breakpoint-up('sm') {
             padding: 0 36px;
         }
@@ -77,7 +74,6 @@
     &-img {
         margin-bottom: 24px;
         position: relative;
-        padding: 0 12px;
 
         @include breakpoint-up('sm') {
             padding: 0 36px;

@@ -331,6 +331,7 @@
         :global(.harvest__card-img) {
             img {
                 object-fit: cover;
+                width: 100%;
             }
             :global(.harvest__card-slider-image) {
                 object-fit: cover;

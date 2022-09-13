@@ -14,11 +14,13 @@ import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import { getHarvests } from '@/utils/getHarvests'
 import { getMetafield } from '@/utils/getMetafield'
 import { dataLayerViewProduct } from '@/utils/dataLayer'
+import { resetCalls } from 'react-ga'
 
 function GiftSubscriptionBoxPDP({ page, products }) {
 
   const [product, setProduct] = useState(products[0])
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
+  const [harvestsLoading, setHarvestsLoading] = useState(false)
   const [harvests, setHarvests] = useState(null)
   const servingsMetafield = getMetafield({product, selectedVariant, key: 'servings'})
 
@@ -36,10 +38,12 @@ function GiftSubscriptionBoxPDP({ page, products }) {
 
   useEffect(() => {
     setSelectedVariant(product.variants[0])
-    getHarvests({product, selectedVariant})
+    setHarvestsLoading(true)
+    getHarvests({product})
     .then(res => {
       if (res) {
         setHarvests(res)
+        setHarvestsLoading(false)
       }
     })
     if (window && window.StampedFn) {
@@ -48,14 +52,6 @@ function GiftSubscriptionBoxPDP({ page, products }) {
     dataLayerViewProduct({product})
   }, [product])
 
-  useEffect(() => {
-    getHarvests({product, selectedVariant})
-    .then(res => {
-      if (res) {
-        setHarvests(res)
-      }
-    })
-  }, [selectedVariant])
 
   return (
     product && (
@@ -114,12 +110,16 @@ function GiftSubscriptionBoxPDP({ page, products }) {
             ref={refs}
             product={product}
             sections={page.fields.content}
-            harvests={harvests && harvests.map(harvest => {
-              return {
-                ...harvest,
-                header: harvest.variantTitle
-              }
-            })}
+            harvestsLoading={harvestsLoading}
+            harvests={harvests &&
+              harvests.filter(harvest => harvest.variantTitle === selectedVariant.content.title)
+              .map(harvest => {
+                return {
+                  ...harvest,
+                  header: harvest.variantTitle
+                }
+              })
+            }
             disableHarvestFilters={true} />
         </div>
       </div>

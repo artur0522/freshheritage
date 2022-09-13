@@ -50,7 +50,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         addListings(articles)
         addOriginalListings(articles)
         sortListings(articles, true)
-        
+
         if(isDesktop && mounted && filterGroups?.length === 0) {
           toggleFilterDrawer(false)
         }
@@ -99,26 +99,26 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
 
         if(router.query.filters) {
           addUrl(router.query.filters)
-    
+
           const refinedSelectedFilters = router.query.filters.split("&")
           let newSelectedFilterList = []
 
           refinedSelectedFilters.map((group) => {
             const splitGroup = group.split('=')
-    
+
             if(splitGroup.length === 2) {
               filterGroupObj[splitGroup[0]].options[splitGroup[1]].checked = true
-              if(!filterGroupObj[splitGroup[0]].options[splitGroup[1]].subFilters) {
-                newSelectedFilterList.push(splitGroup[1])
-              }
+              console.log('subfilters', filterGroupObj[splitGroup[0]].options[splitGroup[1].subFilters])
 
-              if(filterGroupObj[splitGroup[0]].options[splitGroup[1]].subFilters) {
+              if(Object.keys(filterGroupObj[splitGroup[0]].options[splitGroup[1]].subFilters).length === 0) {
+                newSelectedFilterList.push(splitGroup[1])
+              } else {
                 Object.keys(filterGroupObj[splitGroup[0]].options[splitGroup[1]].subFilters).map((subFilter) => {
-                  newSelectedFilterList.push(subFilter)    
+                  newSelectedFilterList.push(subFilter)
                 })
               }
             }
-    
+
             if(splitGroup.length === 3) {
               newSelectedFilterList.push(splitGroup[2])
             }
@@ -169,7 +169,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const handleChange = (e) => {
       setSearchTerm(e.target.value)
     }
-  
+
     const handleKeyDown = (e) => {
       let index
       if(blogType === 'culinary') {

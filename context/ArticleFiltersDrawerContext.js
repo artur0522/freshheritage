@@ -215,7 +215,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
   const replaceSelectedFilters = (list) => {
     dispatch({type: 'replace_selected_filters', payload: list})
   }
-  
+
   const setCurrentOption = (currentOption) => {
     dispatch({type: 'set_current_option', payload: currentOption})
   }
@@ -263,7 +263,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
   const addOriginalListings = (listings) => {
     dispatch({ type: 'add_original_listings', payload: listings})
   }
-  
+
   const setInfoCard = (info) => {
     dispatch({ type: 'set_info_card', payload: info})
   }
@@ -305,7 +305,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
     }
 
     let refinedUrl;
-   
+
     if(!hasSubfilter && !subFilter && !newUrl) {
       refinedUrl = `${filterGroup}=${option}`
 
@@ -350,10 +350,10 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
     // IF OPTION WITHOUT A SUBFILTER IS CLICKED
     if(!hasSubfilter && newUrl) {
-      if(newUrl.includes(option) && newUrl.includes('&')) {
+      const splitUrlLength = newUrl.split('&').length
+      if(newUrl.includes(option) && splitUrlLength > 2) {
         refinedUrl = newUrl.replace(`&${filterGroup}=${option}`, '')
-
-      } else if(newUrl.includes(option)) {
+      } else if(newUrl.includes(option) && splitUrlLength === 2) {
         refinedUrl = newUrl.replace(`${filterGroup}=${option}`, '')
       } else {
         refinedUrl = `${newUrl}&${filterGroup}=${option}`
@@ -372,9 +372,11 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
     // ALL FILTER : IF OPTION WITH A SUBFILTER IS CLICKED
     if(hasSubfilter && !subFilter && newUrl) {
-      if(newUrl.includes(option) && newUrl.includes('&')) {
+      const splitUrlLength = newUrl.split('&').length
+
+      if(newUrl.includes(option) && splitUrlLength > 2) {
         refinedUrl = newUrl.replace(`&${filterGroup}=${option}`, '')
-      } else if(newUrl.includes(option)) {
+      } else if(newUrl.includes(option) && splitUrlLength === 2) {
         refinedUrl = newUrl.replace(`${filterGroup}=${option}`, '')
       } else {
         refinedUrl = `${newUrl}&${filterGroup}=${option}`
@@ -393,9 +395,11 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
     // SUBFILTER CLICKED
     if(hasSubfilter && subFilter && newUrl) {
-      if(newUrl.includes(subFilter) && newUrl.includes('&')) {
+      const splitUrlLength = newUrl.split('&').length
+
+      if(newUrl.includes(subFilter) && splitUrlLength > 2) {
         refinedUrl = newUrl.replace(`&${filterGroup}=${option}=${subFilter}`, '')
-      } else if(newUrl.includes(subFilter)) {
+      } else if(newUrl.includes(option) && splitUrlLength === 2) {
         refinedUrl = newUrl.replace(`${filterGroup}=${option}=${subFilter}`, '')
       } else {
         refinedUrl = `${newUrl}&${filterGroup}=${option}=${subFilter}`
@@ -410,7 +414,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
         }
       },
       undefined, { shallow: true })
-    }  
+    }
   }
 
   const selectChangeHandler = (value) => {
@@ -496,7 +500,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
         filterOption: filterOption,
         subFilter: null
       }})
-      
+
       const nestedSubFilters = filters[filterGroup].options[filterOption].subFilters
 
       if(nestedSubFilters) {
@@ -565,7 +569,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
           filterListingsByTags(filterGroup, filterOption, null)
         }
       })
-      
+
       checkboxHandler(hasSubfilter, filterGroup, filterOption, null, nestedSubFilters)
 
       if(filters[filterGroup].options[filterOption].checked) {
@@ -595,7 +599,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
   useEffect(() => {
     filterListingsByTags()
-    
+
     if (isOpen) document.querySelector('html').classList.add('disable-scroll')
     if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
 
@@ -625,7 +629,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
         addFilters(newFilters)
        }
     }
-    
+
     return () => {
       window.removeEventListener('resize', handleResize)
     }

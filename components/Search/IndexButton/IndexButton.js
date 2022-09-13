@@ -1,14 +1,9 @@
-import {
-  useInstantSearch,
-} from 'react-instantsearch-hooks-web'
 
 import classes from './IndexButton.module.scss'
 
 const IndexButton = (props) => {
     const { indexId, hide, currentIndex, setCurrentIndex } = props
-    const { scopedResults } = useInstantSearch(props)
-    const foundScoped = scopedResults?.find(index => index.indexId === indexId)
-   
+
     return (
       <button className={`${classes['tab-btn']} ${currentIndex === indexId ? classes['active'] : ''} ${hide ? 'display--none' : ''} h5 tab-btn`} onClick={() => setCurrentIndex(indexId)}>
         {indexId === 'all_results' && 'All Results'}

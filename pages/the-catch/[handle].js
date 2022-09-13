@@ -20,7 +20,7 @@ const TheCatch = (props) => {
 
     return (
         <>
-          <PageSEO seo={page.seo} />
+          <PageSEO seo={page.fields.seo} />
           <ContentSections sections={page.fields.content} />
         </>
     )

@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': process.env.DAVIS_KEY,
-      'origin': 'pwa'
+      // 'origin': 'pwa'
     },
     body: req.body,
   };

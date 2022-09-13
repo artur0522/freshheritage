@@ -60,7 +60,7 @@ describe('intialize-otp', () => {
         {
           headers: {
             'x-api-key': process.env.SITKA_GOOGLE_FUNCTION_KEY,
-            'origin': 'pwa'
+            // 'origin': 'pwa'
           },
           method: 'POST'
         }
@@ -92,7 +92,7 @@ describe('intialize-otp', () => {
         {
           headers: {
             'x-api-key': process.env.SITKA_GOOGLE_FUNCTION_KEY,
-            'origin': 'pwa'
+            // 'origin': 'pwa'
           },
           method: 'POST'
         }

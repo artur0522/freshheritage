@@ -7,7 +7,7 @@ export default async function handler(req, res) {
       {
         headers: {
           'x-api-key': process.env.SITKA_GOOGLE_FUNCTION_KEY,
-          'origin': 'pwa',
+          // 'origin': 'pwa',
           'Content-Type': 'application/json'
         },
         method: 'POST',

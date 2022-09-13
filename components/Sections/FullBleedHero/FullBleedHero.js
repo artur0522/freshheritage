@@ -25,6 +25,8 @@ const FullBleedHero = ({ fields, imagePriority }) => {
     setMounted(true)
   }, [fields])
 
+  console.log("fixed", fields)
+
   let btnColor
   // Conditionally change the color of the button
   if (textColor === 'text--light') {

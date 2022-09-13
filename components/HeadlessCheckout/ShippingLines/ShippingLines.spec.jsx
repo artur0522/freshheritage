@@ -1,5 +1,5 @@
 import { HeadlessCheckoutContext } from "@/context/HeadlessCheckoutContext";
-import { render } from "@testing-library/react";
+import { screen, render } from "@testing-library/react";
 import ShippingLines from "./ShippingLines"
 import userEvent from '@testing-library/user-event';
 import { randomUUID } from 'crypto';
@@ -93,23 +93,26 @@ describe('<ShippingLines />', () => {
   const expeditedProductId = randomUUID();
   const lineItems = [{product_data: {product_id: expeditedProductId}}];
 
-  const shippingLines = [
-    {description: 'Free Standard Shipping'},
-    {description: 'Expedited Shipping'}
-  ];
-
-  const shipOptionMetadata = {
-    expedited: {
-      estimatedDeliveryDateDisplay: 'ESTIMATEDDELIVERYDATE'
-    },
-    bundled: {
-      shipWeekDisplay: 'SHIPWEEKDISPLAY',
-      shipWeekPreference: 35
-    },
-    standard: [{dumb: true}]
-  };
+  let shippingLines = [];
+  let shipOptionMetadata = {};
 
   beforeEach(() => {
+    shippingLines = [
+      {id: 20, description: 'Free Standard Shipping'},
+      {id: 21, description: 'Expedited Shipping'}
+    ];
+
+    shipOptionMetadata = {
+      expedited: {
+        estimatedDeliveryDateDisplay: 'ESTIMATEDDELIVERYDATE'
+      },
+      bundled: {
+        shipWeekDisplay: 'SHIPWEEKDISPLAY',
+        shipWeekPreference: 35
+      },
+      standard: [{dumb: true}]
+    };
+
     useLoadingStatus.mockReturnValue({
       data: {}
     });
@@ -334,7 +337,26 @@ describe('<ShippingLines />', () => {
       </HeadlessCheckoutContext.Provider>
     );
     expect(wrapper.getByText('[{"description":"Free Standard Shipping"}]')).toBeVisible();
-  })
+  });
+
+  it('should not start with hidden option selected', () => {
+    shippingLines = [
+      {description: 'hamburger'},
+      {description: 'Free Standard Shipping', amount: 2000}
+    ];
+
+    const wrapper = render(
+      <HeadlessCheckoutContext.Provider value={{
+        shipOptionMetadata
+      }}>
+        <ShippingLines
+          applicationLoading={false}
+          />
+      </HeadlessCheckoutContext.Provider>
+    );
+
+    expect(wrapper.getByText('Selected Shipping Line: Free Standard Shipping'));
+  });
 
   describe('handleChange', () => {
     it('should update the local selected shipping line', async () => {
@@ -363,7 +385,7 @@ describe('<ShippingLines />', () => {
         </HeadlessCheckoutContext.Provider>
       );
       await userEvent.click(wrapper.getByText('onChange'));
-      expect(updateShippingLine).toHaveBeenCalledWith(1);
+      expect(updateShippingLine).toHaveBeenCalledWith(21);
     });
   });
 

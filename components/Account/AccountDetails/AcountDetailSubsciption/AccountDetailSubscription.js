@@ -9,7 +9,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
 
 export default function AccountDetailSubscription({ sub }) {
-  const [expanded, setExpanded] = useState(true)
+  const [expanded, setExpanded] = useState(false)
   const [cancellationForm, setCancellationForm] = useState({
     mainFormValue: ''
   })
@@ -124,10 +124,9 @@ export default function AccountDetailSubscription({ sub }) {
                   />
                 </RadioGroup>
 
-                {/* TODO - Update this when Cancel Plan is supported - DAJ 20220912
-                  <button className={`btn sitkablue`} onClick={() => submitCancelPlan()}>
-                    Cancel My Plan
-                  </button> */}
+                <button className={`btn sitkablue`} onClick={() => submitCancelPlan()}>
+                  Cancel My Plan
+                </button>
               </FormControl>
             </div>
             <div className={classes['options']}>
@@ -155,7 +154,8 @@ export default function AccountDetailSubscription({ sub }) {
           <div>{moment(startShipDate).format('MMM D, YYYY')}</div>
         </div>
         <div className={classes['cancel']}>
-          <a onClick={() => cancelPlan()}>Cancel Plan</a>
+          {/* TODO - Update this when Cancel Plan is supported - DAJ 20220912
+            <a onClick={() => cancelPlan()}>Cancel Plan</a> */}
         </div>
       </div>
 

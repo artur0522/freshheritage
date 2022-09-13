@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classes from './AccountDetails.module.scss'
 import AccountDetailSubscription from './AcountDetailSubsciption/AccountDetailSubscription'
+import { useCustomerContext } from '@/context/CustomerContext'
 
 export default function AccountDetailsPage({subscriptions, membershipData, customer}) {
+  const customerContext = useCustomerContext()
+  const [resettingPassword, setResettingPassword] = useState(false)
+
+  const resetPassword = async () => {
+    setResettingPassword(true)
+    const result = await customerContext.recover({
+      email: customer.email,
+    })
+    console.log(result)
+    setResettingPassword(false)
+  }
 
   const activeSubscriptions = subscriptions.map((sub, index) => {
     return (
@@ -21,7 +33,7 @@ export default function AccountDetailsPage({subscriptions, membershipData, custo
           <div>*********</div>
         </div>
         <div className={classes['reset']}>
-          <a>Send Password Reset</a>
+          <a onClick={() => resetPassword()}>{resettingPassword ? 'Sending...' : 'Send Password Reset'}</a>
         </div>
       </div>
 

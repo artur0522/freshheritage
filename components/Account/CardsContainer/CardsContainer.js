@@ -23,12 +23,6 @@ export default function CardsContainer({ subscriptions }) {
       <div className={classes['card']}>
         <ReferralCard />
       </div>
-      <div className={classes['card']}>
-        <ReferralCard />
-      </div>
-      <div className={classes['card']}>
-        <ReferralCard />
-      </div>
     </div>
   )
 }

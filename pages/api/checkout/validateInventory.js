@@ -1,5 +1,7 @@
-export default async function handler(req, res) {
-// app.get('/validate_inventory', async (req, res) => {
+import { withSentry } from "@sentry/nextjs";
+
+// export default async function handler(req, res) {
+const handler = async (req, res) => {
     const variants = req.query.variants
 
     try {
@@ -32,4 +34,6 @@ export default async function handler(req, res) {
         message: e.message,
       })
     }
-}
+};
+
+export default withSentry(handler);

@@ -1,3 +1,5 @@
+import { withSentry } from "@sentry/nextjs";
+
 // const bodyParser = require('body-parser')
 const crypto = require('crypto')
 
@@ -6,8 +8,8 @@ const crypto = require('crypto')
 // app.use(bodyParser.urlencoded({ extended: true }))
 // app.use(bodyParser.json())
 
-export default async function handler(req, res) {
-// app.get('/initialize', async (req, res) => {
+// export default async function handler(req, res) {
+const handler = async (req, res) => {
     const cartProduct = req.query.product
     const cartQty = req.query.qty
     // const cartId = "ABC123"
@@ -161,4 +163,6 @@ export default async function handler(req, res) {
       })
     }
 
-}
+};
+
+export default withSentry(handler);

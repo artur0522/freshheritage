@@ -1,8 +1,9 @@
 /* /api/zendesk */
-
 import axios from 'axios'
+import { withSentry } from "@sentry/nextjs";
 
-export default async function handler(req, res) {
+// export default async function handler(req, res) {
+const handler = async (req, res) => {
 
   const { subject, message, email, first_name, last_name, phone_number } = JSON.parse(req.body)
 
@@ -40,4 +41,6 @@ export default async function handler(req, res) {
     res.status(400).json({ message: 'error', data: err });
   });
 
-}
+};
+
+export default withSentry(handler);

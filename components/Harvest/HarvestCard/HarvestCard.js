@@ -99,7 +99,7 @@ const HarvestCard = ({ fish: fishData, cardStyle }) => {
           <div className={classes['harvest__card-tabs']}>
             <Swiper
                   slidesPerView={"auto"}
-                  spaceBetween={36}
+                  spaceBetween={16}
                   threshold={15}
                   breakpoints={{
                     1024: {

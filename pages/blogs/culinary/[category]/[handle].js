@@ -102,7 +102,7 @@ const RecipeArticle = ({ page, products, blogSettings, modals }) => {
       modalContext.setIsOpen(false)
     }
 
-  }, [customer])
+  }, [customer, modalContext.isOpen])
 
   if (page.type === 'recipeArticle') {
     return (

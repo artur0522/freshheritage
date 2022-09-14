@@ -41,9 +41,11 @@ const EmailSignup = ({ props }) => {
       //can't put a hook inside event
       // const trackEvent = useAnalytics();
       // trackEvent('email_signup',props.listId);
-      window.gtag('event', 'email_signup', {
-        'listID': eventObj
-        });
+      if(typeof window.gtag === 'function') {
+        window.gtag('event', 'email_signup', {
+          'listID': props.listId
+          });
+      }
       if (data.message === 'success' && customCheckBoxRef?.current?.checked) {
         return true
       }

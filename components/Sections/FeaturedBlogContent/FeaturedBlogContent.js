@@ -26,7 +26,7 @@ const FeaturedBlogContent = ({ fields }) => {
         query: GET_RECENT_ARTICLES,
         variables: {
           "type": articleType,
-          "first": 50
+          "first": 200
         }
       })
 
@@ -47,10 +47,10 @@ const FeaturedBlogContent = ({ fields }) => {
           if (fieldTags.length && method !== 'mostRecent') {
             return (
               article.fields?.blog?.blogType === blog?.blogType &&
-              article.fields?.articleTags?.find((tag) => fieldTags.includes(tag.value))
+              article.fields?.articleTags?.find((tag) => fieldTags.some(fieldTag => fieldTag.toLowerCase() === tag.value.toLowerCase()))
             )
           }
-        
+
           if (fieldTags.length === 0 && method === 'mostRecent') {
             return article.fields?.blog?.title === blog.title
           }
@@ -124,6 +124,8 @@ const FeaturedBlogContent = ({ fields }) => {
         })
       })
   }
+
+  console.log("check:", selectedSwiper, tabs, method, header)
 
   return (
     <div className={`${classes['articles']}`}>

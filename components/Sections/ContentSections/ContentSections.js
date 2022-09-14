@@ -36,7 +36,7 @@ import ReviewsCarousel from '@/components/Sections/ReviewsCarousel'
 import FishermenPartners from '../FishermenPartners'
 import ProductReviews from '@/components/Product/ProductReviews'
 
-const ContentSections = forwardRef(({ sections, harvestMetafield, harvests, disableHarvestFilters, product}, ref) => {
+const ContentSections = forwardRef(({ sections, harvestMetafield, harvestsLoading, harvests, disableHarvestFilters, product}, ref) => {
   const router = useRouter()
 
   if (harvestMetafield === undefined && router.pathname.includes('/products')) {
@@ -89,9 +89,9 @@ const ContentSections = forwardRef(({ sections, harvestMetafield, harvests, disa
         } else if (harvests) {
           section = {
             ...section,
-            harvestList: harvests
+            harvestList: harvests,
           }
-          return <ProjectedHarvest fields={section} disableHarvestFilters={disableHarvestFilters} key={section._key} />
+          return <ProjectedHarvest harvestsLoading={harvestsLoading} fields={section} disableHarvestFilters={disableHarvestFilters} key={section._key} />
         } else {
           return null
         }

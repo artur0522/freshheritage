@@ -496,10 +496,12 @@ export function HeadlessCheckoutProvider({ children }) {
     console.log('add customer to order', updatedData)
     trackEvent('set_customer',updatedData);
     await expiredJWTHandler(updatedData)
-    setData({
-      ...data,
-      application_state: updatedData.data.application_state
-    })
+    if (updatedData.data) {
+      setData({
+        ...data,
+        application_state: updatedData.data.application_state
+      })
+    }
     return updatedData
   }
 

@@ -108,7 +108,7 @@ function Product({ product, page, modals }) {
       modalContext.setIsOpen(false)
     }
 
-  }, [customer])
+  }, [customer, modalContext.isOpen])
 
   useEffect(() => {
     dataLayerViewProduct({product})

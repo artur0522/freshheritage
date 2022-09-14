@@ -76,7 +76,8 @@ const CulinaryContestArticle = ({ page, product, blogSettings, modals }) => {
     if(foundVisibleTags.length === 0) {
       modalContext.setIsOpen(false)
     }
-  }, [customer])
+
+  }, [customer, modalContext.isOpen])
 
   return (
     <div className="article-culinary-contest">

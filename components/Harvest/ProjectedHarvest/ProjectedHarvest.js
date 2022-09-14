@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import LoadingState from '@/components/LoadingState'
 
 import "swiper/css"
 import classes from './ProjectedHarvest.module.scss'
 
 import HarvestCard from "../HarvestCard"
 
-const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
+const ProjectedHarvest = ({ fields, harvestsLoading, disableHarvestFilters = false }) => {
 
     // SANITY FIELDS
     const { title, harvestList, currentSelling, description } = fields
@@ -65,6 +66,12 @@ const ProjectedHarvest = ({ fields, disableHarvestFilters = false }) => {
         const foundHarvest = harvestList.find(harvest => harvest.handle.current === harvestHandle)
         setActiveHarvest(foundHarvest)
         setHarvests(filteredArr)
+    }
+
+    if (harvestsLoading) {
+        return (<div className={`harvest ${classes['harvest']}`}>
+                    <LoadingState />
+                </div>)
     }
 
     // RENDER

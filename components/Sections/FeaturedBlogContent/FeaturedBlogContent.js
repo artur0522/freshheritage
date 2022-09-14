@@ -26,7 +26,7 @@ const FeaturedBlogContent = ({ fields }) => {
         query: GET_RECENT_ARTICLES,
         variables: {
           "type": articleType,
-          "first": 50
+          "first": 200
         }
       })
 
@@ -44,12 +44,18 @@ const FeaturedBlogContent = ({ fields }) => {
 
       const filteredArr = sortedArticles.filter(article => article.fields.published)
         .filter((article) => {
+          // return most recent based on tags
           if (fieldTags.length && method !== 'mostRecent') {
             return (
               article.fields?.blog?.blogType === blog?.blogType &&
-              article.fields?.articleTags?.find((tag) => fieldTags.includes(tag.value))
+              article.fields?.articleTags?.find((tag) => fieldTags.some(fieldTag => fieldTag.toLowerCase() === tag.value.toLowerCase()))
             )
           }
+
+          if (fieldTags.length === 0 && method === 'mostRecent') {
+            return article.fields?.blog?.title === blog.title
+          }
+
           return article.fields?.blog?.blogType === blog?.blogType
         })
         .slice(0, 4)
@@ -118,7 +124,6 @@ const FeaturedBlogContent = ({ fields }) => {
           tabList: articles
         })
       })
-
   }
 
   return (
@@ -127,7 +132,7 @@ const FeaturedBlogContent = ({ fields }) => {
         <div className={classes['illustration-1']}>
           <ResponsiveImage
             src={illustration.asset.url}
-            alt={illustrationAlt}
+            alt={illustrationAlt || 'illustration'}
           />
         </div>
       )}
@@ -135,7 +140,7 @@ const FeaturedBlogContent = ({ fields }) => {
         <div className={classes['illustration-2']}>
           <ResponsiveImage
             src={illustration2.asset.url}
-            alt={illustration2Alt}
+            alt={illustration2Alt || 'illustration'}
           />
         </div>
       )}
@@ -156,7 +161,7 @@ const FeaturedBlogContent = ({ fields }) => {
             {tabs.map((tab) => {
               return (
                 <SwiperSlide className={classes['tab-slide']} key={tab.tabName}>
-                  <a
+                  <button
                     className={`${
                       tab.tabName === selectedSwiper.tabName
                         ? classes['active']
@@ -165,7 +170,7 @@ const FeaturedBlogContent = ({ fields }) => {
                     onClick={() => filterArticles(tab.tabName)}
                   >
                     <span>{tab.tabName}</span>
-                  </a>
+                  </button>
                 </SwiperSlide>
               )
             })}

@@ -61,7 +61,7 @@ const AllKnowYourFishblock = ({fields}) => {
         <ul className={classes['all-know-your-fish-block__list']}>
           {fishList.map((item, index) => {
 
-            const { header, peakSeason, nutritionalInfo, image } = item
+            const { header, peakSeason, culinaryProfile, image } = item
 
             if (!image?.asset?.url) {
                 return ''
@@ -93,9 +93,9 @@ const AllKnowYourFishblock = ({fields}) => {
                       <h3>Peak Season:</h3>
                       <p>{peakSeason}</p>
                     </div>}
-                    {nutritionalInfo && <div className={classes['all-know-your-fish-block__detail-item']}>
-                      <h3>Nutritional info:</h3>
-                      <p>{nutritionalInfo}</p>
+                    {culinaryProfile && <div className={classes['all-know-your-fish-block__detail-item']}>
+                      <h3>Culinary Profile:</h3>
+                      <p>{culinaryProfile}</p>
                     </div>}
                   </div>
                 </div>

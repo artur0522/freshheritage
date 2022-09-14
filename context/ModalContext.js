@@ -20,32 +20,13 @@ export function ModalProvider({ children }) {
   useEffect(() => {
     if (isOpen) document.querySelector('html').classList.add('disable-scroll')
     if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
-
   }, [isOpen, content])
 
   useEffect(() => {
-    const onRountChangeComplete = () => {
-      if(router.pathname !== '/products/[handle]' || router.pathname !== '/blogs/brand/[category]/[handle]' || router.pathname !== '/blogs/culinary/[category]/[handle]' || router.pathname !== '/blogs/culinary/culinary-contest/[handle]') {
-        setIsOpen(false)
-      }
-     
-      if(router.pathname === '/products/[handle]' && prevContent && !productCustomerTag) {
-        setIsOpen(true)
-      }
-
-      if(router.pathname === '/blogs/brand/[category]/[handle]' && prevContent && !articleCustomerTag) {
-        setIsOpen(true)
-      }
-
-      if(router.pathname === '/blogs/culinary/[category]/[handle]' && prevContent && !articleCustomerTag) {
-        setIsOpen(true)
-      }
-
-      if(router.pathname === '/blogs/culinary/culinary-contest/[handle]' && prevContent && !articleCustomerTag) {
-        setIsOpen(true)
-      }
+    const onRouteChangeComplete = () => {
+      setIsOpen(false)
     }
-    Router.events.on('routeChangeComplete', onRountChangeComplete)
+    Router.events.on('routeChangeComplete', onRouteChangeComplete)
   }, [router.pathname])
 
   return (

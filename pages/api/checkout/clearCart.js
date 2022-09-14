@@ -1,5 +1,8 @@
-// app.post('/cart/clear', async (req, res) => {
-export default async function handler(req, res) {
+import { withSentry } from "@sentry/nextjs";
+
+
+// export default async function handler(req, res) {
+const handler = async (req, res) => {
   const cartToken = req.body.cart_token
   // functions.logger.info("clear shopify cart: " + cartToken)
   console.log('clear shopify cart: ' + cartToken)
@@ -32,4 +35,6 @@ export default async function handler(req, res) {
       error: e,
     })
   }
-}
+};
+
+export default withSentry(handler);

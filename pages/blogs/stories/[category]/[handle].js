@@ -86,7 +86,7 @@ const BrandArticle = ({ page, products, blogSettings, modals }) => {
       modalContext.setIsOpen(false)
     }
 
-  }, [customer])
+  }, [customer, modalContext.isOpen])
 
   return (
     <>

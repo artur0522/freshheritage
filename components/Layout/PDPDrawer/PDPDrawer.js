@@ -33,14 +33,26 @@ const PDPDrawer = ({box = undefined}) => {
       setTimeout(() => {
         setDrawerOpen(true)
 
-        // console.log('drawer open',product)
+        console.log('drawer open',product)
+        // can't call a hook from an effect: 
         // const trackEvent = useAnalytics();
         // trackEvent('view_product',product);
-        // window.gtag('event', 'page_view', {
-        //   'page_title': product.content.title,
-        //   'page_path': '/pages/choose-your-plan?expand='+product.content.handle
-        //   });
-        //TODO: history change from drawer opening and closing causes 2 more pageviews (per event) of "choose your plan" to GA
+        if(typeof window.gtag === 'function') {
+          window.gtag('event', 'view_item', {
+            'currency': 'USD',
+            'value': product.variants[0].price,
+            'items': [ {
+              'item_id': product.sourceEntryId.replace('gid://shopify/Product/', ''),
+              'item_name': product.content.title
+              } ]
+            });
+  
+          window.gtag('event', 'page_view', {
+            'page_title': product.content.title,
+            'page_path': '/pages/choose-your-plan?expand='+product.content.handle
+            });
+        }
+
       }, timeout)
     }
   }, [box, boxDetails, product])

@@ -46,7 +46,7 @@ const StaticHarvest = ({ fields }) => {
                             src={illustration.asset.url}
                             width={587}
                             height={440}
-                            alt={alt}
+                            alt={alt || "illustration image"}
                         />
                     </div>
                 </div>}

@@ -2,6 +2,16 @@
 @import '@/styles/variables/_breakpoints.scss';
 @import '@/styles/variables/_colors.scss';
 
+:global(.fishermen-swiper) {
+    .harvest__card-img {
+        > span {
+            @include breakpoint-up('sm') {
+                min-height: 324px;
+            }
+        }
+    }
+}
+
 .harvest__card {
     padding: 11px 0 45px 0;
     background-color: #fff;
@@ -39,14 +49,17 @@
                 margin-right: 36px;
                 max-width: 240px;
             }
+
+            img {
+                object-fit: cover;
+            }
         }
 
         .harvest__card-inner {
             width: 100%;
-            padding: 0 12px;
 
             @include breakpoint-up('sm') {
-                width: 56.78%;
+                flex: 1;
                 padding: 0 36px;
             }
         }
@@ -67,8 +80,6 @@
     }
 
     &-inner {
-        padding: 0 12px;
-
         @include breakpoint-up('sm') {
             padding: 0 36px;
         }
@@ -77,7 +88,6 @@
     &-img {
         margin-bottom: 24px;
         position: relative;
-        padding: 0 12px;
 
         @include breakpoint-up('sm') {
             padding: 0 36px;

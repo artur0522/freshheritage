@@ -1,6 +1,7 @@
-/* /api/klaviyo */
+import { withSentry } from "@sentry/nextjs";
 
-export default async function handler(req, res) {
+/* /api/klaviyo */
+const handler = async (req, res) => {
 
   const { email, list_id } = JSON.parse(req.body)
 
@@ -30,4 +31,6 @@ export default async function handler(req, res) {
       res.status(400).json({ message: 'error', data: err });
     });
 
-}
+};
+
+export default withSentry(handler);

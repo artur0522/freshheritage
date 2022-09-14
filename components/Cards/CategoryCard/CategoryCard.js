@@ -10,7 +10,7 @@ const CategoryCard = ({ category, slide }) => {
   return (
     <div className={classes['slider__slide']}>
         <div className={classes['image-wrap']}>
-            <Image width={438} height={600} alt={category.alt} src={category.image.asset.url} />
+            <Image width={438} height={600} alt={category.alt || "category image"} src={category.image.asset.url} />
         </div>
         <div className={classes['text']}>
             <h2 className="h4">{category.header}</h2>

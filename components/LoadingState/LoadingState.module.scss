@@ -9,7 +9,8 @@
   }
 }
 
-:global(.harvest) {
+:global(.harvest),
+:global(.pdp-flyout) {
   .loader {
     border: 2px solid $sitkablue;
     border-bottom-color: $pureWhite;

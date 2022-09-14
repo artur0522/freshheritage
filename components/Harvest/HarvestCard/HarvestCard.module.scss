@@ -2,6 +2,16 @@
 @import '@/styles/variables/_breakpoints.scss';
 @import '@/styles/variables/_colors.scss';
 
+:global(.fishermen-swiper) {
+    .harvest__card-img {
+        > span {
+            @include breakpoint-up('sm') {
+                min-height: 324px;
+            }
+        }
+    }
+}
+
 .harvest__card {
     padding: 11px 0 45px 0;
     background-color: #fff;
@@ -38,6 +48,10 @@
                 width: 38.89%;
                 margin-right: 36px;
                 max-width: 240px;
+            }
+
+            img {
+                object-fit: cover;
             }
         }
 

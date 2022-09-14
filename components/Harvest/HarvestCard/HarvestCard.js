@@ -88,7 +88,12 @@ const HarvestCard = ({ fish: fishData, cardStyle }) => {
                 return (
                   <SwiperSlide key={`${fishermen._key}-${fishermen.title}`}>
                     <div className={`harvest__card-img ${classes['harvest__card-img']}`}>
-                      <img className={'harvest__card-slider-image'} src={fishermen?.image?.asset.url} alt={fishermen.title} />
+                      <Image
+                        src={fishermen?.image?.asset.url}
+                        alt={fishermen.title}
+                        width={858}
+                        height={572}
+                      />
                     </div>
                   </SwiperSlide>
                 )

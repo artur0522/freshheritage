@@ -1,6 +1,7 @@
 import {useRef, useState} from 'react'
 import IconEnvelope from '@/svgs/envelope.svg'
 import classes from './EmailSignup.module.scss'
+import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 
 const EmailSignup = ({ props }) => {
 
@@ -36,6 +37,9 @@ const EmailSignup = ({ props }) => {
     })
     .then(res => res.json())
     .then((data) => {
+      console.log('log signup list',props);
+      const trackEvent = useAnalytics();
+      trackEvent('email_signup',props.listId);
       if (data.message === 'success' && customCheckBoxRef?.current?.checked) {
         return true
       }

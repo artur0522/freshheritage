@@ -3,6 +3,8 @@ import { withSentry } from "@sentry/nextjs";
 /* /api/klaviyo */
 const handler = async (req, res) => {
 
+  const { email, list_id } = JSON.parse(req.body)
+
   const options = {
     method: 'POST',
     headers: {Accept: 'application/json', 'Content-Type': 'application/json'},

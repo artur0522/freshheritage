@@ -43,7 +43,7 @@ const EmailSignup = ({ props }) => {
       // trackEvent('email_signup',props.listId);
       window.gtag('event', 'email_signup', {
         'listID': eventObj
-        });
+      });
       if (data.message === 'success' && customCheckBoxRef?.current?.checked) {
         return true
       }

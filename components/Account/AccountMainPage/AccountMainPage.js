@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 import classes from './AccountMainPage.module.scss'
 import AccountHeader from '@/components/Account/AccountHeader'

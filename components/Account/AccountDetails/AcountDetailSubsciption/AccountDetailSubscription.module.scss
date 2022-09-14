@@ -18,6 +18,10 @@
     .details div {
       margin-bottom: 8px;
 
+      @include breakpoint-down(700px) {
+        font-size: 12px;
+      }
+
       &:last-of-type {
         margin-bottom: 0;
       }

@@ -131,7 +131,7 @@ const FeaturedBlogContent = ({ fields }) => {
         <div className={classes['illustration-1']}>
           <ResponsiveImage
             src={illustration.asset.url}
-            alt={illustrationAlt}
+            alt={illustrationAlt || 'illustration'}
           />
         </div>
       )}
@@ -139,7 +139,7 @@ const FeaturedBlogContent = ({ fields }) => {
         <div className={classes['illustration-2']}>
           <ResponsiveImage
             src={illustration2.asset.url}
-            alt={illustration2Alt}
+            alt={illustration2Alt || 'illustration'}
           />
         </div>
       )}

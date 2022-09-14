@@ -61,7 +61,7 @@ const FishermenInfoDrawer = () => {
               </div>}
 
               {flyoutImage?.asset?.url && <div className={classes['hero-image']}>
-                <ResponsiveImage className={classes.mbl__img} src={flyoutImage.asset.url} layout="fill" alt={''} />
+                <ResponsiveImage className={classes.mbl__img} src={flyoutImage.asset.url} layout="fill" alt={title || ''} />
                 {youtubeVideoId && <Video youtubeVideoId={youtubeVideoId} startVideo={startVideo} className={classes['hero-video__wrap']} />}
                 {youtubeVideoId && !startVideo &&
                   <button

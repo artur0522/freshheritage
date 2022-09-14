@@ -19,7 +19,7 @@ const FishermenCard = ({ article }) => {
         <div className={`${classes['article-card']}`}>
                 <div className={`${classes['slider__slide']}`}>
                 {image?.asset?.url && <div className={classes['image-wrap']}>
-                    <ResponsiveImage alt={title} src={image.asset.url} />
+                    <ResponsiveImage alt={title || "fishermen"} src={image.asset.url} />
                     <span className={classes['info-icon']}>
                         <InfoIcon />
                     </span>

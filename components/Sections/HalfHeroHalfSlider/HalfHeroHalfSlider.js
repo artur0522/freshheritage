@@ -43,13 +43,13 @@ const HalfHeroHalfSlider = ({ fields, imagePriority }) => {
                                 src={mobileImage.asset.url}
                                 layout="fill"
                                 priority={imagePriority}
-                                alt={imageAlt}
+                                alt={imageAlt || 'hero image'}
                                 objectFit="cover"
                             />
                         </div>}
                         {isDesktop && mounted && desktopImage && <div>
                             <Image
-                                src={desktopImage.asset.url}
+                                src={desktopImage.asset.url || 'hero image'}
                                 layout="fill"
                                 priority={imagePriority}
                                 alt={imageAlt}

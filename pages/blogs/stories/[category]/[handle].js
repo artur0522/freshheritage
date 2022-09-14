@@ -38,7 +38,7 @@ const BrandArticle = ({ page, products, blogSettings, modals }) => {
     const foundVisibleTags = articleTags.reduce((carry, tag) => {
       if (tag.value.toLowerCase().includes('visible')) {
         const splitTag = tag.value.split(':')[1].trim()
-        const splitTagWithoutDash = splitTag?.replace(/-/g, '').toLowerCase()
+        const splitTagWithoutDash = splitTag?.replace(/-/g, '').replace(/ /g, '').toLowerCase()
         return [...carry, splitTagWithoutDash]
       }
       return carry
@@ -59,7 +59,7 @@ const BrandArticle = ({ page, products, blogSettings, modals }) => {
     ]
 
     const foundModal = modals.reduce((carry, modal) => {
-      const modalHandleWithoutDash = modal.handle.replace(/-/g, '')
+      const modalHandleWithoutDash = modal.handle.replace(/-/g, '').replace(/ /g, '')
       if (foundVisibleTags.some(tag => tag.indexOf(modalHandleWithoutDash) > -1)) {
         if (!carry.handle) return modal
         if (hierarchy.indexOf(modalHandleWithoutDash) < hierarchy.indexOf(carry.handle.replace(/-/g, ''))) {
@@ -70,7 +70,7 @@ const BrandArticle = ({ page, products, blogSettings, modals }) => {
     }, {})
 
     // if product tags exist but none of the product tags match customer tag
-    if(foundVisibleTags.length > 0 && !articleHasCustomerTag && foundModal) {
+    if(foundVisibleTags.length > 0 && !articleHasCustomerTag && foundModal.fields) {
       modalContext.setContent(foundModal.fields)
       modalContext.setModalType('gated_product')
       modalContext.setIsOpen(true)

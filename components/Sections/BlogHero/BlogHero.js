@@ -8,7 +8,7 @@ const BlogHero = ({ fields, imagePriority }) => {
   const [mounted, setMounted] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
-  let { heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage, topMargin, bottomMargin, alt } = fields
+  let { title, heroStyle, textColor, desktopBackgroundImage, mobileBackgroundImage, topMargin, bottomMargin, alt } = fields
   let btnColor
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const BlogHero = ({ fields, imagePriority }) => {
             src={mobileBackgroundImage.asset.url}
             layout="fill"
             priority={imagePriority}
-            alt={alt}
+            alt={alt || title}
           />
         </div>}
 
@@ -48,7 +48,7 @@ const BlogHero = ({ fields, imagePriority }) => {
             src={desktopBackgroundImage.asset.url}
             layout="fill"
             priority={imagePriority}
-            alt={alt}
+            alt={alt || title}
           />
         </div>}
     </div>

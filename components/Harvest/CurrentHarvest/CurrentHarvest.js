@@ -49,7 +49,7 @@ const CurrentHarvest = ({ fields }) => {
                         src={illustration.asset.url}
                         width={587}
                         height={440}
-                        alt={alt}
+                        alt={alt || "illustration"}
                     />
                 </div>
             </div>}

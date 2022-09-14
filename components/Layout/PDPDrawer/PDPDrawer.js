@@ -37,20 +37,21 @@ const PDPDrawer = ({box = undefined}) => {
         // can't call a hook from an effect: 
         // const trackEvent = useAnalytics();
         // trackEvent('view_product',product);
-
-        window.gtag('event', 'view_item', {
-          'currency': 'USD',
-          'value': product.variants[0].price,
-          'items': [ {
-            'item_id': product.sourceEntryId.replace('gid://shopify/Product/', ''),
-            'item_name': product.content.title
-            } ]
-          });
-
-        window.gtag('event', 'page_view', {
-          'page_title': product.content.title,
-          'page_path': '/pages/choose-your-plan?expand='+product.content.handle
-          });
+        if(typeof window.gtag === 'function') {
+          window.gtag('event', 'view_item', {
+            'currency': 'USD',
+            'value': product.variants[0].price,
+            'items': [ {
+              'item_id': product.sourceEntryId.replace('gid://shopify/Product/', ''),
+              'item_name': product.content.title
+              } ]
+            });
+  
+          window.gtag('event', 'page_view', {
+            'page_title': product.content.title,
+            'page_path': '/pages/choose-your-plan?expand='+product.content.handle
+            });
+        }
 
       }, timeout)
     }

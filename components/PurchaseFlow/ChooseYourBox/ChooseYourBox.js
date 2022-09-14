@@ -44,16 +44,18 @@ const ChooseYourBox = ({props, tierOptions}) => {
     // can't call a hook from an effect: 
     // const trackEvent = useAnalytics();
     // trackEvent('membership_view_list');
-    let item_list = tierOptions.map(item => {
-      return {
-        item_id: item.sourceEntryId.replace('gid://shopify/Product/', ''),
-        item_name: item.content.title
-      }
-    })
-    window.gtag('event', 'view_item_list', {
-      'item_list_name': 'Membership Product List',
-      'items': item_list
-      });
+    if(typeof window.gtag === 'function') {
+      let item_list = tierOptions.map(item => {
+        return {
+          item_id: item.sourceEntryId.replace('gid://shopify/Product/', ''),
+          item_name: item.content.title
+        }
+      })
+      window.gtag('event', 'view_item_list', {
+        'item_list_name': 'Membership Product List',
+        'items': item_list
+        });   
+    }
 
   }, [])
 

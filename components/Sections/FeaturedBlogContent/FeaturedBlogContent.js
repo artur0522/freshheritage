@@ -44,6 +44,7 @@ const FeaturedBlogContent = ({ fields }) => {
 
       const filteredArr = sortedArticles.filter(article => article.fields.published)
         .filter((article) => {
+          // return most recent based on tags
           if (fieldTags.length && method !== 'mostRecent') {
             return (
               article.fields?.blog?.blogType === blog?.blogType &&
@@ -124,8 +125,6 @@ const FeaturedBlogContent = ({ fields }) => {
         })
       })
   }
-
-  console.log("check:", selectedSwiper, tabs, method, header)
 
   return (
     <div className={`${classes['articles']}`}>

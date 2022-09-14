@@ -50,6 +50,11 @@ const FeaturedBlogContent = ({ fields }) => {
               article.fields?.articleTags?.find((tag) => fieldTags.includes(tag.value))
             )
           }
+        
+          if (fieldTags.length === 0 && method === 'mostRecent') {
+            return article.fields?.blog?.title === blog.title
+          }
+
           return article.fields?.blog?.blogType === blog?.blogType
         })
         .slice(0, 4)

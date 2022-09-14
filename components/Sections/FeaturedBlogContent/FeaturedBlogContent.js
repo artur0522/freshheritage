@@ -118,7 +118,6 @@ const FeaturedBlogContent = ({ fields }) => {
           tabList: articles
         })
       })
-
   }
 
   return (

@@ -42,7 +42,7 @@ const HarvestCard = ({ fish: fishData, cardStyle }) => {
   const findTabInfo = (category) => {
     setTabInfo(fish[category])
   }
-
+  
   return (
     <div className={`${classes['harvest__card']} ${cardStyle === 'projected-card' ? classes['projected-card'] : ""}`}>
        {cardStyle === 'projected-card' && isMobile && mounted && tabInfo?.image?.asset?.url && tabInfo[0]?._type !== 'fishermen' &&

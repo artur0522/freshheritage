@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { PortableText } from '@portabletext/react'
 import Expand from 'react-expand-animated'
 import IconMinus from '@/svgs/minus.svg'
 import IconPlus from '@/svgs/plus.svg'
@@ -16,6 +17,8 @@ const FAQItem = ({item}) => {
     return ''
   }
 
+  console.log(item)
+
   return (
     <li className={classes['faq__item']}>
         <h3 onClick={() => toggleExpand()}>
@@ -27,7 +30,9 @@ const FAQItem = ({item}) => {
           )}
         </h3>
         <Expand open={height !== 0} duration={300}>
-          <div className={`${classes['faq__item-description']} body`}>{item.answer[0].children[0].text}</div>
+          <div className={`${classes['faq__item-description']} body`}>
+            <PortableText value={item.answer} />
+          </div>
         </Expand>
       </li>
   )

@@ -35,20 +35,6 @@ const useAnalytics = () => {
             });
           
           break
-        
-
-        case 'membership_view_list':
-          console.log('membership_view_list');
-
-          break
-
-
-        case 'membership_plans':
-          console.log('membership_plans');
-
-          break
-
-
 
         case 'add_to_cart':
           console.log('checkout add_to_cart',eventObj);
@@ -244,7 +230,7 @@ const useAnalytics = () => {
             'customer_id': '777',
             'membership_tier': 'test_tier'
             });
-            break
+          break
 
 
 

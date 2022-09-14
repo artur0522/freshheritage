@@ -160,7 +160,7 @@ const FeaturedBlogContent = ({ fields }) => {
             {tabs.map((tab) => {
               return (
                 <SwiperSlide className={classes['tab-slide']} key={tab.tabName}>
-                  <a
+                  <button
                     className={`${
                       tab.tabName === selectedSwiper.tabName
                         ? classes['active']
@@ -169,7 +169,7 @@ const FeaturedBlogContent = ({ fields }) => {
                     onClick={() => filterArticles(tab.tabName)}
                   >
                     <span>{tab.tabName}</span>
-                  </a>
+                  </button>
                 </SwiperSlide>
               )
             })}

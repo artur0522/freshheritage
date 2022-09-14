@@ -42,7 +42,7 @@ const HarvestCard = ({ fish: fishData, cardStyle }) => {
   const findTabInfo = (category) => {
     setTabInfo(fish[category])
   }
-
+  
   return (
     <div className={`${classes['harvest__card']} ${cardStyle === 'projected-card' ? classes['projected-card'] : ""}`}>
        {cardStyle === 'projected-card' && isMobile && mounted && tabInfo?.image?.asset?.url && tabInfo[0]?._type !== 'fishermen' &&
@@ -117,7 +117,7 @@ const HarvestCard = ({ fish: fishData, cardStyle }) => {
                   return (
                     <SwiperSlide key={`${fish._key}-${fishCategory}`} className={`${tabInfo._type === fishCategory || tabInfo[0]?._type === fishCategory ? classes['active'] : ""} ${classes['harvest__card-tab']}`}>
                       <button className={`${cardStyle === 'projected-card' ? 'heading--projected-tab' : 'heading--tab'}`} onClick={() => findTabInfo(fishCategory.toString())}>
-                        {fishCategory === 'fishermen' ? 'Caught By' : fishCategory}
+                        {fishCategory === 'fishermen' ? 'Sourcing' : fishCategory}
                       </button>
                     </SwiperSlide>
                   )

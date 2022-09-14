@@ -232,13 +232,6 @@ const useAnalytics = () => {
             });
           break
 
-          case 'email_signup':
-            console.log('email_signup',eventObj);
-            window.gtag('event', 'email_signup', {
-              'listID': eventObj
-              });
-            
-            break
 
 
         default:

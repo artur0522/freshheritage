@@ -30,7 +30,7 @@ const GlobalSampler = ({ fields }) => {
                         src={illustration.asset.url}
                         width={325}
                         height={549}
-                        alt={alt}
+                        alt={alt || 'illustration'}
                     />
                 </div>
             </div>}
@@ -41,7 +41,7 @@ const GlobalSampler = ({ fields }) => {
                         src={illustration_2.asset.url}
                         width={587}
                         height={440}
-                        alt={alt2}
+                        alt={alt2 || "illustration"}
                     />
                 </div>
             </div>}

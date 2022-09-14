@@ -61,7 +61,7 @@ const TheCatchDrawer = () => {
                                                     height={120}
                                                     width={120}
                                                     objectFit="cover"
-                                                    alt={foundContent?.harvestMonth[0]?.fishArray[0]?.species?.title}
+                                                    alt={foundContent?.harvestMonth[0]?.fishArray[0]?.species?.title || 'species'}
                                                 />
                                             </div>
                                             <div className={classes['item-text']}>

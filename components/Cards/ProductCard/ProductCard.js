@@ -37,7 +37,7 @@ function ProductCard({ product, responsive = false }) {
           {product.content.featuredMedia && isMobile && mounted && (
             <Image
               src={product.content.featuredMedia.src}
-              alt={product.content.featuredMedia.altText}
+              alt={product.content.featuredMedia.altText || product.content.title}
               width={590}
               height={432}
               className={classes.image}
@@ -47,7 +47,7 @@ function ProductCard({ product, responsive = false }) {
           {product.content.featuredMedia && isDesktop && mounted && (
             <Image
               src={product.content.featuredMedia.src}
-              alt={product.content.featuredMedia.altText}
+              alt={product.content.featuredMedia.altText || product.content.title}
               width={688}
               height={543}
               className={classes.image}
@@ -57,7 +57,7 @@ function ProductCard({ product, responsive = false }) {
             {product.content.featuredMedia && responsive && mounted && (
               <ResponsiveImage
                 src={product.content.featuredMedia.src}
-                alt={product.content.featuredMedia.altText}
+                alt={product.content.featuredMedia.altText || product.content.title}
                 className={classes.image}
               />
             )}

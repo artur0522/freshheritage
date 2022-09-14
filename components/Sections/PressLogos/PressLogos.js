@@ -16,7 +16,7 @@ const PressLogos = ({ fields }) => {
                         src={logo.logo.asset.url}
                         layout="fill"
                         objectFit='contain'
-                        alt={logo.alt}
+                        alt={logo.alt || 'press logo'}
                     />
                 </div>
               )

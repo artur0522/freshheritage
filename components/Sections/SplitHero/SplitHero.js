@@ -62,7 +62,7 @@ const SplitHero = ({ fields, imagePriority }) => {
             src={mobileBackgroundImage.asset.url}
             layout="fill"
             priority={imagePriority}
-            alt={alt}
+            alt={alt || ''}
           />
         </div>}
 
@@ -72,7 +72,7 @@ const SplitHero = ({ fields, imagePriority }) => {
             src={desktopBackgroundImage.asset.url}
             layout="fill"
             priority={imagePriority}
-            alt={alt}
+            alt={alt || ''}
           />
         </div>}
       </div>

@@ -23,10 +23,10 @@ export function ModalProvider({ children }) {
   }, [isOpen, content])
 
   useEffect(() => {
-    const onRouteChangeStart = () => {
+    const onRouteChangeComplete = () => {
       setIsOpen(false)
     }
-    Router.events.on('routeChangeStart', onRouteChangeStart)
+    Router.events.on('routeChangeComplete', onRouteChangeComplete)
   }, [router.pathname])
 
   return (

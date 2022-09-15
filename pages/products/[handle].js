@@ -1,7 +1,7 @@
 import { useState, useEffect, createRef, useRef } from 'react'
 import { nacelleClient } from 'services'
 import { useMediaQuery } from 'react-responsive'
-import ResponsiveImage from '@/components/ResponsiveImage'
+import useSWR from "swr"
 
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
@@ -19,6 +19,17 @@ import classes from './Product.module.scss'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import ProductStamps from '@/components/Product/ProductStamps'
 import { dataLayerViewProduct } from '@/utils/dataLayer'
+
+async function fetcher(productHandle) {
+  const { products } = await nacelleClient.query({
+    query: GET_PRODUCTS,
+    variables: {
+      "filter": {
+        "handles": [productHandle]
+      }
+    }
+  })
+}
 
 function Product({ product, page, modals }) {
   const [checked, setChecked] = useState(false)
@@ -38,6 +49,11 @@ function Product({ product, page, modals }) {
   const customerContext = useCustomerContext()
   const { customer } = customerContext
   const shellfishFreeInputRef = useRef()
+
+  const { products } = useSWR(
+    fetcher(selectedVariant.productHandle),
+    { errorRetryCount: 3 }
+  )
 
   const refs = useRef(['reviewsStars', 'productReviews'].reduce((carry, ref) => {
     return {
@@ -80,23 +96,23 @@ function Product({ product, page, modals }) {
       'member'
     ]
 
-    const foundModal = modals.reduce((carry, modal) => {
-      const modalHandleWithoutDash = modal.handle.replace(/-/g, '')
-      if (foundVisibleTags.some(tag => tag.indexOf(modalHandleWithoutDash) > -1)) {
-        if (!carry.handle) return modal
-        if (hierarchy.indexOf(modalHandleWithoutDash) < hierarchy.indexOf(carry.handle.replace(/-/g, ''))) {
-          return modal
-        }
-      }
-      return carry
-    }, {})
+    // const foundModal = modals.reduce((carry, modal) => {
+    //   const modalHandleWithoutDash = modal.handle.replace(/-/g, '')
+    //   if (foundVisibleTags.some(tag => tag.indexOf(modalHandleWithoutDash) > -1)) {
+    //     if (!carry.handle) return modal
+    //     if (hierarchy.indexOf(modalHandleWithoutDash) < hierarchy.indexOf(carry.handle.replace(/-/g, ''))) {
+    //       return modal
+    //     }
+    //   }
+    //   return carry
+    // }, {})
 
     // if product tags exist but none of the product tags match customer tag
-    if(foundVisibleTags.length > 0 && !productHasCustomerTag && foundModal) {
-      modalContext.setContent(foundModal.fields)
-      modalContext.setModalType('gated_product')
-      modalContext.setIsOpen(true)
-    }
+    // if(foundVisibleTags.length > 0 && !productHasCustomerTag && foundModal) {
+    //   modalContext.setContent(foundModal.fields)
+    //   modalContext.setModalType('gated_product')
+    //   modalContext.setIsOpen(true)
+    // }
 
     // if one of the product tags contains customer tag
     if(foundVisibleTags.length > 0 && productHasCustomerTag) {
@@ -119,8 +135,8 @@ function Product({ product, page, modals }) {
   )
 
   const handleCheckbox = () => {
-    setChecked(!checked);
-  };
+    setChecked(!checked)
+  }
 
   return (
     product && (
@@ -265,15 +281,15 @@ export async function getStaticProps({ params }) {
     }
   }
 
-  const modals = await nacelleClient.content({
-    type: 'gatedProductModal'
-  })
+  // const modals = await nacelleClient.content({
+  //   type: 'gatedProductModal'
+  // })
 
   return {
     props: {
       product: products[0],
       page: fullRefPage,
-      modals
+      // modals
     }
   }
 }

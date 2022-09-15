@@ -49,8 +49,6 @@ const TheCatchDrawer = () => {
                     </div>
                     {pastIssues?.length > 0 && <ul className={classes['content']}>
                         {pastIssues?.map((issue) => {
-                            console.log("issues", issue)
-                          
                             let foundContent = issue.fields.content.find(section =>  section._type === 'staticHarvest')
                             return (
                                 <li key={issue._key}>

@@ -29,6 +29,10 @@ async function fetcher(productHandle) {
       }
     }
   })
+
+  return {
+    products: products
+  }
 }
 
 function Product({ product, page, modals }) {
@@ -50,10 +54,20 @@ function Product({ product, page, modals }) {
   const { customer } = customerContext
   const shellfishFreeInputRef = useRef()
 
+  const fetched = fetcher(selectedVariant.productHandle)
+  fetched.then(function(result) {
+    return { products: result}
+  })
+
   const { products } = useSWR(
-    fetcher(selectedVariant.productHandle),
+    null,
+    fetched.then(function(result) {
+      return { products: result}
+    }),
     { errorRetryCount: 3 }
   )
+
+  console.log("swr", products)
 
   const refs = useRef(['reviewsStars', 'productReviews'].reduce((carry, ref) => {
     return {
@@ -63,6 +77,8 @@ function Product({ product, page, modals }) {
   }, {}))
 
   useEffect(() =>  {
+    
+
     setMounted(true)
 
     if(product.content.handle === 'digital-gift-card') {
@@ -96,33 +112,33 @@ function Product({ product, page, modals }) {
       'member'
     ]
 
-    const foundModal = modals.reduce((carry, modal) => {
-      const modalHandleWithoutDash = modal.handle.replace(/-/g, '').replace(/ /g, '')
-      if (foundVisibleTags.some(tag => tag.indexOf(modalHandleWithoutDash) > -1)) {
-        if (!carry.handle) return modal
-        if (hierarchy.indexOf(modalHandleWithoutDash) < hierarchy.indexOf(carry.handle.replace(/-/g, ''))) {
-          return modal
-        }
-      }
-      return carry
-    }, {})
+    // const foundModal = modals.reduce((carry, modal) => {
+    //   const modalHandleWithoutDash = modal.handle.replace(/-/g, '').replace(/ /g, '')
+    //   if (foundVisibleTags.some(tag => tag.indexOf(modalHandleWithoutDash) > -1)) {
+    //     if (!carry.handle) return modal
+    //     if (hierarchy.indexOf(modalHandleWithoutDash) < hierarchy.indexOf(carry.handle.replace(/-/g, ''))) {
+    //       return modal
+    //     }
+    //   }
+    //   return carry
+    // }, {})
 
-    // if product tags exist but none of the product tags match customer tag
-    if(foundVisibleTags.length > 0 && !productHasCustomerTag && foundModal.fields) {
-      modalContext.setContent(foundModal.fields)
-      modalContext.setModalType('gated_product')
-      modalContext.setIsOpen(true)
-    }
+    // // if product tags exist but none of the product tags match customer tag
+    // if(foundVisibleTags.length > 0 && !productHasCustomerTag && foundModal.fields) {
+    //   modalContext.setContent(foundModal.fields)
+    //   modalContext.setModalType('gated_product')
+    //   modalContext.setIsOpen(true)
+    // }
 
-    // if one of the product tags contains customer tag
-    if(foundVisibleTags.length > 0 && productHasCustomerTag) {
-      modalContext.setIsOpen(false)
-    }
+    // // if one of the product tags contains customer tag
+    // if(foundVisibleTags.length > 0 && productHasCustomerTag) {
+    //   modalContext.setIsOpen(false)
+    // }
 
-    // if visible tags dont exist
-    if(foundVisibleTags.length === 0) {
-      modalContext.setIsOpen(false)
-    }
+    // // if visible tags dont exist
+    // if(foundVisibleTags.length === 0) {
+    //   modalContext.setIsOpen(false)
+    // }
 
   }, [customer, modalContext.isOpen])
 

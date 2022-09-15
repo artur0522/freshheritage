@@ -722,38 +722,12 @@ export function HeadlessCheckoutProvider({ children }) {
 
     // if logged in and order does not have customer, add customer to order
     if (customer?.email && !data?.application_state?.customer?.email_address) {
-      let savedAddresses = []
-      if (customer.addresses.length) {
-        savedAddresses = customer.addresses.map(address => {
-          const endIndex = address.id.indexOf('?')
-          const mailingAddressId = address.id.substring(0, endIndex).replace('gid://shopify/MailingAddress/', '')
-          return {
-            id: mailingAddressId,
-            first_name: address.firstName,
-            last_name: address.lastName,
-            address_line_1: address.address1,
-            address_line_2: address.address2,
-            country: address.country,
-            city: address.city,
-            province: address.province,
-            country_code: address.countryCodeV2,
-            province_code: address.provinceCode,
-            postal_code: address.zip,
-            business_name: address.company,
-            phone_number: address.phone,
-          }
-        })
-      }
-
-      console.log("savedAddresses:", savedAddresses)
-
       addCustomerToOrder({
         platform_id: customer.id.replace('gid://shopify/Customer/', ''),
         first_name: customer.firstName,
         last_name: customer.lastName,
         email_address: customer.email,
-        accepts_marketing: customer.acceptsMarketing,
-        saved_addresses: savedAddresses
+        accepts_marketing: customer.acceptsMarketing
       })
       .then(() => {
         updateOrderMetaData({

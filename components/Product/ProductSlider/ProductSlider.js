@@ -37,8 +37,6 @@ const ProductSlider = ({product, timeout = 0}) => {
     return ''
   }
 
-  console.log("product", product)
-
   return (
     <div className={classes['product-slider']}>
       <Swiper

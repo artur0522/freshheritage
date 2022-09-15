@@ -29,7 +29,7 @@ const CulinaryContestArticle = ({ page, product, blogSettings, modals }) => {
     const foundVisibleTags = articleTags.reduce((carry, tag) => {
       if (tag.value.toLowerCase().includes('visible')) {
         const splitTag = tag.value.split(':')[1].trim()
-        const splitTagWithoutDash = splitTag?.replace(/-/g, '').toLowerCase()
+        const splitTagWithoutDash = splitTag?.replace(/-/g, '').replace(/ /g, '').toLowerCase()
         return [...carry, splitTagWithoutDash]
       }
       return carry
@@ -61,7 +61,7 @@ const CulinaryContestArticle = ({ page, product, blogSettings, modals }) => {
     }, {})
 
     // if product tags exist but none of the product tags match customer tag
-    if(foundVisibleTags.length > 0 && !articleHasCustomerTag && foundModal) {
+    if(foundVisibleTags.length > 0 && !articleHasCustomerTag && foundModal.fields) {
       modalContext.setContent(foundModal.fields)
       modalContext.setModalType('gated_product')
       modalContext.setIsOpen(true)

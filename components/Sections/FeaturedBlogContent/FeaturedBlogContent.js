@@ -26,7 +26,7 @@ const FeaturedBlogContent = ({ fields }) => {
         query: GET_RECENT_ARTICLES,
         variables: {
           "type": articleType,
-          "first": 50
+          "first": 200
         }
       })
 
@@ -44,13 +44,14 @@ const FeaturedBlogContent = ({ fields }) => {
 
       const filteredArr = sortedArticles.filter(article => article.fields.published)
         .filter((article) => {
+          // return most recent based on tags
           if (fieldTags.length && method !== 'mostRecent') {
             return (
               article.fields?.blog?.blogType === blog?.blogType &&
-              article.fields?.articleTags?.find((tag) => fieldTags.includes(tag.value))
+              article.fields?.articleTags?.find((tag) => fieldTags.some(fieldTag => fieldTag.toLowerCase() === tag.value.toLowerCase()))
             )
           }
-        
+
           if (fieldTags.length === 0 && method === 'mostRecent') {
             return article.fields?.blog?.title === blog.title
           }

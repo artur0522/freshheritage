@@ -76,7 +76,7 @@ function Product({ product, page, modals }) {
     const foundVisibleTags = product.tags.reduce((carry, tag) => {
       if (tag.toLowerCase().includes('visible')) {
         const splitTag = tag.split(':')[1].trim()
-        const splitTagWithoutDash = splitTag?.replace(/-/g, '').toLowerCase()
+        const splitTagWithoutDash = splitTag?.replace(/-/g, '').replace(/ /g, '').toLowerCase()
         return [...carry, splitTagWithoutDash]
       }
       return carry
@@ -96,23 +96,23 @@ function Product({ product, page, modals }) {
       'member'
     ]
 
-    // const foundModal = modals.reduce((carry, modal) => {
-    //   const modalHandleWithoutDash = modal.handle.replace(/-/g, '')
-    //   if (foundVisibleTags.some(tag => tag.indexOf(modalHandleWithoutDash) > -1)) {
-    //     if (!carry.handle) return modal
-    //     if (hierarchy.indexOf(modalHandleWithoutDash) < hierarchy.indexOf(carry.handle.replace(/-/g, ''))) {
-    //       return modal
-    //     }
-    //   }
-    //   return carry
-    // }, {})
+    const foundModal = modals.reduce((carry, modal) => {
+      const modalHandleWithoutDash = modal.handle.replace(/-/g, '').replace(/ /g, '')
+      if (foundVisibleTags.some(tag => tag.indexOf(modalHandleWithoutDash) > -1)) {
+        if (!carry.handle) return modal
+        if (hierarchy.indexOf(modalHandleWithoutDash) < hierarchy.indexOf(carry.handle.replace(/-/g, ''))) {
+          return modal
+        }
+      }
+      return carry
+    }, {})
 
     // if product tags exist but none of the product tags match customer tag
-    // if(foundVisibleTags.length > 0 && !productHasCustomerTag && foundModal) {
-    //   modalContext.setContent(foundModal.fields)
-    //   modalContext.setModalType('gated_product')
-    //   modalContext.setIsOpen(true)
-    // }
+    if(foundVisibleTags.length > 0 && !productHasCustomerTag && foundModal.fields) {
+      modalContext.setContent(foundModal.fields)
+      modalContext.setModalType('gated_product')
+      modalContext.setIsOpen(true)
+    }
 
     // if one of the product tags contains customer tag
     if(foundVisibleTags.length > 0 && productHasCustomerTag) {

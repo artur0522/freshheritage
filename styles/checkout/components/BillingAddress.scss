@@ -1,4 +1,5 @@
-.billing-address-selector {
+.billing-address-selector,
+.shipping-address-selector {
   margin-bottom: 20px;
   border: 1px solid $black10;
   border-radius: 12px;
@@ -13,6 +14,14 @@
       border: none;
       border-radius: 0;
       border-bottom: 1px solid $black10;
+    }
+  }
+}
+
+.shipping-address-selector {
+  .checkout__radio-wrapper {
+    * {
+      opacity: 1;
     }
   }
 }

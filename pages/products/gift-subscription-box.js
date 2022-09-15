@@ -52,10 +52,6 @@ function GiftSubscriptionBoxPDP({ page, products }) {
     dataLayerViewProduct({product})
   }, [product])
 
-
-  console.log("harvets", harvests)
-  console.log("sv", selectedVariant)
-
   return (
     product && (
       <div className={`${classes['product']} ${classes['gift-subscription-product']} product gift-subscription-product`}>

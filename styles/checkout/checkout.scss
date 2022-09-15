@@ -281,6 +281,7 @@
     padding: 0 15px;
     cursor: pointer;
     height: fit-content;
+    min-height: 40px;
     @include breakpoint-up('sm') {
       min-height: 60px;
     }

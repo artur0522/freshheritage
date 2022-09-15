@@ -1,24 +1,25 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
-import { useCountryInfo, useLoadingStatus, useSavedAddresses, useShippingAddress } from '@boldcommerce/checkout-react-components';
+import { useCountryInfo, useLoadingStatus, useShippingAddress, useShippingLines } from '@boldcommerce/checkout-react-components';
 import { Address } from '@/components/HeadlessCheckout/Address';
 import { SavedAddressList } from './components';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
+import { useCustomerContext } from '@/context/CustomerContext';
 
 const ShippingAddress = ({ applicationLoading }) => {
 
   const requiredAddressFields = ['first_name', 'last_name', 'address_line_1', 'city'];
   const { data: shippingAddress, submitShippingAddress } = useShippingAddress(requiredAddressFields);
-  const { data: savedAddresses } = useSavedAddresses();
+  const { data } = useShippingLines();
   const { data: loadingStatus } = useLoadingStatus();
   const setting = loadingStatus.shippingAddress === 'setting';
 
   return (
     <MemoizedShippingAddress
       shippingAddress={shippingAddress}
+      shippingLines={data.shippingLines}
       submitAddress={submitShippingAddress}
-      savedAddresses={savedAddresses}
       setting={setting}
       applicationLoading={applicationLoading}
       requiredAddressFields={requiredAddressFields}
@@ -28,8 +29,8 @@ const ShippingAddress = ({ applicationLoading }) => {
 
 const MemoizedShippingAddress = memo(({
   shippingAddress,
+  shippingLines,
   submitAddress,
-  savedAddresses,
   setting,
   applicationLoading,
   requiredAddressFields,
@@ -38,6 +39,7 @@ const MemoizedShippingAddress = memo(({
   const trackEvent = useAnalytics();
   const logError = useErrorLogging();
   const [address, setAddress] = useState(Array.isArray(shippingAddress) ? {'country_code': 'US'} : shippingAddress);
+  const [savedAddresses, setSavedAddresses] = useState([]);
   const { data } = useCountryInfo(address);
   const [addressOpen, setAddressOpen] = useState(true);
   const {
@@ -50,13 +52,9 @@ const MemoizedShippingAddress = memo(({
   const [errors, setErrors] = useState(null);
   const { t } = useTranslation();
   const { refreshShipOptionData } = useHeadlessCheckoutContext();
+  const { customer } = useCustomerContext();
 
   let provincePlaceholder = provinceLabel;
-
-  useEffect(() => {
-    setAddress(Array.isArray(shippingAddress) ? {'country_code': 'US'} : shippingAddress);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const updateSelectedShippingAddress = useCallback(async (currentAddress) => {
 
@@ -82,6 +80,34 @@ const MemoizedShippingAddress = memo(({
     setLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shippingAddress]);
+
+  useEffect(() => {
+    setAddress(Array.isArray(shippingAddress) ? {'country_code': 'US'} : shippingAddress);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    // Add Customer data if logged in
+    const getSavedAddresses = async (customerId) => {
+      const response = await fetch(`${process.env.checkoutUrl}/api/checkout/customer-addresses/`, {
+        method: 'POST',
+        body: JSON.stringify({ customerId }),
+      })
+      return await response.json()
+    }
+    if (customer && customer.id) {
+      getSavedAddresses(customer.id.replace('gid://shopify/Customer/', ''))
+        .then(res => {
+          setSavedAddresses([...res])
+        })
+    } else {
+      setSavedAddresses([])
+      setAddress({'country_code': 'US'})
+      if (shippingLines?.length > 0) {
+        updateSelectedShippingAddress({'country_code': 'US'})
+      }
+    }
+  }, [customer])
 
   return (
     <div className="order-address">

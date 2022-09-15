@@ -1,19 +1,16 @@
-import { useBreakdown, useDiscount, useApplicationState } from '@boldcommerce/checkout-react-components';
+import { useBreakdown, useDiscount } from '@boldcommerce/checkout-react-components';
 import React, { memo, useCallback } from 'react';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { RedactedCreditCard } from '../../RedactedCreditCard';
 import OrderSummaryItem from './OrderSummaryItem';
 import OrderSummaryItemLine from './OrderSummaryItemLine';
 import { useCustomerContext } from '@/context/CustomerContext'
-import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
 import { useTranslation } from 'react-i18next';
 
 const OrderSummaryBreakdown = ({ readOnly }) => {
   const { data } = useBreakdown();
   const { data: { discountTotal, discountCode }, removeDiscount } = useDiscount();
   const { customer: customerData } = useCustomerContext()
-  const { refreshApplicationState } = useHeadlessCheckoutContext();
-  const { updateApplicationState } = useApplicationState();
   const {
     subTotal,
     shippingTotal,
@@ -34,8 +31,6 @@ const OrderSummaryBreakdown = ({ readOnly }) => {
       onRemoveDiscount={removeDiscount}
       customer={customerData}
       readOnly={readOnly}
-      refreshApplicationState={refreshApplicationState}
-      updateApplicationState={updateApplicationState}
     />
   );
 };
@@ -51,8 +46,6 @@ const MemoizedOrderSummaryBreakdown = memo(({
   onRemoveDiscount,
   customer,
   readOnly,
-  refreshApplicationState,
-  updateApplicationState
 }) => {
   const trackEvent = useAnalytics();
   const logError = useErrorLogging();
@@ -60,7 +53,6 @@ const MemoizedOrderSummaryBreakdown = memo(({
   const handleRemoveDiscount = useCallback(async () => {
     try {
       await onRemoveDiscount(discountCode)
-      await refreshApplicationState()
       trackEvent('remove_discount_code');
     } catch(e) {
       logError('discount_code', e);

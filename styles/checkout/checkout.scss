@@ -259,6 +259,15 @@
   }
 }
 
+.shipping-address-selector {
+  .checkout__radio-wrapper,
+  .checkout__secondary-radio-wrapper {
+    > label {
+      padding: 10px 15px;
+    }
+  }
+}
+
 .checkout__radio-wrapper,
 .checkout__secondary-radio-wrapper {
   font-size: 14px;

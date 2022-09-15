@@ -56,7 +56,7 @@ const SavedAddressList = ({
   });
 
   return (
-    <div className="checkout__radio-list billing-address-selector">
+    <div className="checkout__radio-list shipping-address-selector">
       {savedAddressList}
       <div className={`checkout__radio-wrapper ${!selectedAddress ? 'is-selected' : ''}`}>
         <Checkbox

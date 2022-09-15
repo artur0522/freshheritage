@@ -187,8 +187,6 @@ const MemoizedShippingLines = memo(
       );
     }
 
-    console.log("shippingMethodOpen:", shippingMethodOpen)
-
     return (
       <div className="order-shipping-method">
         <div className={`checkout__header checkout__header--border-on-closed checkout__row ${shippingMethodOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>

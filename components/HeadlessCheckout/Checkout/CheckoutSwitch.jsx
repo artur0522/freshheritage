@@ -39,7 +39,7 @@ const SinglePageLayout = () => {
   }, []);
 
   useEffect(() => {
-    console.log("update application state")
+    console.log("update application state:", checkoutData.application_state)
     updateApplicationState(checkoutData.application_state)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkoutData])

@@ -1,7 +1,7 @@
+import { withSentry } from "@sentry/nextjs";
 
-
-export default async function handler(req, res) {
-
+// export default async function handler(req, res) {
+const handler = async (req, res) => {
   const { customerId } = JSON.parse(req.body)
 
   try {
@@ -44,4 +44,8 @@ export default async function handler(req, res) {
       error: e
     })
   }
+
+  res.send();
 };
+
+export default withSentry(handler);

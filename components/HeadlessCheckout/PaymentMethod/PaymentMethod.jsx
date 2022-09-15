@@ -235,12 +235,14 @@ const MemoizedPaymentMethod = memo(
         if (hasFb && membership === 'Employee') {
           discounts.push('30% Employee Discount');
         } else if (hasFb && membership === 'KingSustainer') {
-          discounts.push('10% King Sustainer Discount');
+          discounts.push('20% King Sustainer Discount');
         } else if (hasFb && membership === 'SockeyeSustainer') {
-          discounts.push('10% Sustainer Discount');
+          discounts.push('15% Sustainer Discount');
         } else if (hasFb && membership === 'PrepaidMember') {
-          discounts.push('5% Member Discount');
-        }
+          discounts.push('15% Member Discount');
+        } else if (hasFb && (membership === "PremiumMember" || membership === "Member")) {
+          discount = "10% Member Discount";
+        } 
 
         //AUTO DISCOUNTS FOR SUBSCRIPTIONS
         if (hasSub && membership === 'KingSustainer') {
@@ -257,9 +259,7 @@ const MemoizedPaymentMethod = memo(
         if (sessionStorage.getItem("utm_source") === "member_referral" && membership === "") {
           if (hasSub){
             discounts.push('$25 Refer a Friend');
-          } else if (hasFb){
-            discounts.push('10% Refer a Friend');
-          }
+          } 
         }
 
         console.log('discounts:', discounts);

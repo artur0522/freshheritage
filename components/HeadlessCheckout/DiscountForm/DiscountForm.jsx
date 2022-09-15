@@ -1,5 +1,4 @@
-import { useDiscount, useApplicationState } from '@boldcommerce/checkout-react-components';
-import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
+import { useDiscount } from '@boldcommerce/checkout-react-components';
 import { InputField } from '../InputField';
 import React, { memo, useCallback, useState, useEffect } from 'react';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
@@ -13,8 +12,6 @@ const DiscountForm = () => {
   const { data, applyDiscount } = useDiscount();
   const { customer: customerData } = useCustomerContext()
   const { discountApplied, discountCode } = data;
-  const { refreshApplicationState } = useHeadlessCheckoutContext();
-  const { updateApplicationState } = useApplicationState();
 
   return (
     <MemoizedDiscountForm
@@ -22,14 +19,12 @@ const DiscountForm = () => {
       discountApplied={discountApplied}
       applyDiscount={applyDiscount}
       customer={customerData}
-      refreshApplicationState={refreshApplicationState}
-      updateApplicationState={updateApplicationState}
     />
   );
 };
 
 const MemoizedDiscountForm = memo(
-  ({ discountCode, discountApplied, applyDiscount, customer, refreshApplicationState, updateApplicationState }) => {
+  ({ discountCode, discountApplied, applyDiscount, customer }) => {
     const trackEvent = useAnalytics();
     const logError = useErrorLogging();
     const [discount, setDiscount] = useState(discountCode);
@@ -42,8 +37,6 @@ const MemoizedDiscountForm = memo(
       setLoading(true);
       try {
         await applyDiscount(discount);
-        await refreshApplicationState()
-        // await updateApplicationState(response.data.application_state)
         trackEvent('apply_discount_code');
         setErrors(null);
       } catch (e) {

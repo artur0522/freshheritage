@@ -11,6 +11,7 @@ const OrderSummary = ({ readOnly }) => {
   const [summaryOpen, setSummaryOpen] = useState(true);
   const { data } = useBreakdown();
   const { subTotal } = data;
+
   return (
     <div className="order-summary">
       <div className={`checkout__header checkout__row ${summaryOpen ? 'checkout__header--open' : 'checkout__header--closed'}`}>

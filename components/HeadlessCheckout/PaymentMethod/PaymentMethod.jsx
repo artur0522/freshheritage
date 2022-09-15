@@ -182,7 +182,7 @@ const MemoizedPaymentMethod = memo(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const { data: appliedDiscounts, errors, loadingStatus, applyDiscount, removeDiscount } = useDiscount();
+    const { data: appliedDiscounts, errors: discountErrors, loadingStatus, applyDiscount, removeDiscount } = useDiscount();
     useEffect(() => {
       const applyMembershipDiscount = async () => {
         const hasSub =
@@ -265,7 +265,6 @@ const MemoizedPaymentMethod = memo(
         console.log('discounts:', discounts);
 
         // applying membership discounts
-
         if (discounts.length) {
           if (appliedDiscounts?.discountCode !== '' && memberDiscountLists.includes(appliedDiscounts.discountCode) && appliedDiscounts?.discountCode !== discounts[0]) {
             try {
@@ -291,8 +290,10 @@ const MemoizedPaymentMethod = memo(
           } catch (e) {
             //console.log(e)
           }
+        // if no member discount is available, remove discount code if applied to order
         } else if (appliedDiscounts?.discountCode !== '' && memberDiscountLists.includes(appliedDiscounts.discountCode)) {
           try {
+            console.log("removing discount code")
             const removeResults = await removeDiscount(appliedDiscounts.discountCode);
           } catch (e) {
             //console.log(e)
@@ -301,7 +302,9 @@ const MemoizedPaymentMethod = memo(
 
       };
 
-      applyMembershipDiscount();
+      if (loadingStatus !== 'setting') {
+        applyMembershipDiscount();
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orderMetaData, lineItems.length]);
 

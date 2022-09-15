@@ -1,7 +1,7 @@
 @import '@/styles/_shared.scss';
 
 .reviews-carousel {
-  padding: 60px 0 0;
+  padding: 60px 0;
   @include breakpoint-up('md') {
     padding: 120px 0;
   }
@@ -81,7 +81,8 @@
         font-size: 16px;
         line-height: 150%;
         color: $sitkablue;
-
+        height: 200px;
+        overflow: auto;
         @include breakpoint-up('md') {
           font-size: 18px;
         }

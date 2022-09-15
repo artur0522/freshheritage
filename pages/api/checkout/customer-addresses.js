@@ -8,13 +8,15 @@ const handler = async (req, res) => {
     const customerResponse = await fetch(`https://api.boldcommerce.com/customers/v2/shops/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/customers/pid/${customerId}`, {
       headers: {
         Authorization: `Bearer ${process.env.BOLD_ACCESS_TOKEN}`,
-        'Content-Type': 'application/json',
       },
     });
     const customerJson = await customerResponse.json();
     const customer = customerJson.customer;
+
+    let savedAddresses = []
+
     if (customer.addresses.length) {
-      const savedAddresses = customer.addresses.map((address) => {
+      savedAddresses = customer.addresses.map((address) => {
         return {
           id: address.id,
           first_name: address.first_name,
@@ -31,10 +33,9 @@ const handler = async (req, res) => {
           phone_number: address.phone
         }
       })
-      res.status(200).json(savedAddresses)
     }
 
-    res.status(201).json([]);
+    res.status(200).json(savedAddresses)
 
   } catch (e) {
     // functions.logger.error("checkout",e)
@@ -44,8 +45,6 @@ const handler = async (req, res) => {
       error: e
     })
   }
-
-  res.send();
 };
 
 export default withSentry(handler);

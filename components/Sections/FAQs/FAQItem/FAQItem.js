@@ -17,8 +17,6 @@ const FAQItem = ({item}) => {
     return ''
   }
 
-  console.log(item)
-
   return (
     <li className={classes['faq__item']}>
         <h3 onClick={() => toggleExpand()}>

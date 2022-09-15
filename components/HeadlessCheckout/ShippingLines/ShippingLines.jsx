@@ -163,11 +163,6 @@ const MemoizedShippingLines = memo(
 
     let content = null;
 
-    console.log("displayedShippingLines:", displayedShippingLines)
-    console.log("appLoading:", appLoading)
-    console.log("shipOptionMetadata:", shipOptionMetadata)
-    console.log("shippingLines:", shippingLines)
-
     if (appLoading || (displayedShippingLines.length > 0 && !shipOptionMetadata)) {
       content = <LoadingState />;
     } else if (!showShippingLines || !shipOptionMetadata) {

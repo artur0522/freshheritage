@@ -98,7 +98,9 @@ const MemoizedShippingAddress = memo(({
     if (customer && customer.id) {
       getSavedAddresses(customer.id.replace('gid://shopify/Customer/', ''))
         .then(res => {
-          setSavedAddresses([...res])
+          if (res?.length) {
+            setSavedAddresses([...res])
+          }
         })
     } else {
       setSavedAddresses([])

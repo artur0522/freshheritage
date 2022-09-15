@@ -1,5 +1,28 @@
 import { withSentry } from "@sentry/nextjs";
 
+const isEmpty = value =>
+  value === undefined ||
+  value === null ||
+  (typeof value === 'object' && Object.keys(value).length === 0) ||
+  (typeof value === 'string' && value.trim().length === 0);
+
+
+function validateSavedAddress(address) {
+  let errors = {};
+
+  let expectedFields = ['street_1', 'city', 'province', 'zip', 'country']
+
+  expectedFields.map(key => {
+      if (isEmpty(address[key])) {
+          errors[key] = `${key} field is required`;
+      }
+  })
+  return {
+      errors,
+      isValid: isEmpty(errors)
+  };
+};
+
 // export default async function handler(req, res) {
 const handler = async (req, res) => {
   const { customerId } = JSON.parse(req.body)
@@ -16,7 +39,7 @@ const handler = async (req, res) => {
     let savedAddresses = []
 
     if (customer.addresses.length) {
-      savedAddresses = customer.addresses.map((address) => {
+      savedAddresses = customer.addresses.filter(address => validateSavedAddress(address).isValid).map((address) => {
         return {
           id: address.id,
           first_name: address.first_name,

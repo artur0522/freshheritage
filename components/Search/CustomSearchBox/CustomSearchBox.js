@@ -58,9 +58,11 @@ const CustomSearchBox = (props) => {
 
   let refinedSearchTerm
   if(searchTerm.includes('&index')) {
-    refinedSearchTerm = searchTerm.replaceAll("&index", '')
+    refinedSearchTerm = searchTerm.replaceAll("&index", '').replaceAll(/[^\w\s]/gi, ' ')
+    refinedSearchTerm = decodeURI(refinedSearchTerm)
   } else {
-    refinedSearchTerm = searchTerm
+    refinedSearchTerm = searchTerm.replaceAll(/[^\w\s]/gi, ' ')
+    refinedSearchTerm = decodeURI(refinedSearchTerm)
   }
 
   return (

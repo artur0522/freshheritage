@@ -48,7 +48,7 @@ const ProductHits = (props) => {
           </div>
       </div>}
       {foundScoped?.results?.nbHits == 0 && currentIndex !== 'all_results'  && <div className={classes['no-results']}>
-        <h4>Sorry, we could not find anything for <span>&#34;{foundScoped?.results?.query}&#34;</span></h4>
+        <h4>Sorry, we could not find anything for <span>&#34;{decodeURI(foundScoped?.results?.query)}&#34;</span></h4>
         <p className="secondary--body">Try a different search term</p>
       </div>}
     </div>

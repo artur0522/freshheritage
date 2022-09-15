@@ -15,8 +15,8 @@ export default function Tabs({tabs, selected, onSelected, onSignOut}) {
     {label: `123`, value: '123' },
   ]
 
-  const onSelectVariant = () => {
-
+  const onSelectVariant = (e) => {
+    onSelected(e.value)
   }
 
   const isTabSelected = (tabName) => tabName === selected;

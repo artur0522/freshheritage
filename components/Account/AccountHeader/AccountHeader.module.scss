@@ -6,8 +6,19 @@
   background: url("./account-header.png") no-repeat right;
   padding: 85px 125px;
 
+  @include breakpoint-down("sm") {
+    background: none;
+    padding: 10px;
+    height: 0px;
+  }
+
   h1 {
     color: white;
     font-size: 72px;
+
+    @include breakpoint-down("sm") {
+      display: none;
+    }
+
   }
 }

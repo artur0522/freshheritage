@@ -11,6 +11,7 @@
 
     @include breakpoint-down(1074px) {
       padding: 20px 64px;
+      background-color: #f5f5f5;
     }
 
     @include breakpoint-down(700px) {

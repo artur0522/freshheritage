@@ -8,6 +8,7 @@ export default async function handler(req, res) {
     const customerResponse = await fetch(`https://api.boldcommerce.com/customers/v2/shops/${process.env.NEXT_PUBLIC_SHOP_IDENTIFIER}/customers/pid/${customerId}`, {
       headers: {
         Authorization: `Bearer ${process.env.BOLD_ACCESS_TOKEN}`,
+        'Content-Type': 'application/json',
       },
     });
     const customerJson = await customerResponse.json();

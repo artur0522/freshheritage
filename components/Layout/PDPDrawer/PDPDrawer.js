@@ -34,8 +34,9 @@ const PDPDrawer = ({box = undefined}) => {
       setTimeout(() => {
         setDrawerOpen(true)
 
-        console.log('drawer open',product)
-        // can't call a hook from an effect:
+        // console.log('drawer open',product)
+        // can't call a hook from an effect: 
+
         // const trackEvent = useAnalytics();
         // trackEvent('view_product',product);
         if(typeof window.gtag === 'function') {
@@ -54,6 +55,19 @@ const PDPDrawer = ({box = undefined}) => {
             });
         }
 
+        if (sessionStorage.getItem("referrer").includes('facebook') || sessionStorage.getItem("utm_source") === 'facebook' || sessionStorage.getItem("utm_source") === 'fb' || sessionStorage.getItem("utm_source") === 'ig'){
+          fbEvent({
+            eventName: 'ViewContent', 
+            products: [{
+              sku: product.sourceEntryId.replace('gid://shopify/Product/', ''),
+              quantity: 1,
+            }],
+            value: product.variants[0].price,
+            currency: 'USD',
+            enableStandardPixel: false
+          });    
+        }
+        
         dataLayerViewProduct({product})
 
       }, timeout)

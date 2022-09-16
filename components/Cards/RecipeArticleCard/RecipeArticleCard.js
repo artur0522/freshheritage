@@ -8,6 +8,11 @@ import "swiper/css"
 import BookmarkIcon from '@/svgs/bookmark.svg'
 import classes from './RecipeArticleCard.module.scss'
 
+// hard-set width to 300px from Sanity
+const articleCardImgLoader = ({ src }) => {
+  return `${src}?w=690`
+}
+
 const RecipeArticleCard = ({ article, responsiveImage = false }) => {
 
     const { desktopBackgroundImage, activeTime, totalTime } = article.fields ? article.fields.hero : article.hero
@@ -30,8 +35,7 @@ const RecipeArticleCard = ({ article, responsiveImage = false }) => {
 
                     {responsiveImage &&  !desktopBackgroundImage?.crop && <ResponsiveImage alt={article.title} src={desktopBackgroundImage.asset.url} />}
                     {responsiveImage && desktopBackgroundImage?.crop && <ResponsiveImage alt={article.title} src={urlFor(desktopBackgroundImage.asset.url).width(345).height(384).focalPoint(desktopBackgroundImage.hotspot.x, desktopBackgroundImage.hotspot.y).crop('focalpoint').fit('crop').url()} />}
-                    {!responsiveImage && <Image src={desktopBackgroundImage?.asset.url} alt={article.title} layout="fill" objectFit="cover" />}
-
+                    {!responsiveImage && <Image loader={articleCardImgLoader} src={desktopBackgroundImage?.asset.url} alt={article.title} layout="fill" objectFit="cover" />}
                     {/* <div className={classes['bookmark']}>
                         <BookmarkIcon />
                     </div> */}

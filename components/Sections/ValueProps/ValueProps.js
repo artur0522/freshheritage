@@ -4,6 +4,11 @@ import Link from 'next/link';
 
 import classes from './ValueProps.module.scss';
 
+// hard-set width to 300px from Sanity
+const valuePropsImgLoader = ({ src }) => {
+  return `${src}?w=300`
+}
+
 const ValueProps = ({ fields }) => {
   const { valueProps } = fields;
   let extraPropsClass;
@@ -28,6 +33,7 @@ const ValueProps = ({ fields }) => {
                         <div className={classes['props__col-wrap']}>
                             <div className={classes['props__col-img']}>
                                 <Image
+                                    loader={valuePropsImgLoader}
                                     src={valueProp.propImage.asset.url}
                                     layout="fill"
                                     objectFit='contain'

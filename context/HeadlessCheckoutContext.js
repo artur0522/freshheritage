@@ -777,7 +777,7 @@ export function HeadlessCheckoutProvider({ children }) {
   async function refreshShipOptionData(zip) {
     const body = {zip};
     if (subsData && subsData.length > 0) {
-      body.bundledShipWeek = `${moment(Math.max(subsData.map(d => d.fulfill_start))).week()}`;
+      body.bundledShipWeek = `${moment(Math.min(...subsData.map(d => d.fulfill_start))).week()}`;
     }
 
     const response = await fetch(

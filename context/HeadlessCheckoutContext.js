@@ -146,6 +146,15 @@ export function HeadlessCheckoutProvider({ children }) {
         },
       }
 
+      if (isGiftOrder) {
+        order_meta_data.note_attributes = {
+          is_gift_order: newItem.properties.is_gift_order,
+          recipient_email: newItem.properties.recipient_email,
+          recipient_name: newItem.properties.recipient_name,
+          gift_message: newItem.properties.gift_message
+        }
+      }
+
       if (data?.application_state?.order_meta_data?.cart_parameters?.pre) {
         order_meta_data.cart_parameters.pre = {...data?.application_state?.order_meta_data?.cart_parameters?.pre}
       }
@@ -170,6 +179,19 @@ export function HeadlessCheckoutProvider({ children }) {
       })
     } else {
       // if item doesn't exist, addline item
+
+      if (isGiftOrder) {
+        // need to get order metadata if they exist
+        const response = await updateOrderMetaData({
+          note_attributes: {
+            is_gift_order: newItem.properties.is_gift_order,
+            recipient_email: newItem.properties.recipient_email,
+            recipient_name: newItem.properties.recipient_name,
+            gift_message: newItem.properties.gift_message
+          }
+        })
+      }
+
       const response = await addLineItem({
         platform_id: newItem.variantId,
         quantity: newItem.quantity,
@@ -184,17 +206,6 @@ export function HeadlessCheckoutProvider({ children }) {
 
     if (open_flyout) {
       setFlyoutState(true)
-    }
-
-    if (isGiftOrder) {
-      const response = await updateOrderMetaData({
-        note_attributes: {
-          is_gift_order: newItem.properties.is_gift_order,
-          recipient_email: newItem.properties.recipient_email,
-          recipient_name: newItem.properties.recipient_name,
-          gift_message: newItem.properties.gift_message
-        }
-      })
     }
 
     return true
@@ -317,34 +328,6 @@ export function HeadlessCheckoutProvider({ children }) {
             }
           }
         }
-      }
-    }
-
-    const getClientId = () => {
-      return new Promise((resolve, reject) => {
-        gtag('get', process.env.NEXT_PUBLIC_MEASUREMENT_ID, 'client_id', (client_id) => {
-          resolve(client_id)
-        })
-      })
-    }
-
-    const gaClientId = await getClientId()
-
-    if (gaClientId) {
-      payload.order_meta_data.note_attributes = {
-        'google-clientID': gaClientId
-      }
-    }
-
-    let attributions = {}
-    attributions.utm_source = sessionStorage.getItem("utm_source")
-    attributions.utm_medium = sessionStorage.getItem("utm_medium")
-    attributions.utm_campaign = sessionStorage.getItem("utm_campaign")
-    attributions.utm_content = sessionStorage.getItem("utm_content")
-
-    if (sessionStorage.getItem("utm_source") || sessionStorage.getItem("utm_medium") || sessionStorage.getItem("utm_campaign") || sessionStorage.getItem("utm_content")){
-      payload.order_meta_data.note_attributes = {
-        'marketingAttributions': attributions
       }
     }
 

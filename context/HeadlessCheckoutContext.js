@@ -27,6 +27,7 @@ export function HeadlessCheckoutProvider({ children }) {
   // TODO: Any of these functions that call fetch should not really be stored in this file. They should be functions accessed from elsewhere to make this testable and cleaned up.
   function saveDataInLocalStorage(data) {
     const checkoutData = {
+      initial_data: data.initial_data,
       jwt: data.jwt_token,
       public_order_id: data.public_order_id,
       resumable_link: data.application_state.resumable_link || '',
@@ -332,7 +333,7 @@ export function HeadlessCheckoutProvider({ children }) {
     saveDataInLocalStorage(data)
     console.log(data, 'init checkout')
     stylePaymentIframe()
-    setData({...data})
+    setData(data)
     setCheckoutIsReady(true)
   }
 
@@ -719,8 +720,6 @@ export function HeadlessCheckoutProvider({ children }) {
 
   useEffect(() => {
     if (!data) return false;
-
-    console.log("data aka checkoutData:", data)
 
     // if logged in and order does not have customer, add customer to order
     if (customer?.email && !data?.application_state?.customer?.email_address) {

@@ -320,7 +320,33 @@ export function HeadlessCheckoutProvider({ children }) {
       }
     }
 
-    console.log('log:', `${process.env.checkoutUrl}/api/checkout/initialize-otp`);
+    const getClientId = () => {
+      return new Promise((resolve, reject) => {
+        gtag('get', process.env.NEXT_PUBLIC_MEASUREMENT_ID, 'client_id', (client_id) => {
+          resolve(client_id)
+        })
+      })
+    }
+
+    const gaClientId = await getClientId()
+
+    if (gaClientId) {
+      payload.order_meta_data.note_attributes = {
+        'google-clientID': gaClientId
+      }
+    }
+
+    let attributions = {}
+    attributions.utm_source = sessionStorage.getItem("utm_source")
+    attributions.utm_medium = sessionStorage.getItem("utm_medium")
+    attributions.utm_campaign = sessionStorage.getItem("utm_campaign")
+    attributions.utm_content = sessionStorage.getItem("utm_content")
+
+    if (sessionStorage.getItem("utm_source") || sessionStorage.getItem("utm_medium") || sessionStorage.getItem("utm_campaign") || sessionStorage.getItem("utm_content")){
+      payload.order_meta_data.note_attributes = {
+        'marketingAttributions': attributions
+      }
+    }
 
     const res = await fetch(
       `${process.env.checkoutUrl}/api/checkout/initialize-otp`,

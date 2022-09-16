@@ -26,17 +26,31 @@ const FeaturedBlogContent = ({ fields }) => {
         query: GET_RECENT_ARTICLES,
         variables: {
           "type": articleType,
-          "first": 200
         }
       })
 
+      console.log("content", method, content)
+
       let sortedArticles = [...content].sort((a, b) => b.createdAt - a.createdAt)
 
-      const articles = await nacelleClient.content({
-        handles: sortedArticles.map(article => article.handle)
-      })
+      // split entry ids into batches of 50
+      const size = 50; const batches = [];
+      for (var i = 0; i < sortedArticles.length; i += size) {
+        batches.push(sortedArticles.slice(i, i + size))
+      }
 
-      sortedArticles = articles.sort((a, b) => {
+      // make more queries to get missing reference data
+      let allReferences = await batches.reduce(async (carry, batch) => {
+        let promises = await carry
+        const entries = await nacelleClient.content({
+          handles: batch.map(article => article.handle)
+        })
+        if (entries) {
+          return [...promises, ...entries]
+        }
+      }, Promise.resolve([]))
+
+      sortedArticles = allReferences.sort((a, b) => {
         let aDatePublished = a.fields.publishedDate ? moment(a.fields.publishedDate).valueOf() / 1000 : a.createdAt
         let bDatePublished = b.fields.publishedDate ? moment(b.fields.publishedDate).valueOf() / 1000 : b.createdAt
         return bDatePublished - aDatePublished
@@ -67,11 +81,7 @@ const FeaturedBlogContent = ({ fields }) => {
         return []
       }
 
-      const articles = await nacelleClient.content({
-        handles: articleHandles
-      })
-
-      return articles.filter(article => article.fields.published)
+      return allReferences.filter(article => article.fields.published)
     }
   }
 

@@ -17,7 +17,7 @@ async function getFullRefFish(fish) {
  return await getNacelleReferences(fish)
 }
 
-const HarvestCard = ({ fish: fishData, cardStyle }) => {
+const HarvestCard = ({ fish: fishData, cardStyle, projectedHarvestDrawer = false }) => {
 
   const [fish, setFish] = useState(fishData)
   const [tabInfo, setTabInfo] = useState(fish['species'])
@@ -44,7 +44,7 @@ const HarvestCard = ({ fish: fishData, cardStyle }) => {
   }
   
   return (
-    <div className={`${classes['harvest__card']} ${cardStyle === 'projected-card' ? classes['projected-card'] : ""}`}>
+    <div className={`${cardStyle === 'projected-card' ? 'projected-slider' : ""} ${classes['harvest__card']} ${cardStyle === 'projected-card' ? classes['projected-card'] : ""}`}>
        {cardStyle === 'projected-card' && isMobile && mounted && tabInfo?.image?.asset?.url && tabInfo[0]?._type !== 'fishermen' &&
         <div className={`harvest__card-img ${classes['harvest__card-img']}`}>
           <Image
@@ -88,12 +88,7 @@ const HarvestCard = ({ fish: fishData, cardStyle }) => {
                 return (
                   <SwiperSlide key={`${fishermen._key}-${fishermen.title}`}>
                     <div className={`harvest__card-img ${classes['harvest__card-img']}`}>
-                      <Image
-                        src={fishermen?.image?.asset.url}
-                        alt={fishermen.title}
-                        width={858}
-                        height={572}
-                      />
+                      <img className={'harvest__card-slider-image'} src={fishermen?.image?.asset.url} alt={fishermen.title} />
                     </div>
                   </SwiperSlide>
                 )

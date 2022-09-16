@@ -720,6 +720,8 @@ export function HeadlessCheckoutProvider({ children }) {
   useEffect(() => {
     if (!data) return false;
 
+    console.log("data aka checkoutData:", data)
+
     // if logged in and order does not have customer, add customer to order
     if (customer?.email && !data?.application_state?.customer?.email_address) {
       addCustomerToOrder({

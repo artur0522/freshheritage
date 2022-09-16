@@ -138,49 +138,49 @@ const MemoizedPaymentMethod = memo(
     }
 
     const { data: orderMetaData, appendOrderMetadata } = useOrderMetadata();
-    useEffect(() => {
-      gtag('get', process.env.NEXT_PUBLIC_MEASUREMENT_ID, 'client_id', (client_id) => {
-          addGAClientID(client_id);
-        })
+    // useEffect(() => {
+    //   gtag('get', process.env.NEXT_PUBLIC_MEASUREMENT_ID, 'client_id', (client_id) => {
+    //       addGAClientID(client_id);
+    //     })
 
 
-      const addGAClientID = async (client_id) => {
-        try {
-          const results = await appendOrderMetadata({
-            note_attributes: {
-              'google-clientID': client_id
-            }
-          });
-        } catch (e) {
-          console.log(e)
-        }
-      };
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    //   const addGAClientID = async (client_id) => {
+    //     try {
+    //       const results = await appendOrderMetadata({
+    //         note_attributes: {
+    //           'google-clientID': client_id
+    //         }
+    //       });
+    //     } catch (e) {
+    //       console.log(e)
+    //     }
+    //   };
+    //   // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
 
-    useEffect(() => {
-      const applyAttributions = async () => {
-        let attributions = {}
-        attributions.utm_source = sessionStorage.getItem("utm_source")
-        attributions.utm_medium = sessionStorage.getItem("utm_medium")
-        attributions.utm_campaign = sessionStorage.getItem("utm_campaign")
-        attributions.utm_content = sessionStorage.getItem("utm_content")
+    // useEffect(() => {
+    //   const applyAttributions = async () => {
+    //     let attributions = {}
+    //     attributions.utm_source = sessionStorage.getItem("utm_source")
+    //     attributions.utm_medium = sessionStorage.getItem("utm_medium")
+    //     attributions.utm_campaign = sessionStorage.getItem("utm_campaign")
+    //     attributions.utm_content = sessionStorage.getItem("utm_content")
 
-        try {
-          const results = await appendOrderMetadata({
-            note_attributes: {
-              'marketingAttributions': attributions
-            }
-          });
-        } catch (e) {
-          console.log(e)
-        }
-      };
-      if (sessionStorage.getItem("utm_source") || sessionStorage.getItem("utm_medium") || sessionStorage.getItem("utm_campaign") || sessionStorage.getItem("utm_content")){
-        applyAttributions();
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    //     try {
+    //       const results = await appendOrderMetadata({
+    //         note_attributes: {
+    //           'marketingAttributions': attributions
+    //         }
+    //       });
+    //     } catch (e) {
+    //       console.log(e)
+    //     }
+    //   };
+    //   if (sessionStorage.getItem("utm_source") || sessionStorage.getItem("utm_medium") || sessionStorage.getItem("utm_campaign") || sessionStorage.getItem("utm_content")){
+    //     applyAttributions();
+    //   }
+    //   // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
 
     const { data: appliedDiscounts, errors: discountErrors, loadingStatus, applyDiscount, removeDiscount } = useDiscount();
     useEffect(() => {
@@ -235,14 +235,17 @@ const MemoizedPaymentMethod = memo(
         if (hasFb && membership === 'Employee') {
           discounts.push('30% Employee Discount');
         } else if (hasFb && membership === 'KingSustainer') {
-          discounts.push('20% King Sustainer Discount');
+          discounts.push('10% King Sustainer Discount');
+          // discounts.push('20% King Sustainer Discount');
         } else if (hasFb && membership === 'SockeyeSustainer') {
-          discounts.push('15% Sustainer Discount');
+          discounts.push('10% Sustainer Discount');
+          // discounts.push('15% Sustainer Discount');
         } else if (hasFb && membership === 'PrepaidMember') {
-          discounts.push('15% Member Discount');
+          discounts.push('5% Member Discount');
+          // discounts.push('15% Member Discount');
         } else if (hasFb && (membership === "PremiumMember" || membership === "Member")) {
           discount = "10% Member Discount";
-        } 
+        }
 
         //AUTO DISCOUNTS FOR SUBSCRIPTIONS
         if (hasSub && membership === 'KingSustainer') {
@@ -252,17 +255,19 @@ const MemoizedPaymentMethod = memo(
         }
 
         discounts = discounts.sort((a, b) => {
-          return parseInt(b) - parseInt(a)
+          // return parseInt(b) - parseInt(a)
+          return parseInt(a) - parseInt(b)
         })
 
         // AUTO DISCOUNT FOR REFERREES
         if (sessionStorage.getItem("utm_source") === "member_referral" && membership === "") {
           if (hasSub){
             discounts.push('$25 Refer a Friend');
-          } 
+          }
         }
 
         console.log('discounts:', discounts);
+        console.log('appliedDiscounts?.discountCode:', appliedDiscounts?.discountCode);
 
         // applying membership discounts
         if (discounts.length) {

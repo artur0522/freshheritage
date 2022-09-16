@@ -209,7 +209,7 @@ export const GET_PRODUCTS = `query products($filter: ProductFilterInput) {
 }`;
 
 
-export const GET_RECENT_ARTICLES = `query articles($first: Int! = 200, $type: String!) {
+export const GET_RECENT_ARTICLES = `query articles($first: Int! = 500, $type: String!) {
   content(filter: { first: $first, type: $type }) {
     handle
     title

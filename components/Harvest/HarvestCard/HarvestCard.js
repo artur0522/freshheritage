@@ -44,7 +44,7 @@ const HarvestCard = ({ fish: fishData, cardStyle, projectedHarvestDrawer = false
   }
   
   return (
-    <div className={`${classes['harvest__card']} ${cardStyle === 'projected-card' ? classes['projected-card'] : ""}`}>
+    <div className={`${cardStyle === 'projected-card' ? 'projected-slider' : ""} ${classes['harvest__card']} ${cardStyle === 'projected-card' ? classes['projected-card'] : ""}`}>
        {cardStyle === 'projected-card' && isMobile && mounted && tabInfo?.image?.asset?.url && tabInfo[0]?._type !== 'fishermen' &&
         <div className={`harvest__card-img ${classes['harvest__card-img']}`}>
           <Image

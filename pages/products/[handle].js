@@ -30,6 +30,8 @@ async function fetcher(productHandle) {
     }
   })
 
+  console.log("swr", products)
+
   return {
     products: products
   }
@@ -54,16 +56,14 @@ function Product({ product, page, modals }) {
   const { customer } = customerContext
   const shellfishFreeInputRef = useRef()
 
-  const fetched = fetcher(selectedVariant.productHandle)
-  fetched.then(function(result) {
-    return { products: result}
-  })
+  // const fetched = fetcher(selectedVariant.productHandle)
+  // fetched.then(function(result) {
+  //   return { products: result}
+  // })
 
   const { products } = useSWR(
     null,
-    fetched.then(function(result) {
-      return { products: result}
-    }),
+    fetcher(selectedVariant.productHandle),
     { errorRetryCount: 3 }
   )
 
@@ -77,8 +77,6 @@ function Product({ product, page, modals }) {
   }, {}))
 
   useEffect(() =>  {
-    
-
     setMounted(true)
 
     if(product.content.handle === 'digital-gift-card') {

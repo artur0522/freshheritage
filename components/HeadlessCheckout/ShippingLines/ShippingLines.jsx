@@ -12,6 +12,7 @@ import { ShippingLineList, EmptyShippingLines } from './components';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
+import { useCustomerContext } from '@/context/CustomerContext';
 
 const ShippingLines = ({ applicationLoading }) => {
   const { data, updateShippingLine, getShippingLines } = useShippingLines();
@@ -66,6 +67,7 @@ const MemoizedShippingLines = memo(
     const { appendOrderMetadata } = useOrderMetadata();
     const [displayedShippingLines, setDisplayedShippingLines] = useState(shippingLines);
     const [selectedShippingLine, setSelectedShippingLine] = useState(shippingLines[selectedShippingLineIndex]);
+    const { customer } = useCustomerContext();
 
     // need to refresh shipping lines when cart line item updates
     const refreshShippingLines = useCallback(async () => {
@@ -96,7 +98,7 @@ const MemoizedShippingLines = memo(
       if (!selectedShippingLine) {
         setSelectedShippingLine(shippingLines[selectedShippingLineIndex]);
       }
-      
+
       // get the ship lines that will actually end up being displayed
       // This section can be removed once we start allowing all ship options for all products
       const lines = [];

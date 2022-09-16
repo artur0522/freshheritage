@@ -23,10 +23,10 @@ const SavedAddress = ({ addressInfo }) => {
         ${address_line_1},
         ${address_line_2 && address_line_2 + ','}
         ${city},
-        ${province && province + ','}
-        ${postal_code && postal_code + ','}
-        ${country},
-        ${phone_number && phone_number}
+        ${province ? province + ',' : ''}
+        ${postal_code ? postal_code + ',' : ''}
+        ${country ? country + ',' : ''}
+        ${phone_number ? phone_number : ''}
         `}
       </span>
     </div>

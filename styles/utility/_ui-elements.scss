@@ -79,6 +79,7 @@
   &.pureWhite {
     background-color: $pureWhite;
     color: $sitkablue;
+
     &:hover {
       background: $sitkablue;
       color: $pureWhite;
@@ -193,6 +194,20 @@ a {
 
 .u-error {
   color: $error;
+}
+
+.projected-slider {
+  .swiper-button-prev {
+    @include breakpoint-up('sm') {
+      top: 30% !important;
+    }
+  }
+
+  .swiper-button-next {
+    @include breakpoint-up('sm') {
+      top: 30% !important;
+    }
+  }
 }
 
 .fishermen-swiper {

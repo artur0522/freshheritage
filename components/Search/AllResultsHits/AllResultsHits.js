@@ -61,7 +61,7 @@ const AllResultsHits = (props) => {
             </Index>
 
             {noResultsForAllIndexes && <div className={classes['no-results']}>
-                <h4>Sorry, we could not find anything for <span>&#34;{scopedResults[0]?.results?.query}&#34;</span></h4>
+                <h4>Sorry, we could not find anything for <span>&#34;{decodeURI(scopedResults[0]?.results?.query)}&#34;</span></h4>
                 <p className="secondary--body">Try a different search term</p>
             </div>}
             </div>

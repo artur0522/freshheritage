@@ -182,7 +182,7 @@ const MemoizedPaymentMethod = memo(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const { data: appliedDiscounts, errors, loadingStatus, applyDiscount, removeDiscount } = useDiscount();
+    const { data: appliedDiscounts, errors: discountErrors, loadingStatus, applyDiscount, removeDiscount } = useDiscount();
     useEffect(() => {
       const applyMembershipDiscount = async () => {
         const hasSub =
@@ -235,12 +235,14 @@ const MemoizedPaymentMethod = memo(
         if (hasFb && membership === 'Employee') {
           discounts.push('30% Employee Discount');
         } else if (hasFb && membership === 'KingSustainer') {
-          discounts.push('10% King Sustainer Discount');
+          discounts.push('20% King Sustainer Discount');
         } else if (hasFb && membership === 'SockeyeSustainer') {
-          discounts.push('10% Sustainer Discount');
+          discounts.push('15% Sustainer Discount');
         } else if (hasFb && membership === 'PrepaidMember') {
-          discounts.push('5% Member Discount');
-        }
+          discounts.push('15% Member Discount');
+        } else if (hasFb && (membership === "PremiumMember" || membership === "Member")) {
+          discount = "10% Member Discount";
+        } 
 
         //AUTO DISCOUNTS FOR SUBSCRIPTIONS
         if (hasSub && membership === 'KingSustainer') {
@@ -257,15 +259,12 @@ const MemoizedPaymentMethod = memo(
         if (sessionStorage.getItem("utm_source") === "member_referral" && membership === "") {
           if (hasSub){
             discounts.push('$25 Refer a Friend');
-          } else if (hasFb){
-            discounts.push('10% Refer a Friend');
-          }
+          } 
         }
 
         console.log('discounts:', discounts);
 
         // applying membership discounts
-
         if (discounts.length) {
           if (appliedDiscounts?.discountCode !== '' && memberDiscountLists.includes(appliedDiscounts.discountCode) && appliedDiscounts?.discountCode !== discounts[0]) {
             try {
@@ -291,8 +290,10 @@ const MemoizedPaymentMethod = memo(
           } catch (e) {
             //console.log(e)
           }
+        // if no member discount is available, remove discount code if applied to order
         } else if (appliedDiscounts?.discountCode !== '' && memberDiscountLists.includes(appliedDiscounts.discountCode)) {
           try {
+            console.log("removing discount code")
             const removeResults = await removeDiscount(appliedDiscounts.discountCode);
           } catch (e) {
             //console.log(e)
@@ -301,7 +302,9 @@ const MemoizedPaymentMethod = memo(
 
       };
 
-      applyMembershipDiscount();
+      if (loadingStatus !== 'setting') {
+        applyMembershipDiscount();
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orderMetaData, lineItems.length]);
 

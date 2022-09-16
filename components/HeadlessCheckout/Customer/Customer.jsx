@@ -177,6 +177,7 @@ const MemoizedCustomer = memo(({ customer, orderMetaData, logout, modalContext }
                 checked={orderMetaData.note_attributes.is_gift_order == 'true' ? true : false}
                 onChange={() => updateOrderMetaData({
                   note_attributes: {
+                    ...orderMetaData.note_attributes,
                     is_gift_order: (orderMetaData.note_attributes.is_gift_order == 'true' ? 'false' : 'true')
                   }
                 })}

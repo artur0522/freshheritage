@@ -37,7 +37,7 @@ const EmailSignup = ({ props }) => {
     })
     .then(res => res.json())
     .then((data) => {
-      console.log('log signup list',props);
+      // console.log('log signup list',props);
       //can't put a hook inside event
       // const trackEvent = useAnalytics();
       // trackEvent('email_signup',props.listId);

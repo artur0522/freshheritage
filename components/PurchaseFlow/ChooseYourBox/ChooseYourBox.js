@@ -40,7 +40,7 @@ const ChooseYourBox = ({props, tierOptions}) => {
   }
 
   useEffect(() => {
-    console.log('track membership_view_list',tierOptions)
+    // console.log('track membership_view_list',tierOptions)
     // can't call a hook from an effect: 
     // const trackEvent = useAnalytics();
     // trackEvent('membership_view_list');

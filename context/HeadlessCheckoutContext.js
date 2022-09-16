@@ -27,6 +27,7 @@ export function HeadlessCheckoutProvider({ children }) {
   // TODO: Any of these functions that call fetch should not really be stored in this file. They should be functions accessed from elsewhere to make this testable and cleaned up.
   function saveDataInLocalStorage(data) {
     const checkoutData = {
+      initial_data: data.initial_data,
       jwt: data.jwt_token,
       public_order_id: data.public_order_id,
       resumable_link: data.application_state.resumable_link || '',
@@ -145,6 +146,15 @@ export function HeadlessCheckoutProvider({ children }) {
         },
       }
 
+      if (isGiftOrder) {
+        order_meta_data.note_attributes = {
+          is_gift_order: newItem.properties.is_gift_order,
+          recipient_email: newItem.properties.recipient_email,
+          recipient_name: newItem.properties.recipient_name,
+          gift_message: newItem.properties.gift_message
+        }
+      }
+
       if (data?.application_state?.order_meta_data?.cart_parameters?.pre) {
         order_meta_data.cart_parameters.pre = {...data?.application_state?.order_meta_data?.cart_parameters?.pre}
       }
@@ -169,6 +179,19 @@ export function HeadlessCheckoutProvider({ children }) {
       })
     } else {
       // if item doesn't exist, addline item
+
+      if (isGiftOrder) {
+        // need to get order metadata if they exist
+        const response = await updateOrderMetaData({
+          note_attributes: {
+            is_gift_order: newItem.properties.is_gift_order,
+            recipient_email: newItem.properties.recipient_email,
+            recipient_name: newItem.properties.recipient_name,
+            gift_message: newItem.properties.gift_message
+          }
+        })
+      }
+
       const response = await addLineItem({
         platform_id: newItem.variantId,
         quantity: newItem.quantity,
@@ -183,17 +206,6 @@ export function HeadlessCheckoutProvider({ children }) {
 
     if (open_flyout) {
       setFlyoutState(true)
-    }
-
-    if (isGiftOrder) {
-      const response = await updateOrderMetaData({
-        note_attributes: {
-          is_gift_order: newItem.properties.is_gift_order,
-          recipient_email: newItem.properties.recipient_email,
-          recipient_name: newItem.properties.recipient_name,
-          gift_message: newItem.properties.gift_message
-        }
-      })
     }
 
     return true
@@ -319,8 +331,6 @@ export function HeadlessCheckoutProvider({ children }) {
       }
     }
 
-    console.log('log:', `${process.env.checkoutUrl}/api/checkout/initialize-otp`);
-
     const res = await fetch(
       `${process.env.checkoutUrl}/api/checkout/initialize-otp`,
       {
@@ -332,7 +342,7 @@ export function HeadlessCheckoutProvider({ children }) {
     saveDataInLocalStorage(data)
     console.log(data, 'init checkout')
     stylePaymentIframe()
-    setData({...data})
+    setData(data)
     setCheckoutIsReady(true)
   }
 
@@ -777,7 +787,7 @@ export function HeadlessCheckoutProvider({ children }) {
   async function refreshShipOptionData(zip) {
     const body = {zip};
     if (subsData && subsData.length > 0) {
-      body.bundledShipWeek = `${moment(Math.max(subsData.map(d => d.fulfill_start))).week()}`;
+      body.bundledShipWeek = `${moment(Math.min(...subsData.map(d => d.fulfill_start))).week()}`;
     }
 
     const response = await fetch(

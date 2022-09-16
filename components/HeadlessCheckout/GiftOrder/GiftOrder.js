@@ -4,7 +4,7 @@ import { InputField } from '../InputField';
 // TODO: on process order, update metaorder data for these values
   // if is not gift order, do not process gift properties
 
-const GiftNote = ({ orderMetaData, updateOrderMetaData }) => {
+const GiftOrder = ({ orderMetaData, updateOrderMetaData }) => {
   const { note_attributes } = orderMetaData
 
   const [email, setEmail] = useState(note_attributes.recipient_email || '')
@@ -31,6 +31,7 @@ const GiftNote = ({ orderMetaData, updateOrderMetaData }) => {
           onChange={(e) => setEmail(e.target.value)}
           onBlur={() => updateOrderMetaData({
             note_attributes: {
+              ...orderMetaData.note_attributes,
               recipient_email: email,
               recipient_name: name,
               gift_message: message
@@ -47,6 +48,7 @@ const GiftNote = ({ orderMetaData, updateOrderMetaData }) => {
           onChange={(e) => setName(e.target.value)}
           onBlur={() => updateOrderMetaData({
             note_attributes: {
+              ...orderMetaData.note_attributes,
               recipient_email: email,
               recipient_name: name,
               gift_message: message
@@ -62,6 +64,7 @@ const GiftNote = ({ orderMetaData, updateOrderMetaData }) => {
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         onBlur={() => updateOrderMetaData({
+            ...orderMetaData.note_attributes,
             note_attributes: {
               recipient_email: email,
               recipient_name: name,
@@ -74,4 +77,4 @@ const GiftNote = ({ orderMetaData, updateOrderMetaData }) => {
   );
 };
 
-export default GiftNote;
+export default GiftOrder;

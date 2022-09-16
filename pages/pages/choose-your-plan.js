@@ -1,14 +1,20 @@
+import { useEffect } from 'react'
+import { useRouter } from "next/router";
 import { nacelleClient } from 'services'
 import ChooseYourBox from '@/components/PurchaseFlow/ChooseYourBox'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
+import { dataLayerViewProductList } from '@/utils/dataLayer';
 
 const PurchaseFlow = ({page, tierOptions}) => {
+  const router = useRouter();
   const purchaseFlowContext = usePurchaseFlowContext()
 
-  console.log("page:", page)
+  useEffect(() => {
+    dataLayerViewProductList({products: tierOptions, url: router.asPath})
+  }, [])
 
   if (purchaseFlowContext.options.is_loaded) {
     return (

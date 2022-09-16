@@ -29,8 +29,6 @@ const FeaturedBlogContent = ({ fields }) => {
         }
       })
 
-      console.log("content", method, content)
-
       let sortedArticles = [...content].sort((a, b) => b.createdAt - a.createdAt)
 
       // split entry ids into batches of 50
@@ -81,7 +79,11 @@ const FeaturedBlogContent = ({ fields }) => {
         return []
       }
 
-      return allReferences.filter(article => article.fields.published)
+      const articles = await nacelleClient.content({
+        handles: articleHandles
+      })
+
+      return articles.filter(article => article.fields.published)
     }
   }
 

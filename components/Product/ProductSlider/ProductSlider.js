@@ -17,10 +17,6 @@ import Image from 'next/image'
   Because all slides need images to have the same aspect ratio
 */
 
-const articleCardImgLoader = ({ src }) => {
-  return `${src}?w=300`
-}
-
 const ProductSlider = ({product, timeout = 0}) => {
 
   const isDesktop = useMediaQuery(
@@ -78,7 +74,7 @@ const ProductSlider = ({product, timeout = 0}) => {
 
           return <SwiperSlide key={`${image.id}-${index}`}>
             <div style={{position: 'relative', paddingBottom: '65%'}}>
-              <Image loader={thumbnailImgLoader} className={classes['image']} loader={articleCardImgLoader} src={image.src} layout="fill" alt={image.altText || product.content?.title}
+              <Image loader={thumbnailImgLoader} className={classes['image']} src={image.src} layout="fill" alt={image.altText || product.content?.title}
                />
             </div>
           </SwiperSlide>

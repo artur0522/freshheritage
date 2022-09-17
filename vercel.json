@@ -1162,19 +1162,19 @@
     },
     {
       "source": "/blogs/recipes/sablefish-black-cod-tandoori-with-mango-relish",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod%29"
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod"
     },
     {
       "source": "/blogs/recipes/sablefish-black-cod-with-green-tomato-sauce-swiss-chard-rice-pilaf",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod%29"
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod"
     },
     {
       "source": "/blogs/recipes/sablefish-with-summer-succotash",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod%29"
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod"
     },
     {
       "source": "/blogs/recipes/sablefish-with-watercress-summer-salad",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod%29"
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod"
     },
     {
       "source": "/blogs/recipes/salmon-and-brie-pizza",
@@ -1642,7 +1642,7 @@
     },
     {
       "source": "/blogs/recipes/tagged/fish-sablefish-black-cod",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod%29"
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod"
     },
     {
       "source": "/blogs/recipes/tagged/fish-salmon-burger",
@@ -1786,7 +1786,7 @@
     },
     {
       "source": "/blogs/recipes/teriyaki-sablefish-black-cod-bowl-with-glazed-carrots-and-sushi-rice",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod%29"
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod"
     },
     {
       "source": "/blogs/recipes/tex-mex-chipotle-salmon-burger",

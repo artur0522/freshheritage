@@ -177,14 +177,6 @@
       "destination": "/pages/sourcing-partners"
     },
     {
-      "source": "/blogs/our-fishermen?page=1",
-      "destination": "/pages/sourcing-partners"
-    },
-    {
-      "source": "/blogs/our-fishermen?page=2",
-      "destination": "/pages/sourcing-partners"
-    },
-    {
       "source": "/blogs/recipes",
       "destination": "/blogs/culinary/recipes"
     },
@@ -194,18 +186,6 @@
     },
     {
       "source": "/blogs/recipes/20-minute-thai-green-fish-curry",
-      "destination": "/blogs/culinary/recipes/20-minute-thai-green-fish-curry"
-    },
-    {
-      "source": "/blogs/recipes/20-minute-thai-green-fish-curry?_pos=2&_sid=c3652d3b1&_ss=r",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
-    },
-    {
-      "source": "/blogs/recipes/20-minute-thai-green-fish-curry?_pos=3&_sid=9d80c53f4&_ss=r",
-      "destination": "/blogs/culinary/recipes/20-minute-thai-green-fish-curry"
-    },
-    {
-      "source": "/blogs/recipes/20-minute-thai-green-fish-curry?_pos=3&_sid=e8381ff44&_ss=r",
       "destination": "/blogs/culinary/recipes/20-minute-thai-green-fish-curry"
     },
     {
@@ -235,14 +215,6 @@
     {
       "source": "/blogs/recipes/aquavit-cured-salmon-toasts-with-shallot-caper-relish",
       "destination": "/blogs/culinary/recipes/ancho-chili-salmon-in-lettuce-tacos"
-    },
-    {
-      "source": "/blogs/recipes/aquavit-cured-salmon-toasts-with-shallot-caper-relish?_pos=1&_sid=363865144&_ss=r",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
-    },
-    {
-      "source": "/blogs/recipes/aquavit-cured-salmon-toasts-with-shallot-caper-relish?_pos=1&_sid=b803c4e9a&_ss=r",
-      "destination": "/blogs/culinary/recipes/aquavit-cured-salmon-toasts-with-shallot-caper-relish"
     },
     {
       "source": "/blogs/recipes/autumn-salmon-buddha-bowl",
@@ -349,10 +321,6 @@
       "destination": "/blogs/culinary/recipes/brown-butter-caper-salmon-with-pearl-couscous-and-roasted-broccolini"
     },
     {
-      "source": "/blogs/recipes/brown-butter-caper-salmon-with-pearl-couscous-and-roasted-broccolini?_pos=4&_sid=e8ef8d6bc&_ss=r",
-      "destination": "/blogs/culinary/recipes/brown-butter-caper-salmon-with-pearl-couscous-and-roasted-broccolini"
-    },
-    {
       "source": "/blogs/recipes/brown-butter-chocolate-chip-cookies",
       "destination": "/blogs/culinary/recipes/brown-butter-chocolate-chip-cookies"
     },
@@ -365,14 +333,6 @@
       "destination": "/blogs/culinary/recipes/brown-butter-salmon-rillettes"
     },
     {
-      "source": "/blogs/recipes/brown-butter-salmon-rillettes?_pos=1&_sid=36aa0ebba&_ss=r",
-      "destination": "/blogs/culinary/recipes/brown-butter-salmon-rillettes"
-    },
-    {
-      "source": "/blogs/recipes/brown-butter-salmon-rillettes?_pos=1&_sid=4ff73c556&_ss=r",
-      "destination": "/blogs/culinary/recipes/brown-butter-salmon-rillettes"
-    },
-    {
       "source": "/blogs/recipes/brown-sugar-glazed-sockeye",
       "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
     },
@@ -382,10 +342,6 @@
     },
     {
       "source": "/blogs/recipes/caesar-compound-butter",
-      "destination": "/blogs/culinary/recipes/caesar-compound-butter"
-    },
-    {
-      "source": "/blogs/recipes/caesar-compound-butter?_pos=1&_sid=9a6ba77d1&_ss=r",
       "destination": "/blogs/culinary/recipes/caesar-compound-butter"
     },
     {
@@ -433,10 +389,6 @@
       "destination": "/blogs/culinary/recipes/chimichurri-sauce"
     },
     {
-      "source": "/blogs/recipes/chimichurri-sauce?_pos=1&_sid=3c6aaaf6e&_ss=r",
-      "destination": "/blogs/culinary/recipes/chimichurri-sauce"
-    },
-    {
       "source": "/blogs/recipes/chipotle-brown-butter-bairdi-crab",
       "destination": "/blogs/culinary/recipes/chipotle-brown-butter-bairdi-crab"
     },
@@ -473,19 +425,11 @@
       "destination": "/blogs/culinary/recipes/crab-and-shrimp-lasagna-with-creamy-tomato-sauce"
     },
     {
-      "source": "/blogs/recipes/crab-and-shrimp-lasagna-with-creamy-tomato-sauce?_pos=1&_sid=f6f582512&_ss=r",
-      "destination": "/blogs/culinary/recipes/crab-and-shrimp-lasagna-with-creamy-tomato-sauce"
-    },
-    {
       "source": "/blogs/recipes/crab-crusted-salmon",
       "destination": "/blogs/culinary/recipes/crab-crusted-salmon"
     },
     {
       "source": "/blogs/recipes/crab-gnocchi-bake",
-      "destination": "/blogs/culinary/recipes/crab-gnocchi-bake"
-    },
-    {
-      "source": "/blogs/recipes/crab-gnocchi-bake?_pos=1&_sid=87333614f&_ss=r",
       "destination": "/blogs/culinary/recipes/crab-gnocchi-bake"
     },
     {
@@ -594,10 +538,6 @@
     },
     {
       "source": "/blogs/recipes/everything-except-the-bagel-salmon",
-      "destination": "/blogs/culinary/recipes/everything-except-the-bagel-salmon"
-    },
-    {
-      "source": "/blogs/recipes/everything-except-the-bagel-salmon?_pos=1&_sid=b3ec8ce9d&_ss=r",
       "destination": "/blogs/culinary/recipes/everything-except-the-bagel-salmon"
     },
     {
@@ -813,10 +753,6 @@
       "destination": "/blogs/culinary/recipes/italian-seafood-stew-cioppino"
     },
     {
-      "source": "/blogs/recipes/italian-seafood-stew-cioppino?_pos=1&_sid=f6d7c33a4&_ss=r",
-      "destination": "/blogs/culinary/recipes/italian-seafood-stew-cioppino"
-    },
-    {
       "source": "/blogs/recipes/italian-style-oil-poached-tuna-salad",
       "destination": "/blogs/culinary/recipes/italian-style-oil-poached-tuna-salad"
     },
@@ -834,10 +770,6 @@
     },
     {
       "source": "/blogs/recipes/kale-anchovy-crumbs",
-      "destination": "/blogs/culinary/recipes/kale-anchovy-crumbs"
-    },
-    {
-      "source": "/blogs/recipes/kale-anchovy-crumbs?_pos=1&_sid=86ae17084&_ss=r",
       "destination": "/blogs/culinary/recipes/kale-anchovy-crumbs"
     },
     {
@@ -922,14 +854,6 @@
     },
     {
       "source": "/blogs/recipes/maple-cider-baked-salmon-with-sweet-potatoes",
-      "destination": "/blogs/culinary/recipes/maple-cider-baked-salmon-with-sweet-potatoes"
-    },
-    {
-      "source": "/blogs/recipes/maple-cider-baked-salmon-with-sweet-potatoes?_pos=1&_sid=2da5a0aea&_ss=r",
-      "destination": "/blogs/culinary/recipes/maple-cider-baked-salmon-with-sweet-potatoes"
-    },
-    {
-      "source": "/blogs/recipes/maple-cider-baked-salmon-with-sweet-potatoes?_pos=1&_sid=b6f25b9a2&_ss=r",
       "destination": "/blogs/culinary/recipes/maple-cider-baked-salmon-with-sweet-potatoes"
     },
     {
@@ -1037,10 +961,6 @@
       "destination": "/blogs/culinary/recipes/old-bay-white-fish-chowder"
     },
     {
-      "source": "/blogs/recipes/old-bay-white-fish-chowder?_pos=1&_sid=f7b4777b2&_ss=r",
-      "destination": "/blogs/culinary/recipes/old-bay-white-fish-chowder"
-    },
-    {
       "source": "/blogs/recipes/olens-grilled-salmon",
       "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%26technique%3Dgrill+%2F+smoke"
     },
@@ -1109,10 +1029,6 @@
       "destination": "/blogs/culinary/recipes/pan-seared-lingcod-with-pistachios-and-brown-butter-garlicky-mashed-potatoes-and-sauteed-spinach"
     },
     {
-      "source": "/blogs/recipes/pan-seared-lingcod-with-pistachios-and-brown-butter-garlicky-mashed-potatoes-and-sauteed-spinach?_pos=7&_sid=36aa0ebba&_ss=r",
-      "destination": "/blogs/culinary/recipes/pan-seared-lingcod-with-pistachios-and-brown-butter-garlicky-mashed-potatoes-and-sauteed-spinach"
-    },
-    {
       "source": "/blogs/recipes/pan-seared-sablefish-black-cod-with-lemon-pepper-aioli",
       "destination": "/blogs/culinary/recipes/pan-seared-sablefish-black-cod-with-lemon-pepper-aioli"
     },
@@ -1126,10 +1042,6 @@
     },
     {
       "source": "/blogs/recipes/pan-seared-salmon-with-pistachio-olive-relish",
-      "destination": "/blogs/culinary/recipes/pan-seared-salmon-with-pistachio-olive-relish"
-    },
-    {
-      "source": "/blogs/recipes/pan-seared-salmon-with-pistachio-olive-relish?_pos=2&_sid=0ac49292d&_ss=r",
       "destination": "/blogs/culinary/recipes/pan-seared-salmon-with-pistachio-olive-relish"
     },
     {
@@ -1153,10 +1065,6 @@
       "destination": "/blogs/culinary/recipes/pasta-with-smoked-salmon-and-caviar"
     },
     {
-      "source": "/blogs/recipes/pasta-with-smoked-salmon-and-caviar?_pos=2&_sid=849dff81e&_ss=r",
-      "destination": "/blogs/culinary/recipes/pasta-with-smoked-salmon-and-caviar"
-    },
-    {
       "source": "/blogs/recipes/pecan-crusted-halibut",
       "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dhalibut"
     },
@@ -1174,10 +1082,6 @@
     },
     {
       "source": "/blogs/recipes/pizza-dough",
-      "destination": "/blogs/culinary/recipes/pizza-dough"
-    },
-    {
-      "source": "/blogs/recipes/pizza-dough?_pos=1&_sid=5f692a6c9&_ss=r",
       "destination": "/blogs/culinary/recipes/pizza-dough"
     },
     {
@@ -1329,10 +1233,6 @@
       "destination": "/blogs/culinary/recipes/salmon-potato-hash-browns-with-fried-eggs-and-hot-sauce"
     },
     {
-      "source": "/blogs/recipes/salmon-potato-hash-browns-with-fried-eggs-and-hot-sauce?_pos=3&_sid=f97c9fd95&_ss=r",
-      "destination": "/blogs/culinary/recipes/salmon-potato-hash-browns-with-fried-eggs-and-hot-sauce"
-    },
-    {
       "source": "/blogs/recipes/salmon-scramble-breakfast-tacos",
       "destination": "/blogs/culinary/recipes/salmon-scramble-breakfast-tacos"
     },
@@ -1357,15 +1257,7 @@
       "destination": "/blogs/culinary/recipes/salumi-rosemary-crumble"
     },
     {
-      "source": "/blogs/recipes/salumi-rosemary-crumble?_pos=1&_sid=31e019d49&_ss=r",
-      "destination": "/blogs/culinary/recipes/salumi-rosemary-crumble"
-    },
-    {
       "source": "/blogs/recipes/sausage-pepper-butter",
-      "destination": "/blogs/culinary/recipes/sausage-pepper-butter"
-    },
-    {
-      "source": "/blogs/recipes/sausage-pepper-butter?_pos=1&_sid=e10e6510e&_ss=r",
       "destination": "/blogs/culinary/recipes/sausage-pepper-butter"
     },
     {
@@ -1437,15 +1329,7 @@
       "destination": "/blogs/culinary/recipes/sesame-crusted-tuna-with-wasabi-dressing"
     },
     {
-      "source": "/blogs/recipes/sesame-crusted-tuna-with-wasabi-dressing?_pos=1&_sid=8573daedd&_ss=r",
-      "destination": "/blogs/culinary/recipes/sesame-crusted-tuna-with-wasabi-dressing"
-    },
-    {
       "source": "/blogs/recipes/sesame-ginger-tuna-tartare",
-      "destination": "/blogs/culinary/recipes/sesame-ginger-tuna-tartare"
-    },
-    {
-      "source": "/blogs/recipes/sesame-ginger-tuna-tartare?_pos=1&_sid=92acf2f6b&_ss=r",
       "destination": "/blogs/culinary/recipes/sesame-ginger-tuna-tartare"
     },
     {
@@ -1473,10 +1357,6 @@
       "destination": "/blogs/culinary/recipes/shrimp-tortilla-soup"
     },
     {
-      "source": "/blogs/recipes/shrimp-tortilla-soup?_pos=1&_sid=7216c8fd1&_ss=r",
-      "destination": "/blogs/culinary/recipes/shrimp-tortilla-soup"
-    },
-    {
       "source": "/blogs/recipes/simple-dungeness-crab-cakes",
       "destination": "/blogs/culinary/recipes/simple-dungeness-crab-cakes"
     },
@@ -1501,19 +1381,7 @@
       "destination": "/blogs/culinary/recipes/slow-roasted-salmon-with-moroccan-carrots"
     },
     {
-      "source": "/blogs/recipes/slow-roasted-salmon-with-moroccan-carrots?_pos=1&_sid=3fa32b124&_ss=r",
-      "destination": "/blogs/culinary/recipes/slow-roasted-salmon-with-moroccan-carrots"
-    },
-    {
-      "source": "/blogs/recipes/slow-roasted-salmon-with-moroccan-carrots?_pos=1&_sid=6e23b9c74&_ss=r",
-      "destination": "/blogs/culinary/recipes/slow-roasted-salmon-with-moroccan-carrots"
-    },
-    {
       "source": "/blogs/recipes/smoked-sablefish-toasts-with-horseradish-cream",
-      "destination": "/blogs/culinary/recipes/smoked-sablefish-toasts-with-horseradish-cream"
-    },
-    {
-      "source": "/blogs/recipes/smoked-sablefish-toasts-with-horseradish-cream?_pos=1&_sid=ea5d99cd3&_ss=r",
       "destination": "/blogs/culinary/recipes/smoked-sablefish-toasts-with-horseradish-cream"
     },
     {
@@ -1521,19 +1389,7 @@
       "destination": "/blogs/culinary/recipes/smoked-salmon-and-halibut-bisque"
     },
     {
-      "source": "/blogs/recipes/smoked-salmon-and-halibut-bisque?_pos=1&_sid=736601b9a&_ss=r",
-      "destination": "/blogs/culinary/recipes/smoked-salmon-and-halibut-bisque"
-    },
-    {
-      "source": "/blogs/recipes/smoked-salmon-and-halibut-bisque?_pos=1&_sid=98d39b226&_ss=r",
-      "destination": "/blogs/culinary/recipes/smoked-salmon-and-halibut-bisque"
-    },
-    {
       "source": "/blogs/recipes/smoked-salmon-and-leek-quiche",
-      "destination": "/blogs/culinary/recipes/smoked-salmon-and-leek-quiche"
-    },
-    {
-      "source": "/blogs/recipes/smoked-salmon-and-leek-quiche?_pos=1&_sid=2851409c9&_ss=r",
       "destination": "/blogs/culinary/recipes/smoked-salmon-and-leek-quiche"
     },
     {
@@ -1577,19 +1433,11 @@
       "destination": "/blogs/culinary/recipes/spicy-fish-taco-nachos-with-lime-crema"
     },
     {
-      "source": "/blogs/recipes/spicy-fish-taco-nachos-with-lime-crema?_pos=1&_sid=7b5d7153c&_ss=r",
-      "destination": "/blogs/culinary/recipes/spicy-fish-taco-nachos-with-lime-crema"
-    },
-    {
       "source": "/blogs/recipes/spicy-hot-mess-crab-legs-with-garlic-butter-and-parsley",
       "destination": "/blogs/culinary/recipes/spicy-hot-mess-crab-legs-with-garlic-butter-and-parsley"
     },
     {
       "source": "/blogs/recipes/spicy-salmon-avocado-hand-rolls",
-      "destination": "/blogs/culinary/recipes/spicy-salmon-avocado-hand-rolls"
-    },
-    {
-      "source": "/blogs/recipes/spicy-salmon-avocado-hand-rolls?_pos=1&_sid=4ad208cef&_ss=r",
       "destination": "/blogs/culinary/recipes/spicy-salmon-avocado-hand-rolls"
     },
     {
@@ -1653,23 +1501,11 @@
       "destination": "/blogs/culinary/recipes/super-crispy-fried-fish-fingers-with-easy-homemade-tartar-sauce"
     },
     {
-      "source": "/blogs/recipes/super-crispy-fried-fish-fingers-with-easy-homemade-tartar-sauce?_pos=1&_sid=13a4ca7b1&_ss=r",
-      "destination": "/blogs/culinary/recipes/super-crispy-fried-fish-fingers-with-easy-homemade-tartar-sauce"
-    },
-    {
-      "source": "/blogs/recipes/super-crispy-fried-fish-fingers-with-easy-homemade-tartar-sauce?_pos=8&_sid=3f080bd83&_ss=r",
-      "destination": "/blogs/culinary/recipes/super-crispy-fried-fish-fingers-with-easy-homemade-tartar-sauce"
-    },
-    {
       "source": "/blogs/recipes/super-crispy-fries",
       "destination": "/blogs/culinary/recipes/super-crispy-fries"
     },
     {
       "source": "/blogs/recipes/sweet-and-sour-braised-cabbage",
-      "destination": "/blogs/culinary/recipes/sweet-and-sour-braised-cabbage"
-    },
-    {
-      "source": "/blogs/recipes/sweet-and-sour-braised-cabbage?_pos=2&_sid=b3ec8ce9d&_ss=r",
       "destination": "/blogs/culinary/recipes/sweet-and-sour-braised-cabbage"
     },
     {
@@ -1705,18 +1541,6 @@
       "destination": "/blogs/culinary/from-the-test-kitchen"
     },
     {
-      "source": "/blogs/recipes/tagged/category-from-the-test-kitchen?page=1",
-      "destination": "/blogs/culinary/from-the-test-kitchen"
-    },
-    {
-      "source": "/blogs/recipes/tagged/category-from-the-test-kitchen?page=2",
-      "destination": "/blogs/culinary/from-the-test-kitchen"
-    },
-    {
-      "source": "/blogs/recipes/tagged/category-from-the-test-kitchen?page=3",
-      "destination": "/blogs/culinary/from-the-test-kitchen"
-    },
-    {
       "source": "/blogs/recipes/tagged/category-make-it-a-meal",
       "destination": "/blogs/culinary/recipes?filters=meal+course%3Dappetizer%26meal+course%3Dside"
     },
@@ -1726,18 +1550,6 @@
     },
     {
       "source": "/blogs/recipes/tagged/category-members-friends",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes/tagged/category-members-friends?page=1",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes/tagged/category-members-friends?page=2",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes/tagged/category-members-friends?page=3",
       "destination": "/blogs/culinary/recipes"
     },
     {
@@ -1757,31 +1569,7 @@
       "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Ddairy+free"
     },
     {
-      "source": "/blogs/recipes/tagged/diet-dairy-free?page=1",
-      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Ddairy+free"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-dairy-free?page=2",
-      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Ddairy+free"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-dairy-free?page=3",
-      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Ddairy+free"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-dairy-free?page=4",
-      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Ddairy+free"
-    },
-    {
       "source": "/blogs/recipes/tagged/diet-keto-friendly",
-      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Ddairy+free"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-keto-friendly?page=1",
-      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Ddairy+free"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-keto-friendly?page=2",
       "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Ddairy+free"
     },
     {
@@ -1789,43 +1577,7 @@
       "destination": "/blogs/culinary/recipes"
     },
     {
-      "source": "/blogs/recipes/tagged/diet-nut-free?page=1",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-nut-free?page=2",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-nut-free?page=3",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-nut-free?page=4",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-nut-free?page=5",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-nut-free?page=6",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-nut-free?page=7",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
       "source": "/blogs/recipes/tagged/diet-paleo-friendly",
-      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dwheat%2Fgluten+free%26dietary+concerns%3Dnutrient+dense"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-paleo-friendly?page=1",
-      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dwheat%2Fgluten+free%26dietary+concerns%3Dnutrient+dense"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-paleo-friendly?page=2",
       "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dwheat%2Fgluten+free%26dietary+concerns%3Dnutrient+dense"
     },
     {
@@ -1833,55 +1585,11 @@
       "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
     },
     {
-      "source": "/blogs/recipes/tagged/diet-pesco-vegan?page=1",
-      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dvegan-pescatarian"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-pesco-vegan?page=2",
-      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dvegan-pescatarian"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-pesco-vegan?page=3",
-      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dvegan-pescatarian"
-    },
-    {
       "source": "/blogs/recipes/tagged/diet-soy-free",
       "destination": "/blogs/culinary/recipes"
     },
     {
-      "source": "/blogs/recipes/tagged/diet-soy-free?page=1",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-soy-free?page=2",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-soy-free?page=3",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-soy-free?page=4",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-soy-free?page=5",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-soy-free?page=6",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
       "source": "/blogs/recipes/tagged/diet-whole30-friendly",
-      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dwheat%2Fgluten+free%26dietary+concerns%3Dnutrient+dense"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-whole30-friendly?page=1",
-      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dwheat%2Fgluten+free%26dietary+concerns%3Dnutrient+dense"
-    },
-    {
-      "source": "/blogs/recipes/tagged/diet-whole30-friendly?page=2",
       "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dwheat%2Fgluten+free%26dietary+concerns%3Dnutrient+dense"
     },
     {
@@ -1893,27 +1601,11 @@
       "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dcoho"
     },
     {
-      "source": "/blogs/recipes/tagged/fish-coho-salmon?page=1",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dcoho"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-coho-salmon?page=2",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dcoho"
-    },
-    {
       "source": "/blogs/recipes/tagged/fish-crab",
       "destination": "/blogs/culinary/recipes?filters=species%3Dall+shellfish%3Ddungeness%26species%3Dall+shellfish%3Dbairdi"
     },
     {
       "source": "/blogs/recipes/tagged/fish-halibut",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dhalibut"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-halibut?page=1",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dhalibut"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-halibut?page=2",
       "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dhalibut"
     },
     {
@@ -1925,14 +1617,6 @@
       "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dking"
     },
     {
-      "source": "/blogs/recipes/tagged/fish-king-salmon?page=1",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dking"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-king-salmon?page=2",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dking"
-    },
-    {
       "source": "/blogs/recipes/tagged/fish-lingcod",
       "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dlingcod"
     },
@@ -1941,52 +1625,8 @@
       "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
     },
     {
-      "source": "/blogs/recipes/tagged/fish-meta-salmon?page=1",
-      "destination": "/blogs/culinary/recipes/fish-meta-salmon?page=1"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-meta-salmon?page=2",
-      "destination": "/blogs/culinary/recipes/fish-meta-salmon?page=2"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-meta-salmon?page=3",
-      "destination": "/blogs/culinary/recipes/fish-meta-salmon?page=3"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-meta-salmon?page=4",
-      "destination": "/blogs/culinary/recipes/fish-meta-salmon?page=4"
-    },
-    {
       "source": "/blogs/recipes/tagged/fish-meta-shellfish",
       "destination": "/blogs/culinary/recipes/fish-meta-shellfish"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-meta-shellfish?page=1",
-      "destination": "/blogs/culinary/recipes/fish-meta-shellfish?page=1"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-meta-shellfish?page=2",
-      "destination": "/blogs/culinary/recipes/fish-meta-shellfish?page=2"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-meta-whitefish",
-      "destination": "/blogs/culinary/recipes/fish-meta-whitefish"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-meta-whitefish?page=1",
-      "destination": "/blogs/culinary/recipes/fish-meta-whitefish?page=1"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-meta-whitefish?page=2",
-      "destination": "/blogs/culinary/recipes/fish-meta-whitefish?page=2"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-meta-whitefish?page=3",
-      "destination": "/blogs/culinary/recipes/fish-meta-whitefish?page=3"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-meta-whitefish?page=4",
-      "destination": "/blogs/culinary/recipes/fish-meta-whitefish?page=4"
     },
     {
       "source": "/blogs/recipes/tagged/fish-non-fish",
@@ -1997,23 +1637,7 @@
       "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dpacific+cod"
     },
     {
-      "source": "/blogs/recipes/tagged/fish-pacific-cod?page=1",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dpacific+cod"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-pacific-cod?page=2",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dpacific+cod"
-    },
-    {
       "source": "/blogs/recipes/tagged/fish-rockfish",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Drockfish"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-rockfish?page=1",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Drockfish"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-rockfish?page=2",
       "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Drockfish"
     },
     {
@@ -2037,35 +1661,7 @@
       "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dsockeye"
     },
     {
-      "source": "/blogs/recipes/tagged/fish-sockeye-salmon?page=1",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dsockeye"
-    },
-    {
-      "source": "/blogs/recipes/tagged/fish-sockeye-salmon?page=2",
-      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dsockeye"
-    },
-    {
       "source": "/blogs/recipes/tagged/meal-10-ingredients-or-less",
-      "destination": "/blogs/culinary/recipes?filters=style%3D10+ingredients+or+less"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-10-ingredients-or-less?page=1",
-      "destination": "/blogs/culinary/recipes?filters=style%3D10+ingredients+or+less"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-10-ingredients-or-less?page=2",
-      "destination": "/blogs/culinary/recipes?filters=style%3D10+ingredients+or+less"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-10-ingredients-or-less?page=3",
-      "destination": "/blogs/culinary/recipes?filters=style%3D10+ingredients+or+less"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-10-ingredients-or-less?page=4",
-      "destination": "/blogs/culinary/recipes?filters=style%3D10+ingredients+or+less"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-10-ingredients-or-less?page=5",
       "destination": "/blogs/culinary/recipes?filters=style%3D10+ingredients+or+less"
     },
     {
@@ -2075,26 +1671,6 @@
     {
       "source": "/blogs/recipes/tagged/meal-30-minute-meal",
       "destination": "/blogs/culinary/recipes/meal-30-minute-meal"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-30-minute-meal?page=1",
-      "destination": "/blogs/culinary/recipes?filters=style%3D20-minute+meal"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-30-minute-meal?page=2",
-      "destination": "/blogs/culinary/recipes?filters=style%3D20-minute+meal"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-30-minute-meal?page=3",
-      "destination": "/blogs/culinary/recipes?filters=style%3D20-minute+meal"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-30-minute-meal?page=4",
-      "destination": "/blogs/culinary/recipes?filters=style%3D20-minute+meal"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-30-minute-meal?page=5",
-      "destination": "/blogs/culinary/recipes?filters=style%3D20-minute+meal"
     },
     {
       "source": "/blogs/recipes/tagged/meal-appetizer",
@@ -2114,38 +1690,6 @@
     },
     {
       "source": "/blogs/recipes/tagged/meal-main-course",
-      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-main-course?page=1",
-      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-main-course?page=2",
-      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-main-course?page=3",
-      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-main-course?page=4",
-      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-main-course?page=5",
-      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-main-course?page=6",
-      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-main-course?page=7",
-      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
-    },
-    {
-      "source": "/blogs/recipes/tagged/meal-main-course?page=8",
       "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
     },
     {
@@ -2173,18 +1717,6 @@
       "destination": "/blogs/culinary/recipes?filters=technique%3Dslow+roast"
     },
     {
-      "source": "/blogs/recipes/tagged/prep-bake-roast?page=1",
-      "destination": "/blogs/culinary/recipes?filters=technique%3Dslow+roast"
-    },
-    {
-      "source": "/blogs/recipes/tagged/prep-bake-roast?page=2",
-      "destination": "/blogs/culinary/recipes?filters=technique%3Dslow+roast"
-    },
-    {
-      "source": "/blogs/recipes/tagged/prep-bake-roast?page=3",
-      "destination": "/blogs/culinary/recipes?filters=technique%3Dslow+roast"
-    },
-    {
       "source": "/blogs/recipes/tagged/prep-braise",
       "destination": "/blogs/culinary/recipes?filters=technique%3Dbraise+%2F+simmer"
     },
@@ -2202,14 +1734,6 @@
     },
     {
       "source": "/blogs/recipes/tagged/prep-grill",
-      "destination": "/blogs/culinary/recipes?filters=technique%3Dgrill+%2F+smoke"
-    },
-    {
-      "source": "/blogs/recipes/tagged/prep-grill?page=1",
-      "destination": "/blogs/culinary/recipes?filters=technique%3Dgrill+%2F+smoke"
-    },
-    {
-      "source": "/blogs/recipes/tagged/prep-grill?page=2",
       "destination": "/blogs/culinary/recipes?filters=technique%3Dgrill+%2F+smoke"
     },
     {
@@ -2234,22 +1758,6 @@
     },
     {
       "source": "/blogs/recipes/tagged/prep-sear-pan-fry",
-      "destination": "/blogs/culinary/recipes?filters=technique%3Dpan-fry%26technique%3Dpan-sear"
-    },
-    {
-      "source": "/blogs/recipes/tagged/prep-sear-pan-fry?page=1",
-      "destination": "/blogs/culinary/recipes?filters=technique%3Dpan-fry%26technique%3Dpan-sear"
-    },
-    {
-      "source": "/blogs/recipes/tagged/prep-sear-pan-fry?page=2",
-      "destination": "/blogs/culinary/recipes?filters=technique%3Dpan-fry%26technique%3Dpan-sear"
-    },
-    {
-      "source": "/blogs/recipes/tagged/prep-sear-pan-fry?page=3",
-      "destination": "/blogs/culinary/recipes?filters=technique%3Dpan-fry%26technique%3Dpan-sear"
-    },
-    {
-      "source": "/blogs/recipes/tagged/prep-sear-pan-fry?page=4",
       "destination": "/blogs/culinary/recipes?filters=technique%3Dpan-fry%26technique%3Dpan-sear"
     },
     {
@@ -2289,10 +1797,6 @@
       "destination": "/blogs/culinary/recipes/thai-green-curry-paste"
     },
     {
-      "source": "/blogs/recipes/thai-green-curry-paste?_pos=1&_sid=2ea01fdfd&_ss=r",
-      "destination": "/blogs/culinary/recipes/thai-green-curry-paste"
-    },
-    {
       "source": "/blogs/recipes/thai-peanut-sauce",
       "destination": "/blogs/culinary/recipes/thai-peanut-sauce"
     },
@@ -2318,10 +1822,6 @@
     },
     {
       "source": "/blogs/recipes/tuna-carpaccio-with-tangy-citrus-dressing",
-      "destination": "/blogs/culinary/recipes/tuna-carpaccio-with-tangy-citrus-dressing"
-    },
-    {
-      "source": "/blogs/recipes/tuna-carpaccio-with-tangy-citrus-dressing?_pos=1&_sid=688edeee0&_ss=r",
       "destination": "/blogs/culinary/recipes/tuna-carpaccio-with-tangy-citrus-dressing"
     },
     {
@@ -2395,50 +1895,6 @@
     {
       "source": "/blogs/recipes/zingy-poach-with-orange-soy-cumin-glaze",
       "destination": "/blogs/culinary/recipes?filters=technique%3Dpoach"
-    },
-    {
-      "source": "/blogs/recipes?page=1",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes?page=10",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes?page=11",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes?page=2",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes?page=3",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes?page=4",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes?page=5",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes?page=6",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes?page=7",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes?page=8",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/recipes?page=9",
-      "destination": "/blogs/culinary/recipes"
     },
     {
       "source": "/blogs/stories-and-more",
@@ -2637,10 +2093,6 @@
       "destination": "/blogs/culinary/from-the-test-kitchen"
     },
     {
-      "source": "/blogs/stories-and-more/how-to-remove-pin-bones-from-wild-caught-alaska-salmon-in-4-easy-steps?_pos=1&_sid=a61768400&_ss=r",
-      "destination": "/blogs/culinary/from-the-test-kitchen/how-to-remove-pin-bones-from-your-salmon-fillet"
-    },
-    {
       "source": "/blogs/stories-and-more/how-to-thaw-vacuum-packaged-fish",
       "destination": "/blogs/culinary/from-the-test-kitchen"
     },
@@ -2717,10 +2169,6 @@
       "destination": "/blogs/stories/1-for-the-wild"
     },
     {
-      "source": "/blogs/stories-and-more/nationwide-launch-of-understory-a-journey-through-the-tongass?_pos=2&_sid=5508c814f&_ss=r",
-      "destination": "/blogs/stories/1-for-the-wild"
-    },
-    {
       "source": "/blogs/stories-and-more/need-a-last-minute-gift-try-a-subscription-box",
       "destination": "/blogs/culinary/from-the-test-kitchen"
     },
@@ -2789,10 +2237,6 @@
       "destination": "/blogs/stories/sourcing-partners"
     },
     {
-      "source": "/blogs/stories-and-more/she-loves-fishing?_pos=1&_sid=375ede8e9&_ss=r",
-      "destination": "/blogs/stories/sourcing-partners/captain-s-log-she-loves-fishing"
-    },
-    {
       "source": "/blogs/stories-and-more/sitka-salmon-shares-leadership-applauds-protections-for-alaska",
       "destination": "/blogs/stories/1-for-the-wild"
     },
@@ -2810,14 +2254,6 @@
     },
     {
       "source": "/blogs/stories-and-more/tagged/the-catch",
-      "destination": "/the-catch/premium-seafood-box-september-2022"
-    },
-    {
-      "source": "/blogs/stories-and-more/tagged/the-catch?page=1",
-      "destination": "/the-catch/premium-seafood-box-september-2022"
-    },
-    {
-      "source": "/blogs/stories-and-more/tagged/the-catch?page=2",
       "destination": "/the-catch/premium-seafood-box-september-2022"
     },
     {
@@ -2925,10 +2361,6 @@
       "destination": "/blogs/stories/alaska-stories"
     },
     {
-      "source": "/blogs/stories-and-more/the-fish-that-fed-your-fish?_pos=1&_sid=56bb9eed9&_ss=r",
-      "destination": "/blogs/stories/alaska-stories/the-fish-that-fed-your-fish"
-    },
-    {
       "source": "/blogs/stories-and-more/the-rhythm-of-the-sea",
       "destination": "/blogs/stories/sourcing-partners"
     },
@@ -2977,10 +2409,6 @@
       "destination": "/blogs/culinary"
     },
     {
-      "source": "/blogs/stories-and-more/why-eating-wild-salmon-is-the-best-way-to-protect-them?_pos=2&_sid=fad5fbe3f&_ss=r",
-      "destination": "blogs/stories/science-and-supply-chain/why-eating-wild-salmon-is-the-best-way-to-protect-them"
-    },
-    {
       "source": "/blogs/stories-and-more/why-frozen-fish-are-fresh",
       "destination": "/blogs/stories/science-and-supply-chain"
     },
@@ -2997,64 +2425,12 @@
       "destination": "/blogs/culinary/from-the-test-kitchen"
     },
     {
-      "source": "/blogs/stories-and-more/wild-salmon-101?homepage_cta",
-      "destination": "/blogs/culinary/from-the-test-kitchen/wild-salmon-101"
-    },
-    {
       "source": "/blogs/stories-and-more/you-asked-we-listened",
       "destination": "/blogs/stories/in-the-news"
     },
     {
       "source": "/blogs/stories-and-more/you-should-be-eating-more-fish-heres-why",
       "destination": "/blogs/culinary/from-the-test-kitchen"
-    },
-    {
-      "source": "/blogs/stories-and-more/you-should-be-eating-more-fish-heres-why?_pos=10&_sid=96011d1ee&_ss=r",
-      "destination": "/blogs/culinary/from-the-test-kitchen/you-should-be-eating-more-fish-here-s-why"
-    },
-    {
-      "source": "/blogs/stories-and-more?page=1",
-      "destination": "/blogs/stories"
-    },
-    {
-      "source": "/blogs/stories-and-more?page=10",
-      "destination": "/blogs/stories"
-    },
-    {
-      "source": "/blogs/stories-and-more?page=11",
-      "destination": "/blogs/stories"
-    },
-    {
-      "source": "/blogs/stories-and-more?page=2",
-      "destination": "/blogs/stories"
-    },
-    {
-      "source": "/blogs/stories-and-more?page=3",
-      "destination": "/blogs/stories"
-    },
-    {
-      "source": "/blogs/stories-and-more?page=4",
-      "destination": "/blogs/stories"
-    },
-    {
-      "source": "/blogs/stories-and-more?page=5",
-      "destination": "/blogs/stories"
-    },
-    {
-      "source": "/blogs/stories-and-more?page=6",
-      "destination": "/blogs/stories"
-    },
-    {
-      "source": "/blogs/stories-and-more?page=7",
-      "destination": "/blogs/stories"
-    },
-    {
-      "source": "/blogs/stories-and-more?page=8",
-      "destination": "/blogs/stories"
-    },
-    {
-      "source": "/blogs/stories-and-more?page=9",
-      "destination": "/blogs/stories"
     },
     {
       "source": "/blogs/videos",
@@ -3161,10 +2537,6 @@
       "destination": "/blogs/stories/1-for-the-wild"
     },
     {
-      "source": "/blogs/videos/i-speak-for-the-fish?_pos=2&_sid=107095d2f&_ss=r",
-      "destination": "/blogs/stories"
-    },
-    {
       "source": "/blogs/videos/judging-the-2019-member-recipe-contest",
       "destination": "/blogs/culinary"
     },
@@ -3233,14 +2605,6 @@
       "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
     },
     {
-      "source": "/blogs/videos/tagged/category-boat-deck-cookin?page=1",
-      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
-    },
-    {
-      "source": "/blogs/videos/tagged/category-boat-deck-cookin?page=2",
-      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
-    },
-    {
       "source": "/blogs/videos/tagged/category-fish-101",
       "destination": "/blogs/culinary/video-series"
     },
@@ -3249,23 +2613,7 @@
       "destination": "/pages/privacy-policy"
     },
     {
-      "source": "/blogs/videos/tagged/category-our-story?page=1",
-      "destination": "/blogs/stories"
-    },
-    {
-      "source": "/blogs/videos/tagged/category-our-story?page=2",
-      "destination": "/blogs/stories"
-    },
-    {
       "source": "/blogs/videos/tagged/category-wild-at-home",
-      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
-    },
-    {
-      "source": "/blogs/videos/tagged/category-wild-at-home?page=1",
-      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
-    },
-    {
-      "source": "/blogs/videos/tagged/category-wild-at-home?page=2",
       "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
     },
     {
@@ -3281,35 +2629,7 @@
       "destination": "/blogs/culinary/video-series"
     },
     {
-      "source": "/blogs/videos/tagged/video-culinary?page=1",
-      "destination": "/blogs/culinary/video-series"
-    },
-    {
-      "source": "/blogs/videos/tagged/video-culinary?page=2",
-      "destination": "/blogs/culinary/video-series"
-    },
-    {
-      "source": "/blogs/videos/tagged/video-culinary?page=3",
-      "destination": "/blogs/culinary/video-series"
-    },
-    {
-      "source": "/blogs/videos/tagged/video-culinary?page=4",
-      "destination": "/blogs/culinary/video-series"
-    },
-    {
       "source": "/blogs/videos/tagged/video-fishermen",
-      "destination": "/pages/sourcing-partners"
-    },
-    {
-      "source": "/blogs/videos/tagged/video-fishermen?page=1",
-      "destination": "/pages/sourcing-partners"
-    },
-    {
-      "source": "/blogs/videos/tagged/video-fishermen?page=2",
-      "destination": "/pages/sourcing-partners"
-    },
-    {
-      "source": "/blogs/videos/tagged/video-fishermen?page=3",
       "destination": "/pages/sourcing-partners"
     },
     {
@@ -3327,10 +2647,6 @@
     {
       "source": "/blogs/videos/the-box-wild-alaskan-seafood-delivery",
       "destination": "/blogs/stories/science-and-supply-chain"
-    },
-    {
-      "source": "/blogs/videos/the-box-wild-alaskan-seafood-delivery?homepage_cta",
-      "destination": "/blogs/stories/science-and-supply-chain/the-box"
     },
     {
       "source": "/blogs/videos/the-feast-of-seven-fishes",
@@ -3433,30 +2749,6 @@
       "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
     },
     {
-      "source": "/blogs/videos?page=1",
-      "destination": "/blogs/stories"
-    },
-    {
-      "source": "/blogs/videos?page=2",
-      "destination": "/blogs/stories"
-    },
-    {
-      "source": "/blogs/videos?page=3",
-      "destination": "/blogs/stories"
-    },
-    {
-      "source": "/blogs/videos?page=4",
-      "destination": "/blogs/stories"
-    },
-    {
-      "source": "/blogs/videos?page=5",
-      "destination": "/blogs/stories"
-    },
-    {
-      "source": "/blogs/videos?page=6",
-      "destination": "/blogs/stories"
-    },
-    {
       "source": "/blogs/virtual-cooking-class",
       "destination": "/blogs/culinary/video-series"
     },
@@ -3466,10 +2758,6 @@
     },
     {
       "source": "/blogs/virtual-cooking-class/pickled-apple-relish",
-      "destination": "/blogs/culinary/recipes"
-    },
-    {
-      "source": "/blogs/virtual-cooking-class/pickled-apple-relish?_pos=1&_sid=f6946df21&_ss=r",
       "destination": "/blogs/culinary/recipes"
     },
     {
@@ -3545,63 +2833,7 @@
       "destination": "/pages/choose-your-plan"
     },
     {
-      "source": "/collections/seafood-subscription-boxes?eat-more-seafood",
-      "destination": "/pages/choose-your-plan"
-    },
-    {
-      "source": "/collections/seafood-subscription-boxes?frozen-fish-is-fresh",
-      "destination": "/pages/choose-your-plan"
-    },
-    {
-      "source": "/collections/seafood-subscription-boxes?homepage-hiw",
-      "destination": "/pages/choose-your-plan"
-    },
-    {
-      "source": "/collections/seafood-subscription-boxes?homepage_cta",
-      "destination": "/pages/choose-your-plan"
-    },
-    {
-      "source": "/collections/seafood-subscription-boxes?karl-jordan-cta",
-      "destination": "/pages/choose-your-plan"
-    },
-    {
-      "source": "/collections/seafood-subscription-boxes?lisa-busch",
-      "destination": "/pages/choose-your-plan"
-    },
-    {
-      "source": "/collections/seafood-subscription-boxes?pin-bone-removal-cta",
-      "destination": "/pages/choose-your-plan"
-    },
-    {
-      "source": "/collections/seafood-subscription-boxes?protect-salmon",
-      "destination": "/pages/choose-your-plan"
-    },
-    {
-      "source": "/collections/seafood-subscription-boxes?thaw-fish",
-      "destination": "/pages/choose-your-plan"
-    },
-    {
-      "source": "/collections/seafood-subscription-boxes?utm_medium=organization&utm_campaign=SEACC25",
-      "destination": "/pages/choose-your-plan"
-    },
-    {
-      "source": "/collections/seafood-subscription-boxes?wild-vs-farmed",
-      "destination": "/pages/choose-your-plan"
-    },
-    {
-      "source": "/collections/seafood-subscription-boxes?you-asked",
-      "destination": "/pages/choose-your-plan"
-    },
-    {
       "source": "/collections/shop-seafood-boxes",
-      "destination": "/pages/choose-your-plan"
-    },
-    {
-      "source": "/collections/shop-seafood-boxes?homepage_cta",
-      "destination": "/pages/choose-your-plan"
-    },
-    {
-      "source": "/collections/shop-seafood-boxes?recipe-cta",
       "destination": "/pages/choose-your-plan"
     },
     {
@@ -3686,10 +2918,6 @@
     },
     {
       "source": "/pages/our-fishermen",
-      "destination": "/pages/sourcing-partners"
-    },
-    {
-      "source": "/pages/our-fishermen?homepage_cta",
       "destination": "/pages/sourcing-partners"
     },
     {

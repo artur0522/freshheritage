@@ -1,0 +1,3912 @@
+{
+  "redirects": [
+    {
+      "source": "/reduce",
+      "destination": "/pages/packaging-disposal-guide"
+    },
+    {
+      "source": "/blogs/media",
+      "destination": "/blogs/stories/in-the-news"
+    },
+    {
+      "source": "/blogs/media/10-food-subscription-boxes-you-can-t-miss",
+      "destination": "/blogs/stories/in-the-news/10-food-subscription-boxes-you-can-t-miss"
+    },
+    {
+      "source": "/blogs/media/bon-appetit-buy-sustainable-alaskan-seafood-fishery",
+      "destination": "/blogs/stories/in-the-news/bon-appetit-buy-sustainable-alaskan-seafood-fishery"
+    },
+    {
+      "source": "/blogs/media/choice-cuts-responsibly-produced-meat",
+      "destination": "/blogs/stories/in-the-news/choice-cuts-responsibly-produced-meat"
+    },
+    {
+      "source": "/blogs/media/civil-eats-fish-out-of-water-alaska-seafood",
+      "destination": "/blogs/stories/in-the-news/civil-eats-fish-out-of-water-alaska-seafood"
+    },
+    {
+      "source": "/blogs/media/cooking-with-whats-on-hand-how-to-make-great-dinners-with-frozen-fish",
+      "destination": "/blogs/stories/in-the-news/cooking-with-whats-on-hand-how-to-make-great-dinners-with-frozen-fish"
+    },
+    {
+      "source": "/blogs/media/food-and-wine-americas-best-food-artisans",
+      "destination": "/blogs/stories/in-the-news/food-and-wine-americas-best-food-artisans"
+    },
+    {
+      "source": "/blogs/media/food-diaries-ellie-krieger",
+      "destination": "/blogs/stories/in-the-news/food-diaries-ellie-krieger"
+    },
+    {
+      "source": "/blogs/media/garver-gourmet-at-garver-feed-mill",
+      "destination": "/blogs/stories/in-the-news/garver-gourmet-at-garver-feed-mill"
+    },
+    {
+      "source": "/blogs/media/isthmus-food-for-thought-alaska-sustainable-fishing",
+      "destination": "/blogs/stories/in-the-news/isthmus-food-for-thought-alaska-sustainable-fishing"
+    },
+    {
+      "source": "/blogs/media/mark-bittman-highlights-the-importance-of-knowing-your-fishmonger-and-fishermen",
+      "destination": "/blogs/stories/in-the-news/mark-bittman-highlights-the-importance-of-knowing-your-fishmonger-and-fishermen"
+    },
+    {
+      "source": "/blogs/media/marsh-skeele-explores-the-wild-of-alaska-through-its-food",
+      "destination": "/blogs/stories/in-the-news/marsh-skeele-explores-the-wild-of-alaska-through-its-food"
+    },
+    {
+      "source": "/blogs/media/midwest-living-professor-brings-sustainable-seafood-to-your-door",
+      "destination": "/blogs/stories/in-the-news/midwest-living-professor-brings-sustainable-seafood-to-your-door"
+    },
+    {
+      "source": "/blogs/media/mother-earth-news-sustainable-salmon-fishing-marsh-skeele-interview",
+      "destination": "/blogs/stories/in-the-news/mother-earth-news-sustainable-salmon-fishing-marsh-skeele-interview"
+    },
+    {
+      "source": "/blogs/media/nows-the-time-to-order-mass-quantities-of-wild-alaskan-salmon-online",
+      "destination": "/blogs/stories/in-the-news/nows-the-time-to-order-mass-quantities-of-wild-alaskan-salmon-online"
+    },
+    {
+      "source": "/blogs/media/protecting-alaskas-tongass-national-forest-benefits-midwesterners",
+      "destination": "/blogs/stories/in-the-news/protecting-alaskas-tongass-national-forest-benefits-midwesterners"
+    },
+    {
+      "source": "/blogs/media/rachael-ray-staff-name-sitka-salmon-shares-among-best-food-subscription-boxes",
+      "destination": "/blogs/stories/in-the-news/rachael-ray-staff-name-sitka-salmon-shares-among-best-food-subscription-boxes"
+    },
+    {
+      "source": "/blogs/media/rachael-rays-in-season-touts-benefits-of-our-delicious-premium-seafood",
+      "destination": "/blogs/stories/in-the-news/rachael-rays-in-season-touts-benefits-of-our-delicious-premium-seafood"
+    },
+    {
+      "source": "/blogs/media/rethink-chocolate-and-flowers-for-your-love-give-fish",
+      "destination": "/blogs/stories/in-the-news/rethink-chocolate-and-flowers-for-your-love-give-fish"
+    },
+    {
+      "source": "/blogs/media/sitka-salmon-shares-listed-as-one-of-the-best-ways-to-ship-artisanal-meat-directly-to-your-door",
+      "destination": "/blogs/stories/in-the-news/sitka-salmon-shares-listed-as-one-of-the-best-ways-to-ship-artisanal-meat-directly-to-your-door"
+    },
+    {
+      "source": "/blogs/media/slow-food-local-seafood-summit-transforming-seafood-system",
+      "destination": "/blogs/stories/in-the-news/slow-food-local-seafood-summit-transforming-seafood-system"
+    },
+    {
+      "source": "/blogs/media/sunday-brunch-grilled-halibut-tacos",
+      "destination": "/blogs/stories/in-the-news/sunday-brunch-grilled-halibut-tacos"
+    },
+    {
+      "source": "/blogs/media/these-meat-and-fish-delivery-services-deliver-quality-proteins-straight-to-your-door",
+      "destination": "/blogs/stories/in-the-news/these-meat-and-fish-delivery-services-deliver-quality-proteins-straight-to-your-door"
+    },
+    {
+      "source": "/blogs/media/where-to-buy-the-best-tasting-highest-quality-seafood-online",
+      "destination": "/blogs/stories/in-the-news/where-to-buy-the-best-tasting-highest-quality-seafood-online"
+    },
+    {
+      "source": "/blogs/media/wisconsin-company-helps-produce-documentary-highlighting-struggles-of-small-scale-fishermen",
+      "destination": "/blogs/stories/in-the-news/wisconsin-company-helps-produce-documentary-highlighting-struggles-of-small-scale-fishermen"
+    },
+    {
+      "source": "/blogs/media/your-guide-to-wild-pacific-salmon",
+      "destination": "/blogs/stories/in-the-news/your-guide-to-wild-pacific-salmon"
+    },
+    {
+      "source": "/blogs/miscellaneous",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/news",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/news/2020-trip-to-sitka",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/our-fishermen",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/our-fishermen/74997573-the-f-v-april-l",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/our-fishermen/74997765-the-f-v-dryas",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/our-fishermen/74997893-the-f-v-sunfish",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/our-fishermen/74998213-the-f-v-bella-dawn",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/our-fishermen/74998405-the-f-v-lorelai-bell",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/our-fishermen/74998533-the-f-v-kirsten-anna",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/our-fishermen/74999237-the-f-v-mary-carl",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/our-fishermen/75005637-the-f-v-el-tiburon",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/our-fishermen/75006597-the-f-v-amnicon",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/our-fishermen/75006917-the-f-v-heather-anne",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/our-fishermen/darius-kasprzak",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/our-fishermen/jeff-farvour",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/our-fishermen/marsh-skeele",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/our-fishermen?page=1",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/our-fishermen?page=2",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/recipes",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/14959609-slow-roasted-king-with-cauliflower-puree-and-green-beans",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/20-minute-thai-green-fish-curry",
+      "destination": "/blogs/culinary/recipes/20-minute-thai-green-fish-curry"
+    },
+    {
+      "source": "/blogs/recipes/20-minute-thai-green-fish-curry?_pos=2&_sid=c3652d3b1&_ss=r",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/20-minute-thai-green-fish-curry?_pos=3&_sid=9d80c53f4&_ss=r",
+      "destination": "/blogs/culinary/recipes/20-minute-thai-green-fish-curry"
+    },
+    {
+      "source": "/blogs/recipes/20-minute-thai-green-fish-curry?_pos=3&_sid=e8381ff44&_ss=r",
+      "destination": "/blogs/culinary/recipes/20-minute-thai-green-fish-curry"
+    },
+    {
+      "source": "/blogs/recipes/26856324-grilled-halibut-with-tomatoes-and-pesto",
+      "destination": "/blogs/culinary/recipes/20-minute-thai-green-fish-curry"
+    },
+    {
+      "source": "/blogs/recipes/alaska-halibut-caprese",
+      "destination": "/blogs/culinary/recipes/20-minute-thai-green-fish-curry"
+    },
+    {
+      "source": "/blogs/recipes/albacore-poke-with-jalapeno-cilantro",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%26species%3Dall+salmon%26species%3Dall+white+fish%3Dhalibut"
+    },
+    {
+      "source": "/blogs/recipes/ali-s-king-salmon-with-lemon-onion-marmalade",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%26species%3Dall+salmon%26species%3Dall+white+fish%3Dhalibut"
+    },
+    {
+      "source": "/blogs/recipes/ancho-chili-salmon-in-lettuce-tacos",
+      "destination": "/blogs/culinary/recipes/albacore-poke-with-jalapeno-cilantro"
+    },
+    {
+      "source": "/blogs/recipes/anna-and-avery-s-salmon-with-sauce",
+      "destination": "/blogs/culinary/recipes/ali-s-king-salmon-with-lemon-onion-marmalade"
+    },
+    {
+      "source": "/blogs/recipes/aquavit-cured-salmon-toasts-with-shallot-caper-relish",
+      "destination": "/blogs/culinary/recipes/ancho-chili-salmon-in-lettuce-tacos"
+    },
+    {
+      "source": "/blogs/recipes/aquavit-cured-salmon-toasts-with-shallot-caper-relish?_pos=1&_sid=363865144&_ss=r",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/aquavit-cured-salmon-toasts-with-shallot-caper-relish?_pos=1&_sid=b803c4e9a&_ss=r",
+      "destination": "/blogs/culinary/recipes/aquavit-cured-salmon-toasts-with-shallot-caper-relish"
+    },
+    {
+      "source": "/blogs/recipes/autumn-salmon-buddha-bowl",
+      "destination": "/blogs/culinary/recipes/aquavit-cured-salmon-toasts-with-shallot-caper-relish"
+    },
+    {
+      "source": "/blogs/recipes/bacon-wrapped-halibut-tacos-with-pineapple-salsa-and-ginger-garlic-barbecue-sauce",
+      "destination": "/blogs/culinary/recipes/aquavit-cured-salmon-toasts-with-shallot-caper-relish"
+    },
+    {
+      "source": "/blogs/recipes/baja-style-fish-tacos",
+      "destination": "/blogs/culinary/recipes/autumn-salmon-buddha-bowl"
+    },
+    {
+      "source": "/blogs/recipes/baja-style-fish-tacos-1",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%26species%3Dall+salmon%26species%3Dall+white+fish%3Dhalibut"
+    },
+    {
+      "source": "/blogs/recipes/baked-coho-salmon-with-herbed-vegetables",
+      "destination": "/blogs/culinary/recipes/baja-style-fish-tacos"
+    },
+    {
+      "source": "/blogs/recipes/baked-fish-and-chips",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%26species%3Dall+salmon%3Dhalibut%26species%3Dall+white+fish%26dish+type%3Dtaco"
+    },
+    {
+      "source": "/blogs/recipes/baked-fish-in-foil-with-vegetables",
+      "destination": "/blogs/culinary/recipes/baked-fish-in-foil-with-vegetables"
+    },
+    {
+      "source": "/blogs/recipes/baked-honey-glazed-salmon",
+      "destination": "/blogs/culinary/recipes/baked-honey-glazed-salmon"
+    },
+    {
+      "source": "/blogs/recipes/baked-miso-butterfish",
+      "destination": "/blogs/culinary/recipes/baked-miso-butterfish"
+    },
+    {
+      "source": "/blogs/recipes/baked-salmon-pizza",
+      "destination": "/blogs/culinary/recipes/salmon-and-brie-pizza"
+    },
+    {
+      "source": "/blogs/recipes/baked-white-fish-with-spinach-kalamata-gremolata-and-savory-herbed-orzo-pilaf",
+      "destination": "/blogs/culinary/recipes/baked-white-fish-with-spinach-kalamata-gremolata-and-savory-herbed-orzo-pilaf"
+    },
+    {
+      "source": "/blogs/recipes/banh-mi-fish-burgers-with-quick-pickled-cucumbers-and-carrots",
+      "destination": "/blogs/culinary/recipes/banh-mi-fish-burgers-with-quick-pickled-cucumbers-and-carrots"
+    },
+    {
+      "source": "/blogs/recipes/basque-cod-with-potatoes-peppers-olives",
+      "destination": "/blogs/culinary/recipes/basque-cod-with-potatoes-peppers-olives"
+    },
+    {
+      "source": "/blogs/recipes/beau-schoolers-coconut-braised-halibut",
+      "destination": "/blogs/culinary/recipes/beau-schoolers-coconut-braised-halibut"
+    },
+    {
+      "source": "/blogs/recipes/beet-cured-gravlax",
+      "destination": "/blogs/culinary/recipes/beet-cured-gravlax"
+    },
+    {
+      "source": "/blogs/recipes/black-rockfish-bass-blt",
+      "destination": "/blogs/culinary/recipes/black-rockfish-bass-blt"
+    },
+    {
+      "source": "/blogs/recipes/black-rockfish-bass-tempura-with-lemon-herb-dipping-sauce",
+      "destination": "/blogs/culinary/recipes/black-rockfish-bass-tempura-with-lemon-herb-dipping-sauce"
+    },
+    {
+      "source": "/blogs/recipes/blackened-dusky-rockfish-with-corn-avocado-salsa",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish"
+    },
+    {
+      "source": "/blogs/recipes/blackened-fish-tacos-with-pico-de-gallo",
+      "destination": "/blogs/culinary/recipes/blackened-fish-tacos-with-pico-de-gallo"
+    },
+    {
+      "source": "/blogs/recipes/blackened-pacific-cod-reuben-sandwich",
+      "destination": "/blogs/culinary/recipes?filters=dish+type%3Dburger+%2F+sandwich"
+    },
+    {
+      "source": "/blogs/recipes/blazed-salmon-with-brandy-maple-glaze-loimulohi",
+      "destination": "/blogs/culinary/recipes/blazed-salmon-with-brandy-maple-glaze-loimulohi"
+    },
+    {
+      "source": "/blogs/recipes/bowens-sockeye-salmon-pipian-verde",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/brazilian-dungeness-crab-stew",
+      "destination": "/blogs/culinary/recipes/brazilian-dungeness-crab-stew"
+    },
+    {
+      "source": "/blogs/recipes/bridgets-coho-ceviche",
+      "destination": "/blogs/culinary/recipes/bridgets-coho-ceviche"
+    },
+    {
+      "source": "/blogs/recipes/broiled-rockfish-with-lemony-potatoes-olives-and-mint",
+      "destination": "/blogs/culinary/recipes/broiled-rockfish-with-lemony-potatoes-olives-and-mint"
+    },
+    {
+      "source": "/blogs/recipes/brown-butter-caper-salmon-with-pearl-couscous-and-roasted-broccolini",
+      "destination": "/blogs/culinary/recipes/brown-butter-caper-salmon-with-pearl-couscous-and-roasted-broccolini"
+    },
+    {
+      "source": "/blogs/recipes/brown-butter-caper-salmon-with-pearl-couscous-and-roasted-broccolini?_pos=4&_sid=e8ef8d6bc&_ss=r",
+      "destination": "/blogs/culinary/recipes/brown-butter-caper-salmon-with-pearl-couscous-and-roasted-broccolini"
+    },
+    {
+      "source": "/blogs/recipes/brown-butter-chocolate-chip-cookies",
+      "destination": "/blogs/culinary/recipes/brown-butter-chocolate-chip-cookies"
+    },
+    {
+      "source": "/blogs/recipes/brown-butter-congee-with-lime-dressed-spot-shrimp-and-crab",
+      "destination": "/blogs/culinary/recipes/brown-butter-congee-with-lime-dressed-spot-shrimp-and-crab"
+    },
+    {
+      "source": "/blogs/recipes/brown-butter-salmon-rillettes",
+      "destination": "/blogs/culinary/recipes/brown-butter-salmon-rillettes"
+    },
+    {
+      "source": "/blogs/recipes/brown-butter-salmon-rillettes?_pos=1&_sid=36aa0ebba&_ss=r",
+      "destination": "/blogs/culinary/recipes/brown-butter-salmon-rillettes"
+    },
+    {
+      "source": "/blogs/recipes/brown-butter-salmon-rillettes?_pos=1&_sid=4ff73c556&_ss=r",
+      "destination": "/blogs/culinary/recipes/brown-butter-salmon-rillettes"
+    },
+    {
+      "source": "/blogs/recipes/brown-sugar-glazed-sockeye",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/butter-olive-oil-poached-lingcod",
+      "destination": "/blogs/culinary/recipes/butter-olive-oil-poached-lingcod"
+    },
+    {
+      "source": "/blogs/recipes/caesar-compound-butter",
+      "destination": "/blogs/culinary/recipes/caesar-compound-butter"
+    },
+    {
+      "source": "/blogs/recipes/caesar-compound-butter?_pos=1&_sid=9a6ba77d1&_ss=r",
+      "destination": "/blogs/culinary/recipes/caesar-compound-butter"
+    },
+    {
+      "source": "/blogs/recipes/cali-coast-salad-with-grill-blackened-salmon",
+      "destination": "/blogs/culinary/recipes/cali-coast-salad-with-grill-blackened-salmon"
+    },
+    {
+      "source": "/blogs/recipes/cantonese-style-sablefish-with-ginger-soy-scallions",
+      "destination": "/blogs/culinary/recipes/cantonese-style-sablefish-with-ginger-soy-scallions"
+    },
+    {
+      "source": "/blogs/recipes/caper-herb-crusted-sockeye-salmon",
+      "destination": "/blogs/culinary/recipes/caper-herb-crusted-sockeye-salmon"
+    },
+    {
+      "source": "/blogs/recipes/cast-iron-skillet-salmon-vesuvio",
+      "destination": "/blogs/culinary/recipes/cast-iron-skillet-salmon-vesuvio"
+    },
+    {
+      "source": "/blogs/recipes/cast-iron-skillet-salmon-vesuvio/",
+      "destination": "/blogs/culinary/recipes/cast-iron-skillet-salmon-vesuvio"
+    },
+    {
+      "source": "/blogs/recipes/charcuterie",
+      "destination": "/blogs/culinary/recipes?filters=style%3Dentertaining"
+    },
+    {
+      "source": "/blogs/recipes/charred-sugar-crusted-salmon",
+      "destination": "/blogs/culinary/recipes/charred-sugar-crusted-salmon"
+    },
+    {
+      "source": "/blogs/recipes/chef-david-rodriguezs-halibut-ceviche",
+      "destination": "/blogs/culinary/recipes/chef-david-rodriguezs-halibut-ceviche"
+    },
+    {
+      "source": "/blogs/recipes/chef-francescos-seared-albacore",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dalbacore+tuna"
+    },
+    {
+      "source": "/blogs/recipes/chili-herb-salmon-burgers",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dsalmon+burger"
+    },
+    {
+      "source": "/blogs/recipes/chimichurri-sauce",
+      "destination": "/blogs/culinary/recipes/chimichurri-sauce"
+    },
+    {
+      "source": "/blogs/recipes/chimichurri-sauce?_pos=1&_sid=3c6aaaf6e&_ss=r",
+      "destination": "/blogs/culinary/recipes/chimichurri-sauce"
+    },
+    {
+      "source": "/blogs/recipes/chipotle-brown-butter-bairdi-crab",
+      "destination": "/blogs/culinary/recipes/chipotle-brown-butter-bairdi-crab"
+    },
+    {
+      "source": "/blogs/recipes/chipotle-rubbed-keta-with-mango-cucumber-salsa",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/classic-basil-pesto",
+      "destination": "/blogs/culinary/recipes/classic-basil-pesto"
+    },
+    {
+      "source": "/blogs/recipes/coconut-lime-braised-sablefish-black-cod-with-sweet-plantains-peppers-and-cilantro",
+      "destination": "/blogs/culinary/recipes/coconut-lime-braised-sablefish-black-cod-with-sweet-plantains-peppers-and-cilantro"
+    },
+    {
+      "source": "/blogs/recipes/cod-in-tomatillo-sauce",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish"
+    },
+    {
+      "source": "/blogs/recipes/coho-salmon-tostadas",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/cold-weather-yelloweye-chowder",
+      "destination": "/blogs/culinary/recipes?filters=dish+type%3Dsoup+%2F+stew"
+    },
+    {
+      "source": "/blogs/recipes/cornmeal-dusted-lingcod-tacos",
+      "destination": "/blogs/culinary/recipes?filters=dish+type%3Dtaco"
+    },
+    {
+      "source": "/blogs/recipes/crab-and-shrimp-lasagna-with-creamy-tomato-sauce",
+      "destination": "/blogs/culinary/recipes/crab-and-shrimp-lasagna-with-creamy-tomato-sauce"
+    },
+    {
+      "source": "/blogs/recipes/crab-and-shrimp-lasagna-with-creamy-tomato-sauce?_pos=1&_sid=f6f582512&_ss=r",
+      "destination": "/blogs/culinary/recipes/crab-and-shrimp-lasagna-with-creamy-tomato-sauce"
+    },
+    {
+      "source": "/blogs/recipes/crab-crusted-salmon",
+      "destination": "/blogs/culinary/recipes/crab-crusted-salmon"
+    },
+    {
+      "source": "/blogs/recipes/crab-gnocchi-bake",
+      "destination": "/blogs/culinary/recipes/crab-gnocchi-bake"
+    },
+    {
+      "source": "/blogs/recipes/crab-gnocchi-bake?_pos=1&_sid=87333614f&_ss=r",
+      "destination": "/blogs/culinary/recipes/crab-gnocchi-bake"
+    },
+    {
+      "source": "/blogs/recipes/craigs-halibut-and-spring-greens",
+      "destination": "/blogs/culinary/recipes/craigs-halibut-and-spring-greens"
+    },
+    {
+      "source": "/blogs/recipes/creamy-chipotle-fish-chowder-with-hominy",
+      "destination": "/blogs/culinary/recipes/creamy-chipotle-fish-chowder-with-hominy"
+    },
+    {
+      "source": "/blogs/recipes/creamy-lemon-herb-pan-sauce",
+      "destination": "/blogs/culinary/recipes/creamy-lemon-herb-pan-sauce"
+    },
+    {
+      "source": "/blogs/recipes/creole-spiced-white-fish-with-cheesy-grits",
+      "destination": "/blogs/culinary/recipes/creole-spiced-white-fish-with-cheesy-grits"
+    },
+    {
+      "source": "/blogs/recipes/crispy-baked-fish-tacos",
+      "destination": "/blogs/culinary/recipes/crispy-baked-fish-tacos"
+    },
+    {
+      "source": "/blogs/recipes/crispy-coconut-crusted-fish-fingers-with-sweet-and-spicy-dipping-sauce",
+      "destination": "/blogs/culinary/recipes/crispy-coconut-crusted-fish-fingers-with-sweet-and-spicy-dipping-sauce"
+    },
+    {
+      "source": "/blogs/recipes/crispy-fish-cakes-with-lemon-aioli",
+      "destination": "/blogs/culinary/recipes/crispy-fish-cakes-with-lemon-aioli"
+    },
+    {
+      "source": "/blogs/recipes/crispy-fish-tacos-with-creamy-jalapeno-cilantro-hot-sauce",
+      "destination": "/blogs/culinary/recipes/crispy-fish-tacos-with-creamy-jalapeno-cilantro-hot-sauce"
+    },
+    {
+      "source": "/blogs/recipes/crispy-sablefish-black-cod-with-capers-tomatoes-olives-and-couscous",
+      "destination": "/blogs/culinary/recipes/crispy-sablefish-black-cod-with-capers-tomatoes-olives-and-couscous"
+    },
+    {
+      "source": "/blogs/recipes/crispy-springtime-fish-tacos-with-ramps",
+      "destination": "/blogs/culinary/recipes/crispy-springtime-fish-tacos-with-ramps"
+    },
+    {
+      "source": "/blogs/recipes/crusted-halibut-tacos-with-charred-scallion-crema-and-pickled-onions-and-radishes",
+      "destination": "/blogs/culinary/recipes/crusted-halibut-tacos-with-charred-scallion-crema-and-pickled-onions-and-radishes"
+    },
+    {
+      "source": "/blogs/recipes/darcies-sitka-chicken-panko-fried-king-salmon",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Draw%26species%3Dall+salmon%26technique%3Dshallow+%2F+deep-fry"
+    },
+    {
+      "source": "/blogs/recipes/darius-rockfish-chowder",
+      "destination": "/blogs/culinary/recipes/darius-rockfish-chowder"
+    },
+    {
+      "source": "/blogs/recipes/dawns-broiled-sablefish-black-cod",
+      "destination": "/blogs/culinary/recipes/dawns-broiled-sablefish-black-cod"
+    },
+    {
+      "source": "/blogs/recipes/dead-simple-tartar-sauce",
+      "destination": "/blogs/culinary/recipes/dead-simple-tartar-sauce"
+    },
+    {
+      "source": "/blogs/recipes/deconstructed-grill-smoked-king-salmon-sushi-maki",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dgrill+%2F+smoke%26dietary+concerns%3Draw"
+    },
+    {
+      "source": "/blogs/recipes/dominican-style-coconut-cod-stew",
+      "destination": "/blogs/culinary/recipes/dominican-style-coconut-cod-stew"
+    },
+    {
+      "source": "/blogs/recipes/dorcys-halibut-enchiladas",
+      "destination": "/blogs/culinary/recipes/dorcys-halibut-enchiladas"
+    },
+    {
+      "source": "/blogs/recipes/double-mustard-king-salmon",
+      "destination": "/blogs/culinary/recipes/double-mustard-king-salmon"
+    },
+    {
+      "source": "/blogs/recipes/drews-black-rockfish-bass-red-curry",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish"
+    },
+    {
+      "source": "/blogs/recipes/drews-dijon-dill-crusted-coho",
+      "destination": "/blogs/culinary/recipes/drews-dijon-dill-crusted-coho"
+    },
+    {
+      "source": "/blogs/recipes/dungeness-crab-risotto-with-meyer-lemon-and-pea-shoots",
+      "destination": "/blogs/culinary/recipes/dungeness-crab-risotto-with-meyer-lemon-and-pea-shoots"
+    },
+    {
+      "source": "/blogs/recipes/easy-diy-smoked-fish",
+      "destination": "/blogs/culinary/recipes/easy-diy-smoked-fish"
+    },
+    {
+      "source": "/blogs/recipes/easy-lemon-pepper-aioli",
+      "destination": "/blogs/culinary/recipes/easy-lemon-pepper-aioli"
+    },
+    {
+      "source": "/blogs/recipes/eric-jordan-s-easy-peasy-salmon",
+      "destination": "/blogs/culinary/recipes/eric-jordan-s-easy-peasy-salmon"
+    },
+    {
+      "source": "/blogs/recipes/eugenes-dill-smoked-salmon",
+      "destination": "/blogs/culinary/recipes/eugenes-dill-smoked-salmon"
+    },
+    {
+      "source": "/blogs/recipes/everything-except-the-bagel-salmon",
+      "destination": "/blogs/culinary/recipes/everything-except-the-bagel-salmon"
+    },
+    {
+      "source": "/blogs/recipes/everything-except-the-bagel-salmon?_pos=1&_sid=b3ec8ce9d&_ss=r",
+      "destination": "/blogs/culinary/recipes/everything-except-the-bagel-salmon"
+    },
+    {
+      "source": "/blogs/recipes/fischbrotchen-german-fish-sandwiches",
+      "destination": "/blogs/culinary/recipes/fischbrotchen-german-fish-sandwiches"
+    },
+    {
+      "source": "/blogs/recipes/fish-taco-lettuce-wraps-with-mango-kiwi-salsa",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/fish-temple-with-infused-butter",
+      "destination": "/blogs/culinary/recipes/fish-temple-with-infused-butter"
+    },
+    {
+      "source": "/blogs/recipes/foil-baked-cod-with-oranges-scallions-ginger",
+      "destination": "/blogs/culinary/recipes/foil-baked-cod-with-oranges-scallions-ginger"
+    },
+    {
+      "source": "/blogs/recipes/foil-yaki-halibut-with-ginger-miso-butter-and-bok-choy",
+      "destination": "/blogs/culinary/recipes/foil-yaki-halibut-with-ginger-miso-butter-and-bok-choy"
+    },
+    {
+      "source": "/blogs/recipes/frico-crumble",
+      "destination": "/blogs/culinary/recipes/frico-crumble"
+    },
+    {
+      "source": "/blogs/recipes/fried-caper-and-sage-butter-sauce",
+      "destination": "/blogs/culinary/recipes/fried-caper-and-sage-butter-sauce"
+    },
+    {
+      "source": "/blogs/recipes/fully-loaded-smoke-salmon-spot-shrimp-tachos",
+      "destination": "/blogs/culinary/recipes/fully-loaded-smoke-salmon-spot-shrimp-tachos"
+    },
+    {
+      "source": "/blogs/recipes/gambas-de-marzo",
+      "destination": "/blogs/culinary/recipes/gambas-de-marzo"
+    },
+    {
+      "source": "/blogs/recipes/game-day-salmon-puffs",
+      "destination": "/blogs/culinary/recipes/game-day-salmon-puffs"
+    },
+    {
+      "source": "/blogs/recipes/garlic-butter-baked-cod",
+      "destination": "/blogs/culinary/recipes/garlic-butter-baked-cod"
+    },
+    {
+      "source": "/blogs/recipes/ginger-glazed-sockeye-salmon-with-charred-carrots",
+      "destination": "/blogs/culinary/recipes/ginger-glazed-sockeye-salmon-with-charred-carrots"
+    },
+    {
+      "source": "/blogs/recipes/ginger-scallion-salmon-burger",
+      "destination": "/blogs/culinary/recipes/ginger-scallion-salmon-burger"
+    },
+    {
+      "source": "/blogs/recipes/ginger-sesame-salmon-ceviche",
+      "destination": "/blogs/culinary/recipes/ginger-sesame-salmon-ceviche"
+    },
+    {
+      "source": "/blogs/recipes/gogebic-country-boil",
+      "destination": "/blogs/culinary/recipes/gogebic-country-boil"
+    },
+    {
+      "source": "/blogs/recipes/graces-sugar-cookies",
+      "destination": "/blogs/culinary/recipes/graces-sugar-cookies"
+    },
+    {
+      "source": "/blogs/recipes/grandma-veras-salmon-cakes-nics-spicy-jam",
+      "destination": "/blogs/culinary/recipes/grandma-veras-salmon-cakes-nics-spicy-jam"
+    },
+    {
+      "source": "/blogs/recipes/gravadlox-gravlax",
+      "destination": "/blogs/culinary/recipes/gravadlox-gravlax"
+    },
+    {
+      "source": "/blogs/recipes/greek-baked-black-rockfish-bass",
+      "destination": "/blogs/culinary/recipes/greek-baked-black-rockfish-bass"
+    },
+    {
+      "source": "/blogs/recipes/greek-grilled-pacific-cod-with-cucumber-salad",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish"
+    },
+    {
+      "source": "/blogs/recipes/greek-orzo-salad-with-grilled-spot-shrimp",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+shellfish%3Dshrimp"
+    },
+    {
+      "source": "/blogs/recipes/grilled-coho-salmon-escovitch-style",
+      "destination": "/blogs/culinary/recipes/grilled-coho-salmon-escovitch-style"
+    },
+    {
+      "source": "/blogs/recipes/grilled-halibut-tacos-with-cucumber-citrus-salsa",
+      "destination": "/blogs/culinary/recipes/grilled-halibut-tacos-with-cucumber-citrus-salsa"
+    },
+    {
+      "source": "/blogs/recipes/grilled-halibut-tacos-with-grilled-corn-and-poblano-salsa",
+      "destination": "/blogs/culinary/recipes?filters=dish+type%3Dtaco"
+    },
+    {
+      "source": "/blogs/recipes/grilled-halibut-with-elotes-salad-esquites",
+      "destination": "/blogs/culinary/recipes/grilled-halibut-with-elotes-salad-esquites"
+    },
+    {
+      "source": "/blogs/recipes/grilled-sablefish-black-cod-with-a-sicilian-salad",
+      "destination": "/blogs/culinary/recipes/grilled-sablefish-black-cod-with-a-sicilian-salad"
+    },
+    {
+      "source": "/blogs/recipes/grilled-salmon-nicoise",
+      "destination": "/blogs/culinary/recipes/grilled-salmon-nicoise"
+    },
+    {
+      "source": "/blogs/recipes/grilled-salmon-with-tabbouleh-and-fresh-green-harissa",
+      "destination": "/blogs/culinary/recipes/grilled-salmon-with-tabbouleh-and-fresh-green-harissa"
+    },
+    {
+      "source": "/blogs/recipes/grilled-sockeye-with-smokey-tomato-jam",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/halibut-agrodolce",
+      "destination": "/blogs/culinary/recipes/halibut-agrodolce"
+    },
+    {
+      "source": "/blogs/recipes/halibut-caddy-ganty",
+      "destination": "/blogs/culinary/recipes/halibut-caddy-ganty"
+    },
+    {
+      "source": "/blogs/recipes/halibut-empanadas",
+      "destination": "/blogs/culinary/recipes/halibut-empanadas"
+    },
+    {
+      "source": "/blogs/recipes/halibut-en-papillote",
+      "destination": "/blogs/culinary/recipes/halibut-en-papillote"
+    },
+    {
+      "source": "/blogs/recipes/halibut-kefta-a-la-marocaine",
+      "destination": "/blogs/culinary/recipes/halibut-kefta-a-la-marocaine"
+    },
+    {
+      "source": "/blogs/recipes/halibut-onigiri-with-spicy-seaweed-mayo",
+      "destination": "/blogs/culinary/recipes/halibut-onigiri-with-spicy-seaweed-mayo"
+    },
+    {
+      "source": "/blogs/recipes/halibut-pizza",
+      "destination": "/blogs/culinary/recipes?filters=dish+type%3Dpizza+%2F+pastry"
+    },
+    {
+      "source": "/blogs/recipes/halibut-with-almond-anchoiade",
+      "destination": "/blogs/culinary/recipes/halibut-with-almond-anchoiade"
+    },
+    {
+      "source": "/blogs/recipes/halibut-with-braised-lentils-and-lemon-butter-sauce",
+      "destination": "/blogs/culinary/recipes/halibut-with-braised-lentils-and-lemon-butter-sauce"
+    },
+    {
+      "source": "/blogs/recipes/halibut-with-farro-risotto-roasted-cauliflower-and-pesto",
+      "destination": "/blogs/culinary/recipes/halibut-with-farro-risotto-roasted-cauliflower-and-pesto"
+    },
+    {
+      "source": "/blogs/recipes/halibut-with-pickled-blueberries",
+      "destination": "/blogs/culinary/recipes/halibut-with-pickled-blueberries"
+    },
+    {
+      "source": "/blogs/recipes/halibut-zanibut",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dhalibut"
+    },
+    {
+      "source": "/blogs/recipes/hearty-basque-tuna-and-potato-soup",
+      "destination": "/blogs/culinary/recipes/hearty-basque-tuna-and-potato-soup"
+    },
+    {
+      "source": "/blogs/recipes/heavenly-poach-with-parmesan-and-honey-glaze",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dpoach"
+    },
+    {
+      "source": "/blogs/recipes/henrys-huckleberry-salmon",
+      "destination": "/blogs/culinary/recipes/henrys-huckleberry-salmon"
+    },
+    {
+      "source": "/blogs/recipes/herb-roasted-potatoes",
+      "destination": "/blogs/culinary/recipes/herb-roasted-potatoes"
+    },
+    {
+      "source": "/blogs/recipes/hoisin-glazed-coho-with-bok-choy",
+      "destination": "/blogs/culinary/recipes/hoisin-glazed-coho-with-bok-choy"
+    },
+    {
+      "source": "/blogs/recipes/honey-almondine-lingcod-with-brown-butter",
+      "destination": "/blogs/culinary/recipes/honey-almondine-lingcod-with-brown-butter"
+    },
+    {
+      "source": "/blogs/recipes/honey-garlic-marinated-sablefish-black-cod",
+      "destination": "/blogs/culinary/recipes/honey-garlic-marinated-sablefish-black-cod"
+    },
+    {
+      "source": "/blogs/recipes/hot-honey-broiled-salmon",
+      "destination": "/blogs/culinary/recipes/hot-honey-broiled-salmon"
+    },
+    {
+      "source": "/blogs/recipes/hot-honey-salmon-bites",
+      "destination": "/blogs/culinary/recipes/hot-honey-salmon-bites"
+    },
+    {
+      "source": "/blogs/recipes/ice-box-pickles",
+      "destination": "/blogs/culinary/recipes/ice-box-pickles"
+    },
+    {
+      "source": "/blogs/recipes/islander-salmon",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/italian-seafood-stew-cioppino",
+      "destination": "/blogs/culinary/recipes/italian-seafood-stew-cioppino"
+    },
+    {
+      "source": "/blogs/recipes/italian-seafood-stew-cioppino?_pos=1&_sid=f6d7c33a4&_ss=r",
+      "destination": "/blogs/culinary/recipes/italian-seafood-stew-cioppino"
+    },
+    {
+      "source": "/blogs/recipes/italian-style-oil-poached-tuna-salad",
+      "destination": "/blogs/culinary/recipes/italian-style-oil-poached-tuna-salad"
+    },
+    {
+      "source": "/blogs/recipes/jakes-dads-amazing-salmon",
+      "destination": "/blogs/culinary/recipes/jakes-dads-amazing-salmon"
+    },
+    {
+      "source": "/blogs/recipes/joes-herb-grilled-lingcod",
+      "destination": "/blogs/culinary/recipes/joes-herb-grilled-lingcod"
+    },
+    {
+      "source": "/blogs/recipes/john-skeeles-fried-halibut",
+      "destination": "/blogs/culinary/recipes/john-skeeles-fried-halibut"
+    },
+    {
+      "source": "/blogs/recipes/kale-anchovy-crumbs",
+      "destination": "/blogs/culinary/recipes/kale-anchovy-crumbs"
+    },
+    {
+      "source": "/blogs/recipes/kale-anchovy-crumbs?_pos=1&_sid=86ae17084&_ss=r",
+      "destination": "/blogs/culinary/recipes/kale-anchovy-crumbs"
+    },
+    {
+      "source": "/blogs/recipes/kerala-style-coconut-fish-curry-with-tomatoes-and-spinach",
+      "destination": "/blogs/culinary/recipes/kerala-style-coconut-fish-curry-with-tomatoes-and-spinach"
+    },
+    {
+      "source": "/blogs/recipes/kid-friendly-rockfish-taco-bar",
+      "destination": "/blogs/culinary/recipes/kid-friendly-rockfish-taco-bar"
+    },
+    {
+      "source": "/blogs/recipes/kiele-braes-sockeye-salmon-and-sweet-onions",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/killer-spot-shrimp-and-andouille-gumbo",
+      "destination": "/blogs/culinary/recipes/killer-spot-shrimp-and-andouille-gumbo"
+    },
+    {
+      "source": "/blogs/recipes/king-salmon-with-agrodolce-blueberries",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/king-salmon-with-oven-dried-tomatoes-chive-butter",
+      "destination": "/blogs/culinary/recipes/king-salmon-with-oven-dried-tomatoes-chive-butter"
+    },
+    {
+      "source": "/blogs/recipes/king-salmon-with-strawberry-avocado-salsa",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/kirks-drunken-spot-shrimp",
+      "destination": "/blogs/culinary/recipes/kirks-drunken-spot-shrimp"
+    },
+    {
+      "source": "/blogs/recipes/lemon-basil-keta-salmon",
+      "destination": "/blogs/culinary/recipes/lemon-basil-keta-salmon"
+    },
+    {
+      "source": "/blogs/recipes/lemon-miso-lingcod-with-butter-braised-fennel-and-snap-peas",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish"
+    },
+    {
+      "source": "/blogs/recipes/lingcod-in-parchment-with-red-pepper-orange-and-couscous",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish"
+    },
+    {
+      "source": "/blogs/recipes/lingcod-with-brown-butter-honey-and-capers",
+      "destination": "/blogs/culinary/recipes/lingcod-with-brown-butter-honey-and-capers"
+    },
+    {
+      "source": "/blogs/recipes/lingcod-with-chorizo-potato-hash",
+      "destination": "/blogs/culinary/recipes/lingcod-with-chorizo-potato-hash"
+    },
+    {
+      "source": "/blogs/recipes/linguine-with-spot-shrimp-and-sage-cream-sauce",
+      "destination": "/blogs/culinary/recipes/linguine-with-spot-shrimp-and-sage-cream-sauce"
+    },
+    {
+      "source": "/blogs/recipes/linguine-with-spot-shrimp-fra-diavolo",
+      "destination": "/blogs/culinary/recipes/linguine-with-spot-shrimp-fra-diavolo"
+    },
+    {
+      "source": "/blogs/recipes/lizs-crispy-baked-fish-sticks-with-tartar-sauce",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dshallow+%2F+deep-fry"
+    },
+    {
+      "source": "/blogs/recipes/loaded-potato-corn-chowder-with-smoked-salmon",
+      "destination": "/blogs/culinary/recipes/loaded-potato-corn-chowder-with-smoked-salmon"
+    },
+    {
+      "source": "/blogs/recipes/ludvig-s-bistro-panko-yelloweye",
+      "destination": "/blogs/culinary/recipes/ludvig-s-bistro-panko-yelloweye"
+    },
+    {
+      "source": "/blogs/recipes/maki-and-nigiri-sushi",
+      "destination": "/blogs/culinary/recipes/maki-and-nigiri-sushi"
+    },
+    {
+      "source": "/blogs/recipes/mamas-rockfish-bake",
+      "destination": "/blogs/culinary/recipes/mamas-rockfish-bake"
+    },
+    {
+      "source": "/blogs/recipes/maple-cider-baked-salmon-with-sweet-potatoes",
+      "destination": "/blogs/culinary/recipes/maple-cider-baked-salmon-with-sweet-potatoes"
+    },
+    {
+      "source": "/blogs/recipes/maple-cider-baked-salmon-with-sweet-potatoes?_pos=1&_sid=2da5a0aea&_ss=r",
+      "destination": "/blogs/culinary/recipes/maple-cider-baked-salmon-with-sweet-potatoes"
+    },
+    {
+      "source": "/blogs/recipes/maple-cider-baked-salmon-with-sweet-potatoes?_pos=1&_sid=b6f25b9a2&_ss=r",
+      "destination": "/blogs/culinary/recipes/maple-cider-baked-salmon-with-sweet-potatoes"
+    },
+    {
+      "source": "/blogs/recipes/maple-dijon-salmon-skewers",
+      "destination": "/blogs/culinary/recipes/maple-dijon-salmon-skewers"
+    },
+    {
+      "source": "/blogs/recipes/marshs-big-butter-king-salmon",
+      "destination": "/blogs/culinary/recipes/marshs-big-butter-king-salmon"
+    },
+    {
+      "source": "/blogs/recipes/marshs-dungey-pacific-cod-bouillabaisse",
+      "destination": "/blogs/culinary/recipes/marshs-dungey-pacific-cod-bouillabaisse"
+    },
+    {
+      "source": "/blogs/recipes/marshs-grill-smoked-sockeye",
+      "destination": "/blogs/culinary/recipes/marshs-grill-smoked-sockeye"
+    },
+    {
+      "source": "/blogs/recipes/marshs-grilled-king-salmon-with-herb-butter",
+      "destination": "/blogs/culinary/recipes/marshs-grilled-king-salmon-with-herb-butter"
+    },
+    {
+      "source": "/blogs/recipes/marshs-perfectly-grilled-king-salmon",
+      "destination": "/blogs/culinary/recipes/marshs-perfectly-grilled-king-salmon"
+    },
+    {
+      "source": "/blogs/recipes/marshs-seared-pacific-cod",
+      "destination": "/blogs/culinary/recipes/marshs-seared-pacific-cod"
+    },
+    {
+      "source": "/blogs/recipes/mediterranean-cod-cherry-tomato-and-zucchini-packets",
+      "destination": "/blogs/culinary/recipes/mediterranean-cod-cherry-tomato-and-zucchini-packets"
+    },
+    {
+      "source": "/blogs/recipes/mediterranean-white-fish-pasta",
+      "destination": "/blogs/culinary/recipes/mediterranean-white-fish-pasta"
+    },
+    {
+      "source": "/blogs/recipes/mexican-grilled-fish-taco-salad",
+      "destination": "/blogs/culinary/recipes/mexican-grilled-fish-taco-salad"
+    },
+    {
+      "source": "/blogs/recipes/middle-eastern-white-fish-chickpea-grain-bowl",
+      "destination": "/blogs/culinary/recipes/middle-eastern-white-fish-chickpea-grain-bowl"
+    },
+    {
+      "source": "/blogs/recipes/mini-dungeness-crab-cakes",
+      "destination": "/blogs/culinary/recipes/mini-dungeness-crab-cakes"
+    },
+    {
+      "source": "/blogs/recipes/miso-and-soy-glazed-sablefish-black-cod",
+      "destination": "/blogs/culinary/recipes/miso-and-soy-glazed-sablefish-black-cod"
+    },
+    {
+      "source": "/blogs/recipes/miso-ginger-glazed-salmon-rice-bowl",
+      "destination": "/blogs/culinary/recipes/miso-ginger-glazed-salmon-rice-bowl"
+    },
+    {
+      "source": "/blogs/recipes/miso-salmon-1",
+      "destination": "/blogs/culinary/recipes/miso-salmon-1"
+    },
+    {
+      "source": "/blogs/recipes/misozuke-salmon-noodle-bowl",
+      "destination": "/blogs/culinary/recipes/misozuke-salmon-noodle-bowl"
+    },
+    {
+      "source": "/blogs/recipes/nenes-halibut-with-garden-pesto",
+      "destination": "/blogs/culinary/recipes/nenes-halibut-with-garden-pesto"
+    },
+    {
+      "source": "/blogs/recipes/new-england-style-salmon-rolls",
+      "destination": "/blogs/culinary/recipes/new-england-style-salmon-rolls"
+    },
+    {
+      "source": "/blogs/recipes/newspaper-crab-with-three-sauces",
+      "destination": "/blogs/culinary/recipes/newspaper-crab-with-three-sauces"
+    },
+    {
+      "source": "/blogs/recipes/nics-sticky-quillback",
+      "destination": "/blogs/culinary/recipes/nics-sticky-quillback"
+    },
+    {
+      "source": "/blogs/recipes/nobu-style-sablefish-black-cod-rice-bowl-with-quick-pickles",
+      "destination": "/blogs/culinary/recipes/nobu-style-sablefish-black-cod-rice-bowl-with-quick-pickles"
+    },
+    {
+      "source": "/blogs/recipes/noras-orange-miso-sockeye",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/novas-keta-salmon-alfredo",
+      "destination": "/blogs/culinary/recipes/novas-keta-salmon-alfredo"
+    },
+    {
+      "source": "/blogs/recipes/odds-n-ends-dumplings-potstickers",
+      "destination": "/blogs/culinary/recipes/odds-n-ends-dumplings-potstickers"
+    },
+    {
+      "source": "/blogs/recipes/oil-poached-tuna-and-grain-salad",
+      "destination": "/blogs/culinary/recipes/oil-poached-tuna-and-grain-salad"
+    },
+    {
+      "source": "/blogs/recipes/old-bay-white-fish-chowder",
+      "destination": "/blogs/culinary/recipes/old-bay-white-fish-chowder"
+    },
+    {
+      "source": "/blogs/recipes/old-bay-white-fish-chowder?_pos=1&_sid=f7b4777b2&_ss=r",
+      "destination": "/blogs/culinary/recipes/old-bay-white-fish-chowder"
+    },
+    {
+      "source": "/blogs/recipes/olens-grilled-salmon",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%26technique%3Dgrill+%2F+smoke"
+    },
+    {
+      "source": "/blogs/recipes/olive-oil-poached-yelloweye-with-shaved-asparagus-salad",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish"
+    },
+    {
+      "source": "/blogs/recipes/olive-oil-roasted-albacore-with-white-bean-salad",
+      "destination": "/blogs/culinary/recipes/olive-oil-roasted-albacore-with-white-bean-salad"
+    },
+    {
+      "source": "/blogs/recipes/olive-pistachio-relish",
+      "destination": "/blogs/culinary/recipes/olive-pistachio-relish"
+    },
+    {
+      "source": "/blogs/recipes/one-pan-greek-cod-with-orzo-feta-and-olives",
+      "destination": "/blogs/culinary/recipes/one-pan-greek-cod-with-orzo-feta-and-olives"
+    },
+    {
+      "source": "/blogs/recipes/onion-parmesan-crusted-salmon",
+      "destination": "/blogs/culinary/recipes/onion-parmesan-crusted-salmon"
+    },
+    {
+      "source": "/blogs/recipes/orange-ginger-salmon-bites",
+      "destination": "/blogs/culinary/recipes/orange-ginger-salmon-bites"
+    },
+    {
+      "source": "/blogs/recipes/orecchiette-with-salmon-brown-butter-and-peas",
+      "destination": "/blogs/culinary/recipes/orecchiette-with-salmon-brown-butter-and-peas"
+    },
+    {
+      "source": "/blogs/recipes/oven-fried-fish-and-chips-with-roasted-green-beans-and-dijon-remoulade",
+      "destination": "/blogs/culinary/recipes/oven-fried-fish-and-chips-with-roasted-green-beans-and-dijon-remoulade"
+    },
+    {
+      "source": "/blogs/recipes/pacific-cod-tuscan-chowder",
+      "destination": "/blogs/culinary/recipes/pacific-cod-tuscan-chowder"
+    },
+    {
+      "source": "/blogs/recipes/pacific-cod-with-lemon-and-olives",
+      "destination": "/blogs/culinary/recipes/pacific-cod-with-lemon-and-olives"
+    },
+    {
+      "source": "/blogs/recipes/pacific-cod-with-sauted-spring-veggies",
+      "destination": "/blogs/culinary/recipes/pacific-cod-with-sauted-spring-veggies"
+    },
+    {
+      "source": "/blogs/recipes/pan-fried-fish-cakes-and-romesco-sauce-with-greens-and-quick-pickled-veggies",
+      "destination": "/blogs/culinary/recipes/pan-fried-fish-cakes-and-romesco-sauce-with-greens-and-quick-pickled-veggies"
+    },
+    {
+      "source": "/blogs/recipes/pan-roasted-salmon",
+      "destination": "/blogs/culinary/recipes/pan-roasted-salmon"
+    },
+    {
+      "source": "/blogs/recipes/pan-seared-black-rockfish-bass-with-shaved-zucchini-salad",
+      "destination": "/blogs/culinary/recipes/pan-seared-black-rockfish-bass-with-shaved-zucchini-salad"
+    },
+    {
+      "source": "/blogs/recipes/pan-seared-halibut-with-roasted-peppers",
+      "destination": "/blogs/culinary/recipes/pan-seared-halibut-with-roasted-peppers"
+    },
+    {
+      "source": "/blogs/recipes/pan-seared-lingcod-with-pistachios-and-brown-butter-garlicky-mashed-potatoes-and-sauteed-spinach",
+      "destination": "/blogs/culinary/recipes/pan-seared-lingcod-with-pistachios-and-brown-butter-garlicky-mashed-potatoes-and-sauteed-spinach"
+    },
+    {
+      "source": "/blogs/recipes/pan-seared-lingcod-with-pistachios-and-brown-butter-garlicky-mashed-potatoes-and-sauteed-spinach?_pos=7&_sid=36aa0ebba&_ss=r",
+      "destination": "/blogs/culinary/recipes/pan-seared-lingcod-with-pistachios-and-brown-butter-garlicky-mashed-potatoes-and-sauteed-spinach"
+    },
+    {
+      "source": "/blogs/recipes/pan-seared-sablefish-black-cod-with-lemon-pepper-aioli",
+      "destination": "/blogs/culinary/recipes/pan-seared-sablefish-black-cod-with-lemon-pepper-aioli"
+    },
+    {
+      "source": "/blogs/recipes/pan-seared-sablefish-with-fresh-herb-salsa",
+      "destination": "/blogs/culinary/recipes/pan-seared-sablefish-with-fresh-herb-salsa"
+    },
+    {
+      "source": "/blogs/recipes/pan-seared-salmon-with-mediterranean-eggplant-orzo",
+      "destination": "/blogs/culinary/recipes/pan-seared-salmon-with-mediterranean-eggplant-orzo"
+    },
+    {
+      "source": "/blogs/recipes/pan-seared-salmon-with-pistachio-olive-relish",
+      "destination": "/blogs/culinary/recipes/pan-seared-salmon-with-pistachio-olive-relish"
+    },
+    {
+      "source": "/blogs/recipes/pan-seared-salmon-with-pistachio-olive-relish?_pos=2&_sid=0ac49292d&_ss=r",
+      "destination": "/blogs/culinary/recipes/pan-seared-salmon-with-pistachio-olive-relish"
+    },
+    {
+      "source": "/blogs/recipes/pan-seared-yelloweye-with-spring-pea-soup-avocado-mango-salsa",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish"
+    },
+    {
+      "source": "/blogs/recipes/panko-crusted-pacific-cod-with-spinach-mushrooms",
+      "destination": "/blogs/culinary/recipes/panko-crusted-pacific-cod-with-spinach-mushrooms"
+    },
+    {
+      "source": "/blogs/recipes/panko-crusted-rockfish-with-israeli-couscous-salad",
+      "destination": "/blogs/culinary/recipes/panko-crusted-rockfish-with-israeli-couscous-salad"
+    },
+    {
+      "source": "/blogs/recipes/parsley-dill-salmon-burger",
+      "destination": "/blogs/culinary/recipes/parsley-dill-salmon-burger"
+    },
+    {
+      "source": "/blogs/recipes/pasta-with-smoked-salmon-and-caviar",
+      "destination": "/blogs/culinary/recipes/pasta-with-smoked-salmon-and-caviar"
+    },
+    {
+      "source": "/blogs/recipes/pasta-with-smoked-salmon-and-caviar?_pos=2&_sid=849dff81e&_ss=r",
+      "destination": "/blogs/culinary/recipes/pasta-with-smoked-salmon-and-caviar"
+    },
+    {
+      "source": "/blogs/recipes/pecan-crusted-halibut",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dhalibut"
+    },
+    {
+      "source": "/blogs/recipes/pepper-crusted-tuna-nicoise",
+      "destination": "/blogs/culinary/recipes/pepper-crusted-tuna-nicoise"
+    },
+    {
+      "source": "/blogs/recipes/peters-black-rockfish-bass-with-sun-dried-tomato-pesto",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish"
+    },
+    {
+      "source": "/blogs/recipes/pickled-crab-with-apple-shallot-relish",
+      "destination": "/blogs/culinary/recipes/pickled-crab-with-apple-shallot-relish"
+    },
+    {
+      "source": "/blogs/recipes/pizza-dough",
+      "destination": "/blogs/culinary/recipes/pizza-dough"
+    },
+    {
+      "source": "/blogs/recipes/pizza-dough?_pos=1&_sid=5f692a6c9&_ss=r",
+      "destination": "/blogs/culinary/recipes/pizza-dough"
+    },
+    {
+      "source": "/blogs/recipes/planked-sockeye-with-maple-soy-glaze",
+      "destination": "/blogs/culinary/recipes/planked-sockeye-with-maple-soy-glaze"
+    },
+    {
+      "source": "/blogs/recipes/poached-cod-or-salmon-with-sauce-sandefjord",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dpoach"
+    },
+    {
+      "source": "/blogs/recipes/poached-king-salmon-with-sizzling-chives",
+      "destination": "/blogs/culinary/recipes/poached-king-salmon-with-sizzling-chives"
+    },
+    {
+      "source": "/blogs/recipes/poached-salmon-with-savory-cherry-salad",
+      "destination": "/blogs/culinary/recipes/poached-salmon-with-savory-cherry-salad"
+    },
+    {
+      "source": "/blogs/recipes/poisson-a-la-abidjanaise",
+      "destination": "/blogs/culinary/recipes/poisson-a-la-abidjanaise"
+    },
+    {
+      "source": "/blogs/recipes/pomegranate-glazed-sablefish-black-cod-with-bulgur-salad",
+      "destination": "/blogs/culinary/recipes/pomegranate-glazed-sablefish-black-cod-with-bulgur-salad"
+    },
+    {
+      "source": "/blogs/recipes/popcorn-salmon",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dshallow+%2F+deep-fry%26species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/portuguese-cod-with-potatoes-and-chorizo",
+      "destination": "/blogs/culinary/recipes/portuguese-cod-with-potatoes-and-chorizo"
+    },
+    {
+      "source": "/blogs/recipes/potato-and-leek-soup-with-salmon-hazel-salmon",
+      "destination": "/blogs/culinary/recipes/potato-and-leek-soup-with-salmon-hazel-salmon"
+    },
+    {
+      "source": "/blogs/recipes/quick-cured-coho-salmon-appetizer-bites",
+      "destination": "/blogs/culinary/recipes/quick-cured-coho-salmon-appetizer-bites"
+    },
+    {
+      "source": "/blogs/recipes/quick-cured-slow-roasted-salmon-with-a-twist",
+      "destination": "/blogs/culinary/recipes/quick-cured-slow-roasted-salmon-with-a-twist"
+    },
+    {
+      "source": "/blogs/recipes/quinoa-crusted-pacific-cod-with-mojo-verde",
+      "destination": "/blogs/culinary/recipes/quinoa-crusted-pacific-cod-with-mojo-verde"
+    },
+    {
+      "source": "/blogs/recipes/ramp-chimichurri-for-whitefish",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish"
+    },
+    {
+      "source": "/blogs/recipes/red-chermoula-sablefish-black-cod",
+      "destination": "/blogs/culinary/recipes/red-chermoula-sablefish-black-cod"
+    },
+    {
+      "source": "/blogs/recipes/roasted-salmon-and-tomatoes-with-herbed-ricotta",
+      "destination": "/blogs/culinary/recipes/roasted-salmon-and-tomatoes-with-herbed-ricotta"
+    },
+    {
+      "source": "/blogs/recipes/rockfish-with-fennel-and-butter-en-papillote",
+      "destination": "/blogs/culinary/recipes/rockfish-with-fennel-and-butter-en-papillote"
+    },
+    {
+      "source": "/blogs/recipes/rockin-halibut-pieces",
+      "destination": "/blogs/culinary/recipes/rockin-halibut-pieces"
+    },
+    {
+      "source": "/blogs/recipes/romesco-sauce",
+      "destination": "/blogs/culinary/recipes/romesco-sauce"
+    },
+    {
+      "source": "/blogs/recipes/rosemary-garlic-rub-for-salmon",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/sablefish-black-cod-tandoori-with-mango-relish",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod%29"
+    },
+    {
+      "source": "/blogs/recipes/sablefish-black-cod-with-green-tomato-sauce-swiss-chard-rice-pilaf",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod%29"
+    },
+    {
+      "source": "/blogs/recipes/sablefish-with-summer-succotash",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod%29"
+    },
+    {
+      "source": "/blogs/recipes/sablefish-with-watercress-summer-salad",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod%29"
+    },
+    {
+      "source": "/blogs/recipes/salmon-and-brie-pizza",
+      "destination": "/blogs/culinary/recipes/salmon-and-brie-pizza"
+    },
+    {
+      "source": "/blogs/recipes/salmon-bun-cha",
+      "destination": "/blogs/culinary/recipes/salmon-bun-cha"
+    },
+    {
+      "source": "/blogs/recipes/salmon-burger-blta",
+      "destination": "/blogs/culinary/recipes/salmon-burger-blta"
+    },
+    {
+      "source": "/blogs/recipes/salmon-cakes",
+      "destination": "/blogs/culinary/recipes/salmon-cakes"
+    },
+    {
+      "source": "/blogs/recipes/salmon-congee-with-scallions-and-garlic",
+      "destination": "/blogs/culinary/recipes/salmon-congee-with-scallions-and-garlic"
+    },
+    {
+      "source": "/blogs/recipes/salmon-crudo-with-shallots-lemon-and-capers",
+      "destination": "/blogs/culinary/recipes/salmon-crudo-with-shallots-lemon-and-capers"
+    },
+    {
+      "source": "/blogs/recipes/salmon-donburi-bowl-with-sesame-kale-salad-and-pickled-vegetables",
+      "destination": "/blogs/culinary/recipes/salmon-donburi-bowl-with-sesame-kale-salad-and-pickled-vegetables"
+    },
+    {
+      "source": "/blogs/recipes/salmon-kebab-salad",
+      "destination": "/blogs/culinary/recipes/salmon-kebab-salad"
+    },
+    {
+      "source": "/blogs/recipes/salmon-kefta-bulgur-grain-bowl-with-feta",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/salmon-nicoise-salad-with-grainy-mustard-vinaigrette",
+      "destination": "/blogs/culinary/recipes/salmon-nicoise-salad-with-grainy-mustard-vinaigrette"
+    },
+    {
+      "source": "/blogs/recipes/salmon-penne-alla-vodka-infused-with-orange-flavor",
+      "destination": "/blogs/culinary/recipes/salmon-penne-alla-vodka-infused-with-orange-flavor"
+    },
+    {
+      "source": "/blogs/recipes/salmon-pirog",
+      "destination": "/blogs/culinary/recipes/salmon-pirog"
+    },
+    {
+      "source": "/blogs/recipes/salmon-poke-bowl",
+      "destination": "/blogs/culinary/recipes/salmon-poke-bowl"
+    },
+    {
+      "source": "/blogs/recipes/salmon-potato-hash-browns-with-fried-eggs-and-hot-sauce",
+      "destination": "/blogs/culinary/recipes/salmon-potato-hash-browns-with-fried-eggs-and-hot-sauce"
+    },
+    {
+      "source": "/blogs/recipes/salmon-potato-hash-browns-with-fried-eggs-and-hot-sauce?_pos=3&_sid=f97c9fd95&_ss=r",
+      "destination": "/blogs/culinary/recipes/salmon-potato-hash-browns-with-fried-eggs-and-hot-sauce"
+    },
+    {
+      "source": "/blogs/recipes/salmon-scramble-breakfast-tacos",
+      "destination": "/blogs/culinary/recipes/salmon-scramble-breakfast-tacos"
+    },
+    {
+      "source": "/blogs/recipes/salmon-wellington-with-rainbow-chard-apple-and-mustard",
+      "destination": "/blogs/culinary/recipes/salmon-wellington-with-rainbow-chard-apple-and-mustard"
+    },
+    {
+      "source": "/blogs/recipes/salmon-with-fall-vegetables-maple-butter-sage",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/salmon-with-pecan-honey-butter",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/salty-potatoes",
+      "destination": "/blogs/culinary/recipes/salty-potatoes"
+    },
+    {
+      "source": "/blogs/recipes/salumi-rosemary-crumble",
+      "destination": "/blogs/culinary/recipes/salumi-rosemary-crumble"
+    },
+    {
+      "source": "/blogs/recipes/salumi-rosemary-crumble?_pos=1&_sid=31e019d49&_ss=r",
+      "destination": "/blogs/culinary/recipes/salumi-rosemary-crumble"
+    },
+    {
+      "source": "/blogs/recipes/sausage-pepper-butter",
+      "destination": "/blogs/culinary/recipes/sausage-pepper-butter"
+    },
+    {
+      "source": "/blogs/recipes/sausage-pepper-butter?_pos=1&_sid=e10e6510e&_ss=r",
+      "destination": "/blogs/culinary/recipes/sausage-pepper-butter"
+    },
+    {
+      "source": "/blogs/recipes/sauteed-brown-butter-halibut-and-citrus-herb-gremolata-with-shaved-asparagus-salad",
+      "destination": "/blogs/culinary/recipes/sauteed-brown-butter-halibut-and-citrus-herb-gremolata-with-shaved-asparagus-salad"
+    },
+    {
+      "source": "/blogs/recipes/sauteed-halibut-tacos-with-black-bean-corn-salsa-and-creamy-chipotle-sauce",
+      "destination": "/blogs/culinary/recipes/sauteed-halibut-tacos-with-black-bean-corn-salsa-and-creamy-chipotle-sauce"
+    },
+    {
+      "source": "/blogs/recipes/sauteed-sitka-salmon-with-french-lentils-celery-leaves-and-herb-infused-olive-oil",
+      "destination": "/blogs/culinary/recipes/sauteed-sitka-salmon-with-french-lentils-celery-leaves-and-herb-infused-olive-oil"
+    },
+    {
+      "source": "/blogs/recipes/seafood-pasta-with-artichokes-olives-and-capers",
+      "destination": "/blogs/culinary/recipes/seafood-pasta-with-artichokes-olives-and-capers"
+    },
+    {
+      "source": "/blogs/recipes/seafood-stock",
+      "destination": "/blogs/culinary/recipes/seafood-stock"
+    },
+    {
+      "source": "/blogs/recipes/seared-albacore-tuna-with-chimichurri-rojo",
+      "destination": "/blogs/culinary/recipes/seared-albacore-tuna-with-chimichurri-rojo"
+    },
+    {
+      "source": "/blogs/recipes/seared-black-rockfish-bass-with-purple-cauliflower-puree",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish"
+    },
+    {
+      "source": "/blogs/recipes/seared-coho-with-a-fresh-succotash-salad",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/seared-coho-with-mixed-herb-pesto",
+      "destination": "/blogs/culinary/recipes/seared-coho-with-mixed-herb-pesto"
+    },
+    {
+      "source": "/blogs/recipes/seared-halibut-with-buttered-leeks-and-peas",
+      "destination": "/blogs/culinary/recipes/seared-halibut-with-buttered-leeks-and-peas"
+    },
+    {
+      "source": "/blogs/recipes/seared-king-salmon-with-corn-risotto",
+      "destination": "/blogs/culinary/recipes?filters=dish+type%3Dpasta+%2F+risotto"
+    },
+    {
+      "source": "/blogs/recipes/seared-king-salmon-with-lemon-chive-beurre-monte",
+      "destination": "/blogs/culinary/recipes/seared-king-salmon-with-lemon-chive-beurre-monte"
+    },
+    {
+      "source": "/blogs/recipes/seared-rockfish-with-sizzling-ginger-sauce",
+      "destination": "/blogs/culinary/recipes/seared-rockfish-with-sizzling-ginger-sauce"
+    },
+    {
+      "source": "/blogs/recipes/seared-rockfish-with-soba-noodle-salad",
+      "destination": "/blogs/culinary/recipes/seared-rockfish-with-soba-noodle-salad"
+    },
+    {
+      "source": "/blogs/recipes/seared-sablefish-in-tomato-and-saffron-broth-with-pan-softened-chanterelle-mushrooms-and-cinderella-tomatoes",
+      "destination": "/blogs/culinary/recipes/seared-sablefish-in-tomato-and-saffron-broth-with-pan-softened-chanterelle-mushrooms-and-cinderella-tomatoes"
+    },
+    {
+      "source": "/blogs/recipes/seared-salmon-with-green-olive-salsa-verde",
+      "destination": "/blogs/culinary/recipes/seared-salmon-with-green-olive-salsa-verde"
+    },
+    {
+      "source": "/blogs/recipes/sesame-crusted-tuna-with-wasabi-dressing",
+      "destination": "/blogs/culinary/recipes/sesame-crusted-tuna-with-wasabi-dressing"
+    },
+    {
+      "source": "/blogs/recipes/sesame-crusted-tuna-with-wasabi-dressing?_pos=1&_sid=8573daedd&_ss=r",
+      "destination": "/blogs/culinary/recipes/sesame-crusted-tuna-with-wasabi-dressing"
+    },
+    {
+      "source": "/blogs/recipes/sesame-ginger-tuna-tartare",
+      "destination": "/blogs/culinary/recipes/sesame-ginger-tuna-tartare"
+    },
+    {
+      "source": "/blogs/recipes/sesame-ginger-tuna-tartare?_pos=1&_sid=92acf2f6b&_ss=r",
+      "destination": "/blogs/culinary/recipes/sesame-ginger-tuna-tartare"
+    },
+    {
+      "source": "/blogs/recipes/sesame-lingcod-fish-sticks",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dshallow+%2F+deep-fry"
+    },
+    {
+      "source": "/blogs/recipes/sheet-pan-balsamic-salmon",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/sheet-pan-salmon-with-wild-mushrooms-and-leeks",
+      "destination": "/blogs/culinary/recipes/sheet-pan-salmon-with-wild-mushrooms-and-leeks"
+    },
+    {
+      "source": "/blogs/recipes/sheris-breakfast-salmon-caper-frittata",
+      "destination": "/blogs/culinary/recipes/sheris-breakfast-salmon-caper-frittata"
+    },
+    {
+      "source": "/blogs/recipes/shrimp-crab-etouffee",
+      "destination": "/blogs/culinary/recipes/shrimp-crab-etouffee"
+    },
+    {
+      "source": "/blogs/recipes/shrimp-tortilla-soup",
+      "destination": "/blogs/culinary/recipes/shrimp-tortilla-soup"
+    },
+    {
+      "source": "/blogs/recipes/shrimp-tortilla-soup?_pos=1&_sid=7216c8fd1&_ss=r",
+      "destination": "/blogs/culinary/recipes/shrimp-tortilla-soup"
+    },
+    {
+      "source": "/blogs/recipes/simple-dungeness-crab-cakes",
+      "destination": "/blogs/culinary/recipes/simple-dungeness-crab-cakes"
+    },
+    {
+      "source": "/blogs/recipes/simple-gravadlax-gravlax-with-mustard-crema",
+      "destination": "/blogs/culinary/recipes/aquavit-cured-salmon-toasts-with-shallot-caper-relish"
+    },
+    {
+      "source": "/blogs/recipes/simple-poach-with-mustard-brown-sugar-glaze",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dpoach"
+    },
+    {
+      "source": "/blogs/recipes/slow-grilled-king-salmon-with-stone-ground-mustard",
+      "destination": "/blogs/culinary/recipes/slow-grilled-king-salmon-with-stone-ground-mustard"
+    },
+    {
+      "source": "/blogs/recipes/slow-low-coho-with-citrus-fennel",
+      "destination": "/blogs/culinary/recipes/slow-low-coho-with-citrus-fennel"
+    },
+    {
+      "source": "/blogs/recipes/slow-roasted-salmon-with-moroccan-carrots",
+      "destination": "/blogs/culinary/recipes/slow-roasted-salmon-with-moroccan-carrots"
+    },
+    {
+      "source": "/blogs/recipes/slow-roasted-salmon-with-moroccan-carrots?_pos=1&_sid=3fa32b124&_ss=r",
+      "destination": "/blogs/culinary/recipes/slow-roasted-salmon-with-moroccan-carrots"
+    },
+    {
+      "source": "/blogs/recipes/slow-roasted-salmon-with-moroccan-carrots?_pos=1&_sid=6e23b9c74&_ss=r",
+      "destination": "/blogs/culinary/recipes/slow-roasted-salmon-with-moroccan-carrots"
+    },
+    {
+      "source": "/blogs/recipes/smoked-sablefish-toasts-with-horseradish-cream",
+      "destination": "/blogs/culinary/recipes/smoked-sablefish-toasts-with-horseradish-cream"
+    },
+    {
+      "source": "/blogs/recipes/smoked-sablefish-toasts-with-horseradish-cream?_pos=1&_sid=ea5d99cd3&_ss=r",
+      "destination": "/blogs/culinary/recipes/smoked-sablefish-toasts-with-horseradish-cream"
+    },
+    {
+      "source": "/blogs/recipes/smoked-salmon-and-halibut-bisque",
+      "destination": "/blogs/culinary/recipes/smoked-salmon-and-halibut-bisque"
+    },
+    {
+      "source": "/blogs/recipes/smoked-salmon-and-halibut-bisque?_pos=1&_sid=736601b9a&_ss=r",
+      "destination": "/blogs/culinary/recipes/smoked-salmon-and-halibut-bisque"
+    },
+    {
+      "source": "/blogs/recipes/smoked-salmon-and-halibut-bisque?_pos=1&_sid=98d39b226&_ss=r",
+      "destination": "/blogs/culinary/recipes/smoked-salmon-and-halibut-bisque"
+    },
+    {
+      "source": "/blogs/recipes/smoked-salmon-and-leek-quiche",
+      "destination": "/blogs/culinary/recipes/smoked-salmon-and-leek-quiche"
+    },
+    {
+      "source": "/blogs/recipes/smoked-salmon-and-leek-quiche?_pos=1&_sid=2851409c9&_ss=r",
+      "destination": "/blogs/culinary/recipes/smoked-salmon-and-leek-quiche"
+    },
+    {
+      "source": "/blogs/recipes/smoky-peel-and-eat-shrimp-a-la-plancha",
+      "destination": "/blogs/culinary/recipes/smoky-peel-and-eat-shrimp-a-la-plancha"
+    },
+    {
+      "source": "/blogs/recipes/sockeye-salmon-en-papillote",
+      "destination": "/blogs/culinary/recipes/sockeye-salmon-en-papillote"
+    },
+    {
+      "source": "/blogs/recipes/sockeye-salmon-saltado",
+      "destination": "/blogs/culinary/recipes/sockeye-salmon-saltado"
+    },
+    {
+      "source": "/blogs/recipes/sockeye-salmon-with-spiced-coffee-rub",
+      "destination": "/blogs/culinary/recipes/sockeye-salmon-with-spiced-coffee-rub"
+    },
+    {
+      "source": "/blogs/recipes/soy-brined-halibut-with-mustard-greens",
+      "destination": "/blogs/culinary/recipes/soy-brined-halibut-with-mustard-greens"
+    },
+    {
+      "source": "/blogs/recipes/soy-glazed-halibut-tacos-with-mango-and-cabbage-slaw",
+      "destination": "/blogs/culinary/recipes?filters=dish+type%3Dtaco"
+    },
+    {
+      "source": "/blogs/recipes/spanish-style-cod-with-tomatoes-and-olives",
+      "destination": "/blogs/culinary/recipes/spanish-style-cod-with-tomatoes-and-olives"
+    },
+    {
+      "source": "/blogs/recipes/spice-crusted-salmon-with-herb-salad-1",
+      "destination": "/blogs/culinary/recipes/spice-crusted-salmon-with-herb-salad-1"
+    },
+    {
+      "source": "/blogs/recipes/spicy-fish-taco-bowl-with-cilantro-rice-and-lime-crema",
+      "destination": "/blogs/culinary/recipes/spicy-fish-taco-bowl-with-cilantro-rice-and-lime-crema"
+    },
+    {
+      "source": "/blogs/recipes/spicy-fish-taco-nachos-with-lime-crema",
+      "destination": "/blogs/culinary/recipes/spicy-fish-taco-nachos-with-lime-crema"
+    },
+    {
+      "source": "/blogs/recipes/spicy-fish-taco-nachos-with-lime-crema?_pos=1&_sid=7b5d7153c&_ss=r",
+      "destination": "/blogs/culinary/recipes/spicy-fish-taco-nachos-with-lime-crema"
+    },
+    {
+      "source": "/blogs/recipes/spicy-hot-mess-crab-legs-with-garlic-butter-and-parsley",
+      "destination": "/blogs/culinary/recipes/spicy-hot-mess-crab-legs-with-garlic-butter-and-parsley"
+    },
+    {
+      "source": "/blogs/recipes/spicy-salmon-avocado-hand-rolls",
+      "destination": "/blogs/culinary/recipes/spicy-salmon-avocado-hand-rolls"
+    },
+    {
+      "source": "/blogs/recipes/spicy-salmon-avocado-hand-rolls?_pos=1&_sid=4ad208cef&_ss=r",
+      "destination": "/blogs/culinary/recipes/spicy-salmon-avocado-hand-rolls"
+    },
+    {
+      "source": "/blogs/recipes/spicy-salmon-unrolled",
+      "destination": "/blogs/culinary/recipes/spicy-salmon-unrolled"
+    },
+    {
+      "source": "/blogs/recipes/spicy-sesame-poke-bowl",
+      "destination": "/blogs/culinary/recipes/salmon-poke-bowl"
+    },
+    {
+      "source": "/blogs/recipes/spot-shrimp-and-grits",
+      "destination": "/blogs/culinary/recipes/spot-shrimp-and-grits"
+    },
+    {
+      "source": "/blogs/recipes/spot-shrimp-and-sausage-saute",
+      "destination": "/blogs/culinary/recipes/spot-shrimp-and-sausage-saute"
+    },
+    {
+      "source": "/blogs/recipes/spot-shrimp-and-veggie-stir-fry",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+shellfish%3Dshrimp"
+    },
+    {
+      "source": "/blogs/recipes/spot-shrimp-garlic-noodles",
+      "destination": "/blogs/culinary/recipes/spot-shrimp-garlic-noodles"
+    },
+    {
+      "source": "/blogs/recipes/spot-shrimp-with-miso-butter",
+      "destination": "/blogs/culinary/recipes/spot-shrimp-with-miso-butter"
+    },
+    {
+      "source": "/blogs/recipes/steam-braised-whitefish",
+      "destination": "/blogs/culinary/recipes?filters=%26%26species%3Dall+white+fish%26technique%3Dsteam"
+    },
+    {
+      "source": "/blogs/recipes/steamed-black-rockfish-bass-with-scallions-and-ginger",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish"
+    },
+    {
+      "source": "/blogs/recipes/steamed-dungey-with-herb-butter",
+      "destination": "/blogs/culinary/recipes/steamed-dungey-with-herb-butter"
+    },
+    {
+      "source": "/blogs/recipes/stir-fried-crab-legs-with-ginger-scallion-butter",
+      "destination": "/blogs/culinary/recipes/stir-fried-crab-legs-with-ginger-scallion-butter"
+    },
+    {
+      "source": "/blogs/recipes/stu-weathers-halibut-with-asparagus-sauce",
+      "destination": "/blogs/culinary/recipes/stu-weathers-halibut-with-asparagus-sauce"
+    },
+    {
+      "source": "/blogs/recipes/stu-weathers-teriyaki-sablefish-black-cod",
+      "destination": "/blogs/culinary/recipes/stu-weathers-teriyaki-sablefish-black-cod"
+    },
+    {
+      "source": "/blogs/recipes/summer-whitefish-ceviche",
+      "destination": "/blogs/culinary/recipes/summer-whitefish-ceviche"
+    },
+    {
+      "source": "/blogs/recipes/super-crispy-fried-fish-fingers-with-easy-homemade-tartar-sauce",
+      "destination": "/blogs/culinary/recipes/super-crispy-fried-fish-fingers-with-easy-homemade-tartar-sauce"
+    },
+    {
+      "source": "/blogs/recipes/super-crispy-fried-fish-fingers-with-easy-homemade-tartar-sauce?_pos=1&_sid=13a4ca7b1&_ss=r",
+      "destination": "/blogs/culinary/recipes/super-crispy-fried-fish-fingers-with-easy-homemade-tartar-sauce"
+    },
+    {
+      "source": "/blogs/recipes/super-crispy-fried-fish-fingers-with-easy-homemade-tartar-sauce?_pos=8&_sid=3f080bd83&_ss=r",
+      "destination": "/blogs/culinary/recipes/super-crispy-fried-fish-fingers-with-easy-homemade-tartar-sauce"
+    },
+    {
+      "source": "/blogs/recipes/super-crispy-fries",
+      "destination": "/blogs/culinary/recipes/super-crispy-fries"
+    },
+    {
+      "source": "/blogs/recipes/sweet-and-sour-braised-cabbage",
+      "destination": "/blogs/culinary/recipes/sweet-and-sour-braised-cabbage"
+    },
+    {
+      "source": "/blogs/recipes/sweet-and-sour-braised-cabbage?_pos=2&_sid=b3ec8ce9d&_ss=r",
+      "destination": "/blogs/culinary/recipes/sweet-and-sour-braised-cabbage"
+    },
+    {
+      "source": "/blogs/recipes/sweet-and-spicy-sablefish-black-cod-with-quinoa-fried-rice",
+      "destination": "/blogs/culinary/recipes/sweet-and-spicy-sablefish-black-cod-with-quinoa-fried-rice"
+    },
+    {
+      "source": "/blogs/recipes/taco-spiced-cod-tostadas",
+      "destination": "/blogs/culinary/recipes/taco-spiced-cod-tostadas"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-boat-deck-cookin",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-chef-ali-banks",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-community-cooks",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-fish-101",
+      "destination": "/blogs/culinary/recipes?filters=style%3Deasy"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-fishermen-recipe",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-from-the-test-kitchen",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-from-the-test-kitchen?page=1",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-from-the-test-kitchen?page=2",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-from-the-test-kitchen?page=3",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-make-it-a-meal",
+      "destination": "/blogs/culinary/recipes?filters=meal+course%3Dappetizer%26meal+course%3Dside"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-member-recipe-contest",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-members-friends",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-members-friends?page=1",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-members-friends?page=2",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-members-friends?page=3",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-whats-cookin",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-wild-at-home",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/category-wild-in-the-galley",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-dairy-free",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Ddairy+free"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-dairy-free?page=1",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Ddairy+free"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-dairy-free?page=2",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Ddairy+free"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-dairy-free?page=3",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Ddairy+free"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-dairy-free?page=4",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Ddairy+free"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-keto-friendly",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Ddairy+free"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-keto-friendly?page=1",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Ddairy+free"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-keto-friendly?page=2",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Ddairy+free"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-nut-free",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-nut-free?page=1",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-nut-free?page=2",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-nut-free?page=3",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-nut-free?page=4",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-nut-free?page=5",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-nut-free?page=6",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-nut-free?page=7",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-paleo-friendly",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dwheat%2Fgluten+free%26dietary+concerns%3Dnutrient+dense"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-paleo-friendly?page=1",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dwheat%2Fgluten+free%26dietary+concerns%3Dnutrient+dense"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-paleo-friendly?page=2",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dwheat%2Fgluten+free%26dietary+concerns%3Dnutrient+dense"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-pesco-vegan",
+      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-pesco-vegan?page=1",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dvegan-pescatarian"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-pesco-vegan?page=2",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dvegan-pescatarian"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-pesco-vegan?page=3",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dvegan-pescatarian"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-soy-free",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-soy-free?page=1",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-soy-free?page=2",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-soy-free?page=3",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-soy-free?page=4",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-soy-free?page=5",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-soy-free?page=6",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-whole30-friendly",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dwheat%2Fgluten+free%26dietary+concerns%3Dnutrient+dense"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-whole30-friendly?page=1",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dwheat%2Fgluten+free%26dietary+concerns%3Dnutrient+dense"
+    },
+    {
+      "source": "/blogs/recipes/tagged/diet-whole30-friendly?page=2",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Dwheat%2Fgluten+free%26dietary+concerns%3Dnutrient+dense"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-albacore-tuna",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dalbacore+tuna"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-coho-salmon",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dcoho"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-coho-salmon?page=1",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dcoho"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-coho-salmon?page=2",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dcoho"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-crab",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+shellfish%3Ddungeness%26species%3Dall+shellfish%3Dbairdi"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-halibut",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dhalibut"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-halibut?page=1",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dhalibut"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-halibut?page=2",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dhalibut"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-keta-salmon",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dketa"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-king-salmon",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dking"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-king-salmon?page=1",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dking"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-king-salmon?page=2",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dking"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-lingcod",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dlingcod"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-meta-salmon",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-meta-salmon?page=1",
+      "destination": "/blogs/culinary/recipes/fish-meta-salmon?page=1"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-meta-salmon?page=2",
+      "destination": "/blogs/culinary/recipes/fish-meta-salmon?page=2"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-meta-salmon?page=3",
+      "destination": "/blogs/culinary/recipes/fish-meta-salmon?page=3"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-meta-salmon?page=4",
+      "destination": "/blogs/culinary/recipes/fish-meta-salmon?page=4"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-meta-shellfish",
+      "destination": "/blogs/culinary/recipes/fish-meta-shellfish"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-meta-shellfish?page=1",
+      "destination": "/blogs/culinary/recipes/fish-meta-shellfish?page=1"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-meta-shellfish?page=2",
+      "destination": "/blogs/culinary/recipes/fish-meta-shellfish?page=2"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-meta-whitefish",
+      "destination": "/blogs/culinary/recipes/fish-meta-whitefish"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-meta-whitefish?page=1",
+      "destination": "/blogs/culinary/recipes/fish-meta-whitefish?page=1"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-meta-whitefish?page=2",
+      "destination": "/blogs/culinary/recipes/fish-meta-whitefish?page=2"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-meta-whitefish?page=3",
+      "destination": "/blogs/culinary/recipes/fish-meta-whitefish?page=3"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-meta-whitefish?page=4",
+      "destination": "/blogs/culinary/recipes/fish-meta-whitefish?page=4"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-non-fish",
+      "destination": "/blogs/culinary/recipes?filters=meal+course%3Dside%26dish+type%3Dsauce+%2F+condiment"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-pacific-cod",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dpacific+cod"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-pacific-cod?page=1",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dpacific+cod"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-pacific-cod?page=2",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dpacific+cod"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-rockfish",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Drockfish"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-rockfish?page=1",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Drockfish"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-rockfish?page=2",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Drockfish"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-sablefish-black-cod",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod%29"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-salmon-burger",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dsalmon+burger"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-shrimp",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+shellfish%3Dshrimp"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-smoked-salmon",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dsmoked+salmon"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-sockeye-salmon",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dsockeye"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-sockeye-salmon?page=1",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dsockeye"
+    },
+    {
+      "source": "/blogs/recipes/tagged/fish-sockeye-salmon?page=2",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+salmon%3Dsockeye"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-10-ingredients-or-less",
+      "destination": "/blogs/culinary/recipes?filters=style%3D10+ingredients+or+less"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-10-ingredients-or-less?page=1",
+      "destination": "/blogs/culinary/recipes?filters=style%3D10+ingredients+or+less"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-10-ingredients-or-less?page=2",
+      "destination": "/blogs/culinary/recipes?filters=style%3D10+ingredients+or+less"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-10-ingredients-or-less?page=3",
+      "destination": "/blogs/culinary/recipes?filters=style%3D10+ingredients+or+less"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-10-ingredients-or-less?page=4",
+      "destination": "/blogs/culinary/recipes?filters=style%3D10+ingredients+or+less"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-10-ingredients-or-less?page=5",
+      "destination": "/blogs/culinary/recipes?filters=style%3D10+ingredients+or+less"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-15-minute-meal",
+      "destination": "/blogs/culinary/recipes?filters=style%3D20-minute+meal"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-30-minute-meal",
+      "destination": "/blogs/culinary/recipes/meal-30-minute-meal"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-30-minute-meal?page=1",
+      "destination": "/blogs/culinary/recipes?filters=style%3D20-minute+meal"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-30-minute-meal?page=2",
+      "destination": "/blogs/culinary/recipes?filters=style%3D20-minute+meal"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-30-minute-meal?page=3",
+      "destination": "/blogs/culinary/recipes?filters=style%3D20-minute+meal"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-30-minute-meal?page=4",
+      "destination": "/blogs/culinary/recipes?filters=style%3D20-minute+meal"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-30-minute-meal?page=5",
+      "destination": "/blogs/culinary/recipes?filters=style%3D20-minute+meal"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-appetizer",
+      "destination": "/blogs/culinary/recipes?filters=meal+course%3Dappetizer%26meal"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-breakfast-brunch",
+      "destination": "/blogs/culinary/recipes?filters=meal+course%3Dbreakfast%2Fbrunch"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-burger-sandwich",
+      "destination": "/blogs/culinary/recipes?filters=dish+type%3Dburger+%2F+sandwich"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-condiment",
+      "destination": "/blogs/culinary/recipes?filters=dish+type%3Dsauce+%2F+condiment"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-main-course",
+      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-main-course?page=1",
+      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-main-course?page=2",
+      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-main-course?page=3",
+      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-main-course?page=4",
+      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-main-course?page=5",
+      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-main-course?page=6",
+      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-main-course?page=7",
+      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-main-course?page=8",
+      "destination": "/blogs/culinary/recipes?filters=meal+course%3Ddinner"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-pasta",
+      "destination": "/blogs/culinary/recipes?filters=dish+type%3Dpasta+%2F+risotto"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-salad",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dpan-fry%26technique%3Dpan-sear%26dish+type%3Dsalad"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-soup-stew",
+      "destination": "/blogs/culinary/recipes?filters=dish+type%3Dsoup+%2F+stew"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-tacos",
+      "destination": "/blogs/culinary/recipes?filters=dish+type%3Dtaco"
+    },
+    {
+      "source": "/blogs/recipes/tagged/meal-wild-extras",
+      "destination": "/blogs/culinary/recipes?filters=meal+course%3Dside%26dish"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-bake-roast",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dslow+roast"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-bake-roast?page=1",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dslow+roast"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-bake-roast?page=2",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dslow+roast"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-bake-roast?page=3",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dslow+roast"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-braise",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dbraise+%2F+simmer"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-broil",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dbroil"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-cure",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Draw"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-glaze",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-grill",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dgrill+%2F+smoke"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-grill?page=1",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dgrill+%2F+smoke"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-grill?page=2",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dgrill+%2F+smoke"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-marinade",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-poach",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dpoach"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-prepare-in-advance",
+      "destination": "/blogs/culinary/recipes?filters=style%3Dmake+ahead"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-raw-no-cook",
+      "destination": "/blogs/culinary/recipes?filters=dietary+concerns%3Draw"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-saute",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dsauté+%2F+stir-fry"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-sear-pan-fry",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dpan-fry%26technique%3Dpan-sear"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-sear-pan-fry?page=1",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dpan-fry%26technique%3Dpan-sear"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-sear-pan-fry?page=2",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dpan-fry%26technique%3Dpan-sear"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-sear-pan-fry?page=3",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dpan-fry%26technique%3Dpan-sear"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-sear-pan-fry?page=4",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dpan-fry%26technique%3Dpan-sear"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-shallow-deep-fry",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dshallow+%2F+deep-fry"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-simmer-boil",
+      "destination": "/blogs/culinary/recipes?filters=dish+type%3Dsoup+%2F+stew%26technique%3Dbraise+%2F+simmer"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-steam",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dsteam"
+    },
+    {
+      "source": "/blogs/recipes/tagged/prep-stir-fry",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dsauté+%2F+stir-fry"
+    },
+    {
+      "source": "/blogs/recipes/tangy-salsa-verde",
+      "destination": "/blogs/culinary/recipes/tangy-salsa-verde"
+    },
+    {
+      "source": "/blogs/recipes/tart-cherry-halibut-on-toasted-brioche-1",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dhalibut"
+    },
+    {
+      "source": "/blogs/recipes/teriyaki-sablefish-black-cod-bowl-with-glazed-carrots-and-sushi-rice",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%3Dsablefish+%28black+cod%29"
+    },
+    {
+      "source": "/blogs/recipes/tex-mex-chipotle-salmon-burger",
+      "destination": "/blogs/culinary/recipes/tex-mex-chipotle-salmon-burger"
+    },
+    {
+      "source": "/blogs/recipes/thai-green-curry-paste",
+      "destination": "/blogs/culinary/recipes/thai-green-curry-paste"
+    },
+    {
+      "source": "/blogs/recipes/thai-green-curry-paste?_pos=1&_sid=2ea01fdfd&_ss=r",
+      "destination": "/blogs/culinary/recipes/thai-green-curry-paste"
+    },
+    {
+      "source": "/blogs/recipes/thai-peanut-sauce",
+      "destination": "/blogs/culinary/recipes/thai-peanut-sauce"
+    },
+    {
+      "source": "/blogs/recipes/thai-yelloweye",
+      "destination": "/blogs/culinary/recipes/thai-yelloweye"
+    },
+    {
+      "source": "/blogs/recipes/the-skeeles-baked-halibut",
+      "destination": "/blogs/culinary/recipes/the-skeeles-baked-halibut"
+    },
+    {
+      "source": "/blogs/recipes/toasted-chorizo-breadcrumbs",
+      "destination": "/blogs/culinary/recipes/toasted-chorizo-breadcrumbs"
+    },
+    {
+      "source": "/blogs/recipes/tortilla-crusted-dusky-calabacitas",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish"
+    },
+    {
+      "source": "/blogs/recipes/traditional-quick-grilled-fish",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dgrill+%2F+smoke"
+    },
+    {
+      "source": "/blogs/recipes/tuna-carpaccio-with-tangy-citrus-dressing",
+      "destination": "/blogs/culinary/recipes/tuna-carpaccio-with-tangy-citrus-dressing"
+    },
+    {
+      "source": "/blogs/recipes/tuna-carpaccio-with-tangy-citrus-dressing?_pos=1&_sid=688edeee0&_ss=r",
+      "destination": "/blogs/culinary/recipes/tuna-carpaccio-with-tangy-citrus-dressing"
+    },
+    {
+      "source": "/blogs/recipes/turmeric-sablefish-black-cod-with-tomatoes-and-capers",
+      "destination": "/blogs/culinary/recipes/turmeric-sablefish-black-cod-with-tomatoes-and-capers"
+    },
+    {
+      "source": "/blogs/recipes/udon-with-bok-choy-and-crab",
+      "destination": "/blogs/culinary/recipes/udon-with-bok-choy-and-crab"
+    },
+    {
+      "source": "/blogs/recipes/ultimate-crab-rolls",
+      "destination": "/blogs/culinary/recipes/ultimate-crab-rolls"
+    },
+    {
+      "source": "/blogs/recipes/uncle-daves-spot-shrimp-bisque",
+      "destination": "/blogs/culinary/recipes/uncle-daves-spot-shrimp-bisque"
+    },
+    {
+      "source": "/blogs/recipes/vicky-s-pesto-lingcod",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish"
+    },
+    {
+      "source": "/blogs/recipes/walter-s-spicy-grapefruit-salmon",
+      "destination": "/blogs/culinary/recipes/walter-s-spicy-grapefruit-salmon"
+    },
+    {
+      "source": "/blogs/recipes/warm-curried-crab-dip",
+      "destination": "/blogs/culinary/recipes/warm-curried-crab-dip"
+    },
+    {
+      "source": "/blogs/recipes/white-bean-salmon-cakes-with-chile-aioli",
+      "destination": "/blogs/culinary/recipes/white-bean-salmon-cakes-with-chile-aioli"
+    },
+    {
+      "source": "/blogs/recipes/white-claw-fish-fry-from-tall-guy-and-grill-catering",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish%26technique%3Dshallow+%2F+deep-fry"
+    },
+    {
+      "source": "/blogs/recipes/wild-at-home-butter-basted-salmon",
+      "destination": "/blogs/culinary/recipes/wild-at-home-butter-basted-salmon"
+    },
+    {
+      "source": "/blogs/recipes/wild-at-home-pacific-cod-chowder",
+      "destination": "/blogs/culinary/recipes?filters=dish+type%3Dsoup+%2F+stew%26%26species%3Dall+white+fish%3Dpacific+cod"
+    },
+    {
+      "source": "/blogs/recipes/wine-poached-salmon-with-piquillo-peppers-and-leeks",
+      "destination": "/blogs/culinary/recipes/wine-poached-salmon-with-piquillo-peppers-and-leeks"
+    },
+    {
+      "source": "/blogs/recipes/wood-fire-grilled-sablefish-black-cod",
+      "destination": "/blogs/culinary/recipes/wood-fire-grilled-sablefish-black-cod"
+    },
+    {
+      "source": "/blogs/recipes/yelloweye-paillard",
+      "destination": "/blogs/culinary/recipes/yelloweye-paillard"
+    },
+    {
+      "source": "/blogs/recipes/yelloweye-thai-green-curry-with-pineapple-mango-slaw-1",
+      "destination": "/blogs/culinary/recipes?filters=species%3Dall+white+fish"
+    },
+    {
+      "source": "/blogs/recipes/zaatar-halibut-kebabs-with-creamy-green-harissa-and-shepherd-salad",
+      "destination": "/blogs/culinary/recipes/zaatar-halibut-kebabs-with-creamy-green-harissa-and-shepherd-salad"
+    },
+    {
+      "source": "/blogs/recipes/zaatar-salmon-with-couscous-delicata-squash-and-tahini",
+      "destination": "/blogs/culinary/recipes/zaatar-salmon-with-couscous-delicata-squash-and-tahini"
+    },
+    {
+      "source": "/blogs/recipes/zingy-poach-with-orange-soy-cumin-glaze",
+      "destination": "/blogs/culinary/recipes?filters=technique%3Dpoach"
+    },
+    {
+      "source": "/blogs/recipes?page=1",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes?page=10",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes?page=11",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes?page=2",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes?page=3",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes?page=4",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes?page=5",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes?page=6",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes?page=7",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes?page=8",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/recipes?page=9",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/stories-and-more",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/118582661-notes-from-the-fishing-grounds",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/stories-and-more/13810585-dr-thunder-homegrown-tomato",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/stories-and-more/14118209-ali-cooks",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/15122517-notes-from-the-fishing-grounds",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/stories-and-more/2016-salmon-bake",
+      "destination": "/blogs/culinary"
+    },
+    {
+      "source": "/blogs/stories-and-more/2018-newsletter-collectionthe-catch-2018",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/2019-csf-member-sitka-trips",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/2020-recipe-contest",
+      "destination": "/blogs/culinary"
+    },
+    {
+      "source": "/blogs/stories-and-more/2021-year-in-review",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/stories-and-more/3-ways-to-support-the-southeast-alaska-conservation-council-this-givingtuesday",
+      "destination": "/blogs/stories/alaska-stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/5-easy-weeknight-seafood-recipes",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/5-reasons-why-wild-alaska-salmon-are-different-from-farmed-salmon",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/stories-and-more/5-reasons-you-should-choose-wild-caught-alaska-seafood",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/stories-and-more/67127173-top-seafood-chef-in-galesburg",
+      "destination": "/blogs/stories/in-the-news"
+    },
+    {
+      "source": "/blogs/stories-and-more/7-seafood-dishes-to-try-with-your-kids-plus-one-bonus",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/8-fish-toppers-to-take-your-dinner-to-the-next-level",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/8-great-sauces-for-any-kind-of-fish",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/a-fishermans-greatest-tool",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/stories-and-more/a-message-from-co-founder-nic-mink-on-his-next-adventure",
+      "destination": "/blogs/stories/in-the-news"
+    },
+    {
+      "source": "/blogs/stories-and-more/a-statement-from-sitka-salmon-shares",
+      "destination": "/blogs/stories/in-the-news"
+    },
+    {
+      "source": "/blogs/stories-and-more/alaskan-fishermen-call-for-bristol-bay-tongass-conservation",
+      "destination": "/blogs/stories/1-for-the-wild"
+    },
+    {
+      "source": "/blogs/stories-and-more/allrecipes-highlights-sitka-salmon-shares-extols-virtue-of-frozen-fish",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/stories-and-more/an-ode-to-the-mothers-of-salmon-shares",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/announcing-our-10th-csf-season",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/blogs/stories-and-more/announcing-our-first-side-dish-recipe-contest",
+      "destination": "/blogs/culinary"
+    },
+    {
+      "source": "/blogs/stories-and-more/announcing-the-2016-member-recipe-contest",
+      "destination": "/blogs/culinary"
+    },
+    {
+      "source": "/blogs/stories-and-more/announcing-the-2019-recipe-contest",
+      "destination": "/blogs/culinary"
+    },
+    {
+      "source": "/blogs/stories-and-more/another-wild-king-salmon-season-lands-quality-seafood-for-our-members",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/stories-and-more/building-community-between-members-and-fishermen",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/stories-and-more/cause-for-celebration-new-protections-announced-for-southeast-alaska-s-tongass-national-forest",
+      "destination": "/blogs/stories/1-for-the-wild"
+    },
+    {
+      "source": "/blogs/stories-and-more/celebrating-the-return-of-wild-salmon-a-q-a-with-lisa-busch",
+      "destination": "/blogs/stories/alaska-stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/crab",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/stories-and-more/deconstructing-your-dungeness-crab-legs",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/stories-and-more/diy-smoked-salmon-at-home",
+      "destination": "/blogs/culinary/recipes/easy-diy-smoked-fish"
+    },
+    {
+      "source": "/blogs/stories-and-more/dock-to-doorstep-home-delivery",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/stories-and-more/easy-seafood-dishes-for-game-day",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/five-cast-iron-seafood-recipes",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/food-from-farmland-to-fishery",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/stories-and-more/for-this-years-holiday-cocktail-party-try-seafood",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/from-morocco-to-the-midwest-a-tale-of-travel-and-fish",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/get-creative-in-your-kitchen-with-these-delicious-seafood-recipes",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/get-ready-for-fall-with-this-cooking-bucket-list",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/graces-holiday-entertaining-guide",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/haines-packing-company",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/stories-and-more/how-do-alaskans-smoke-salmon",
+      "destination": "/blogs/stories/alaska-stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/how-to-avoid-mercury-in-seafood",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/stories-and-more/how-to-eat-fish-this-thanksgiving",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/how-to-remove-pin-bones-from-wild-caught-alaska-salmon-in-4-easy-steps",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/how-to-remove-pin-bones-from-wild-caught-alaska-salmon-in-4-easy-steps?_pos=1&_sid=a61768400&_ss=r",
+      "destination": "/blogs/culinary/from-the-test-kitchen/how-to-remove-pin-bones-from-your-salmon-fillet"
+    },
+    {
+      "source": "/blogs/stories-and-more/how-to-thaw-vacuum-packaged-fish",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/how-you-can-help-protect-the-world-s-largest-temperate-rainforest",
+      "destination": "/blogs/stories/1-for-the-wild"
+    },
+    {
+      "source": "/blogs/stories-and-more/i-speak-for-the-fish",
+      "destination": "/blogs/stories/1-for-the-wild"
+    },
+    {
+      "source": "/blogs/stories-and-more/inside-the-warehouse-the-salmon-drama-of-july",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/stories-and-more/july-cast-iron-recipe-contest",
+      "destination": "/blogs/culinary"
+    },
+    {
+      "source": "/blogs/stories-and-more/june-grilling-recipe-contest",
+      "destination": "/blogs/culinary"
+    },
+    {
+      "source": "/blogs/stories-and-more/know-your-fish-bairdi-crab",
+      "destination": "/pages/know-your-fish"
+    },
+    {
+      "source": "/blogs/stories-and-more/know-your-fish-dungeness-crab",
+      "destination": "/pages/know-your-fish"
+    },
+    {
+      "source": "/blogs/stories-and-more/know-your-fish-halibut",
+      "destination": "/pages/know-your-fish"
+    },
+    {
+      "source": "/blogs/stories-and-more/know-your-fish-pacific-cod",
+      "destination": "/pages/know-your-fish"
+    },
+    {
+      "source": "/blogs/stories-and-more/know-your-fish-rockfish",
+      "destination": "/pages/know-your-fish"
+    },
+    {
+      "source": "/blogs/stories-and-more/know-your-fish-sablefish-black-cod",
+      "destination": "/pages/know-your-fish"
+    },
+    {
+      "source": "/blogs/stories-and-more/learn-the-3-cs-of-raw-fish-preparation-crudo-carpaccio-and-ceviche",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/lessons-from-the-processing-line",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/stories-and-more/lingcod-a-fish-of-many-colors",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/stories-and-more/marsh-skeele-alaska-food-hero",
+      "destination": "/blogs/stories/in-the-news"
+    },
+    {
+      "source": "/blogs/stories-and-more/milwaukee-journal-sentinel-breaks-bread-in-a-table-chat-with-culinary-director-grace-parisi",
+      "destination": "/blogs/stories/in-the-news"
+    },
+    {
+      "source": "/blogs/stories-and-more/my-first-year-fishing-with-sitka-salmon-shares",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/stories-and-more/nationwide-launch-of-understory-a-journey-through-the-tongass",
+      "destination": "/blogs/stories/1-for-the-wild"
+    },
+    {
+      "source": "/blogs/stories-and-more/nationwide-launch-of-understory-a-journey-through-the-tongass?_pos=2&_sid=5508c814f&_ss=r",
+      "destination": "/blogs/stories/1-for-the-wild"
+    },
+    {
+      "source": "/blogs/stories-and-more/need-a-last-minute-gift-try-a-subscription-box",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/new-year-new-you",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/news-from-the-sitka-processing-facility",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/stories-and-more/nic-marshs-personal-pitch-for-early-enrollment",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/nic-mink-interviewed-by-charlie-berens-on-cripescast",
+      "destination": "/blogs/stories/in-the-news"
+    },
+    {
+      "source": "/blogs/stories-and-more/notes-from-the-fishing-grounds",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/stories-and-more/notes-from-the-fishing-grounds-a-bittersweet-king-opener-on-the-f-v-dryas",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/stories-and-more/notes-from-the-fishing-grounds-june-2019",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/stories-and-more/notes-on-the-fishing-grounds",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/stories-and-more/online-grocery-shopping-trends-may-be-here-to-stay",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/our-2021-community-supported-fishery-a-preview",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/our-community-facing-uncertainty",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/our-seafood-revolution",
+      "destination": "/"
+    },
+    {
+      "source": "/blogs/stories-and-more/removing-the-pin-bones-from-sablefish-black-cod",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/romantic-seafood-dishes-for-every-kind-of-celebration",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/salmon-shares-brings-journalists-to-alaska",
+      "destination": "/blogs/stories/in-the-news"
+    },
+    {
+      "source": "/blogs/stories-and-more/she-loves-fishing",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/stories-and-more/she-loves-fishing?_pos=1&_sid=375ede8e9&_ss=r",
+      "destination": "/blogs/stories/sourcing-partners/captain-s-log-she-loves-fishing"
+    },
+    {
+      "source": "/blogs/stories-and-more/sitka-salmon-shares-leadership-applauds-protections-for-alaska",
+      "destination": "/blogs/stories/1-for-the-wild"
+    },
+    {
+      "source": "/blogs/stories-and-more/six-days-as-a-deckhand",
+      "destination": "/the-catch/premium-seafood-box-march-2022"
+    },
+    {
+      "source": "/blogs/stories-and-more/six-ways-to-a-better-salmon-burger",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/sustainably-sourced-wild-salmon-from-around-alaska",
+      "destination": "/blogs/stories/alaska-stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/tagged/the-catch",
+      "destination": "/the-catch/premium-seafood-box-september-2022"
+    },
+    {
+      "source": "/blogs/stories-and-more/tagged/the-catch?page=1",
+      "destination": "/the-catch/premium-seafood-box-september-2022"
+    },
+    {
+      "source": "/blogs/stories-and-more/tagged/the-catch?page=2",
+      "destination": "/the-catch/premium-seafood-box-september-2022"
+    },
+    {
+      "source": "/blogs/stories-and-more/tamara-and-frank-kyle",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/stories-and-more/ten-year-letter-to-members-friends",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-5-best-holiday-cocktails",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-april-2020",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-april-2021",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-august-2020",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-august-2021",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-december-2020",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-december-2021",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-february-2022",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-january-2022",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-july-2020",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-july-2021",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-june-2020",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-june-2021",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-march-2022",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-may-2020",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-may-2021",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-november-2020",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-november-2021",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-october-2020",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-october-2021",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-september-2020",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-catch-september-2021",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-complete-sitka-holiday-gift-guide",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-fish-that-fed-your-fish",
+      "destination": "/blogs/stories/alaska-stories"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-fish-that-fed-your-fish?_pos=1&_sid=56bb9eed9&_ss=r",
+      "destination": "/blogs/stories/alaska-stories/the-fish-that-fed-your-fish"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-rhythm-of-the-sea",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-secret-to-crispy-skin-on-your-salmon-and-sablefish-black-cod",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/stories-and-more/the-value-of-your-membership",
+      "destination": "/blogs/stories/in-the-news"
+    },
+    {
+      "source": "/blogs/stories-and-more/try-these-top-5-seafood-noodle-dishes-for-national-noodle-month",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/what-is-that-white-stuff-on-my-salmon",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/what-to-do-with-a-spot-shrimp",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/stories-and-more/whats-cookin-april-2019",
+      "destination": "/blogs/culinary"
+    },
+    {
+      "source": "/blogs/stories-and-more/whats-cookin-august",
+      "destination": "/blogs/culinary"
+    },
+    {
+      "source": "/blogs/stories-and-more/whats-cookin-july",
+      "destination": "/blogs/culinary"
+    },
+    {
+      "source": "/blogs/stories-and-more/whats-cookin-june-2019",
+      "destination": "/blogs/culinary"
+    },
+    {
+      "source": "/blogs/stories-and-more/whats-cookin-may-2019",
+      "destination": "/blogs/culinary"
+    },
+    {
+      "source": "/blogs/stories-and-more/why-eating-wild-salmon-is-the-best-way-to-protect-them",
+      "destination": "/blogs/culinary"
+    },
+    {
+      "source": "/blogs/stories-and-more/why-eating-wild-salmon-is-the-best-way-to-protect-them?_pos=2&_sid=fad5fbe3f&_ss=r",
+      "destination": "blogs/stories/science-and-supply-chain/why-eating-wild-salmon-is-the-best-way-to-protect-them"
+    },
+    {
+      "source": "/blogs/stories-and-more/why-frozen-fish-are-fresh",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/stories-and-more/why-small-boat-fishermen-are-a-trusted-alternative-to-industrial-fishing",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/stories-and-more/why-the-salmon-rice-bowl-became-a-viral-sensation",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/wild-salmon-101",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/wild-salmon-101?homepage_cta",
+      "destination": "/blogs/culinary/from-the-test-kitchen/wild-salmon-101"
+    },
+    {
+      "source": "/blogs/stories-and-more/you-asked-we-listened",
+      "destination": "/blogs/stories/in-the-news"
+    },
+    {
+      "source": "/blogs/stories-and-more/you-should-be-eating-more-fish-heres-why",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/you-should-be-eating-more-fish-heres-why?_pos=10&_sid=96011d1ee&_ss=r",
+      "destination": "/blogs/culinary/from-the-test-kitchen/you-should-be-eating-more-fish-here-s-why"
+    },
+    {
+      "source": "/blogs/stories-and-more?page=1",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more?page=10",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more?page=11",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more?page=2",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more?page=3",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more?page=4",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more?page=5",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more?page=6",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more?page=7",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more?page=8",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/stories-and-more?page=9",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/videos",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/videos/a-taste-of-sitka-salmon-shares",
+      "destination": "/blogs/stories/science-and-supply-chain/the-box"
+    },
+    {
+      "source": "/blogs/videos/beet-cured-salmon-gravlax",
+      "destination": "/blogs/culinary/recipes/beet-cured-gravlax"
+    },
+    {
+      "source": "/blogs/videos/boat-deck-cookin-episode-1",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
+    },
+    {
+      "source": "/blogs/videos/boat-deck-cookin-episode-10",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
+    },
+    {
+      "source": "/blogs/videos/boat-deck-cookin-episode-11",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
+    },
+    {
+      "source": "/blogs/videos/boat-deck-cookin-episode-12",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
+    },
+    {
+      "source": "/blogs/videos/boat-deck-cookin-episode-13",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
+    },
+    {
+      "source": "/blogs/videos/boat-deck-cookin-episode-2",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
+    },
+    {
+      "source": "/blogs/videos/boat-deck-cookin-episode-3",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
+    },
+    {
+      "source": "/blogs/videos/boat-deck-cookin-episode-4",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
+    },
+    {
+      "source": "/blogs/videos/boat-deck-cookin-episode-5",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
+    },
+    {
+      "source": "/blogs/videos/boat-deck-cookin-episode-6",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
+    },
+    {
+      "source": "/blogs/videos/boat-deck-cookin-episode-7",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
+    },
+    {
+      "source": "/blogs/videos/boat-deck-cookin-episode-8",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
+    },
+    {
+      "source": "/blogs/videos/boat-deck-cookin-episode-9",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
+    },
+    {
+      "source": "/blogs/videos/boat-to-doorstep-with-sitka-salmon-shares",
+      "destination": "/blogs/stories/science-and-supply-chain/the-box"
+    },
+    {
+      "source": "/blogs/videos/chef-lewis-turmeric-sablefish-black-cod",
+      "destination": "/blogs/culinary/recipes/turmeric-sablefish-with-tomatoes-and-capers"
+    },
+    {
+      "source": "/blogs/videos/crabs",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/dr-keith-cox-on-quality-fish",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/videos/fisher-mans-best-friend",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/go-wild",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/videos/how-to-break-down-bairdi-snow-crab-legs",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/videos/how-to-debone-a-salmon-steak",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/videos/how-to-thaw-fish",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/videos/i-speak-for-the-fish",
+      "destination": "/blogs/stories/1-for-the-wild"
+    },
+    {
+      "source": "/blogs/videos/i-speak-for-the-fish?_pos=2&_sid=107095d2f&_ss=r",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/videos/judging-the-2019-member-recipe-contest",
+      "destination": "/blogs/culinary"
+    },
+    {
+      "source": "/blogs/videos/king-salmon-fishing-with-the-reynolds",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/know-your-fisherman",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/lingcod-fishing-with-captain-joe-daniels",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/meet-your-fishermen-casey-ali-digennaro",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/meet-your-fishermen-the-jordans",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/nobu-style-sablefish-black-cod-rice-bowl-with-quick-pickles",
+      "destination": "/blogs/culinary/video-series/nobu-style-sablefish-black-cod-rice-bowl-with-quick-pickles"
+    },
+    {
+      "source": "/blogs/videos/our-seafood-revolution",
+      "destination": "/"
+    },
+    {
+      "source": "/blogs/videos/sablefish-black-cod-fishing-with-captain-stu-weathers",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/salmon-and-the-tongass-national-rainforest",
+      "destination": "/blogs/stories/1-for-the-wild"
+    },
+    {
+      "source": "/blogs/videos/salmon-skin-101",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/videos/sitka-salmon-shares-presents-community",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/small-scale-kodiak",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/sustainability",
+      "destination": "/blogs/stories/1-for-the-wild"
+    },
+    {
+      "source": "/blogs/videos/tagged/category-ask-grace",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/videos/tagged/category-behind-the-scenes",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/videos/tagged/category-boat-deck-cookin",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
+    },
+    {
+      "source": "/blogs/videos/tagged/category-boat-deck-cookin?page=1",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
+    },
+    {
+      "source": "/blogs/videos/tagged/category-boat-deck-cookin?page=2",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dboat+deck+cookin%27"
+    },
+    {
+      "source": "/blogs/videos/tagged/category-fish-101",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/videos/tagged/category-our-story",
+      "destination": "/pages/privacy-policy"
+    },
+    {
+      "source": "/blogs/videos/tagged/category-our-story?page=1",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/videos/tagged/category-our-story?page=2",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/videos/tagged/category-wild-at-home",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/tagged/category-wild-at-home?page=1",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/tagged/category-wild-at-home?page=2",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/tagged/fish-meta-salmon",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/videos/tagged/how-to",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/videos/tagged/video-culinary",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/videos/tagged/video-culinary?page=1",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/videos/tagged/video-culinary?page=2",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/videos/tagged/video-culinary?page=3",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/videos/tagged/video-culinary?page=4",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/videos/tagged/video-fishermen",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/tagged/video-fishermen?page=1",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/tagged/video-fishermen?page=2",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/tagged/video-fishermen?page=3",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/tagged/year-2021",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/videos/taku-river-reds",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/thank-you-for-joining-our-community-supported-fishery-csf",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/the-box-wild-alaskan-seafood-delivery",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/videos/the-box-wild-alaskan-seafood-delivery?homepage_cta",
+      "destination": "/blogs/stories/science-and-supply-chain/the-box"
+    },
+    {
+      "source": "/blogs/videos/the-feast-of-seven-fishes",
+      "destination": "/blogs/culinary/video-series/the-feast-of-seven-fishes-or-a-holiday-seafood-tradition"
+    },
+    {
+      "source": "/blogs/videos/the-first-fish",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/the-skeeles-a-family-of-fishermen",
+      "destination": "/blogs/stories/sourcing-partners"
+    },
+    {
+      "source": "/blogs/videos/the-unsung-heroes",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/blogs/videos/this-is-how-you-skin-your-salmon",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/videos/why-subscribe-early",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-episode-1",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-episode-10",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-episode-11",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-episode-12",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-episode-13",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-episode-14",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-episode-2",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-episode-3",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-episode-4",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-episode-5",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-episode-6",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-episode-7",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-episode-8",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-episode-9",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-fish-and-chips",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-fish-dumplings",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-fish-tacos",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-at-home-season-2-episode-1",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos/wild-in-the-galley-trailer",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/videos?page=1",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/videos?page=2",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/videos?page=3",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/videos?page=4",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/videos?page=5",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/videos?page=6",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/griddled-potato-bread",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/pickled-apple-relish",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/pickled-apple-relish?_pos=1&_sid=f6946df21&_ss=r",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/plating-your-finished-meal",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/polenta-crusted-sablefish-black-cod-with-herb-and-olive-gremolata-and-confit-potatoes",
+      "destination": "/blogs/culinary/recipes"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/salmon-rillettes",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/tagged/category-wild-in-the-galley",
+      "destination": "/blogs/culinary/video-series?filters=series%3Dwild+at+home"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/tagged/fish-coho-salmon",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/tagged/fish-keta-salmon",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/tagged/fish-king-salmon",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/tagged/fish-meta-salmon",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/tagged/fish-sockeye-salmon",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/tagged/meal-appetizer",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/tagged/meal-wild-extras",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/tagged/prep-poach",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/tagged/prep-prepare-in-advance",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/vietnamese-caramelized-fish-with-seared-sesame-cabbage",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/blogs/virtual-cooking-class/wild-rice-crusted-pacific-cod-with-apple-and-endive-salad",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/collections",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/seafood-subscription-boxes",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/seafood-subscription-boxes?eat-more-seafood",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/seafood-subscription-boxes?frozen-fish-is-fresh",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/seafood-subscription-boxes?homepage-hiw",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/seafood-subscription-boxes?homepage_cta",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/seafood-subscription-boxes?karl-jordan-cta",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/seafood-subscription-boxes?lisa-busch",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/seafood-subscription-boxes?pin-bone-removal-cta",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/seafood-subscription-boxes?protect-salmon",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/seafood-subscription-boxes?thaw-fish",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/seafood-subscription-boxes?utm_medium=organization&utm_campaign=SEACC25",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/seafood-subscription-boxes?wild-vs-farmed",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/seafood-subscription-boxes?you-asked",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/shop-seafood-boxes",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/shop-seafood-boxes?homepage_cta",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/shop-seafood-boxes?recipe-cta",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/collections/sustainers",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/pages/behind-the-wild",
+      "destination": "/blogs/stories"
+    },
+    {
+      "source": "/pages/bipa",
+      "destination": "/pages/privacy-policy"
+    },
+    {
+      "source": "/pages/careers",
+      "destination": "https://jobs.lever.co/sitkasalmonshares"
+    },
+    {
+      "source": "/pages/community-supported-fisheries",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/pages/community-supported-fisheries/",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/pages/contact",
+      "destination": "/pages/contact-us"
+    },
+    {
+      "source": "/pages/cooking-classes",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/pages/dm",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/pages/fisheries",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/pages/giveaway-rules",
+      "destination": "/"
+    },
+    {
+      "source": "/pages/how-seafood-delivery-works",
+      "destination": "/pages/how-it-works"
+    },
+    {
+      "source": "/pages/local-seafood-farmers-markets",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/pages/media",
+      "destination": "/"
+    },
+    {
+      "source": "/pages/media-rt",
+      "destination": "/"
+    },
+    {
+      "source": "/pages/my-subscriptions",
+      "destination": "/account/subscriptions"
+    },
+    {
+      "source": "/pages/online-seafood-delivery-faq",
+      "destination": "/pages/frequently-asked-questions"
+    },
+    {
+      "source": "/pages/order-complete",
+      "destination": "/"
+    },
+    {
+      "source": "/pages/ott",
+      "destination": "/"
+    },
+    {
+      "source": "/pages/ott-rt",
+      "destination": "/"
+    },
+    {
+      "source": "/pages/our-fishermen",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/pages/our-fishermen?homepage_cta",
+      "destination": "/pages/sourcing-partners"
+    },
+    {
+      "source": "/pages/pick-your-seafood-share",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/pages/pin",
+      "destination": "/"
+    },
+    {
+      "source": "/pages/premium-seafood-promo",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/pages/projected-harvest-2021",
+      "destination": "/pages/projected-harvest"
+    },
+    {
+      "source": "/pages/quality-alaskan-seafood",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/pages/recipes-and-cooking-tips",
+      "destination": "/blogs/culinary"
+    },
+    {
+      "source": "/pages/salmon-subscription-promo",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/pages/seafood-cooking-guide",
+      "destination": "/blogs/culinary/cooking-guides"
+    },
+    {
+      "source": "/pages/seafood-culinary-field-notes",
+      "destination": "/pages/know-your-fish"
+    },
+    {
+      "source": "/pages/seafood-home-delivery-info",
+      "destination": "/pages/delivery-information"
+    },
+    {
+      "source": "/pages/social",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/pages/social-rt",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/pages/spri-invoice-cancel",
+      "destination": "/account/subscriptions"
+    },
+    {
+      "source": "/pages/spri-reminder-cancel",
+      "destination": "/account/subscriptions"
+    },
+    {
+      "source": "/pages/sustainable-seafood-alaska",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/pages/sustainable-seafood-company",
+      "destination": "/pages/about"
+    },
+    {
+      "source": "/pages/sustainers",
+      "destination": "/"
+    },
+    {
+      "source": "/pages/where-have-all-the-king-salmon-gone",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/pages/why-join-wild-caught-fish",
+      "destination": "/blogs/stories/science-and-supply-chain"
+    },
+    {
+      "source": "/pages/wild-in-the-galley-archives",
+      "destination": "/blogs/culinary/video-series"
+    },
+    {
+      "source": "/pages/yt",
+      "destination": "/pages/how-it-works"
+    },
+    {
+      "source": "/products/albacore-tuna-box",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/products/bairdi-crab-box-4-7-lbs",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/copper-river-sockeye-box",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/dungeness-crab-box",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/dungeness-crab-claws-box",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/gravlax-kit",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/grill-ready-salmon-burger-duo",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/grill-ready-salmon-burger-trio",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/halibut-box",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/halibut-lingcod-sampler",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/heart-healthy-seafood-box",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/holiday-entertaining-box",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/holiday-feast-box",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/holiday-seafood-sampler-box",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/hot-smoked-salmon-box",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/keta-salmon-box",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/king-salmon-box",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/king-salmon-steak-box",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/lingcod-box",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/pacific-cod-box",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/premium-seafood-subscription-box",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/products/premium-share-sampler-4-6-lbs",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/reshipment-copper-river-sockeye-box-sustainers-only",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/sablefish-box",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/salmon-sampler",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/salmon-sampler-1",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/salmon-subscription-box",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/products/seafood-subscription-box",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/products/sustainers",
+      "destination": "/"
+    },
+    {
+      "source": "/products/white-fish-medley",
+      "destination": "/pages/choose-your-plan?expand=sitka-seafood-intro-box"
+    },
+    {
+      "source": "/products/white-fish-sampler",
+      "destination": "/pages/choose-your-plan"
+    },
+    {
+      "source": "/blogs/stories-and-more/wild-seafood-lovers-gift-guide-for-fathers-day",
+      "destination": "/blogs/culinary/from-the-test-kitchen"
+    },
+    {
+      "source": "/blogs/stories-and-more/five-fabulous-sheet-pan-recipes",
+      "destination": "/blogs/culinary/from-the-test-kitchen/five-fabulous-sheet-pan-recipes"
+    }
+  ]
+}

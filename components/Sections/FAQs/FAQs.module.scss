@@ -10,6 +10,35 @@
   }
 }
 
+
+:global(.standard-page),
+:global(.info-page) {
+  .faq {
+    margin: 0;
+    .faq__container {
+      width: 100%;
+
+      @include breakpoint-up('lg') {
+        flex-wrap: wrap;
+        flex-direction: column;
+      }
+    }
+
+    .faq__header {
+      @include breakpoint-up('lg') {
+        margin-bottom: 40px;
+      }
+    }
+
+    .faq__content {
+      @include breakpoint-up('lg') {
+        max-width: none;
+        padding-left: 0;
+      }
+    }
+  }
+}
+
 .faq {
   margin: 60px 0;
   position: relative;

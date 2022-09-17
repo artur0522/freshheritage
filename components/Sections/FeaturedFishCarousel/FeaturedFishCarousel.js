@@ -10,6 +10,10 @@ import IconArrowLeft from '@/svgs/arrow-left.svg'
 import "swiper/css"
 import { useMediaQuery } from 'react-responsive'
 
+const fishCardImgLoader = ({ src }) => {
+  return `${src}?w=750`
+}
+
 const FeaturedFishCarousel = ({fields}) => {
 
   const builder = imageUrlBuilder(sanityClient)
@@ -93,7 +97,7 @@ const FeaturedFishCarousel = ({fields}) => {
 
               return <SwiperSlide className={classes['featured-fish-carousel__item']} key={item._id}>
                 {cropImageUrl && <div className={classes['featured-fish-carousel__item-image']}>
-                  <ResponsiveImage src={cropImageUrl} alt={image.alt || ''}  style={imageInlineStyles} />
+                  <ResponsiveImage loader={fishCardImgLoader} src={cropImageUrl} alt={image.alt || ''}  style={imageInlineStyles} />
                 </div>}
                 <div className={classes['featured-fish-carousel__content']}>
                   {header && <h2 className="h4">{header}</h2>}

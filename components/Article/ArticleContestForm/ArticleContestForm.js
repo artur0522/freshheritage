@@ -96,11 +96,14 @@ const ArticleContestForm = ({fields}) => {
           <div className={classes['contest-form__hero']}>
             {contestForm?.heroImage && isMobile && mounted &&
               <ResponsiveImage
+                priority={true}
                 src={contestForm?.heroImage.asset.url}
                 alt={contestForm?.heroImage.alt || ''}
               />}
             {contestForm?.heroImage && isDesktop && mounted &&
               <Image
+                priority={true}
+                sizes="(min-width: 1080px) 75vw, (min-width: 1400px) 1200px"
                 src={contestForm?.heroImage.asset.url}
                 layout="fill"
                 alt={contestForm?.heroImage.alt || ''}

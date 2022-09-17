@@ -8,6 +8,11 @@ import ResponsiveImage from '@/components/ResponsiveImage'
 import Image from 'next/image'
 import Link from 'next/link'
 
+const articleCardImgLoader = ({ src }) => {
+  return `${src}?w=400`
+}
+
+
 const ArticleProduct = ({product, parentClasses}) => {
 
   const PDPDrawerContext = usePDPDrawerContext()
@@ -34,6 +39,7 @@ const ArticleProduct = ({product, parentClasses}) => {
         <div className={classes['article-product__content']}>
           <div className={classes['article-product__image']}>
             {mounted && isDesktop && <ResponsiveImage
+              loader={articleCardImgLoader}
               src={product.content.media[0].src}
               alt={product.content.media[0].altText || product.content.title}
             />}

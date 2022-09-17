@@ -5,6 +5,10 @@ import Link from 'next/link'
 import Video from '@/components/Video'
 import ResponsiveImage from '@/components/ResponsiveImage'
 
+const valuePropImageLoader = ({ src }) => {
+  return `${src}?w=240`
+}
+
 const WYSIWYG = ({fields}) => {
 
   const myPortableTextComponents = {
@@ -51,7 +55,7 @@ const WYSIWYG = ({fields}) => {
         return (
           <div className={classes['wysiwyg__image']}>
             {value?.asset &&
-              <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />
+              <ResponsiveImage sizes="(min-width: 1080px) 65vw, (min-width: 1920px) 1200px, 100vw" src={value.asset.url} alt={value.asset.alt || ''} />
             }
             {value.caption && <span className={classes['wysiwyg__image-caption']}>{value.caption}</span>}
           </div>
@@ -69,7 +73,7 @@ const WYSIWYG = ({fields}) => {
             return (<li key={key} className={classes['wysiwyg__value-prop']}>
               <div className={classes['wysiwyg__value-prop-container']}>
                 {image.asset && <div className={classes['wysiwyg__value-prop-image']}>
-                  <ResponsiveImage src={image.asset.url} alt={valueProp.text} />
+                  <ResponsiveImage loader={valuePropImageLoader} src={image.asset.url} alt={valueProp.text} />
                 </div>}
                 <h3>{valueProp.text}</h3>
               </div>

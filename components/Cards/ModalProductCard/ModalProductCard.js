@@ -5,15 +5,19 @@ import ResponsiveImage from "@/components/ResponsiveImage"
 import classes from "./ModalProductCard.module.scss"
 
 function ModalProductCard({ product }) {
-  
+
   const [mounted, setMounted] = useState(false)
-  
+
   const isMobile =  useMediaQuery({ query: '(max-width: 430px)' })
   const isDesktop = useMediaQuery({query: '(min-width: 430px)'})
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  const articleCardImgLoader = ({ src, width }) => {
+    return `${src}?w=690`
+  }
 
   return (
     product && (
@@ -24,6 +28,7 @@ function ModalProductCard({ product }) {
                 <a className={classes["media"]}>
                     {product.product_image && isMobile && mounted && (
                     <ResponsiveImage
+                    loader={articleCardImgLoader}
                     src={product.product_image}
                     alt={product.title}
                     className={classes.image}
@@ -31,6 +36,7 @@ function ModalProductCard({ product }) {
                     )}
                     {product.product_image && isDesktop && mounted && (
                     <ResponsiveImage
+                    loader={articleCardImgLoader}
                     src={product.product_image}
                     alt={product.title}
                     className={classes.image}

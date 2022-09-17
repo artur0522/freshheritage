@@ -7,6 +7,10 @@ import { useRouter } from 'next/router'
 import { dataLayerSelectProduct } from "@/utils/dataLayer";
 import { formatPrice } from "@/utils/formatPrice";
 
+const articleCardImgLoader = ({ src, width }) => {
+  return `${src}?w=690`
+}
+
 function ProductCard({ product, responsive = false }) {
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
@@ -56,6 +60,7 @@ function ProductCard({ product, responsive = false }) {
             )}
             {product.content.featuredMedia && responsive && mounted && (
               <ResponsiveImage
+                loader={articleCardImgLoader}
                 src={product.content.featuredMedia.src}
                 alt={product.content.featuredMedia.altText || product.content.title}
                 className={classes.image}

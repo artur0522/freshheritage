@@ -2,13 +2,12 @@ import { useState, useEffect } from "react";
 import { useMediaQuery } from 'react-responsive'
 import Link from "next/link";
 import Image from "next/image";
-import ResponsiveImage from "@/components/ResponsiveImage";
 import classes from "./SearchProductCard.module.scss";
 
 function ProductCard({ product }) {
-  
+
   const [mounted, setMounted] = useState(false)
-  
+
   const isMobile =  useMediaQuery({ query: '(max-width: 430px)' })
   const isDesktop = useMediaQuery({query: '(min-width: 430px)'})
 

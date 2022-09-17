@@ -8,6 +8,10 @@ import { useVariants } from '@/hooks/index.js';
 import { formatPrice } from '@/utils/formatPrice';
 import Link from 'next/link';
 
+const lineItemImgLoader = ({ src }) => {
+  return `${src}?w=400`
+}
+
 const LineItemProduct = ({ item, children, readOnly }) => {
 
   const handleVariants = useVariants();
@@ -74,7 +78,7 @@ const LineItemProduct = ({ item, children, readOnly }) => {
         <div className="order-item__image">
         <Link href={url}>
             <a>
-              <ResponsiveImage src={item.image_url} alt={item.product_title} />
+              <ResponsiveImage loader={lineItemImgLoader} src={item.image_url} alt={item.product_title} />
             </a>
           </Link>
         </div>

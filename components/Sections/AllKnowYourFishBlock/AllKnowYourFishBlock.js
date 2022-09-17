@@ -81,7 +81,7 @@ const AllKnowYourFishblock = ({fields}) => {
               <li onClick={() => openDrawer({ fields: item})} className={classes['all-know-your-fish-block__item']} key={index}>
                 <div className={classes['all-know-your-fish-block__item-container']}>
                   {cropImageUrl && <div className={classes['all-know-your-fish-block__item-image']}>
-                    <ResponsiveImage src={cropImageUrl} alt={image.asset.alt || ''}  style={imageInlineStyles} />
+                    <ResponsiveImage sizes="(min-width: 768px) 50vw, (min-width: 1440px) 25vw, 100vw" src={cropImageUrl} alt={image.asset.alt || ''}  style={imageInlineStyles} />
                     <span
                       className={classes['all-know-your-fish-block__more-info-btn']}>
                         <InfoCircle />

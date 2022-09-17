@@ -9,6 +9,10 @@ import { nacelleClient } from 'services'
 import classes from "./ArticleRow.module.scss"
 import "swiper/css"
 
+const illustrationImgLoader = ({ src }) => {
+    return `${src}?w=750`
+  }
+
 const ArticleRow = ({ fields, enableSlider = true }) => {
 
   const {header, featuredArticles, ctaText, ctaUrl, articles: articleHandles, _key, reverseCard, illustration, illustrationAlt, illustration2, illustration2Alt, greenBackground,  topMargin, bottomMargin} = fields
@@ -44,12 +48,14 @@ const ArticleRow = ({ fields, enableSlider = true }) => {
     <div className={`article-row ${classes['articles']} ${reverseCard ? classes['reverse'] : ''} ${featuredArticles ? 'featured-articles' : ''} ${greenBackground ? classes['green-bg'] : ""} ${topMargin ? classes['top-margin'] : ''} ${bottomMargin ? classes['bottom-margin'] : ''}`}>
         {illustration && <div className={classes['illustration-1']}>
             <ResponsiveImage
+                loader={illustrationImgLoader}
                 src={illustration.asset.url}
                 alt={illustrationAlt || "illustration"}
             />
         </div>}
         {illustration2 && <div className={classes['illustration-2']}>
             <ResponsiveImage
+                loader={illustrationImgLoader}
                 src={illustration2.asset.url}
                 alt={illustration2Alt || "illustration"}
             />

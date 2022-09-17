@@ -9,6 +9,10 @@ import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import { usePDPDrawerContext } from '@/context/PDPDrawerContext'
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 
+const productImgLoader = ({ src }) => {
+  return `${src}?w=700`
+}
+
 const ChooseYourBox = ({props, tierOptions}) => {
 
   const purchaseFlowContext = usePurchaseFlowContext()
@@ -41,7 +45,7 @@ const ChooseYourBox = ({props, tierOptions}) => {
 
   useEffect(() => {
     // console.log('track membership_view_list',tierOptions)
-    // can't call a hook from an effect: 
+    // can't call a hook from an effect:
     // const trackEvent = useAnalytics();
     // trackEvent('membership_view_list');
     if(typeof window.gtag === 'function') {
@@ -54,7 +58,7 @@ const ChooseYourBox = ({props, tierOptions}) => {
       window.gtag('event', 'view_item_list', {
         'item_list_name': 'Membership Product List',
         'items': item_list
-        });   
+        });
     }
 
   }, [])
@@ -79,6 +83,7 @@ const ChooseYourBox = ({props, tierOptions}) => {
                           <div className={classes['choose-your-box__tier-container']}>
                             <div className={classes['choose-your-box__tier-image']} >
                               <ResponsiveImage
+                                loader={productImgLoader}
                                 src={product.content?.media[0].src}
                                 alt={product.content?.media[0].altText || product.content?.title}
                                 priority={true} />

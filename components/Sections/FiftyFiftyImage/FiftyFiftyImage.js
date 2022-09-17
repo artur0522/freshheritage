@@ -9,6 +9,7 @@ const FiftyFiftyImage = ({fields}) => {
         <div className={classes['col']}>
             <div className={classes['img-wrap']}>
                 {image && <ResponsiveImage
+                    sizes="50vw"
                     src={image?.asset.url}
                     alt={alt || ''}
                 />}
@@ -19,6 +20,7 @@ const FiftyFiftyImage = ({fields}) => {
         <div className={classes['col']}>
             <div className={classes['img-wrap']}>
                 {image && <ResponsiveImage
+                    sizes="50vw"
                     src={imageTwo?.asset.url}
                     alt={altTwo || ''}
                 />}

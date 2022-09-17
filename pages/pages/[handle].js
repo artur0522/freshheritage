@@ -70,7 +70,7 @@ export default function DynamicPage({ page }) {
   }
 
   return (
-    <div class="standard-page">
+    <div className="standard-page">
       <PageSEO seo={page.fields.seo} />
       <ContentSections sections={page.fields.content} />
     </div>

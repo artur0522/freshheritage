@@ -5,7 +5,7 @@ export function isGaEnabled(){
 }
 
 export function isFBSession(){
-  if (sessionStorage.getItem("referrer").includes('facebook') || sessionStorage.getItem("utm_source") === 'facebook' || sessionStorage.getItem("utm_source") === 'fb' || sessionStorage.getItem("utm_source") === 'ig'){
+  if (sessionStorage.getItem("referrer")?.includes('facebook') || sessionStorage.getItem("utm_source") === 'facebook' || sessionStorage.getItem("utm_source") === 'fb' || sessionStorage.getItem("utm_source") === 'ig'){
     return true;
   }
 }
@@ -52,7 +52,7 @@ const useAnalytics = () => {
 
           if (isFBSession()) {
             fbEvent({
-              eventName: 'ViewContent', 
+              eventName: 'ViewContent',
               products: [{
                 sku: eventObj.sourceEntryId.replace('gid://shopify/Product/', ''),
                 quantity: 1,
@@ -60,7 +60,7 @@ const useAnalytics = () => {
               value: eventObj.variants[0].price,
               currency: 'USD',
               enableStandardPixel: false
-            });    
+            });
           }
 
         break
@@ -94,7 +94,7 @@ const useAnalytics = () => {
 
           if (isFBSession()) {
             fbEvent({
-              eventName: 'AddToCart', 
+              eventName: 'AddToCart',
               products: [{
                 sku: eventObj.product.sourceEntryId.replace('gid://shopify/Product/', ''),
                 quantity: 1,
@@ -133,7 +133,7 @@ const useAnalytics = () => {
             });
           }
         break
-    
+
 
         case 'landing_page':
           // cart=checkout architecture choice means this is essentially our cart
@@ -271,7 +271,7 @@ const useAnalytics = () => {
 
             } else if (line_item.tags.includes('freezer')) {
 
-            } 
+            }
 
             return {
               sku: line_item.product_id,
@@ -281,8 +281,8 @@ const useAnalytics = () => {
 
           if (isFBSession()) {
             fbEvent({
-              eventName: 'Purchase', 
-              emails: [eventObj.customer.email_address], 
+              eventName: 'Purchase',
+              emails: [eventObj.customer.email_address],
               products: fb_lineItems,
               value: eventObj.order_total / 100,
               currency: 'USD',

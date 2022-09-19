@@ -240,7 +240,7 @@ const MemoizedPaymentMethod = memo(
         } else if (hasFb && membership === 'PrepaidMember') {
           discounts.push('15% Member Discount');
         } else if (hasFb && (membership === "PremiumMember" || membership === "Member")) {
-          discount = "10% Member Discount";
+          discounts.push("10% Member Discount");
         }
 
         //AUTO DISCOUNTS FOR SUBSCRIPTIONS

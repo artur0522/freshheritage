@@ -1,7 +1,8 @@
 import { useState, useEffect, createRef, useRef } from 'react'
 import { nacelleClient } from 'services'
 import { useMediaQuery } from 'react-responsive'
-import ResponsiveImage from '@/components/ResponsiveImage'
+import useSWR from 'swr'
+import axios from 'axios'
 
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
@@ -19,6 +20,18 @@ import classes from './Product.module.scss'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import ProductStamps from '@/components/Product/ProductStamps'
 import { dataLayerViewProduct } from '@/utils/dataLayer'
+
+// setup inventory fetcher
+const fetchInventory = (url, productHandle) => {
+  return axios
+     .get(url, {
+       params: {
+         productHandle: productHandle,
+       },
+     })
+   .then((res) => res.data)
+ };
+
 
 function Product({ product, page, modals }) {
   const [checked, setChecked] = useState(false)
@@ -39,12 +52,27 @@ function Product({ product, page, modals }) {
   const { customer } = customerContext
   const shellfishFreeInputRef = useRef()
 
+  const { data: productInfoRevalidate } = useSWR(
+    ['/api/product/available', product.content.handle],
+    (url, id) => fetchInventory(url, id),
+    { errorRetryCount: 3 }
+  );
+
   const refs = useRef(['reviewsStars', 'productReviews'].reduce((carry, ref) => {
     return {
       ...carry,
       [ref]: createRef()
     }
   }, {}))
+
+  useEffect(() => {
+    console.log("productInfoRevalidate:", productInfoRevalidate)
+    if (productInfoRevalidate?.variants) {
+      const variant = productInfoRevalidate.variants.find(variant => variant.sourceEntryId === selectedVariant.sourceEntryId)
+      setSelectedVariant(variant);
+    }
+  }, [productInfoRevalidate]);
+
 
   useEffect(() =>  {
     setMounted(true)
@@ -80,23 +108,23 @@ function Product({ product, page, modals }) {
       'member'
     ]
 
-    const foundModal = modals.reduce((carry, modal) => {
-      const modalHandleWithoutDash = modal.handle.replace(/-/g, '').replace(/ /g, '')
-      if (foundVisibleTags.some(tag => tag.indexOf(modalHandleWithoutDash) > -1)) {
-        if (!carry.handle) return modal
-        if (hierarchy.indexOf(modalHandleWithoutDash) < hierarchy.indexOf(carry.handle.replace(/-/g, ''))) {
-          return modal
-        }
-      }
-      return carry
-    }, {})
+    // const foundModal = modals.reduce((carry, modal) => {
+    //   const modalHandleWithoutDash = modal.handle.replace(/-/g, '').replace(/ /g, '')
+    //   if (foundVisibleTags.some(tag => tag.indexOf(modalHandleWithoutDash) > -1)) {
+    //     if (!carry.handle) return modal
+    //     if (hierarchy.indexOf(modalHandleWithoutDash) < hierarchy.indexOf(carry.handle.replace(/-/g, ''))) {
+    //       return modal
+    //     }
+    //   }
+    //   return carry
+    // }, {})
 
-    // if product tags exist but none of the product tags match customer tag
-    if(foundVisibleTags.length > 0 && !productHasCustomerTag && foundModal.fields) {
-      modalContext.setContent(foundModal.fields)
-      modalContext.setModalType('gated_product')
-      modalContext.setIsOpen(true)
-    }
+    // // if product tags exist but none of the product tags match customer tag
+    // if(foundVisibleTags.length > 0 && !productHasCustomerTag && foundModal.fields) {
+    //   modalContext.setContent(foundModal.fields)
+    //   modalContext.setModalType('gated_product')
+    //   modalContext.setIsOpen(true)
+    // }
 
     if (modalContext.modalType === 'gated_product') {
       // if one of the product tags contains customer tag
@@ -121,8 +149,8 @@ function Product({ product, page, modals }) {
   )
 
   const handleCheckbox = () => {
-    setChecked(!checked);
-  };
+    setChecked(!checked)
+  }
 
   return (
     product && (
@@ -267,15 +295,15 @@ export async function getStaticProps({ params }) {
     }
   }
 
-  const modals = await nacelleClient.content({
-    type: 'gatedProductModal'
-  })
+  // const modals = await nacelleClient.content({
+  //   type: 'gatedProductModal'
+  // })
 
   return {
     props: {
       product: products[0],
       page: fullRefPage,
-      modals
+      // modals
     }
   }
 }

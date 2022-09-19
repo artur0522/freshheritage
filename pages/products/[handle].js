@@ -1,7 +1,8 @@
 import { useState, useEffect, createRef, useRef } from 'react'
 import { nacelleClient } from 'services'
 import { useMediaQuery } from 'react-responsive'
-import useSWR from "swr"
+import useSWR from 'swr'
+import axios from 'axios'
 
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
@@ -20,22 +21,17 @@ import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import ProductStamps from '@/components/Product/ProductStamps'
 import { dataLayerViewProduct } from '@/utils/dataLayer'
 
-async function fetcher(productHandle) {
-  const { products } = await nacelleClient.query({
-    query: GET_PRODUCTS,
-    variables: {
-      "filter": {
-        "handles": [productHandle]
-      }
-    }
-  })
+// setup inventory fetcher
+const fetchInventory = (url, productHandle) => {
+  return axios
+     .get(url, {
+       params: {
+         productHandle: productHandle,
+       },
+     })
+   .then((res) => res.data)
+ };
 
-  console.log("swr", products)
-
-  return {
-    products: products
-  }
-}
 
 function Product({ product, page, modals }) {
   const [checked, setChecked] = useState(false)
@@ -56,18 +52,11 @@ function Product({ product, page, modals }) {
   const { customer } = customerContext
   const shellfishFreeInputRef = useRef()
 
-  // const fetched = fetcher(selectedVariant.productHandle)
-  // fetched.then(function(result) {
-  //   return { products: result}
-  // })
-
-  const { products } = useSWR(
-    null,
-    fetcher(selectedVariant.productHandle),
+  const { data: productInfoRevalidate } = useSWR(
+    ['/api/product/available', product.content.handle],
+    (url, id) => fetchInventory(url, id),
     { errorRetryCount: 3 }
-  )
-
-  console.log("swr", products)
+  );
 
   const refs = useRef(['reviewsStars', 'productReviews'].reduce((carry, ref) => {
     return {
@@ -75,6 +64,15 @@ function Product({ product, page, modals }) {
       [ref]: createRef()
     }
   }, {}))
+
+  useEffect(() => {
+    console.log("productInfoRevalidate:", productInfoRevalidate)
+    if (productInfoRevalidate?.variants) {
+      const variant = productInfoRevalidate.variants.find(variant => variant.sourceEntryId === selectedVariant.sourceEntryId)
+      setSelectedVariant(variant);
+    }
+  }, [productInfoRevalidate]);
+
 
   useEffect(() =>  {
     setMounted(true)

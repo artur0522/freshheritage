@@ -34,7 +34,7 @@ const PaymentMethod = ({ applicationLoading }) => {
   const { data } = useShippingLines();
   const { data: lineItems } = useLineItems();
   const { data: customer } = useCustomer()
-  const { PIGIMediaRules, flyoutState } = useHeadlessCheckoutContext()
+  const { PIGIMediaRules, updateOrderMetaData } = useHeadlessCheckoutContext()
   const shippingLines = data.shippingLines;
   const orderStatus = state.orderInfo.orderStatus;
   const loading =
@@ -53,6 +53,7 @@ const PaymentMethod = ({ applicationLoading }) => {
       onPaymentIframeLoaded={paymentIframeOnLoaded}
       loading={loading}
       PIGIMediaRules={PIGIMediaRules}
+      updateOrderMetaData={updateOrderMetaData}
       customer={customer}
       lineItems={lineItems}
     />
@@ -71,6 +72,7 @@ const MemoizedPaymentMethod = memo(
     onPaymentIframeLoaded,
     loading,
     PIGIMediaRules,
+    updateOrderMetaData,
     customer,
     lineItems
   }) => {
@@ -137,52 +139,49 @@ const MemoizedPaymentMethod = memo(
       content = <LoadingState />;
     }
 
-    const { data: orderMetaData, appendOrderMetadata } = useOrderMetadata();
+    const { data: orderMetaData } = useOrderMetadata();
+    const { data: appliedDiscounts, errors: discountErrors, loadingStatus, applyDiscount, removeDiscount } = useDiscount();
+
     useEffect(() => {
-      gtag('get', process.env.NEXT_PUBLIC_MEASUREMENT_ID, 'client_id', (client_id) => {
-          addGAClientID(client_id);
-        })
-
-
-      const addGAClientID = async (client_id) => {
-        try {
-          const results = await appendOrderMetadata({
-            note_attributes: {
-              'google-clientID': client_id
-            }
-          });
-        } catch (e) {
-          console.log(e)
+      const addAddtOrderMetaData = async () => {
+        const getClientId = () => {
+          return new Promise((resolve, reject) => {
+            gtag('get', process.env.NEXT_PUBLIC_MEASUREMENT_ID, 'client_id', (client_id) => {
+              resolve(client_id)
+            })
+          })
         }
-      };
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
-    useEffect(() => {
-      const applyAttributions = async () => {
+        const gaClientId = await getClientId()
+        const newOrderMetaData = {
+          ...orderMetaData
+        }
+
+        if (gaClientId) {
+          newOrderMetaData.note_attributes = {
+            ...newOrderMetaData.note_attributes,
+            'google-clientID': gaClientId
+          }
+        }
+
         let attributions = {}
         attributions.utm_source = sessionStorage.getItem("utm_source")
         attributions.utm_medium = sessionStorage.getItem("utm_medium")
         attributions.utm_campaign = sessionStorage.getItem("utm_campaign")
         attributions.utm_content = sessionStorage.getItem("utm_content")
 
-        try {
-          const results = await appendOrderMetadata({
-            note_attributes: {
-              'marketingAttributions': attributions
-            }
-          });
-        } catch (e) {
-          console.log(e)
+        if (sessionStorage.getItem("utm_source") || sessionStorage.getItem("utm_medium") || sessionStorage.getItem("utm_campaign") || sessionStorage.getItem("utm_content")){
+          newOrderMetaData.note_attributes = {
+            ...newOrderMetaData.note_attributes,
+            'marketingAttributions': attributions
+          }
         }
-      };
-      if (sessionStorage.getItem("utm_source") || sessionStorage.getItem("utm_medium") || sessionStorage.getItem("utm_campaign") || sessionStorage.getItem("utm_content")){
-        applyAttributions();
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
-    const { data: appliedDiscounts, errors: discountErrors, loadingStatus, applyDiscount, removeDiscount } = useDiscount();
+        updateOrderMetaData(newOrderMetaData)
+      }
+      addAddtOrderMetaData();
+    }, [])
+
     useEffect(() => {
       const applyMembershipDiscount = async () => {
         const hasSub =
@@ -228,7 +227,7 @@ const MemoizedPaymentMethod = memo(
         console.log('membership: ' + membership);
 
         // to use as a reference to remove discount codes if not a member
-        const memberDiscountLists = ['10% King Sustainer Discount', '10% Sustainer Discount', '5% Sustainer Discount', '5% Member Discount']
+        const memberDiscountLists = ['20% King Sustainer Discount', '15% Sustainer Discount', '15% Member Discount', '10% Member Discount', '10% King Sustainer Discount', '5% Sustainer Discount']
 
         //AUTO DISCOUNTS FOR OTP
         var discounts = [];
@@ -241,8 +240,8 @@ const MemoizedPaymentMethod = memo(
         } else if (hasFb && membership === 'PrepaidMember') {
           discounts.push('15% Member Discount');
         } else if (hasFb && (membership === "PremiumMember" || membership === "Member")) {
-          discount = "10% Member Discount";
-        } 
+          discounts.push("10% Member Discount");
+        }
 
         //AUTO DISCOUNTS FOR SUBSCRIPTIONS
         if (hasSub && membership === 'KingSustainer') {
@@ -259,10 +258,11 @@ const MemoizedPaymentMethod = memo(
         if (sessionStorage.getItem("utm_source") === "member_referral" && membership === "") {
           if (hasSub){
             discounts.push('$25 Refer a Friend');
-          } 
+          }
         }
 
         console.log('discounts:', discounts);
+        console.log('appliedDiscounts?.discountCode:', appliedDiscounts?.discountCode);
 
         // applying membership discounts
         if (discounts.length) {

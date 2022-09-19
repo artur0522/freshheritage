@@ -6,7 +6,7 @@ import IconPlay from '@/svgs/play.svg'
 import classes from "./HalfVideoBlock.module.scss"
 
 const HalfVideoBlock = ({fields}) => {
-  const {header, subheader, ctaText, ctaUrl, recipeArticle, reverse} = fields
+  const {header, subheader, ctaText, ctaUrl, ctaTextTwo, ctaUrlTwo, recipeArticle, reverse} = fields
 
   return (
     <div className={classes['wrapper']}>
@@ -34,11 +34,11 @@ const HalfVideoBlock = ({fields}) => {
                     <div className={classes['article__text']}>
                         {recipeArticle.title && <h4>{recipeArticle.title}</h4>}
                         {recipeArticle.subheader && <p>{recipeArticle.subheader}</p>}
-                        {recipeArticle.handle && <div className={classes['btn']}>
-                            <Link href={`/${recipeArticle.handle.current}`}>
+                        {ctaUrlTwo && <div className={classes['btn']}>
+                            <Link href={ctaUrlTwo}>
                                 <a className="btn sitkablue">
                                     <span className={classes['play-icon']}><IconPlay /></span>
-                                    <span>Watch Video</span>
+                                    <span>{ctaTextTwo}</span>
                                 </a>
                             </Link>
                         </div>}

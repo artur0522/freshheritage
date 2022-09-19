@@ -76,8 +76,8 @@ const ProductGiftSubForm = ({selectedVariant, setSelectedVariant, allProducts, p
     if (emailRef.current.value && nameRef.current.value) {
       giftProperties = {
         is_gift_order: 'true',
-        recipient_name: emailRef.current.value,
-        recipient_email: nameRef.current.value,
+        recipient_email: emailRef.current.value,
+        recipient_name: nameRef.current.value,
       }
     }
 

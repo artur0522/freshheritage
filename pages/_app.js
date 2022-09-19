@@ -28,26 +28,29 @@ const AppContainer = ({ Component, pageProps, headerSettings, footerSettings, se
 
   useEffect(() => {
     if (router.isReady) {
-      console.log('query params:',router.query);
       if (typeof router.query.utm_source !== 'undefined') {
         sessionStorage.setItem("utm_source", router.query.utm_source)
-        console.log('utm_source: ' + sessionStorage.getItem("utm_source"))
+        // console.log('utm_source: ' + sessionStorage.getItem("utm_source"))
       }
       if (typeof router.query.utm_medium !== 'undefined') {
         sessionStorage.setItem("utm_medium", router.query.utm_medium)
-        console.log('utm_medium: ' + sessionStorage.getItem("utm_medium"))
+        // console.log('utm_medium: ' + sessionStorage.getItem("utm_medium"))
       }
       if (typeof router.query.utm_campaign !== 'undefined') {
         sessionStorage.setItem("utm_campaign", router.query.utm_campaign)
-        console.log('utm_campaign: ' + sessionStorage.getItem("utm_campaign"))
+        // console.log('utm_campaign: ' + sessionStorage.getItem("utm_campaign"))
       }
       if (typeof router.query.utm_content !== 'undefined') {
         sessionStorage.setItem("utm_content", router.query.utm_content)
-        console.log('utm_content: ' + sessionStorage.getItem("utm_content"))
+        // console.log('utm_content: ' + sessionStorage.getItem("utm_content"))
       }
-      // TODO: referrer domain / url, and landing page
-      // console.log('referer ', window.document.referrer)
-      // console.log('referer ' + window.document.referrer.split('/')[2])
+
+      console.log('session referrer ' + sessionStorage.getItem("referrer"))
+      if (sessionStorage.getItem("referrer") === null){
+        sessionStorage.setItem("referrer", window.frames.top.document.referrer )
+        sessionStorage.setItem("landing_page", router.asPath )
+        // console.log('set referrer: ' + sessionStorage.getItem("referrer"))
+      }
     }
   }, [router.isReady]);
 

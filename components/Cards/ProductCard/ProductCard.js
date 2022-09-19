@@ -6,6 +6,7 @@ import classes from "./ProductCard.module.scss";
 import { useRouter } from 'next/router'
 import { dataLayerSelectProduct } from "@/utils/dataLayer";
 import { formatPrice } from "@/utils/formatPrice";
+import { formatWeight } from "@/utils/formatWeight";
 
 function ProductCard({ product, responsive = false }) {
   const router = useRouter()
@@ -82,7 +83,7 @@ function ProductCard({ product, responsive = false }) {
                 <p className="secondary--body">${formatPrice(firstVariant.price * 100)}</p>
               </div>
               {firstVariant.weight && <p className={`${classes["weight"]} secondary--body`}>
-                {firstVariant.weight}lbs
+                {formatWeight(firstVariant.weight)}lbs
               </p>}
             </div>
 

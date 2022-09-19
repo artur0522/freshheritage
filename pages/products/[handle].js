@@ -20,6 +20,7 @@ import classes from './Product.module.scss'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import ProductStamps from '@/components/Product/ProductStamps'
 import { dataLayerViewProduct } from '@/utils/dataLayer'
+import { formatWeight } from '@/utils/formatWeight'
 
 // setup inventory fetcher
 const fetchInventory = (url, productHandle) => {
@@ -182,7 +183,7 @@ function Product({ product, page, modals }) {
                     )}
                     <h2>${selectedVariant.price} {product.tags.includes('Subscription Box') ? '/ box' : ''}</h2>
                   </div>
-                  <h2 className={classes['weight']}>{selectedVariant.weight} lbs</h2>
+                  <h2 className={classes['weight']}>{formatWeight(selectedVariant.weight)} lbs</h2>
                 </div>}
 
                 {product.content?.handle === 'premium-seafood-subscription-box' &&
@@ -298,15 +299,15 @@ export async function getStaticProps({ params }) {
     }
   }
 
-  // const modals = await nacelleClient.content({
-  //   type: 'gatedProductModal'
-  // })
+  const modals = await nacelleClient.content({
+    type: 'gatedProductModal'
+  })
 
   return {
     props: {
       product: products[0],
       page: fullRefPage,
-      // modals
+      modals
     }
   }
 }

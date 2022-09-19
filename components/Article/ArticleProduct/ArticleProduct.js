@@ -7,6 +7,7 @@ import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import Image from 'next/image'
 import Link from 'next/link'
+import { formatWeight } from '@/utils/formatWeight'
 
 const ArticleProduct = ({product, parentClasses}) => {
 
@@ -47,7 +48,7 @@ const ArticleProduct = ({product, parentClasses}) => {
             <h4 className="heading--product-title">{product.content.title}</h4>
             <div className={`${classes['article-product____tier-price-pounds']} secondary--body`}>
               <span>${product.variants[0].price} {isSubscription && <>/ box </>}</span>
-              <span>{product.variants[0].weight} lbs</span>
+              {product.variants[0].weight && <span>{formatWeight(product.variants[0].weight)} lbs</span>}
             </div>
             <div className={classes['article-product__details-footer']}>
               {isSubscription ?

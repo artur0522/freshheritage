@@ -8,6 +8,7 @@ import moment from 'moment';
 import { dataLayerATC, dataLayerRFC, dataLayerViewCart } from '@/utils/dataLayer';
 export const HeadlessCheckoutContext = createContext();
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
+import { formatWeight } from '@/utils/formatWeight';
 
 export function useHeadlessCheckoutContext() {
   return useContext(HeadlessCheckoutContext);
@@ -91,7 +92,7 @@ export function HeadlessCheckoutProvider({ children }) {
       properties: {
         ...properties,
         product_handle: variant.productHandle, // because Bold doesn't provide product handle
-        product_weight: (variant.weight) ? variant.weight.toString() : '' // Bold doesn't provide correct weight
+        product_weight: (variant.weight) ? formatWeight(variant.weight).toString() : '' // Bold doesn't provide correct weight
       }
     }
 

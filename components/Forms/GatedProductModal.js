@@ -7,7 +7,7 @@ import classes from "./GatedProductModal.module.scss"
 const GatedProductModal = () => {
   const modalContext = useModalContext()
   const { content, setPrevContent, prevContent, setIsOpen, modalType } = modalContext
-  const {header, signInText, signInUrl, ctaText, ctaUrl, description, reminder} = content
+  const {header, signInText, signInUrl, ctaText, ctaUrl, description, reminder} = {...content}
 
   const openAccountModal = (e) => {
     e.preventDefault()

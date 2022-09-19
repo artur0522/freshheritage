@@ -7,6 +7,7 @@ import { isEqual } from 'lodash-es';
 import moment from 'moment';
 import { dataLayerATC, dataLayerRFC, dataLayerViewCart } from '@/utils/dataLayer';
 export const HeadlessCheckoutContext = createContext();
+import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 
 export function useHeadlessCheckoutContext() {
   return useContext(HeadlessCheckoutContext);
@@ -21,10 +22,12 @@ export function HeadlessCheckoutProvider({ children }) {
   const [checkoutIsReady, setCheckoutIsReady] = useState(false);
   const [shipOptionMetadata, setShipOptionMetadata] = useState(undefined);
   const { customer, subsData } = useCustomerContext()
+  const trackEvent = useAnalytics();
 
   // TODO: Any of these functions that call fetch should not really be stored in this file. They should be functions accessed from elsewhere to make this testable and cleaned up.
   function saveDataInLocalStorage(data) {
     const checkoutData = {
+      initial_data: data.initial_data,
       jwt: data.jwt_token,
       public_order_id: data.public_order_id,
       resumable_link: data.application_state.resumable_link || '',
@@ -143,6 +146,15 @@ export function HeadlessCheckoutProvider({ children }) {
         },
       }
 
+      if (isGiftOrder) {
+        order_meta_data.note_attributes = {
+          is_gift_order: newItem.properties.is_gift_order,
+          recipient_email: newItem.properties.recipient_email,
+          recipient_name: newItem.properties.recipient_name,
+          gift_message: newItem.properties.gift_message
+        }
+      }
+
       if (data?.application_state?.order_meta_data?.cart_parameters?.pre) {
         order_meta_data.cart_parameters.pre = {...data?.application_state?.order_meta_data?.cart_parameters?.pre}
       }
@@ -167,6 +179,19 @@ export function HeadlessCheckoutProvider({ children }) {
       })
     } else {
       // if item doesn't exist, addline item
+
+      if (isGiftOrder) {
+        // need to get order metadata if they exist
+        const response = await updateOrderMetaData({
+          note_attributes: {
+            is_gift_order: newItem.properties.is_gift_order,
+            recipient_email: newItem.properties.recipient_email,
+            recipient_name: newItem.properties.recipient_name,
+            gift_message: newItem.properties.gift_message
+          }
+        })
+      }
+
       const response = await addLineItem({
         platform_id: newItem.variantId,
         quantity: newItem.quantity,
@@ -181,17 +206,6 @@ export function HeadlessCheckoutProvider({ children }) {
 
     if (open_flyout) {
       setFlyoutState(true)
-    }
-
-    if (isGiftOrder) {
-      const response = await updateOrderMetaData({
-        note_attributes: {
-          is_gift_order: newItem.properties.is_gift_order,
-          recipient_email: newItem.properties.recipient_email,
-          recipient_name: newItem.properties.recipient_name,
-          gift_message: newItem.properties.gift_message
-        }
-      })
     }
 
     return true
@@ -317,8 +331,6 @@ export function HeadlessCheckoutProvider({ children }) {
       }
     }
 
-    console.log('log:', `${process.env.checkoutUrl}/api/checkout/initialize-otp`);
-
     const res = await fetch(
       `${process.env.checkoutUrl}/api/checkout/initialize-otp`,
       {
@@ -330,7 +342,7 @@ export function HeadlessCheckoutProvider({ children }) {
     saveDataInLocalStorage(data)
     console.log(data, 'init checkout')
     stylePaymentIframe()
-    setData({...data})
+    setData(data)
     setCheckoutIsReady(true)
   }
 
@@ -355,8 +367,8 @@ export function HeadlessCheckoutProvider({ children }) {
     setCheckoutIsReady(true)
   }
 
-  async function refreshApplicationState(payload) {
-    console.log(payload)
+  // this is needed whenever updating line item to get the most up to date application state
+  async function refreshApplicationState() {
     const { jwt, public_order_id } = JSON.parse(
       localStorage.getItem('checkout_data'),
     )
@@ -367,13 +379,16 @@ export function HeadlessCheckoutProvider({ children }) {
           Authorization: `Bearer ${jwt}`,
           'Content-Type': 'application/json',
         },
-        method: 'GET',
-        body: JSON.stringify(payload),
+        method: 'GET'
       },
     )
     const updatedData = await response.json()
     console.log('received refreshed application state', updatedData)
     await expiredJWTHandler(updatedData)
+    setData({
+      ...data,
+      application_state: updatedData.data.application_state
+    })
     return updatedData.data.application_state
   }
 
@@ -393,6 +408,9 @@ export function HeadlessCheckoutProvider({ children }) {
     // remove local storage data if the order has been processed
     if (data.application_state.is_processed) {
       deleteDataInLocalStorage()
+
+      const trackEvent = useAnalytics();
+      trackEvent('checkout_complete',data.application_state);
     }
   }
 
@@ -486,11 +504,14 @@ export function HeadlessCheckoutProvider({ children }) {
     )
     const updatedData = await response.json()
     console.log('add customer to order', updatedData)
+    trackEvent('set_customer',updatedData);
     await expiredJWTHandler(updatedData)
-    setData({
-      ...data,
-      application_state: updatedData.data.application_state
-    })
+    if (updatedData.data) {
+      setData({
+        ...data,
+        application_state: updatedData.data.application_state
+      })
+    }
     return updatedData
   }
 
@@ -567,13 +588,7 @@ export function HeadlessCheckoutProvider({ children }) {
     const updatedData = await response.json()
     console.log('response update line item', updatedData)
     await expiredJWTHandler(updatedData)
-    const applicationState = await refreshApplicationState()
-
-    setData({
-      ...data,
-      application_state: applicationState
-    })
-
+    await refreshApplicationState()
     return updatedData
   }
 
@@ -760,6 +775,7 @@ export function HeadlessCheckoutProvider({ children }) {
 
   useEffect(() => {
     if (flyoutState) {
+      console.log("data:", data)
       document.querySelector('html').classList.add('disable-scroll')
       if (data) {
         dataLayerViewCart({cart: data.application_state})
@@ -771,7 +787,7 @@ export function HeadlessCheckoutProvider({ children }) {
   async function refreshShipOptionData(zip) {
     const body = {zip};
     if (subsData && subsData.length > 0) {
-      body.bundledShipWeek = `${moment(Math.max(subsData.map(d => d.fulfill_start))).week()}`;
+      body.bundledShipWeek = `${moment(Math.min(...subsData.map(d => d.fulfill_start))).week()}`;
     }
 
     const response = await fetch(
@@ -813,7 +829,8 @@ export function HeadlessCheckoutProvider({ children }) {
         refreshShipOptionData,
         shipOptionMetadata,
         checkoutIsReady,
-        setCheckoutIsReady
+        setCheckoutIsReady,
+        refreshApplicationState
       }}
     >
       <CheckoutFlyout />

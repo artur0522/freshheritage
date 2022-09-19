@@ -1,4 +1,8 @@
-export default async function handler(req, res) {
+import { withSentry } from "@sentry/nextjs";
+
+
+// export default async function handler(req, res) {
+const handler = async (req, res) => {
   //   const publicOrderId = req.query.public_order_id
   //   const cartId = req.query.cart_id
   //   const publicOrderId = ''
@@ -21,7 +25,9 @@ export default async function handler(req, res) {
     )
 
     const responseJson = await response.json()
-    // console.log('bold response: ', responseJson)
+    // if(responseJson.errors.length > 0 ){
+    //   throw Error(responseJson);
+    // }
 
     // const checkout = responseJson.data
     // checkout['initial_data']['cart_id'] = cartId
@@ -40,4 +46,6 @@ export default async function handler(req, res) {
       error: e
     })
   }
-}
+};
+
+export default withSentry(handler);

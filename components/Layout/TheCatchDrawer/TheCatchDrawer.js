@@ -49,11 +49,10 @@ const TheCatchDrawer = () => {
                     </div>
                     {pastIssues?.length > 0 && <ul className={classes['content']}>
                         {pastIssues?.map((issue) => {
-                            issue = issue.fields
-                            let foundContent = issue.content.find(section =>  section._type === 'staticHarvest')
+                            let foundContent = issue.fields.content.find(section =>  section._type === 'staticHarvest')
                             return (
                                 <li key={issue._key}>
-                                    <Link href={`/the-catch/${issue.associatedProduct.toLowerCase().replaceAll(' ', '-')}-${issue.month.toLowerCase()}-${issue.year}`}>
+                                    <Link href={`/the-catch/${issue.handle}`}>
                                         <a>
                                             <div className={classes['item-img']}>
                                                 <Image
@@ -61,17 +60,17 @@ const TheCatchDrawer = () => {
                                                     height={120}
                                                     width={120}
                                                     objectFit="cover"
-                                                    alt={foundContent?.harvestMonth[0]?.fishArray[0]?.species?.title}
+                                                    alt={foundContent?.harvestMonth[0]?.fishArray[0]?.species?.title || 'species'}
                                                 />
                                             </div>
                                             <div className={classes['item-text']}>
                                                 <h1>
-                                                    <span>{issue.month} {issue.year}</span>
-                                                    {issue.month.toLowerCase() === monthName && issue.year.toString() === year.toString() && <h4 className={classes['current-label']}>
+                                                    <span>{issue.fields.month} {issue.fields.year}</span>
+                                                    {issue.fields.month.toLowerCase() === monthName && issue.fields.year.toString() === year.toString() && <h4 className={classes['current-label']}>
                                                         Current Issue
                                                     </h4>}
                                                 </h1>
-                                                <h6>{issue.associatedProduct}</h6>
+                                                <h6>{issue.fields.associatedProduct}</h6>
                                             </div>
                                         </a>
                                     </Link>

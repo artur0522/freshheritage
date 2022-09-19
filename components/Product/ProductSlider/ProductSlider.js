@@ -51,7 +51,7 @@ const ProductSlider = ({product, timeout = 0}) => {
         {[...images].slice(0, 5).map((image, index) => {
           return <SwiperSlide key={`${image.id}-${index}`}>
             <div style={{position: 'relative', paddingBottom: '65%'}}>
-              <Image className={classes['image']} src={image.src} layout="fill" alt={image.altText} />
+              <Image className={classes['image']} src={image.src} layout="fill" alt={image.altText || product.content?.title} />
             </div>
           </SwiperSlide>
         })}
@@ -68,7 +68,7 @@ const ProductSlider = ({product, timeout = 0}) => {
         {[...images].slice(0, 5).map((image, index) => {
           return <SwiperSlide key={`${image.id}-${index}`}>
             <div style={{position: 'relative', paddingBottom: '65%'}}>
-              <Image className={classes['image']} src={image.src} layout="fill" alt={image.altText} />
+              <Image className={classes['image']} src={image.src} layout="fill" alt={image.altText || product.content?.title} />
             </div>
           </SwiperSlide>
         })}

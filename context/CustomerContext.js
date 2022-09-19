@@ -128,8 +128,7 @@ export function CustomerProvider({ children }) {
       query: CUSTOMER_ACCESS_TOKEN_DELETE,
       variables: { customerAccessToken: customerAccessToken }
     })
-    const { deletedAccessToken, userErrors } =
-    response.data.customerAccessTokenDelete
+    const { deletedAccessToken, userErrors } = {...response.data.customerAccessTokenDelete}
     if (deletedAccessToken) {
       setCustomer(null)
       Cookies.remove('customerAccessToken')

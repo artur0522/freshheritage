@@ -8,14 +8,14 @@ import Video from '@/components/Video'
 
 import classes from './FullBleedHero.module.scss'
 
-const FullBleedHero = ({ fields }) => {
+const FullBleedHero = ({ fields, imagePriority }) => {
   const [mounted, setMounted] = useState(false)
   const [startVideo, setStartVideo] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery({ query: '(min-width: 768px)' })
   const isLargeMobile = useMediaQuery({ query: '(max-width: 1439px)' })
 
-  let { heroStyle, smallerText, textColor, desktopBackgroundImage, mobileBackgroundImage, imageBrightness, alt, youtubeVideoId, topMargin, bottomMargin, fixedImage } = fields
+  let { title, heroStyle, smallerText, textColor, desktopBackgroundImage, mobileBackgroundImage, imageBrightness, alt, youtubeVideoId, topMargin, bottomMargin, fixedImage } = fields
 
   const showVideo = () => {
     setStartVideo(true)
@@ -74,15 +74,15 @@ const FullBleedHero = ({ fields }) => {
         </button>}
         {isMobile && mounted && mobileBackgroundImage && <div className={`${classes['hero__wrap']} ${fixedImage ? classes['hero__wrap--mbl'] : ''}`}>
           {fixedImage ?
-            <Image className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} /> :
-            <ResponsiveImage className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} />
+            <Image className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} layout="fill" priority={imagePriority} alt={alt || title} style={imageInlineStyles} /> :
+            <ResponsiveImage className={classes.mbl__img} src={mobileBackgroundImage?.asset.url} priority={imagePriority} layout="fill" alt={alt || title} style={imageInlineStyles} />
           }
         </div>}
 
         {isDesktop && mounted && desktopBackgroundImage && <div className={`${classes['hero__wrap']} ${classes['hero__wrap--dsktp']}`}>
           {heroStyle === 'hero--center-transparent' ?
-            <Image className={classes.mbl__img} src={desktopBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} /> :
-            <ResponsiveImage className={classes.mbl__img} src={desktopBackgroundImage?.asset.url} layout="fill" alt={alt} style={imageInlineStyles} />
+            <Image className={classes.mbl__img} src={desktopBackgroundImage?.asset.url} layout="fill" priority={imagePriority} alt={alt || title} style={imageInlineStyles} /> :
+            <ResponsiveImage className={classes.mbl__img} src={desktopBackgroundImage?.asset.url} layout="fill" priority={imagePriority} alt={alt || title} style={imageInlineStyles} />
           }
         </div>}
       </div>

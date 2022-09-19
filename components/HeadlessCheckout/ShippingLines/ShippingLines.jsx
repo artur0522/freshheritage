@@ -12,6 +12,7 @@ import { ShippingLineList, EmptyShippingLines } from './components';
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { useTranslation } from 'react-i18next';
 import { useHeadlessCheckoutContext } from '@/context/HeadlessCheckoutContext';
+import { useCustomerContext } from '@/context/CustomerContext';
 
 const ShippingLines = ({ applicationLoading }) => {
   const { data, updateShippingLine, getShippingLines } = useShippingLines();
@@ -31,8 +32,7 @@ const ShippingLines = ({ applicationLoading }) => {
   const loading =
     loadingStatus.shippingAddress === 'setting' ||
     loadingStatus.shippingLines === 'fetching' ||
-    applicationLoading ||
-    !shipOptionMetadata;
+    applicationLoading;
   return (
     <MemoizedShippingLines
       shippingLines={data.shippingLines}
@@ -67,6 +67,7 @@ const MemoizedShippingLines = memo(
     const { appendOrderMetadata } = useOrderMetadata();
     const [displayedShippingLines, setDisplayedShippingLines] = useState(shippingLines);
     const [selectedShippingLine, setSelectedShippingLine] = useState(shippingLines[selectedShippingLineIndex]);
+    const { customer } = useCustomerContext();
 
     // need to refresh shipping lines when cart line item updates
     const refreshShippingLines = useCallback(async () => {
@@ -93,29 +94,53 @@ const MemoizedShippingLines = memo(
     }, [lineItems]);
 
     useEffect(() => {
-      setSelectedShippingLine(shippingLines[selectedShippingLineIndex]);
-      const displayedShippingLines = [];
-      displayedShippingLines.push(shippingLines.find(line => line.description.indexOf('Free Standard Shipping') > -1));
+      // Make sure we have a selected ship line
+      if (!selectedShippingLine) {
+        setSelectedShippingLine(shippingLines[selectedShippingLineIndex]);
+      }
+
+      // get the ship lines that will actually end up being displayed
+      // This section can be removed once we start allowing all ship options for all products
+      const lines = [];
+      const standardShipping = shippingLines.find(line => line.description.indexOf('Free Standard Shipping') > -1);
+      if (standardShipping) {
+        lines.push(standardShipping);
+      }
       const productIds = lineItems.map(li => li.product_data.product_id);
       const expeditedProductIds = Array.from(JSON.parse(process.env.NEXT_PUBLIC_AUTOMATICALLY_EXPEDITED_PRODUCTS));
       if (productIds.some(id => expeditedProductIds.indexOf(id) > -1)) {
-        displayedShippingLines.push(shippingLines.find(line => line.description.indexOf('Expedited Shipping') > -1));
+        const expeditedShipping = shippingLines.find(line => line.description.indexOf('Expedited Shipping') > -1)
+        if (expeditedShipping) {
+          lines.push(expeditedShipping);
+        }
       }
-      setDisplayedShippingLines(displayedShippingLines);
+
+      setDisplayedShippingLines(lines);
     }, [shippingLines]);
 
-    // // Keep local state for selected shipping line in sync with server app state
     useEffect(() => {
-      setSelectedShippingLine(shippingLines[selectedShippingLineIndex]);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedShippingLineIndex]);
+      // Don't automatically select a shipping line that is not visible
+      if (
+        selectedShippingLine
+        && !displayedShippingLines.find(line => line.description === selectedShippingLine.description)
+        && displayedShippingLines.length > 0
+      ) {
+        handleChange(displayedShippingLines[0]);
+      }
+    }, [displayedShippingLines]);
+
+    // ZJ: this causes some weird UI when selecting a new shipping line
+    // Keep local state for selected shipping line in sync with server app state
+    // useEffect(() => {
+    //   setSelectedShippingLine(shippingLines[selectedShippingLineIndex]);
+    //   // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [selectedShippingLineIndex]);
 
     const handleChange = useCallback(async (line) => {
       setLoading(true);
       try {
-        const index = shippingLines.findIndex(l => l.description === line.description);
         setSelectedShippingLine(line);
-        await updateShippingLine(index);
+        await updateShippingLine(line.id);
         setErrors(null);
       } catch (e) {
         console.error(e);
@@ -138,7 +163,7 @@ const MemoizedShippingLines = memo(
 
     let content = null;
 
-    if (appLoading || (shippingLines.length > 0 && !shipOptionMetadata)) {
+    if (appLoading || (displayedShippingLines.length > 0 && !shipOptionMetadata)) {
       content = <LoadingState />;
     } else if (!showShippingLines || !shipOptionMetadata) {
       content = (

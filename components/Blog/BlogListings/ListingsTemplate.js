@@ -143,7 +143,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
     // }, [currentPage])
 
     const getPaginatedData = () => {
-        const startIndex = currentPage * 20 - 20
+        const startIndex = currentPage * 20 - 19
         const endIndex = startIndex + 20
         return listings.slice(startIndex, endIndex)
     }
@@ -262,8 +262,8 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
               </div>
             }
 
-            {listings.length >= 17 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${filterDrawer ? '' : 'container'} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
-              {listings.slice(17, 21).map((article) => {
+            {listings.length >= 16 && currentPage === 1 && selectedFilterList.length === 0 && <div className={`${classes['recipes__list']} ${filterDrawer ? '' : 'container'} ${classes[filterDrawer && filterGroups ? 'filters-open' : '']}`}>
+              {listings.slice(16, 21).map((article) => {
                   return (
                     <div className={classes['grid-item']} key={article.handle}>
                         <DynamicArticleCard article={article} />

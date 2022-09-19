@@ -43,7 +43,7 @@ const IndexPage = () => {
       setDefaultAddress();
     }
 
-    trackEvent('landing_page');
+    trackEvent('landing_page',state.applicationState);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import SavedAddress from './SavedAddress';
 import { useTranslation } from 'react-i18next';
+import Checkbox from "react-custom-checkbox";
 
 const SavedAddressList = ({
   savedAddresses,
@@ -38,39 +39,37 @@ const SavedAddressList = ({
 
   const savedAddressList = savedAddresses.map((method, index) => {
     return (
-      <div
-        className="RadioButton RadioButton__AddressInfoContainer"
-        key={index}
-      >
-        <input
-          type="radio"
+      <div key={index} className={`checkout__radio-wrapper ${selectedAddress === method.id ? 'is-selected' : ''}`}>
+        <Checkbox
+          className="checkout__radio"
+          icon={<div className="radio--checked"></div>}
           label={<SavedAddress addressInfo={method} />}
-          name="shipping-address"
           checked={selectedAddress === method.id}
-          className="RadioField"
+          value="shipping-addres"
+          disabled={disabled}
           onChange={() => {
             onChange(method);
           }}
-          disabled={disabled}
         />
       </div>
     );
   });
 
   return (
-    <>
+    <div className="checkout__radio-list shipping-address-selector">
       {savedAddressList}
-      <div className="RadioButton RadioButton__NewAddressContainer">
-        {/* <RadioField
+      <div className={`checkout__radio-wrapper ${!selectedAddress ? 'is-selected' : ''}`}>
+        <Checkbox
+          className="checkout__radio"
+          icon={<div className="radio--checked"></div>}
           label={t('shipping.add_new_address')}
-          name="shipping-address"
           checked={!selectedAddress}
-          className="RadioField"
-          onChange={handleNewAddressChange}
+          value="shipping-addres"
           disabled={disabled}
-        /> */}
+          onChange={handleNewAddressChange}
+        />
       </div>
-    </>
+    </div>
   );
 };
 

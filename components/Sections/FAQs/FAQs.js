@@ -23,12 +23,12 @@ const FAQs = ({ fields, parentClasses }) => {
         <>
          {isDesktop && mounted && fields.desktopIllustration?.asset?.url &&
           <div className={classes['faq__image']}>
-            <ResponsiveImage src={fields.desktopIllustration.asset.url} alt={fields.desktopIllustration.asset.alt || 'FAQ Image'} />
+            <ResponsiveImage src={fields.desktopIllustration.asset.url} alt={fields.desktopIllustration.asset.alt || 'illustration'} />
           </div>
          }
          {!isDesktop && mounted && fields.mobileIllustration?.asset?.url &&
           <div className={classes['faq__image']}>
-            <ResponsiveImage src={fields.mobileIllustration.asset.url} alt={fields.mobileIllustration.asset.alt || 'FAQ Image'} />
+            <ResponsiveImage src={fields.mobileIllustration.asset.url} alt={fields.mobileIllustration.asset.alt || 'illustration'} />
           </div>
          }
         </>

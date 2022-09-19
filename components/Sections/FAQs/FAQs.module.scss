@@ -13,26 +13,33 @@
 .faq {
   margin: 60px 0;
   position: relative;
+
   @include breakpoint-up('md') {
     margin: 100px 0;
   }
+
   @include breakpoint-up('lg') {
     margin: 140px 0;
   }
+
   &.pdp-drawer__faq {
     margin: 80px 0;
+
     .faq__container {
       width: 100%;
+
       @include breakpoint-up('lg') {
         flex-wrap: wrap;
         flex-direction: column;
       }
     }
+
     .faq__header {
       @include breakpoint-up('lg') {
         margin-bottom: 40px;
       }
     }
+
     .faq__content {
       @include breakpoint-up('lg') {
         max-width: none;
@@ -49,13 +56,14 @@
   right: 0;
   bottom: 0;
   width: 154px;
-  z-index: -1;
+
   @include breakpoint-up('lg') {
     top: 100px;
     right: auto;
     left: 0;
     width: 366px;
   }
+
   @include breakpoint-up('xl') {
     width: 570px;
   }
@@ -65,6 +73,7 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+
   @include breakpoint-up('lg') {
     flex-direction: row;
     flex-wrap: nowrap;
@@ -77,6 +86,7 @@
 
 .faq__content {
   width: 100%;
+
   @include breakpoint-up('lg') {
     max-width: 1100px;
     padding-left: 40px;
@@ -86,6 +96,7 @@
 .faq__items {
   list-style: none;
   cursor: pointer;
+
   @include breakpoint-up('md') {
     margin-top: -35px;
   }

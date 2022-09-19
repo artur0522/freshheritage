@@ -103,12 +103,10 @@
             align-items: center;
             width: auto;
             // margin-right: 75px;
-            margin: 0 30px 0 0;
 
             @include breakpoint-up('sm') {
                 width: initial;
                 justify-content: center;
-                margin: 0 37.5px;
             }
 
             &:first-child {
@@ -132,11 +130,14 @@
             }
         }
 
-        a {
+        button {
             line-height: 140%;
             font-family: 'FrankRuhl';
             font-weight: 500;
             height: 100%;
+            border: none;
+            background: transparent;
+            padding: 0;
 
             &::after {
                 content: '';

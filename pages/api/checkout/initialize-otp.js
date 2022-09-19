@@ -1,3 +1,6 @@
+import { withSentry } from "@sentry/nextjs";
+
+
 // const bodyParser = require('body-parser')
 const crypto = require('crypto')
 const util = require('util')
@@ -7,7 +10,8 @@ const util = require('util')
 // app.use(bodyParser.urlencoded({ extended: true }))
 // app.use(bodyParser.json())
 
-export default async function handler(req, res) {
+// export default async function handler(req, res) {
+const handler = async (req, res) => {
   // don't await result
   // Causes google function to make sure it has cached data for later API calls during checkout
   fetch(
@@ -146,5 +150,8 @@ export default async function handler(req, res) {
       error: e
     });
   }
+
   res.send();
-}
+};
+
+export default withSentry(handler);

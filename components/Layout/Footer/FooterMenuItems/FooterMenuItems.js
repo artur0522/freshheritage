@@ -43,7 +43,7 @@ const FooterMenuItems = ({item, classes}) => {
           <ul className={classes.footerMenuItems}>
             {item.navigation.menuItems.map(item => {
               return <li key={item._key}>
-                <Link href={item.linkUrl ? item.linkUrl : '/'}>
+                <Link prefetch={false} href={item.linkUrl ? item.linkUrl : '/'}>
                   <a>{item.linkText}</a>
                 </Link>
               </li>

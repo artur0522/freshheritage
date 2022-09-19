@@ -23,7 +23,7 @@ function buildSelectors(allProducts) {
       shipmentsOptions: [] // prepaid options
     }
     productObj.frequencyOptions = product.content?.options.find(option => option.name === 'frequency').values
-    let subscriptionGroup = product.metafields.find(metafield => metafield.key === 'subscription_group')
+    let subscriptionGroup = product.metafields.find(metafield => metafield.key === 'gifted_subscription_group')
     if (subscriptionGroup) {
       subscriptionGroup = JSON.parse(subscriptionGroup.value)
       productObj.shipmentsOptions = subscriptionGroup.prepaid_options.map(option => option.duration)
@@ -57,7 +57,7 @@ const ProductGiftSubForm = ({selectedVariant, setSelectedVariant, allProducts, p
     })
 
     let subscriptionProperties = {}
-    let subscriptionGroup = product.metafields.find(metafield => metafield.key === 'subscription_group')
+    let subscriptionGroup = product.metafields.find(metafield => metafield.key === 'gifted_subscription_group')
     const frequency = selectedVariant.content.selectedOptions.find(option => option.name === 'frequency')
 
     if (subscriptionGroup) {
@@ -76,8 +76,8 @@ const ProductGiftSubForm = ({selectedVariant, setSelectedVariant, allProducts, p
     if (emailRef.current.value && nameRef.current.value) {
       giftProperties = {
         is_gift_order: 'true',
-        recipient_name: emailRef.current.value,
-        recipient_email: nameRef.current.value,
+        recipient_email: emailRef.current.value,
+        recipient_name: nameRef.current.value,
       }
     }
 

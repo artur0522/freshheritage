@@ -8,6 +8,8 @@ import ProductDetailsList from '@/components/Product/ProductDetailsList'
 import FAQs from '@/components/Sections/FAQs'
 import IconClose from '@/svgs/close.svg'
 import ProductHarvests from '@/components/Product/ProductHarvests'
+import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
+import { dataLayerViewProduct } from '@/utils/dataLayer'
 
 const PDPDrawer = ({box = undefined}) => {
   const PDPDrawerContext = usePDPDrawerContext()
@@ -26,10 +28,48 @@ const PDPDrawer = ({box = undefined}) => {
     }, timeout)
   }
 
+
   useEffect(() => {
     if (Object.keys(product).length > 0 && Object.keys(boxDetails).length > 0) {
       setTimeout(() => {
         setDrawerOpen(true)
+
+        // console.log('drawer open',product)
+        // can't call a hook from an effect:
+
+        // const trackEvent = useAnalytics();
+        // trackEvent('view_product',product);
+        if(typeof window.gtag === 'function') {
+          window.gtag('event', 'view_item', {
+            'currency': 'USD',
+            'value': product.variants[0].price,
+            'items': [ {
+              'item_id': product.sourceEntryId.replace('gid://shopify/Product/', ''),
+              'item_name': product.content.title
+              } ]
+            });
+
+          window.gtag('event', 'page_view', {
+            'page_title': product.content.title,
+            'page_path': '/pages/choose-your-plan?expand='+product.content.handle
+            });
+        }
+
+        if (sessionStorage.getItem("referrer")?.includes('facebook') || sessionStorage.getItem("utm_source") === 'facebook' || sessionStorage.getItem("utm_source") === 'fb' || sessionStorage.getItem("utm_source") === 'ig'){
+          fbEvent({
+            eventName: 'ViewContent',
+            products: [{
+              sku: product.sourceEntryId.replace('gid://shopify/Product/', ''),
+              quantity: 1,
+            }],
+            value: product.variants[0].price,
+            currency: 'USD',
+            enableStandardPixel: false
+          });
+        }
+
+        dataLayerViewProduct({product})
+
       }, timeout)
     }
   }, [box, boxDetails, product])

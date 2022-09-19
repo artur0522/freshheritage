@@ -7,19 +7,19 @@ import Link from 'next/link'
 import classes from './SplitHero.module.scss'
 import IconBullet from '@/svgs/list-item.svg'
 
-const SplitHero = ({ fields }) => {
+const SplitHero = ({ fields, imagePriority }) => {
   const [mounted, setMounted] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const isDesktop = useMediaQuery(
     {query: '(min-width: 768px)'}
   )
-  
+
   const { imageContainer, imageWidth, style, textColor, valueProps, disclaimer, desktopBackgroundImage, mobileBackgroundImage, alt } = fields
 
   useEffect(() => {
     setMounted(true)
   }, [])
-    
+
   return (
     <div className={`${classes['hero']} ${classes[style]} ${classes[imageContainer]} ${classes[textColor]}`}>
       <div className={`${classes['hero__row']}`}>
@@ -61,7 +61,8 @@ const SplitHero = ({ fields }) => {
             className={classes.dsktp__img}
             src={mobileBackgroundImage.asset.url}
             layout="fill"
-            alt={alt}
+            priority={imagePriority}
+            alt={alt || ''}
           />
         </div>}
 
@@ -70,7 +71,8 @@ const SplitHero = ({ fields }) => {
             className={classes.mbl__img}
             src={desktopBackgroundImage.asset.url}
             layout="fill"
-            alt={alt}
+            priority={imagePriority}
+            alt={alt || ''}
           />
         </div>}
       </div>

@@ -1,4 +1,3 @@
-import React, {useState, useEffect} from 'react'
 import { nacelleClient } from 'services'
 import ContentSections from '../components/Sections/ContentSections'
 import DynamicHero from "@/components/Sections/DynamicHero"
@@ -7,8 +6,6 @@ import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 
 export default function Home({ page }) {
-
-  // console.log("page:", page)
 
   const context = useCustomerContext()
 

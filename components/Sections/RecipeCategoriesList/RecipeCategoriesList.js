@@ -37,7 +37,7 @@ const RecipeCategoriesList = ({ fields }) => {
                                 {isMobile && mounted && category.desktopImage.asset.url && <div className={`${classes['card__img']}`}>
                                     <Image
                                         src={category.desktopImage.asset.url}
-                                        alt={category.alt}
+                                        alt={category.alt || 'category image'}
                                         width={707}
                                         height={235}
                                     />
@@ -45,7 +45,7 @@ const RecipeCategoriesList = ({ fields }) => {
                                 {isDesktop && mounted && category.desktopImage.asset.url && <div className={`${classes['card__img']}`}>
                                     <Image
                                         src={category.desktopImage.asset.url}
-                                        alt={category.alt}
+                                        alt={category.alt || 'category image'}
                                         width={797}
                                         height={317}
                                     />

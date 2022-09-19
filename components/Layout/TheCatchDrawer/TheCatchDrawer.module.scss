@@ -33,7 +33,7 @@
     height: 100%;
     z-index: 2001;
     position: fixed;
-    overflow-y: scroll;
+    overflow: hidden;
 }
 
 .pdp-flyout__close-btn {
@@ -84,6 +84,7 @@
     transition: 0.2s ease-in-out transform;
     transform: translate(100%);
     overflow-y: auto;
+    height: 100%;
 
     @include breakpoint-up('sm') {
         padding: 40px;

@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import Link from 'next/link'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { PortableText } from '@portabletext/react'
@@ -7,6 +7,7 @@ import ContentSections from '@/components/Sections/ContentSections'
 import PurchaseFlowHeader from '../PurchaseFlowHeader'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import { usePDPDrawerContext } from '@/context/PDPDrawerContext'
+import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 
 const ChooseYourBox = ({props, tierOptions}) => {
 
@@ -37,6 +38,27 @@ const ChooseYourBox = ({props, tierOptions}) => {
       }
     }
   }
+
+  useEffect(() => {
+    // console.log('track membership_view_list',tierOptions)
+    // can't call a hook from an effect: 
+    // const trackEvent = useAnalytics();
+    // trackEvent('membership_view_list');
+    if(typeof window.gtag === 'function') {
+      let item_list = tierOptions.map(item => {
+        return {
+          item_id: item.sourceEntryId.replace('gid://shopify/Product/', ''),
+          item_name: item.content.title
+        }
+      })
+      window.gtag('event', 'view_item_list', {
+        'item_list_name': 'Membership Product List',
+        'items': item_list
+        });   
+    }
+
+  }, [])
+
 
   return (
     <>

@@ -11,7 +11,7 @@ import IconArrow from '@/svgs/arrow-right.svg'
 import "swiper/css"
 import classes from './HalfHeroHalfSlider.module.scss'
 
-const HalfHeroHalfSlider = ({ fields }) => {
+const HalfHeroHalfSlider = ({ fields, imagePriority }) => {
   const {header, ctaUrl, ctaText, desktopImage, mobileImage, imageAlt, imageHeader, imageCtaText, imageCtaUrl, mobileButtonText, articles} = fields
   const [mounted, setMounted] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })
@@ -42,14 +42,16 @@ const HalfHeroHalfSlider = ({ fields }) => {
                             <Image
                                 src={mobileImage.asset.url}
                                 layout="fill"
-                                alt={imageAlt}
+                                priority={imagePriority}
+                                alt={imageAlt || 'hero image'}
                                 objectFit="cover"
                             />
                         </div>}
                         {isDesktop && mounted && desktopImage && <div>
                             <Image
-                                src={desktopImage.asset.url}
+                                src={desktopImage.asset.url || 'hero image'}
                                 layout="fill"
+                                priority={imagePriority}
                                 alt={imageAlt}
                                 objectFit="cover"
                             />

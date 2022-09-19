@@ -9,6 +9,16 @@
   }
 }
 
+:global(.harvest),
+:global(.pdp-flyout) {
+  .loader {
+    border: 2px solid $sitkablue;
+    border-bottom-color: $pureWhite;
+    width: 52px;
+    height: 52px;
+  }
+}
+
 .loader-wrapper {
   display: flex;
   align-items: center;

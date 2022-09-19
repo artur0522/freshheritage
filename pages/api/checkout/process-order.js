@@ -1,4 +1,7 @@
-export default async function handler(req, res) {
+import { withSentry } from "@sentry/nextjs";
+
+// export default async function handler(req, res) {
+const handler = async (req, res) => {
   const { publicOrderId, jwt } = JSON.parse(req.body)
   try {
     console.log('process order with id', publicOrderId)
@@ -15,8 +18,12 @@ export default async function handler(req, res) {
 
     const responseJson = await response.json()
     console.log('bold response order processed: ', responseJson)
+    // if(responseJson.errors.length > 0 ){
+    //   throw Error(responseJson);
+    // }
 
     const responseData = responseJson.data
+    responseData.application_state.publicOrderId = publicOrderId;
     // console.log("checkout passed to client: ",checkout)
 
     res.status(200).json(responseData)
@@ -30,4 +37,6 @@ export default async function handler(req, res) {
       error: e
     })
   }
-}
+};
+
+export default withSentry(handler);

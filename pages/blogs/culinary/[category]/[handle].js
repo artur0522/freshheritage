@@ -93,14 +93,16 @@ const RecipeArticle = ({ page, products, blogSettings, modals }) => {
       modalContext.setIsOpen(true)
     }
 
-    // if one of the product tags contains customer tag
-    if(foundVisibleTags.length > 0 && articleHasCustomerTag) {
-      modalContext.setIsOpen(false)
-    }
+    if (modalContext.modalType === 'gated_product') {
+      // if one of the product tags contains customer tag
+      if(foundVisibleTags.length > 0 && articleHasCustomerTag) {
+        modalContext.setIsOpen(false)
+      }
 
-    // if visible tags dont exist
-    if(foundVisibleTags.length === 0) {
-      modalContext.setIsOpen(false)
+      // if visible tags dont exist
+      if(foundVisibleTags.length === 0) {
+        modalContext.setIsOpen(false)
+      }
     }
 
   }, [customer, modalContext.isOpen])

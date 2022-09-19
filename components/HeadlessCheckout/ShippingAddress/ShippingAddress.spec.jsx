@@ -25,6 +25,17 @@ jest.mock('@/context/CustomerContext', () => {
   }
 });
 
+jest.mock('@/context/MemberAccountContext', () => {
+  return {
+    __esModule: true,
+    useMemberAccountContext: () => {
+      return {
+        subsData: []
+      }
+    }
+  }
+});
+
 jest.mock('@/components/HeadlessCheckout/Address', () => {
   return {
     __esModule: true,
@@ -42,6 +53,15 @@ jest.mock('@/components/HeadlessCheckout/Address', () => {
     }
   }
 });
+
+jest.mock('./components', () => {
+  return {
+    __esModule: true,
+    SavedAddressList: () => {
+      return <div>nothing</div>;
+    }
+  }
+})
 
 jest.mock('@boldcommerce/checkout-react-components', () => {
   return {
@@ -70,6 +90,13 @@ jest.mock('@boldcommerce/checkout-react-components', () => {
           showProvince: true,
           shopPostalCode: true,
           provinceLabel: 'zip code',
+        }
+      }
+    },
+    useShippingLines: () => {
+      return {
+        data: {
+          shippingLines: []
         }
       }
     }

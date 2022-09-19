@@ -103,6 +103,7 @@ const MemoizedShippingAddress = memo(({
           }
         })
     } else {
+      // TODO: for some reason, these next two lines are causing the component not to render or something in tests - ZJ
       setSavedAddresses([])
       setAddress({'country_code': 'US'})
       if (shippingLines?.length > 0) {

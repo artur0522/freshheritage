@@ -16,15 +16,16 @@ export function CustomerProvider({ children }) {
 
   const [customer, setCustomer] = useState(null)
   const [customerLoading, setCustomerLoading] = useState(false)
-  const [subsData, setSubsData] = useState(null)
   const router = useRouter()
 
   useEffect(() => {
     const customerAccessToken = Cookies.get('customerAccessToken')
-    // console.log("customerAccessToken:", customerAccessToken)
+    console.log("customerAccessToken:", customerAccessToken)
     if (customerAccessToken) {
+      console.log('Fetching Customer Data');
       getCustomer({ accessToken: customerAccessToken })
     } else {
+      console.log('Customer Already Loaded');
       setCustomerLoading(false)
     }
   }, [])
@@ -38,8 +39,8 @@ export function CustomerProvider({ children }) {
           password
         }
       }
-    })
-    const { data, errors } = response
+    });
+    const { data, errors } = response;
     if (errors && errors.length) {
       return { customerAccessTokenCreateErrors: errors }
     }
@@ -53,14 +54,14 @@ export function CustomerProvider({ children }) {
       variables: {
         customerAccessToken: accessToken
       }
-    })
-    const { data, errors } = response
-    setCustomerLoading(false)
+    });
+    const { data, errors } = response; // TODO: we should validate that we are getting a successful http response from shopify
+    setCustomerLoading(false);
     if (errors && errors.length) {
-      return { errors: errors }
+      return { errors: errors };
     }
     if (data?.customer && expiresAt) {
-      Cookies.set('customerAccessToken', accessToken, { expires: new Date(expiresAt), path: '/' })
+      Cookies.set('customerAccessToken', accessToken, { expires: new Date(expiresAt), path: '/' });
     }
 
     const { customer } = data
@@ -80,46 +81,32 @@ export function CustomerProvider({ children }) {
     }
 
     if (customer?.addresses?.edges.length > 0) {
-      customer.addresses = transformEdges(customer.addresses)
+      customer.addresses = transformEdges(customer.addresses);
     }
 
-    setCustomer(customer)
+    console.log('CUSTOMER: ', customer);
 
-    getSubs(customer)
+    setCustomer(customer)
 
     console.log("customer:", customer)
     return { data }
   }
 
-  async function getSubs(customer) {
-    if (customer?.id) {
-      const idArr = customer.id.split('/')
-      const id = idArr[idArr.length - 1]
-      fetch('/api/account/get-subs?cID=' + id)
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.message === 'success') {
-            setSubsData(res.data)
-          }
-        })
-    }
-  }
-
   async function login({ email, password }) {
     const { customerAccessTokenCreateErrors, customerAccessTokenCreate } = await createCustomerAccessToken({email, password})
     if (customerAccessTokenCreateErrors) {
-      return { errors: customerAccessTokenCreateErrors }
+      return { errors: customerAccessTokenCreateErrors };
     }
     if (customerAccessTokenCreate.userErrors.length) {
-      return { errors: customerAccessTokenCreate.userErrors }
+      return { errors: customerAccessTokenCreate.userErrors };
     }
     const customerAccessToken = customerAccessTokenCreate.customerAccessToken
-    const customer = await getCustomer({
+    const customer = await getCustomer({ // TODO: the get customer method also does the same accountClientPost that the cerate customer access token method does -- remove that redundency
       accessToken: customerAccessToken.accessToken,
       expiresAt: customerAccessToken.expiresAt
     })
-    dataLayerLogin({customer, url: router.pathname})
-    return customer
+    dataLayerLogin({customer, url: router.pathname});
+    return customer;
   }
 
   async function logout() {
@@ -192,7 +179,7 @@ export function CustomerProvider({ children }) {
   }
 
   return (
-    <CustomerContext.Provider value={{customer, setCustomer, customerLoading, login, logout, register, recover, reset, subsData}}>
+    <CustomerContext.Provider value={{customer, setCustomer, customerLoading, login, logout, register, recover, reset}}>
       {children}
     </CustomerContext.Provider>
   )

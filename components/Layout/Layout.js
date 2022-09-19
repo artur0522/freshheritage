@@ -25,11 +25,11 @@ function Layout({ children, headerSettings, footerSettings, searchLinks }) {
   return (
     <CustomerProvider>
       <ModalProvider>
-        <HeadlessCheckoutProvider pageHandle={children.props.handle}>
-          <PurchaseFlowProvider>
-            <PDPDrawerProvider>
-              <KnowYourFishDrawerProvider>
-                <MemberAccountContextProvider>
+        <MemberAccountContextProvider>
+          <HeadlessCheckoutProvider pageHandle={children.props.handle}>
+            <PurchaseFlowProvider>
+              <PDPDrawerProvider>
+                <KnowYourFishDrawerProvider>
                   <EditScheduleDrawerProvider>
                     <ArticleFiltersDrawerProvider>
                       <ArticleProvider>
@@ -45,11 +45,11 @@ function Layout({ children, headerSettings, footerSettings, searchLinks }) {
                       </ArticleProvider>
                     </ArticleFiltersDrawerProvider>
                   </EditScheduleDrawerProvider>
-                </MemberAccountContextProvider>
-              </KnowYourFishDrawerProvider>
-            </PDPDrawerProvider>
-          </PurchaseFlowProvider>
-        </HeadlessCheckoutProvider>
+                </KnowYourFishDrawerProvider>
+              </PDPDrawerProvider>
+            </PurchaseFlowProvider>
+          </HeadlessCheckoutProvider>
+        </MemberAccountContextProvider>
       </ModalProvider>
     </CustomerProvider>
   )

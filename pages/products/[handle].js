@@ -55,7 +55,10 @@ function Product({ product, page, modals }) {
   const { data: productInfoRevalidate } = useSWR(
     ['/api/product/available', product.content.handle],
     (url, id) => fetchInventory(url, id),
-    { errorRetryCount: 3 }
+    {
+      errorRetryCount: 3,
+      refreshInterval: 5000
+    }
   );
 
   const refs = useRef(['reviewsStars', 'productReviews'].reduce((carry, ref) => {

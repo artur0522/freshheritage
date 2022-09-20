@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
+import { getRecentArticlesHandles } from '@/utils/getRecentArticleHandles'
 import ListingsTemplate from '@/components/Blog/BlogListings/ListingsTemplate'
 
 async function getArticles(page, numOfEntries) {
@@ -90,6 +91,10 @@ export async function getStaticProps({ params }) {
   }
 
   const fullRefPage = await getNacelleReferences(pages[0])
+
+  if (fullRefPage?.fields?.content?.some(content => content._type === 'featuredBlogContent')) {
+    await getRecentArticlesHandles(fullRefPage.fields.content)
+  }
 
   return {
     props: {

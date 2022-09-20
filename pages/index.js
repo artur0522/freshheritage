@@ -4,8 +4,11 @@ import DynamicHero from "@/components/Sections/DynamicHero"
 import { useCustomerContext } from '@/context/CustomerContext'
 import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
+import { getRecentArticlesHandles } from '@/utils/getRecentArticleHandles'
 
 export default function Home({ page }) {
+
+  console.log("page:", page)
 
   const context = useCustomerContext()
 
@@ -62,11 +65,15 @@ export async function getStaticProps({ previewData }) {
     entryDepth: 1
   })
 
-  const fullPage = await getNacelleReferences(pages[0])
+  const fullRefPage = await getNacelleReferences(pages[0])
+
+  if (fullRefPage?.fields?.content?.some(content => content._type === 'featuredBlogContent')) {
+    await getRecentArticlesHandles(fullRefPage.fields.content)
+  }
 
   return {
     props: {
-      page: fullPage
+      page: fullRefPage
     }
   }
 

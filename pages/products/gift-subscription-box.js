@@ -11,6 +11,7 @@ import ProductDetailsList from '@/components/Product/ProductDetailsList'
 import ProductStamps from '@/components/Product/ProductStamps'
 import classes from './Product.module.scss'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
+import { getRecentArticlesHandles } from '@/utils/getRecentArticleHandles'
 import { getHarvests } from '@/utils/getHarvests'
 import { getMetafield } from '@/utils/getMetafield'
 import { dataLayerViewProduct } from '@/utils/dataLayer'
@@ -169,6 +170,10 @@ export async function getStaticProps({ params }) {
   })
 
   const fullRefPage = await getNacelleReferences(page[0])
+
+  if (fullRefPage?.fields?.content?.some(content => content._type === 'featuredBlogContent')) {
+    await getRecentArticlesHandles(fullRefPage.fields.content)
+  }
 
   return {
     props: {

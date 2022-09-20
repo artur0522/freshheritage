@@ -295,7 +295,7 @@ export async function getStaticProps({ params }) {
   const fullRefPage = await getNacelleReferences(page[0])
 
   if (fullRefPage?.fields?.content?.some(content => content._type === 'featuredBlogContent')) {
-    await getRecentArticles(fullRefPage)
+    await getRecentArticles(fullRefPage.fields.content)
   }
 
   if (!products.length) {

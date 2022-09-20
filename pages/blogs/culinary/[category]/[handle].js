@@ -266,7 +266,7 @@ export async function getStaticProps({ params }) {
   }
 
   if (validPage?.fields?.pageContent?.some(content => content._type === 'featuredBlogContent')) {
-    await getRecentArticles(validPage)
+    await getRecentArticles(validPage.fields.pageContent)
   }
 
   const blogSettings = await nacelleClient.content({

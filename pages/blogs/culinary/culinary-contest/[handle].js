@@ -135,7 +135,7 @@ export async function getStaticProps({ params }) {
   const page = pages[0]
 
   if (page?.fields?.pageContent?.some(content => content._type === 'featuredBlogContent')) {
-    await getRecentArticles(page)
+    await getRecentArticles(page.fields.pageContent)
   }
 
   const props = {

@@ -72,12 +72,12 @@ function Product({ product, page, modals }) {
   }, {}))
 
   useEffect(() => {
-    console.log("productInfoRevalidate:", productInfoRevalidate)
     if (productInfoRevalidate?.variants) {
+      const variant = productInfoRevalidate.variants.find(variant => variant.sourceEntryId === selectedVariant.sourceEntryId)
       setVariants(productInfoRevalidate.variants);
+      setSelectedVariant(variant);
     }
   }, [productInfoRevalidate]);
-
 
   useEffect(() =>  {
     setMounted(true)

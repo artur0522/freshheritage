@@ -4,7 +4,7 @@ import ContentSections from '@/components/Sections/ContentSections'
 import PageSEO from '@/components/SEO/PageSEO'
 import { nacelleClient } from 'services'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
-import { getRecentArticles } from '@/utils/getRecentArticles'
+import { getRecentArticlesHandles } from '@/utils/getRecentArticlesHandles'
 
 const TheCatch = (props) => {
     const { page } = props
@@ -63,7 +63,7 @@ export async function getStaticProps({ params }) {
     const fullRefPage = await getNacelleReferences(foundPage)
 
     if (fullRefPage?.fields?.content?.some(content => content._type === 'featuredBlogContent')) {
-      await getRecentArticles(fullRefPage.fields.content)
+      await getRecentArticlesHandles(fullRefPage.fields.content)
     }
 
     return {

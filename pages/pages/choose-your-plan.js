@@ -6,7 +6,7 @@ import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
-import { getRecentArticles } from '@/utils/getRecentArticles';
+import { getRecentArticlesHandles } from '@/utils/getRecentArticlesHandles';
 import { dataLayerViewProductList } from '@/utils/dataLayer';
 
 const PurchaseFlow = ({page, tierOptions}) => {
@@ -57,7 +57,7 @@ export async function getStaticProps() {
   })
 
   if (fullRefPage?.fields?.content?.some(content => content._type === 'featuredBlogContent')) {
-    await getRecentArticles(fullRefPage.fields.content)
+    await getRecentArticlesHandles(fullRefPage.fields.content)
   }
 
   return {

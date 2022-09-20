@@ -3,7 +3,7 @@ import CustomizeYourPlan from '@/components/PurchaseFlow/CustomizeYourPlan'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
-import { getRecentArticles } from '@/utils/getRecentArticles'
+import { getRecentArticlesHandles } from '@/utils/getRecentArticlesHandles'
 
 const PurchaseFlow = ({page}) => {
   const purchaseFlowContext = usePurchaseFlowContext()
@@ -28,7 +28,7 @@ export async function getStaticProps() {
   const { step2 } = fields
 
   if (fullRefPage?.fields?.content?.some(content => content._type === 'featuredBlogContent')) {
-    await getRecentArticles(fullRefPage.fields.content)
+    await getRecentArticlesHandles(fullRefPage.fields.content)
   }
 
   return {

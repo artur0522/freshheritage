@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': process.env.DAVIS_KEY,
-      'origin': process.env.NEXT_PUBLIC_CHECKOUT_URL,
+      'origin': process.env.checkoutUrl,
     },
     body: req.body,
   };

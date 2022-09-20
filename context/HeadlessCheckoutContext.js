@@ -105,14 +105,14 @@ export function HeadlessCheckoutProvider({ children }) {
     const foundLineItem = line_items.find(item => item.product_data.id.includes(newItem.variantId))
     const isGiftOrder = newItem.properties.is_gift_order && newItem.properties.productHandle !== 'digital-gift-card'
 
-    if (newItem.properties.membership_type) {
+    if (newItem.properties.membership_type || newItem.properties.product_handle === 'sitka-seafood-intro-box') {
       // if new item is a subscription initializing a new checkout but removing the existing subscription and adding the new item
       // note: need to initialize a new checkout for subscriptions, more specifically for prepaid subscription
       // in order for Bold to apply new order total and line item total.
 
       // if there's a line item that is a subscription, remove it before initializing a new checkout
 
-      const foundSubscriptionItem = line_items.find(item => item.product_data.properties.membership_type)
+      const foundSubscriptionItem = line_items.find(item => item.product_data.properties.membership_type || item.product_data.properties.product_handle === 'sitka-seafood-intro-box')
 
       let lineItems = data.application_state.line_items.filter(item => item.product_data.variant_id !== foundSubscriptionItem?.product_data?.variant_id).map(item => {
         const line_item = item.product_data

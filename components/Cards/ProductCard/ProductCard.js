@@ -28,7 +28,7 @@ function ProductCard({ product, responsive = false }) {
   const isMobile =  useMediaQuery({ query: '(max-width: 430px)' })
   const isDesktop = useMediaQuery({query: '(min-width: 430px)'})
   const [isAvailable, setIsAvailable] = useState(product.availableForSale)
-  const [selectedVariant, setSelectedVariant] = product.variants[0]
+  const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
 
   useEffect(() => {
     setMounted(true)

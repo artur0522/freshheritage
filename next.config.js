@@ -8,6 +8,7 @@ const moduleExports = {
   staticPageGenerationTimeout: 600,
   images: {
     // add image domains here as needed, for next/image
+    deviceSizes: [320, 640, 660, 768, 1024, 1600, 1920, 2400],
     domains: ['cdn.shopify.com', 'cdn.sanity.io'],
   },
   webpack(config) {

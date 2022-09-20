@@ -8,6 +8,10 @@ import IconFilters from '@/svgs/filters.svg'
 
 import classes from "./FishermenPartners.module.scss"
 
+const illustrationImgLoader = ({ src }) => {
+    return `${src}?w=750`
+  }
+
 const FishermenPartners = ({ fields }) => {
   const [filterDrawer, toggleFilterDrawer]= useState(true)
   const { filterGroups, illustration, header, fishermen, calloutHeader, calloutSubheader, topPadding, bottomPadding } = fields
@@ -84,6 +88,7 @@ const FishermenPartners = ({ fields }) => {
         <div className={classes['illustration-wrap']}>
             {illustration && <div className={classes['illustration']}>
                 <ResponsiveImage
+                    loader={illustrationImgLoader}
                     src={illustration.asset.url}
                     layout="fill"
                     alt='illustration'

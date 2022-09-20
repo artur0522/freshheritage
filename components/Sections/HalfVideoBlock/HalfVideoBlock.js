@@ -25,6 +25,7 @@ const HalfVideoBlock = ({fields}) => {
                 <div className={classes['article']}>
                     {recipeArticle.hero.desktopBackgroundImage?.asset?.url && <div className={classes['article__image']}>
                         <Image
+                            sizes="50vw"
                             src={recipeArticle.hero.desktopBackgroundImage.asset.url}
                             layout="fill"
                             objectFit="cover"

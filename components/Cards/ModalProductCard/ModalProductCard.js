@@ -16,6 +16,10 @@ function ModalProductCard({ product }) {
     setMounted(true)
   }, [])
 
+  const articleCardImgLoader = ({ src, width }) => {
+    return `${src}?w=690`
+  }
+
   return (
     product && (
       <div className={classes["card"]}>
@@ -25,6 +29,7 @@ function ModalProductCard({ product }) {
                 <a className={classes["media"]}>
                     {product.product_image && isMobile && mounted && (
                     <ResponsiveImage
+                    loader={articleCardImgLoader}
                     src={product.product_image}
                     alt={product.title}
                     className={classes.image}
@@ -32,6 +37,7 @@ function ModalProductCard({ product }) {
                     )}
                     {product.product_image && isDesktop && mounted && (
                     <ResponsiveImage
+                    loader={articleCardImgLoader}
                     src={product.product_image}
                     alt={product.title}
                     className={classes.image}

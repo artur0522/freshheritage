@@ -34,6 +34,10 @@ import { getBackNavigationInfo } from '@/utils/getBackNavigationInfo'
     - cooking-class -> same as default, but adds watch now button if valid
 */
 
+const illustationImgLoader = ({ src }) => {
+  return `${src}?w=800`
+}
+
 const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobalSettings }, mainContentRef) => {
   const [mounted, setMounted] = useState(false)
   const [startVideo, setStartVideo] = useState(false)
@@ -102,6 +106,7 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
         {backgroundIllustrationImage && renderType === 'blog-listing' && isDesktop && mounted &&
           <div className={classes['article-hero__illustration-image']}>
             <ResponsiveImage
+              loader={illustationImgLoader}
               src={backgroundIllustrationImage?.asset?.url}
               layout="fill"
               priority={true}
@@ -188,6 +193,7 @@ const ArticleSplitHero = forwardRef(({fields, renderType = 'default', blogGlobal
             />}
           {desktopBackgroundImage && isDesktop && mounted &&
             <Image
+              sizes="(min-width: 1080px) 65vw, 100vw"
               src={desktopBackgroundImage?.asset?.url}
               layout="fill"
               priority={true}

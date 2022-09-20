@@ -10,6 +10,10 @@ import { usePDPDrawerContext } from '@/context/PDPDrawerContext'
 import { formatWeight } from '@/utils/formatWeight'
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 
+const productImgLoader = ({ src }) => {
+  return `${src}?w=700`
+}
+
 const ChooseYourBox = ({props, tierOptions}) => {
 
   const purchaseFlowContext = usePurchaseFlowContext()
@@ -80,6 +84,7 @@ const ChooseYourBox = ({props, tierOptions}) => {
                           <div className={classes['choose-your-box__tier-container']}>
                             <div className={classes['choose-your-box__tier-image']} >
                               <ResponsiveImage
+                                loader={productImgLoader}
                                 src={product.content?.media[0].src}
                                 alt={product.content?.media[0].altText || product.content?.title}
                                 priority={true} />

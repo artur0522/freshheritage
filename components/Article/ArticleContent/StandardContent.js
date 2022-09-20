@@ -57,7 +57,7 @@ const StandardContent = forwardRef(({fields, products}, ref) => {
           return <div className={classes['article-section__image']}>
             <Link href={value.link}>
               <a>
-                <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />
+                <ResponsiveImage sizes="(min-width: 1080px) 50vw, (min-width: 1400px) 40vw, 100vw" src={value.asset.url} alt={value.asset.alt || ''} />
               </a>
             </Link>
             {value.caption && <span className={classes['article-section__image-caption']}>{value.caption}</span>}
@@ -66,7 +66,7 @@ const StandardContent = forwardRef(({fields, products}, ref) => {
         return (
           <div className={classes['article-section__image']}>
             {value?.asset &&
-              <ResponsiveImage src={value.asset.url} alt={value.asset.alt || ''} />
+              <ResponsiveImage sizes="(min-width: 1080px) 50vw, (min-width: 1400px) 40vw, 100vw" src={value.asset.url} alt={value.asset.alt || ''} />
             }
             {value.caption && <span className={classes['article-section__image-caption']}>{value.caption}</span>}
           </div>

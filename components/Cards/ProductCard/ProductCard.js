@@ -21,6 +21,10 @@ const fetchInventory = (url, productHandle) => {
    .then((res) => res.data)
  };
 
+const articleCardImgLoader = ({ src, width }) => {
+  return `${src}?w=690`
+}
+
 function ProductCard({ product, responsive = false }) {
 
   const router = useRouter()
@@ -90,6 +94,7 @@ function ProductCard({ product, responsive = false }) {
             )}
             {product.content.featuredMedia && responsive && mounted && (
               <ResponsiveImage
+                loader={articleCardImgLoader}
                 src={product.content.featuredMedia.src}
                 alt={product.content.featuredMedia.altText || product.content.title}
                 className={classes.image}

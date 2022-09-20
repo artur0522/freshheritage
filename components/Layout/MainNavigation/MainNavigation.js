@@ -6,6 +6,10 @@ import NavigationUtilities from './NavigationUtilities'
 import PurchaseFlowNavigation from './PurchaseFlowNavigation'
 import ResponsiveImage from '@/components/ResponsiveImage'
 
+const logoImgLoader = ({ src }) => {
+  return `${src}?w=300`
+}
+
 const MainNavigation = ({props, pageHandle}) => {
 
   let navigationType
@@ -23,7 +27,7 @@ const MainNavigation = ({props, pageHandle}) => {
         <div className={classes.navLogo}>
           <Link href="/">
             <a>
-              <ResponsiveImage src={props.logo?.asset.url} alt={props.logo?.asset.alt || 'Logo'} />
+              <ResponsiveImage loader={logoImgLoader} src={props.logo?.asset.url} alt={props.logo?.asset.alt || 'Logo'} />
             </a>
           </Link>
         </div>

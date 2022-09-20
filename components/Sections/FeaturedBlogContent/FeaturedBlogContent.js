@@ -12,6 +12,10 @@ import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
 import 'swiper/css'
 import classes from './FeaturedBlogContent.module.scss'
 
+const articleCardImgLoader = ({ src }) => {
+  return `${src}?w=750`
+}
+
 const FeaturedBlogContent = ({ fields }) => {
   const { tabs, header, subheader, ctaUrl, ctaText, illustration, illustration2, illustrationAlt, illustration2Alt, method, blog, tagList, allRecentArticleHandles } = fields
   const [selectedSwiper, setSelectedSwiper] = useState(null)
@@ -134,6 +138,7 @@ const FeaturedBlogContent = ({ fields }) => {
       {illustration && (
         <div className={classes['illustration-1']}>
           <ResponsiveImage
+            loader={articleCardImgLoader}
             src={illustration.asset.url}
             alt={illustrationAlt || 'illustration'}
           />
@@ -142,6 +147,7 @@ const FeaturedBlogContent = ({ fields }) => {
       {illustration2 && (
         <div className={classes['illustration-2']}>
           <ResponsiveImage
+            loader={articleCardImgLoader}
             src={illustration2.asset.url}
             alt={illustration2Alt || 'illustration'}
           />

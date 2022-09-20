@@ -73,7 +73,7 @@ const KnowYourFishDrawer = ({fields}) => {
                 </div>}
               </div>
               {image && <div className={classes['know-your-fish__image']}>
-                <ResponsiveImage src={image.asset.url} alt={image.asset.alt || header} />
+                <ResponsiveImage sizes="(min-width: 1400px) 800px, 100vw" src={image.asset.url} alt={image.asset.alt || header} />
               </div>}
               {description && <div className={classes['know-your-fish__description']}>
                 <PortableText value={description} />

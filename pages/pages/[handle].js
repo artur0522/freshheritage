@@ -8,14 +8,16 @@ import ResponsiveImage from '@/components/ResponsiveImage'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import { getRecentArticlesHandles } from '@/utils/getRecentArticleHandles'
 
+const illustrationImgLoader = ({ src }) => {
+  return `${src}?w=750`
+}
+
 export default function DynamicPage({ page }) {
   const [mounted, setMounted] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 1073px)' })
   const isDesktop = useMediaQuery(
     {query: '(min-width: 1074px)'}
   )
-
-  console.log("page:", page)
 
   useEffect(() => {
     setMounted(true)
@@ -35,6 +37,8 @@ export default function DynamicPage({ page }) {
             {desktopIllustration && isDesktop && mounted &&
               <div className={classes['info-page__illustration-image']}>
                 <ResponsiveImage
+                  loader={illustrationImgLoader}
+                  priority={true}
                   src={desktopIllustration.asset.url}
                   layout="fill"
                   alt={desktopIllustration.asset.alt || ''}
@@ -44,6 +48,8 @@ export default function DynamicPage({ page }) {
             {mobileIllustration && isMobile && mounted &&
               <div className={classes['info-page__illustration-image']}>
                 <ResponsiveImage
+                  loader={illustrationImgLoader}
+                  priority={true}
                   src={mobileIllustration.asset.url}
                   layout="fill"
                   alt={mobileIllustration.asset.alt || ''}
@@ -65,10 +71,10 @@ export default function DynamicPage({ page }) {
   }
 
   return (
-    <>
+    <div className="standard-page">
       <PageSEO seo={page.fields.seo} />
       <ContentSections sections={page.fields.content} />
-    </>
+    </div>
   )
 }
 

@@ -58,6 +58,7 @@ const SplitHero = ({ fields, imagePriority }) => {
 
         {isMobile && mounted && <div className={`${classes['hero__wrap--mbl']} ${classes['hero__wrap']} ${classes[imageWidth]}`}>
           <Image
+            sizes="50vw"
             className={classes.dsktp__img}
             src={mobileBackgroundImage.asset.url}
             layout="fill"

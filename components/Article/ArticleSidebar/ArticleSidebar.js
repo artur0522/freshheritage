@@ -10,7 +10,10 @@ import { useArticleContext } from '@/context/ArticleContext'
 import { useKnowYourFishDrawerContext } from '@/context/KnowYourFishDrawerContext'
 import IconCaret from '@/svgs/caret.svg'
 import { nacelleClient } from 'services'
-import moment from 'moment'
+
+const articleCardImgLoader = ({ src }) => {
+  return `${src}?w=800`
+}
 
 const ArticleSidebar = ({fields = {}, datePublished, blogGlobalSettings}) => {
 
@@ -68,6 +71,7 @@ const ArticleSidebar = ({fields = {}, datePublished, blogGlobalSettings}) => {
           <div className={classes['article-author__header']}>
             {author.image?.asset && <div className={classes['article-author__image']}>
               <ResponsiveImage
+                loader={articleCardImgLoader}
                 src={author.image.asset.url}
                 alt={author.image.alt || ''}
               />
@@ -88,6 +92,7 @@ const ArticleSidebar = ({fields = {}, datePublished, blogGlobalSettings}) => {
               return <li key={author._id}>
                 {author.image?.asset && <div className={classes['article-author__image']}>
                   <ResponsiveImage
+                    loader={articleCardImgLoader}
                     src={author.image.asset.url}
                     alt={author.image.alt || ''}
                   />
@@ -115,6 +120,7 @@ const ArticleSidebar = ({fields = {}, datePublished, blogGlobalSettings}) => {
                 return <li key={index} className={classes['know-your-fish__item']} onClick={() => openDrawer({ fields: item })}>
                   <div className={classes['article-related-item__image']}>
                     {image?.asset && <Image
+                      loader={articleCardImgLoader}
                       src={image.asset.url}
                       layout="fill"
                       alt={image.alt || ''}
@@ -162,6 +168,7 @@ const ArticleSidebar = ({fields = {}, datePublished, blogGlobalSettings}) => {
                     <a>
                       <div className={classes['article-related-item__image']}>
                         {image?.asset && <Image
+                          loader={articleCardImgLoader}
                           src={image.asset.url}
                           layout="fill"
                           alt={image.alt || ''}

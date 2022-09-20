@@ -8,6 +8,10 @@ import IconVimeo from '@/svgs/vimeo.svg'
 import IconYoutube from '@/svgs/youtube.svg'
 import FooterMenuItems from '../FooterMenuItems'
 
+const logoImgLoader = ({ src }) => {
+  return `${src}?w=500`
+}
+
 const socialLinkItem = (item, classes) => {
   function getIcon(platform) {
     switch(platform) {
@@ -47,7 +51,7 @@ const FooterNavigation = ({props, classes}) => {
         <div className={classes.footerLogo}>
           <Link prefetch={false} href="/">
             <a>
-              <ResponsiveImage src={logo.asset.url} alt={logo.asset.alt || 'Logo'} />
+              <ResponsiveImage loader={logoImgLoader} src={logo.asset.url} alt={logo.asset.alt || 'Logo'} />
             </a>
           </Link>
         </div>

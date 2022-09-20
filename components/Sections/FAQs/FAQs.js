@@ -5,6 +5,10 @@ import classes from './FAQs.module.scss'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { useMediaQuery } from 'react-responsive'
 
+const illustrationImgLoader = ({ src }) => {
+  return `${src}?w=750`
+}
+
 const FAQs = ({ fields, parentClasses }) => {
 
   const [mounted, setMounted] = useState(false)
@@ -23,12 +27,12 @@ const FAQs = ({ fields, parentClasses }) => {
         <>
          {isDesktop && mounted && fields.desktopIllustration?.asset?.url &&
           <div className={classes['faq__image']}>
-            <ResponsiveImage src={fields.desktopIllustration.asset.url} alt={fields.desktopIllustration.asset.alt || 'illustration'} />
+            <ResponsiveImage loader={illustrationImgLoader} src={fields.desktopIllustration.asset.url} alt={fields.desktopIllustration.asset.alt || 'illustration'} />
           </div>
          }
          {!isDesktop && mounted && fields.mobileIllustration?.asset?.url &&
           <div className={classes['faq__image']}>
-            <ResponsiveImage src={fields.mobileIllustration.asset.url} alt={fields.mobileIllustration.asset.alt || 'illustration'} />
+            <ResponsiveImage loader={illustrationImgLoader} src={fields.mobileIllustration.asset.url} alt={fields.mobileIllustration.asset.alt || 'illustration'} />
           </div>
          }
         </>

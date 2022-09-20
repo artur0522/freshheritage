@@ -7,10 +7,10 @@
 import Image from 'next/image'
 import classes from './ResponsiveImage.module.scss'
 
-const ResponsiveImage = ({src, alt, priority = false, style }) => {
+const ResponsiveImage = ({src, loader, sizes, alt, priority = false, style }) => {
   return (
     <div className={`${classes['image-container']} responsve-image-container`}>
-      <Image className={classes['image']} src={src} layout="fill" alt={alt} priority={priority} style={style} />
+      <Image className={classes['image']} loader={loader} sizes={sizes} src={src} layout="fill" alt={alt} priority={priority} style={style} />
     </div>
   )
 }

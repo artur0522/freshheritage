@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useMediaQuery } from 'react-responsive'
 import Link from "next/link";
 import Image from "next/image";
-import ResponsiveImage from "@/components/ResponsiveImage";
 import classes from "./SearchProductCard.module.scss";
 import { formatWeight } from "@/utils/formatWeight";
 

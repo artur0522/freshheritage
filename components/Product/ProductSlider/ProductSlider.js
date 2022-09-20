@@ -51,7 +51,8 @@ const ProductSlider = ({product, timeout = 0}) => {
         {[...images].slice(0, 5).map((image, index) => {
           return <SwiperSlide key={`${image.id}-${index}`}>
             <div style={{position: 'relative', paddingBottom: '65%'}}>
-              <Image className={classes['image']} src={image.src} layout="fill" alt={image.altText || product.content?.title} />
+              <Image sizes="(min-width: 1080px) 50vw, 100vw" className={classes['image']} src={image.src} layout="fill" alt={image.altText || product.content?.title}
+              />
             </div>
           </SwiperSlide>
         })}
@@ -66,9 +67,15 @@ const ProductSlider = ({product, timeout = 0}) => {
         threshold={15}
       >
         {[...images].slice(0, 5).map((image, index) => {
+
+          const thumbnailImgLoader = ({ src }) => {
+            return `${src}?w=300`
+          }
+
           return <SwiperSlide key={`${image.id}-${index}`}>
             <div style={{position: 'relative', paddingBottom: '65%'}}>
-              <Image className={classes['image']} src={image.src} layout="fill" alt={image.altText || product.content?.title} />
+              <Image loader={thumbnailImgLoader} className={classes['image']} src={image.src} layout="fill" alt={image.altText || product.content?.title}
+               />
             </div>
           </SwiperSlide>
         })}

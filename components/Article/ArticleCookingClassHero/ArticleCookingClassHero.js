@@ -50,11 +50,14 @@ const ArticleCookingClassHero = ({fields}) => {
         <div className={classes['article-cooking-class-hero__image']}>
           {hero?.mobileBackgroundImage && isMobile && mounted &&
             <ResponsiveImage
+              priority={true}
               src={hero?.mobileBackgroundImage.asset.url}
               alt={hero?.mobileBackgroundImage.alt || ''}
             />}
           {hero?.desktopBackgroundImage && isDesktop && mounted &&
             <Image
+              sizes="50vw"
+              priority={true}
               src={hero?.desktopBackgroundImage.asset.url}
               layout="fill"
               alt={hero?.desktopBackgroundImage.alt || ''}

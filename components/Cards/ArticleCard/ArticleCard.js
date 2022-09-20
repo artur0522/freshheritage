@@ -10,6 +10,10 @@ import imageUrlBuilder from '@sanity/image-url'
 import sanityClient from 'services/sanityClient'
 import ResponsiveImage from '@/components/ResponsiveImage'
 
+const articleCardImgLoader = ({ src }) => {
+    return `${src}?w=690`
+  }
+
 import classes from "./ArticleCard.module.scss"
 
 const ArticleCard = ({ article, reverse, responsiveImage = false, fromSearch = false }) => {
@@ -46,9 +50,9 @@ const ArticleCard = ({ article, reverse, responsiveImage = false, fromSearch = f
             <a className={`${classes['article-card']} ${!responsiveImage ? classes['fixed'] : ''}`}>
                 <div className={`${classes['slider__slide']} ${reverse ? classes['row'] : ''}`}>
                     {desktopBackgroundImage?.asset?.url && <div className={classes['image-wrap']}>
-                        {responsiveImage &&  !desktopBackgroundImage?.crop && <ResponsiveImage alt={article.title} src={desktopBackgroundImage.asset.url} />}
-                        {responsiveImage && desktopBackgroundImage?.crop && <ResponsiveImage alt={article.title} src={urlFor(desktopBackgroundImage.asset.url).width(345).height(384).focalPoint(desktopBackgroundImage.hotspot.x, desktopBackgroundImage.hotspot.y).crop('focalpoint').fit('crop').url()} />}
-                        {!responsiveImage && <Image src={desktopBackgroundImage?.asset.url} alt={article.title} layout="fill" objectFit="cover" />}
+                        {responsiveImage &&  !desktopBackgroundImage?.crop && <ResponsiveImage loader={articleCardImgLoader} alt={article.title} src={desktopBackgroundImage.asset.url} />}
+                        {responsiveImage && desktopBackgroundImage?.crop && <ResponsiveImage loader={articleCardImgLoader} alt={article.title} src={urlFor(desktopBackgroundImage.asset.url).width(345).height(384).focalPoint(desktopBackgroundImage.hotspot.x, desktopBackgroundImage.hotspot.y).crop('focalpoint').fit('crop').url()} />}
+                        {!responsiveImage && <Image loader={articleCardImgLoader} src={desktopBackgroundImage?.asset.url} alt={article.title} layout="fill" objectFit="cover" />}
 
                         {hasVideo && <div className={classes['play']}>
                             <IconPlayButton />

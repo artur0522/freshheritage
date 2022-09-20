@@ -49,6 +49,7 @@ const HalfHeroHalfSlider = ({ fields, imagePriority }) => {
                         </div>}
                         {isDesktop && mounted && desktopImage && <div>
                             <Image
+                                sizes="50vw"
                                 src={desktopImage.asset.url || 'hero image'}
                                 layout="fill"
                                 priority={imagePriority}

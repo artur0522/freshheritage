@@ -15,7 +15,7 @@ const defaultFormFields = {
 
 const ProductForm = (props) => {
     const { addItemToOrder } = useHeadlessCheckoutContext()
-    const { checked, handle, product, selectedVariant, setSelectedVariant } = props
+    const { checked, handle, product, variants, selectedVariant, setSelectedVariant } = props
     const [formFields, setFormFields] = useState(defaultFormFields)
 
     const [selectedOptions, setSelectedOptions] = useState(
@@ -55,7 +55,7 @@ const ProductForm = (props) => {
           setSelectedOptions([...newSelectedOptions, newOption])
         }
         const variant = getSelectedVariant({
-          product,
+          variants,
           options: newSelectedOptions
         })
         setSelectedVariant(variant ? { ...variant } : null)

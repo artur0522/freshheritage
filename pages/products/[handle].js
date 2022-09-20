@@ -36,7 +36,8 @@ const fetchInventory = (url, productHandle) => {
 
 function Product({ product, page, modals }) {
   const [checked, setChecked] = useState(false)
-  const [selectedVariant, setSelectedVariant] = useState(product.variants[0])
+  const [variants, setVariants] = useState(product.variants)
+  const [selectedVariant, setSelectedVariant] = useState(variants[0])
   const handle = product.content?.handle
   const productAccordionHeaders = page.fields.content.find(block => block._type === 'productAccordionHeaders')
   const accordionDeliveryHeader = productAccordionHeaders?.details
@@ -72,8 +73,7 @@ function Product({ product, page, modals }) {
   useEffect(() => {
     console.log("productInfoRevalidate:", productInfoRevalidate)
     if (productInfoRevalidate?.variants) {
-      const variant = productInfoRevalidate.variants.find(variant => variant.sourceEntryId === selectedVariant.sourceEntryId)
-      setSelectedVariant(variant);
+      setVariants(productInfoRevalidate.variants);
     }
   }, [productInfoRevalidate]);
 
@@ -186,32 +186,6 @@ function Product({ product, page, modals }) {
                   <h2 className={classes['weight']}>{formatWeight(selectedVariant.weight)} lbs</h2>
                 </div>}
 
-                {product.content?.handle === 'premium-seafood-subscription-box' &&
-                  <div className={classes['shellfish-free-input']}>
-                    <div className="input-group input-group--checkbox">
-                      <input
-                        className="input"
-                        id="shellfish_free"
-                        type="checkbox"
-                        ref={shellfishFreeInputRef}
-                        onChange={() => {
-                          const frequency = selectedVariant.content.selectedOptions.find(option => option.name === 'frequency')
-                          const variant = getVariantByOptions({
-                            variants: product.variants,
-                            matchOptionValue: frequency.value,
-                            purchaseFlowOptions: {
-                              productHandle: selectedVariant.productHandle,
-                              shellfish_free_selected: (shellfishFreeInputRef.current) ? shellfishFreeInputRef.current.checked : undefined
-                            }
-                          })
-                          setSelectedVariant(variant)
-                        }}
-                      />
-                      <label htmlFor="shellfish_free">Shellfish Free</label>
-                    </div>
-                  </div>
-                }
-
                 <div className={classes['gift']}>
                     {handle !== 'digital-gift-card' && <div className={classes['gift__check']}>
                       <input
@@ -227,7 +201,7 @@ function Product({ product, page, modals }) {
                 </div>
 
                 {/* PRODUCT FORM  */}
-                <ProductForm checked={checked} handle={handle} product={product} setSelectedVariant={setSelectedVariant} selectedVariant={selectedVariant} />
+                <ProductForm checked={checked} handle={handle} product={product} variants={variants} setSelectedVariant={setSelectedVariant} selectedVariant={selectedVariant} />
 
                 {/* ACCORDION */}
                 {deliveryDetailsList && <div className={`product-accordions ${classes['accordion']}`}>

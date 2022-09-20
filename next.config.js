@@ -5,6 +5,7 @@ const { withSentryConfig } = require('@sentry/nextjs');
 
 const moduleExports = {
   reactStrictMode: true,
+  staticPageGenerationTimeout: 600,
   images: {
     // add image domains here as needed, for next/image
     domains: ['cdn.shopify.com', 'cdn.sanity.io'],

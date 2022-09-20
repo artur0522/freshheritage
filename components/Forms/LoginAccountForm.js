@@ -35,10 +35,12 @@ const LoginAccountForm = ({ redirect, isCheckout, onForgotPasswordClick }) => {
       dispatch({ type: 'error', payload: response.errors[0].message })
     } else {
       dispatch({ type: 'success' })
-      if (redirect) {
-        router.push(redirect)
-      } else {
-        router.push('/account')
+      if (!isCheckout) {
+        if (redirect) {
+          router.push(redirect)
+        } else {
+          router.push('/account')
+        }
       }
     }
   }

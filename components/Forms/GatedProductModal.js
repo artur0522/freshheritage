@@ -16,7 +16,7 @@ const GatedProductModal = () => {
 
     modalContext.setIsOpen(false)
     setIsOpen(true)
-    modalContext.setModalType('create')
+    modalContext.setModalType('login')
   }
 
   return (

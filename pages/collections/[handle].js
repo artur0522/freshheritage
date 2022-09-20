@@ -83,6 +83,7 @@ export async function getStaticProps({ params }) {
 const PRODUCT_FRAGMENT = `
   nacelleEntryId
   sourceEntryId
+  availableForSale
   content{
     handle
     title

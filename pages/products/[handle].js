@@ -53,7 +53,13 @@ function Product({ product, page, modals }) {
   const [mounted, setMounted] = useState(false)
   const customerContext = useCustomerContext()
   const { customer } = customerContext
-  const shellfishFreeInputRef = useRef()
+
+  const refs = useRef(['reviewsStars', 'productReviews'].reduce((carry, ref) => {
+    return {
+      ...carry,
+      [ref]: createRef()
+    }
+  }, {}))
 
   const { data: productInfoRevalidate } = useSWR(
     ['/api/product/available', product.content.handle],
@@ -63,13 +69,6 @@ function Product({ product, page, modals }) {
       refreshInterval: 5000
     }
   );
-
-  const refs = useRef(['reviewsStars', 'productReviews'].reduce((carry, ref) => {
-    return {
-      ...carry,
-      [ref]: createRef()
-    }
-  }, {}))
 
   useEffect(() => {
     if (productInfoRevalidate?.variants) {

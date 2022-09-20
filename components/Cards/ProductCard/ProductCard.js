@@ -7,13 +7,28 @@ import { useRouter } from 'next/router'
 import { dataLayerSelectProduct } from "@/utils/dataLayer";
 import { formatPrice } from "@/utils/formatPrice";
 import { formatWeight } from "@/utils/formatWeight";
+import useSWR from 'swr'
+import axios from 'axios'
+
+// setup inventory fetcher
+const fetchInventory = (url, productHandle) => {
+  return axios
+     .get(url, {
+       params: {
+         productHandle: productHandle,
+       },
+     })
+   .then((res) => res.data)
+ };
 
 function ProductCard({ product, responsive = false }) {
+
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
   const isMobile =  useMediaQuery({ query: '(max-width: 430px)' })
   const isDesktop = useMediaQuery({query: '(min-width: 430px)'})
   const firstVariant = product.variants[0]
+  const [isAvailable, setIsAvailable] = useState(product.availableForSale)
 
   useEffect(() => {
     setMounted(true)
@@ -28,6 +43,24 @@ function ProductCard({ product, responsive = false }) {
     dataLayerSelectProduct({product, url: router.pathname})
     router.push(`/products/${encodeURIComponent(product.content.handle)}`)
   }
+
+  const buttonText = isAvailable ? 'View Details' : 'Sold Out'
+
+  const { data: productInfoRevalidate } = useSWR(
+    ['/api/product/available', product.content.handle],
+    (url, id) => fetchInventory(url, id),
+    {
+      errorRetryCount: 3,
+      refreshInterval: 5000
+    }
+  );
+
+  useEffect(() => {
+    console.log("productInfoRevalidate:", productInfoRevalidate)
+    if (productInfoRevalidate) {
+      setIsAvailable(productInfoRevalidate.availableForSale)
+    }
+  }, [productInfoRevalidate]);
 
   return (
     product && (
@@ -90,7 +123,7 @@ function ProductCard({ product, responsive = false }) {
             {includesMetafield && <p className={`${classes['metafield']} base-font`}>{includesMetafield.value}</p>}
             {shortDescriptionMetafield && <p className={`${classes['metafield']} base-font`}>{shortDescriptionMetafield.value}</p>}
           </div>
-          <a onClick={() => handleLink(product)} className="btn salmon">View Details</a>
+          <a onClick={() => handleLink(product)} className="btn salmon">{buttonText}</a>
         </div>
 
       </div>

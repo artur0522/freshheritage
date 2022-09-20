@@ -8,6 +8,7 @@ import ContentSections from '@/components/Sections/ContentSections'
 import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
+import { getRecentArticlesHandles } from '@/utils/getRecentArticleHandles'
 import { useCustomerContext } from '@/context/CustomerContext'
 import moment from 'moment'
 
@@ -262,6 +263,10 @@ export async function getStaticProps({ params }) {
     return {
       notFound: true
     }
+  }
+
+  if (validPage?.fields?.pageContent?.some(content => content._type === 'featuredBlogContent')) {
+    await getRecentArticlesHandles(validPage.fields.pageContent)
   }
 
   const blogSettings = await nacelleClient.content({

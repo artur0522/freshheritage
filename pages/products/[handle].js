@@ -18,6 +18,7 @@ import StructuredData from '@/components/SEO/StructuredData'
 
 import classes from './Product.module.scss'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
+import { getRecentArticlesHandles } from '@/utils/getRecentArticleHandles'
 import ProductStamps from '@/components/Product/ProductStamps'
 import { dataLayerViewProduct } from '@/utils/dataLayer'
 import { formatWeight } from '@/utils/formatWeight'
@@ -266,6 +267,10 @@ export async function getStaticProps({ params }) {
   })
 
   const fullRefPage = await getNacelleReferences(page[0])
+
+  if (fullRefPage?.fields?.content?.some(content => content._type === 'featuredBlogContent')) {
+    await getRecentArticlesHandles(fullRefPage.fields.content)
+  }
 
   if (!products.length) {
     return {

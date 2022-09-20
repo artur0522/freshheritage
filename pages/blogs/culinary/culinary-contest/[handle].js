@@ -8,6 +8,7 @@ import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
+import { getRecentArticlesHandles } from '@/utils/getRecentArticleHandles'
 
 const CulinaryContestArticle = ({ page, product, blogSettings, modals }) => {
 
@@ -133,6 +134,10 @@ export async function getStaticProps({ params }) {
 
   const page = pages[0]
 
+  if (page?.fields?.pageContent?.some(content => content._type === 'featuredBlogContent')) {
+    await getRecentArticlesHandles(page.fields.pageContent)
+  }
+
   const props = {
     page,
     blogSettings: blogSettings[0],
@@ -154,6 +159,7 @@ export async function getStaticProps({ params }) {
       props.product = products[0]
     }
   }
+
 
   return {
     props

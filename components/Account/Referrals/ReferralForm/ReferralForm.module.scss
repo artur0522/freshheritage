@@ -10,26 +10,44 @@
     font-family: $frank-ruhl;
     margin-bottom: 16px;
     font-weight: 400;
+    @include breakpoint-down("sm") {
+      font-size: 1rem;
+    }
   }
 
   h1 {
     font-size: 3rem;
     margin-bottom: 16px;
-
+    @include breakpoint-down("sm") {
+      font-size: 2.25rem;
+      padding-right: 20vw;
+    }
   }
 
   .highlight {
     color: $salmon;
+    @include breakpoint-down("sm") {
+      color: $sitkablue;
+    }
   }
 
   .banner {
     max-height: 294px;
     margin-bottom: 16px;
     text-align: center;
+
+    @include breakpoint-down("sm") {
+      margin-bottom: 30px;
+    }
   }
 
   .text {
     margin-bottom: 36px;
+
+    @include breakpoint-down("sm") {
+      font-size: 16px;
+      line-height: 150%;
+    }
   }
 
   form {
@@ -62,12 +80,21 @@
         background-color: $yeller;
         cursor: not-allowed;
       }
+      @include breakpoint-down("sm") {
+        width: 100%;
+      }
     }
   }
   .social-links {
     margin-top: 32px;
+    @include breakpoint-down("sm") {
+      text-align: center;
+    }
     a {
       margin-right: 32px;
+      &:last-of-type {
+        margin-right: 0px;
+      }
     }
   }
 }

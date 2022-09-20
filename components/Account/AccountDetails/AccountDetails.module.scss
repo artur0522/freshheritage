@@ -10,6 +10,11 @@
     font-family: $bebas;
     font-size: 48px;
     margin-bottom: 60px;
+
+    @include breakpoint-down(700px) {
+      font-size: 24px;
+      margin-bottom: 18px;
+    }
   }
 
   h5 {
@@ -17,6 +22,11 @@
     font-size: 21px;
     margin-top: 16px;
     margin-bottom: 16px;
+
+    @include breakpoint-down(700px) {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
   }
 
   .customer-email-info {
@@ -28,11 +38,21 @@
     justify-content: space-between;
     padding: 24px 40px;
     margin-bottom: 69px;
+    @include breakpoint-down(700px) {
+      margin-bottom: 18px;
+    }
     div {
       flex: 0 1 0;
       font-family: $frank-ruhl;
       font-size: 18px;
       color: $sitkablue;
+
+      @include breakpoint-down(700px) {
+        font-size: 12px;
+      }
+    }
+    .email {
+      margin-bottom: 12px;
     }
     .reset {
       flex: 1 0 0;
@@ -53,6 +73,10 @@
     font-family: $frank-ruhl;
     font-size: 18px;
     color: $sitkablue;
+
+    @include breakpoint-down(700px) {
+      font-size: 12px;
+    }
 
     .summary {
       display: flex;
@@ -121,9 +145,17 @@
     font-size: 18px;
     font-weight: 700;
 
+    @include breakpoint-down(700px) {
+      font-size: 12px;
+    }
+
     h5 {
       font-family: $frank-ruhl;
       font-size: 24px;
+
+      @include breakpoint-down(700px) {
+        font-size: 20px;
+      }
     }
 
     button {

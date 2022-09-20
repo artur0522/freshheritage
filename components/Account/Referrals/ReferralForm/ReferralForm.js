@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import classes from './ReferralForm.module.scss'
-import { submitReferral } from 'services/referralClient'
 import facebookLogo from './facebook.png'
 import twitterLogo from './twitter.png'
 import linkedinLogo from './linkedin.png'
@@ -18,8 +17,19 @@ export default function ReferralForm({ customer }) {
     setSubmittingForm(true)
     const idArr = customer.id.split('/')
     const id = idArr[idArr.length - 1]
-    const successful = await submitReferral(id, name, email)
-    if (!successful) {
+
+    const response = await fetch(`/api/account/refer`, {
+      method: 'POST',
+      body: JSON.stringify({
+        id,
+        name,
+        email
+      })
+    }).then(res => res.json())
+
+    console.log(response.message)
+
+    if (response.message !== 'success') {
       alert('Your referral did not work. Please try again')
     }
     setSubmittingForm(false)

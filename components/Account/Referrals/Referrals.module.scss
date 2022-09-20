@@ -10,8 +10,8 @@
   margin: auto;
   padding: 82px 0;
 
-  @include breakpoint-down(1300px) {
-    padding: 82px 16px;
+  @include breakpoint-down("sm") {
+    padding: 10px 30px;
     flex-direction: column;
     align-items: center;
   }
@@ -19,8 +19,16 @@
   .col-left {
     flex: 0 1 33%;
 
-    @include breakpoint-down(1300px) {
+    .banner {
+      display: none;
+    }
+
+    @include breakpoint-down("sm") {
       flex: 1 1 0;
+
+      .banner {
+        display: block;
+      }
     }
   }
 
@@ -29,7 +37,7 @@
     margin: 0 64px;
     background-color: $black20;
 
-    @include breakpoint-down(1300px) {
+    @include breakpoint-down("sm") {
       margin: 64px 32px;
       width: 100%;
     }
@@ -38,8 +46,16 @@
   .col-right {
     flex: 1 1 65%;
 
-    @include breakpoint-down(1300px) {
+    .banner {
+      display: block;
+    }
+
+    @include breakpoint-down("sm") {
       flex: 1 1 0;
+
+      .banner {
+        display: none;
+      }
     }
   }
 }

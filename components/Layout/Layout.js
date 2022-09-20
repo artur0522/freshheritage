@@ -13,6 +13,7 @@ import { EditScheduleDrawerProvider } from '@/context/EditScheduleDrawerContext'
 
 import StructuredData from '../SEO/StructuredData'
 import Footer from '@/components/Layout/Footer'
+import { MemberAccountContextProvider } from '@/context/MemberAccountContext'
 
 // This component utilizes `useCart` and `useCheckout` hooks from
 // `@nacelle/react-hooks` to clear cart and checkout data if the
@@ -24,29 +25,31 @@ function Layout({ children, headerSettings, footerSettings, searchLinks }) {
   return (
     <CustomerProvider>
       <ModalProvider>
-        <HeadlessCheckoutProvider pageHandle={children.props.handle}>
-          <PurchaseFlowProvider>
-            <PDPDrawerProvider>
-              <KnowYourFishDrawerProvider>
-                <EditScheduleDrawerProvider>
-                  <ArticleFiltersDrawerProvider>
-                    <ArticleProvider>
-                      <TheCatchProvider>
-                        <SearchProvider searchLinks={searchLinks}>
-                          <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
-                            <StructuredData type="breadcrumb" />
-                            <main className={`main--${children.props.handle}`}>{children}</main>
-                            <Footer content={footerSettings} />
-                          </HeaderProvider>
-                        </SearchProvider>
-                      </TheCatchProvider>
-                    </ArticleProvider>
-                  </ArticleFiltersDrawerProvider>
-                </EditScheduleDrawerProvider>
-              </KnowYourFishDrawerProvider>
-            </PDPDrawerProvider>
-          </PurchaseFlowProvider>
-        </HeadlessCheckoutProvider>
+        <MemberAccountContextProvider>
+          <HeadlessCheckoutProvider pageHandle={children.props.handle}>
+            <PurchaseFlowProvider>
+              <PDPDrawerProvider>
+                <KnowYourFishDrawerProvider>
+                  <EditScheduleDrawerProvider>
+                    <ArticleFiltersDrawerProvider>
+                      <ArticleProvider>
+                        <TheCatchProvider>
+                          <SearchProvider searchLinks={searchLinks}>
+                            <HeaderProvider content={headerSettings} pageHandle={children.props.handle} >
+                              <StructuredData type="breadcrumb" />
+                              <main className={`main--${children.props.handle}`}>{children}</main>
+                              <Footer content={footerSettings} />
+                            </HeaderProvider>
+                          </SearchProvider>
+                        </TheCatchProvider>
+                      </ArticleProvider>
+                    </ArticleFiltersDrawerProvider>
+                  </EditScheduleDrawerProvider>
+                </KnowYourFishDrawerProvider>
+              </PDPDrawerProvider>
+            </PurchaseFlowProvider>
+          </HeadlessCheckoutProvider>
+        </MemberAccountContextProvider>
       </ModalProvider>
     </CustomerProvider>
   )

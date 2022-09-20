@@ -19,7 +19,6 @@ const handler = async (req, res) => {
     {
       headers: {
         'x-api-key': process.env.SITKA_GOOGLE_FUNCTION_KEY,
-        'origin': 'pwa'
       },
       method: 'POST'
     }

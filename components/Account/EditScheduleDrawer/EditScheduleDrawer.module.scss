@@ -78,6 +78,15 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+
+  .error {
+    color: $error
+  }
+
+  .recover-button {
+    max-width: 100px;
+    min-width: 0px;
+  }
 }
 
 .divider {
@@ -92,6 +101,19 @@
 
 .action-button {
   max-width: 286px;
+}
+
+.skipped-item {
+  display: flex;
+  align-items: center;
+}
+
+.skipped-text {
+  font-family: 'FrankRuhl';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  margin-right: 24px;
 }
 
 .fulfillment-rows {

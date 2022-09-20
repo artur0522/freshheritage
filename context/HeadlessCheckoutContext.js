@@ -9,6 +9,7 @@ import { dataLayerATC, dataLayerRFC, dataLayerViewCart } from '@/utils/dataLayer
 export const HeadlessCheckoutContext = createContext();
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { formatWeight } from '@/utils/formatWeight';
+import { useMemberAccountContext } from './MemberAccountContext';
 
 export function useHeadlessCheckoutContext() {
   return useContext(HeadlessCheckoutContext);
@@ -22,7 +23,8 @@ export function HeadlessCheckoutProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const [checkoutIsReady, setCheckoutIsReady] = useState(false);
   const [shipOptionMetadata, setShipOptionMetadata] = useState(undefined);
-  const { customer, subsData } = useCustomerContext()
+  const { customer } = useCustomerContext();
+  const { subsData } = useMemberAccountContext();
   const trackEvent = useAnalytics();
 
   // TODO: Any of these functions that call fetch should not really be stored in this file. They should be functions accessed from elsewhere to make this testable and cleaned up.
@@ -792,7 +794,7 @@ export function HeadlessCheckoutProvider({ children }) {
     }
 
     const response = await fetch(
-      `${process.env.checkoutUrl}/api/checkout/ship-options`,
+      `${process.env.checkoutUrl || ''}/api/checkout/ship-options`,
       {
         headers: {
           'Content-Type': 'application/json',

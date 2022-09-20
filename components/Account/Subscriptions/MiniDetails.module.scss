@@ -65,4 +65,13 @@
     border-radius: 5px;
     font-size: 18px;
   }
+
+  .success-message, .error-message {
+    max-width: 60%;
+    text-align: center;
+  }
+
+  .error-message {
+    color: $error;
+  }
 }

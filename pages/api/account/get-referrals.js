@@ -1,19 +1,22 @@
+import axios from 'axios'
 
 export default async function handler(req, res) {
-  const url = 'https://davis.sitkasalmonshares.com/skip_order';
+
+  console.log("api requested referral data for cid: ",req.query.cID)
+
   const config = {
-    method: req.method,
+    method: 'GET',
+    url: `https://davis.sitkasalmonshares.com/getReferrals?cID=`+req.query.cID,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': process.env.DAVIS_KEY,
       'origin': process.env.NEXT_PUBLIC_CHECKOUT_URL,
-    },
-    body: req.body,
+    }
   };
 
-  fetch(url, config)
+  axios(config)
   .then((response) => {
-    console.log(response.data);
+    console.log('Referrals: ', response.data);
     res.status(200).json({ message: 'success', data: response.data });
   })
   .catch((error) => {

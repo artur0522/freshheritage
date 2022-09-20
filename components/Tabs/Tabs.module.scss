@@ -10,6 +10,10 @@
     display: inline-block;
     position: relative;
 
+    @include breakpoint-down("lg") {
+      margin-right: 48px;
+    }
+
     button {
       background: none;
       outline: inherit;

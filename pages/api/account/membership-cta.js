@@ -1,6 +1,6 @@
 
 export default async function handler(req, res) {
-  const url = 'https://davis.sitkasalmonshares.com/skip_order';
+  const url = 'https://davis.sitkasalmonshares.com/membership_cta';
   const config = {
     method: req.method,
     headers: {

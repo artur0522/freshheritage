@@ -12,6 +12,18 @@ jest.mock('react-i18next', () => ({
   },
 }));
 
+jest.mock('@/hooks/index.js', () => {
+  return {
+    __esModule: true,
+    useAnalytics: () => {
+      return () => {}
+    },
+    useErrorLogging: () => {
+      return () => {}
+    }
+  }
+});
+
 beforeAll(() => {
   // comment out this section to get console logging while testing
   global.console = {
@@ -32,7 +44,7 @@ beforeAll(() => {
   
   // window.scroll = jest.fn();
   // window.scrollTo = jest.fn();
-})
+});
 
 afterAll(() => {
   jest.clearAllMocks();

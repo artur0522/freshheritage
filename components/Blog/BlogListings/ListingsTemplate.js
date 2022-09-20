@@ -50,7 +50,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         addListings(articles)
         addOriginalListings(articles)
         sortListings(articles, true)
-        
+
         if(isDesktop && mounted && filterGroups?.length === 0) {
           toggleFilterDrawer(false)
         }
@@ -99,13 +99,13 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
 
         if(router.query.filters) {
           addUrl(router.query.filters)
-    
+
           const refinedSelectedFilters = router.query.filters.split("&")
           let newSelectedFilterList = []
 
           refinedSelectedFilters.map((group) => {
             const splitGroup = group.split('=')
-    
+
             if(splitGroup.length === 2) {
               filterGroupObj[splitGroup[0]].options[splitGroup[1]].checked = true
               console.log('subfilters', filterGroupObj[splitGroup[0]].options[splitGroup[1].subFilters])
@@ -118,7 +118,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
                 })
               }
             }
-    
+
             if(splitGroup.length === 3) {
               newSelectedFilterList.push(splitGroup[2])
             }
@@ -138,9 +138,9 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
         setPages(Math.ceil(listings.length / 20))
     }, [articles, pages, originalListings])
 
-    useEffect(() => {
-      window.scrollTo({ behavior: 'smooth', top: '0px' })
-    }, [currentPage])
+    // useEffect(() => {
+    //   window.scrollTo({ behavior: 'smooth', top: '0px' })
+    // }, [currentPage])
 
     const getPaginatedData = () => {
         const startIndex = currentPage * 20 - 19
@@ -169,7 +169,7 @@ const ListingsTemplate = ({ articles, blogSettings, page }) => {
     const handleChange = (e) => {
       setSearchTerm(e.target.value)
     }
-  
+
     const handleKeyDown = (e) => {
       let index
       if(blogType === 'culinary') {

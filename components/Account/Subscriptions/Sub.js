@@ -8,7 +8,7 @@ import classes from './Sub.module.scss'
 
 const getVariant = (variantId, allProducts) => {
   // TODO: Remove this when the data matches up
-  variantId = '41593002361018'; // Premium Seafood Box
+  // variantId = '41593002361018'; // Premium Seafood Box
   // variantId = '41593002393786'; // Premium Seafood Box w/ Shellfish
   // END TODO
   const p = allProducts.find(p => p.variants.some(v => v.sourceEntryId.includes(variantId)));
@@ -17,16 +17,19 @@ const getVariant = (variantId, allProducts) => {
 
 const getProductFromVariantId = (variantId, allProducts) => {
   // TODO: Remove this when the data matches up
-  variantId = '41593002361018'; // Premium Seafood Box
+  // variantId = '41593002361018'; // Premium Seafood Box
   // variantId = '41593002393786'; // Premium Seafood Box w/ Shellfish
   // END TODO
+
+  console.log('looking for variant ', variantId);
+  console.log('all products', allProducts);
 
   const p = allProducts.find(p => p.variants.some(v => v.sourceEntryId.includes(variantId)));
   console.log('found product', p);
   return p;
 }
 
-export default function Sub({ defaultOpen, subscription, products }) {
+export default function Sub({ defaultOpen, subscription, products, membership }) {
 
   const currentFulfillmentStartDate = new Date(subscription.fulfill_start)
   const currentFulfillmentStartDateString =
@@ -67,7 +70,7 @@ export default function Sub({ defaultOpen, subscription, products }) {
         </div>
       </AccordionSummary>
       <AccordionDetails>
-        <SubDetail key={subscription.subscription_id} subscription={subscription} product={p} variant={v}></SubDetail>
+        <SubDetail key={subscription.subscription_id} subscription={subscription} product={p} variant={v} membership={membership}></SubDetail>
       </AccordionDetails>
     </Accordion>
   )

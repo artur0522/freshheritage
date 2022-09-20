@@ -215,7 +215,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
   const replaceSelectedFilters = (list) => {
     dispatch({type: 'replace_selected_filters', payload: list})
   }
-  
+
   const setCurrentOption = (currentOption) => {
     dispatch({type: 'set_current_option', payload: currentOption})
   }
@@ -263,7 +263,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
   const addOriginalListings = (listings) => {
     dispatch({ type: 'add_original_listings', payload: listings})
   }
-  
+
   const setInfoCard = (info) => {
     dispatch({ type: 'set_info_card', payload: info})
   }
@@ -305,7 +305,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
     }
 
     let refinedUrl;
-   
+
     if(!hasSubfilter && !subFilter && !newUrl) {
       refinedUrl = `${filterGroup}=${option}`
 
@@ -414,7 +414,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
         }
       },
       undefined, { shallow: true })
-    }  
+    }
   }
 
   const selectChangeHandler = (value) => {
@@ -500,7 +500,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
         filterOption: filterOption,
         subFilter: null
       }})
-      
+
       const nestedSubFilters = filters[filterGroup].options[filterOption].subFilters
 
       if(nestedSubFilters) {
@@ -569,7 +569,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
           filterListingsByTags(filterGroup, filterOption, null)
         }
       })
-      
+
       checkboxHandler(hasSubfilter, filterGroup, filterOption, null, nestedSubFilters)
 
       if(filters[filterGroup].options[filterOption].checked) {
@@ -599,7 +599,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
   useEffect(() => {
     filterListingsByTags()
-    
+
     if (isOpen) document.querySelector('html').classList.add('disable-scroll')
     if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
 
@@ -629,7 +629,7 @@ export function ArticleFiltersDrawerProvider({ children }) {
         addFilters(newFilters)
        }
     }
-    
+
     return () => {
       window.removeEventListener('resize', handleResize)
     }

@@ -17,6 +17,14 @@
     justify-content: space-between;
     .details div {
       margin-bottom: 8px;
+
+      @include breakpoint-down(700px) {
+        font-size: 12px;
+      }
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
     }
 
     .cancel {
@@ -80,6 +88,7 @@
     h5 {
       font-family: $frank-ruhl;
       font-size: 24px;
+      margin-bottom: 0;
     }
 
     button {
@@ -96,6 +105,16 @@
       a {
         font-weight: 400;
         text-decoration: underline;
+
+        &:only-child {
+          margin: 0 auto;
+        }
+      }
+    }
+
+    :global(.MuiFormGroup-root) {
+      label, svg {
+        color: $sitkablue;
       }
     }
   }

@@ -1,7 +1,8 @@
 import { useState, useEffect, createRef, useRef } from 'react'
 import { nacelleClient } from 'services'
 import { useMediaQuery } from 'react-responsive'
-import ResponsiveImage from '@/components/ResponsiveImage'
+import useSWR from 'swr'
+import axios from 'axios'
 
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
@@ -19,6 +20,19 @@ import classes from './Product.module.scss'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
 import ProductStamps from '@/components/Product/ProductStamps'
 import { dataLayerViewProduct } from '@/utils/dataLayer'
+import { formatWeight } from '@/utils/formatWeight'
+
+// setup inventory fetcher
+const fetchInventory = (url, productHandle) => {
+  return axios
+     .get(url, {
+       params: {
+         productHandle: productHandle,
+       },
+     })
+   .then((res) => res.data)
+ };
+
 
 function Product({ product, page, modals }) {
   const [checked, setChecked] = useState(false)
@@ -39,12 +53,30 @@ function Product({ product, page, modals }) {
   const { customer } = customerContext
   const shellfishFreeInputRef = useRef()
 
+  const { data: productInfoRevalidate } = useSWR(
+    ['/api/product/available', product.content.handle],
+    (url, id) => fetchInventory(url, id),
+    {
+      errorRetryCount: 3,
+      refreshInterval: 5000
+    }
+  );
+
   const refs = useRef(['reviewsStars', 'productReviews'].reduce((carry, ref) => {
     return {
       ...carry,
       [ref]: createRef()
     }
   }, {}))
+
+  useEffect(() => {
+    console.log("productInfoRevalidate:", productInfoRevalidate)
+    if (productInfoRevalidate?.variants) {
+      const variant = productInfoRevalidate.variants.find(variant => variant.sourceEntryId === selectedVariant.sourceEntryId)
+      setSelectedVariant(variant);
+    }
+  }, [productInfoRevalidate]);
+
 
   useEffect(() =>  {
     setMounted(true)
@@ -121,8 +153,8 @@ function Product({ product, page, modals }) {
   )
 
   const handleCheckbox = () => {
-    setChecked(!checked);
-  };
+    setChecked(!checked)
+  }
 
   return (
     product && (
@@ -151,7 +183,7 @@ function Product({ product, page, modals }) {
                     )}
                     <h2>${selectedVariant.price} {product.tags.includes('Subscription Box') ? '/ box' : ''}</h2>
                   </div>
-                  <h2 className={classes['weight']}>{selectedVariant.weight} lbs</h2>
+                  <h2 className={classes['weight']}>{formatWeight(selectedVariant.weight)} lbs</h2>
                 </div>}
 
                 {product.content?.handle === 'premium-seafood-subscription-box' &&

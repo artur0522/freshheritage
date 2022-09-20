@@ -7,8 +7,8 @@ import { isEqual } from 'lodash-es';
 import moment from 'moment';
 import { dataLayerATC, dataLayerRFC, dataLayerViewCart } from '@/utils/dataLayer';
 export const HeadlessCheckoutContext = createContext();
-import { useAnalytics } from '@/hooks/index.js';
-import { useMemberAccountContext } from './MemberAccountContext';
+import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
+import { formatWeight } from '@/utils/formatWeight';
 
 export function useHeadlessCheckoutContext() {
   return useContext(HeadlessCheckoutContext);
@@ -93,7 +93,7 @@ export function HeadlessCheckoutProvider({ children }) {
       properties: {
         ...properties,
         product_handle: variant.productHandle, // because Bold doesn't provide product handle
-        product_weight: (variant.weight) ? variant.weight.toString() : '' // Bold doesn't provide correct weight
+        product_weight: (variant.weight) ? formatWeight(variant.weight).toString() : '' // Bold doesn't provide correct weight
       }
     }
 
@@ -106,14 +106,14 @@ export function HeadlessCheckoutProvider({ children }) {
     const foundLineItem = line_items.find(item => item.product_data.id.includes(newItem.variantId))
     const isGiftOrder = newItem.properties.is_gift_order && newItem.properties.productHandle !== 'digital-gift-card'
 
-    if (newItem.properties.membership_type) {
+    if (newItem.properties.membership_type || newItem.properties.product_handle === 'sitka-seafood-intro-box') {
       // if new item is a subscription initializing a new checkout but removing the existing subscription and adding the new item
       // note: need to initialize a new checkout for subscriptions, more specifically for prepaid subscription
       // in order for Bold to apply new order total and line item total.
 
       // if there's a line item that is a subscription, remove it before initializing a new checkout
 
-      const foundSubscriptionItem = line_items.find(item => item.product_data.properties.membership_type)
+      const foundSubscriptionItem = line_items.find(item => item.product_data.properties.membership_type || item.product_data.properties.product_handle === 'sitka-seafood-intro-box')
 
       let lineItems = data.application_state.line_items.filter(item => item.product_data.variant_id !== foundSubscriptionItem?.product_data?.variant_id).map(item => {
         const line_item = item.product_data

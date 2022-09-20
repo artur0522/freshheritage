@@ -87,7 +87,6 @@ const RecipeArticle = ({ page, products, blogSettings, modals }) => {
 
     // if product tags exist but none of the product tags match customer tag
     if(foundVisibleTags.length > 0 && !articleHasCustomerTag && foundModal.fields) {
-      console.log("foundModal:", foundModal)
       modalContext.setContent(foundModal.fields)
       modalContext.setModalType('gated_product')
       modalContext.setIsOpen(true)

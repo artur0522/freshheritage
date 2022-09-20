@@ -7,6 +7,7 @@ import ProductSlider from '../ProductSlider'
 import ProductReviewStars from '../ProductReviewStars'
 import { getCartVariant } from 'utils/getCartVariant'
 import { useRouter } from 'next/router'
+import { formatWeight } from '@/utils/formatWeight'
 
 const ProductMain = ({box}) => {
 
@@ -27,7 +28,7 @@ const ProductMain = ({box}) => {
       <h1 className={classes['product-title']}>{product.content?.title}</h1>
       <div className={classes['product-price-pounds']}>
         <span>${firstVariant.price} /box</span>
-        <span>{firstVariant.weight} lbs</span>
+        <span>{formatWeight(firstVariant.weight)} lbs</span>
       </div>
 
       {product.content?.handle === 'premium-seafood-subscription-box' &&

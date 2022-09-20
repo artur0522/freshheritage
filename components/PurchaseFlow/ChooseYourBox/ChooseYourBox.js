@@ -7,6 +7,7 @@ import ContentSections from '@/components/Sections/ContentSections'
 import PurchaseFlowHeader from '../PurchaseFlowHeader'
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import { usePDPDrawerContext } from '@/context/PDPDrawerContext'
+import { formatWeight } from '@/utils/formatWeight'
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 
 const ChooseYourBox = ({props, tierOptions}) => {
@@ -41,7 +42,7 @@ const ChooseYourBox = ({props, tierOptions}) => {
 
   useEffect(() => {
     // console.log('track membership_view_list',tierOptions)
-    // can't call a hook from an effect: 
+    // can't call a hook from an effect:
     // const trackEvent = useAnalytics();
     // trackEvent('membership_view_list');
     if(typeof window.gtag === 'function') {
@@ -54,7 +55,7 @@ const ChooseYourBox = ({props, tierOptions}) => {
       window.gtag('event', 'view_item_list', {
         'item_list_name': 'Membership Product List',
         'items': item_list
-        });   
+        });
     }
 
   }, [])
@@ -87,7 +88,7 @@ const ChooseYourBox = ({props, tierOptions}) => {
                               <h2 className={`${classes['choose_your-box__tier-title']} h1`}>{product.content?.title.replace('Subscription', '')}</h2>
                               <div className={`${classes['choose-your-box__tier-price-pounds']} secondary--body`}>
                                 <span>${firstVariant.price} / box</span>
-                                <span>{firstVariant.weight} lbs</span>
+                                <span>{formatWeight(firstVariant.weight)} lbs</span>
                               </div>
                               {tier.content?.handle === 'premium-seafood-subscription-box' &&
                                 <div className={classes['input-group']}>

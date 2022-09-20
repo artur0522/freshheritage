@@ -139,13 +139,14 @@ const ProductForm = (props) => {
                 <div className={classes['gift-card__buttons']}>
                     {/* VARIANT OPTIONS */}
                     {options &&
-                        options.map((option) => (
-                            option.values.map((value, vIndex) => (
-                            <div key={vIndex} className={classes['btn']}>
-                                <input type="radio" id={value} name="giftCardButtons" onChange={($event) => handleOptionChange($event, option)} value={value} />
-                                <label className="h5" htmlFor={value}>${value}</label>
-                            </div>))
-                        ))
+                        options.map((option) => {
+                            return option.values.map((value, vIndex) => {
+                                return <div key={vIndex} className={classes['btn']}>
+                                            <input type="radio" id={value} name="giftCardButtons" onChange={($event) => handleOptionChange($event, option)} value={value} checked={selectedVariant.content.selectedOptions[0].value === value} />
+                                            <label className="h5" htmlFor={value}>${value}</label>
+                                        </div>
+                            })
+                        })
                     }
                 </div>
             </div>}

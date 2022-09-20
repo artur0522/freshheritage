@@ -4,11 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import ResponsiveImage from "@/components/ResponsiveImage";
 import classes from "./SearchProductCard.module.scss";
+import { formatWeight } from "@/utils/formatWeight";
 
 function ProductCard({ product }) {
-  
+
   const [mounted, setMounted] = useState(false)
-  
+
   const isMobile =  useMediaQuery({ query: '(max-width: 430px)' })
   const isDesktop = useMediaQuery({query: '(min-width: 430px)'})
 
@@ -57,7 +58,7 @@ function ProductCard({ product }) {
               <p className="secondary--body">${product.price}</p>
             </div>
             {product.weight && <p className={`${classes["weight"]} secondary--body`}>
-              {product.weight}
+              {formatWeight(product.weight)}
             </p>}
           </div>
 

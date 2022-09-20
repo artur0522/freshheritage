@@ -274,19 +274,13 @@ export function ArticleFiltersDrawerProvider({ children }) {
 
   const sortListings = (listings, mostRecent) => {
     const sortedListings = listings.sort((a, b) => {
-      let aPublishedDate = a.fields ? moment(a.fields.createdAt).unix() : moment(a.createdAt).unix()
-      let bPublishedDate = b.fields ? moment(b.fields.createdAt).unix() : moment(b.createdAt).unix()
+      let aPublishedDate = moment(a.createdAt).unix()
+      let bPublishedDate = moment(b.createdAt).unix()
       if (a.fields?.publishedDate) {
         aPublishedDate = moment(a.fields.publishedDate).unix()
       }
-      if (a.publishedDate) {
-        aPublishedDate = moment(a.publishedDate).unix()
-      }
       if (b.fields?.publishedDate) {
         bPublishedDate = moment(b.fields.publishedDate).unix()
-      }
-      if (b.publishedDate) {
-        bPublishedDate = moment(b.publishedDate).unix()
       }
       return (mostRecent) ?  bPublishedDate - aPublishedDate : aPublishedDate - bPublishedDate
     })

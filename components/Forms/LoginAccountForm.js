@@ -34,7 +34,6 @@ const LoginAccountForm = ({ redirect, isCheckout, onForgotPasswordClick }) => {
       console.log(response)
       dispatch({ type: 'error', payload: response.errors[0].message })
     } else {
-      dispatch({ type: 'success' })
       if (!isCheckout) {
         if (redirect) {
           router.push(redirect)
@@ -42,6 +41,7 @@ const LoginAccountForm = ({ redirect, isCheckout, onForgotPasswordClick }) => {
           router.push('/account')
         }
       }
+      // dispatch({ type: 'success' }) -- LOGIN BUTTON SHOULD STAY DISABLED UNTIL AFTER THE REROUTING
     }
   }
 

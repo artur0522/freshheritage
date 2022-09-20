@@ -31,13 +31,13 @@ const FeaturedBlogContent = ({ fields }) => {
 
       let sortedArticles = [...content].sort((a, b) => b.createdAt - a.createdAt)
 
-      // split entry ids into batches of 50
+      // split ids into batches of 50
       const size = 50; const batches = [];
       for (var i = 0; i < sortedArticles.length; i += size) {
         batches.push(sortedArticles.slice(i, i + size))
       }
 
-      // make more queries to get missing reference data
+      // make more queries to get more data for articles
       let allReferences = await batches.reduce(async (carry, batch) => {
         let promises = await carry
         const entries = await nacelleClient.content({

@@ -205,10 +205,6 @@
       "destination": "/blogs/culinary/recipes/caesar-compound-butter"
     },
     {
-      "source": "/blogs/recipes/cast-iron-skillet-salmon-vesuvio/",
-      "destination": "/blogs/culinary/recipes/cast-iron-skillet-salmon-vesuvio"
-    },
-    {
       "source": "/blogs/recipes/charcuterie",
       "destination": "/blogs/culinary/recipes?filters=style%3Dentertaining"
     },
@@ -2257,10 +2253,6 @@
       "destination": "/pages/choose-your-plan"
     },
     {
-      "source": "/collections/",
-      "destination": "/pages/choose-your-plan"
-    },
-    {
       "source": "/collections/seafood-subscription-boxes",
       "destination": "/pages/choose-your-plan"
     },
@@ -2287,10 +2279,6 @@
     {
       "source": "/pages/community-supported-fisheries",
       "destination": "/blogs/stories/science-and-supply-chain"
-    },
-    {
-      "source": "/pages/community-supported-fisheries/",
-      "destination": "/pages/sourcing-partners"
     },
     {
       "source": "/pages/contact",
@@ -2734,7 +2722,7 @@
     },
     {
       "source": "/blogs/recipes/cast-iron-skillet-salmon-vesuvio",
-      "destination": "/blogs/culinary/recipes/cast-iron-skillet-salmon-vesuvio"
+      "destination": "/blogs/culinary/recipes"
     },
     {
       "source": "/blogs/recipes/butter-olive-oil-poached-lingcod",
@@ -2834,7 +2822,7 @@
     },
     {
       "source": "/blogs/recipes/gravadlox-gravlax",
-      "destination": "/blogs/culinary/recipes/gravlax-with-shallot-caper-relish"
+      "destination": "/blogs/culinary/recipes"
     },
     {
       "source": "/blogs/recipes/marshs-grill-smoked-sockeye",
@@ -2850,7 +2838,7 @@
     },
     {
       "source": "/blogs/recipes/wild-at-home-butter-basted-salmon",
-      "destination": "/blogs/culinary/recipes/butter-basted-salmon"
+      "destination": "/blogs/culinary/recipes"
     },
     {
       "source": "/blogs/recipes/marshs-seared-pacific-cod",
@@ -2918,7 +2906,7 @@
     },
     {
       "source": "/blogs/recipes/eric-jordan-s-easy-peasy-salmon",
-      "destination": "/blogs/culinary/recipes/eric-jordan-easy-peasy-salmon"
+      "destination": "/blogs/culinary/recipes"
     },
     {
       "source": "/blogs/recipes/salty-potatoes",
@@ -2950,7 +2938,7 @@
     },
     {
       "source": "/blogs/recipes/everything-except-the-bagel-salmon",
-      "destination": "/blogs/culinary/recipes/everything-except-the-bagel-salmon"
+      "destination": "/blogs/culinary/recipes"
     },
     {
       "source": "/blogs/recipes/steamed-dungey-with-herb-butter",
@@ -3014,7 +3002,7 @@
     },
     {
       "source": "/blogs/recipes/beet-cured-gravlax",
-      "destination": "/blogs/culinary/recipes/beet-cured-gravlax"
+      "destination": "/blogs/culinary/recipes"
     },
     {
       "source": "/blogs/recipes/brown-butter-caper-salmon-with-pearl-couscous-and-roasted-broccolini",
@@ -3086,7 +3074,7 @@
     },
     {
       "source": "/blogs/recipes/aquavit-cured-salmon-toasts-with-shallot-caper-relish",
-      "destination": "/blogs/culinary/recipes/gravlax-with-shallot-caper-relish"
+      "destination": "/blogs/culinary/recipes"
     },
     {
       "source": "/blogs/recipes/italian-seafood-stew-cioppino",
@@ -3190,7 +3178,7 @@
     },
     {
       "source": "/blogs/recipes/stir-fried-shrimp-and-broccoli",
-      "destination": "/blogs/culinary/recipes/stir-fried-shrimp-and-broccoli"
+      "destination": "/blogs/culinary/recipes"
     },
     {
       "source": "/blogs/recipes/crispy-salt-and-pepper-shrimp",
@@ -3218,7 +3206,7 @@
     },
     {
       "source": "/blogs/videos/beet-cured-salmon-gravlax",
-      "destination": "/blogs/culinary/recipes/beet-cured-gravlax"
+      "destination": "/blogs/culinary/recipes"
     },
     {
       "source": "/blogs/videos/thank-you-members-ft-fisherman-lance-mccutcheon",

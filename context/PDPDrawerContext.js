@@ -77,6 +77,20 @@ export function PDPDrawerProvider({ children }) {
     }
   }
 
+  async function getProductData(productHandle) {
+    const { products } = await nacelleClient.query({
+      query: GET_PRODUCTS,
+      variables: {
+        "filter": {
+          "handles": [productHandle]
+        }
+      }
+    })
+    if (products.length) {
+      openDrawer(products[0])
+    }
+  }
+
   useEffect(() => {
     if (isOpen) document.querySelector('html').classList.add('disable-scroll')
     if (!isOpen) document.querySelector('html').classList.remove('disable-scroll')
@@ -85,27 +99,18 @@ export function PDPDrawerProvider({ children }) {
 
   // triggers pdp flyout on page load if url has a param of expand
   useEffect(() => {
-    async function onLoad(productHandle) {
-      const { products } = await nacelleClient.query({
-        query: GET_PRODUCTS,
-        variables: {
-          "filter": {
-            "handles": [productHandle]
-          }
-        }
-      })
-      if (products.length) {
-        openDrawer(products[0])
-      }
-    }
     if (router.isReady && router.query?.expand) {
-      onLoad(router.query.expand)
+      getProductData(router.query.expand)
     }
   }, [router.isReady])
 
   useEffect(() => {
     if (router.query.expand) {
-      dispatch({ type: 'open_drawer', payload: router.query.expand})
+      if (!boxManager[router.query.expand]) {
+        getProductData(router.query.expand).then(() => dispatch({ type: 'open_drawer', payload: router.query.expand}))
+      } else {
+        dispatch({ type: 'open_drawer', payload: router.query.expand})
+      }
     }
     router.beforePopState(({ as }) => {
       dispatch({ type: 'close_drawer' })

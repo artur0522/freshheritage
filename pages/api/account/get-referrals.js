@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': process.env.DAVIS_KEY,
-      'origin': process.env.checkoutUrl,
+      'origin': process.env.NEXT_PUBLIC_DOMAIN,
     }
   };
 

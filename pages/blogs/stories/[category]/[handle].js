@@ -187,7 +187,7 @@ export async function getStaticProps({ params }) {
     }
   }
 
-  if (fullRefPage.fields.content.some(content => content._type === 'featuredBlogContent')) {
+  if (fullRefPage?.fields?.content.some(content => content._type === 'featuredBlogContent')) {
     await getRecentArticles(fullRefPage)
   }
 

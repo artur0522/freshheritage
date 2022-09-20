@@ -265,7 +265,7 @@ export async function getStaticProps({ params }) {
     }
   }
 
-  if (validPage.fields.content.some(content => content._type === 'featuredBlogContent')) {
+  if (validPage?.fields?.content.some(content => content._type === 'featuredBlogContent')) {
     await getRecentArticles(validPage)
   }
 

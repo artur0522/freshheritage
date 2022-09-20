@@ -27,7 +27,7 @@ export async function getStaticProps() {
   const { fields } = fullRefPage
   const { step2 } = fields
 
-  if (fullRefPage?.fields?.content.some(content => content._type === 'featuredBlogContent')) {
+  if (fullRefPage?.fields?.content?.some(content => content._type === 'featuredBlogContent')) {
     await getRecentArticles(fullRefPage)
   }
 

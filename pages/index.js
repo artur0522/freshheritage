@@ -67,13 +67,13 @@ export async function getStaticProps({ previewData }) {
 
   const fullRefPage = await getNacelleReferences(pages[0])
 
-  if (fullRefPage?.fields?.content.some(content => content._type === 'featuredBlogContent')) {
-    await getRecentArticles(fullPage)
+  if (fullRefPage?.fields?.content?.some(content => content._type === 'featuredBlogContent')) {
+    await getRecentArticles(fullRefPage)
   }
 
   return {
     props: {
-      page: fullPage
+      page: fullRefPage
     }
   }
 

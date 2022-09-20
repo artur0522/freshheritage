@@ -277,12 +277,12 @@ export function ArticleFiltersDrawerProvider({ children }) {
       let aPublishedDate = moment(a.createdAt).unix()
       let bPublishedDate = moment(b.createdAt).unix()
       if (a.fields?.publishedDate) {
-        aPublishedDate = moment(a.fields.publishedDate).unix()
+        aPublishedDate = moment(a.fields.publishedDate).unix().valueOf() / 1000
       }
       if (b.fields?.publishedDate) {
-        bPublishedDate = moment(b.fields.publishedDate).unix()
+        bPublishedDate = moment(b.fields.publishedDate).unix().valueOf() / 1000
       }
-      return (mostRecent) ?  bPublishedDate - aPublishedDate : aPublishedDate - bPublishedDate
+      return (mostRecent) ? (bPublishedDate > aPublishedDate) ? 1 : -1 : (aPublishedDate < bPublishedDate) ? -1 : 1;
     })
     dispatch({ type: 'add_listings', payload: sortedListings})
   }

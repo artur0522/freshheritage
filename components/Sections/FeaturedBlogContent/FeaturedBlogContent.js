@@ -42,7 +42,7 @@ const FeaturedBlogContent = ({ fields }) => {
       let sortedArticles = allReferences.sort((a, b) => {
         let aDatePublished = a.fields.publishedDate ? moment(a.fields.publishedDate).valueOf() / 1000 : a.createdAt
         let bDatePublished = b.fields.publishedDate ? moment(b.fields.publishedDate).valueOf() / 1000 : b.createdAt
-        return bDatePublished - aDatePublished
+        return (bDatePublished > aDatePublished) ? 1 : -1;
       })
 
       const filteredArr = sortedArticles.filter(article => article.fields.published)

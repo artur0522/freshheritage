@@ -7,6 +7,7 @@ import ContentSections from '@/components/Sections/ContentSections'
 import StructuredData from '@/components/SEO/StructuredData'
 import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
+import { getRecentArticles } from '@/utils/getRecentArticles'
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
 import moment from 'moment'
@@ -184,6 +185,10 @@ export async function getStaticProps({ params }) {
         props.products = data.products
       }
     }
+  }
+
+  if (fullRefPage.fields.content.some(content => content._type === 'featuredBlogContent')) {
+    await getRecentArticles(fullRefPage)
   }
 
   return {

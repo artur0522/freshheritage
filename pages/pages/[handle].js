@@ -6,6 +6,7 @@ import classes from './Page.module.scss'
 import { useMediaQuery } from 'react-responsive'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
+import { getRecentArticles } from '@/utils/getRecentArticles'
 
 export default function DynamicPage({ page }) {
   const [mounted, setMounted] = useState(false)
@@ -113,6 +114,10 @@ export async function getStaticProps({ params }) {
   const page = pages.length ? pages[0] : infoPages[0]
 
   const fullRefPage = await getNacelleReferences(page)
+
+  if (fullRefPage.fields.content.some(content => content._type === 'featuredBlogContent')) {
+    await getRecentArticles(fullRefPage)
+  }
 
   return {
     props: {

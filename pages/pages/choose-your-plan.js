@@ -6,6 +6,7 @@ import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
+import { getRecentArticles } from '@/utils/getRecentArticles';
 import { dataLayerViewProductList } from '@/utils/dataLayer';
 
 const PurchaseFlow = ({page, tierOptions}) => {
@@ -54,6 +55,10 @@ export async function getStaticProps() {
       markAsMostPopular: step1.tiers.some(tier => tier.markAsMostPopular && tierOption.content?.handle === tier.product)
     }
   })
+
+  if (fullRefPage.fields.content.some(content => content._type === 'featuredBlogContent')) {
+    await getRecentArticles(fullRefPage)
+  }
 
   return {
     props: {

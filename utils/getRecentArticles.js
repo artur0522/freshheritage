@@ -17,31 +17,7 @@ export const getRecentArticles = async (contentSection) => {
     })
     if (content) {
       let allRecentArticleHandles = [...content].sort((a, b) => b.createdAt - a.createdAt)
-
-      // split ids into batches of 50
-      const size = 50; const batches = [];
-      for (var i = 0; i < allRecentArticleHandles.length; i += size) {
-        batches.push(allRecentArticleHandles.slice(i, i + size))
-      }
-
-      // make more queries to get more data for articles
-      let allReferences = await batches.reduce(async (carry, batch) => {
-        let promises = await carry
-        const entries = await nacelleClient.content({
-          handles: batch.map(article => article.handle)
-        })
-        if (entries) {
-          return [...promises, ...entries]
-        }
-      }, Promise.resolve([]))
-
-      let sortedArticles = allReferences.sort((a, b) => {
-        let aDatePublished = a.fields.publishedDate ? moment(a.fields.publishedDate).valueOf() / 1000 : a.createdAt
-        let bDatePublished = b.fields.publishedDate ? moment(b.fields.publishedDate).valueOf() / 1000 : b.createdAt
-        return bDatePublished - aDatePublished
-      })
-
-      pageSection.allRecentArticles = sortedArticles
+      pageSection.allRecentArticles = allRecentArticleHandles
       return [...promises, pageSection]
     }
   }, Promise.resolve([]))

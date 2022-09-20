@@ -5,6 +5,7 @@ import ResponsiveImage from '@/components/ResponsiveImage'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode } from "swiper"
+import moment from 'moment'
 
 import DynamicArticleCard from '@/components/Cards/DynamicArticleCard'
 
@@ -12,14 +13,38 @@ import 'swiper/css'
 import classes from './FeaturedBlogContent.module.scss'
 
 const FeaturedBlogContent = ({ fields }) => {
-  const { tabs, header, subheader, ctaUrl, ctaText, illustration, illustration2, illustrationAlt, illustration2Alt, method, blog, tagList, allRecentArticles } = fields
+  const { tabs, header, subheader, ctaUrl, ctaText, illustration, illustration2, illustrationAlt, illustration2Alt, method, blog, tagList, allRecentArticleHandles } = fields
   const [selectedSwiper, setSelectedSwiper] = useState(null)
   const [mounted, setMounted] = useState(false)
   const [validArticles, setValidArticles] = useState([])
 
   const getArticles = async ({fieldTags = [], articleHandles, forceTagBased = false}) => {
     if (method === 'tagBased' || forceTagBased || method === 'mostRecent') {
-      const filteredArr = allRecentArticles.filter(article => article.fields.published)
+
+      // split ids into batches of 50
+      const size = 50; const batches = [];
+      for (var i = 0; i < allRecentArticleHandles.length; i += size) {
+        batches.push(allRecentArticleHandles.slice(i, i + size))
+      }
+
+      // make more queries to get more data for articles
+      let allReferences = await batches.reduce(async (carry, batch) => {
+        let promises = await carry
+        const entries = await nacelleClient.content({
+          handles: batch.map(article => article.handle)
+        })
+        if (entries) {
+          return [...promises, ...entries]
+        }
+      }, Promise.resolve([]))
+
+      let sortedArticles = allReferences.sort((a, b) => {
+        let aDatePublished = a.fields.publishedDate ? moment(a.fields.publishedDate).valueOf() / 1000 : a.createdAt
+        let bDatePublished = b.fields.publishedDate ? moment(b.fields.publishedDate).valueOf() / 1000 : b.createdAt
+        return bDatePublished - aDatePublished
+      })
+
+      const filteredArr = sortedArticles.filter(article => article.fields.published)
         .filter((article) => {
           // return most recent based on tags
           if (fieldTags.length && method !== 'mostRecent') {

@@ -31,7 +31,8 @@ const FeaturedBlogContent = ({ fields }) => {
       let allReferences = await batches.reduce(async (carry, batch) => {
         let promises = await carry
         const entries = await nacelleClient.content({
-          handles: batch.map(article => article.handle)
+          handles: batch.map(article => article.handle),
+          entryDepth: 0
         })
         if (entries) {
           return [...promises, ...entries]

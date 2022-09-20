@@ -8,7 +8,7 @@ import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
 import { useModalContext } from '@/context/ModalContext'
 import { useCustomerContext } from '@/context/CustomerContext'
-import { getRecentArticlesHandles } from '@/utils/getRecentArticlesHandles'
+import { getRecentArticlesHandles } from '@/utils/getRecentArticleHandles'
 
 const CulinaryContestArticle = ({ page, product, blogSettings, modals }) => {
 

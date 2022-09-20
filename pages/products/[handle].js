@@ -18,7 +18,7 @@ import StructuredData from '@/components/SEO/StructuredData'
 
 import classes from './Product.module.scss'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
-import { getRecentArticlesHandles } from '@/utils/getRecentArticlesHandles'
+import { getRecentArticlesHandles } from '@/utils/getRecentArticleHandles'
 import ProductStamps from '@/components/Product/ProductStamps'
 import { dataLayerViewProduct } from '@/utils/dataLayer'
 import { formatWeight } from '@/utils/formatWeight'

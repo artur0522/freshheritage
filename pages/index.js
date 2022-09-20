@@ -4,7 +4,7 @@ import DynamicHero from "@/components/Sections/DynamicHero"
 import { useCustomerContext } from '@/context/CustomerContext'
 import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
-import { getRecentArticlesHandles } from '@/utils/getRecentArticlesHandles'
+import { getRecentArticlesHandles } from '@/utils/getRecentArticleHandles'
 
 export default function Home({ page }) {
 

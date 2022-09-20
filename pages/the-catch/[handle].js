@@ -4,7 +4,7 @@ import ContentSections from '@/components/Sections/ContentSections'
 import PageSEO from '@/components/SEO/PageSEO'
 import { nacelleClient } from 'services'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
-import { getRecentArticlesHandles } from '@/utils/getRecentArticlesHandles'
+import { getRecentArticlesHandles } from '@/utils/getRecentArticleHandles'
 
 const TheCatch = (props) => {
     const { page } = props

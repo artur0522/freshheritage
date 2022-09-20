@@ -6,7 +6,7 @@ import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import { GET_PRODUCTS } from '@/gql/index.js'
 import PageSEO from '@/components/SEO/PageSEO'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
-import { getRecentArticlesHandles } from '@/utils/getRecentArticlesHandles';
+import { getRecentArticlesHandles } from '@/utils/getRecentArticleHandles';
 import { dataLayerViewProductList } from '@/utils/dataLayer';
 
 const PurchaseFlow = ({page, tierOptions}) => {

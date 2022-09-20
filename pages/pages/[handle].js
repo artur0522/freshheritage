@@ -6,7 +6,7 @@ import classes from './Page.module.scss'
 import { useMediaQuery } from 'react-responsive'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
-import { getRecentArticlesHandles } from '@/utils/getRecentArticlesHandles'
+import { getRecentArticlesHandles } from '@/utils/getRecentArticleHandles'
 
 export default function DynamicPage({ page }) {
   const [mounted, setMounted] = useState(false)

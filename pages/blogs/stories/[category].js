@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { nacelleClient } from 'services'
 import { getNacelleReferences } from '@/utils/getNacelleReferences'
-import { getRecentArticlesHandles } from '@/utils/getRecentArticlesHandles'
+import { getRecentArticlesHandles } from '@/utils/getRecentArticleHandles'
 import ListingsTemplate from '@/components/Blog/BlogListings/ListingsTemplate'
 
 async function getArticles(page, numOfEntries) {

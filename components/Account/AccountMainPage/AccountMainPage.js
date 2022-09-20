@@ -48,6 +48,7 @@ const AccountMainPage = () => {
   const renderBody = (pickedTab) => {
     switch(pickedTab) {
       case 'subscriptions':
+        console.log('MemberAccountContext: ', MemberAccountContext);
         return (<SubscriptionsPage subsData={MemberAccountContext.subsData} membershipData={MemberAccountContext.membershipData}/>);
       case 'account-details':
         return (<AccountDetailsPage subscriptions={MemberAccountContext.subsData} membershipData={MemberAccountContext.membershipData} customer={customerContext.customer}/>)
@@ -60,7 +61,7 @@ const AccountMainPage = () => {
 
   return (
     <div className={`${classes['main']}`}>
-      {customerContext.customer && MemberAccountContext.subsData && MemberAccountContext.membershipData ? (
+      {!MemberAccountContext.reloadingData && MemberAccountContext.subsData !== null && MemberAccountContext.membershipData !== null ? (
         <div>
           <AccountHeader
             firstName={customerContext.customer?.firstName}
@@ -78,14 +79,18 @@ const AccountMainPage = () => {
             ></Tabs>
           </div>
           {/* Cards */}
-          <div className={classes['cards']}>
-            <CardsContainer subscriptions={MemberAccountContext.subsData}></CardsContainer>
-          </div>
+          {
+            MemberAccountContext.subsData.length > 0 ? ( // all cards are specific to members who have subscription
+              <div className={classes['cards']}>
+                <CardsContainer subscriptions={MemberAccountContext.subsData}></CardsContainer>
+              </div>
+            ) : undefined
+          }
           {/* Body Content */}
           <div>{renderBody(tab)}</div>
         </div>
       ) : (
-        <h4 className={classes['loading']}>Loading your informaion</h4>
+        <h4 className={classes['loading']}>Loading your information</h4>
       )}
     </div>
   )

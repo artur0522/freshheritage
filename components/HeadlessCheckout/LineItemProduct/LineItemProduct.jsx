@@ -117,7 +117,7 @@ const LineItemProduct = ({ item, children, readOnly }) => {
               ))}
               {item.properties.product_weight && item.properties.product_weight != '' &&
                 <div className="order-item__weight">
-                  <span className="weight-per-unit">4.5lbs {isSubscription && <>/ box </>}</span>
+                  <span className="weight-per-unit">{item.properties.product_weight}lbs {isSubscription && <>/ box </>}</span>
                 </div>
               }
             </div>

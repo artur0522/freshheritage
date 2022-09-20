@@ -220,19 +220,19 @@
                 right: -12px;
             }
         }
+        :global(.fishermen-swiper) {
+            width: 100%;
+            @include breakpoint-up('sm') {
+                width: 38.89%;
+            }
+        }
         :global(.fishermen-swiper .swiper-slide) {
             width: 100% !important;
             :global(.harvest__card-img) {
                 width: 100% !important;
-                img {
-                    @include breakpoint-up('sm') {
-                        min-height: 324px;
-                    }
-                }
             }
         }
         :global(.harvest__card-img) {
-            width: 35% !important;
             padding: 0;
             margin: 0 !important;
             max-width: none !important;

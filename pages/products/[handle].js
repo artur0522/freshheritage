@@ -12,7 +12,6 @@ import ProductSlider from '../../components/Product/ProductSlider'
 import ProductForm from '@/components/Product/ProductForm'
 import ProductDetailsList from '@/components/Product/ProductDetailsList'
 import { GET_PRODUCTS } from '@/gql/index.js'
-import { getVariantByOptions } from '@/utils/getVariantByOptions'
 import PageSEO from '@/components/SEO/PageSEO'
 import StructuredData from '@/components/SEO/StructuredData'
 

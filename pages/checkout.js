@@ -3,6 +3,7 @@ import CheckoutContent from '@/components/HeadlessCheckout/Checkout/CheckoutCont
 import { usePurchaseFlowContext } from '@/context/PurchaseFlowContext'
 import { useHeadlessCheckoutContext} from '@/context/HeadlessCheckoutContext'
 import { dataLayerBeginCheckout } from '@/utils/dataLayer'
+import PageSEO from '@/components/SEO/PageSEO'
 
 const CheckoutPage = () => {
   const purchaseFlowContext = usePurchaseFlowContext()
@@ -21,6 +22,9 @@ const CheckoutPage = () => {
   return (
     <div className="checkout-page">
       <div className="container">
+        <PageSEO seo={{
+          metaTitle: 'Checkout'
+        }} />
         <CheckoutContent data={data} />
       </div>
     </div>

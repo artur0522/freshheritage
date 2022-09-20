@@ -27,8 +27,8 @@ function ProductCard({ product, responsive = false }) {
   const [mounted, setMounted] = useState(false)
   const isMobile =  useMediaQuery({ query: '(max-width: 430px)' })
   const isDesktop = useMediaQuery({query: '(min-width: 430px)'})
-  const firstVariant = product.variants[0]
   const [isAvailable, setIsAvailable] = useState(product.availableForSale)
+  const [selectedVariant, setSelectedVariant] = product.variants[0]
 
   useEffect(() => {
     setMounted(true)
@@ -56,9 +56,9 @@ function ProductCard({ product, responsive = false }) {
   );
 
   useEffect(() => {
-    console.log("productInfoRevalidate:", productInfoRevalidate)
     if (productInfoRevalidate) {
       setIsAvailable(productInfoRevalidate.availableForSale)
+      setSelectedVariant(productInfoRevalidate.variants[0])
     }
   }, [productInfoRevalidate]);
 
@@ -108,15 +108,15 @@ function ProductCard({ product, responsive = false }) {
 
             <div className={classes["price-wrap"]}>
               <div className={classes["price"]}>
-                {firstVariant.compareAtPrice && (
+                {selectedVariant.compareAtPrice && (
                   <p className={`${classes.compare} secondary--body`}>
-                    ${formatPrice(firstVariant.compareAtPrice * 100)}
+                    ${formatPrice(selectedVariant.compareAtPrice * 100)}
                   </p>
                 )}
-                <p className="secondary--body">${formatPrice(firstVariant.price * 100)}</p>
+                <p className="secondary--body">${formatPrice(selectedVariant.price * 100)}</p>
               </div>
-              {firstVariant.weight && <p className={`${classes["weight"]} secondary--body`}>
-                {formatWeight(firstVariant.weight)}lbs
+              {selectedVariant.weight && <p className={`${classes["weight"]} secondary--body`}>
+                {formatWeight(selectedVariant.weight)}lbs
               </p>}
             </div>
 

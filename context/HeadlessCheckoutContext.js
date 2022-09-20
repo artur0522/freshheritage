@@ -9,6 +9,7 @@ import { dataLayerATC, dataLayerRFC, dataLayerViewCart } from '@/utils/dataLayer
 export const HeadlessCheckoutContext = createContext();
 import { useAnalytics, useErrorLogging } from '@/hooks/index.js';
 import { formatWeight } from '@/utils/formatWeight';
+import { useMemberAccountContext } from './MemberAccountContext';
 
 export function useHeadlessCheckoutContext() {
   return useContext(HeadlessCheckoutContext);
